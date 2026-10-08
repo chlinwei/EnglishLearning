@@ -6,12 +6,17 @@
 
 ## 版本控制 / GitHub
 
-- 2026-10-08：本地已 `git init`（分支 `main`），准备推送到 GitHub。
-- 远程仓库：`EnglishLearning`，**公开（Public）**。
-- `.workbuddy/` 目录**一并提交**（用户确认，明知会公开）。
-- git 作者身份：使用 **GitHub 隐私邮箱**（用户名@users.noreply.github.com 形式）。
-- 凭据方式：本机自带 Git Credential Manager（`credential.helper = manager`），推送时弹浏览器授权；本机**未安装 `gh` CLI**。
-- 注意：`.workbuddy/memory/` 里的笔记会随公开仓库一起公开可见。
+- **远程仓库：https://github.com/chlinwei/EnglishLearning（公开）**，默认分支 `main`，本地 `main` 已与 `origin/main` 关联。
+- 2026-10-08 完成首次提交与推送，commit `75487b8`「初始化 IT 英语单词本」。
+- `.workbuddy/` 目录**一并提交**（用户确认，明知会公开）；`.gitignore` 只忽略系统/编辑器垃圾文件。
+- git 作者身份（已写入全局配置）：`chlinwei` / `chlinwei@users.noreply.github.com`（用隐私邮箱）。
+- GitHub 账号：**chlinwei**。
+- ⚠️ **已知环境坑：本机 Git Credential Manager (GCM) 有问题。** 推送时 GCM 会卡住不返回（`git-remote-https` 挂起、并残留 `git-credential-helper-selector` 进程）。但 `git-credential-manager github login` 能正常完成 OAuth 授权，且 `git credential fill` 能取出令牌。
+  - 绕过办法：用临时内联凭据推送，例如
+    `git push "https://chlinwei:<TOKEN>@github.com/chlinwei/EnglishLearning.git" main:main`
+    （令牌来自 `printf "protocol=https\nhost=github.com\n\n" | git credential fill` 的 password 字段）
+  - 后续推送如再卡住，直接用上述方式；`git fetch`/`ls-remote` 读操作不受影响（公开仓库无需认证）。
+- 本机**未安装 `gh` CLI**，需要操作 GitHub API 时直接用 `curl` + 上面的令牌。
 
 ## 约定
 
