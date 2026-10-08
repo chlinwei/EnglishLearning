@@ -201,3 +201,37 @@
 **易混点**
 - **observability**（可观测性，系统的一种**能力**）≠ **monitoring**（监控，一种**手段/实践**）
 - 形容词 `observable` 重音在 **-SER-**（/əbˈzɜːrvəbl/），和名词的重音位置**不一样**，注意区分
+
+---
+
+## 7. parking lot
+
+- **音标**：/ˈpɑːrkɪŋ lɑːt/（美）· /ˈpɑːkɪŋ lɒt/（英）
+- **词性**：名词（noun）；口语里也直接当动词：**park it / park that**
+- **释义**：（会议用语）议题「停车场」——把跑题但确有价值的话题先搁置、留待后续处理
+- **分类**：通用职场
+
+**IT 语境**
+站会（standup）、迭代评审、回顾会（retro）里的标配工具。主持人用它把**跑题但确实有价值**的话题从当前议程里分流出去：**不是否决，而是暂存**。作用是既不打断发言、也不得罪人，同时保住会议的时间盒（time box）——站会通常只有 15 分钟，一旦有人开始讨论方案，节奏立刻崩掉。白板上画一栏、或 Confluence 页面开一个列表，就是「停车场」。
+
+**例句（IT 场景）**
+1. That's a good point, but let's **park** it — I'll add it to the **parking lot**.
+   （这点很好，但先搁一搁——我记进停车场。）
+2. Can we keep standup to 15 minutes? Anything off-topic goes to the **parking lot**.
+   （站会能控制在 15 分钟内吗？跑题的都进停车场。）
+3. We followed up on the **parking lot items** right after the retrospective.
+   （回顾会一结束我们就跟进了停车场里的条目。）
+4. Let's put the database migration discussion in the **parking lot** and circle back with the DBA.
+   （数据库迁移的讨论先搁进停车场，回头和 DBA 再聊。）
+
+**搭配**
+- `put sth in / add sth to the parking lot` — 把……记进停车场
+- `park that / park it` — 先搁一边（动词用法，口语高频）
+- `parking lot item(s)` — 停车场里的待办条目
+- `follow up on the parking lot` — 会后跟进停车场里的议题
+
+**易混点**
+- **parking lot vs take it offline**：parking lot 是「**有清单、会末或会后再处理**」；take it offline 只是「**现在别在会上聊**」，相关人私下解决，不一定留下记录。日常口语常混用，但正式会议纪要里要分清
+- **别和 bike shed 混**：**bike shed**（自行车棚）指「无关紧要却被反复争论的细节」，跟「暂存」是两码事
+- 词源就是字面的停车场：车不能一直开着，**先停进去——不是报废，是暂存**。这个「暂存而非丢弃」的语感是关键
+- 中文对应说法：「停车场」「待议清单」「搁置区」；也有团队直接说英文 parking lot
