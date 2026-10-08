@@ -11,12 +11,19 @@
 - `.workbuddy/` 目录**一并提交**（用户确认，明知会公开）；`.gitignore` 只忽略系统/编辑器垃圾文件。
 - git 作者身份（已写入全局配置）：`chlinwei` / `chlinwei@users.noreply.github.com`（用隐私邮箱）。
 - GitHub 账号：**chlinwei**。
-- ⚠️ **已知环境坑：本机 Git Credential Manager (GCM) 有问题。** 推送时 GCM 会卡住不返回（`git-remote-https` 挂起、并残留 `git-credential-helper-selector` 进程）。但 `git-credential-manager github login` 能正常完成 OAuth 授权，且 `git credential fill` 能取出令牌。
-  - 绕过办法：用临时内联凭据推送，例如
+- ⚠️ **已解决的环境坑：`git push` 曾永久卡住不动。**
+  - **根因**：WorkBuddy 自带的 PortableGit 在**系统级** gitconfig（`resources/vendor/PortableGit/etc/gitconfig`）里写了 `credential.helper = helper-selector`，即 `git-credential-helper-selector`——一个会**弹窗让用户选凭据助手**的程序。git 按顺序尝试所有 helper，撞上它就无限等待（追踪日志里能看到 `HTTP/1.1 401 Unauthorized` 后卡在此处）。
+  - **修复**：在全局 `~/.gitconfig` 用**空值重置** helper 列表（这样才能顶掉系统级配置），再指定无 UI 的 GCM：
+    ```bash
+    git config --global --unset-all credential.helper
+    git config --global --add credential.helper ""
+    git config --global --add credential.helper '!f() { git-credential-manager "$@" --no-ui; }; f'
+    ```
+  - 修复后普通 `git push` 恢复正常。
+  - **备用手段**（若将来再卡）：`git-credential-manager get --no-ui` 取令牌 → 用内联凭据推送
     `git push "https://chlinwei:<TOKEN>@github.com/chlinwei/EnglishLearning.git" main:main`
-    （令牌来自 `printf "protocol=https\nhost=github.com\n\n" | git credential fill` 的 password 字段）
-  - 后续推送如再卡住，直接用上述方式；`git fetch`/`ls-remote` 读操作不受影响（公开仓库无需认证）。
-- 本机**未安装 `gh` CLI**，需要操作 GitHub API 时直接用 `curl` + 上面的令牌。
+- GitHub OAuth 授权方式：`git-credential-manager github login`（会弹窗 + 开浏览器，用户点一次同意即可）。
+- 本机**未安装 `gh` CLI**（曾下载作备用，已删除）；需调 GitHub API 时直接用 `curl`。
 
 ## 约定
 
