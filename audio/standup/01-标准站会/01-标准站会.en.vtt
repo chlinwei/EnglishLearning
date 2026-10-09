@@ -1,0 +1,34 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.800
+Lena: Good morning everyone. Let's keep it quick — what did you do yesterday, what's today, any blockers? Alex, you're first.
+
+2
+00:00:10.800 --> 00:00:22.104
+Alex: Yesterday I finished the API endpoint for user profile updates. Today I'm starting on the notification service. No blockers.
+
+3
+00:00:22.104 --> 00:00:25.224
+Lena: Great. Maria?
+
+4
+00:00:25.224 --> 00:00:39.168
+Maria: I was working on the dashboard filters. Today I'll continue — but I'm blocked. The API spec for the filter endpoint still hasn't been updated. I can't finish without it.
+
+5
+00:00:39.168 --> 00:00:44.400
+Lena: Noted. Alex, can you update the spec by noon?
+
+6
+00:00:44.400 --> 00:00:47.928
+Alex: Sure, I'll add that to my morning.
+
+7
+00:00:47.928 --> 00:00:51.024
+Lena: Thanks. Sam?
+
+8
+00:00:51.024 --> 00:01:00.888
+Sam: Yesterday I wrote test cases for the login flow. Today I'll run regression on the profile update. No blockers.
+

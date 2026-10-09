@@ -223,6 +223,10 @@
    （回顾会一结束我们就跟进了停车场里的条目。）
 4. Let's put the database migration discussion in the **parking lot** and circle back with the DBA.
    （数据库迁移的讨论先搁进停车场，回头和 DBA 再聊。）
+5. Let's **park** the caching discussion — drop it in the **parking lot** and we'll follow up after the retro.
+   （缓存这块的讨论先放一放——记进停车场，回顾会之后再跟进。）
+   > ⭐ 真实工作场景高频句（2026-10-09 练习句）。一句话里塞了 park / parking lot / follow up / retro 四个高频词，值得整句背下来。
+   > 注意 `caching`（缓存，/kæʃ/）不是 `catching`（抓，/kætʃ/）。
 
 **搭配**
 - `put sth in / add sth to the parking lot` — 把……记进停车场
@@ -235,3 +239,83 @@
 - **别和 bike shed 混**：**bike shed**（自行车棚）指「无关紧要却被反复争论的细节」，跟「暂存」是两码事
 - 词源就是字面的停车场：车不能一直开着，**先停进去——不是报废，是暂存**。这个「暂存而非丢弃」的语感是关键
 - 中文对应说法：「停车场」「待议清单」「搁置区」；也有团队直接说英文 parking lot
+
+---
+
+## 8. surge
+
+- **音标**：/sɜːrdʒ/（美）· /sɜːdʒ/（英）
+- **词性**：名词 / 动词
+- **释义**：激增；涌升；蜂拥而至（动词：急剧上涨）
+- **分类**：系统/运维
+
+**IT 语境**
+指标**快速上涨、且往往维持一段时间**，不像 spike 那样来了就走。典型搭配：`a surge in traffic`、`a surge in demand`、`a surge in signups`。在负载均衡和自动扩缩容（autoscaling）场景里是高频词——突发的 surge 正是触发扩容的信号。
+
+**例句（IT 场景）**
+1. We saw a **surge in traffic** right after the post hit the front page.
+   （那条帖子上了首页之后，流量激增。）
+2. The **surge** in memory usage lasted all afternoon and finally triggered autoscaling.
+   （内存占用整个下午一路涨，最后触发了自动扩缩容。）
+3. Requests **surged** as soon as the marketing email went out.
+   （营销邮件一发出去，请求量就暴涨。）
+
+**易混点（和序号 5 的 spike 一起记）**
+- **spike**：短促的**尖峰**，上得快、落得也快 —— 图上是个「尖角」
+- **surge**：快速上涨、**可能维持一段时间** —— 图上是一段「陡坡」
+- **peak**：最高点（名词），只标位置，不描述过程
+- 记忆：spike 是**打一针就完**，surge 是**浪涌**。`a spike in CPU` 多出现在排障对话里，`a surge in traffic` 多出现在容量规划里
+
+**相关表达**
+- `traffic surge` 流量激增 · `demand surge` 需求暴增
+- `surge pricing` 动态调价（打车、云资源等场景）
+- 发音提示：结尾 `-rge` 只发一个音 /rdʒ/（像「之」），别拆成「尔-格」
+
+---
+
+## 9. retrospective
+
+- **音标**：/ˌretrəˈspektɪv/ · 口语缩写 **retro** /ˈretroʊ/
+- **词性**：名词 / 形容词
+- **释义**：回顾会；复盘（名词）· 回顾的、追溯的（形容词）
+- **分类**：编程/开发（敏捷开发）· 通用职场
+
+**IT 语境**
+敏捷开发里的**固定会议**：**Sprint Retrospective（迭代回顾会）**。每个迭代结束时团队内部开一次，复盘「这轮哪里做得好、哪里必须改」，产出是**改进项（action items）**——**它不是追责会，只谈流程怎么改**。
+
+Scrum 的五个正式会议：Sprint Planning（计划会）· Daily Scrum / Standup（每日站会）· Sprint Review（评审会）· **Sprint Retrospective（回顾会）** · Backlog Refinement（待办梳理）。
+
+> 🔥 **口语里一律简称 `retro`**——这才是真正的最高频形式，比全称常见得多：
+> `Let's do a quick retro.` · `in the retro we agreed to...` · `retro action items`
+> 还能动词化：`we retro'd on that`（我们复盘过了）。
+
+**三个「复盘」别搞混**
+
+| 说法 | 谁参加 | 目的 |
+| --- | --- | --- |
+| **Sprint Review** | 团队 + 产品/外部相关方 | 展示这轮**做出来的东西** |
+| **Retrospective**（retro） | **仅团队内部** | 复盘**流程**，只谈怎么改进 |
+| **postmortem** | 事故相关人 | 线上**故障复盘**，专查根因 |
+
+**例句（IT 场景）**
+1. Let's park the caching discussion — drop it in the parking lot and we'll follow up after the **retro**.
+   （缓存这块的讨论先放一放——记进停车场，回顾会之后再跟进。）← ⭐ 2026-10-09 实际练习句，整句值得背
+2. Our **retro** action items keep piling up and nobody owns them.
+   （回顾会的改进项一直在堆积，没人认领。）
+3. We **retro'd** on the incident and agreed to add more alerts.
+   （我们对这次故障做了复盘，决定多加些告警。）
+4. Add it to the **retro** board so we don't lose it.
+   （记到回顾会看板上，别漏了。）
+
+**搭配**
+- `hold / run a retro` — 开回顾会
+- `retro action items` — 回顾会产出的改进项（会议唯一的实质产出）
+- `add it to the retro` — 留到回顾会上说（会上不方便聊时的标准托词）
+- 正式书面：`Sprint Retrospective` / `retrospective meeting`
+
+**易混点 / 发音**
+- 重音在 **-SPEC-**：retro-**SPEC**-tive，别读成 **RE**-tro-spec-tive
+- 但缩写 `retro` 的重音**在第一个音节**：**RE**-tro /ˈretroʊ/ —— 全称和缩写重音位置**不一样**，这是最容易读错的地方
+- 词根拆解：`retro-`（向后）+ `-spect-`（看）= **向后看** → 回顾。同族词：inspect（向内看=检查）、respect、perspective
+- ⚠️ 单独出现的 `retro` 还常表示「**复古/怀旧**」（retro style、retro UI）——那个 retro 是另一个来源，跟回顾会无关。看上下文判断
+- 形容词义在技术写作里也常见：`a retrospective look at the migration`（对这次迁移的回顾）

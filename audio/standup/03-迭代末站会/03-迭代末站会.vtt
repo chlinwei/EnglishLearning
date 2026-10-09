@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.320
+旁白: Sprint review standup. Team of five.
+迭代评审前的站会，五人团队。
+
+2
+00:00:04.320 --> 00:00:13.128
+Tom: We're on the last day of the sprint. Let's do a quick status round before the review meeting. Carla?
+今天是迭代最后一天。趁评审会之前快速过一轮状态。Carla？
+
+3
+00:00:13.128 --> 00:00:21.576
+Carla: I finished the data export feature and it's in staging. Tested and passing. Ready for review.
+我完成了数据导出功能，已经在预发布环境。测过全部通过。可以评审了。
+
+4
+00:00:21.576 --> 00:00:24.120
+Tom: Good. Dan?
+好。Dan？
+
+5
+00:00:24.120 --> 00:00:37.728
+Dan: I'm done with the settings page UI. But I found a visual regression in the notification bell — it's a quick CSS fix, thirty minutes top. I'll push it before we demo.
+设置页 UI 我做完了。但发现通知铃铛有个视觉回归（样式退化）——一个小 CSS 修复，最多 30 分钟。演示前我会推上去。
+
+6
+00:00:37.728 --> 00:00:42.360
+Tom: Can you commit to that? The demo starts at two.
+你能承诺做到吗？演示两点开始。
+
+7
+00:00:42.360 --> 00:00:47.208
+Dan: Absolutely. I'll have it done by one thirty.
+当然。一点半之前搞定。
+
+8
+00:00:47.208 --> 00:00:49.920
+Tom: Great. Nina?
+很好。Nina？
+
+9
+00:00:49.920 --> 00:01:04.200
+Nina: I completed test coverage for Carla's feature — forty-seven test cases, all passing. I also found a low-priority bug in the user settings form — filed it as a backlog item, not a blocker.
+我完成了 Carla 那个功能的测试覆盖——47 个用例全部通过。另外在用户设置表单里发现一个低优先级缺陷——已作为待办项登记，不算阻塞。
+
+10
+00:01:04.200 --> 00:01:08.616
+Tom: Perfect. Sprint's looking good for closure.
+完美。这个迭代收尾看起来没问题。
+

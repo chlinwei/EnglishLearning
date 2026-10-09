@@ -1,0 +1,34 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.776
+旁白: End of sprint standup. Focus on velocity.
+
+2
+00:00:04.776 --> 00:00:15.576
+Sophie: Last item before we wrap — velocity. We committed to thirty-four points this sprint. Ben, what did we actually deliver?
+
+3
+00:00:15.576 --> 00:00:26.904
+Ben: We shipped twenty-eight. Six points slipped: the email digest feature moved to next sprint — the third-party integration took longer than estimated.
+
+4
+00:00:26.904 --> 00:00:39.360
+Sophie: So about eighty-two percent velocity. Not bad, but the email digest pushed twice now. We should probably spike on the integration in the planning session.
+
+5
+00:00:39.360 --> 00:00:46.488
+Ben: Agreed. I'll add a tech spike to the backlog for that. One hour scoped.
+
+6
+00:00:46.488 --> 00:00:52.968
+Sophie: Good. Also — we had one incident this sprint. Sam?
+
+7
+00:00:52.968 --> 00:01:07.968
+Sam: Yeah, a twelve-minute outage Tuesday caused by a config deployment without rollback. I'm adding a rollback verification step to our deploy checklist. It's a process fix, not a code fix.
+
+8
+00:01:07.968 --> 00:01:15.216
+Sophie: Thanks Sam. OK — retrospective in ten minutes. See you there.
+

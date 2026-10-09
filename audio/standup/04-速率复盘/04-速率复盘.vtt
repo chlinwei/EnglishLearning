@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.776
+旁白: End of sprint standup. Focus on velocity.
+迭代末站会，重点谈速率。
+
+2
+00:00:04.776 --> 00:00:15.576
+Sophie: Last item before we wrap — velocity. We committed to thirty-four points this sprint. Ben, what did we actually deliver?
+收尾前最后一项——速率。这个迭代我们承诺了 34 个点。Ben，实际交付了多少？
+
+3
+00:00:15.576 --> 00:00:26.904
+Ben: We shipped twenty-eight. Six points slipped: the email digest feature moved to next sprint — the third-party integration took longer than estimated.
+交付了 28 个。有 6 个点滑了：邮件摘要功能推到下个迭代——第三方集成比估算的耗时更长。
+
+4
+00:00:26.904 --> 00:00:39.360
+Sophie: So about eighty-two percent velocity. Not bad, but the email digest pushed twice now. We should probably spike on the integration in the planning session.
+那大约 82% 的速率。不算差，但邮件摘要已经推了两次。我们该在计划会上针对这个集成做一次技术探针（spike）。
+
+5
+00:00:39.360 --> 00:00:46.488
+Ben: Agreed. I'll add a tech spike to the backlog for that. One hour scoped.
+同意。我把它作为技术探针加进待办列表，限定一小时。
+
+6
+00:00:46.488 --> 00:00:52.968
+Sophie: Good. Also — we had one incident this sprint. Sam?
+好。另外——这个迭代出了一次事故。Sam？
+
+7
+00:00:52.968 --> 00:01:07.968
+Sam: Yeah, a twelve-minute outage Tuesday caused by a config deployment without rollback. I'm adding a rollback verification step to our deploy checklist. It's a process fix, not a code fix.
+对，周二一次 12 分钟的中断，起因是一次没有回滚方案的配置发布。我正在给部署清单加一步回滚验证。这是流程修复，不是代码修复。
+
+8
+00:01:07.968 --> 00:01:15.216
+Sophie: Thanks Sam. OK — retrospective in ten minutes. See you there.
+谢谢 Sam。好——10 分钟后开回顾会，到时候见。
+

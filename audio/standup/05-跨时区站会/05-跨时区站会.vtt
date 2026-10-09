@@ -1,0 +1,27 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.488
+旁白: Distributed team standup across three time zones. London, Warsaw, Singapore.
+跨三个时区的分布式团队站会：伦敦、华沙、新加坡。
+
+2
+00:00:07.488 --> 00:00:18.984
+Ava: Quick reminder — async standups via Slack are fine for non-critical days, but let's do a sync call on Mondays. Today's Tuesday, so this is async — I'll just read out the updates.
+快速提醒——非关键的日子用 Slack 异步站会就行，但周一我们还是开一次同步电话会。今天周二，所以是异步——我把大家的更新读一遍。
+
+3
+00:00:18.984 --> 00:00:30.240
+Ava: From Jamie in Singapore: completed the data pipeline refactor, starting on the caching layer. No blockers, but he wants eyes on his schema design — will post in dev-review.
+新加坡的 Jamie：数据管道重构已完成，开始做缓存层。没有阻塞，但他希望有人看看他的 schema 设计——会发到 dev-review 频道。
+
+4
+00:00:30.240 --> 00:00:38.664
+Ava: From Marta in Warsaw: PR two twenty-three is ready for review. She'll be out of office Thursday afternoon, back Friday.
+华沙的 Marta：PR #223 已就绪待评审。她周四下午不在（OOO），周五回来。
+
+5
+00:00:38.664 --> 00:00:52.536
+Ava: From myself: in product meetings all morning, available from one PM London. Our retrospective is Thursday at four PM London, five PM Warsaw, eleven PM Singapore. I'll record it for Jamie.
+我自己：一上午都在产品会，伦敦时间下午 1 点起有空。回顾会在伦敦时间周四 16:00、华沙 17:00、新加坡 23:00。我会录下来发给 Jamie。
+

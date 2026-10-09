@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.320
+旁白: Sprint review standup. Team of five.
+
+2
+00:00:04.320 --> 00:00:13.128
+Tom: We're on the last day of the sprint. Let's do a quick status round before the review meeting. Carla?
+
+3
+00:00:13.128 --> 00:00:21.576
+Carla: I finished the data export feature and it's in staging. Tested and passing. Ready for review.
+
+4
+00:00:21.576 --> 00:00:24.120
+Tom: Good. Dan?
+
+5
+00:00:24.120 --> 00:00:37.728
+Dan: I'm done with the settings page UI. But I found a visual regression in the notification bell — it's a quick CSS fix, thirty minutes top. I'll push it before we demo.
+
+6
+00:00:37.728 --> 00:00:42.360
+Tom: Can you commit to that? The demo starts at two.
+
+7
+00:00:42.360 --> 00:00:47.208
+Dan: Absolutely. I'll have it done by one thirty.
+
+8
+00:00:47.208 --> 00:00:49.920
+Tom: Great. Nina?
+
+9
+00:00:49.920 --> 00:01:04.200
+Nina: I completed test coverage for Carla's feature — forty-seven test cases, all passing. I also found a low-priority bug in the user settings form — filed it as a backlog item, not a blocker.
+
+10
+00:01:04.200 --> 00:01:08.616
+Tom: Perfect. Sprint's looking good for closure.
+

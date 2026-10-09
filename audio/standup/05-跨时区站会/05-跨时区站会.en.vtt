@@ -1,0 +1,22 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.488
+旁白: Distributed team standup across three time zones. London, Warsaw, Singapore.
+
+2
+00:00:07.488 --> 00:00:18.984
+Ava: Quick reminder — async standups via Slack are fine for non-critical days, but let's do a sync call on Mondays. Today's Tuesday, so this is async — I'll just read out the updates.
+
+3
+00:00:18.984 --> 00:00:30.240
+Ava: From Jamie in Singapore: completed the data pipeline refactor, starting on the caching layer. No blockers, but he wants eyes on his schema design — will post in dev-review.
+
+4
+00:00:30.240 --> 00:00:38.664
+Ava: From Marta in Warsaw: PR two twenty-three is ready for review. She'll be out of office Thursday afternoon, back Friday.
+
+5
+00:00:38.664 --> 00:00:52.536
+Ava: From myself: in product meetings all morning, available from one PM London. Our retrospective is Thursday at four PM London, five PM Warsaw, eleven PM Singapore. I'll record it for Jamie.
+
