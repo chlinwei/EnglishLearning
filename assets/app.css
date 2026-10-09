@@ -173,6 +173,67 @@ code{background:#efece8;padding:1px 6px;border-radius:4px;font-size:.86rem}
   .tbl .tr .ser-c,.tbl .tr .st{display:none}
 }
 
+/* ---------- 手机端（竖屏）专项 ---------- */
+@media (max-width:640px){
+  /* 左右内边距收紧，给正文腾宽度；底部留出安全区（刘海屏横条） */
+  .wrap{padding:14px 13px calc(56px + env(safe-area-inset-bottom,0px))}
+
+  /* 侧栏改成「顶部折叠区」，不再占据首屏 */
+  .side{padding:11px;border-radius:12px;gap:8px}
+  .side-scroll{max-height:236px}
+  .side-foot{padding-top:8px}
+  .prog{font-size:.75rem}
+  .mini{padding:6px 8px;font-size:.76rem}
+
+  /* 按钮：加大点击区域到 ≥44px 高（拇指可点），字号略放大 */
+  button{font-size:.9rem;padding:11px 13px;border-radius:9px}
+  .bar{gap:7px;margin-bottom:12px}
+  .bar .lbl{margin-left:2px;flex-basis:100%;font-size:.78rem}
+  .cnt{margin-left:0;flex-basis:100%}
+  .sp,.md,.fs{flex:1 1 0;min-width:0;text-align:center}
+  .opts{gap:10px 16px;font-size:.84rem}
+  .ck{gap:6px}
+
+  /* 播放器舞台：减小内边距，字稿字号回落到可读但不溢出 */
+  .stage{padding:18px 16px;min-height:132px;border-radius:12px;gap:8px}
+  .en{font-size:1.32rem;line-height:1.55}
+  .zh{font-size:1.06rem;line-height:1.6}
+  .spk{font-size:.8rem}
+
+  /* 逐句稿：循环按钮独占一行右侧，避免挤掉正文 */
+  .row{gap:9px;padding:11px 11px;border-radius:9px}
+  .row .idx{min-width:20px;font-size:.78rem}
+  .row .e{font-size:.98rem}
+  .row .z{font-size:.88rem}
+  .row .who{font-size:.79rem}
+  .row .rep{font-size:.8rem;padding:3px 8px;border:.5px solid var(--line2);border-radius:7px;
+    align-self:flex-start}
+
+  /* 标题与首页卡片 */
+  h1{font-size:1.3rem}
+  h1.big{font-size:1.55rem}
+  h2{font-size:1rem;margin:24px 0 10px}
+  .sub{font-size:.94rem}
+  .stats{gap:14px 20px;padding:14px 16px}
+  .stat{min-width:78px}
+  .stat .v{font-size:1.2rem}
+  .cards{grid-template-columns:1fr}
+  .card{padding:13px 14px}
+  .ph{grid-template-columns:1fr}
+  .phe{font-size:1rem}
+
+  /* 集合段号方块：手机上加大，便于点按 */
+  .seg{min-width:32px;height:32px;font-size:.84rem;border-radius:8px}
+
+  /* 全部素材表：手机上只剩「编号 + 标题 + 时长」 */
+  .tbl .tr{grid-template-columns:44px minmax(0,1fr) 52px;gap:8px;padding:11px 12px;font-size:.88rem}
+  .tbl .tr .gp{display:none}
+
+  .sernav{font-size:.82rem}
+  .sernav .sb{padding:10px 11px}
+  .tip{margin-top:20px;line-height:1.85}
+}
+
 /* ---------- 场次串联：阶段徽标 / 上文衔接 / 前后导航 ---------- */
 .crumb .ser{color:var(--tx2)}
 h1 .stageb{font-size:.62em;font-weight:400;color:var(--ac);background:var(--ac-bg);
@@ -214,4 +275,13 @@ h1 .stageb.no{color:var(--tx2);background:var(--soft);border-color:var(--line2);
   .sernav{grid-template-columns:1fr}
   .sernav .sb:last-child{text-align:left}
   .sernav .smid{text-align:center}
+}
+
+/* 触摸设备：去掉 hover 依赖，改为按下即反馈（手机上没有 hover） */
+@media (hover:none){
+  .it:active,.row:active,.card:active{background:var(--soft)}
+  button:active{border-color:var(--ac);color:var(--ac)}
+  .seg:active,.sl:active{background:var(--ac-bg);border-color:var(--ac);color:var(--ac)}
+  .grp-h:active{background:var(--soft)}
+  .tbl .tr:active{background:var(--soft)}
 }
