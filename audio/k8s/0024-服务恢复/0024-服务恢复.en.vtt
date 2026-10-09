@@ -1,0 +1,46 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.088
+Sam: All six pods are running. Nothing in CrashLoop.
+
+2
+00:00:05.088 --> 00:00:06.889
+Priya: And the node?
+
+3
+00:00:06.889 --> 00:00:11.545
+Sam: Node is Ready. NotReady is not there now.
+
+4
+00:00:11.545 --> 00:00:15.553
+Priya: Good. Error rate back to baseline?
+
+5
+00:00:15.553 --> 00:00:18.866
+Sam: Yes. Zero point two.
+
+6
+00:00:18.866 --> 00:00:24.242
+Priya: Then we're clean. Let's keep it under observation overnight.
+
+7
+00:00:24.242 --> 00:00:26.427
+Alex: Do you want me to confirm with the app teams?
+
+8
+00:00:26.427 --> 00:00:32.307
+Priya: Yes, please. Just to confirm — nothing deploys tomorrow?
+
+9
+00:00:32.307 --> 00:00:34.875
+Alex: Correct. The freeze holds till Friday.
+
+10
+00:00:34.875 --> 00:00:37.900
+Sam: And I'll watch the cluster tonight.
+
+11
+00:00:37.900 --> 00:00:42.100
+Priya: Thanks. Let's write it up in the morning.
+

@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Sam: Hey, I just got paged. Checkout is throwing 5xx.
+
+2
+00:00:06.024 --> 00:00:09.936
+Priya: I'm on. What's the error rate?
+
+3
+00:00:09.936 --> 00:00:13.439
+Sam: Four percent, and it's still climbing.
+
+4
+00:00:13.439 --> 00:00:17.855
+Priya: Okay. So the error rate spiked hard.
+
+5
+00:00:17.855 --> 00:00:20.255
+Alex: Yeah, I see it on my dashboards too.
+
+6
+00:00:20.255 --> 00:00:23.663
+Priya: Alex, any deploys in the last hour?
+
+7
+00:00:23.663 --> 00:00:26.663
+Alex: No. Nothing shipped since yesterday afternoon.
+
+8
+00:00:26.663 --> 00:00:31.103
+Priya: Good. Then it's probably upstream of us.
+
+9
+00:00:31.103 --> 00:00:35.711
+Sam: Right. I have a doubt — is it only checkout?
+
+10
+00:00:35.711 --> 00:00:40.990
+Priya: Good question. Dan, can you check the other services?
+
+11
+00:00:40.990 --> 00:00:45.382
+Dan: On it. Give me two minutes and we'll circle back.
+
+12
+00:00:45.382 --> 00:00:50.350
+Priya: Perfect. Nobody touches anything till we know more.
+

@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.640
+Alex: One more thing. Have you dry-run it first?
+
+2
+00:00:02.640 --> 00:00:09.167
+Priya: Yes. On staging, twice. The last one was clean.
+
+3
+00:00:09.167 --> 00:00:11.639
+Alex: Good. And if the first pool fails?
+
+4
+00:00:11.639 --> 00:00:16.078
+Priya: Then we abort the rollout. No debate.
+
+5
+00:00:16.078 --> 00:00:19.294
+Sam: We've agreed the call is Priya's.
+
+6
+00:00:19.294 --> 00:00:21.358
+Alex: Okay. How long to abort?
+
+7
+00:00:21.358 --> 00:00:25.798
+Priya: Two minutes to stop. Twenty to roll back.
+
+8
+00:00:25.798 --> 00:00:29.301
+Alex: Fine. I have a hard stop at four, so keep it tight.
+
+9
+00:00:29.301 --> 00:00:32.085
+Priya: We'll be done by three thirty.
+
+10
+00:00:32.085 --> 00:00:35.037
+Alex: Good. One last thing — do the app teams know?
+
+11
+00:00:35.037 --> 00:00:39.668
+Sam: Yes. And we will be doing the comms with them.
+
+12
+00:00:39.668 --> 00:00:42.620
+Alex: Then you have approval. Just keep the channel updated.
+

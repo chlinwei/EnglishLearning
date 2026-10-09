@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.751
+Priya: Morning. Just to recap — the cert rotation missed the renewal. Two nodes are out.
+早。小结一下——证书轮换漏了续期，两台节点摘着。
+
+2
+00:00:07.751 --> 00:00:12.719
+Dan: And the fix is small. The job itself had a bad path.
+修复不大。是任务自己的路径写错了。
+
+3
+00:00:12.719 --> 00:00:16.703
+Priya: Okay. I'll take point on this one.
+好。这块我来主抓。
+
+4
+00:00:16.703 --> 00:00:20.375
+Dan: Great. Do you want me on it too?
+好。要我一起弄吗？
+
+5
+00:00:20.375 --> 00:00:25.414
+Priya: Not yet. Let's roll back the config first and see.
+先不用。先把配置回滚看看。
+
+6
+00:00:25.414 --> 00:00:30.934
+Dan: Config's rolled back. The rotation is picking up the new cert now.
+配置回滚了。轮换现在能拿到新证书了。
+
+7
+00:00:30.934 --> 00:00:35.302
+Priya: Good. Can you bring one node back and watch it?
+好。你能把一台加回来盯着吗？
+
+8
+00:00:35.302 --> 00:00:39.405
+Dan: Sure. I am bringing the first one back.
+可以。我把第一台加回来。
+
+9
+00:00:39.405 --> 00:00:42.837
+Sam: Health check is green on that node.
+那台的健康检查是绿的。
+
+10
+00:00:42.837 --> 00:00:46.821
+Priya: Nice. Same for the second one.
+不错。第二台也一样处理。
+
+11
+00:00:46.821 --> 00:00:52.004
+Dan: Got it. One thing — can we take the alerting change offline?
+收到。还有件事——告警的改动能不能会后单独聊？
+
+12
+00:00:52.004 --> 00:00:57.380
+Priya: Yeah, let's take it offline. It's a bigger conversation.
+行，会后单独说。那是更大的话题。
+

@@ -1,0 +1,46 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.680
+Dan: Okay, I'm seeing connection resets on two of the three nodes.
+
+2
+00:00:04.680 --> 00:00:09.217
+Priya: Two out of three. That's our blast radius.
+
+3
+00:00:09.217 --> 00:00:13.441
+Dan: Yeah. And the health check is failing on both.
+
+4
+00:00:13.441 --> 00:00:17.953
+Sam: Health check failing. Is the cert expired?
+
+5
+00:00:17.953 --> 00:00:23.546
+Dan: Let me check... You're right. It expired at midnight.
+
+6
+00:00:23.546 --> 00:00:28.466
+Priya: So the cert expired, and the rotation itself didn't pick it up.
+
+7
+00:00:28.466 --> 00:00:30.747
+Alex: That explains the 502s.
+
+8
+00:00:30.747 --> 00:00:34.803
+Dan: But the other nodes are having the new cert, so it's not everywhere.
+
+9
+00:00:34.803 --> 00:00:39.987
+Priya: Right. So it's flapping between good and bad nodes.
+
+10
+00:00:39.987 --> 00:00:44.596
+Sam: That matches the error rate. It's not flat.
+
+11
+00:00:44.596 --> 00:00:48.820
+Priya: Okay. I think we've got the shape of it.
+

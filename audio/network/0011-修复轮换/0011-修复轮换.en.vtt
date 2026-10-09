@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.751
+Priya: Morning. Just to recap — the cert rotation missed the renewal. Two nodes are out.
+
+2
+00:00:07.751 --> 00:00:12.719
+Dan: And the fix is small. The job itself had a bad path.
+
+3
+00:00:12.719 --> 00:00:16.703
+Priya: Okay. I'll take point on this one.
+
+4
+00:00:16.703 --> 00:00:20.375
+Dan: Great. Do you want me on it too?
+
+5
+00:00:20.375 --> 00:00:25.414
+Priya: Not yet. Let's roll back the config first and see.
+
+6
+00:00:25.414 --> 00:00:30.934
+Dan: Config's rolled back. The rotation is picking up the new cert now.
+
+7
+00:00:30.934 --> 00:00:35.302
+Priya: Good. Can you bring one node back and watch it?
+
+8
+00:00:35.302 --> 00:00:39.405
+Dan: Sure. I am bringing the first one back.
+
+9
+00:00:39.405 --> 00:00:42.837
+Sam: Health check is green on that node.
+
+10
+00:00:42.837 --> 00:00:46.821
+Priya: Nice. Same for the second one.
+
+11
+00:00:46.821 --> 00:00:52.004
+Dan: Got it. One thing — can we take the alerting change offline?
+
+12
+00:00:52.004 --> 00:00:57.380
+Priya: Yeah, let's take it offline. It's a bigger conversation.
+

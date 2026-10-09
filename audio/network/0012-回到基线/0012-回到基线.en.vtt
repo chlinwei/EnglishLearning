@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.488
+Dan: Both nodes are back. Health check is passing.
+
+2
+00:00:04.488 --> 00:00:11.111
+Sam: Error rate is back to baseline. Zero point three. No flapping.
+
+3
+00:00:11.111 --> 00:00:14.759
+Priya: That's where we started. Good.
+
+4
+00:00:14.759 --> 00:00:16.871
+Alex: And checkout looks clean on my side.
+
+5
+00:00:16.871 --> 00:00:20.686
+Priya: Let's keep it under observation for an hour only.
+
+6
+00:00:20.686 --> 00:00:25.510
+Sam: Agreed. I'll set a reminder to check at nine.
+
+7
+00:00:25.510 --> 00:00:29.206
+Dan: And I'll watch the cert expiry across all nodes.
+
+8
+00:00:29.206 --> 00:00:32.949
+Priya: Perfect. Both nodes stable?
+
+9
+00:00:32.949 --> 00:00:37.077
+Dan: Stable. No resets for ten minutes.
+
+10
+00:00:37.077 --> 00:00:42.380
+Priya: Then we're good for now. Nice work, everyone.
+
+11
+00:00:42.380 --> 00:00:45.284
+Priya: What's the ETA on the write-up?
+
+12
+00:00:45.284 --> 00:00:47.900
+Alex: Before lunch. I'll post it in the channel.
+

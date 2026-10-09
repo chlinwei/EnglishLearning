@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.416
+Sam: First node is drained. Upgrading now.
+第一台驱逐完了，正在升级。
+
+2
+00:00:04.416 --> 00:00:07.225
+Priya: How long does the upgrade take?
+升级要多久？
+
+3
+00:00:07.225 --> 00:00:11.545
+Sam: About six minutes. Then we uncordon.
+大约六分钟。然后恢复调度。
+
+4
+00:00:11.545 --> 00:00:16.537
+Sam: Hmm. It came back, but the node went NotReady.
+嗯。它回来了，但节点变成 NotReady 了。
+
+5
+00:00:16.537 --> 00:00:22.586
+Priya: NotReady. Okay. Let's not touch the second one.
+NotReady。好。第二台先别动。
+
+6
+00:00:22.586 --> 00:00:27.434
+Sam: Agreed. The rollout is stuck at one of four.
+同意。发布卡在四分之一。
+
+7
+00:00:27.434 --> 00:00:32.259
+Priya: Just to confirm — is it kubelet itself, or the network?
+确认一下——是 kubelet 本身，还是网络？
+
+8
+00:00:32.259 --> 00:00:36.963
+Sam: Kubelet's up. But the pods aren't scheduling.
+kubelet 起来了。但 Pod 调度不上去。
+
+9
+00:00:36.963 --> 00:00:40.971
+Priya: I'm on it. Give me five minutes.
+我来。给我五分钟。
+
+10
+00:00:40.971 --> 00:00:44.067
+Sam: Do you want a second pair of eyes?
+要不要再找个人一起看？
+
+11
+00:00:44.067 --> 00:00:48.868
+Priya: Not yet. Let's park the second window for now.
+先不用。第二个窗口先记下来搁着。
+
+12
+00:00:48.868 --> 00:00:50.500
+Sam: Understood.
+明白。
+

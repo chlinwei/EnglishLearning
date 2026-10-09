@@ -40,18 +40,38 @@
 - 定位：**场景手册**，与 `vocabulary.md` 分工（一本查词 / 一本查场景）。章节：六类会议对照表 · 站会三段式模板 · 四级救急阶梯 + 句型包 · 会议高频短语（控场/表态/时间/协作）· 印度英语适配三动作 + 印度职场特有表达 · 本地练习素材 · 会后回流清单 · 每日节奏。
 - 改这份手册**不受单词本的记录红线约束**（红线只针对 `vocabulary.md` 的自动追加）。
 
-### 练习素材与工具链
-- `audio/standup/`：5 段站会对话，**每段一个独立文件夹**（用户明确要求，为方便 PotPlayer）。文件夹名 = 音频文件名，内含 `<名>.mp3` + `<名>.vtt`（中英）+ `<名>.en.vtt` + `<名>.zh.vtt`；**PotPlayer 打开 mp3 会自动挂上同名字幕**。
-- 文件夹：`01-标准站会` / `02-印度团队站会` / `03-迭代末站会` / `04-速率复盘` / `05-跨时区站会`；另有 `audio/standup/cues.json`（台词 + 时间轴 + 中英对照）。
-- ⚠️ **MP4 已于 2026-10-09 按用户要求删除，不要再主动生成。** 用户选了「MP3 + 外挂字幕」方案，理由：MP3 才能通勤/手机听，且 PotPlayer 里外挂 `.vtt` 同样能开关字幕，MP4 是重复的。
-- `standup-player.html`（仓库根目录）：单文件练习播放器，字幕四档（关/英/中英/中）、变速 0.75–1.25×、逐句循环与跳转。音频源全部指向 `.mp3`。
-- **每个文件夹内另有独立练习页 `<文件夹名>.html`**（2026-10-09 按用户要求新增：「规范点，每个会议都要有一个便于阅读和听的 html」）：单文件、无外部依赖、内嵌该段台词与时间轴，音频走相对路径。生成器 **`D:/tmp/build_per_meeting.py`**（读 `cues.json`，改台词后重跑即可，幂等）。
-  - **命名规范：文件夹名 = mp3 名 = 字幕名前缀 = html 名。**
-  - ⚠️ 音频是相对引用，**必须双击本地文件打开**；在线预览面板只服务单个文件，会没声音（别误判为坏了）。
-  - 预览可取巧：`python -m http.server 8765 --bind 127.0.0.1 --directory D:/workspace/EnglishLearning`，再用 `http://127.0.0.1:8765/...` 打开，音频即可播放。
-- 音色用 edge-tts 的 **en-IN-NeerjaNeural / en-IN-NeerjaExpressiveNeural / en-IN-PrabhatNeural**（印度口音，按说话人分派）+ en-GB-SoniaNeural（英音）。**逐句合成**，用「字节数 ÷ 6000」换算每句时长，因此字幕可精确逐句同步。
-- 这套流程可复用：任意会议素材（真实录音稿、自写场景）都能做成「音频 + 逐句中英字幕 + 播放器」。
+## ★ 用户岗位（2026-10-09 用户主动说明，最高权重）
+**用户是 Linux DevOps 工程师。** 所有选词、场景、例句、素材的**权重排序都要按 DevOps 排**，不是通用开发：
+- 优先场景：**故障会 / 事故复盘 / 值班交接 / 变更评审 / 发布协调与回滚 / 容量与成本 / SLO 错误预算 / 基建架构评审**；其次才是通用敏捷会议（站会、计划会、回顾会）。
+- 高频技术域：K8s、CI/CD、监控告警、Linux、网络、云与账单、IaC。
+- 出例句、编素材时默认站在「运维当事人」视角（被 @ 的人、要发 update 的人、要解释回滚的人）。
+
+## 四条硬约束（2026-10-09 用户陆续提出，做任何素材都要同时满足）
+1. **每段素材 ≤ 2 分钟**（用户原话「每个视频最多2分钟」）。现有 5 段 52–75s 合规。
+2. **素材之间必须相互关联**（原话「每个素材对话要相互关联」）—— 不能是 500 个孤岛。
+3. **面向 Linux DevOps 岗**（见上）。
+4. **口语一定要地道**（原话），不能是教科书英语。
+> 用户明确要求：**先给方案再动手**（「你先别着急做」「你要先给我方案」）。涉及架构级改动必须先出方案、等确认。
+
+### 架构（2026-10-09 重构完成，未提交）
+```
+sources/dialogues.json    唯一源头：分组 + 元数据 + 逐句中英文本（start/end/duration 由脚本回写）
+tools/gen_tts.py          配音 + 3 份 VTT，回写时间轴（--check/--dry-run/--missing/--only/--rate）
+tools/build.py            生成 data/*.js、index.html、player.html、每条目页（--check 只校验）
+tools/README.md           流水线文档
+assets/app.css / app.js   全站共享样式与逻辑
+data/catalog.js / talks.js 生成物
+index.html / player.html  生成物（player.html 用 #编号 路由）
+audio/<组>/<编号>-<名>/    每段一个文件夹：mp3 + .vtt/.en.vtt/.zh.vtt + 0.5KB 壳页
+```
+- **数据必须是 `.js`（`window.CATALOG = ...`）而不是 `.json`**：`<script src>` 在 `file://` 下可加载，`fetch` 读本地 json 会被同源策略拦掉。这是「双击本地文件也有声音」的前提。
+- **编号一律 4 位补零**（`0001`…`0500`）：`1`/`01` 会让字符串排序把 `100` 排到 `02` 前面。
+- **时间轴由音频决定**：`duration = 音频字节数 ÷ 6000`，实测字节率恰为 **6000 B/s**（edge-tts 是 CBR），与 ffmpeg 实测一致。
+- 音色分配：按首次出场顺序在同性音色池轮转（配置在 `sources` 的 `voices` / `speakers`）。
+- ⚠️ **MP4 已于 2026-10-09 按用户要求删除，不要再主动生成。** 用户选「MP3 + 外挂字幕」：MP3 才能通勤/手机听，且 PotPlayer 里外挂 `.vtt` 同样能开关字幕。
+- 旧文件已删：`standup-player.html`、`audio/standup/cues.json`、`audio/standup/vtt/`。生成器 `D:/tmp/build_per_meeting.py` 等**已被 tools/ 取代**。
 - 本机装 Python 包**必须**用腾讯云镜像：`pip install -i https://mirrors.cloud.tencent.com/pypi/simple <包名>`（环境有本地代理 `127.0.0.1:62074`，直连 PyPI 会永久卡住）。静态 ffmpeg 7.1 已装在 `envs/default/Lib/site-packages/imageio_ffmpeg/binaries/`。
+- 本地预览：`python -m http.server 8765 --bind 127.0.0.1 --directory D:/workspace/EnglishLearning`。
 
 ## 约定
 
@@ -75,3 +95,25 @@
   3. **（仅在用户要求记录时）** 才把术语写入 `vocabulary.md`
 - 讲发音时：给出音标、音节拆分、谐音、常见错读，并尽量总结**可复用的拼读规律**（如「-ability 结尾的词重音固定在 -BIL-」）
 - 讲解尽量配一张 SVG 示意图辅助理解（已用：capacity vs velocity、canary 流量切分、音节重音拆解）——示意图只展示在对话里，不等于要写进单词本
+
+## 素材库 v2：数据驱动 + 场次串联（2026-10-09）
+
+**架构**：`一个对话一个页面` → `一个对话一条数据`。唯一源头是 `sources/`，页面与索引全是生成物（不要手改）。
+```
+sources/dialogues.json   场次 + 分组 + 逐句中英文本 + 表达引用
+sources/phrases.json     表达库（36 条：L0 通用 14 / network 11 / k8s 11）
+tools/gen_tts.py         配音 + 3 份 VTT，回写时间轴
+tools/build.py           生成索引与页面 **并自动跑编稿体检**
+data/catalog.js talks.js phrases.js
+index.html player.html   生成物
+audio/<域>/<编号>-<名>/   每段一文件夹（mp3 + 3 字幕 + 0.5KB 壳页）
+```
+- **分组改成 DevOps 会议类型 9 组**；旧的 standup/planning/retro/review/other 全部并入 **`baseline`（教科书体对照，不计分）**，旧 5 段目录在 `audio/baseline/`。
+- **编号 4 位补零**（`100-` 会排到 `02-` 前面）。新素材按域建目录：`audio/network/`、`audio/k8s/`。
+- ⚠️ **en-IN 只有 Prabhat 一个男声**，多人会议必须用**逐段 `voiceOf` 映射**混入 en-GB/en-US，否则撞声。
+- 表达引用可写 **`p010:extra`** → 在本段降级为 ○，用来把每段 ★ 压到 ≤3 个。
+- 体检硬指标：时长≤120s · 平均句长 5–9.5 词（**剔除 ≤2 词应声句**）· 短句≥50% · 印度特征≥1/段 · 判负词=0 · ★每段 1–3。
+- ⚠️ **切句必须保留句末标点**，否则 `right?` / 句尾 `only` 这类印度英语模式全部漏检。
+- 前端口径：段落页显示「场次面包屑 + 阶段 + 第 N/M 段 + 上回说到 + 本段重点表达（已出现 N 次、也出现在哪几段）+ 同场次前后导航」。
+- 本机装包必须走腾讯云镜像（不改）；预览用 `python -m http.server <端口> --bind 127.0.0.1 --directory D:/workspace/EnglishLearning`。
+- **`PLAN.md`** 是完整建设方案（500 段目标、10 域 × 8 会议类型矩阵、表达复现系统、编稿标准、体检指标、施工顺序）。试产结果见其 §10。

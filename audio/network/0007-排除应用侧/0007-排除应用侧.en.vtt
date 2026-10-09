@@ -1,0 +1,58 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.320
+Priya: Okay, Alex. Walk me through the app side. Anything weird in the logs?
+
+2
+00:00:07.320 --> 00:00:10.848
+Alex: Everything looks normal. The requests just don't arrive.
+
+3
+00:00:10.848 --> 00:00:13.992
+Priya: So it's upstream of us, then.
+
+4
+00:00:13.992 --> 00:00:18.143
+Dan: Yeah. I'll pull the load balancer metrics.
+
+5
+00:00:18.143 --> 00:00:22.799
+Priya: Thanks. Any connection resets on the way in?
+
+6
+00:00:22.799 --> 00:00:26.591
+Dan: Hang on... yes. A lot of them.
+
+7
+00:00:26.591 --> 00:00:29.999
+Sam: Let me tail the log on the edge box.
+
+8
+00:00:29.999 --> 00:00:34.943
+Priya: Do one thing, Sam — filter for 502 only.
+
+9
+00:00:34.943 --> 00:00:38.639
+Sam: Will do. That cuts the noise.
+
+10
+00:00:38.639 --> 00:00:43.175
+Dan: Okay, so the 502s are all coming from one AZ.
+
+11
+00:00:43.175 --> 00:00:46.366
+Priya: Interesting. Which one?
+
+12
+00:00:46.366 --> 00:00:49.318
+Dan: The one we moved traffic to yesterday.
+
+13
+00:00:49.318 --> 00:00:54.838
+Priya: Right. So this is a network thing, not an app thing.
+
+14
+00:00:54.838 --> 00:00:59.230
+Sam: Agreed. I'll keep watching the error rate.
+

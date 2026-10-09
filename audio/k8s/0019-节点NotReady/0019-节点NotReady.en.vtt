@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.416
+Sam: First node is drained. Upgrading now.
+
+2
+00:00:04.416 --> 00:00:07.225
+Priya: How long does the upgrade take?
+
+3
+00:00:07.225 --> 00:00:11.545
+Sam: About six minutes. Then we uncordon.
+
+4
+00:00:11.545 --> 00:00:16.537
+Sam: Hmm. It came back, but the node went NotReady.
+
+5
+00:00:16.537 --> 00:00:22.586
+Priya: NotReady. Okay. Let's not touch the second one.
+
+6
+00:00:22.586 --> 00:00:27.434
+Sam: Agreed. The rollout is stuck at one of four.
+
+7
+00:00:27.434 --> 00:00:32.259
+Priya: Just to confirm — is it kubelet itself, or the network?
+
+8
+00:00:32.259 --> 00:00:36.963
+Sam: Kubelet's up. But the pods aren't scheduling.
+
+9
+00:00:36.963 --> 00:00:40.971
+Priya: I'm on it. Give me five minutes.
+
+10
+00:00:40.971 --> 00:00:44.067
+Sam: Do you want a second pair of eyes?
+
+11
+00:00:44.067 --> 00:00:48.868
+Priya: Not yet. Let's park the second window for now.
+
+12
+00:00:48.868 --> 00:00:50.500
+Sam: Understood.
+

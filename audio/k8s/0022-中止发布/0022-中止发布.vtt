@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.240
+Priya: Okay. Decision time. Abort, or roll it forward?
+好。该决定了。中止，还是继续往前推？
+
+2
+00:00:06.240 --> 00:00:11.807
+Sam: Abort. We're two problems deep and it's not getting simpler.
+中止。已经踩了两个坑，而且不会变简单。
+
+3
+00:00:11.807 --> 00:00:17.207
+Priya: Agreed. And we freeze changes until we've fixed both.
+同意。两件都修好之前冻结变更。
+
+4
+00:00:17.207 --> 00:00:18.983
+Alex: What do we tell the app teams?
+那跟应用团队怎么说？
+
+5
+00:00:18.983 --> 00:00:24.838
+Priya: That Thursday is off. Friday is on, if the fixes land.
+周四取消。如果修复能落地，周五继续。
+
+6
+00:00:24.838 --> 00:00:27.358
+Alex: Understood. I will revert back to them.
+明白。我回头回复他们。
+
+7
+00:00:27.358 --> 00:00:31.774
+Sam: And I'll stop the rollout job so it doesn't retry.
+我把发布任务停掉，免得它自动重试。
+
+8
+00:00:31.774 --> 00:00:36.501
+Priya: Good. Let's park the second window, then.
+好。那第二个窗口先记下来搁着。
+
+9
+00:00:36.501 --> 00:00:40.365
+Sam: Parked. Do you want a written summary?
+记下了。要写份小结吗？
+
+10
+00:00:40.365 --> 00:00:45.836
+Priya: Let me play that back first — abort, freeze, retry Friday.
+我先复述一遍——中止、冻结、周五重试。
+
+11
+00:00:45.836 --> 00:00:47.420
+Sam: That's it.
+就是这样。
+
+12
+00:00:47.420 --> 00:00:51.620
+Priya: Good. Then let's roll the node back.
+好。那就把节点回滚。
+

@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Priya: Okay. Do one thing — cordon the node and drain it again.
+好。你做一件事——把那台节点标记不可调度并再驱逐一次。
+
+2
+00:00:05.616 --> 00:00:09.840
+Sam: Draining. Then I downgrade kubelet.
+在驱逐。然后我把 kubelet 降级。
+
+3
+00:00:09.840 --> 00:00:12.889
+Priya: And roll back the config as well.
+配置也一起回滚。
+
+4
+00:00:12.889 --> 00:00:16.417
+Sam: Doing both. Five minutes.
+两样都做。五分钟。
+
+5
+00:00:16.417 --> 00:00:21.913
+Sam: Node is back on one twenty-seven. Pods are starting.
+节点回到 1.27 了。Pod 在启动。
+
+6
+00:00:21.913 --> 00:00:26.401
+Priya: Let's cut a release for the config fix tonight, separately.
+配置的修复今晚单独切一个版本发。
+
+7
+00:00:26.401 --> 00:00:30.409
+Sam: Agreed. Keep the two changes apart.
+同意。两个改动分开。
+
+8
+00:00:30.409 --> 00:00:36.194
+Priya: Exactly. One change, one release, one rollback.
+正是。一个改动、一个版本、一次回滚。
+
+9
+00:00:36.194 --> 00:00:37.946
+Sam: I'm on it.
+我来。
+
+10
+00:00:37.946 --> 00:00:41.978
+Priya: Good. Tell me when the pods are ready.
+好。Pod 就绪了叫我。
+
+11
+00:00:41.978 --> 00:00:43.610
+Sam: Two minutes.
+两分钟。
+

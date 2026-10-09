@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.144
+Priya: Okay. Plan. Two windows — Thursday and Friday.
+
+2
+00:00:06.144 --> 00:00:12.865
+Sam: One node at a time. Cordon and drain it, upgrade, then uncordon.
+
+3
+00:00:12.865 --> 00:00:17.521
+Priya: Right. And wait ten minutes between nodes.
+
+4
+00:00:17.521 --> 00:00:23.546
+Sam: That's the slow part. The rollout is stuck if any pod won't move.
+
+5
+00:00:23.546 --> 00:00:27.842
+Priya: Exactly. That's the signal to stop.
+
+6
+00:00:27.842 --> 00:00:29.258
+Alex: Do you want me in the channel?
+
+7
+00:00:29.258 --> 00:00:37.491
+Priya: Yes. App teams on standby. Just to recap the freeze — no deploys Thursday.
+
+8
+00:00:37.491 --> 00:00:39.819
+Alex: Understood. I'll tell the teams.
+
+9
+00:00:39.819 --> 00:00:44.715
+Sam: And I am having bandwidth Friday morning for the second window.
+
+10
+00:00:44.715 --> 00:00:48.508
+Priya: Good. That's the plan then.
+
+11
+00:00:48.508 --> 00:00:53.164
+Priya: Sorry, one more — the drain timeout needs a bump.
+
+12
+00:00:53.164 --> 00:00:55.420
+Sam: Already in the chart.
+

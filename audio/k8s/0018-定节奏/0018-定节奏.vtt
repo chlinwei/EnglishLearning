@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.144
+Priya: Okay. Plan. Two windows — Thursday and Friday.
+好。计划：两个窗口，周四和周五。
+
+2
+00:00:06.144 --> 00:00:12.865
+Sam: One node at a time. Cordon and drain it, upgrade, then uncordon.
+一次一台。先标记不可调度并驱逐，升级，再恢复调度。
+
+3
+00:00:12.865 --> 00:00:17.521
+Priya: Right. And wait ten minutes between nodes.
+对。节点之间等十分钟。
+
+4
+00:00:17.521 --> 00:00:23.546
+Sam: That's the slow part. The rollout is stuck if any pod won't move.
+这就是慢的地方。只要有 Pod 迁不走，发布就卡住。
+
+5
+00:00:23.546 --> 00:00:27.842
+Priya: Exactly. That's the signal to stop.
+正是。那就是该停的信号。
+
+6
+00:00:27.842 --> 00:00:29.258
+Alex: Do you want me in the channel?
+要我待在频道里吗？
+
+7
+00:00:29.258 --> 00:00:37.491
+Priya: Yes. App teams on standby. Just to recap the freeze — no deploys Thursday.
+要。应用团队待命。再小结一下冻结窗口——周四不发布。
+
+8
+00:00:37.491 --> 00:00:39.819
+Alex: Understood. I'll tell the teams.
+明白。我去跟各团队说。
+
+9
+00:00:39.819 --> 00:00:44.715
+Sam: And I am having bandwidth Friday morning for the second window.
+我周五上午有精力跟第二个窗口。
+
+10
+00:00:44.715 --> 00:00:48.508
+Priya: Good. That's the plan then.
+好。那就这么定。
+
+11
+00:00:48.508 --> 00:00:53.164
+Priya: Sorry, one more — the drain timeout needs a bump.
+抱歉，还有一件——drain 的超时要调大。
+
+12
+00:00:53.164 --> 00:00:55.420
+Sam: Already in the chart.
+已经写进 chart 里了。
+

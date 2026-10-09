@@ -1,0 +1,67 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.168
+Priya: Okay, let's walk the timeline. Sam, play it back for us.
+好，我们过一遍时间线。Sam，复述给大家听。
+
+2
+00:00:06.168 --> 00:00:14.568
+Sam: Sure. 2:14, page. 2:20, we saw 502s on one AZ.
+好。2:14 被呼叫。2:20 看到某个可用区的 502。
+
+3
+00:00:14.568 --> 00:00:20.353
+Sam: 2:26, nodes pulled. Seven a.m., the fix landed.
+2:26 摘节点。早上七点修复上线。
+
+4
+00:00:20.353 --> 00:00:25.705
+Priya: So twenty-six minutes to mitigate, four hours to actually fix.
+所以 26 分钟缓解，但真正修好花了四小时。
+
+5
+00:00:25.705 --> 00:00:27.913
+Alex: The four hours is the part that hurts.
+那四小时才是疼的地方。
+
+6
+00:00:27.913 --> 00:00:33.577
+Priya: Agreed. Just to recap — root cause is the rotation job.
+同意。小结一下——根因是那个轮换任务。
+
+7
+00:00:33.577 --> 00:00:39.745
+Dan: Not the cert. The job. The path was two directories off.
+不是证书，是任务。路径差了两层目录。
+
+8
+00:00:39.745 --> 00:00:45.673
+Priya: Right. So the first action item — add a test for the rotation.
+对。第一个待办——给轮换加测试。
+
+9
+00:00:45.673 --> 00:00:50.306
+Priya: Second — alert on cert expiry, thirty days out.
+第二——证书过期前 30 天告警。
+
+10
+00:00:50.306 --> 00:00:52.994
+Sam: I'll take the alerting one.
+告警这条我接。
+
+11
+00:00:52.994 --> 00:00:55.106
+Dan: And I'll do the test.
+测试我来。
+
+12
+00:00:55.106 --> 00:00:58.946
+Priya: Good. Any doubts on the timeline?
+好。时间线有疑问吗？
+
+13
+00:00:58.946 --> 00:01:03.530
+Priya: Also, let's park the AZ failover question for now.
+另外，可用区切换那个问题先记下来。
+

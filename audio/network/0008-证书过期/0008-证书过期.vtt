@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.680
+Dan: Okay, I'm seeing connection resets on two of the three nodes.
+好，三台节点里有两台在连接重置。
+
+2
+00:00:04.680 --> 00:00:09.217
+Priya: Two out of three. That's our blast radius.
+三台里两台。这就是我们的影响范围。
+
+3
+00:00:09.217 --> 00:00:13.441
+Dan: Yeah. And the health check is failing on both.
+对。而且两台健康检查都没过。
+
+4
+00:00:13.441 --> 00:00:17.953
+Sam: Health check failing. Is the cert expired?
+健康检查没过——是证书过期了吗？
+
+5
+00:00:17.953 --> 00:00:23.546
+Dan: Let me check... You're right. It expired at midnight.
+我看一下……你说对了。昨天午夜过期的。
+
+6
+00:00:23.546 --> 00:00:28.466
+Priya: So the cert expired, and the rotation itself didn't pick it up.
+所以证书过期了，轮换它自己没把它换上来。
+
+7
+00:00:28.466 --> 00:00:30.747
+Alex: That explains the 502s.
+这就解释了 502。
+
+8
+00:00:30.747 --> 00:00:34.803
+Dan: But the other nodes are having the new cert, so it's not everywhere.
+但另外几台是新证书，所以不是全都这样。
+
+9
+00:00:34.803 --> 00:00:39.987
+Priya: Right. So it's flapping between good and bad nodes.
+对。所以是在好节点和坏节点之间来回抖。
+
+10
+00:00:39.987 --> 00:00:44.596
+Sam: That matches the error rate. It's not flat.
+这跟错误率对得上——它不是平的。
+
+11
+00:00:44.596 --> 00:00:48.820
+Priya: Okay. I think we've got the shape of it.
+好。我觉得轮廓已经清楚了。
+

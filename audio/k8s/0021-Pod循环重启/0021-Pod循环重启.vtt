@@ -1,0 +1,67 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.048
+Sam: Bad news. The pods on that node are in CrashLoopBackOff.
+坏消息。那台节点上的 Pod 一直在 CrashLoop。
+
+2
+00:00:06.048 --> 00:00:11.064
+Priya: CrashLoop. How many, and are they having the same error?
+CrashLoop。几个？报的是同一个错吗？
+
+3
+00:00:11.064 --> 00:00:15.599
+Sam: Three of six. The other three are fine.
+六个里三个。另外三个没事。
+
+4
+00:00:15.599 --> 00:00:19.751
+Priya: Okay, so it's half the workload on one node.
+好，那就是一台节点上的一半工作负载。
+
+5
+00:00:19.751 --> 00:00:23.639
+Sam: And the health check is failing on all three.
+而且这三台的健康检查都没过。
+
+6
+00:00:23.639 --> 00:00:26.903
+Priya: Let me tail the log and see what they say.
+我盯一下日志，看它们说什么。
+
+7
+00:00:26.903 --> 00:00:31.487
+Sam: I already did. It's the config map mount.
+我已经看过了。是 config map 的挂载。
+
+8
+00:00:31.487 --> 00:00:36.647
+Priya: The mount. That's a probe problem, not a crash.
+挂载。那是探针的问题，不是崩溃。
+
+9
+00:00:36.647 --> 00:00:41.351
+Sam: Right. The pod dies before the mount is ready.
+对。挂载还没就绪，Pod 就死了。
+
+10
+00:00:41.351 --> 00:00:46.798
+Priya: So the probe kills it, k8s restarts it, and it loops.
+所以探针杀掉它，k8s 重启它，一直循环。
+
+11
+00:00:46.798 --> 00:00:50.974
+Sam: Exactly. It's a self-inflicted loop.
+正是。纯属自己搞自己。
+
+12
+00:00:50.974 --> 00:00:56.950
+Priya: Okay. Let's keep it under observation for ten minutes before we decide.
+好。先观察十分钟再决定。
+
+13
+00:00:56.950 --> 00:01:01.510
+Sam: Fine. But it's not going to fix itself.
+行。不过它不会自己好。
+

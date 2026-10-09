@@ -1,0 +1,50 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.241
+Priya: Two options. Roll back the cert config, or pull the bad nodes.
+
+2
+00:00:06.241 --> 00:00:10.057
+Dan: Pulling them is faster. Two minutes.
+
+3
+00:00:10.057 --> 00:00:13.753
+Priya: But then we're at half capacity in that AZ.
+
+4
+00:00:13.753 --> 00:00:17.185
+Alex: Half capacity is fine at this hour. Traffic's low.
+
+5
+00:00:17.185 --> 00:00:22.538
+Sam: Agreed. Let's not do anything clever at 2 a.m.
+
+6
+00:00:22.538 --> 00:00:27.770
+Priya: Okay. Pull the nodes, then fix the rotation properly.
+
+7
+00:00:27.770 --> 00:00:29.882
+Dan: I am doing it now.
+
+8
+00:00:29.882 --> 00:00:33.699
+Sam: And let's park the rotation fix till morning.
+
+9
+00:00:33.699 --> 00:00:38.307
+Priya: Agreed. Park that and circle back at nine.
+
+10
+00:00:38.307 --> 00:00:39.819
+Alex: I'll write it up in the channel.
+
+11
+00:00:39.819 --> 00:00:45.052
+Priya: Thanks. Nobody is having the bandwidth tonight anyway.
+
+12
+00:00:45.052 --> 00:00:47.980
+Sam: Right. Let's move.
+

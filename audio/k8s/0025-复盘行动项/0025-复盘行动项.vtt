@@ -1,0 +1,72 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.752
+Priya: Last part. Let's close out the action items.
+最后一段。把待办项定下来。
+
+2
+00:00:04.752 --> 00:00:08.281
+Priya: So, who's picking up the PDB change?
+那么，PDB 那个改动谁来接？
+
+3
+00:00:08.281 --> 00:00:11.665
+Sam: Me. I'll have it Monday.
+我。周一之前搞定。
+
+4
+00:00:11.665 --> 00:00:13.921
+Priya: And the probe timeout?
+探针超时呢？
+
+5
+00:00:13.921 --> 00:00:17.617
+Sam: Same. I'll do both together.
+一样。两件一起做。
+
+6
+00:00:17.617 --> 00:00:23.474
+Priya: Good. Just to recap — aborting was right, but we were slow.
+好。小结一下——中止是对的，但我们太慢了。
+
+7
+00:00:23.474 --> 00:00:24.458
+Alex: Slow how?
+慢在哪？
+
+8
+00:00:24.458 --> 00:00:29.690
+Priya: We spent forty minutes heads-down on the node before we looked at the PDB.
+我们在节点上埋头搞了四十分钟，才去看 PDB。
+
+9
+00:00:29.690 --> 00:00:32.354
+Alex: To be fair, the dashboard didn't show it.
+说公道话，看板确实没显示。
+
+10
+00:00:32.354 --> 00:00:39.027
+Priya: Right. So third action item — surface PDB blocks in the console.
+对。所以第三个待办——在看板上暴露 PDB 阻塞。
+
+11
+00:00:39.027 --> 00:00:43.467
+Sam: That's a good one. I'll take point on it.
+这个不错。我来主抓。
+
+12
+00:00:43.467 --> 00:00:49.947
+Priya: Perfect. And one more — nobody checks the probe timeout before a drain.
+好。还有一件——驱逐之前没人检查探针超时。
+
+13
+00:00:49.947 --> 00:00:52.900
+Alex: That is a checklist item only. Not a project.
+那只是清单上的一条，不算项目。
+
+14
+00:00:52.900 --> 00:00:57.940
+Priya: Exactly. Cheap, and it would have saved us an hour.
+正是。成本很低，能省我们一小时。
+

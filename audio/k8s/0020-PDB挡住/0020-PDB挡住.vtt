@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.464
+Priya: Found it. The second node can't drain either.
+找到了。第二台也驱逐不了。
+
+2
+00:00:04.464 --> 00:00:08.376
+Sam: Why? The first one drained fine.
+为什么？第一台明明驱逐得很顺。
+
+3
+00:00:08.376 --> 00:00:13.992
+Priya: The PDB is blocking the drain. We're at minimum replicas.
+PDB 把驱逐挡住了。我们已经在最小副本数上了。
+
+4
+00:00:13.992 --> 00:00:19.632
+Sam: So it's not the upgrade at all. It's the disruption budget.
+所以压根不是升级的问题，是干扰预算。
+
+5
+00:00:19.632 --> 00:00:25.296
+Priya: Right. And the readiness probe is too aggressive on that service.
+对。而且那个服务的就绪探针太激进了。
+
+6
+00:00:25.296 --> 00:00:27.144
+Sam: Aggressive how?
+怎么个激进法？
+
+7
+00:00:27.144 --> 00:00:33.072
+Priya: Two-second timeout. The probe itself is killing them before they warm up.
+两秒超时。Pod 还没预热完就被杀了。
+
+8
+00:00:33.072 --> 00:00:36.480
+Sam: That would explain the restarts we saw.
+这就解释了我们看到的那些重启。
+
+9
+00:00:36.480 --> 00:00:41.016
+Priya: Yeah. Who's picking this up — me or you?
+嗯。这两件事谁来接——你还是我？
+
+10
+00:00:41.016 --> 00:00:45.624
+Sam: You take the probe. I'll own the PDB change.
+探针你弄。PDB 的改动我来。
+
+11
+00:00:45.624 --> 00:00:50.208
+Priya: Deal. And I'll take point on the whole rollout.
+成交。整轮发布我来主抓。
+
+12
+00:00:50.208 --> 00:00:54.960
+Sam: Good. Let's write both up before we retry.
+好。重试之前先把这两件事记下来。
+

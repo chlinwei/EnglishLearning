@@ -1,0 +1,62 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.536
+Priya: Okay, next on the list. K8s upgrade, one twenty-seven to one twenty-eight.
+好，下一项。K8s 升级，1.27 到 1.28。
+
+2
+00:00:07.536 --> 00:00:10.704
+Priya: We want to cut a release on Thursday.
+我们想周四切一个版本出去。
+
+3
+00:00:10.704 --> 00:00:15.649
+Sam: Priya is the change lead. I'm the SRE on it.
+Priya 是变更负责人。我是跟这件事的 SRE。
+
+4
+00:00:15.649 --> 00:00:17.641
+Alex: What's the impact if it goes wrong?
+如果出问题，影响是什么？
+
+5
+00:00:17.641 --> 00:00:23.113
+Priya: Worst case, one node down. So one node at a time.
+最坏情况一台节点掉线。所以一次只动一台。
+
+6
+00:00:23.113 --> 00:00:26.521
+Sam: And we freeze changes during the window.
+窗口期内我们冻结变更。
+
+7
+00:00:26.521 --> 00:00:29.977
+Alex: Just to confirm — is it the whole cluster, or one pool?
+确认一下——是整个集群，还是一个节点池？
+
+8
+00:00:29.977 --> 00:00:34.369
+Priya: One pool first. The rest next week.
+先动一个池，剩下的下周。
+
+9
+00:00:34.369 --> 00:00:37.777
+Alex: Okay. And what's the ETA for the whole thing itself?
+好。那整件事预计要多久？
+
+10
+00:00:37.777 --> 00:00:42.434
+Priya: Four hours for the first pool. Two windows.
+第一个池四小时，分两个窗口。
+
+11
+00:00:42.434 --> 00:00:46.082
+Sam: And we've got a rollback plan per node.
+而且每台节点都有回滚方案。
+
+12
+00:00:46.082 --> 00:00:51.770
+Priya: Right. Nothing clever. One node at a time.
+对，不搞花活。一次一台。
+
