@@ -319,3 +319,66 @@ Scrum 的五个正式会议：Sprint Planning（计划会）· Daily Scrum / Sta
 - 词根拆解：`retro-`（向后）+ `-spect-`（看）= **向后看** → 回顾。同族词：inspect（向内看=检查）、respect、perspective
 - ⚠️ 单独出现的 `retro` 还常表示「**复古/怀旧**」（retro style、retro UI）——那个 retro 是另一个来源，跟回顾会无关。看上下文判断
 - 形容词义在技术写作里也常见：`a retrospective look at the migration`（对这次迁移的回顾）
+
+---
+
+## 10. of（方位 / 关系用法）：upstream of us
+
+- **音标**：弱读 /əv/ · 强读 /ʌv/
+- **词性**：介词（preposition）
+- **释义**：（这类短语里）**以……为参照原点**、位于……的相对位置 —— ⚠️ **不是「的」**
+- **分类**：系统/运维 · 通用职场
+
+**IT 语境**
+
+排障会议里判断**责任边界**的核心结构。`upstream` / `downstream` 是**相对词**，单独出现没有方向；必须配一个 `of + 参照物` 才知道是往哪边数：
+
+```
+upstream of us   = 从我们这一环往上游数 = 在我们前面那一环（CDN / LB / 网关 / 入口网络）
+downstream of us = 从我们这一环往下游数 = 我们后面那一环（我们调用的 DB 或外部 API）
+```
+
+**中文和英文在这里走了两条路**：中文习惯说「这是**我们的**上游」（用「的」），英文这里的 `of` 是**坐标原点**，跟所有权无关。
+
+**同一个 `of`，你早就认识（一次解决一整族）**
+
+| 短语 | 望文生义（错） | 真实含义 |
+| --- | --- | --- |
+| **in front of us** | 我们的前面 ❌ | 在我们前面 |
+| **north of us** | 我们的北 ❌ | 在我们北边 |
+| **to the left of us** | 我们的左 ❌ | 在我们左边 |
+| **upstream of us** | 我们的上游 ❌ | 在我们上游 |
+| **two hops upstream of us** | —— | 在我们上两跳 |
+
+没人会把 `in front of us` 理解成所有格 —— `upstream of us` 就是同一件事，只是把「前 / 后」换成了「上游 / 下游」。
+
+**例句（IT 场景）**
+1. **So it's upstream of us, then.**
+   （那就是上游的问题。/ 那这么说，问题在我们前面那一环。）← ⭐ 素材 0007「排除应用侧：502 全来自一个可用区」，Dan 随后去拉 LB 指标，印证 upstream 指入口那侧
+   > `So ..., then.` 里的 `then` 不是「然后」，是**「那么 / 这么说」**——排除法做完、下结论的语气。
+2. It's two hops **upstream of us** — the gateway, not the DB.
+   （在我们上游两跳——是网关那层，不是数据库。）
+3. Nothing here is ours. It's all **upstream of the gateway**.
+   （这儿没一处是我们的问题，全在网关上游。）
+4. Just to be sure — is that **upstream of us** or **downstream of us**?
+   （确认一下——那是在我们上游还是下游？）
+
+**搭配**
+- `upstream / downstream of + 参照物` — 参照物可以换：`of us` · `of the LB` · `of the gateway` · `of the ingress` · `of the DB`
+  → **换掉那个词，责任边界就钉死了**
+- `N hops upstream of us` — 在我们上游第 N 跳
+- `on the way in` — 入口那侧（**同义，但不依赖 upstream 的方向歧义**，听不清时更保险）
+
+**易混点（⚠️ 最重要的一条）**
+
+- **想说「不归我们管」，必须说 `upstream of us`，别用 `our upstream`。**
+  `our upstream` 在运维语境里指 **`nginx.conf` / Envoy / Istio 里那个 `upstream` 块**，即**我们调用的后端**——方向正好反过来。
+- `upstream` / `downstream` 是业界公认的**「同一个词两套相反方向」**：
+  - **请求流视角**（排障对话、事故会用）→ upstream = 把请求交给我们的那一方（CDN / LB / 网关）
+  - **依赖 / 数据流视角**（nginx、Envoy、Istio 配置文件用）→ upstream = 我们调用的后端（DB、外部 API）
+  - 经验值：排障时听到 `it's upstream of us`，**十次里九次是「不是我们的锅」**，因为说话人正在做责任切割。
+
+**听不清时怎么办（发音 + 救急）**
+- `of` 在句中**几乎总是弱读 /əv/**，还常和后面的词连成一团：`of us` ≈ «ə-vəs»，`of the` 里的 `the` 也几乎消失。**这是 `of us` 听起来「没发音」的真正原因**——它不是被吞掉，是弱读+连读。
+- 听不清就别抓功能词，**抓重音**：`till ___ know more` 这个框架里能填的只有 we / you / they；结合「宣布冻结变更」的语境只能是 `we`。**功能词靠语法补，不靠耳朵抓。**
+- 听到就反问确认：`Upstream of us — so the LB side?` · `Do you mean the gateway, not us?` · `On our side or theirs?`
