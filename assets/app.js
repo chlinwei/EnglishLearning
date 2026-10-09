@@ -227,6 +227,7 @@
     + '<audio id="au" controls preload="metadata"></audio>'
     + '<div class="bar">'
     + '<button id="prev">上一句</button><button id="next">下一句</button><button id="loop">循环本句</button>'
+    + '<button id="replay" title="回到本段开头并播放（快捷键 R）">↻ 重播本段</button>'
     + '<span class="lbl">语速</span>'
     + '<button class="sp" data-s="0.75">0.75×</button><button class="sp" data-s="1">1.0×</button><button class="sp" data-s="1.25">1.25×</button>'
     + '<span class="lbl">字幕</span>'
@@ -274,6 +275,15 @@
   }
   function markRep(i) { tr.querySelectorAll('.rep').forEach(function (b, k) { b.classList.toggle('on', k === i); }); }
   function seekLine(i) { if (!L.length) return; i = Math.max(0, Math.min(L.length - 1, i)); au.currentTime = L[i].start; curLine = -1; if (lineLoop) loopIdx = i; }
+
+  /* 回到本段开头重播：顺手清掉单句循环，避免「重播了却只循环最后一句」 */
+  function replayAll() {
+    lineLoop = false; loopIdx = -1; loopBtn.classList.remove('on'); markRep(-1);
+    curLine = -1;
+    try { au.currentTime = 0; } catch (e) { }
+    showNotice('');
+    au.play();
+  }
 
   function renderCue(i) {
     if (i === curLine) return;
@@ -354,7 +364,7 @@
       + '</p>';
 
     document.getElementById('tip').innerHTML =
-      '快捷键：<kbd>空格</kbd> 播放/暂停 · <kbd>←</kbd><kbd>→</kbd> 前后 3 秒 · <kbd>↑</kbd><kbd>↓</kbd> 上一句 / 下一句<br>'
+      '快捷键：<kbd>空格</kbd> 播放/暂停 · <kbd>←</kbd><kbd>→</kbd> 前后 3 秒 · <kbd>↑</kbd><kbd>↓</kbd> 上一句 / 下一句 · <kbd>R</kbd> 重播本段<br>'
       + '音频：<code>' + esc(it.audio) + '</code> · 字幕：<code>' + esc(s.both) + '</code> 中英 · <code>'
       + esc(s.en) + '</code> 英文 · <code>' + esc(s.zh) + '</code> 中文<br>'
       + '用 PotPlayer 打开同目录的 MP3，会自动加载同名字幕（右键 → 字幕 → 显示/隐藏）。文件位置：<code>'
@@ -422,7 +432,7 @@
     var resume = document.getElementById('resume').checked;
     if (resume && p && p.t > 5 && (!it.duration || p.t < it.duration - 3)) {
       au.currentTime = Math.max(0, p.t - 2);
-      showNotice('已从上次位置 <b>' + fmt(p.t) + '</b> 继续。要重头听就点一下进度条最左边。');
+      showNotice('已从上次位置 <b>' + fmt(p.t) + '</b> 继续。要重头听，点工具栏的「↻ 重播本段」。');
     } else showNotice('');
 
     document.getElementById('markdone').checked = !!(p && p.done);
@@ -497,6 +507,14 @@
       lineLoop = !lineLoop; loopBtn.classList.toggle('on', lineLoop);
       if (lineLoop) { loopIdx = Math.max(0, curLine); markRep(loopIdx); } else { loopIdx = -1; markRep(-1); }
     });
+    document.getElementById('replay').addEventListener('click', replayAll);
+    /* 播完后的提示条里的「再听一遍」链接 */
+    noticeEl.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('[data-act="replay"]') : null;
+      if (!a) return;
+      e.preventDefault();
+      replayAll();
+    });
     document.getElementById('resume').addEventListener('change', function () { UI.resume = this.checked; writeJSON(UKEY, UI); });
     document.getElementById('chain').addEventListener('change', function () { chain = this.checked; UI.chain = chain; writeJSON(UKEY, UI); });
     document.getElementById('markdone').addEventListener('change', function () { toggleDone(this.checked); });
@@ -509,10 +527,15 @@
       if (PROG[cur.id]) { PROG[cur.id].done = 1; writeJSON(PKEY, PROG); updateDot(cur.id); }
       renderSidebar();
       document.getElementById('markdone').checked = true;
+      var goNext = false;
       if (chain) {
         var list = visibleItems();
         var k = list.findIndex(function (x) { return x.id === cur.id; });
-        if (k >= 0 && k < list.length - 1) { open(list[k + 1].id); au.play(); }
+        if (k >= 0 && k < list.length - 1) { open(list[k + 1].id); au.play(); goNext = true; }
+      }
+      if (!goNext) {
+        showNotice('✅ 本段播完，已标记练完。<a href="#" data-act="replay">↻ 从头再听一遍</a>'
+          + '<span style="opacity:.75">（或按 <b>R</b>）</span>');
       }
     });
     window.addEventListener('beforeunload', function () { saveTime(true); });
@@ -525,6 +548,7 @@
       else if (e.code === 'ArrowRight') { au.currentTime = Math.min(au.duration || 1e9, au.currentTime + 3); }
       else if (e.code === 'ArrowUp') { e.preventDefault(); document.getElementById('prev').click(); }
       else if (e.code === 'ArrowDown') { e.preventDefault(); document.getElementById('next').click(); }
+      else if (e.code === 'KeyR') { e.preventDefault(); replayAll(); }
     });
 
     var start = FIXED || (location.hash || '').replace(/^#/, '') || UI.last || (ITEMS[0] && ITEMS[0].id);
