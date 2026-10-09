@@ -45,6 +45,10 @@
 - 文件夹：`01-标准站会` / `02-印度团队站会` / `03-迭代末站会` / `04-速率复盘` / `05-跨时区站会`；另有 `audio/standup/cues.json`（台词 + 时间轴 + 中英对照）。
 - ⚠️ **MP4 已于 2026-10-09 按用户要求删除，不要再主动生成。** 用户选了「MP3 + 外挂字幕」方案，理由：MP3 才能通勤/手机听，且 PotPlayer 里外挂 `.vtt` 同样能开关字幕，MP4 是重复的。
 - `standup-player.html`（仓库根目录）：单文件练习播放器，字幕四档（关/英/中英/中）、变速 0.75–1.25×、逐句循环与跳转。音频源全部指向 `.mp3`。
+- **每个文件夹内另有独立练习页 `<文件夹名>.html`**（2026-10-09 按用户要求新增：「规范点，每个会议都要有一个便于阅读和听的 html」）：单文件、无外部依赖、内嵌该段台词与时间轴，音频走相对路径。生成器 **`D:/tmp/build_per_meeting.py`**（读 `cues.json`，改台词后重跑即可，幂等）。
+  - **命名规范：文件夹名 = mp3 名 = 字幕名前缀 = html 名。**
+  - ⚠️ 音频是相对引用，**必须双击本地文件打开**；在线预览面板只服务单个文件，会没声音（别误判为坏了）。
+  - 预览可取巧：`python -m http.server 8765 --bind 127.0.0.1 --directory D:/workspace/EnglishLearning`，再用 `http://127.0.0.1:8765/...` 打开，音频即可播放。
 - 音色用 edge-tts 的 **en-IN-NeerjaNeural / en-IN-NeerjaExpressiveNeural / en-IN-PrabhatNeural**（印度口音，按说话人分派）+ en-GB-SoniaNeural（英音）。**逐句合成**，用「字节数 ÷ 6000」换算每句时长，因此字幕可精确逐句同步。
 - 这套流程可复用：任意会议素材（真实录音稿、自写场景）都能做成「音频 + 逐句中英字幕 + 播放器」。
 - 本机装 Python 包**必须**用腾讯云镜像：`pip install -i https://mirrors.cloud.tencent.com/pypi/simple <包名>`（环境有本地代理 `127.0.0.1:62074`，直连 PyPI 会永久卡住）。静态 ffmpeg 7.1 已装在 `envs/default/Lib/site-packages/imageio_ffmpeg/binaries/`。
