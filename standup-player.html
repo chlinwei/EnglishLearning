@@ -104,8 +104,9 @@ function load(i){
   au.src = 'audio/standup/' + DATA[i].file;
   const v = document.getElementById('vlink');
   const dir = DATA[i].file.split('/')[0];
-  v.innerHTML = '文件夹：<code>audio/standup/' + dir + '</code> &nbsp;·&nbsp; 同目录同名字幕（PotPlayer 自动加载）：'
-    + '<code>' + dir + '.vtt</code> 中英 · <code>' + dir + '.en.vtt</code> 英文 · <code>' + dir + '.zh.vtt</code> 中文';
+  v.innerHTML = '本段单独页面：<a href="audio/standup/' + dir + '/' + dir + '.html"><b>' + dir + '.html</b></a>'
+    + ' &nbsp;·&nbsp; 文件夹：<code>audio/standup/' + dir + '/</code>'
+    + ' &nbsp;·&nbsp; 同名字幕（PotPlayer 自动加载）：<code>' + dir + '.vtt</code> 中英 · <code>' + dir + '.en.vtt</code> 英文 · <code>' + dir + '.zh.vtt</code> 中文';
   au.playbackRate = rate;
   buildPicker(); buildTranscript(); renderCue(-1);
 }

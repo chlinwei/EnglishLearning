@@ -13,7 +13,7 @@
   - 练习闭环：精听 20 min → 跟读 10 min → 会前预装 3 句 → 会后复盘回流
   - 印度职场特有表达：`prepone`、`do the needful`、`revert`、`kindly`、`out of station`、`I have a doubt`、`updation`
 - 资源清单已给过：NPTEL 印度公开课、Great Learning、印度新闻频道、Sundar Pichai / Satya Nadella 访谈、B 站与中国大学 MOOC、AI 陪练（ELSA Speak、流利说、有道 Hi Echo 等）。
-- 待办：用户尚未决定是否把会议英语整理成独立文件（如 `meeting-english.md`）放进仓库。
+- ~~待办：用户尚未决定是否把会议英语整理成独立文件（如 `meeting-english.md`）放进仓库。~~ **2026-10-09 已完成：`meeting-english.md` 已建成并推送。**
 
 ## 版本控制 / GitHub
 
@@ -35,6 +35,19 @@
     `git push "https://chlinwei:<TOKEN>@github.com/chlinwei/EnglishLearning.git" main:main`
 - GitHub OAuth 授权方式：`git-credential-manager github login`（会弹窗 + 开浏览器，用户点一次同意即可）。
 - 本机**未安装 `gh` CLI**（曾下载作备用，已删除）；需调 GitHub API 时直接用 `curl`。
+
+### 会议英语场景手册 `meeting-english.md`（2026-10-09 建）
+- 定位：**场景手册**，与 `vocabulary.md` 分工（一本查词 / 一本查场景）。章节：六类会议对照表 · 站会三段式模板 · 四级救急阶梯 + 句型包 · 会议高频短语（控场/表态/时间/协作）· 印度英语适配三动作 + 印度职场特有表达 · 本地练习素材 · 会后回流清单 · 每日节奏。
+- 改这份手册**不受单词本的记录红线约束**（红线只针对 `vocabulary.md` 的自动追加）。
+
+### 练习素材与工具链
+- `audio/standup/`：5 段站会对话，**每段一个独立文件夹**（用户明确要求，为方便 PotPlayer）。文件夹名 = 音频文件名，内含 `<名>.mp3` + `<名>.vtt`（中英）+ `<名>.en.vtt` + `<名>.zh.vtt`；**PotPlayer 打开 mp3 会自动挂上同名字幕**。
+- 文件夹：`01-标准站会` / `02-印度团队站会` / `03-迭代末站会` / `04-速率复盘` / `05-跨时区站会`；另有 `audio/standup/cues.json`（台词 + 时间轴 + 中英对照）。
+- ⚠️ **MP4 已于 2026-10-09 按用户要求删除，不要再主动生成。** 用户选了「MP3 + 外挂字幕」方案，理由：MP3 才能通勤/手机听，且 PotPlayer 里外挂 `.vtt` 同样能开关字幕，MP4 是重复的。
+- `standup-player.html`（仓库根目录）：单文件练习播放器，字幕四档（关/英/中英/中）、变速 0.75–1.25×、逐句循环与跳转。音频源全部指向 `.mp3`。
+- 音色用 edge-tts 的 **en-IN-NeerjaNeural / en-IN-NeerjaExpressiveNeural / en-IN-PrabhatNeural**（印度口音，按说话人分派）+ en-GB-SoniaNeural（英音）。**逐句合成**，用「字节数 ÷ 6000」换算每句时长，因此字幕可精确逐句同步。
+- 这套流程可复用：任意会议素材（真实录音稿、自写场景）都能做成「音频 + 逐句中英字幕 + 播放器」。
+- 本机装 Python 包**必须**用腾讯云镜像：`pip install -i https://mirrors.cloud.tencent.com/pypi/simple <包名>`（环境有本地代理 `127.0.0.1:62074`，直连 PyPI 会永久卡住）。静态 ffmpeg 7.1 已装在 `envs/default/Lib/site-packages/imageio_ffmpeg/binaries/`。
 
 ## 约定
 

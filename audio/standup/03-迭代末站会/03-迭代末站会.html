@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 迭代末站会：演示前抢修 · 站会英语</title>
+<style>
+  :root{
+    --bg:#f7f7f5; --card:#ffffff; --line:rgba(0,0,0,.12); --line2:rgba(0,0,0,.22);
+    --tx:#1f1f1f; --tx2:#6b6b6b; --tx3:#9a9a9a;
+    --ac:#993c1d; --ac-bg:#faece7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font:400 14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:24px 20px 64px}
+  .nav{display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:18px}
+  .nav a{color:var(--tx2);text-decoration:none;padding:5px 10px;border-radius:8px;border:.5px solid var(--line)}
+  .nav a:hover{border-color:var(--ac);color:var(--ac)}
+  .nav .idx{margin:0 auto;color:var(--tx3);border:none}
+  .nav .gap{width:80px}
+  h1{font-size:19px;font-weight:500;margin:0 0 6px}
+  .sub{color:var(--tx2);font-size:13px;margin:0 0 4px}
+  .meta{color:var(--tx3);font-size:12px;margin:0 0 18px}
+  .meta b{font-weight:400;color:var(--tx2)}
+  audio{width:100%;margin-bottom:14px}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
+  .bar .lbl{color:var(--tx3);font-size:12px;margin-left:6px}
+  button{cursor:pointer;font:400 13px/1 inherit;padding:7px 11px;border-radius:8px;
+    border:.5px solid var(--line2);background:var(--card);color:var(--tx)}
+  button:hover{border-color:var(--ac);color:var(--ac)}
+  button.on{border-color:var(--ac);background:var(--ac-bg);color:var(--ac)}
+  .stage{background:var(--card);border:.5px solid var(--line);border-radius:14px;
+    padding:20px 22px;min-height:132px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+  .spk{font-size:12px;color:var(--tx3)}
+  .en{font-size:20px;line-height:1.5}
+  .zh{font-size:16px;color:var(--tx2);line-height:1.6}
+  .hide{display:none}
+  .cnt{margin-left:auto;font-size:12px;color:var(--tx3)}
+  h2{font-size:14px;font-weight:500;margin:28px 0 10px;color:var(--tx2)}
+  .row{display:flex;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;border:.5px solid transparent}
+  .row:hover{background:#f0efec}
+  .row.on{background:var(--ac-bg);border-color:var(--ac)}
+  .row .idx{color:var(--tx3);font-size:12px;min-width:20px;padding-top:4px}
+  .row .body{flex:1;min-width:0}
+  .row .e{font-size:15px}
+  .row .z{font-size:13px;color:var(--tx2);margin-top:2px}
+  .row .who{font-size:12px;color:var(--tx3)}
+  .row .rep{border:none;background:transparent;color:var(--tx3);font-size:12px;padding:2px 4px}
+  .row .rep:hover,.row .rep.on{color:var(--ac)}
+  .tip{color:var(--tx3);font-size:12px;margin-top:24px;line-height:1.9}
+  kbd{border:.5px solid var(--line2);border-radius:4px;padding:0 4px;font-size:11px;background:#fff}
+  code{background:#efece8;padding:1px 5px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="nav"><a href="../02-印度团队站会/02-印度团队站会.html">← 02 印度团队站会</a>
+    <a class="idx" href="../../standup-player.html">全部 5 段</a>
+    <a href="../04-速率复盘/04-速率复盘.html">04 速率复盘 →</a></div>
+
+  <h1>03 迭代末站会：演示前抢修</h1>
+  <p class="sub">迭代评审前的站会，五人团队。</p>
+  <p class="meta">时长 1:08 &nbsp;·&nbsp; 共 10 句 &nbsp;·&nbsp; 角色：Tom（Scrum Master）、Carla（Backend）、Dan（Frontend）、Nina（QA） &nbsp;·&nbsp; 印度英语合成音</p>
+
+  <audio id="au" controls preload="metadata"></audio>
+
+  <div class="bar">
+    <button id="prev">上一句</button>
+    <button id="next">下一句</button>
+    <button id="loop">循环本句</button>
+    <span class="lbl">语速</span>
+    <button class="sp" data-s="0.75">0.75×</button>
+    <button class="sp" data-s="1">1.0×</button>
+    <button class="sp" data-s="1.25">1.25×</button>
+    <span class="lbl">字幕</span>
+    <button class="md" data-m="off">关</button>
+    <button class="md" data-m="en">英文</button>
+    <button class="md" data-m="both">中英</button>
+    <button class="md" data-m="zh">中文</button>
+    <span class="cnt" id="cnt"></span>
+  </div>
+
+  <div class="stage">
+    <div class="spk" id="spk"></div>
+    <div class="en" id="sen"></div>
+    <div class="zh" id="szh"></div>
+  </div>
+
+  <h2>逐句稿（点击任意句跳转，右侧「循环」可只重复该句）</h2>
+  <div id="tr"></div>
+
+  <p class="tip">
+    快捷键：<kbd>空格</kbd> 播放/暂停 · <kbd>←</kbd><kbd>→</kbd> 前后 3 秒 · <kbd>↑</kbd><kbd>↓</kbd> 上一句 / 下一句<br>
+    本页与同目录的 <code>03-迭代末站会.mp3</code> 配套使用（双击本地文件打开，音频才会加载）。<br>
+    字幕文件：<code>03-迭代末站会.vtt</code> 中英 · <code>03-迭代末站会.en.vtt</code> 英文 · <code>03-迭代末站会.zh.vtt</code> 中文 —— 用 PotPlayer 打开 MP3 时会自动加载同名字幕。
+  </p>
+</div>
+
+<script>
+const D = {"id": "d3", "title": "03 迭代末站会：演示前抢修", "file": "03-迭代末站会/03-迭代末站会.mp3", "duration": 68.62, "lines": [{"sp": "旁白", "role": "", "en": "Sprint review standup. Team of five.", "zh": "迭代评审前的站会，五人团队。", "start": 0.0, "end": 4.32}, {"sp": "Tom", "role": "Scrum Master", "en": "We're on the last day of the sprint. Let's do a quick status round before the review meeting. Carla?", "zh": "今天是迭代最后一天。趁评审会之前快速过一轮状态。Carla？", "start": 4.32, "end": 13.128}, {"sp": "Carla", "role": "Backend", "en": "I finished the data export feature and it's in staging. Tested and passing. Ready for review.", "zh": "我完成了数据导出功能，已经在预发布环境。测过全部通过。可以评审了。", "start": 13.128, "end": 21.576}, {"sp": "Tom", "role": "", "en": "Good. Dan?", "zh": "好。Dan？", "start": 21.576, "end": 24.12}, {"sp": "Dan", "role": "Frontend", "en": "I'm done with the settings page UI. But I found a visual regression in the notification bell — it's a quick CSS fix, thirty minutes top. I'll push it before we demo.", "zh": "设置页 UI 我做完了。但发现通知铃铛有个视觉回归（样式退化）——一个小 CSS 修复，最多 30 分钟。演示前我会推上去。", "start": 24.12, "end": 37.728}, {"sp": "Tom", "role": "", "en": "Can you commit to that? The demo starts at two.", "zh": "你能承诺做到吗？演示两点开始。", "start": 37.728, "end": 42.36}, {"sp": "Dan", "role": "", "en": "Absolutely. I'll have it done by one thirty.", "zh": "当然。一点半之前搞定。", "start": 42.36, "end": 47.208}, {"sp": "Tom", "role": "", "en": "Great. Nina?", "zh": "很好。Nina？", "start": 47.208, "end": 49.92}, {"sp": "Nina", "role": "QA", "en": "I completed test coverage for Carla's feature — forty-seven test cases, all passing. I also found a low-priority bug in the user settings form — filed it as a backlog item, not a blocker.", "zh": "我完成了 Carla 那个功能的测试覆盖——47 个用例全部通过。另外在用户设置表单里发现一个低优先级缺陷——已作为待办项登记，不算阻塞。", "start": 49.92, "end": 64.2}, {"sp": "Tom", "role": "", "en": "Perfect. Sprint's looking good for closure.", "zh": "完美。这个迭代收尾看起来没问题。", "start": 64.2, "end": 68.616}]};
+const AUDIO = "03-迭代末站会.mp3";
+
+const au = document.getElementById('au');
+const tr = document.getElementById('tr');
+const cnt = document.getElementById('cnt');
+const spk = document.getElementById('spk');
+const sen = document.getElementById('sen');
+const szh = document.getElementById('szh');
+const loopBtn = document.getElementById('loop');
+const L = D.lines;
+
+let mode = 'both', rate = 1, lineLoop = false, curLine = -1, loopIdx = -1;
+
+au.src = encodeURI(AUDIO);
+au.playbackRate = rate;
+
+function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function fmt(t){ const m = Math.floor(t/60), s = Math.floor(t%60); return m + ':' + String(s).padStart(2,'0'); }
+
+function buildTranscript(){
+  tr.innerHTML = '';
+  L.forEach((c, i) => {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.innerHTML = '<div class="idx">' + (i+1) + '</div>'
+      + '<div class="body"><div class="who">' + esc(c.sp + (c.role ? ' · ' + c.role : '')) + '  [' + fmt(c.start) + ']</div>'
+      + '<div class="e">' + esc(c.en) + '</div>'
+      + '<div class="z">' + esc(c.zh) + '</div></div>'
+      + '<button class="rep" title="只循环这一句">循环</button>';
+    row.onclick = e => { if (e.target.classList.contains('rep')) return; seekLine(i); };
+    row.querySelector('.rep').onclick = e => {
+      e.stopPropagation();
+      loopIdx = i; lineLoop = true; loopBtn.classList.add('on');
+      markRep(i); seekLine(i); au.play();
+    };
+    tr.appendChild(row);
+  });
+}
+function markRep(i){ tr.querySelectorAll('.rep').forEach((b,k) => b.classList.toggle('on', k === i)); }
+
+function seekLine(i){
+  au.currentTime = L[i].start;
+  curLine = -1;
+  if (lineLoop) loopIdx = i;
+}
+function renderCue(i){
+  if (i === curLine) return;
+  curLine = i;
+  tr.querySelectorAll('.row').forEach((r,k) => r.classList.toggle('on', k === i));
+  if (i < 0){ spk.textContent = ''; sen.textContent = ''; szh.textContent = ''; return; }
+  const c = L[i];
+  spk.textContent = c.sp + (c.role ? ' · ' + c.role : '') + '   [' + fmt(c.start) + ']';
+  sen.textContent = c.en;
+  szh.textContent = c.zh;
+  applyMode();
+}
+function applyMode(){
+  sen.classList.toggle('hide', !(mode === 'en' || mode === 'both'));
+  szh.classList.toggle('hide', !(mode === 'zh' || mode === 'both'));
+  spk.classList.toggle('hide', mode === 'off');
+}
+function tick(){
+  const t = au.currentTime;
+  if (lineLoop && loopIdx >= 0){
+    const c = L[loopIdx];
+    if (t >= c.end - 0.05 || t < c.start - 0.15) au.currentTime = c.start;
+  }
+  let found = -1;
+  for (let i = 0; i < L.length; i++){ if (t >= L[i].start - 0.05) found = i; else break; }
+  renderCue(found);
+  cnt.textContent = (found < 0 ? 0 : found + 1) + ' / ' + L.length;
+}
+
+document.querySelectorAll('.sp').forEach(b => {
+  b.onclick = () => {
+    rate = parseFloat(b.dataset.s);
+    au.playbackRate = rate;
+    document.querySelectorAll('.sp').forEach(x => x.classList.toggle('on', x === b));
+  };
+});
+document.querySelectorAll('.md').forEach(b => {
+  b.onclick = () => {
+    mode = b.dataset.m;
+    document.querySelectorAll('.md').forEach(x => x.classList.toggle('on', x === b));
+    if (mode === 'off'){ spk.textContent=''; sen.textContent=''; szh.textContent=''; }
+    else if (curLine >= 0){ const c = L[curLine]; spk.textContent = c.sp + (c.role ? ' · ' + c.role : '') + '   [' + fmt(c.start) + ']'; sen.textContent = c.en; szh.textContent = c.zh; }
+    applyMode();
+  };
+});
+document.getElementById('prev').onclick = () => seekLine(Math.max(0, (curLine < 0 ? 0 : curLine) - 1));
+document.getElementById('next').onclick = () => seekLine(Math.min(L.length - 1, curLine + 1));
+loopBtn.onclick = () => {
+  lineLoop = !lineLoop;
+  loopBtn.classList.toggle('on', lineLoop);
+  if (lineLoop){ loopIdx = Math.max(0, curLine); markRep(loopIdx); }
+  else { loopIdx = -1; markRep(-1); }
+};
+au.addEventListener('timeupdate', tick);
+au.addEventListener('seeked', () => { curLine = -1; tick(); });
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'BUTTON' && e.code === 'Space') return;
+  if (e.code === 'Space'){ e.preventDefault(); au.paused ? au.play() : au.pause(); }
+  else if (e.code === 'ArrowLeft'){ au.currentTime = Math.max(0, au.currentTime - 3); }
+  else if (e.code === 'ArrowRight'){ au.currentTime = Math.min(au.duration || 1e9, au.currentTime + 3); }
+  else if (e.code === 'ArrowUp'){ e.preventDefault(); document.getElementById('prev').click(); }
+  else if (e.code === 'ArrowDown'){ e.preventDefault(); document.getElementById('next').click(); }
+});
+
+buildTranscript();
+renderCue(-1);
+document.querySelector('.sp[data-s="1"]').classList.add('on');
+document.querySelector('.md[data-m="both"]').classList.add('on');
+</script>
+</body>
+</html>
