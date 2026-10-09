@@ -10,43 +10,47 @@
     --tx:#1f1f1f; --tx2:#6b6b6b; --tx3:#9a9a9a;
     --ac:#993c1d; --ac-bg:#faece7;
   }
+  html{font-size:16px}
+  html[data-fs="lg"]{font-size:18.5px}
+  html[data-fs="xl"]{font-size:21px}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--tx);
-    font:400 14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
-  .wrap{max-width:840px;margin:0 auto;padding:28px 20px 60px}
-  h1{font-size:17px;font-weight:500;margin:0 0 4px}
-  .sub{color:var(--tx2);font-size:13px;margin:0 0 20px}
+    font:400 1rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:26px 22px 72px}
+  h1{font-size:1.5rem;font-weight:500;margin:0 0 8px;line-height:1.35}
+  .sub{color:var(--tx2);font-size:1rem;margin:0 0 20px;line-height:1.8}
   .picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-  .chip{cursor:pointer;font:400 13px/1 inherit;padding:8px 12px;border-radius:999px;
+  .chip{cursor:pointer;font:400 .875rem/1 inherit;padding:9px 14px;border-radius:999px;
     border:.5px solid var(--line);background:var(--card);color:var(--tx)}
   .chip.on{border-color:var(--ac);background:var(--ac-bg);color:var(--ac)}
-  audio{width:100%;margin-bottom:14px}
-  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
-  .bar .lbl{color:var(--tx3);font-size:12px;margin-left:6px}
-  button{cursor:pointer;font:400 13px/1 inherit;padding:7px 11px;border-radius:8px;
+  audio{width:100%;margin-bottom:16px}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+  .bar .lbl{color:var(--tx3);font-size:.8125rem;margin-left:6px}
+  button{cursor:pointer;font:400 .9375rem/1 inherit;padding:9px 13px;border-radius:8px;
     border:.5px solid var(--line2);background:var(--card);color:var(--tx)}
   button:hover{border-color:var(--ac);color:var(--ac)}
   button.on{border-color:var(--ac);background:var(--ac-bg);color:var(--ac)}
   .stage{background:var(--card);border:.5px solid var(--line);border-radius:14px;
-    padding:18px 20px;min-height:118px;display:flex;flex-direction:column;justify-content:center;gap:6px}
-  .spk{font-size:12px;color:var(--tx3)}
-  .en{font-size:19px;line-height:1.5}
-  .zh{font-size:15px;color:var(--tx2)}
+    padding:24px 26px;min-height:168px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .spk{font-size:.84375rem;color:var(--tx3)}
+  .en{font-size:1.625rem;line-height:1.5}
+  .zh{font-size:1.25rem;color:var(--tx2);line-height:1.65}
   .hide{display:none}
-  .cnt{margin-left:auto;font-size:12px;color:var(--tx3)}
-  h2{font-size:14px;font-weight:500;margin:26px 0 10px;color:var(--tx2)}
-  .row{display:flex;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;border:.5px solid transparent}
+  .cnt{margin-left:auto;font-size:.84375rem;color:var(--tx3)}
+  h2{font-size:1.0625rem;font-weight:500;margin:30px 0 12px;color:var(--tx2)}
+  .row{display:flex;gap:13px;padding:12px 14px;border-radius:10px;cursor:pointer;border:.5px solid transparent}
   .row:hover{background:#f0efec}
   .row.on{background:var(--ac-bg);border-color:var(--ac)}
-  .row .idx{color:var(--tx3);font-size:12px;min-width:20px;padding-top:3px}
+  .row .idx{color:var(--tx3);font-size:.8125rem;min-width:26px;padding-top:5px}
   .row .body{flex:1;min-width:0}
-  .row .e{font-size:14px}
-  .row .z{font-size:13px;color:var(--tx2);margin-top:2px}
-  .row .who{font-size:12px;color:var(--tx3)}
-  .row .rep{border:none;background:transparent;color:var(--tx3);font-size:12px;padding:2px 4px}
+  .row .e{font-size:1.0625rem;line-height:1.6}
+  .row .z{font-size:.9375rem;color:var(--tx2);margin-top:3px}
+  .row .who{font-size:.84375rem;color:var(--tx3)}
+  .row .rep{border:none;background:transparent;color:var(--tx3);font-size:.84375rem;padding:2px 6px}
   .row .rep:hover,.row .rep.on{color:var(--ac)}
-  .tip{color:var(--tx3);font-size:12px;margin-top:22px}
-  kbd{border:.5px solid var(--line2);border-radius:4px;padding:0 4px;font-size:11px;background:#fff}
+  .tip{color:var(--tx3);font-size:.84375rem;margin-top:26px;line-height:1.9}
+  kbd{border:.5px solid var(--line2);border-radius:4px;padding:1px 5px;font-size:.8125rem;background:#fff}
+  code{background:#efece8;padding:1px 6px;border-radius:4px;font-size:.875rem}
 </style>
 </head>
 <body>
@@ -71,6 +75,10 @@
     <button class="md" data-m="en">英文</button>
     <button class="md" data-m="both">中英</button>
     <button class="md" data-m="zh">中文</button>
+    <span class="lbl">字号</span>
+    <button class="fs" data-f="md">标准</button>
+    <button class="fs" data-f="lg">大</button>
+    <button class="fs" data-f="xl">特大</button>
     <span class="cnt" id="cnt"></span>
   </div>
 
@@ -220,6 +228,16 @@ document.addEventListener('keydown', e => {
 
 document.querySelector('.sp[data-s="1"]').classList.add('on');
 document.querySelector('.md[data-m="both"]').classList.add('on');
+
+const FS_KEY = 'standup-fs';
+function setFs(v){
+  document.documentElement.setAttribute('data-fs', v);
+  document.querySelectorAll('.fs').forEach(b => b.classList.toggle('on', b.dataset.f === v));
+  try { localStorage.setItem(FS_KEY, v); } catch(e){}
+}
+document.querySelectorAll('.fs').forEach(b => { b.onclick = () => setFs(b.dataset.f); });
+try { setFs(localStorage.getItem(FS_KEY) || 'md'); } catch(e){ setFs('md'); }
+
 load(1);
 </script>
 </body>
