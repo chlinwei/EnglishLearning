@@ -16,12 +16,20 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--tx);
     font:400 1rem/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
-  .wrap{max-width:1000px;margin:0 auto;padding:26px 22px 72px}
-  .nav{display:flex;align-items:center;gap:10px;font-size:.875rem;margin-bottom:20px}
-  .nav a{color:var(--tx2);text-decoration:none;padding:6px 12px;border-radius:8px;border:.5px solid var(--line)}
-  .nav a:hover{border-color:var(--ac);color:var(--ac)}
-  .nav .idx{margin:0 auto;color:var(--tx3);border:none}
-  .nav .gap{width:84px}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 22px 72px;
+    display:grid;grid-template-columns:minmax(200px,266px) minmax(0,1fr);gap:32px;align-items:start}
+  .main{min-width:0}
+  .side{position:sticky;top:22px;display:flex;flex-direction:column;gap:10px}
+  .side-h{font-size:.8125rem;color:var(--tx3);padding-left:4px}
+  .side-list{display:flex;flex-direction:column;gap:6px}
+  .side-list a,.side-list .cur{display:block;padding:11px 14px;border-radius:10px;
+    border:.5px solid var(--line);background:var(--card);color:var(--tx);text-decoration:none;
+    font-size:.9375rem;line-height:1.45}
+  .side-list a:hover{border-color:var(--ac);color:var(--ac)}
+  .side-list .cur{border-color:var(--ac);background:var(--ac-bg);color:var(--ac)}
+  .side-all{padding:10px 14px;border-radius:10px;border:.5px dashed var(--line2);color:var(--tx2);
+    text-decoration:none;font-size:.875rem;text-align:center}
+  .side-all:hover{border-color:var(--ac);color:var(--ac)}
   h1{font-size:1.5rem;font-weight:500;margin:0 0 8px;line-height:1.35}
   .sub{color:var(--tx2);font-size:1rem;margin:0 0 6px}
   .meta{color:var(--tx3);font-size:.875rem;margin:0 0 20px;line-height:1.8}
@@ -54,15 +62,22 @@
   .tip{color:var(--tx3);font-size:.84375rem;margin-top:26px;line-height:1.9}
   kbd{border:.5px solid var(--line2);border-radius:4px;padding:1px 5px;font-size:.8125rem;background:#fff}
   code{background:#efece8;padding:1px 6px;border-radius:4px;font-size:.875rem}
+  @media (max-width:880px){
+    .wrap{grid-template-columns:1fr;gap:22px}
+    .side{position:static}
+    .side-list{flex-direction:row;flex-wrap:wrap}
+    .side-list a,.side-list .cur{flex:1 1 auto}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="nav"><a href="../04-速率复盘/04-速率复盘.html">← 04 速率复盘</a>
-    <a class="idx" href="../../standup-player.html">全部 5 段</a>
-    <span class="gap"></span></div>
+  <aside class="side"><div class="side-h">5 段对话</div>
+    <div class="side-list"><a href="../01-标准站会/01-标准站会.html">01 标准站会：谁被卡住了</a><a href="../02-印度团队站会/02-印度团队站会.html">02 印度团队远程站会</a><a href="../03-迭代末站会/03-迭代末站会.html">03 迭代末站会：演示前抢修</a><a href="../04-速率复盘/04-速率复盘.html">04 速率复盘 + 事故跟进</a><span class="cur">05 跨时区异步站会（英音）</span></div>
+    <a class="side-all" href="../../standup-player.html">合辑播放器（五段连听）</a></aside>
 
+  <main class="main">
   <h1>05 跨时区异步站会（英音）</h1>
   <p class="sub">跨三个时区的分布式团队站会：伦敦、华沙、新加坡。</p>
   <p class="meta">时长 0:52 &nbsp;·&nbsp; 共 5 句 &nbsp;·&nbsp; 角色：Ava（London, Team Lead） &nbsp;·&nbsp; 英音合成音</p>
@@ -103,6 +118,7 @@
     本页与同目录的 <code>05-跨时区站会.mp3</code> 配套使用（双击本地文件打开，音频才会加载）。<br>
     字幕文件：<code>05-跨时区站会.vtt</code> 中英 · <code>05-跨时区站会.en.vtt</code> 英文 · <code>05-跨时区站会.zh.vtt</code> 中文 —— 用 PotPlayer 打开 MP3 时会自动加载同名字幕。
   </p>
+  </main>
 </div>
 
 <script>
