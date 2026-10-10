@@ -292,3 +292,29 @@ h1 .stageb.no{color:var(--tx2);background:var(--soft);border-color:var(--line2);
   .grp-h:active{background:var(--soft)}
   .tbl .tr:active{background:var(--soft)}
 }
+
+/* ---------- 悬浮控制条：顶部工具栏滚出视野后浮出 ---------- */
+.dock{position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;
+  display:none;align-items:center;gap:4px;padding:6px 8px;
+  background:var(--card);border:.5px solid var(--line2);border-radius:999px;
+  box-shadow:0 6px 22px rgba(0,0,0,.14)}
+.dock.on{display:flex}
+.dock button{border:.5px solid transparent;background:transparent;color:var(--tx2);
+  padding:7px 11px;border-radius:999px;font-size:.875rem;white-space:nowrap}
+.dock button:hover{border-color:transparent;background:var(--soft);color:var(--ac)}
+.dock .dplay{background:var(--ac);border-color:var(--ac);color:#fff;min-width:46px;font-size:.9rem}
+.dock .dplay:hover{background:var(--ac);border-color:var(--ac);color:#fff;opacity:.88}
+.dock .dpos{font-size:.78rem;color:var(--tx3);font-variant-numeric:tabular-nums;
+  min-width:50px;text-align:center;padding:0 2px}
+
+/* 播放页底部留出控制条的高度，避免遮住末尾内容 */
+body[data-mode="player"] .wrap,
+body[data-mode="item"] .wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+
+@media (max-width:640px){
+  .dock{gap:2px;padding:5px 6px;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  .dock button{padding:8px 9px;font-size:.8rem}
+  .dock .dplay{min-width:42px;font-size:.85rem}
+  .dock .dpos{min-width:42px;font-size:.74rem}
+}

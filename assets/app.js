@@ -234,7 +234,7 @@
   }
 
   /* ---------- 播放器（player.html 与每段条目页共用） ---------- */
-  var au, tr, cnt, spk, sen, szh, loopBtn, noticeEl;
+  var au, tr, cnt, spk, sen, szh, loopBtn, noticeEl, dockEl, dplayEl, dposEl;
   var L = [], mode = UI.mode || 'both', rate = UI.rate || 1;
   var lineLoop = false, curLine = -1, loopIdx = -1, chain = !!UI.chain, lastSave = 0;
 
@@ -264,7 +264,15 @@
     + '<div id="ph"></div>'
     + '<h2>逐句稿（点击任意句跳转，右侧「循环」可只重复该句）</h2><div id="tr"></div>'
     + '<div id="sernav"></div>'
-    + '<p class="tip" id="tip"></p>';
+    + '<p class="tip" id="tip"></p>'
+    /* 悬浮控制条：顶部工具栏滚出视野后出现，避免为了按播放而滚回顶部 */
+    + '<div class="dock" id="dock">'
+    + '<button id="dprev" title="上一句（↑）">上一句</button>'
+    + '<button class="dplay" id="dplay" title="播放 / 暂停（空格）">▶</button>'
+    + '<button id="dnext" title="下一句（↓）">下一句</button>'
+    + '<span class="dpos" id="dpos"></span>'
+    + '<button id="drep" title="回到本段开头并播放（R）">↻</button>'
+    + '</div>';
 
   function setFs(v, silent) {
     document.documentElement.setAttribute('data-fs', v);
@@ -284,6 +292,8 @@
       row.addEventListener('click', function (e) {
         if (e.target.classList.contains('rep')) return;
         seekLine(i);
+        /* 点哪句就听哪句：暂停状态下点句子也直接播，不用再滚回顶部按播放 */
+        au.play();
       });
       row.querySelector('.rep').addEventListener('click', function (e) {
         e.stopPropagation();
@@ -301,6 +311,28 @@
     try { au.currentTime = 0; } catch (e) { }
     showNotice('');
     au.play();
+  }
+
+  /* 悬浮控制条：顶部工具栏一旦向上滚出视野就浮出来，省得为按播放而滚回顶部 */
+  function syncDock() {
+    if (!dplayEl || !au) return;
+    dplayEl.textContent = au.paused ? '▶' : '❚❚';
+  }
+  function setupDock() {
+    if (!dockEl) return;
+    var bar = document.querySelector('#main .bar');
+    function setDock(show) { dockEl.classList.toggle('on', !!show); }
+    if (!bar) return;
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (ents) {
+        var e = ents[0];
+        setDock(!e.isIntersecting && e.boundingClientRect.top < 0);
+      }, { threshold: 0 }).observe(bar);
+    } else {
+      var onScroll = function () { setDock(bar.getBoundingClientRect().bottom < 0); };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
   }
 
   function renderCue(i) {
@@ -359,6 +391,7 @@
     L = (TALKS[id] && TALKS[id].lines) || [];
     curLine = -1; loopIdx = -1; lineLoop = false; loopBtn.classList.remove('on');
     markRep(-1);
+    if (dposEl) dposEl.textContent = '';
 
     var g = GMAP[it.group] || { name: '' };
     var se = sOf(it);
@@ -383,6 +416,7 @@
 
     document.getElementById('tip').innerHTML =
       '快捷键：<kbd>空格</kbd> 播放/暂停 · <kbd>←</kbd><kbd>→</kbd> 前后 3 秒 · <kbd>↑</kbd><kbd>↓</kbd> 上一句 / 下一句 · <kbd>R</kbd> 重播本段<br>'
+      + '点逐句稿里任意一句会<b>直接播放那一句</b>；工具栏滚出屏幕后，底部会浮出一排控制条（上一句 / 播放 / 下一句 / ↻），不用再滚回顶部。<br>'
       + '音频：<code>' + esc(it.audio) + '</code> · 字幕：<code>' + esc(s.both) + '</code> 中英 · <code>'
       + esc(s.en) + '</code> 英文 · <code>' + esc(s.zh) + '</code> 中文<br>'
       + '用 PotPlayer 打开同目录的 MP3，会自动加载同名字幕（右键 → 字幕 → 显示/隐藏）。文件位置：<code>'
@@ -481,6 +515,7 @@
     for (var i = 0; i < L.length; i++) { if (t >= L[i].start - 0.05) found = i; else break; }
     renderCue(found);
     cnt.textContent = (found < 0 ? 0 : found + 1) + ' / ' + L.length;
+    if (dposEl) dposEl.textContent = (found < 0 ? 0 : found + 1) + '/' + L.length;
     saveTime(false);
   }
 
@@ -494,6 +529,9 @@
     szh = document.getElementById('szh');
     loopBtn = document.getElementById('loop');
     noticeEl = document.getElementById('notice');
+    dockEl = document.getElementById('dock');
+    dplayEl = document.getElementById('dplay');
+    dposEl = document.getElementById('dpos');
 
     au.playbackRate = rate;
     var sb = document.querySelector('.sp[data-s="' + rate + '"]');
@@ -531,6 +569,15 @@
       if (lineLoop) { loopIdx = Math.max(0, curLine); markRep(loopIdx); } else { loopIdx = -1; markRep(-1); }
     });
     document.getElementById('replay').addEventListener('click', replayAll);
+
+    /* 悬浮控制条：上一句 / 播放暂停 / 下一句 / 重播本段 */
+    document.getElementById('dprev').addEventListener('click', function () { seekLine(curLine < 0 ? 0 : curLine - 1); au.play(); });
+    document.getElementById('dnext').addEventListener('click', function () { seekLine(curLine + 1); au.play(); });
+    document.getElementById('drep').addEventListener('click', replayAll);
+    dplayEl.addEventListener('click', function () { au.paused ? au.play() : au.pause(); });
+    syncDock();
+    setupDock();
+
     /* 播完后的提示条里的「再听一遍」链接 */
     noticeEl.addEventListener('click', function (e) {
       var a = e.target && e.target.closest ? e.target.closest('[data-act="replay"]') : null;
@@ -544,7 +591,8 @@
 
     au.addEventListener('timeupdate', tick);
     au.addEventListener('seeked', function () { curLine = -1; tick(); });
-    au.addEventListener('pause', function () { saveTime(true); });
+    au.addEventListener('pause', function () { saveTime(true); syncDock(); });
+    au.addEventListener('play', syncDock);
     au.addEventListener('ended', function () {
       saveTime(true);
       if (PROG[cur.id]) { PROG[cur.id].done = 1; writeJSON(PKEY, PROG); updateDot(cur.id); }
