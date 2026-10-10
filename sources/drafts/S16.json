@@ -1,0 +1,193 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "仅完整中英草稿，不进入已发布数据。按英文词数规划印度60%与德国40%，实际配音时长比例未验证，无虚构时间轴。",
+  "series": {
+    "id": "sc-S16-database-capacity-review", "title": "数据库容量评审：余量、查询优化与分片取舍",
+    "domain": "database", "group": "ops-review", "service": "orders platform / PostgreSQL primary and replicas",
+    "premise": "订单平台使用6TB、可用上限8TB，每月净增约200GB。受保护的20%存储预留使可消耗增长空间只有400GB。CPU峰值68%，交易延迟达标但报表扫描占用I/O，需要比较扩容、优化与分片。",
+    "outcome": "批准为主库和副本准备存储扩容并确认交付，先在隔离环境与小范围只读报表试点查询优化，不立即生产分片。垂直扩容作为经过压测和切换评审的备用方案；分片保留研究但不承诺工期收益。确定验收、回退、容量阈值、负责人和两周复查。"
+  },
+  "speakers": {
+    "Priya": {"role": "Capacity review chair", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Database capacity owner", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Orders application architect", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Infrastructure and migration reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Performance and cost analyst", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p431", "en": "growth forecast", "zh": "增长预测", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p432", "en": "peak load baseline", "zh": "峰值负载基线", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p433", "en": "full table scan", "zh": "全表扫描", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p434", "en": "storage headroom", "zh": "存储剩余容量空间", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p435", "en": "vertical scaling", "zh": "提升单实例规格", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p436", "en": "shard key", "zh": "分片键", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p437", "en": "migration risk", "zh": "迁移风险", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p438", "en": "total cost of ownership", "zh": "包含运行维护与工程投入的总拥有成本", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p439", "en": "capacity pilot", "zh": "容量改善试点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p440", "en": "capacity guardrail", "zh": "容量安全门槛", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来候选不计实际出现；本文件只复现p001-p350或本文件前段定义，不依赖并行草稿。", "S24": ["p431", "p432", "p434", "p435", "p438", "p439", "p440"], "S26": ["p433", "p436", "p437"], "S38": ["p431", "p434", "p435", "p438", "p440"]},
+  "dialogues": [
+    {
+      "id": "0156", "part": 1, "stage": "增长趋势", "title": "预测不是测量事实", "premise": "容量评审开场，用历史净增长和未来活动假设建立预测。", "listeningTask": "辨别历史数据、预测及不确定范围。",
+      "newPhrase": "p431", "phrases": ["p431", "p010", "p335:extra", "p009:extra", "p008:extra", "p006:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Our growth forecast assumes current retention. Net storage grows two hundred gigabytes monthly.", "zh": "增长预测假设当前保留规则不变，存储每月净增两百GB。"},
+        {"sp": "Hannah", "en": "Is that measured growth or projection? Include how many months you sampled.", "zh": "这是测量增长还是预测？说明抽样了几个月。"},
+        {"sp": "Raj", "en": "Measured across the last six months. Campaign demand is a separate assumption.", "zh": "过去六个月的测量，活动需求是单独的假设。"},
+        {"sp": "Priya", "en": "Just to confirm, net after retention, right? Don't subtract those deletions twice.", "zh": "确认一下，是保留清理后的净值，对吧？别把删除重复扣除。"},
+        {"sp": "Lukas", "en": "Exactly. A campaign could change the slope. Show a high-growth case as well.", "zh": "对，活动可能改变增长斜率，也展示高增长情况。"},
+        {"sp": "Anika", "en": "Our working hypothesis allows a larger burst. Maybe three times normal campaign writes.", "zh": "当前假设允许更大突发，活动写入可能为平时三倍。"},
+        {"sp": "Hannah", "en": "That's not three times monthly storage automatically. Burst duration matters for that estimate.", "zh": "这不自动等于月存储三倍，突发持续时间影响估计。"},
+        {"sp": "Priya", "en": "Okay, what's the ETA for campaign inputs? One action item is verified duration.", "zh": "好，活动输入预计什么时候拿到？一个行动项是核实持续时间。"},
+        {"sp": "Lukas", "en": "I'll ask business owners this afternoon. We shouldn't invent an exact demand curve.", "zh": "今天下午我问业务负责人，不能编一个精确需求曲线。"},
+        {"sp": "Anika", "en": "So, I've got bandwidth for scenarios. First compare today's actual performance baseline.", "zh": "那我有精力做情景分析，先对比今天实际性能基线。"}
+      ]
+    },
+    {
+      "id": "0157", "part": 2, "stage": "性能基线", "title": "CPU不是唯一瓶颈", "premise": "增长口径确定，核对峰值CPU、交易延迟和报表磁盘压力。", "listeningTask": "听出不同业务指标不能混为一个平均值。",
+      "newPhrase": "p432", "phrases": ["p432", "p431", "p010:extra", "p309:extra", "p302:extra", "p335:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The peak load baseline shows sixty-eight percent CPU. Transaction latency remains within target.", "zh": "峰值基线显示CPU百分之六十八，交易延迟仍达标。"},
+        {"sp": "Lukas", "en": "Which percentile and which request class? An average could hide busy periods.", "zh": "哪个百分位、哪类请求？平均值可能掩盖繁忙时段。"},
+        {"sp": "Anika", "en": "Transaction p ninety-five is one-forty milliseconds. Its target is two hundred milliseconds.", "zh": "交易p95是一百四十毫秒，目标两百毫秒。"},
+        {"sp": "Priya", "en": "Just to confirm, reports measured separately, right? They aren't meeting that same target.", "zh": "确认一下，报表单独测，对吧？它不是满足同一个指标。"},
+        {"sp": "Hannah", "en": "Correct, reports reach nearly two seconds. Their scans coincide with disk queues.", "zh": "对，报表接近两秒，扫描与磁盘队列上升重叠。"},
+        {"sp": "Raj", "en": "We can't rule that out as contention. Maybe a larger CPU won't help enough.", "zh": "不能排除资源争用，也许更多CPU帮助不够。"},
+        {"sp": "Lukas", "en": "I'll keep an eye on I/O ceilings. Instance bandwidth and storage limits differ.", "zh": "我关注I/O上限，实例带宽和存储限制是两回事。"},
+        {"sp": "Anika", "en": "The growth forecast increases both workloads. But it doesn't prove CPU saturation yet.", "zh": "增长预测会增加两类负载，但还不能证明CPU将饱和。"},
+        {"sp": "Hannah", "en": "Our working hypothesis is avoidable scan pressure. Let's inspect the query before sizing.", "zh": "当前假设是可避免的扫描压力，估算规格前先查查询。"},
+        {"sp": "Priya", "en": "Okay, keep that distinction in the notes. We need capacity and efficiency together.", "zh": "好，记录这种区分，容量和效率一起考虑。"}
+      ]
+    },
+    {
+      "id": "0158", "part": 3, "stage": "慢查询", "title": "扫描合理吗，筛选能下推吗", "premise": "交易达标但报表I/O压力高，查看查询计划及筛选行为。", "listeningTask": "区分合理全扫和可避免的应用侧筛选。",
+      "newPhrase": "p433", "phrases": ["p433", "p432", "p335:extra", "p327:extra", "p004:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The report does a full table scan. It filters dates in application code.", "zh": "报表全表扫描，在应用代码里筛日期。"},
+        {"sp": "Hannah", "en": "Could that filter move into SQL? Keep date boundaries and timezone semantics identical.", "zh": "筛选能移到SQL里吗？日期边界和时区语义要相同。"},
+        {"sp": "Raj", "en": "Yes, existing date indexes may help. Our working hypothesis needs representative query tests.", "zh": "可以，现有日期索引可能有用，当前假设需要代表性查询测试。"},
+        {"sp": "Priya", "en": "Okay, test broad ranges too, right? A full scan isn't always wrong.", "zh": "好，也测宽范围，对吧？全扫不总是错的。"},
+        {"sp": "Lukas", "en": "Exactly, selectivity changes the right plan. Don't force indexes for every tenant.", "zh": "对，选择性会改变合理计划，别强制每个租户用索引。"},
+        {"sp": "Anika", "en": "The smoke test checks output totals. Maybe date truncation needs special boundary cases.", "zh": "冒烟测试核对输出总额，日期截断可能需要特殊边界用例。"},
+        {"sp": "Hannah", "en": "Compare with the peak load baseline. A quiet test can exaggerate gains.", "zh": "与峰值基线对比，安静环境测试会夸大收益。"},
+        {"sp": "Priya", "en": "Sharding immediately? Let's park that for now. What's the ETA for query evidence?", "zh": "立即分片先放一边，查询证据预计什么时候有？"},
+        {"sp": "Lukas", "en": "Two days for isolated load comparisons. Include large tenants and concurrent writes.", "zh": "两天完成隔离负载对比，包括大租户和并发写入。"},
+        {"sp": "Raj", "en": "So, optimize before claiming hardware savings. Growth still needs its own storage plan.", "zh": "那先优化再谈省硬件，增长仍需要独立存储计划。"}
+      ]
+    },
+    {
+      "id": "0159", "part": 4, "stage": "存储余量", "title": "两TB空闲不等于都能消耗", "premise": "查询优化可降低I/O，但净数据增长仍占存储，需要明确预留空间。", "listeningTask": "算清空闲、受保护预留和可用于增长的空间。",
+      "newPhrase": "p434", "phrases": ["p434", "p431", "p305:extra", "p010:extra", "p009:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Storage headroom is two terabytes physically. Six used, eight available, same decimal units.", "zh": "物理空闲两TB，已用六TB、可用八TB，都是十进制单位。"},
+        {"sp": "Hannah", "en": "How much of that is protected reserve? Temporary operations need space as well.", "zh": "其中多少是受保护预留？临时操作也需要空间。"},
+        {"sp": "Raj", "en": "Twenty percent reserved, one-point-six terabytes today. That leaves four hundred gigabytes spendable.", "zh": "预留百分之二十，现在是一点六TB，可消耗空间剩四百GB。"},
+        {"sp": "Priya", "en": "Just to confirm, about two months, right? At the measured net growth rate.", "zh": "确认一下，大约两个月，对吧？按测得的净增长率。"},
+        {"sp": "Lukas", "en": "Yes, before touching that protected reserve. Campaign growth could shorten it considerably.", "zh": "是，指触及受保护预留前，活动增长可能明显缩短时间。"},
+        {"sp": "Anika", "en": "Our retention policy already informs growth forecast. We can't count unapproved deletion savings.", "zh": "保留规则已经计入预测，不能算未经批准的删除收益。"},
+        {"sp": "Hannah", "en": "Replica storage needs the same review. A bigger primary with undersized replicas fails.", "zh": "副本存储也要同样评审，主库变大而副本不足会失败。"},
+        {"sp": "Priya", "en": "Okay, storage ordering is an action item. What's the ETA for delivery confirmation?", "zh": "好，申请存储是一个行动项，预计什么时候确认交付？"},
+        {"sp": "Lukas", "en": "Tomorrow for the supplier's delivery estimate. Actual provisioning may take three weeks.", "zh": "明天拿供应方交付估计，实际开通可能要三周。"},
+        {"sp": "Anika", "en": "So, approve preparation without waiting for queries. Efficiency won't erase retained order growth.", "zh": "那批准准备，不必等查询优化，效率改善不会消除保留订单增长。"}
+      ]
+    },
+    {
+      "id": "0160", "part": 5, "stage": "垂直扩容", "title": "更大实例能买时间，也有上限", "premise": "存储扩容需提前准备，比较更大实例对性能的帮助及切换代价。", "listeningTask": "听出CPU、I/O和切换窗口必须分别验证。",
+      "newPhrase": "p435", "phrases": ["p435", "p434", "p321:extra", "p324:extra", "p010:extra", "p306:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "Vertical scaling adds CPU and memory. It may not lift storage I/O limits.", "zh": "升单实例规格增加CPU和内存，但不一定提高存储I/O上限。"},
+        {"sp": "Raj", "en": "It could buy us time for peaks. But our disk queues need measurement.", "zh": "它能为高峰争取时间，但磁盘队列需要测量。"},
+        {"sp": "Anika", "en": "I favor it as a fallback. Maybe query gains won't cover campaign load.", "zh": "我倾向把它作为备用，查询收益可能不足以覆盖活动负载。"},
+        {"sp": "Priya", "en": "Just to confirm, not approved execution, right? We still need a maintenance window.", "zh": "确认一下，不是批准执行，对吧？仍需要维护窗口。"},
+        {"sp": "Hannah", "en": "And a tested rollback trigger too. Instance changes can require restart or switchover.", "zh": "也需要验证过的回退触发条件，实例变更可能要求重启或切换。"},
+        {"sp": "Raj", "en": "Storage headroom still needs separate expansion. More memory won't store another year's data.", "zh": "存储余量仍需独立扩容，更多内存不能存下一年的数据。"},
+        {"sp": "Lukas", "en": "The next size has a finite ceiling. We shouldn't promise unlimited runway here.", "zh": "下一规格也有上限，不能承诺无限增长空间。"},
+        {"sp": "Priya", "en": "Okay, model one step and its cost. Compare it with the sharding option.", "zh": "好，估算升一级及成本，与分片方案比较。"},
+        {"sp": "Hannah", "en": "Include replica sizing and standby readiness. A writer upgrade isn't the whole fleet.", "zh": "包括副本规格和备用就绪，升级写库不是整个集群。"},
+        {"sp": "Anika", "en": "So, run the larger-instance load test. Keep it reversible before changing production.", "zh": "那跑更大实例负载测试，改生产前确保可回退。"}
+      ]
+    },
+    {
+      "id": "0161", "part": 6, "stage": "分片方案", "title": "分片键解决分布，不解决所有查询", "premise": "垂直扩容是有限备用，讨论按租户分片的长期可能性。", "listeningTask": "听出大租户热点、跨分片查询和事务取舍。",
+      "newPhrase": "p436", "phrases": ["p436", "p435", "p335:extra", "p010:extra", "p004:extra", "p006:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Tenant ID is our proposed shard key. Most order operations stay within tenants.", "zh": "建议用租户ID作分片键，大多数订单操作在租户内。"},
+        {"sp": "Lukas", "en": "What happens to the largest tenant? One hot shard could remain the bottleneck.", "zh": "最大租户怎么办？一个热点分片可能仍是瓶颈。"},
+        {"sp": "Raj", "en": "Yes, tenant sizes are very uneven. Our working hypothesis needs distribution simulation first.", "zh": "是，租户规模很不均，当前假设需要先模拟分布。"},
+        {"sp": "Priya", "en": "Just to confirm, cross-tenant reports exist, right? Those won't become magically cheaper.", "zh": "确认一下，有跨租户报表，对吧？它们不会神奇地更便宜。"},
+        {"sp": "Hannah", "en": "Correct, fan-out adds coordination and latency. Global totals need a separate aggregation design.", "zh": "对，多分片查询增加协调和延迟，全局汇总需要独立聚合设计。"},
+        {"sp": "Anika", "en": "Maybe tenant routing covers normal writes. Cross-tenant adjustments still need explicit transaction rules.", "zh": "租户路由可能覆盖普通写入，跨租户调整仍需明确事务规则。"},
+        {"sp": "Lukas", "en": "And rebalancing needs operational ownership too. More databases mean more recovery procedures.", "zh": "重平衡也需要运维负责人，数据库更多就有更多恢复流程。"},
+        {"sp": "Priya", "en": "Okay, immediate sharding? Let's park that. Do we have bandwidth for research?", "zh": "好，立即分片先放一边，有精力做研究吗？"},
+        {"sp": "Hannah", "en": "Limited bandwidth, not an eight-week commitment. Compare vertical scaling with realistic staffing.", "zh": "精力有限，不是承诺八周完成，与垂直扩容比较时要用实际人手。"},
+        {"sp": "Raj", "en": "So, prototype distribution on synthetic data. We shouldn't promise savings before that.", "zh": "那先用合成数据做分布原型，之前不承诺收益。"}
+      ]
+    },
+    {
+      "id": "0162", "part": 7, "stage": "迁移风险", "title": "双写不是免费的安全网", "premise": "租户分片仍需研究，比较数据迁移、双写和回退风险。", "listeningTask": "辨别原型、生产迁移和可验证的回退门槛。",
+      "newPhrase": "p437", "phrases": ["p437", "p436", "p324:extra", "p010:extra", "p327:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "Migration risk includes missed and duplicate writes. Dual writing isn't automatic consistency protection.", "zh": "迁移风险包括漏写和重复写，双写不是自动一致性保护。"},
+        {"sp": "Anika", "en": "Agreed, retries and ordering need explicit design. We don't have that implementation today.", "zh": "同意，重试和顺序需要明确设计，目前没有实现。"},
+        {"sp": "Raj", "en": "Changing a shard key can move data. Recovery and reconciliation must cover each move.", "zh": "改分片键可能搬迁数据，恢复和对账必须覆盖每次移动。"},
+        {"sp": "Priya", "en": "Just to confirm, research stays isolated, right? No production dual-write experiment this week.", "zh": "确认一下，研究保持隔离，对吧？本周不做生产双写实验。"},
+        {"sp": "Hannah", "en": "Yes, a smoke test isn't sufficient. We need failure and replay scenarios.", "zh": "是，冒烟测试不够，需要失败和回放场景。"},
+        {"sp": "Anika", "en": "The rollback trigger needs data convergence evidence. Maybe reversing routing alone loses updates.", "zh": "回退触发条件需要数据收敛证据，单纯反向改路由可能丢更新。"},
+        {"sp": "Lukas", "en": "Exactly. Reversibility has to be demonstrated. It isn't just keeping the old database.", "zh": "对，必须证明可逆，不只是保留旧数据库。"},
+        {"sp": "Priya", "en": "Okay, aggressive cutover dates? Let's park that. Storage deadlines are sooner than research.", "zh": "好，激进切换日期先放一边，存储期限比研究更近。"},
+        {"sp": "Hannah", "en": "Separate immediate capacity from long-term redesign. We can fund research without choosing migration.", "zh": "短期容量与长期重构分开，可以资助研究而不决定迁移。"},
+        {"sp": "Raj", "en": "So, document unknowns and acceptance criteria. Costs come next, including this engineering work.", "zh": "那记录未知项和验收条件，接下来算成本，包括这些工程工作。"}
+      ]
+    },
+    {
+      "id": "0163", "part": 8, "stage": "成本比较", "title": "不只比较月租", "premise": "技术与迁移边界明确，对比基础设施、人力和维护成本。", "listeningTask": "听出估价口径、共同存储成本和工期不确定性。",
+      "newPhrase": "p438", "phrases": ["p438", "p435", "p437:extra", "p010:extra", "p008:extra", "p006:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "Total cost of ownership includes engineering. The monthly bill isn't the whole comparison.", "zh": "总拥有成本包括工程投入，月账单不是全部比较。"},
+        {"sp": "Raj", "en": "Vertical scaling adds eighteen hundred monthly. That's fleet cost, not just primary.", "zh": "垂直扩容每月增加一千八百，这是整个集群，不只是主库。"},
+        {"sp": "Anika", "en": "Shards add roughly twenty-four hundred monthly. Engineering could take eight weeks or longer.", "zh": "分片每月约增加两千四百，工程可能八周或更久。"},
+        {"sp": "Priya", "en": "Just to confirm, estimates, not quotes, right? And no guaranteed sharding savings yet.", "zh": "确认一下，是估计不是报价，对吧？也没有保证分片省钱。"},
+        {"sp": "Lukas", "en": "Correct, migration risk increases testing effort. On-call ownership adds ongoing staffing costs.", "zh": "对，迁移风险增加测试工作，值班责任增加持续人力成本。"},
+        {"sp": "Raj", "en": "Storage expansion adds four hundred monthly separately. Both options still need that capacity.", "zh": "存储扩容另每月增加四百，两种方案都仍需这些容量。"},
+        {"sp": "Hannah", "en": "Query optimization needs about two engineer-weeks. Savings stay provisional until load tests.", "zh": "查询优化约需两个人周，压测前收益仍暂估。"},
+        {"sp": "Priya", "en": "Okay, what's the ETA for firm quotes? We have bandwidth for one pilot.", "zh": "好，明确报价预计何时？我们有精力做一个试点。"},
+        {"sp": "Lukas", "en": "Tomorrow for infrastructure estimates and lead times. Maybe procurement changes the delivery assumptions.", "zh": "明天拿基础设施估价和交付周期，采购可能改变交付假设。"},
+        {"sp": "Anika", "en": "So, favor queries plus storage preparation. Keep the larger instance as contingency.", "zh": "那倾向查询优化加存储准备，更大实例保留作备用。"}
+      ]
+    },
+    {
+      "id": "0164", "part": 9, "stage": "选定试点", "title": "试点要有真实验收门槛", "premise": "选择查询优化与存储准备，定义小范围只读报表试点及回退。", "listeningTask": "抓住正确性、交易影响和磁盘压力的验收条件。",
+      "newPhrase": "p439", "phrases": ["p439", "p433", "p432:extra", "p324:extra", "p010:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Approve a capacity pilot for reports. Isolated tests first, one region afterward.", "zh": "批准报表容量试点，先隔离测试，之后一个区域。"},
+        {"sp": "Hannah", "en": "Which tenants represent the actual skew? A tiny tenant isn't a useful pilot.", "zh": "哪些租户代表实际偏斜？一个小租户不是有效试点。"},
+        {"sp": "Anika", "en": "One large and two smaller tenants. I'm on it with the feature switch.", "zh": "一个大租户和两个小租户，我负责功能开关。"},
+        {"sp": "Raj", "en": "The full table scan should shrink selectively. Broad reports may still scan reasonably.", "zh": "选择性高的查询应减少全扫，宽范围报表仍可能合理扫描。"},
+        {"sp": "Lukas", "en": "Compare against the peak load baseline. Include transaction latency beside report improvements.", "zh": "与峰值基线对比，报表收益旁边也列交易延迟。"},
+        {"sp": "Priya", "en": "Just to confirm, identical totals required, right? Faster wrong reports fail the pilot.", "zh": "确认一下，总额必须相同，对吧？更快但错误的报表算失败。"},
+        {"sp": "Hannah", "en": "Yes. Lower disk reads are another gate. Keep transaction latency below two hundred.", "zh": "是，磁盘读取下降也是门槛，交易延迟保持低于两百毫秒。"},
+        {"sp": "Anika", "en": "Incorrect totals are the immediate rollback trigger. Maybe scan savings vary by date range.", "zh": "总额错误立即触发回退，扫描收益可能随日期范围变化。"},
+        {"sp": "Lukas", "en": "And sustained write regression halts expansion. Revert the query switch, preserve evidence.", "zh": "持续写回归也停止扩展，回退查询开关并保留证据。"},
+        {"sp": "Raj", "en": "Okay, order storage for all nodes now. Pilot success won't postpone that preparation.", "zh": "好，现在为所有节点申请存储，试点成功也不推迟准备。"}
+      ]
+    },
+    {
+      "id": "0165", "part": 10, "stage": "行动项", "title": "短期容量与长期研究各有期限", "premise": "试点和存储准备获批，分片研究与备用扩容保持独立，确认责任及复查。", "listeningTask": "听出决定、条件批准和未选择方案的区别。",
+      "newPhrase": "p440", "phrases": ["p440", "p434", "p439:extra", "p009:extra", "p013:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Our capacity guardrail protects twenty percent reserve. Alerts use forecast and remaining space.", "zh": "容量门槛保护百分之二十预留，告警同时用预测和剩余空间。"},
+        {"sp": "Lukas", "en": "Storage headroom must cover delivery lead time. Escalate if arrival risks that reserve.", "zh": "存储余量必须覆盖交付周期，预计交付触及预留就升级联系。"},
+        {"sp": "Priya", "en": "Who's picking this up for delivery? Raj owns confirmations by tomorrow, right?", "zh": "交付谁接？Raj明天前负责确认，对吧？"},
+        {"sp": "Anika", "en": "My action item is the capacity pilot. Evidence review is due in two weeks.", "zh": "我的行动项是容量试点，两周后评审证据。"},
+        {"sp": "Hannah", "en": "I'll check correctness and comparable load. Maybe campaign inputs change the acceptance range.", "zh": "我检查正确性和可比负载，活动输入可能改变验收范围。"},
+        {"sp": "Raj", "en": "Yes, I'll update high-growth projections tomorrow. The protected reserve isn't emergency spending permission.", "zh": "是，我明天更新高增长预测，受保护预留不是随便应急消耗的许可。"},
+        {"sp": "Lukas", "en": "I'll test larger-instance fallback this week. Production switching still needs separate approval.", "zh": "我本周测试更大实例备用，生产切换仍需单独批准。"},
+        {"sp": "Priya", "en": "Okay, sharding stays research, not a commitment. We'll review staffing after distribution results.", "zh": "好，分片仍是研究，不是承诺，分布结果出来后再评审人手。"},
+        {"sp": "Hannah", "en": "Bring both monthly costs and engineering effort. A cheap quote can hide operational expense.", "zh": "带月成本和工程投入，便宜报价可能藏着运维支出。"},
+        {"sp": "Anika", "en": "So, close the loop in two weeks. No growth assumption becomes fact without evidence.", "zh": "那两周后闭环，没有证据就不把增长假设当事实。"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"人工双语交接草稿，待配音，不填时间轴；采样缺失不等同上下文断裂，日志仅保留批准的关联字段。",
+  "series":{"id":"sc-S43-obs-trace-handoff","title":"链路断点：队列消费者交接","domain":"obs","group":"handoff","service":"checkout asynchronous receipt tracing","premise":"checkout到receipt消费者的追踪不连续。白班已检查网关、采样和消息元数据，晚班接手消费者传播验证。","outcome":"确认受控采样请求在生产者有traceparent而消费者创建了无关联根跨度；低采样率另解释部分整条链路缺失。晚班接收脱敏关联日志、测试矩阵、批准的修复候选和次日验收计划，生产修复仍未完成。"},
+  "speakers":{
+    "Priya":{"role":"Outgoing observability coordinator","accent":"en-IN","voice":null},
+    "Raj":{"role":"Outgoing tracing on-call","accent":"en-IN","voice":null},
+    "Anika":{"role":"Receipt consumer application owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Incoming tracing on-call","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Telemetry validation engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p701","en":"the trace breaks at the consumer","zh":"追踪在消费者处断开","layer":"L1","level":"core","target":5},
+    {"id":"p702","en":"trace coverage","zh":"追踪覆盖范围","layer":"L1","level":"core","target":5},
+    {"id":"p703","en":"sampling decision","zh":"采样决策","layer":"L1","level":"core","target":5},
+    {"id":"p704","en":"propagate context","zh":"传递上下文","layer":"L1","level":"core","target":5},
+    {"id":"p705","en":"parent span","zh":"父跨度","layer":"L1","level":"core","target":5},
+    {"id":"p706","en":"redacted correlation logs","zh":"脱敏关联日志","layer":"L1","level":"core","target":5},
+    {"id":"p707","en":"verify the async boundary","zh":"验证异步边界","layer":"L1","level":"core","target":5},
+    {"id":"p708","en":"baggage allowlist","zh":"上下文附加字段允许清单","layer":"L1","level":"core","target":5},
+    {"id":"p709","en":"unresolved trace linkage","zh":"尚未解决的追踪关联","layer":"L1","level":"core","target":5},
+    {"id":"p710","en":"handoff acceptance","zh":"交接验收确认","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来候选不计实际复现；本稿旧引用只来自p001–p350及本文件此前。","S46":["p701","p702","p703","p704","p705"],"S50":["p706","p707","p708","p709","p710"]},
+  "dialogues":[
+    {"id":"0426","part":1,"stage":"背景","title":"交接不是宣布修复","premise":"白班尚未修复消费者追踪，晚班接收背景。","listeningTask":"辨别追踪中断与业务失败。","newPhrase":"p701","phrases":["p701","p331","p010","p320:extra","p008:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the trace breaks at the consumer. Receipt jobs still complete in our checks.","zh":"好，追踪在消费者处断开，检查中的收据任务仍完成。"},
+      {"sp":"Lukas","en":"That doesn't prove every job succeeds. Which tracing path and business checks did you cover?","zh":"这不能证明所有任务成功，查了哪些追踪路径和业务检查？"},
+      {"sp":"Priya","en":"We'll hand over the evidence tonight. Just to confirm, repair is still pending, right?","zh":"今晚交接证据，确认一下，修复仍待完成，对吧？"},
+      {"sp":"Anika","en":"Yes, the root cause is still open. It's instrumentation. Sorry, maybe instrumentation, not message delivery.","zh":"是，根因尚未查明。是埋点问题。抱歉，是可能为埋点而非消息投递。"},
+      {"sp":"Hannah","en":"Keep an eye on delivery independently. Missing traces can't replace queue health checks.","zh":"独立关注投递，缺失追踪不能代替队列健康检查。"},
+      {"sp":"Raj","en":"Gateway spans reach the store normally. The break appears after the receipt queue.","zh":"网关跨度正常到存储，断点出现在收据队列之后。"},
+      {"sp":"Lukas","en":"Show one controlled request end to end. Don't infer propagation from aggregate span counts.","zh":"展示一个受控请求的端到端路径，不由总跨度数推断传播。"},
+      {"sp":"Priya","en":"So, what's the ETA for reviewing examples? We have twenty minutes before shift change.","zh":"那么，例子核查预计多久？换班前有二十分钟。"},
+      {"sp":"Hannah","en":"Five minutes for the selected examples. Remaining tests need explicit owners tonight.","zh":"选定例子五分钟，剩余测试今晚要明确负责人。"},
+      {"sp":"Anika","en":"I'll describe service coverage next. No customer payloads in the shared handoff notes.","zh":"接着说明服务覆盖，共享交接记录不放客户载荷。"}
+    ]},
+    {"id":"0427","part":2,"stage":"范围","title":"只在收据消费者缺关联","premise":"网关跨度存在，开始圈定服务和受控请求覆盖。","listeningTask":"听清范围及不能外推的部分。","newPhrase":"p702","phrases":["p702","p010","p106","p302:extra","p335:extra","p014:extra"],"lines":[
+      {"sp":"Anika","en":"Trace coverage includes gateway and checkout. Receipt consumers show separate roots for sampled tests.","zh":"追踪覆盖网关和结账，采样测试的收据消费者显示独立根。"},
+      {"sp":"Hannah","en":"Are all consumer versions affected? Separate older workers from the current deployment.","zh":"所有消费者版本受影响吗？旧进程与当前部署分开看。"},
+      {"sp":"Raj","en":"Okay, current workers reproduce the break. That's our blast radius in the tested path.","zh":"好，当前进程复现断点，这是已测路径的影响范围。"},
+      {"sp":"Priya","en":"Just to confirm, we haven't cleared older workers, right? Keep that limitation in view.","zh":"确认一下，旧进程还没排除，对吧？保留这个限制。"},
+      {"sp":"Lukas","en":"Good. Can you rule that out as export loss? Root spans still need delivery verification.","zh":"好，能排除导出丢失吗？根跨度仍需验证投递。"},
+      {"sp":"Raj","en":"I'm on it for exporter receipts. Maybe the roots arrived but their parents didn't.","zh":"导出回执我来查，可能根已到而父跨度没到。"},
+      {"sp":"Hannah","en":"For our controlled requests, parents are stored. That weakens export loss as this explanation.","zh":"受控请求的父跨度已存储，这削弱了导出丢失的解释。"},
+      {"sp":"Anika","en":"Our working hypothesis is lost consumer context. We still need to inspect message metadata.","zh":"当前假设是消费者上下文丢失，仍需检查消息元数据。"},
+      {"sp":"Lukas","en":"Check sampling separately first. Unrecorded spans aren't automatically evidence of broken propagation.","zh":"先单独检查采样，未记录跨度不自动证明传播故障。"},
+      {"sp":"Priya","en":"So, Raj will explain both configurations. Don't collapse them into one missing-trace diagnosis.","zh":"那么，Raj说明两种配置，不要混成一个缺追踪诊断。"}
+    ]},
+    {"id":"0428","part":3,"stage":"采样","title":"未记录不等于没上下文","premise":"已圈定消费者，先检查采样策略与导出证据。","listeningTask":"区分采样标记、传播和记录。","newPhrase":"p703","phrases":["p703","p010","p330","p335:extra","p309:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"The sampling decision starts at checkout. Managed configuration records ten percent at the head.","zh":"采样决策始于结账，统一配置在入口记录百分之十。"},
+      {"sp":"Lukas","en":"Low sampling explains some absent traces. It doesn't explain split roots on sampled requests.","zh":"低采样解释部分追踪缺失，但不能解释已采样请求的分裂根。"},
+      {"sp":"Priya","en":"Okay, just to confirm, context travels even when unrecorded, right? These are separate concerns.","zh":"好，确认一下，即使未记录上下文也传递，对吧？这是两件事。"},
+      {"sp":"Anika","en":"Yes, our parent-based policy respects upstream decisions. Maybe a consumer overrides that setting.","zh":"是，基于父上下文策略尊重上游决策，消费者可能覆盖设置。"},
+      {"sp":"Hannah","en":"Check effective settings, not just defaults. Export drops can also reduce observed trace coverage.","zh":"查生效设置，不只看默认值，导出丢弃也会降低覆盖。"},
+      {"sp":"Raj","en":"Our working hypothesis stays limited to sampled tests. I'll keep an eye on export failures.","zh":"当前假设限于已采样测试，我关注导出失败。"},
+      {"sp":"Lukas","en":"Don't raise global sampling to one hundred percent. That adds cost and sensitive-data exposure.","zh":"不要把全局采样升到百分之百，那会增加成本和敏感数据暴露。"},
+      {"sp":"Priya","en":"So, let's park that global increase. Use approved test traffic with explicit sampling.","zh":"那么，全局增加先放下，用明确采样的批准测试流量。"},
+      {"sp":"Hannah","en":"That isolates propagation without changing production volume. Record the test flag and request boundary.","zh":"这样隔离传播而不改变生产量，记录测试标记与请求边界。"},
+      {"sp":"Anika","en":"I'll show the queue metadata next. It contains a trace header, not customer identity.","zh":"接着展示队列元数据，里面是追踪头，不是客户身份。"}
+    ]},
+    {"id":"0429","part":4,"stage":"上下文","title":"消息里有头还要提取","premise":"采样与断点分开，查看已采样请求的消息传播。","listeningTask":"识别注入与提取是两端责任。","newPhrase":"p704","phrases":["p704","p010","p335","p103:extra","p330:extra","p014:extra"],"lines":[
+      {"sp":"Anika","en":"We inject headers to propagate context. The consumer must extract them before creating spans.","zh":"我们注入头来传递上下文，消费者必须先提取再创建跨度。"},
+      {"sp":"Lukas","en":"Does middleware strip traceparent? Check metadata before and after the queue adapter.","zh":"中间件是否去掉traceparent？检查队列适配器前后的元数据。"},
+      {"sp":"Raj","en":"Okay, let me tail the log safely. Approved field checks show the header survives.","zh":"好，我安全地盯日志，批准字段检查显示头保留下来。"},
+      {"sp":"Priya","en":"Just to confirm, surviving headers don't prove extraction, right? The consumer still needs checking.","zh":"确认一下，头保留不证明已提取，对吧？仍需查消费者。"},
+      {"sp":"Hannah","en":"Exactly. Inspect the active context at span creation. Don't dump the entire message payload.","zh":"没错，检查创建跨度时的活动上下文，不转储整份消息载荷。"},
+      {"sp":"Anika","en":"Our working hypothesis is extraction happens too late. Maybe the wrapper starts a root first.","zh":"当前假设是提取太晚，包装器可能先启动根跨度。"},
+      {"sp":"Lukas","en":"Check source and runtime order together. Managed configuration won't repair incorrect instrumentation order.","zh":"源码与运行时顺序一起查，统一配置修不了错误埋点顺序。"},
+      {"sp":"Raj","en":"I'm on it with one test message. I'll record identifiers, not tokens or addresses.","zh":"我用一条测试消息来查，记录标识符，不记令牌或地址。"},
+      {"sp":"Hannah","en":"Limit access to those identifiers too. Correlation data can still reveal customer activity.","zh":"这些标识符也限制访问，关联数据仍可能揭示客户活动。"},
+      {"sp":"Priya","en":"So, evidence goes in restricted notes. Then we'll compare the parent relationships.","zh":"那么，证据放受限记录，然后比较父关联。"}
+    ]},
+    {"id":"0430","part":5,"stage":"证据","title":"创建了另一个根","premise":"消息保留traceparent，检查消费者创建跨度时的活动上下文。","listeningTask":"区分明确证据与尚未验证修复。","newPhrase":"p705","phrases":["p705","p010","p335","p302:extra","p320:extra","p008:extra"],"lines":[
+      {"sp":"Hannah","en":"The parent span exists in storage. The consumer span has a different trace identifier.","zh":"父跨度已在存储，消费者跨度有不同追踪标识。"},
+      {"sp":"Anika","en":"Okay, the wrapper creates it before extraction. Our controlled request reproduces that order.","zh":"好，包装器在提取前创建跨度，受控请求复现了顺序。"},
+      {"sp":"Priya","en":"Just to confirm, that's not sampling loss, right? Both traces were actually recorded.","zh":"确认一下，这不是采样丢失，对吧？两条追踪实际都记录了。"},
+      {"sp":"Lukas","en":"For this request, yes. You can rule that out here, not for every missing trace.","zh":"对这个请求是的，这里能排除，但不能排除所有缺追踪情况。"},
+      {"sp":"Raj","en":"The earlier note says the root cause is still open. I'll update this tested finding.","zh":"此前记录说根因未明，我会更新这个已测发现。"},
+      {"sp":"Hannah","en":"State the exact finding and version. The repair still needs retry and concurrency tests.","zh":"说明准确发现和版本，修复仍需重试与并发测试。"},
+      {"sp":"Anika","en":"Our working hypothesis now has runtime evidence. Maybe extraction should move into the wrapper.","zh":"当前假设有运行时证据，提取可能应移进包装器。"},
+      {"sp":"Priya","en":"So, what's the ETA for a reviewed patch? No production change during this handoff.","zh":"那么，评审补丁预计多久？交接期间不改生产。"},
+      {"sp":"Lukas","en":"Tomorrow morning if tests pass. Tonight I can validate the proposed order in staging.","zh":"测试通过的话明早，今晚我可在预发布验证提议顺序。"},
+      {"sp":"Raj","en":"I'll document the unresolved tests before leaving. Temporary logs can support tonight's investigation.","zh":"离开前记录未完成测试，临时日志可支持今晚排查。"}
+    ]},
+    {"id":"0431","part":6,"stage":"临时补充","title":"脱敏日志只补关联证据","premise":"断点机制已在受控请求中复现，生产修复待评审。","listeningTask":"听清临时日志不是完整追踪替代。","newPhrase":"p706","phrases":["p706","p334","p010","p305:extra","p309:extra","p306:extra"],"lines":[
+      {"sp":"Raj","en":"Redacted correlation logs are our temporary workaround. They link approved test messages to worker attempts.","zh":"脱敏关联日志是临时方案，关联批准测试消息与进程尝试。"},
+      {"sp":"Lukas","en":"Which fields are permitted? A masked payload can still expose payment or identity details.","zh":"允许哪些字段？遮过的载荷仍可能暴露支付或身份细节。"},
+      {"sp":"Anika","en":"Okay, only generated correlation IDs and attempt numbers. No payloads, authorization headers, or email addresses.","zh":"好，只用生成的关联ID和尝试编号，不放载荷、授权头或邮件地址。"},
+      {"sp":"Priya","en":"Just to confirm, access is restricted, right? These logs aren't public incident attachments.","zh":"确认一下，访问受限，对吧？不是公开事件附件。"},
+      {"sp":"Hannah","en":"Yes, with an approved retention policy. Delete temporary records after the review window ends.","zh":"是，有批准保留策略，评审窗口结束后删除临时记录。"},
+      {"sp":"Raj","en":"This should buy us time for linkage checks. Maybe it won't expose every retry path.","zh":"这能为关联检查争取时间，但可能看不到所有重试路径。"},
+      {"sp":"Lukas","en":"Correct. Correlation logs don't provide full span timing. Keep their limitations in the handoff.","zh":"对，关联日志不提供完整跨度耗时，交接写明限制。"},
+      {"sp":"Priya","en":"So, keep an eye on log volume too. Disable the temporary flag after acceptance.","zh":"那么，也关注日志量，验收后关闭临时标记。"},
+      {"sp":"Hannah","en":"I'll inspect a sample for accidental sensitive fields. Redaction needs a real verification step.","zh":"我检查样本是否混入敏感字段，脱敏需要真正验证。"},
+      {"sp":"Anika","en":"I'll attach the allowed schema, not raw records. Next we need the remaining test matrix.","zh":"我附允许字段结构，不附原始记录，接着列剩余测试矩阵。"}
+    ]},
+    {"id":"0432","part":7,"stage":"剩余验证","title":"异步重试不能继承错请求","premise":"脱敏日志可辅助检查，明确晚班待测路径。","listeningTask":"识别并发上下文泄漏与重试关联风险。","newPhrase":"p707","phrases":["p707","p009","p010","p327:extra","p335:extra","p013:extra"],"lines":[
+      {"sp":"Anika","en":"We still need to verify the async boundary. Include retries, batches, and concurrent consumers.","zh":"仍需验证异步边界，包含重试、批次和并发消费者。"},
+      {"sp":"Hannah","en":"A single smoke test isn't enough. Check that one message can't inherit another's context.","zh":"单个快速测试不够，检查一条消息不能继承另一条上下文。"},
+      {"sp":"Priya","en":"Okay, who's picking this up tonight? Just to confirm, staging only for the patch, right?","zh":"好，今晚谁接？确认一下，补丁只测预发布，对吧？"},
+      {"sp":"Raj","en":"My action item is the test matrix. Maybe retries need separate span links, not fake parents.","zh":"我的行动项是测试矩阵，重试可能要独立跨度链接，不要伪造父跨度。"},
+      {"sp":"Lukas","en":"I'll own runtime validation tonight. The approved tracing model decides parents versus links.","zh":"今晚运行时验证我负责，批准追踪模型决定父关系或链接。"},
+      {"sp":"Anika","en":"Our working hypothesis concerns creation order. We shouldn't rewrite the whole tracing model tonight.","zh":"当前假设针对创建顺序，今晚不重写整套追踪模型。"},
+      {"sp":"Hannah","en":"Also test context cleanup after processing. Leaked active context can join unrelated requests.","zh":"也测处理后上下文清理，泄漏活动上下文会串联无关请求。"},
+      {"sp":"Priya","en":"So, attach outcomes to each test row. Unknown results stay open at shift end.","zh":"那么，每条测试附结果，换班结束时未知结果仍保持未完成。"},
+      {"sp":"Lukas","en":"I'll report failures before approving the patch. No production deployment from a passing single example.","zh":"批准补丁前报告失败，不能凭一个成功例子部署生产。"},
+      {"sp":"Raj","en":"I'll leave the version and exact commands. The next question is metadata safety.","zh":"我留下版本与准确命令，接下来确认元数据安全。"}
+    ]},
+    {"id":"0433","part":8,"stage":"接班追问","title":"追踪头不是敏感字段通行证","premise":"晚班接受测试矩阵，追问传播字段和安全边界。","listeningTask":"区分traceparent与baggage，并听清不可信边界。","newPhrase":"p708","phrases":["p708","p010","p011","p305:extra","p336:extra","p339:extra"],"lines":[
+      {"sp":"Lukas","en":"What about the baggage allowlist? Traceparent and arbitrary baggage aren't the same thing.","zh":"附加字段允许清单呢？traceparent与任意baggage不是同一件事。"},
+      {"sp":"Anika","en":"Okay, baggage is empty for this flow. We don't propagate customer identifiers or tokens.","zh":"好，这条流程的baggage为空，不传播客户标识或令牌。"},
+      {"sp":"Priya","en":"Just to confirm, incoming headers are validated, right? External context isn't automatically trusted.","zh":"确认一下，入口头会校验，对吧？外部上下文不是自动可信。"},
+      {"sp":"Hannah","en":"Yes, the gateway enforces format and size. Malformed context mustn't break business processing.","zh":"是，网关限制格式和大小，坏上下文不能破坏业务处理。"},
+      {"sp":"Raj","en":"Let me play that back. Trace identifiers travel; sensitive baggage doesn't. Maybe document both limits.","zh":"我复述一下，追踪标识传递，敏感附加字段不传，也许两类限制都记。"},
+      {"sp":"Lukas","en":"And context isn't authorization. Never use a trace identifier to grant access or prove identity.","zh":"上下文不是授权，绝不靠追踪标识授予访问或证明身份。"},
+      {"sp":"Anika","en":"The retention policy covers correlation records too. Access stays with the investigation group.","zh":"保留策略也覆盖关联记录，访问限调查组。"},
+      {"sp":"Priya","en":"So, use the security escalation path for leaks. Have I missed anything about tonight's tests?","zh":"那么，泄漏走安全升级路径，今晚测试还有遗漏吗？"},
+      {"sp":"Hannah","en":"Include invalid headers and oversized baggage. Safety tests belong beside propagation tests.","zh":"包含无效头和超大baggage，安全测试与传播测试放一起。"},
+      {"sp":"Raj","en":"I'll add those rows before signing off. No sensitive values in the test fixtures.","zh":"离班前补这些行，测试数据不含敏感值。"}
+    ]},
+    {"id":"0434","part":9,"stage":"升级约定","title":"晚班何时找人","premise":"安全及传播测试清单确认，约定联系时点和业务故障处理。","listeningTask":"区分追踪未修复和业务异常的升级速度。","newPhrase":"p709","phrases":["p709","p336","p010","p338:extra","p008:extra","p337:extra"],"lines":[
+      {"sp":"Priya","en":"Unresolved trace linkage goes to tomorrow's review. Business failures still need immediate incident response.","zh":"未解决追踪关联进入明日评审，业务失败仍需立即事件响应。"},
+      {"sp":"Lukas","en":"Who owns that escalation path tonight? I need a named contact, not a team label.","zh":"今晚谁负责升级路径？需要具名联系人，不是团队名字。"},
+      {"sp":"Raj","en":"Okay, I'm the backup until midnight. Anika owns consumer questions during the review window.","zh":"好，午夜前我是后备，评审窗口内Anika负责消费者问题。"},
+      {"sp":"Priya","en":"Just to confirm, Lukas is primary on-call, right? Page the backup after five silent minutes.","zh":"确认一下，Lukas是第一响应值班人，对吧？五分钟无回应呼叫后备。"},
+      {"sp":"Hannah","en":"After midnight, use the posted rota contact. Don't rely on an outgoing engineer staying awake.","zh":"午夜后用已发布轮班联系人，不依赖离班工程师不睡觉。"},
+      {"sp":"Anika","en":"Maybe staging reveals a broader context leak. Pause the patch and call me before proceeding.","zh":"预发布可能发现更广上下文泄漏，暂停补丁，继续前找我。"},
+      {"sp":"Lukas","en":"What's the ETA for tomorrow's review? I'll send evidence before that, including failed tests.","zh":"明日评审预计几点？之前我发送证据，也包含失败测试。"},
+      {"sp":"Priya","en":"So, nine thirty tomorrow with the reviewers. No deadline pressure overrides the acceptance gates.","zh":"那么，明日九点半与评审人开会，期限压力不凌驾验收关口。"},
+      {"sp":"Hannah","en":"Any sensitive-data leak goes to security immediately. That's separate from waiting on trace repair.","zh":"任何敏感数据泄漏立即找安全团队，不能等追踪修复。"},
+      {"sp":"Raj","en":"I'll put the contacts beside each trigger. Then Lukas can confirm the handoff.","zh":"我把联系人放每个触发条件旁，然后Lukas确认交接。"}
+    ]},
+    {"id":"0435","part":10,"stage":"交接确认","title":"接的是验证责任而非已修复","premise":"证据、待测矩阵、安全边界与联系人已交付，晚班复述。","listeningTask":"抓住接班确认及尚未完成项。","newPhrase":"p710","phrases":["p710","p340","p310","p012:extra","p331:extra","p339:extra"],"lines":[
+      {"sp":"Lukas","en":"Handoff acceptance means I've received the open tasks. I've got it from here for tonight's validation.","zh":"交接验收指我已收到未完成任务，今晚验证接下来由我负责。"},
+      {"sp":"Raj","en":"Okay, just to recap, sampling explains some absences. The sampled test has a separate propagation break.","zh":"好，小结一下，采样解释部分缺失，已采样测试另有传播断点。"},
+      {"sp":"Priya","en":"We hand over evidence, not production approval. The patch still needs all safety checks.","zh":"交接的是证据，不是生产批准，补丁仍需所有安全检查。"},
+      {"sp":"Hannah","en":"I'll retain the restricted test references. Temporary log access expires after tomorrow's review.","zh":"我保留受限测试引用，临时日志访问明日评审后到期。"},
+      {"sp":"Anika","en":"Maybe retry tests change our patch choice. Call me if the proposed order fails.","zh":"重试测试可能改变补丁选择，提议顺序失败就找我。"},
+      {"sp":"Lukas","en":"I'll report staging results at nine thirty. No production fix is claimed tonight.","zh":"我九点半报告预发布结果，今晚不宣称生产已修复。"},
+      {"sp":"Raj","en":"Have I missed anything in the contacts? You have backup coverage after midnight, right?","zh":"联系人有遗漏吗？午夜后有后备覆盖，对吧？"},
+      {"sp":"Priya","en":"So, the posted rota covers that shift. Business and security triggers remain immediate.","zh":"那么，发布轮班表覆盖该班，业务与安全触发仍立即处理。"},
+      {"sp":"Hannah","en":"Acceptance evidence needs timestamps and versions. Passing tests aren't enough without knowing what ran.","zh":"验收证据需时间戳和版本，不知道跑了什么就不能只看通过。"},
+      {"sp":"Anika","en":"We'll close the loop after reviewed validation. Thanks, I'll leave the consumer notes ready.","zh":"评审验证后反馈闭环，谢谢，我会备好消费者记录。"}
+    ]}
+  ]
+}

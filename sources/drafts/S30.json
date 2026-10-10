@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段发布平台站会双语草稿；设计：目标和进度对齐，区分试验收益与生产结果，协商评审带宽并确认当天交付。不是故障会议；未配音，不填时间轴。",
+  "series": {"id": "sc-S30-cicd-platform-standup", "title": "发布平台站会：提速、环境一致性与评审等待", "domain": "cicd", "group": "ops-standup", "service": "internal release platform", "premise": "每日平台站会跟踪本周构建提速目标，试验分支已改善耗时，但缓存、安全评审和环境一致性工作尚未全部验收。", "outcome": "团队确认可交付的缓存隔离、固定摘要选择与环境一致性测试，分配评审和配对时段；今日只提交证据与评审，不承诺尚未验证的生产提速，缺口继续跟踪。"},
+  "speakers": {
+    "Priya": {"role": "Platform delivery lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Build performance engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Artifact consumer and test owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Environment consistency engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Supply-chain security reviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p571", "en": "build time", "zh": "构建耗时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p572", "en": "critical path", "zh": "决定总耗时的关键路径", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p573", "en": "cache namespace", "zh": "缓存命名空间", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p574", "en": "stale artifact", "zh": "陈旧制品", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p575", "en": "environment parity", "zh": "环境一致性", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p576", "en": "regression suite", "zh": "回归测试集", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p577", "en": "review queue", "zh": "评审队列", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p578", "en": "pair on this", "zh": "一起配对处理这项工作", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p579", "en": "today's priority", "zh": "今天的优先事项", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p580", "en": "delivery risk", "zh": "交付风险", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选只供排期，不算实际复现；实际引用仅已有库、S03至S07和本场前段。", "futureCandidates": {"S39": ["p571", "p572", "p573", "p577", "p578", "p579", "p580"], "S44": ["p574", "p575", "p576"]}},
+  "dialogues": [
+    {"id": "0296", "part": 1, "stage": "平台目标", "title": "本周目标和今天可交付内容", "premise": "上午平台站会开始，生产构建中位耗时仍十二分钟。", "listeningTask": "区分本周目标与当前实测，听出会议讨论边界。", "newPhrase": "p571", "phrases": ["p571", "p006", "p005:extra", "p010:extra", "p002:extra", "p008:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, this week's build time target is eight minutes. Current production median is twelve.", "zh": "好，本周构建耗时目标八分钟。当前生产中位数十二分钟。"},
+      {"sp": "Raj", "en": "I've been heads-down on dependency reuse. Yesterday's prototype reached nine, not eight.", "zh": "我一直专注依赖复用。昨天原型到了九分钟，不是八分钟。"},
+      {"sp": "Lukas", "en": "Was that measured on comparable runners? Faster hardware could explain the apparent gain.", "zh": "是在可比执行器上测的吗？更快硬件可能解释表面收益。"},
+      {"sp": "Anika", "en": "Just to confirm, prototype results only, right? We haven't changed production scheduling yet.", "zh": "确认一下，只是原型结果，对吧？还没改生产调度。"},
+      {"sp": "Hannah", "en": "Security review also remains open today. Reuse can't skip verification of downloaded inputs.", "zh": "安全评审今天也未结束。复用不能跳过下载输入验证。"},
+      {"sp": "Priya", "en": "Who's got bandwidth for the comparison? What's the ETA for repeatable measurements?", "zh": "谁有空做对比？可重复测量预计多久完成？"},
+      {"sp": "Lukas", "en": "I can check runner parity before lunch. Keep queue waiting separate from execution time.", "zh": "午饭前我查执行器一致性。排队等待与执行时间分开。"},
+      {"sp": "Raj", "en": "So, let's take it offline for profiling. Today I'll bring stage-level timing evidence.", "zh": "那么性能分析会后详谈。今天我提供各阶段耗时证据。"},
+      {"sp": "Hannah", "en": "That keeps this update focused on progress. We don't need a live debugging session.", "zh": "这样更新聚焦进度。不需要现场调试。"},
+      {"sp": "Anika", "en": "Fair, I'll report consumer-side work separately. Our test coverage needs attention as well.", "zh": "明白，我单独报告消费侧工作。测试覆盖也要关注。"}
+    ]},
+    {"id": "0297", "part": 2, "stage": "构建提速", "title": "关键路径缩短，不盲目并行", "premise": "目标八分钟，原型九分钟；需对齐执行器与测量范围。", "listeningTask": "听出真正提速位置与不能直接并行的步骤。", "newPhrase": "p572", "phrases": ["p572", "p571", "p010:extra", "p008:extra", "p002:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "The critical path is dependency resolution. Parallel linting shaved about three minutes yesterday.", "zh": "关键路径是依赖解析。昨天并行lint大约省了三分钟。"},
+      {"sp": "Priya", "en": "Okay, build time improved on the prototype. Just to confirm, tests stayed enabled?", "zh": "好，原型构建耗时改善。确认一下，测试仍启用？"},
+      {"sp": "Lukas", "en": "Yes, equivalent runners reproduce the gain. Uploading artifacts still waits for verification results.", "zh": "对，等价执行器复现收益。制品上传仍等待验证结果。"},
+      {"sp": "Anika", "en": "Could uploads overlap the final tests? Sorry, not promotion, just the upload itself.", "zh": "上传能与最后测试重叠吗？抱歉，不是晋级，只是上传本身。"},
+      {"sp": "Hannah", "en": "Possible in a quarantined staging area. Failed tests must prevent release selection completely.", "zh": "可以放在隔离暂存区。测试失败必须完全阻止发布选择。"},
+      {"sp": "Raj", "en": "I'll keep an eye on cleanup. Partial uploads need attempt-specific identifiers and receipts.", "zh": "我关注清理。部分上传需要尝试专用标识和回执。"},
+      {"sp": "Lukas", "en": "Don't share mutable output directories between tasks. That risks measuring speed through corrupted results.", "zh": "任务间别共享可变输出目录。那可能靠损坏结果测出速度。"},
+      {"sp": "Priya", "en": "So, what's the ETA for that design? Let's take it offline after updates.", "zh": "那么这个设计预计多久？更新后会后详谈。"},
+      {"sp": "Hannah", "en": "I'd rather review the existing prototype first. More concurrency can wait for isolation evidence.", "zh": "我宁愿先评审现有原型。更多并发等隔离证据。"},
+      {"sp": "Anika", "en": "Fair, I'll keep uploads sequential today. We can split that experiment next week.", "zh": "明白，今天上传保持串行。下周拆出那个试验。"}
+    ]},
+    {"id": "0298", "part": 3, "stage": "缓存进度", "title": "先隔离缓存，再讨论收益", "premise": "原型收益可复现，但上传并行留待下一轮，当前推进缓存隔离。", "listeningTask": "听出缓存键和访问边界是验收内容而非可选项。", "newPhrase": "p573", "phrases": ["p573", "p572", "p344:extra", "p010:extra", "p330:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Each cache namespace now separates projects. Keys include lockfile, platform, and toolchain versions.", "zh": "各缓存命名空间现在隔离项目。键包括锁文件、平台和工具链版本。"},
+      {"sp": "Priya", "en": "Okay, critical path reuse needs that boundary. Just to confirm, no cached secrets?", "zh": "好，关键路径复用需要这个边界。确认一下，没有缓存秘密？"},
+      {"sp": "Lukas", "en": "Configuration and credentials are explicitly excluded. Managed configuration supplies approved dependency source references.", "zh": "配置和凭据明确排除。受管配置提供批准的依赖源引用。"},
+      {"sp": "Anika", "en": "A cache hit still checks hashes, right? Otherwise speed could hide stale inputs.", "zh": "缓存命中仍检查哈希，对吧？否则速度可能掩盖陈旧输入。"},
+      {"sp": "Hannah", "en": "Yes, approved writers and signature checks remain. Untrusted branches cannot write release caches.", "zh": "对，批准写入者和签名检查保留。不可信分支不能写发布缓存。"},
+      {"sp": "Raj", "en": "I'm on it for permission tests. Cross-project reads fail as expected now.", "zh": "权限测试我来做。跨项目读取现在按预期失败。"},
+      {"sp": "Lukas", "en": "Add cold-versus-warm output comparison as well. Isolation tests don't establish equivalent build results.", "zh": "也加冷暖缓存输出比较。隔离测试不能证明构建结果等价。"},
+      {"sp": "Priya", "en": "So, that's today's missing acceptance evidence. Roughly how many test combinations remain?", "zh": "那么这是今天缺的验收证据。大约还剩多少测试组合？"},
+      {"sp": "Hannah", "en": "Two toolchain variants and interrupted writes. Incomplete cache objects must never be reused.", "zh": "两个工具链变体和中断写入。不完整缓存对象绝不能复用。"},
+      {"sp": "Anika", "en": "Fair, I'll provide both fixture variants. That should make the review much clearer.", "zh": "明白，我提供两个测试样例变体。这样评审会清楚很多。"}
+    ]},
+    {"id": "0299", "part": 4, "stage": "制品陈旧", "title": "消费端选错版本，不是构建坏了", "premise": "缓存隔离进入验收，Anika报告消费端制品选择问题。", "listeningTask": "区分构建输入缓存与发布制品选择的两个问题。", "newPhrase": "p574", "phrases": ["p574", "p573", "p010:extra", "p335:extra", "p327:extra", "p310:extra"], "lines": [
+      {"sp": "Anika", "en": "Yesterday's smoke test selected a stale artifact. The nightly label hadn't advanced correctly.", "zh": "昨天冒烟测试选了陈旧制品。nightly标签没有正确更新。"},
+      {"sp": "Priya", "en": "Okay, separate from the cache namespace work? Just to confirm, production wasn't affected?", "zh": "好，和缓存命名空间工作分开？确认一下，生产未受影响？"},
+      {"sp": "Lukas", "en": "Correct, the test consumer used a tag. Production selects a reviewed immutable digest.", "zh": "对，测试消费端用了标签。生产选择评审过的不可变摘要。"},
+      {"sp": "Raj", "en": "Our working hypothesis is delayed label publication. The build itself finished successfully, right?", "zh": "当前假设是标签发布延迟。构建本身成功结束，对吧？"},
+      {"sp": "Hannah", "en": "Its signed provenance matches the new commit. The selected test artifact names yesterday's commit.", "zh": "它的签名来源证明匹配新提交。测试选中制品指向昨天提交。"},
+      {"sp": "Anika", "en": "I'll select the expected digest explicitly. Then close the loop with corrected evidence.", "zh": "我明确选择预期摘要，然后带修正证据反馈闭环。"},
+      {"sp": "Lukas", "en": "Don't just update the screenshot manually. Add an assertion for the expected commit.", "zh": "别只手改截图。加上预期提交的断言。"},
+      {"sp": "Priya", "en": "So, track the consumer fix separately. Changing tags alone isn't sufficient acceptance.", "zh": "那么单独跟踪消费端修复。只改标签不够验收。"},
+      {"sp": "Hannah", "en": "Validate signature and provenance on selection. Wrong or unsigned content must block the test.", "zh": "选择时验签和来源。错误或未签名内容必须阻止测试。"},
+      {"sp": "Raj", "en": "Fair, I'll help trace label publication later. First Anika can fix deterministic selection.", "zh": "明白，稍后我帮追踪标签发布。先由Anika修确定性选择。"}
+    ]},
+    {"id": "0300", "part": 5, "stage": "环境差异", "title": "测试运行时和生产运行时不一致", "premise": "陈旧制品来自消费端标签选择，修复与缓存工作分开跟踪。", "listeningTask": "听出环境一致性的范围和不在本次工作的升级。", "newPhrase": "p575", "phrases": ["p575", "p574", "p010:extra", "p330:extra", "p327:extra", "p302:extra"], "lines": [
+      {"sp": "Lukas", "en": "Environment parity has another gap today. Staging runs Java twenty-one; production runs seventeen.", "zh": "环境一致性今天还有缺口。预发布Java21，生产Java17。"},
+      {"sp": "Priya", "en": "Okay, could that explain yesterday's stale artifact? Just to confirm, separate issues again?", "zh": "好，这能解释昨天陈旧制品吗？确认一下，又是独立问题？"},
+      {"sp": "Hannah", "en": "Yes, selection evidence separates those issues. Runtime mismatch affects what testing can establish.", "zh": "对，选择证据区分了问题。运行时差异影响测试能证明什么。"},
+      {"sp": "Anika", "en": "We can't rule that out for compatibility. Let's align staging with production itself.", "zh": "兼容性方面不能排除它。让预发布与生产本身对齐吧。"},
+      {"sp": "Lukas", "en": "Agreed, use the approved seventeen image. A production runtime upgrade needs separate review.", "zh": "同意，用批准的17镜像。生产运行时升级需要另行评审。"},
+      {"sp": "Raj", "en": "Managed configuration should pin that runtime digest. I'll add a parity check today.", "zh": "受管配置应固定那个运行时摘要。我今天加一致性检查。"},
+      {"sp": "Hannah", "en": "Keep environment-specific secret references distinct though. Parity doesn't mean sharing credentials across environments.", "zh": "但各环境秘密引用保持独立。一致性不等于跨环境共享凭据。"},
+      {"sp": "Priya", "en": "So, rerun the smoke test after alignment. Don't claim earlier tests cover production compatibility.", "zh": "那么对齐后重跑冒烟测试。别声称旧测试覆盖生产兼容性。"},
+      {"sp": "Lukas", "en": "Include locale and timezone settings too. Those change catalog sorting and date behavior.", "zh": "也包括地区和时区设置。它们改变目录排序和日期行为。"},
+      {"sp": "Anika", "en": "Fair, I'll test those fixture cases. No production runtime change in today's scope.", "zh": "明白，我测那些样例。今天范围不含生产运行时变更。"}
+    ]},
+    {"id": "0301", "part": 6, "stage": "测试进度", "title": "已经测了什么，还缺什么", "premise": "同意预发布对齐Java17，秘密引用保持环境独立；核对剩余测试。", "listeningTask": "区分已通过测试与计划补充的覆盖。", "newPhrase": "p576", "phrases": ["p576", "p575", "p010:extra", "p210:extra", "p009:extra", "p309:extra"], "lines": [
+      {"sp": "Anika", "en": "The regression suite covers digest selection now. Interrupted upload tests still need completion.", "zh": "回归测试集现在覆盖摘要选择。上传中断测试还没完成。"},
+      {"sp": "Priya", "en": "Okay, environment parity comes before final runs. Just to confirm, include unknown outcomes?", "zh": "好，最终运行前先环境对齐。确认一下，包括结果未知的情况？"},
+      {"sp": "Lukas", "en": "Yes, simulate acknowledgement lost after completion. Retrying shouldn't upload or publish twice.", "zh": "对，模拟完成后确认丢失。重试不应上传或发布两次。"},
+      {"sp": "Raj", "en": "Same operation key across retries, right? Attempt identifiers remain different for audit history.", "zh": "重试保留同一操作键，对吧？尝试标识不同以记录审计历史。"},
+      {"sp": "Hannah", "en": "Also test unsigned and wrong-signer objects. A valid checksum doesn't authorize a release.", "zh": "也测未签名和错误签名者对象。有效校验和不授权发布。"},
+      {"sp": "Anika", "en": "I'll keep an eye on flaky fixtures. One action item removes timing-dependent assertions.", "zh": "我关注不稳定样例。一个行动项是移除依赖时序的断言。"},
+      {"sp": "Lukas", "en": "Dry-run it first against test storage. Fault injection mustn't touch shared release objects.", "zh": "先对测试存储预演。故障注入不能碰共享发布对象。"},
+      {"sp": "Priya", "en": "So, roughly how long for missing coverage? I'd rather report gaps than hide them.", "zh": "那么补缺大约多久？我宁愿报告缺口，不隐藏。"},
+      {"sp": "Hannah", "en": "One afternoon should cover these cases. Secret-redaction assertions belong in that set too.", "zh": "一个下午应能覆盖这些情况。秘密脱敏断言也加入。"},
+      {"sp": "Raj", "en": "Fair, I'll supply the interruption harness today. Anika shouldn't have to rebuild that helper.", "zh": "明白，我今天提供中断测试工具。Anika不用重写那个辅助工具。"}
+    ]},
+    {"id": "0302", "part": 7, "stage": "评审阻塞", "title": "等待评审不是没有进展", "premise": "测试补缺安排到下午，代码等待安全与平台评审。", "listeningTask": "听出评审等待原因和可以先完成的独立工作。", "newPhrase": "p577", "phrases": ["p577", "p576", "p006:extra", "p010:extra", "p004:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "My patch sits in the review queue. No reviewer response since yesterday afternoon.", "zh": "我的补丁在评审队列里。昨天下午起没有评审回应。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, not coding blocked? What's the ETA for review bandwidth?", "zh": "好，确认一下，不是编码阻塞？评审人何时有空？"},
+      {"sp": "Lukas", "en": "I can review environment changes at thirteen. Cache permissions need Hannah's security review separately.", "zh": "十三点我能评审环境变更。缓存权限另需Hannah安全评审。"},
+      {"sp": "Anika", "en": "The regression suite can progress meanwhile. The suite itself doesn't need that merge.", "zh": "与此同时回归测试集能继续。测试集本身不需要那个合并。"},
+      {"sp": "Hannah", "en": "I have a reserved audit this morning. Fourteen is my earliest realistic review slot.", "zh": "今天上午我已有审计安排。最早实际可评审时段是十四点。"},
+      {"sp": "Raj", "en": "Let's park that extra upload optimization. I'll split the current patch for review.", "zh": "额外上传优化先放一边。我拆分当前补丁供评审。"},
+      {"sp": "Lukas", "en": "Keep related security changes together, though. Tiny patches shouldn't hide a combined permission risk.", "zh": "但关联安全变更放一起。小补丁不能隐藏组合权限风险。"},
+      {"sp": "Priya", "en": "So, one bounded cache review package. Separate environment work can move without bypassing checks.", "zh": "那么缓存形成边界清晰的评审包。独立环境工作可继续，不绕过检查。"},
+      {"sp": "Hannah", "en": "Attach test evidence before my slot starts. Otherwise review becomes another debugging appointment.", "zh": "我开始前附上测试证据。否则评审又变成调试时间。"},
+      {"sp": "Raj", "en": "Fair, I'll update the ticket by noon. Waiting status should name the actual dependency.", "zh": "明白，中午前我更新工单。等待状态应写明实际依赖。"}
+    ]},
+    {"id": "0303", "part": 8, "stage": "帮助请求", "title": "配对支持有明确输入和结束点", "premise": "Lukas十三点评环境，Hannah十四点评缓存；Anika需要中断测试支持。", "listeningTask": "听出帮助请求的具体任务、时段与验收。", "newPhrase": "p578", "phrases": ["p578", "p577", "p006:extra", "p010:extra", "p002:extra", "p014:extra"], "lines": [
+      {"sp": "Anika", "en": "Can someone pair on this interruption test? I need the lost-acknowledgement fixture wired correctly.", "zh": "谁能一起做这个中断测试？我需要正确接入确认丢失样例。"},
+      {"sp": "Priya", "en": "Okay, who has bandwidth before lunch? Just to confirm, it's test integration only?", "zh": "好，午饭前谁有空？确认一下，只是测试集成？"},
+      {"sp": "Lukas", "en": "Yes, not live deployment fault injection. Keep the review queue appointments intact today.", "zh": "对，不是线上部署故障注入。今天保留评审队列约定时段。"},
+      {"sp": "Raj", "en": "I'm on it at eleven today. We can finish the wiring itself together.", "zh": "今天十一点我来。我们一起完成接入本身。"},
+      {"sp": "Hannah", "en": "Use sanitized fixtures and isolated storage. Don't record real tokens during the session.", "zh": "用脱敏样例和隔离存储。配对时别记录真实令牌。"},
+      {"sp": "Anika", "en": "I'll prepare inputs before eleven then. About thirty minutes should be enough initially.", "zh": "那么十一点前我准备输入。初步约三十分钟应该够。"},
+      {"sp": "Lukas", "en": "Define the pass condition before pairing. One completed upload, two recorded attempts, no duplicate.", "zh": "配对前定义通过条件：完成一次上传、记录两次尝试，没有重复。"},
+      {"sp": "Priya", "en": "So, let's take it offline at eleven. Stop after wiring if diagnosis runs longer.", "zh": "那么十一点会后处理。诊断拖长的话，接入后先停。"},
+      {"sp": "Hannah", "en": "Bring remaining questions to the review evidence. Don't silently stretch the pairing into release approval.", "zh": "剩余问题带到评审证据里。别暗自把配对扩展成发布审批。"},
+      {"sp": "Raj", "en": "Fair, I'll document the helper's expected behavior. Anika can own the regression assertions afterward.", "zh": "明白，我记录辅助工具预期行为。之后Anika负责回归断言。"}
+    ]},
+    {"id": "0304", "part": 9, "stage": "今日安排", "title": "承诺交证据，不提前承诺上线", "premise": "十一点配对、十三点环境评审、十四点缓存评审已约定。", "listeningTask": "识别各负责人当天交付的具体成果。", "newPhrase": "p579", "phrases": ["p579", "p578", "p010:extra", "p009:extra", "p310:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, today's priority is reviewable evidence. Not merging everything before the afternoon ends.", "zh": "好，今天优先事项是可评审证据，不是下午结束前合并一切。"},
+      {"sp": "Raj", "en": "Just to recap, I'll pair on this first. Then attach cache tests by noon.", "zh": "小结一下，我先配对处理，然后中午前附上缓存测试。"},
+      {"sp": "Lukas", "en": "My action item is environment parity review. I'll document runtime and locale differences explicitly.", "zh": "我的行动项是环境一致性评审。我明确记录运行时和地区差异。"},
+      {"sp": "Anika", "en": "Just to confirm, regression results by sixteen? I'll report failures, not just green totals.", "zh": "确认一下，十六点前回归结果？我报告失败，不只报绿色总数。"},
+      {"sp": "Hannah", "en": "I'll review cache permissions at fourteen. Missing evidence will be a named follow-up.", "zh": "十四点我评审缓存权限。缺失证据会成为明确跟进项。"},
+      {"sp": "Priya", "en": "We'll close the loop at sixteen-thirty. Production rollout scheduling stays outside today's commitments.", "zh": "十六点三十分反馈闭环。生产发布排期不在今天承诺里。"},
+      {"sp": "Lukas", "en": "Good, review completion isn't deployment authorization. Keep approvals distinct from progress checkboxes.", "zh": "好，评审完成不是部署授权。审批与进度复选项区分。"},
+      {"sp": "Raj", "en": "So, I'll publish the timing comparisons too. No eight-minute claim until tests support it.", "zh": "那么我也发布耗时对比。测试支持前不声称八分钟。"},
+      {"sp": "Hannah", "en": "And attach provenance for tested outputs. Evidence must reference the actual build inputs.", "zh": "也附被测输出的来源证明。证据必须引用实际构建输入。"},
+      {"sp": "Anika", "en": "Fair, those deliverables are achievable today. I'll flag scope changes in the ticket itself.", "zh": "明白，这些今天可以交付。我在工单本身标出范围变化。"}
+    ]},
+    {"id": "0305", "part": 10, "stage": "风险更新", "title": "目标可能延期，提前给出选项", "premise": "当天证据和评审时点已确认，收尾更新本周目标风险。", "listeningTask": "听出延期风险与不牺牲验证的备选安排。", "newPhrase": "p580", "phrases": ["p580", "p579", "p006:extra", "p001:extra", "p010:extra", "p310:extra"], "lines": [
+      {"sp": "Raj", "en": "One delivery risk remains for Friday. Nine minutes is measured; eight isn't proven.", "zh": "周五还有一个交付风险。九分钟已测出，八分钟未证明。"},
+      {"sp": "Priya", "en": "Okay, today's priority stays evidence and review. Just to confirm, don't drop checks?", "zh": "好，今天优先仍是证据和评审。确认一下，不删检查？"},
+      {"sp": "Lukas", "en": "Correct, report the realistic measured gain. Removing tests isn't an acceptable optimization plan.", "zh": "对，报告真实测得收益。移除测试不是可接受的优化方案。"},
+      {"sp": "Anika", "en": "Maybe split the target into two milestones. Safe reuse first, further optimization later itself.", "zh": "可能把目标拆成两个里程碑。先安全复用，进一步优化本身放之后。"},
+      {"sp": "Hannah", "en": "That works if acceptance stays explicit. Signature, secret isolation, and provenance remain mandatory.", "zh": "验收明确就可行。签名、秘密隔离、来源证明仍强制。"},
+      {"sp": "Raj", "en": "Extra profiling needs more bandwidth next week. I'll estimate that after today's test results.", "zh": "下周额外分析需要更多人手。今天测试结果后我估算。"},
+      {"sp": "Lukas", "en": "Don't convert review delay into incident urgency. We can negotiate scope with measured trade-offs.", "zh": "别把评审延迟变成故障紧急状态。可以用测得的取舍协商范围。"},
+      {"sp": "Priya", "en": "So, let's circle back at sixteen-thirty. We'll close the loop with updated evidence.", "zh": "那么十六点三十分再确认。用更新证据反馈闭环。"},
+      {"sp": "Hannah", "en": "If review discovers another security gap, report it. The progress board mustn't hide unresolved findings.", "zh": "评审发现新安全缺口就报告。进度板不能隐藏未决发现。"},
+      {"sp": "Anika", "en": "Fair, I'll update the board now. Today's plan is clear without promising production speed.", "zh": "明白，我现在更新进度板。今天计划清楚，但不承诺生产速度。"}
+    ]}
+  ]
+}

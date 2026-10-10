@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段完整中英文本草稿，待配音，未进入播放索引。表达引用包含S03–S06草稿；配音后再计算实际口音时长比例，不预填时间轴。",
+  "series": {
+    "id": "sc-S07-network-dns-timeouts",
+    "title": "DNS 间歇超时：缓存掩盖与上游配置遗漏",
+    "domain": "network", "group": "incident", "service": "checkout internal DNS resolution",
+    "premise": "上午checkout应用部分新连接解析payments.internal超时。现有连接仍可用，故障主要出现在A区使用resolver-a的客户端。两个内部解析器承载相同私有解析策略。",
+    "outcome": "同路径对照测试发现resolver-a的部分缓存未命中查询落到已退役转发端点。将受影响客户端分批切换至经私有名称、容量和跨区验证的resolver-b，保留配置回退。恢复后核实遗漏的上游池配置，并安排修复、重新接入验收与发布流程调查。"
+  },
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Network on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Checkout application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "DNS validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p341", "en": "DNS is timing out", "zh": "DNS解析正在超时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p342", "en": "intermittent failures", "zh": "间歇性失败", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p343", "en": "recursive resolver", "zh": "递归解析器", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p344", "en": "cache hit", "zh": "缓存命中", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p345", "en": "upstream forwarder", "zh": "上游DNS转发目标", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p346", "en": "switch resolvers", "zh": "切换解析器", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p347", "en": "resolver configuration", "zh": "解析器配置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p348", "en": "split-horizon DNS", "zh": "按客户端环境返回不同答案的DNS机制", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p349", "en": "the mitigation is holding", "zh": "缓解措施持续有效", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p350", "en": "forwarder pool", "zh": "上游转发端点集合", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {
+    "note": "未来回访为编稿安排，不算实际复现。每段五个旧表达复现自既有库及此前草稿。",
+    "S08": ["p341", "p342", "p343", "p344", "p345", "p346", "p347", "p348", "p349", "p350"],
+    "S09": ["p341", "p342", "p343", "p344", "p345", "p348", "p350"],
+    "S10": ["p341", "p342", "p343", "p345", "p346", "p347", "p349", "p350"],
+    "S37": ["p343", "p344", "p345", "p346", "p347", "p348", "p350"],
+    "S39": ["p341", "p342", "p344", "p346", "p347", "p348", "p349"]
+  },
+  "dialogues": [
+    {
+      "id": "0066", "part": 1, "stage": "告警", "title": "解析超时：连接故障还是DNS故障",
+      "premise": "checkout新连接出现超时，应用日志报告私有支付名称解析失败。",
+      "listeningTask": "听出错误发生在建立连接前，不把所有超时归为支付服务宕机。",
+      "newPhrase": "p341", "phrases": ["p341", "p003", "p010", "p103:extra", "p008:extra", "p101:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "DNS is timing out for payments dot internal. The error rate spiked on new checkout connections.", "zh": "payments.internal的DNS解析正在超时，结账服务新建连接的错误率陡涨。"},
+        {"sp": "Lukas", "en": "Before the connection opens? Or after the request reaches payments?", "zh": "是在连接建立前，还是请求到达支付服务后？"},
+        {"sp": "Anika", "en": "Before connection setup. Existing connections still work. That's why some requests look normal.", "zh": "建立连接之前。已有连接仍可用，所以有些请求看起来正常。"},
+        {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, don't restart the app yet, right?", "zh": "好，我来协调。我确认一下，先不重启应用，对吧？"},
+        {"sp": "Hannah", "en": "Agreed. A restart could remove working connections and make the impact worse.", "zh": "同意。重启可能让正常连接消失，反而扩大影响。"},
+        {"sp": "Raj", "en": "Let me tail the log. I'll match lookup errors to the affected hosts.", "zh": "我盯一下日志，把查询错误和受影响主机对应起来。"},
+        {"sp": "Lukas", "en": "Use the application hostname and query type. A random public lookup won't test this path.", "zh": "用应用实际查询的名称和记录类型。随便查个公共名称测不到这条路径。"},
+        {"sp": "Priya", "en": "What's the ETA for a first comparison? A rough estimate is fine.", "zh": "首次对比预计多久？给个大概时间就行。"},
+        {"sp": "Hannah", "en": "I'll check the same lookup from both zones. We need to locate the boundary.", "zh": "我会从两个区域检查同一查询，需要圈定故障边界。"},
+        {"sp": "Raj", "en": "About two minutes. I'll keep retries low so the tests don't add load.", "zh": "大约两分钟。我会控制测试重试次数，避免增加负载。"}
+      ]
+    },
+    {
+      "id": "0067", "part": 2, "stage": "范围确认", "title": "间歇失败：不是每次成功都代表健康",
+      "premise": "已知超时发生在DNS阶段，已有连接正常；开始按区域和客户端统计。",
+      "listeningTask": "辨别失败集中位置和不能从一次成功查询得出的结论。",
+      "newPhrase": "p342", "phrases": ["p342", "p010", "p106", "p309:extra", "p014:extra", "p302:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "We're seeing intermittent failures in zone A. Zone B's samples are clean so far.", "zh": "A区出现间歇性失败，B区目前抽样正常。"},
+        {"sp": "Hannah", "en": "Are all A hosts using the same resolver? Check the effective client settings.", "zh": "A区主机都使用同一解析器吗？检查客户端实际生效的设置。"},
+        {"sp": "Anika", "en": "Affected clients point to resolver A. That's our blast radius so far, not the whole region.", "zh": "受影响客户端指向解析器A。目前影响范围是这些客户端，不是整个区域。"},
+        {"sp": "Priya", "en": "Just to confirm, one successful lookup doesn't clear A, right? We need repeated samples.", "zh": "我确认一下，查成功一次不能证明A正常，对吧？需要多次抽样。"},
+        {"sp": "Lukas", "en": "Right. A cached result could succeed while fresh requests still fail.", "zh": "对。缓存结果可能成功，但新的查询仍会失败。"},
+        {"sp": "Raj", "en": "I'm on it. I'll record failures and timings, not just the final answer.", "zh": "我来记录失败次数和耗时，不只记录最终答案。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on B too. A few clean samples aren't a complete health check.", "zh": "我也会关注B。少量成功样本不是完整健康检查。"},
+        {"sp": "Anika", "en": "Payments itself responds over established connections. We can rule that out as a total outage.", "zh": "支付服务通过已有连接可以响应，可以排除整个支付服务完全宕机。"},
+        {"sp": "Lukas", "en": "Good distinction. That doesn't rule out every payment issue, just a complete outage.", "zh": "这个区分很重要。不是排除所有支付问题，只是排除完全宕机。"},
+        {"sp": "Priya", "en": "Okay. Keep the scope precise. Let's compare A and B from the same client next.", "zh": "好，准确描述范围。接下来从同一客户端对比A和B。"}
+      ]
+    },
+    {
+      "id": "0068", "part": 3, "stage": "对照测试", "title": "同一客户端：别让测试条件变了",
+      "premise": "失败集中于使用解析器A的客户端，但缓存可能让成功样本误导判断。",
+      "listeningTask": "听懂同客户端、同名称、同记录类型对比的重要性。",
+      "newPhrase": "p343", "phrases": ["p343", "p010", "p302", "p008:extra", "p014:extra", "p011:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "Same client, same name, same query type. Recursive resolver A times out; B answers quickly.", "zh": "同一客户端、同一名称、同一记录类型。递归解析器A超时，B很快回答。"},
+        {"sp": "Raj", "en": "I checked the responses too. B returns the expected private address, not a public endpoint.", "zh": "我也核对了响应。B返回预期私有地址，不是公共端点。"},
+        {"sp": "Lukas", "en": "Is that a direct DNS probe? It may bypass the application's local cache.", "zh": "这是直接DNS探测吗？那可能绕过应用本地缓存。"},
+        {"sp": "Anika", "en": "Yes. We'll test the app path separately. We shouldn't treat those as identical tests.", "zh": "是的，应用路径要单独测，不能把两种测试当作完全一样。"},
+        {"sp": "Priya", "en": "Just to confirm, B is reachable from the affected client, right? That's a useful control.", "zh": "我确认一下，受影响客户端能访问B，对吧？这是个有用的对照。"},
+        {"sp": "Hannah", "en": "Let me play that back. The client can reach a working resolver, but A's path still fails.", "zh": "我复述一下：客户端能访问一个正常解析器，但走A的路径仍失败。"},
+        {"sp": "Raj", "en": "We can rule that out as a blanket client-network failure. A still needs investigation.", "zh": "可以排除客户端网络整体不可用，但A仍需要排查。"},
+        {"sp": "Lukas", "en": "Compare A's response codes and upstream timings next. Don't stop at a yes-or-no result.", "zh": "接下来对比A的响应码和上游耗时，不要只看成功或失败。"},
+        {"sp": "Priya", "en": "What's the ETA for those metrics? We need a safe mitigation soon.", "zh": "拿到那些指标预计多久？我们需要尽快有安全缓解方案。"},
+        {"sp": "Anika", "en": "I'm on it for the app-side test. About three minutes if the test host is ready.", "zh": "应用侧测试我来做。如果测试主机就绪，大约三分钟。"}
+      ]
+    },
+    {
+      "id": "0069", "part": 4, "stage": "缓存排查", "title": "缓存命中：快回答可能掩盖坏路径",
+      "premise": "同客户端对照显示B正常，A间歇超时；检查A成功回答是否来自缓存。",
+      "listeningTask": "区分缓存答案、需要上游回答的查询，以及为什么不全站清缓存。",
+      "newPhrase": "p344", "phrases": ["p344", "p010", "p302", "p004:extra", "p008:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "A cache hit comes back fast on A. Some uncached lookups take several seconds, then fail.", "zh": "A的缓存命中会很快返回。有些未缓存查询等几秒后失败。"},
+        {"sp": "Lukas", "en": "Are you using approved test records? Random names might only test negative caching.", "zh": "用的是批准的测试记录吗？随机名称可能只测到不存在记录的负缓存。"},
+        {"sp": "Raj", "en": "Yes, existing test records with short lifetimes. Small sample, no query flood.", "zh": "是的，用已有的短有效期测试记录，小量抽样，不制造查询洪峰。"},
+        {"sp": "Priya", "en": "Just to confirm, no fleet-wide cache flush, right? That could increase upstream load.", "zh": "我确认一下，不对全体清缓存，对吧？那可能增加上游负载。"},
+        {"sp": "Hannah", "en": "Agreed. I'll keep an eye on cache statistics and upstream timeout counts together.", "zh": "同意。我会一起关注缓存统计和上游超时次数。"},
+        {"sp": "Anika", "en": "The app's cached answers still work. We can't rule that out as the reason some requests succeed.", "zh": "应用缓存答案仍可用，不能排除部分请求成功是因为缓存。"},
+        {"sp": "Lukas", "en": "Exactly. The next question is which upstream path the failed lookups used.", "zh": "正是这样。下一步要查失败查询走了哪条上游路径。"},
+        {"sp": "Priya", "en": "A full cache reset? Let's park that. What's the ETA for the upstream comparison?", "zh": "完整重置缓存先放一边。上游对比预计多久？"},
+        {"sp": "Hannah", "en": "Two minutes. I'll keep successful and failed samples separate so we don't average away the issue.", "zh": "两分钟。我会分开成功和失败样本，避免平均值掩盖问题。"},
+        {"sp": "Raj", "en": "Okay. I'll save the current configuration before anyone changes the forwarding targets.", "zh": "好。任何人修改转发目标前，我先保存当前配置。"}
+      ]
+    },
+    {
+      "id": "0070", "part": 5, "stage": "检查上游", "title": "一条上游无响应：先定位，再解释",
+      "premise": "A的缓存命中正常，部分未缓存查询失败，准备核对转发目标和请求轨迹。",
+      "listeningTask": "听清已定位的坏路径与尚待核实的端点退役信息。",
+      "newPhrase": "p345", "phrases": ["p345", "p010", "p335", "p103:extra", "p008:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Let me tail the log. The failed queries point to one upstream forwarder with no reply.", "zh": "我盯一下日志。失败查询指向一个上游转发端点，它没有响应。"},
+        {"sp": "Hannah", "en": "Does A have more than one target? That could explain the intermittent failures.", "zh": "A有不止一个目标吗？那可能解释间歇失败。"},
+        {"sp": "Raj", "en": "Two targets. One replies, one doesn't. B's configured targets are different.", "zh": "两个目标，一个响应，一个不响应。B配置的目标不同。"},
+        {"sp": "Priya", "en": "Just to confirm, we know the failing endpoint, right? We don't know why it's there yet.", "zh": "我确认一下，已经知道失败端点，对吧？还不知道它为什么仍在配置里。"},
+        {"sp": "Lukas", "en": "Check the inventory and recent changes. Don't remove an endpoint based only on one timeout.", "zh": "核对资产清单和近期变更，不能只因一次超时就删端点。"},
+        {"sp": "Anika", "en": "Our working hypothesis is a stale forwarding target. The retirement record needs confirmation.", "zh": "当前假设是转发目标过期，但还需要确认退役记录。"},
+        {"sp": "Hannah", "en": "I'll check the approved configuration. We also need to know B preserves the private view.", "zh": "我会查批准配置，也要确认B保留同样的私有解析视图。"},
+        {"sp": "Priya", "en": "What's the ETA? Can we prepare B without changing any clients yet?", "zh": "预计多久？能不能先准备B，但暂时不改客户端？"},
+        {"sp": "Lukas", "en": "Yes. Check capacity, reachability, and the required private names before proposing a switch.", "zh": "可以。提出切换前，检查容量、可达性和必需的私有名称。"},
+        {"sp": "Raj", "en": "I'm on it. About three minutes for the checklist. No public resolver shortcut.", "zh": "我来做，完成清单大约三分钟。不用公共解析器走捷径。"}
+      ]
+    },
+    {
+      "id": "0071", "part": 6, "stage": "缓解决策", "title": "决定切换：私有解析和容量都要过关",
+      "premise": "发现A存在无响应转发目标，正在核实退役记录；B通过准备检查，可考虑小范围切换。",
+      "listeningTask": "抓住切换范围、回退条件和客户端是否真正采用新设置。",
+      "newPhrase": "p346", "phrases": ["p346", "p010", "p324", "p334:extra", "p306:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Can we switch resolvers for one affected host first? I want a reversible step.", "zh": "可以先让一台受影响主机切换解析器吗？我要可回退的步骤。"},
+        {"sp": "Lukas", "en": "B has capacity and the same private zones. But verify all critical service names, not just payments.", "zh": "B有容量，也有相同私有区域，但必须验证所有关键服务名称，不只支付。"},
+        {"sp": "Anika", "en": "The checklist passed. This is a temporary workaround to buy us time for A's repair.", "zh": "清单检查通过。这是临时缓解，为修复A争取时间。"},
+        {"sp": "Raj", "en": "Just to confirm, one host first, right? Save its current settings before the change.", "zh": "我确认一下，先一台主机，对吧？变更前保存它当前设置。"},
+        {"sp": "Hannah", "en": "What's the rollback trigger? Wrong answers, higher error rate, or unexpected resolver load?", "zh": "回退触发条件是什么？错误答案、错误率增加，或解析器负载异常？"},
+        {"sp": "Priya", "en": "All three mean stop and assess. Restore the saved settings if the canary fails validation.", "zh": "这三种都先停止并评估。灰度验证失败，就恢复保存的设置。"},
+        {"sp": "Lukas", "en": "Check which layer owns DNS settings. Hand-editing a generated file could be overwritten.", "zh": "检查哪一层管理DNS设置。手改生成文件可能马上被覆盖。"},
+        {"sp": "Raj", "en": "I'm on it. The approved network manager owns it. I'll use its change procedure.", "zh": "我来确认。由批准的网络管理器管理，我会按它的变更流程操作。"},
+        {"sp": "Hannah", "en": "And confirm the app actually uses B. A direct probe alone won't prove that.", "zh": "还要确认应用实际使用B，单独直接探测不能证明这一点。"},
+        {"sp": "Anika", "en": "Agreed. We'll observe fresh connections. No full app restart just to force a lookup.", "zh": "同意，观察新建连接，不为了强制查询而重启整个应用。"}
+      ]
+    },
+    {
+      "id": "0072", "part": 7, "stage": "执行缓解", "title": "配置已改：应用真的走新路径了吗",
+      "premise": "批准一台受影响客户端切换B，保存旧设置并明确验证与回退条件。",
+      "listeningTask": "区分配置写入成功、解析流量切换成功和业务恢复。",
+      "newPhrase": "p347", "phrases": ["p347", "p010", "p309", "p008:extra", "p014:extra", "p111:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Resolver configuration is updated on the canary. Effective settings show B, and the saved copy is intact.", "zh": "灰度主机解析器配置已更新，生效设置显示B，旧配置副本也保留完整。"},
+        {"sp": "Hannah", "en": "I can see new lookups from that client on B. Expected private answers, no new timeouts.", "zh": "B上能看到该客户端的新查询，返回预期私有答案，没有新增超时。"},
+        {"sp": "Anika", "en": "Fresh application connections succeed too. I'll keep an eye on the error rate.", "zh": "应用新连接也成功了，我会留意错误率。"},
+        {"sp": "Priya", "en": "Just to confirm, enough uncached samples, right? Not just one cached answer?", "zh": "我确认一下，未缓存样本也足够，对吧？不是只有一个缓存答案？"},
+        {"sp": "Lukas", "en": "Yes. And B's load is healthy. Expand in small batches while the checks stay clean.", "zh": "是的，B负载正常。检查持续通过时，小批次扩大。"},
+        {"sp": "Raj", "en": "I'm on it. What's the ETA before the next batch? I'll record each client's settings.", "zh": "我来做，预计什么时候能开始下一批？每台客户端设置都会记录。"},
+        {"sp": "Hannah", "en": "After five minutes of clean samples. Let's keep it under observation between batches.", "zh": "连续五分钟样本正常后，批次之间保持观察。"},
+        {"sp": "Priya", "en": "Okay. No blanket cache flush. Each batch needs the same app and resolver checks.", "zh": "好，不统一清缓存。每批都要做相同应用和解析器检查。"},
+        {"sp": "Lukas", "en": "If another host behaves differently, stop there. Its local resolver path may not match.", "zh": "如果另一台表现不同，就先停下，它的本地解析路径可能不同。"},
+        {"sp": "Anika", "en": "Agreed. Maybe some clients retain old answers briefly. We'll check the actual path, not guess.", "zh": "同意。有些客户端可能短暂保留旧答案，我们检查实际路径，不靠猜。"}
+      ]
+    },
+    {
+      "id": "0073", "part": 8, "stage": "跨区验证", "title": "跨区检查：回答正确不代表视图一致",
+      "premise": "受影响客户端分批切换B后错误下降，需验证两区私有解析和业务路径。",
+      "listeningTask": "理解区域相关答案可能不同，验收要求不是所有地址完全一样。",
+      "newPhrase": "p348", "phrases": ["p348", "p010", "p302", "p110:extra", "p012:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "We use split-horizon DNS. The correct answer depends on the client's view and location.", "zh": "我们采用分视图DNS，正确答案取决于客户端视图和位置。"},
+        {"sp": "Raj", "en": "Both zones return their expected private addresses. I checked against the approved service map.", "zh": "两区都返回各自预期私有地址，我和批准的服务映射核对过。"},
+        {"sp": "Lukas", "en": "Good. Matching addresses everywhere isn't the goal. Correct routing for each client is.", "zh": "好。目标不是所有地方地址完全一致，而是各客户端路由正确。"},
+        {"sp": "Priya", "en": "Just to confirm, no private names leaked to a public resolver, right?", "zh": "我确认一下，没有把私有名称发给公共解析器，对吧？"},
+        {"sp": "Anika", "en": "Right. Only approved internal paths. Fresh checkout connections are healthy from both zones.", "zh": "对，只走批准的内部路径。两区结账的新连接都正常。"},
+        {"sp": "Hannah", "en": "We can rule that out as a view mismatch in the tested paths. Keep the coverage recorded.", "zh": "在已测路径中可以排除视图不匹配，测试覆盖范围仍要记录。"},
+        {"sp": "Raj", "en": "Just to recap, B is serving the switched clients. A is still isolated from those clients.", "zh": "小结一下，B正为已切换客户端服务，A仍与这些客户端隔离。"},
+        {"sp": "Lukas", "en": "I'll keep an eye on B's latency. The extra traffic needs ongoing monitoring.", "zh": "我会盯着B的延迟，新增流量需要持续监控。"},
+        {"sp": "Priya", "en": "Okay. Can we report we're back to baseline? Include the metrics, not just the probe results.", "zh": "好。能报告回到基线了吗？要有指标，不只看探测结果。"},
+        {"sp": "Anika", "en": "Yes, errors and latency are normal now. We can report service recovery, with A's repair still pending.", "zh": "可以，现在错误和延迟正常。可以报告服务恢复，但A的修复仍待完成。"}
+      ]
+    },
+    {
+      "id": "0074", "part": 9, "stage": "业务更新", "title": "告诉业务方：恢复了，原解析器还没修好",
+      "premise": "两区验证通过，服务指标恢复；A的原始配置问题和重新接入仍未完成。",
+      "listeningTask": "听清服务恢复、缓解持续有效与根因修复的不同状态。",
+      "newPhrase": "p349", "phrases": ["p349", "p010", "p334", "p001:extra", "p008:extra", "p336:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Support needs an update. Can I say checkout is recovered and the mitigation is holding?", "zh": "支持团队需要更新。我能说结账已恢复、缓解持续有效吗？"},
+        {"sp": "Lukas", "en": "Yes, with the monitoring period stated. Don't say both resolvers are repaired.", "zh": "可以，但要写清观察时段。不要说两台解析器都修好了。"},
+        {"sp": "Raj", "en": "This is still a temporary workaround. A remains out of the affected clients' configuration.", "zh": "这仍是临时缓解。受影响客户端配置里仍不使用A。"},
+        {"sp": "Priya", "en": "Just to confirm, next update in thirty minutes, right? Earlier if the error rate rises.", "zh": "我确认一下，三十分钟后再更新，对吧？错误率上升就提前。"},
+        {"sp": "Hannah", "en": "Include the escalation path. The next shift needs to know who handles B if it slows down.", "zh": "也写上升级联系路径。下个班需要知道B变慢时找谁。"},
+        {"sp": "Anika", "en": "I'll add it. What's the ETA for A's repair? Maybe give a range, not a promise.", "zh": "我会补上。A修复预计多久？可以给个范围，不要作保证。"},
+        {"sp": "Lukas", "en": "We need the approved target list first. Then offline validation before any client moves back.", "zh": "先要拿到批准的目标清单，客户端切回前还需要离线验证。"},
+        {"sp": "Raj", "en": "About an hour for repair and checks, if the change review is clean. No automatic switch-back.", "zh": "变更评审顺利的话，修复和检查大约一小时，不自动切回。"},
+        {"sp": "Hannah", "en": "And don't publish endpoint details in the customer update. Keep that in the internal record.", "zh": "客户更新里不要发布端点细节，那些留在内部记录中。"},
+        {"sp": "Priya", "en": "Agreed. Let's circle back after the next check. Recovery is confirmed; permanent repair is separate.", "zh": "同意。下次检查后再确认。服务恢复已确认，永久修复是另一件事。"}
+      ]
+    },
+    {
+      "id": "0075", "part": 10, "stage": "根因与行动", "title": "遗漏的上游配置：修好端点，还要修流程",
+      "premise": "服务通过B保持恢复，核对退役记录与发布审计后确认A仍包含旧转发端点。",
+      "listeningTask": "区分技术原因已确认与配置发布流程仍待调查，并抓住验收任务。",
+      "newPhrase": "p350", "phrases": ["p350", "p330", "p310", "p009:extra", "p013:extra", "p012:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The forwarder pool on A still includes a retired endpoint. The retirement record confirms it.", "zh": "A的转发端点池仍包含已退役端点，退役记录已经确认。"},
+        {"sp": "Hannah", "en": "Failed samples used that endpoint. That links stale config to timeouts.", "zh": "失败样本使用了那个端点，这把过期配置和超时联系起来了。"},
+        {"sp": "Priya", "en": "Just to recap, B got the update. A didn't. Why it missed A still needs investigation.", "zh": "小结一下，B收到更新，A没有。为什么遗漏A，仍要调查。"},
+        {"sp": "Lukas", "en": "Use managed configuration to restore A. Don't leave a manual fix outside the source of truth.", "zh": "通过统一配置管理修复A，不要把手工修复留在权威配置之外。"},
+        {"sp": "Raj", "en": "First action item: review the corrected targets and test A offline. I'll own that today.", "zh": "第一个行动项：评审正确目标并离线测试A，我今天负责完成。"},
+        {"sp": "Anika", "en": "Who's picking this up for fresh-lookup monitoring? Cached health checks missed the bad path, right?", "zh": "新查询监控谁来接？缓存健康检查漏掉了坏路径，对吧？"},
+        {"sp": "Hannah", "en": "I'll add approved uncached probes by Friday. Small volume, with checks for the private views.", "zh": "我周五前加上批准的未缓存探测，保持小量，并检查私有视图。"},
+        {"sp": "Priya", "en": "Lukas, review the partial rollout tomorrow. We need to know why success was reported too early.", "zh": "Lukas，明天评审这次不完整发布。我们需要知道为何过早报告成功。"},
+        {"sp": "Lukas", "en": "I'll do that. A rejoins only after the repair checks and a reviewed client switch plan.", "zh": "我来做。A必须通过修复检查，并有评审过的客户端切换计划，才能重新接入。"},
+        {"sp": "Anika", "en": "We'll close the loop with evidence. Keep B monitoring active until the transition is verified.", "zh": "我们会带着证据反馈并闭环。切换验证完成之前，继续监控B。"}
+      ]
+    }
+  ]
+}

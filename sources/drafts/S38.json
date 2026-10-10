@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "人工双语评审草稿，引用限p001-p350和本文件前段。回访候选不计实绩；音色待确认，实际口音时长待配音核验，无伪时间轴。",
+  "series": {"id": "sc-S38-cloud-cost-review", "title": "云资源降本评审：节省不能吃掉安全余量", "domain": "cloud", "group": "ops-review", "service": "catalog compute fleet", "premise": "目录服务平均CPU偏低，财务提出缩规格与长期承诺采购。促销峰值、单区故障和未来迁移尚需验证。", "outcome": "批准两个工作日的可回退规格试点，覆盖峰值与故障容量测试；暂不购买长期承诺。确认稳定基线、有效节省和合同退出限制后再审批有限覆盖。"},
+  "speakers": {
+    "Priya": {"role": "Infrastructure review chair", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Capacity engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Catalog product owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Reliability reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "FinOps and procurement analyst", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p651", "en": "we're overprovisioned", "zh": "我们的资源配置过量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p652", "en": "peak utilization", "zh": "峰值利用率", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p653", "en": "right-size the workers", "zh": "将工作节点调整到合适规格", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p654", "en": "committed spend", "zh": "合同承诺消费额", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p655", "en": "capacity headroom", "zh": "容量安全余量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p656", "en": "cost pilot", "zh": "降本试点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p657", "en": "exit terms", "zh": "退出合同的条款", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p658", "en": "effective savings", "zh": "扣除相关成本后的实际节省", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p659", "en": "commitment coverage", "zh": "稳定用量被承诺优惠覆盖的比例", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p660", "en": "revisit the sizing", "zh": "重新审视规格配置", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来回访候选，未计作实际复现。", "futureCandidates": ["p651", "p652", "p653", "p654", "p655", "p656", "p657", "p658", "p659", "p660"]},
+  "dialogues": [
+    {"id": "0376", "part": 1, "stage": "费用现状", "title": "平均空闲是否就是浪费", "premise": "财务要求评审目录服务计算费用，尚未批准缩容。", "listeningTask": "听出低利用率只是候选证据，不是缩容结论。", "newPhrase": "p651", "phrases": ["p651", "p010", "p006", "p335:extra", "p004:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Today we're reviewing catalog compute costs. We need options, not an emergency shutdown plan.", "zh": "今天评审目录计算费用。我们需要方案，不是紧急停机计划。"},
+      {"sp": "Hannah", "en": "Well, compute costs roughly thirty thousand monthly. Storage and transfer sit outside today's scope.", "zh": "嗯，计算每月约三万。存储和传输不在今天范围。"},
+      {"sp": "Raj", "en": "Maybe we're overprovisioned on the worker tier. Average CPU stayed below twenty percent recently.", "zh": "工作节点可能配得过多。最近平均CPU低于百分之二十。"},
+      {"sp": "Lukas", "en": "Average CPU misses peaks and memory pressure. Show the distribution before recommending smaller machines.", "zh": "平均CPU漏掉峰值和内存压力。推荐小机器前先看分布。"},
+      {"sp": "Anika", "en": "Our working hypothesis is spare daytime capacity. The promotion runs overnight, so include that.", "zh": "当前假设是白天容量富余。促销在夜间运行，也要包含。"},
+      {"sp": "Priya", "en": "Just to confirm, this is exploratory, right? Raj has bandwidth for a fuller comparison.", "zh": "确认一下，这是探索评审，对吧？Raj有空做完整对比。"},
+      {"sp": "Hannah", "en": "So, let's compare costs using consistent rates. Mixing list prices and discounts exaggerates savings.", "zh": "所以，用一致费率比较成本。混用标价和折扣会夸大节省。"},
+      {"sp": "Raj", "en": "Okay, I'll pull two weeks of samples. I'll separate weekday demand from the promotion.", "zh": "好，我拉两周样本。区分工作日需求与促销。"},
+      {"sp": "Lukas", "en": "A fleet-wide reduction today? Let's park that. We'd lose the evidence needed for sizing.", "zh": "今天整组缩容？先放一边。那会失去配置所需证据。"},
+      {"sp": "Anika", "en": "Just to recap, first compare demand and cost. Then choose a bounded test, not a quota.", "zh": "小结一下，先比较需求和成本。再选有边界的测试，不定硬指标。"}
+    ]},
+    {"id": "0377", "part": 2, "stage": "利用率证据", "title": "促销样本推翻平均值", "premise": "收集两周按节点和时段划分的指标，补充夜间峰值。", "listeningTask": "区分平均值、峰值与缺失样本。", "newPhrase": "p652", "phrases": ["p652", "p651", "p319", "p302:extra", "p010:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, peak utilization hits sixty percent during promotions. Normal daytime demand is much lower than that.", "zh": "好，促销峰值利用率达百分之六十。正常白天需求远低于此。"},
+      {"sp": "Hannah", "en": "Are those peaks averaged across the fleet? One overloaded worker could disappear inside averages.", "zh": "峰值是整组平均吗？单个过载节点可能被平均值掩盖。"},
+      {"sp": "Raj", "en": "They're per-worker peaks, with five-minute samples. Memory headroom stayed above thirty percent throughout.", "zh": "是每节点峰值，五分钟采样。全程内存余量超过百分之三十。"},
+      {"sp": "Lukas", "en": "Well, five-minute samples can miss bursts too. Include request latency and queue depth alongside.", "zh": "嗯，五分钟采样也会漏掉突发。还要结合请求延迟和队列深度。"},
+      {"sp": "Anika", "en": "Maybe we're overprovisioned outside the sale itself. But demand could double during next month's campaign.", "zh": "可能仅促销之外配得过多。下月活动需求可能翻倍。"},
+      {"sp": "Priya", "en": "Just to confirm, no missing peak samples, right? We'll keep an eye on forecast changes.", "zh": "确认一下，高峰样本没有缺失，对吧？我们会关注预测变化。"},
+      {"sp": "Hannah", "en": "One monitoring gap covers the previous sale. Don't present this as complete seasonal coverage.", "zh": "上次促销有一个监控空档。不能说已覆盖完整季节变化。"},
+      {"sp": "Raj", "en": "Right, I can't rule that out yet. I'll label the gap and request archived metrics.", "zh": "对，现在还不能排除。我标注缺口并申请归档指标。"},
+      {"sp": "Lukas", "en": "So, test projected demand alongside historical loads. Historical spare capacity isn't a guarantee for growth.", "zh": "所以，除历史外也测试预计需求。历史富余不能保证增长后也够。"},
+      {"sp": "Anika", "en": "Okay, I'll share the campaign forecast today. Treat the upper range as a test input.", "zh": "好，今天分享活动预测。把上限作为测试输入。"}
+    ]},
+    {"id": "0378", "part": 3, "stage": "规格调整", "title": "小规格先测内存和吞吐", "premise": "按节点指标显示缩规格有空间，但下月需求与规格限制需验证。", "listeningTask": "听出缩规格不只减少CPU，还改变内存和网络能力。", "newPhrase": "p653", "phrases": ["p653", "p652", "p319", "p327:extra", "p324:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "We could right-size the workers one tier. The smaller type halves available memory too.", "zh": "可以把节点调整小一档。较小规格也会将内存减半。"},
+      {"sp": "Lukas", "en": "Well, CPU alone won't justify that change. Check memory, network throughput, and sustained disk limits.", "zh": "嗯，CPU本身不能支持变更。检查内存、网络吞吐和持续磁盘限制。"},
+      {"sp": "Anika", "en": "The campaign loads a larger catalog itself. Our cache could need more memory then.", "zh": "活动本身会加载更大目录。缓存可能需要更多内存。"},
+      {"sp": "Hannah", "en": "Price that exact type in our region. Smaller names don't guarantee proportional savings everywhere.", "zh": "按本区域该确切规格计价。规格名更小不保证各地同比例节省。"},
+      {"sp": "Priya", "en": "Just to confirm, no live resizing today, right? First test the projected catalog and traffic.", "zh": "确认一下，今天不在线改规格，对吧？先测预计目录和流量。"},
+      {"sp": "Raj", "en": "Peak utilization is our test baseline here. Maybe retain one tier more for memory.", "zh": "峰值利用率是测试基线。也许为内存保留更大一档。"},
+      {"sp": "Lukas", "en": "Define a rollback trigger before the pilot. Latency and failed work matter beyond CPU.", "zh": "试点前明确回退触发条件。除CPU外，延迟和任务失败也重要。"},
+      {"sp": "Anika", "en": "Our smoke test checks fresh catalog reads. A load test must cover cache warm-up too.", "zh": "关键功能测试检查新目录读取。压测还必须覆盖缓存预热。"},
+      {"sp": "Hannah", "en": "So, count overlapping machines during the transition. That temporary cost belongs in the comparison.", "zh": "所以，还要算切换时同时运行的机器。临时费用也属于比较。"},
+      {"sp": "Priya", "en": "Okay, Raj owns sizing and memory headroom. Anika supplies realistic datasets before the test starts.", "zh": "好，Raj负责规格和内存余量。Anika在开测前提供真实数据集。"}
+    ]},
+    {"id": "0379", "part": 4, "stage": "预留承诺", "title": "折扣不等于免费退出", "premise": "采购提出一年承诺优惠，服务未来可能迁移。", "listeningTask": "区分承诺消费、容量预留和实际可迁移范围。", "newPhrase": "p654", "phrases": ["p654", "p653", "p010", "p011:extra", "p004:extra", "p335:extra"], "lines": [
+      {"sp": "Hannah", "en": "Well, committed spend could lower hourly rates. But we'd owe the minimum for one year.", "zh": "嗯，承诺消费可以降低小时费率。但一年都要付最低承诺额。"},
+      {"sp": "Raj", "en": "Shouldn't we right-size the workers before buying? Otherwise we could commit to waste itself.", "zh": "不应先调好规格再买吗？否则可能把浪费本身承诺下来。"},
+      {"sp": "Lukas", "en": "Yes, and discounts don't necessarily reserve capacity. Check the specific product, not its marketing name.", "zh": "对，而且折扣不一定预留容量。看具体产品，不看宣传名。"},
+      {"sp": "Priya", "en": "Just to confirm, discounts aren't capacity guarantees, right? We'll keep those two decisions separate today.", "zh": "确认一下，折扣不是容量保证，对吧？今天把两个决定分开。"},
+      {"sp": "Anika", "en": "Our working hypothesis assumes catalog stays here. Maybe the migration changes that next quarter.", "zh": "当前假设是目录留在这里。下季度迁移可能改变这一点。"},
+      {"sp": "Hannah", "en": "So, this covers eligible compute in-region only. Another region or service may not qualify.", "zh": "所以，只覆盖本区域符合条件的计算。其他区域或服务可能不适用。"},
+      {"sp": "Raj", "en": "Let me play that back for budgeting. Usage can fall while the minimum payment remains.", "zh": "我为预算复述一下。用量下降时最低付款仍在。"},
+      {"sp": "Lukas", "en": "Exactly, an unused commitment can erase savings. Check cancellation, exchange, and transfer rights explicitly.", "zh": "对，未用承诺会抵消节省。明确检查取消、交换和转让权利。"},
+      {"sp": "Priya", "en": "A full-year fleet purchase? Let's park that. We need stable demand and contract review first.", "zh": "整组买一年？先放一边。先确认稳定需求并评审合同。"},
+      {"sp": "Anika", "en": "I'll share the migration decision dates too. That should help bound any sensible commitment.", "zh": "我也分享迁移决策日期。这有助于限定合理承诺。"}
+    ]},
+    {"id": "0380", "part": 5, "stage": "峰值风险", "title": "省钱不能依赖所有区域永远正常", "premise": "长期采购暂缓，继续评审缩规格后的峰值与故障承载能力。", "listeningTask": "听出故障余量与常态利用率的不同。", "newPhrase": "p655", "phrases": ["p655", "p652", "p654", "p319:extra", "p010:extra", "p302:extra"], "lines": [
+      {"sp": "Lukas", "en": "First, capacity headroom must cover zone loss. Normal peak utilization isn't the whole sizing requirement.", "zh": "先明确，容量余量必须覆盖可用区失效。正常峰值利用率不是全部要求。"},
+      {"sp": "Raj", "en": "Right, smaller workers saturate in surviving zones. We might need more replicas during failover.", "zh": "对，小节点在剩余区会饱和。故障切换可能需要更多副本。"},
+      {"sp": "Hannah", "en": "Can the region supply those replicas quickly? A discount agreement won't answer that capacity question.", "zh": "区域能及时提供副本吗？折扣协议不能回答容量问题。"},
+      {"sp": "Anika", "en": "The sale can't wait for cold starts. Maybe keep warm capacity through that peak.", "zh": "促销等不起冷启动。可以在高峰保留热容量。"},
+      {"sp": "Priya", "en": "Just to confirm, test a zone loss, right? Memory headroom must stay healthy there too.", "zh": "确认一下，测试一个区失效，对吧？那时内存余量也要正常。"},
+      {"sp": "Lukas", "en": "Yes, model it safely in the sandbox. Don't create a live outage for cost evidence.", "zh": "对，在沙箱安全模拟。不要为成本证据制造线上故障。"},
+      {"sp": "Raj", "en": "We can't rule that out as a bottleneck. I'll test startup time and quota limits.", "zh": "还不能排除这是瓶颈。我测试启动时间和配额限制。"},
+      {"sp": "Hannah", "en": "So, committed spend covers only steady demand. Temporary peak capacity needs a separate cost model.", "zh": "所以，承诺消费只覆盖稳定需求。临时峰值容量需要独立成本模型。"},
+      {"sp": "Anika", "en": "I'll provide the peak customer journey itself. Queue recovery time matters after the demand drops.", "zh": "我提供高峰客户流程本身。需求下降后的队列恢复时间也重要。"},
+      {"sp": "Priya", "en": "Okay, failed headroom means no broad reduction. We can still pursue scheduling waste separately.", "zh": "好，余量不达标就不全面缩减。仍可单独解决调度浪费。"}
+    ]},
+    {"id": "0381", "part": 6, "stage": "试点方案", "title": "两个工作日的小范围试点", "premise": "方案加入安全余量，计划先在沙箱再在小流量节点试点。", "listeningTask": "抓住试点范围、时长、停止条件和证据。", "newPhrase": "p656", "phrases": ["p656", "p653", "p655", "p323:extra", "p324:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, the cost pilot starts in staging tomorrow. We'll right-size the workers in one test pool.", "zh": "好，降本试点明天从预发布开始。只调整一个测试池节点规格。"},
+      {"sp": "Lukas", "en": "First, pass peak and zone-loss tests. The live pool gets a small traffic share.", "zh": "先通过峰值和区域失效测试。线上池只接小部分流量。"},
+      {"sp": "Priya", "en": "Okay, a staged rollout over two weekdays. Each expansion waits for its own validation.", "zh": "好，在两个工作日内分阶段发布。每次扩大都等独立验证。"},
+      {"sp": "Anika", "en": "The rollback trigger includes customer latency itself. If reads slow beyond target, stop expanding.", "zh": "回退触发条件包含客户延迟本身。读取慢于目标就停止扩大。"},
+      {"sp": "Hannah", "en": "Well, keep a matched control pool too. Otherwise demand changes could masquerade as savings.", "zh": "嗯，也保留匹配的对照池。否则需求变化可能被误认为节省。"},
+      {"sp": "Raj", "en": "Right, capacity headroom stays in acceptance checks. Maybe smaller CPU with unchanged memory works better.", "zh": "对，容量余量仍纳入验收。可能CPU较小但内存不变更合适。"},
+      {"sp": "Lukas", "en": "Don't change runtime tuning at the same time. We'd lose attribution for any performance difference.", "zh": "不要同时改运行参数。否则性能变化难归因。"},
+      {"sp": "Priya", "en": "I'll keep an eye on the approvals. Raj records machine type, traffic share, and rates.", "zh": "我关注审批。Raj记录机型、流量份额和费率。"},
+      {"sp": "Hannah", "en": "So, report overlap and engineering hours too. The pilot's total cost matters for repeatability.", "zh": "所以，也报告重叠运行和工程工时。试点总成本关系到是否可重复。"},
+      {"sp": "Anika", "en": "I'll reserve a reviewer for both days. That keeps decisions inside normal working hours.", "zh": "我为两天安排评审者。确保决策在正常工作时间内完成。"}
+    ]},
+    {"id": "0382", "part": 7, "stage": "预算争议", "title": "折扣截止不应替代风险评审", "premise": "试点安排明确，但采购报价期限引发是否立即签约的争议。", "listeningTask": "听出不同角色如何提出异议并澄清合同风险。", "newPhrase": "p657", "phrases": ["p657", "p654", "p656", "p004:extra", "p010:extra", "p002:extra"], "lines": [
+      {"sp": "Hannah", "en": "Well, exit terms don't allow early cancellation. Exchanges are limited, and refunds aren't promised.", "zh": "嗯，退出条款不允许提前取消。交换有限，也不保证退款。"},
+      {"sp": "Anika", "en": "Then the deadline isn't a reason itself. I won't lock next year's migration budget blindly.", "zh": "那截止日期本身不是理由。我不会盲目锁定明年迁移预算。"},
+      {"sp": "Raj", "en": "Committed spend also uses today's oversized baseline. Maybe the pilot reduces eligible demand significantly.", "zh": "承诺消费还基于今天过大的配置。试点可能明显降低适用需求。"},
+      {"sp": "Lukas", "en": "I agree, but avoid assuming every reduction lasts. Model stable, growing, and migrating demand separately.", "zh": "同意，但别假定缩减永久持续。分别建模稳定、增长和迁移需求。"},
+      {"sp": "Priya", "en": "Just to confirm, no purchase approval today, right? The cost pilot remains approved and funded.", "zh": "确认一下，今天不批准采购，对吧？降本试点仍获批并有资金。"},
+      {"sp": "Hannah", "en": "Correct, the offer can expire without purchase. Procurement may request another quote after validation.", "zh": "对，可以让报价到期不买。验证后采购可以再询价。"},
+      {"sp": "Anika", "en": "What about the promised quarterly saving target? Let's park that exact number until evidence arrives.", "zh": "已承诺的季度节省目标怎么办？等证据再确定精确数字。"},
+      {"sp": "Lukas", "en": "So, give finance a range with risks. A forced target can encourage unsafe resource cuts.", "zh": "所以，给财务带风险说明的区间。强制目标会诱导不安全资源缩减。"},
+      {"sp": "Raj", "en": "We can take it offline with procurement. I'll bring the demand model, not just prices.", "zh": "我们可以会后与采购单聊。我带需求模型，不只带价格。"},
+      {"sp": "Priya", "en": "Okay, keep the decision in our notes. Deferred purchasing isn't a rejected savings effort.", "zh": "好，把决定记下来。暂缓采购不代表拒绝降本。"}
+    ]},
+    {"id": "0383", "part": 8, "stage": "验收指标", "title": "节省要扣掉转移成本", "premise": "采购暂缓，团队确定试点的成本和可靠性验收标准。", "listeningTask": "辨别实际节省与仅单价下降。", "newPhrase": "p658", "phrases": ["p658", "p656", "p652", "p327:extra", "p012:extra", "p010:extra"], "lines": [
+      {"sp": "Hannah", "en": "First, effective savings means total costs fall. Include overlap, extra replicas, and engineering effort.", "zh": "先明确，实际节省意味着总成本下降。包含重叠运行、额外副本和工程投入。"},
+      {"sp": "Raj", "en": "Right, our cost pilot compares equal work. A cheaper hour could process fewer useful requests.", "zh": "对，试点对比等量完成工作。更便宜的一小时可能处理更少有效请求。"},
+      {"sp": "Lukas", "en": "Add latency and error-rate gates alongside cost. Cost per request mustn't hide customer harm.", "zh": "成本之外增加延迟和错误率门槛。每请求成本不能掩盖客户损害。"},
+      {"sp": "Priya", "en": "Just to confirm, equal workload and rates, right? Peak utilization gets reported for each pool.", "zh": "确认一下，工作量和费率一致，对吧？每个池报告峰值利用率。"},
+      {"sp": "Anika", "en": "The smoke test is only the entry check. It can't replace the full load run.", "zh": "关键功能测试只是入门检查，不能替代完整带载测试。"},
+      {"sp": "Hannah", "en": "Well, use observations plus clearly labelled estimates. Two days won't produce a settled monthly bill.", "zh": "嗯，使用观测结果和明确标注的估算。两天不会产生结算月账单。"},
+      {"sp": "Raj", "en": "Maybe compare normalized daily totals first instead. We'll keep workload variance visible in the report.", "zh": "可以先比较归一化日总额。报告里保留工作量变化。"},
+      {"sp": "Lukas", "en": "So, show simulated zone-loss results separately too. Averages shouldn't erase that critical failure case.", "zh": "所以，模拟区域失效结果也单独显示。平均值不能抹掉关键失效情形。"},
+      {"sp": "Priya", "en": "Just to recap, savings and safety both pass. Either failed gate blocks a broader rollout.", "zh": "小结一下，节省和安全都要通过。任一失败就阻止扩大。"},
+      {"sp": "Anika", "en": "I'll sign the customer-impact check after review. No acceptance based on price charts alone.", "zh": "评审后我签客户影响检查。不能仅凭价格图验收。"}
+    ]},
+    {"id": "0384", "part": 9, "stage": "决策与责任", "title": "试点获批，长期承诺未批", "premise": "验收标准已明确，评审会落实试点与后续采购责任。", "listeningTask": "听出今天正式批准什么、明确未批准什么。", "newPhrase": "p659", "phrases": ["p659", "p654", "p657", "p009:extra", "p013:extra", "p010:extra"], "lines": [
+      {"sp": "Priya", "en": "We approve the bounded sizing test today. Commitment coverage stays undecided until demand is stable.", "zh": "今天批准有边界的规格测试。需求稳定前不决定承诺覆盖比例。"},
+      {"sp": "Hannah", "en": "Right, committed spend covers a conservative baseline. Don't purchase against the campaign's temporary peak.", "zh": "对，承诺消费覆盖保守基线。不要按活动临时峰值采购。"},
+      {"sp": "Raj", "en": "First action item, I own test execution. I'll attach workload, resource limits, and rollback evidence.", "zh": "第一项待办，我负责执行测试。附工作量、资源限制和回退证据。"},
+      {"sp": "Lukas", "en": "Good, I'll review reliability gates on Thursday. Failed tests mean revise, not quietly lower thresholds.", "zh": "好，我周四评审可靠性门槛。测试失败就修改方案，不悄悄降低阈值。"},
+      {"sp": "Anika", "en": "Who's picking this up for exit terms? We need legal review before any signature.", "zh": "退出条款谁来接？签字前需要法务评审。"},
+      {"sp": "Hannah", "en": "I'll coordinate procurement and the legal reviewer. Maybe Friday for the first written assessment.", "zh": "我协调采购与法务评审者。首份书面评估可能周五。"},
+      {"sp": "Priya", "en": "Just to confirm, no contract signature yet, right? Each purchase needs its own budget approval.", "zh": "确认一下，仍不签合同，对吧？每次采购要独立预算批准。"},
+      {"sp": "Raj", "en": "I'll price a low baseline option too. The unused commitment risk should be explicit.", "zh": "我也为低基线方案计价。未用承诺风险要明确。"},
+      {"sp": "Lukas", "en": "So, keep migration flexibility in that comparison. Cheap steady-state pricing isn't the only strategic consideration.", "zh": "所以，比较里保留迁移灵活性。稳态低价不是唯一战略考虑。"},
+      {"sp": "Anika", "en": "Okay, I'll own the demand forecast itself. We'll update it before the purchase discussion.", "zh": "好，我负责需求预测本身。采购讨论前更新。"}
+    ]},
+    {"id": "0385", "part": 10, "stage": "下次复查", "title": "下一轮看证据，不追漂亮百分比", "premise": "试点排期与负责人确定，约定后续验证和采购复审。", "listeningTask": "抓住复查条件与不能提前宣称的成果。", "newPhrase": "p660", "phrases": ["p660", "p658", "p659", "p001:extra", "p310:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, we'll revisit the sizing next Monday. Bring measured results and any incomplete checks.", "zh": "好，下周一重新审视规格。带测量结果及未完成检查。"},
+      {"sp": "Raj", "en": "I'll close the loop on the pilot. Maybe the best choice keeps more memory.", "zh": "我完成试点闭环。最佳方案可能保留更多内存。"},
+      {"sp": "Hannah", "en": "Well, show effective savings as a range. Actual billing reconciliation follows when charges are posted.", "zh": "嗯，实际节省先显示为区间。费用入账后再做账单核对。"},
+      {"sp": "Anika", "en": "Can we circle back after campaign planning? The new forecast could change commitment coverage itself.", "zh": "活动规划后可以再讨论吗？新预测可能改变承诺覆盖比例本身。"},
+      {"sp": "Lukas", "en": "Yes, don't buy before that uncertainty clears. If it persists, retain flexible pricing for now.", "zh": "可以，不确定性消除前别买。如果持续，就暂留灵活计价。"},
+      {"sp": "Priya", "en": "Just to recap, test approved, purchase deferred. No promised percentage until both gates pass.", "zh": "小结一下，测试获批，采购暂缓。两个门槛通过前不承诺百分比。"},
+      {"sp": "Hannah", "en": "Procurement will return the actual contract restrictions. We'll compare those against migration timing again.", "zh": "采购会反馈实际合同限制。我们再与迁移时间比较。"},
+      {"sp": "Raj", "en": "I'll preserve the baseline and test datasets. Future reviews need reproducible comparisons, not remembered impressions.", "zh": "我保留基线和测试数据集。未来评审要可重现对比，不凭印象。"},
+      {"sp": "Lukas", "en": "So, review again if demand changes materially. A passing pilot doesn't guarantee every future peak.", "zh": "所以，需求明显变化就再次评审。试点通过不保证未来每次峰值。"},
+      {"sp": "Anika", "en": "Okay, we'll keep customers ahead of targets. Savings count only when the service stays useful.", "zh": "好，客户优先于指标。服务仍有用时节省才算数。"}
+    ]}
+  ]
+}

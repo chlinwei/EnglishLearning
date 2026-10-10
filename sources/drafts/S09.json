@@ -1,0 +1,149 @@
+{
+  "version":1,
+  "status":"draft-awaiting-voice",
+  "note":"十段连续评审对话，均为双语文本，未配音且不填时间轴。未知原因保留为假设；未来复现计划不是实际出现。",
+  "series":{"id":"sc-S09-network-cross-region-latency","title":"跨区延迟评审：证据与试验取舍","domain":"network","group":"ops-review","service":"checkout to regional pricing API","premise":"checkout访问B区pricing接口的尾延迟高于本区路径，团队评审测量口径、路由、MTU与连接复用，当前没有新增故障。","outcome":"批准隔离环境中的连接复用与受控MTU试验，保留跨区路由调查；生产不改路由或MTU，等待同口径证据和成本评估。"},
+  "speakers":{
+    "Priya":{"role":"Architecture review chair","accent":"en-IN","voice":null},
+    "Raj":{"role":"Network engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Pricing client owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"SRE reviewer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Performance engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p361","en":"latency budget","zh":"延迟预算","layer":"L1","level":"core","target":5},
+    {"id":"p362","en":"measurement window","zh":"测量时间窗","layer":"L1","level":"core","target":5},
+    {"id":"p363","en":"round-trip time","zh":"往返时间","layer":"L1","level":"core","target":5},
+    {"id":"p364","en":"route asymmetry","zh":"去回程路由不对称","layer":"L1","level":"core","target":5},
+    {"id":"p365","en":"path MTU","zh":"路径最大传输单元","layer":"L1","level":"core","target":5},
+    {"id":"p366","en":"connection reuse","zh":"连接复用","layer":"L1","level":"core","target":5},
+    {"id":"p367","en":"egress cost","zh":"出站流量成本","layer":"L1","level":"core","target":5},
+    {"id":"p368","en":"control group","zh":"对照组","layer":"L1","level":"core","target":5},
+    {"id":"p369","en":"experiment owner","zh":"试验负责人","layer":"L0","level":"core","target":8},
+    {"id":"p370","en":"decision record","zh":"决策记录","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"此前表达实际出现在下列台词；以下仅为后续编稿候选。","plannedFuture":{"S24":["p361","p362","p363","p367","p368","p369","p370"],"S39":["p364","p365","p366"]}},
+  "dialogues":[
+    {"id":"0086","part":1,"stage":"延迟现状","title":"尾延迟偏高，不宣布故障原因","premise":"跨区pricing请求较慢，评审先明确问题和服务目标。","listeningTask":"区分观察到的尾延迟与未经证实的网络根因。","newPhrase":"p361","phrases":["p361","p010","p335","p341:extra","p004:extra","p008:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, cross-region pricing takes roughly eighty milliseconds. That's the ninety-fifth percentile this week.","zh":"好，本周跨区定价请求的第九十五百分位大约八十毫秒。"},
+      {"sp":"Hannah","en":"What's the same percentile for local requests? And does that include connection setup?","zh":"本区请求同一分位数是多少？包括连接建立吗？"},
+      {"sp":"Anika","en":"Local requests take about twenty milliseconds. Both figures include the whole client call.","zh":"本区请求大约二十毫秒，两组数字都包括完整客户端调用。"},
+      {"sp":"Lukas","en":"Then network delay isn't the only possibility. Server queues could contribute as well.","zh":"那么网络延迟不是唯一可能，服务端排队也可能有影响。"},
+      {"sp":"Raj","en":"Right, our working hypothesis isn't confirmed. We haven't isolated the network share yet.","zh":"对，当前假设未经证实，尚未单独测出网络占比。"},
+      {"sp":"Priya","en":"Just to confirm, no new outage, right? We're reviewing the pricing latency budget.","zh":"我确认一下，没有新故障，对吧？我们是在评审定价延迟预算。"},
+      {"sp":"Hannah","en":"Correct, the service still meets its SLO. But growth could reduce our remaining margin.","zh":"对，服务仍满足SLO，但增长可能压缩剩余余量。"},
+      {"sp":"Raj","en":"Someone asked whether DNS is timing out. Current lookup samples don't show that.","zh":"有人问是否DNS正在超时，目前查询样本没有显示这个情况。"},
+      {"sp":"Lukas","en":"What's the ETA for a measurement breakdown? We need evidence before choosing a fix.","zh":"测量分解预计多久能有？选择修复方案前要有证据。"},
+      {"sp":"Priya","en":"Today we'll agree the measurement method. Routing changes? Let's park that until evidence.","zh":"今天先商定测量方法。路由变更等有证据再说。"}
+    ]},
+    {"id":"0087","part":2,"stage":"对齐测量口径","title":"同时间窗，同请求类型","premise":"总体延迟含多个阶段，先统一采样和比较口径。","listeningTask":"识别缓存、连接冷热和请求大小这些混杂因素。","newPhrase":"p362","phrases":["p362","p356","p010","p344:extra","p014:extra","p008:extra"],"lines":[
+      {"sp":"Hannah","en":"Use the same measurement window for both. Let's compare like for like throughout.","zh":"两组使用相同测量时间窗，全程在相同条件下对比。"},
+      {"sp":"Raj","en":"Okay, match payload size and client version. Separate warm connections from fresh connections.","zh":"好，匹配载荷大小和客户端版本，分开热连接与新连接。"},
+      {"sp":"Lukas","en":"Does a cache hit skip pricing work? That would skew our local comparison.","zh":"缓存命中会跳过定价计算吗？那会使本区比较偏斜。"},
+      {"sp":"Anika","en":"Yes, so match cache state as well. I'll label misses without clearing production caches.","zh":"会，所以也匹配缓存状态。我会标记未命中，不清理生产缓存。"},
+      {"sp":"Priya","en":"Just to confirm, no mixed percentiles, right? Average latency can't stand in for tails.","zh":"我确认一下，不混用分位数，对吧？平均延迟不能代替尾延迟。"},
+      {"sp":"Hannah","en":"Exactly, report sample counts beside each percentile. Low counts need an uncertainty note.","zh":"对，每个分位数旁注明样本数，样本少要说明不确定性。"},
+      {"sp":"Raj","en":"I'm on it for clock checks too. One-way timing needs reliable clock alignment.","zh":"时钟检查我也来做，单程计时需要可靠的时钟对齐。"},
+      {"sp":"Lukas","en":"Prefer client elapsed time for this comparison. It avoids subtracting unrelated host timestamps.","zh":"这次对比优先用客户端经过时间，避免相减无关联的主机时间戳。"},
+      {"sp":"Anika","en":"What's the ETA for synchronized sampling? About an hour should cover enough calls.","zh":"同步采样预计什么时候开始？大约一小时应能覆盖足够调用。"},
+      {"sp":"Priya","en":"So, start after the scheduled deploy ends. That keeps version changes outside our window.","zh":"因此计划部署结束后开始，避免版本变化落在时间窗内。"}
+    ]},
+    {"id":"0088","part":3,"stage":"跨区对比","title":"RTT不是全部请求时间","premise":"统一口径采样完成，比较本区与跨区的网络及应用阶段。","listeningTask":"不要将请求延迟差直接等同于网络往返时间。","newPhrase":"p363","phrases":["p363","p362","p010","p302:extra","p342:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, TCP round-trip time is about thirty milliseconds. Local connections are closer to two.","zh":"好，跨区TCP往返时间大约三十毫秒，本区连接接近两毫秒。"},
+      {"sp":"Hannah","en":"Measured on the actual service path? ICMP probes may receive different treatment.","zh":"是在实际服务路径上测的吗？ICMP探测可能受到不同处理。"},
+      {"sp":"Raj","en":"Yes, from sampled application TCP connections. The measurement window matches our client traces.","zh":"是，来自抽样应用TCP连接。时间窗与客户端链路记录一致。"},
+      {"sp":"Lukas","en":"That doesn't explain every extra millisecond. What happens during fresh TLS connections?","zh":"那不能解释每一毫秒额外时间。新TLS连接期间发生什么？"},
+      {"sp":"Anika","en":"They add several network exchanges before pricing. Warm calls avoid most setup time.","zh":"定价前会增加几次网络交换，热连接调用避免了大部分建立时间。"},
+      {"sp":"Priya","en":"Just to confirm, intermittent failures aren't rising, right? We should separate failures from slow successes.","zh":"我确认一下，间歇失败没有增加，对吧？要把失败和慢成功分开。"},
+      {"sp":"Hannah","en":"Failure counts remain near the existing baseline. The slower successful calls dominate this comparison.","zh":"失败计数接近原有基线，较慢的成功调用是这次比较的主体。"},
+      {"sp":"Raj","en":"Can we rule that out as congestion? Actually, not from RTT samples alone.","zh":"能据此排除拥塞吗？其实不能只靠RTT样本。"},
+      {"sp":"Lukas","en":"Right, inspect queue and retransmission evidence next. Geography explains distance, not every tail spike.","zh":"对，接下来检查排队和重传证据。地理距离不能解释每个尾延迟尖峰。"},
+      {"sp":"Anika","en":"I'm on it for server queue traces. So, we'll compare those with route evidence.","zh":"服务端队列链路记录我来查，然后与路由证据比较。"}
+    ]},
+    {"id":"0089","part":4,"stage":"路由证据","title":"星号不代表链路丢包","premise":"跨区RTT较高且冷连接更慢，继续检查实际路径与服务器排队。","listeningTask":"听清traceroute的局限和去回程证据边界。","newPhrase":"p364","phrases":["p364","p335","p010","p302:extra","p004:extra","p008:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, traces suggest a longer transit route. Three hops don't answer diagnostic probes.","zh":"好，路径记录提示经过更长的中转路由。有三跳不响应诊断探测。"},
+      {"sp":"Lukas","en":"Those missing answers aren't proof of loss. Routers often limit diagnostic responses deliberately.","zh":"缺少响应不能证明丢包，路由器常会主动限制诊断响应。"},
+      {"sp":"Raj","en":"Agreed, route asymmetry is another possibility. We only traced the forward direction.","zh":"同意，去回程路由不对称也是一种可能。目前只追踪了去程。"},
+      {"sp":"Hannah","en":"Can the regional team inspect reverse paths? Include routing tables at the same time.","zh":"区域团队能检查回程吗？也要同时查看路由表。"},
+      {"sp":"Anika","en":"Our working hypothesis includes setup overhead too. Server queues look similar between matched calls.","zh":"当前假设也包含连接建立开销。匹配调用的服务端排队看起来类似。"},
+      {"sp":"Priya","en":"Just to confirm, no route switch yet, right? A shorter path isn't automatically safer.","zh":"我确认一下，还不切路由，对吧？更短路径不一定更安全。"},
+      {"sp":"Lukas","en":"Correct, policy and redundancy still matter. We can't rule that out without carrier evidence.","zh":"对，策略和冗余仍重要，没有运营商证据无法排除路径相关问题。"},
+      {"sp":"Raj","en":"What's the ETA for the reverse trace? The regional engineer estimates about one day.","zh":"回程追踪预计多久？区域工程师估计大约一天。"},
+      {"sp":"Hannah","en":"Keep the current path during collection. Save route snapshots with their collection timestamps.","zh":"采集期间保持当前路径，保存路由快照和采集时间戳。"},
+      {"sp":"Priya","en":"So, forced routing? Let's park that. Next, examine the large-payload timing pattern.","zh":"因此强制改路由先搁置，接下来检查大载荷耗时模式。"}
+    ]},
+    {"id":"0090","part":5,"stage":"MTU假设","title":"大包更慢，还不能确认黑洞","premise":"路由证据尚不完整，大载荷请求表现出额外尾延迟；讨论MTU假设。","listeningTask":"区分路径MTU假设与证据，并听清生产测试边界。","newPhrase":"p365","phrases":["p365","p335","p010","p210:extra","p324:extra","p004:extra"],"lines":[
+      {"sp":"Hannah","en":"Large responses show more retransmissions in samples. Could path MTU discovery be failing?","zh":"抽样的大响应有更多重传，会不会是路径MTU发现失败？"},
+      {"sp":"Raj","en":"Okay, that's a working hypothesis only. We haven't observed a consistent size boundary.","zh":"好，这只是当前假设，尚未观察到一致的大小边界。"},
+      {"sp":"Lukas","en":"Don't lower MTU across the production fleet. Check tunnels and ICMP handling first.","zh":"不要全生产集群降低MTU。先检查隧道和ICMP处理。"},
+      {"sp":"Anika","en":"Could a sandbox client reproduce the pattern? It uses the same approved network path.","zh":"沙箱客户端能复现吗？它使用同一条批准的网络路径。"},
+      {"sp":"Priya","en":"Just to confirm, bounded probes only, right? No bulk oversized traffic against production.","zh":"我确认一下，只做受限探测，对吧？不向生产大量发送超大流量。"},
+      {"sp":"Hannah","en":"Yes, small scheduled samples with packet metadata. We need acknowledgments and retransmission timing.","zh":"是，用定时小样本和包元数据。需要确认应答和重传时序。"},
+      {"sp":"Raj","en":"We'll dry-run it first in isolation. Then approved diagnostic probes can test reachability.","zh":"先在隔离环境预演，再由批准的诊断探测测试可达性。"},
+      {"sp":"Lukas","en":"Define the rollback trigger for experimental settings. Increased errors mean restore the saved configuration.","zh":"定义试验设置的回退门槛，错误增加就恢复已保存配置。"},
+      {"sp":"Anika","en":"I'd prefer no production settings changed yet. Roughly matching topology should test feasibility first.","zh":"我倾向于暂不改生产设置。先用大致匹配的拓扑验证可行性。"},
+      {"sp":"Priya","en":"Agreed, production changes? Let's park that. So, MTU remains unconfirmed pending controlled evidence.","zh":"同意，生产变更先搁置。MTU问题继续等待受控证据，尚未确认。"}
+    ]},
+    {"id":"0091","part":6,"stage":"连接复用方案","title":"复用降低建立成本，也有池风险","premise":"MTU试验需审批且原因未定，讨论冷连接建立开销的独立优化方案。","listeningTask":"听清复用的收益、空闲连接风险和并发限制。","newPhrase":"p366","phrases":["p366","p363","p010","p104:extra","p309:extra","p014:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, connection reuse could avoid repeated handshakes. Our client currently opens many short connections.","zh":"好，连接复用可以避免重复握手。目前客户端建立很多短连接。"},
+      {"sp":"Lukas","en":"What closes them, client policy or server? Reuse won't help if the server closes first.","zh":"是什么关闭连接，客户端策略还是服务端？服务端先关闭的话复用没用。"},
+      {"sp":"Anika","en":"Client pooling is disabled for this integration. The server supports bounded persistent connections.","zh":"这个集成关闭了客户端连接池，服务端支持有限度的持久连接。"},
+      {"sp":"Hannah","en":"So round-trip time remains, but setup shrinks. That isn't a shorter network route.","zh":"所以往返时间还在，但建立开销减少了，不代表网络路径变短。"},
+      {"sp":"Priya","en":"Just to confirm, test stale connections too, right? Idle timeouts could change the outcome.","zh":"我确认一下，也测试失效旧连接，对吧？空闲超时可能影响结果。"},
+      {"sp":"Raj","en":"Yes, align pool expiry below server timeout. Add jitter to avoid synchronized reconnect bursts.","zh":"是，把池过期时间设得低于服务端超时，加抖动避免同时重连。"},
+      {"sp":"Lukas","en":"And cap concurrency rather than growing indefinitely. Queue delay belongs in the measurements too.","zh":"还要限制并发，不能无限增长。排队延迟也要计入测量。"},
+      {"sp":"Anika","en":"I'm on it for those client limits. We'll keep an eye on pool waits.","zh":"这些客户端限制我来做，也会留意连接池等待。"},
+      {"sp":"Hannah","en":"If we're seeing connection resets during tests, compare idle age. Avoid blind payment retries.","zh":"如果测试发现连接重置，就比较空闲时长。不要盲目重试支付。"},
+      {"sp":"Priya","en":"So, sandbox calls first, roughly current concurrency. Production adoption still needs a separate review.","zh":"所以先用沙箱调用，并发接近当前水平。生产采用仍需单独评审。"}
+    ]},
+    {"id":"0092","part":7,"stage":"成本取舍","title":"少握手不等于少业务字节","premise":"连接复用有初步可行性，评审其资源、费用与区域部署替代方案。","listeningTask":"辨别握手流量节省和业务出站费用，并理解区域副本的额外成本。","newPhrase":"p367","phrases":["p367","p366","p010","p319:extra","p006:extra","p004:extra"],"lines":[
+      {"sp":"Lukas","en":"What happens to the egress cost? Reuse won't remove cross-region response bytes.","zh":"出站成本会怎样？复用不会消除跨区响应字节。"},
+      {"sp":"Anika","en":"Right, connection reuse mainly saves setup overhead. Business payload charges remain roughly the same.","zh":"对，复用主要节省建立开销，业务载荷费用大致不变。"},
+      {"sp":"Hannah","en":"Could a local pricing replica avoid crossing? Include its consistency and operating costs.","zh":"本区定价副本能避免跨区吗？要包括一致性和运维成本。"},
+      {"sp":"Raj","en":"It could, but prices change frequently. We'd need explicit freshness guarantees before serving locally.","zh":"能，但价格变化频繁。本区服务前需要明确的新鲜度保证。"},
+      {"sp":"Priya","en":"Just to confirm, no replica commitment, right? This review can't bypass the data owner.","zh":"我确认一下，尚未承诺建副本，对吧？这次评审不能绕过数据负责人。"},
+      {"sp":"Lukas","en":"Agreed, compare total cost rather than transfers alone. Persistent pools also use sockets and memory.","zh":"同意，比总成本而不只比传输费。持久连接池也占套接字和内存。"},
+      {"sp":"Anika","en":"We have some memory headroom on clients. Socket counts still need a measured limit.","zh":"客户端有一些内存余量，套接字数仍需测出合理限制。"},
+      {"sp":"Hannah","en":"Who has bandwidth for the cost estimate? Use actual traffic volumes and current tariffs.","zh":"谁有精力做成本估算？使用实际流量和当前费率。"},
+      {"sp":"Raj","en":"I can handle the transfer estimate tomorrow. Anika can measure the client resource increase.","zh":"我明天能估算传输成本，Anika可以测客户端资源增量。"},
+      {"sp":"Priya","en":"So, replica design? Let's park that. We'll compare reuse against the unchanged client first.","zh":"因此副本设计先搁置，先比较复用与未修改客户端。"}
+    ]},
+    {"id":"0093","part":8,"stage":"试验设计","title":"分别试验，避免混杂改动","premise":"决定先评估复用，MTU假设独立验证；设计有对照的隔离环境试验。","listeningTask":"识别变量分离、停止条件和试验对照。","newPhrase":"p368","phrases":["p368","p365","p010","p324:extra","p210:extra","p356:extra"],"lines":[
+      {"sp":"Hannah","en":"Keep a control group with current settings. Change pooling in the treatment group only.","zh":"保留使用当前设置的对照组，只在试验组改变连接池。"},
+      {"sp":"Anika","en":"Okay, same version and sandbox request mix. We can compare like for like.","zh":"好，相同版本和沙箱请求组合，可以同条件对比。"},
+      {"sp":"Lukas","en":"Where does the path MTU test fit? Don't change both variables in one run.","zh":"路径MTU测试放在哪里？一次测试不能同时改变两个变量。"},
+      {"sp":"Raj","en":"Separate isolated runs, with saved network settings. We'll dry-run it first without shared traffic.","zh":"独立隔离运行，保存网络设置。先在没有共享流量的环境预演。"},
+      {"sp":"Priya","en":"Just to confirm, production stays unchanged, right? Both trials start in approved test environments.","zh":"我确认一下，生产保持不变，对吧？两项试验都从批准测试环境开始。"},
+      {"sp":"Hannah","en":"Yes, report errors and latency together. Include cold starts, idle expiry, and reconnect bursts.","zh":"是，错误和延迟一起报告，包括冷启动、空闲过期和重连突发。"},
+      {"sp":"Anika","en":"The rollback trigger is any correctness failure. Resource pressure also stops the pooling trial.","zh":"任何正确性失败都触发回退，资源压力也会停止连接池试验。"},
+      {"sp":"Lukas","en":"Restore the baseline configuration after each run. That keeps the next comparison independent.","zh":"每次运行后恢复基线配置，让下一次比较独立。"},
+      {"sp":"Raj","en":"We'll collect roughly an hour per condition. Low sample counts mean extend, not declare success.","zh":"每种条件采集大约一小时。样本少就延长，不能宣布成功。"},
+      {"sp":"Priya","en":"So, document those limits before execution. That makes the proposal ready for ownership.","zh":"因此执行前写明这些限制，然后就可以明确负责人。"}
+    ]},
+    {"id":"0094","part":9,"stage":"责任分配","title":"每项证据都有负责人","premise":"试验边界和对照已确定，分配客户端、网络和成本任务。","listeningTask":"听清各负责人交付内容及依赖缺失时的处理。","newPhrase":"p369","phrases":["p369","p008","p010","p013:extra","p014:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, who's picking this up for pooling? Each trial needs an experiment owner.","zh":"好，谁来接连接池试验？每项试验都需要负责人。"},
+      {"sp":"Anika","en":"I'm on it for client changes. I'll include limits and correctness checks.","zh":"客户端变更我来做，会包括限制和正确性检查。"},
+      {"sp":"Hannah","en":"I'll own measurement quality, not application changes. Keep those responsibilities separate in the record.","zh":"我负责测量质量，不负责应用变更。记录里要分清。"},
+      {"sp":"Raj","en":"I'll own the isolated network test. Reverse-route evidence still depends on the regional team.","zh":"我负责隔离网络试验。回程路由证据仍依赖区域团队。"},
+      {"sp":"Lukas","en":"What's the ETA for their response? Missing evidence shouldn't silently become an assumption.","zh":"他们预计什么时候回复？缺失证据不能悄悄变成假设。"},
+      {"sp":"Priya","en":"Just to confirm, roughly tomorrow afternoon, right? If delayed, report the dependency explicitly.","zh":"我确认一下，大约明天下午，对吧？延迟就明确报告依赖。"},
+      {"sp":"Raj","en":"Yes, that's their current estimate only. I'll ask for a named regional contact.","zh":"是，那只是他们当前估计。我会请他们指定区域联系人。"},
+      {"sp":"Hannah","en":"Who checks the resulting cost estimate? Include transfer tariffs and client resource changes.","zh":"谁检查成本估算结果？要包括传输费率和客户端资源变化。"},
+      {"sp":"Anika","en":"Lukas reviews it after both inputs arrive. My resource report is due tomorrow.","zh":"两项输入到齐后由Lukas评审，我明天交资源报告。"},
+      {"sp":"Priya","en":"So, each action item has an owner. We'll review incomplete evidence without forcing adoption.","zh":"因此每项待办都有负责人。证据不完整时也评审，但不强行采用。"}
+    ]},
+    {"id":"0095","part":10,"stage":"决策总结","title":"批准试验，不批准生产优化","premise":"试验与证据任务已有负责人，收尾记录决策和未决事项。","listeningTask":"复述已批准试验、未证实原因和生产不变的边界。","newPhrase":"p370","phrases":["p370","p320","p010","p011:extra","p012:extra","p001:extra"],"lines":[
+      {"sp":"Priya","en":"Just to recap, approve the isolated trials. The decision record keeps production settings unchanged.","zh":"小结一下，批准隔离试验。决策记录明确生产设置不变。"},
+      {"sp":"Lukas","en":"Let me play that back briefly. Pooling and MTU tests run separately first.","zh":"我简短复述一下：连接池和MTU测试先分别运行。"},
+      {"sp":"Anika","en":"Okay, pooling may reduce setup time. It doesn't remove distance or payload charges.","zh":"好，连接池可能降低建立时间，但不消除距离或载荷费用。"},
+      {"sp":"Hannah","en":"And the root cause is still open. Route and payload effects need further evidence.","zh":"根因仍未确定，路由和载荷影响需要更多证据。"},
+      {"sp":"Raj","en":"The reverse path remains a specific dependency. No claim of confirmed MTU failure.","zh":"回程路径仍是明确依赖，不能声称已确认MTU故障。"},
+      {"sp":"Priya","en":"Just to confirm, compare costs before adoption, right? Include socket and memory overhead too.","zh":"我确认一下，采用前比较成本，对吧？套接字和内存开销也要算。"},
+      {"sp":"Lukas","en":"Yes, improvements must preserve correctness and limits. A faster failed request isn't a win.","zh":"是，改善必须保持正确性和资源限制。更快的失败请求不是收益。"},
+      {"sp":"Anika","en":"We'll circle back with roughly comparable samples. If counts differ, we'll explain that gap.","zh":"我们会带着大致可比的样本回访。数量不同就说明差距。"},
+      {"sp":"Hannah","en":"Bring raw summaries alongside the proposed conclusion. That lets us challenge the interpretation.","zh":"带上原始汇总和建议结论，让我们能质疑解释。"},
+      {"sp":"Priya","en":"So, review tomorrow, not an automatic rollout. We're closing the meeting, not the investigation.","zh":"所以明天评审，不自动发布。结束的是会议，不是调查。"}
+    ]}
+  ]
+}

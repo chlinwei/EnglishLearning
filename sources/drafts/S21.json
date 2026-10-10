@@ -1,0 +1,145 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"三角色真实编程面试，候选人回答与面试者追问贯通同一道题；只讨论沙箱方案，不执行生产操作。候选人词数目标60%，未配音，无时间轴。",
+  "series":{"id":"sc-S21-coding-devops-interview","title":"DevOps编程面试：幂等、重试与测试取舍","domain":"coding","group":"interview","service":"interview exercise: queued inventory tag updates","premise":"两位德国面试者请印度候选人设计Python worker：从持久队列读取资产标签更新，通过支持幂等键的API执行，处理重复投递、超时与有限吞吐。题目给定API契约，禁止在生产环境演示。","outcome":"候选人澄清输入与约束，提出持久化操作标识、相同键与负载重试、结果查询与租约协作；区分永久错误与未知结果，覆盖竞态和崩溃窗口测试，承认幂等保留期限和非事务端到端限制，最后反问团队工程实践。"},
+  "speakers":{
+    "Raj":{"role":"DevOps engineering candidate","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Primary interviewer, programming and systems","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Interviewer, testing and engineering practice","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p481","en":"walk you through","zh":"带你逐步讲解","layer":"L0","level":"core","target":8},
+    {"id":"p482","en":"bounded input","zh":"有明确上限的输入","layer":"L1","level":"core","target":5},
+    {"id":"p483","en":"worker pool","zh":"工作线程或任务池","layer":"L1","level":"core","target":5},
+    {"id":"p484","en":"idempotency key","zh":"幂等操作标识","layer":"L1","level":"core","target":5},
+    {"id":"p485","en":"retry with backoff","zh":"按退避策略重试","layer":"L1","level":"core","target":5},
+    {"id":"p486","en":"permanent failure","zh":"不可通过原样重试恢复的失败","layer":"L1","level":"core","target":5},
+    {"id":"p487","en":"fault injection","zh":"故障注入","layer":"L1","level":"core","target":5},
+    {"id":"p488","en":"bounded concurrency","zh":"受上限约束的并发","layer":"L1","level":"core","target":5},
+    {"id":"p489","en":"at-least-once delivery","zh":"至少一次投递","layer":"L1","level":"core","target":5},
+    {"id":"p490","en":"engineering onboarding","zh":"工程实践入职培训","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来场景候选，非实际出现；本稿复现仅依赖p001-p350及自身早段，不依赖其他并行草稿。","S26":["p481","p482","p484","p485","p488","p489","p490"],"S30":["p483","p486","p487"]},
+  "dialogues":[
+    {"id":"0206","part":1,"stage":"澄清题目","title":"先问清更新语义","premise":"面试开场，题目要求Python处理排队资产标签更新。","listeningTask":"抓住候选人的澄清问题与面试者给出的范围。","newPhrase":"p481","phrases":["p481","p010","p011:extra","p004:extra","p335:extra","p009:extra"],"lines":[
+      {"sp":"Lukas","en":"Design a Python worker for tag updates. What would you clarify before writing code?","zh":"设计处理标签更新的Python worker，写代码前会澄清什么？"},
+      {"sp":"Raj","en":"I'll walk you through my questions first. Just to confirm, updates replace tags, right?","zh":"我先逐步说我的问题，确认一下，是替换标签，对吧？"},
+      {"sp":"Hannah","en":"Yes, the message contains the desired set. Assume a durable queue and authenticated API.","zh":"是，消息包含目标标签集合，假定有持久队列和已认证API。"},
+      {"sp":"Raj","en":"Okay, let me play that back carefully. We apply desired state, not append repeated changes.","zh":"好，我认真复述，是应用目标状态，不是重复追加变更。"},
+      {"sp":"Raj","en":"My working hypothesis is duplicate delivery matters. Maybe requests can time out after succeeding.","zh":"我首先假设重复投递很重要，请求可能成功后才超时。"},
+      {"sp":"Lukas","en":"Both happen in this exercise regularly. What would you exclude from the first implementation?","zh":"本题两种情况都常发生，初版会排除什么？"},
+      {"sp":"Raj","en":"I'd exclude scheduling and authentication system design. Those are provided, so let's park that.","zh":"排除调度和认证系统设计，它们已给定，先放下。"},
+      {"sp":"Hannah","en":"And what needs an explicit contract? Don't rely on unstated service behavior here.","zh":"什么需要明确契约？不能依赖未声明服务行为。"},
+      {"sp":"Raj","en":"I'd check update ordering and deduplication support. One action item is understanding acknowledgement semantics.","zh":"检查更新顺序和去重支持，一个需确认事项是消息确认语义。"},
+      {"sp":"Raj","en":"Then I'd sketch the simplest safe flow. Code comes after those constraints are clear.","zh":"约束明确后画最简单安全流程，再写代码。"}
+    ]},
+    {"id":"0207","part":2,"stage":"输入约束","title":"大小、顺序和有效期","premise":"明确替换目标状态，面试者给出大小和顺序约束。","listeningTask":"听出候选人如何防止超大输入与旧状态覆盖。","newPhrase":"p482","phrases":["p482","p010","p011:extra","p335:extra","p009:extra","p302:extra"],"lines":[
+      {"sp":"Hannah","en":"Messages can arrive out of order. Each includes an asset version and operation identifier.","zh":"消息可能乱序，每条含资产版本和操作标识。"},
+      {"sp":"Raj","en":"I'd require bounded input for tag counts. Just to confirm, the API checks versions, right?","zh":"标签数量要有输入上限，确认一下，API检查版本，对吧？"},
+      {"sp":"Lukas","en":"Yes, stale versions return a conflict. There's also a documented maximum request size.","zh":"是，旧版本返回冲突，也有最大请求大小文档。"},
+      {"sp":"Raj","en":"Okay, let me play that back briefly. Local validation checks shape before sending a request.","zh":"好，简短复述，本地先验结构，再发请求。"},
+      {"sp":"Raj","en":"The server remains authoritative for version checks. My working hypothesis is concurrent writers still exist.","zh":"版本检查以服务端为准，我假设仍存在并发写入者。"},
+      {"sp":"Hannah","en":"They do, outside this worker too. How would you handle a rejected old version?","zh":"存在，worker外也有写入者，旧版本被拒如何处理？"},
+      {"sp":"Raj","en":"I'd record a conflict without blind retry. Maybe business logic decides whether to refresh intent.","zh":"记录冲突，不盲重试，是否刷新意图由业务逻辑决定。"},
+      {"sp":"Lukas","en":"Good, don't invent a new desired state. The worker shouldn't silently override another writer.","zh":"好，不能凭空造新目标状态，worker不应悄悄覆盖其他写入者。"},
+      {"sp":"Raj","en":"We can rule that out with conditional writes. But an outdated message still needs explicit handling.","zh":"条件写可防止覆盖，但过期消息仍需显式处理。"},
+      {"sp":"Raj","en":"One action item is documenting that conflict policy. I'd keep validation separate from transport code.","zh":"需记录冲突策略，输入验证与传输代码分开。"}
+    ]},
+    {"id":"0208","part":3,"stage":"初步方案","title":"先画一条完整处理路径","premise":"输入有上限，服务端支持版本检查，候选人提出初始流程。","listeningTask":"理解持久状态、租约和消息确认的先后。","newPhrase":"p483","phrases":["p483","p010","p014:extra","p210:extra","p009:extra","p482:extra"],"lines":[
+      {"sp":"Lukas","en":"Show the worker's processing flow now. Where do you place durable state and acknowledgements?","zh":"现在展示处理流程，持久状态与消息确认放哪里？"},
+      {"sp":"Raj","en":"I'd start with a small worker pool. Each task validates bounded input first. Then it acquires work through a lease.","zh":"先用小worker池，每项任务先验有限输入，再通过租约取得处理权。"},
+      {"sp":"Hannah","en":"What do you persist before sending? Memory-only bookkeeping disappears when the worker crashes.","zh":"发送前持久化什么？只在内存记账会随崩溃丢失。"},
+      {"sp":"Raj","en":"The operation identifier and payload hash persist first. Just to confirm, identifiers survive redelivery, right?","zh":"先持久化操作标识和负载哈希，确认一下，重投标识不变，对吧？"},
+      {"sp":"Raj","en":"Okay, then lease work and send it. Terminal results persist before acknowledging the queue message.","zh":"好，之后租约取任务并发送，确认消息前持久化终态结果。"},
+      {"sp":"Lukas","en":"What if acknowledgement fails after success? That creates the duplicate processing window we're discussing.","zh":"成功后消息确认失败呢？这就是正在讨论的重复处理窗口。"},
+      {"sp":"Raj","en":"I'm on it by checking persisted terminal state. Maybe redelivery only needs another acknowledgement then.","zh":"我通过查持久终态处理，重投时可能只需重新确认消息。"},
+      {"sp":"Hannah","en":"Can you demonstrate the flow safely? We don't want real infrastructure changes in interviews.","zh":"能安全演示流程吗？面试不希望改真实基础设施。"},
+      {"sp":"Raj","en":"I'd dry-run it first with a fake client. Then run isolated integration tests against a sandbox.","zh":"先用假客户端预演，再对沙箱做隔离集成测试。"},
+      {"sp":"Raj","en":"One action item covers durable state. I'd define each transition explicitly. The lease alone doesn't guarantee unique effects.","zh":"需定义持久状态及每个显式转换，租约本身不保证副作用唯一。"}
+    ]},
+    {"id":"0209","part":4,"stage":"幂等","title":"键要稳定且对应同一负载","premise":"流程包含发送前持久记录，面试追问重复请求副作用。","listeningTask":"听清API幂等契约的边界与相同键不同负载的处理。","newPhrase":"p484","phrases":["p484","p010","p335:extra","p302:extra","p009:extra","p011:extra"],"lines":[
+      {"sp":"Hannah","en":"Suppose the request succeeds but response disappears. How do you avoid applying it twice?","zh":"请求成功但响应丢失，如何避免应用两次？"},
+      {"sp":"Raj","en":"I'd reuse the persisted idempotency key exactly. Just to confirm, the server deduplicates atomically, right?","zh":"原样复用持久化幂等键，确认一下，服务端原子去重，对吧？"},
+      {"sp":"Lukas","en":"Yes, for the same key and payload. Its retention period is twenty-four hours.","zh":"是，限相同键和负载，保留期二十四小时。"},
+      {"sp":"Raj","en":"Okay, let me play that back clearly. Deduplication is guaranteed only inside that retention period.","zh":"好，清楚复述，去重只在保留期内保证。"},
+      {"sp":"Raj","en":"My working hypothesis is retries stay inside it. One action item sets a shorter retry deadline.","zh":"我假设重试在该期限内，需设更短重试截止时间。"},
+      {"sp":"Hannah","en":"What if a duplicate identifier changes payload? Would you reuse the same key anyway?","zh":"同标识重投但负载变化呢？还用同一个键吗？"},
+      {"sp":"Raj","en":"No, I'd reject the mismatched payload hash. That indicates invalid input or a producer bug.","zh":"不，拒绝负载哈希不符，说明输入错误或生产者缺陷。"},
+      {"sp":"Lukas","en":"And if two workers acquire overlapping leases? Don't claim the lease makes this impossible.","zh":"两个worker取得重叠租约呢？不能说租约让它不可能。"},
+      {"sp":"Raj","en":"Server deduplication handles overlapping identical requests here. We can rule that out as repeated effects.","zh":"此处服务端去重处理重叠相同请求，能排除重复副作用。"},
+      {"sp":"Raj","en":"Maybe both workers still consume resources briefly. I'd also use atomic claims to reduce overlap.","zh":"两个worker仍可能短暂消耗资源，也用原子取任务减少重叠。"}
+    ]},
+    {"id":"0210","part":5,"stage":"重试","title":"超时不是确定失败","premise":"API提供有限期幂等去重，继续讨论瞬态失败与重试。","listeningTask":"理解退避、随机抖动、截止时间及结果查询。","newPhrase":"p485","phrases":["p485","p010","p484:extra","p309:extra","p008:extra","p004:extra"],"lines":[
+      {"sp":"Lukas","en":"How would you handle timeouts and throttling? Give the retry limits, not just a loop.","zh":"如何处理超时与限流？说明重试边界，不只是循环。"},
+      {"sp":"Raj","en":"I'd retry with backoff and random jitter. Reuse the idempotency key and unchanged payload.","zh":"采用退避和随机抖动重试，复用幂等键和原负载。"},
+      {"sp":"Hannah","en":"What limits would bound that retry policy? Remember the server's finite deduplication retention.","zh":"什么限制重试策略？记住服务端去重有保留期限。"},
+      {"sp":"Raj","en":"Okay, set attempts and an overall deadline. Just to confirm, throttling supplies Retry-After, right?","zh":"好，设次数和总截止时间，确认一下，限流提供Retry-After，对吧？"},
+      {"sp":"Raj","en":"I'd honor it within the remaining deadline. Maybe a result query resolves ambiguous timeouts faster.","zh":"在剩余期限内遵守，结果查询可能更快解决不确定超时。"},
+      {"sp":"Lukas","en":"The API supports querying by operation identifier. What if that query is unavailable too?","zh":"API支持按操作标识查询，如果查询也不可用呢？"},
+      {"sp":"Raj","en":"I'd keep an eye on unresolved operations. At the deadline, persist unknown rather than failed.","zh":"持续关注未决操作，到截止时间存为结果未知，不是确定失败。"},
+      {"sp":"Hannah","en":"A caller asks, what's the ETA now? Would you promise completion from the retry schedule?","zh":"调用方问预计何时完成，会根据重试计划承诺完成吗？"},
+      {"sp":"Raj","en":"No, I'd report the next planned attempt. That's an estimate, not guaranteed completion or success.","zh":"不会，只报下一次计划尝试时间，是估计，不保证完成或成功。"},
+      {"sp":"Raj","en":"Let's park that operation for reconciliation afterward. Never issue a fresh key to bypass uncertainty.","zh":"之后把该操作留待核对，绝不发新键绕过不确定性。"}
+    ]},
+    {"id":"0211","part":6,"stage":"异常处理","title":"永久错误与未知结果分开","premise":"重试已有限制，面试追问不可重试错误和结果未知的状态。","listeningTask":"辨别无效输入、权限问题、版本冲突与超时。","newPhrase":"p486","phrases":["p486","p010","p009:extra","p336:extra","p103:extra","p335:extra"],"lines":[
+      {"sp":"Hannah","en":"Which errors count as a permanent failure? Would every non-success response enter that category?","zh":"哪些算永久失败？所有非成功响应都归这类吗？"},
+      {"sp":"Raj","en":"No, invalid inputs fail without unchanged retry. Just to confirm, authentication errors need intervention, right?","zh":"不，非法输入不原样重试，确认一下，认证错误需干预，对吧？"},
+      {"sp":"Lukas","en":"Yes, distinguish permission denial from token expiry. The provided client can refresh expired tokens.","zh":"对，区分权限拒绝和令牌过期，给定客户端可刷新过期令牌。"},
+      {"sp":"Raj","en":"Okay, one action item documents each category. The escalation path names whoever handles authorization failures.","zh":"好，需记录各类别，升级路径说明谁处理授权失败。"},
+      {"sp":"Raj","en":"My working hypothesis is malformed responses are unknown. Maybe the write happened before response corruption.","zh":"我认为响应损坏应属未知，写入可能在响应损坏前发生。"},
+      {"sp":"Hannah","en":"How do you debug without leaking credentials? An exception trace can contain request details.","zh":"如何调试又不泄凭据？异常栈可能含请求详情。"},
+      {"sp":"Raj","en":"Let me tail the log with sanitized fixtures. I'd retain operation identifiers, not bearer tokens.","zh":"用脱敏fixture检查日志，保留操作标识，不保留访问令牌。"},
+      {"sp":"Lukas","en":"What happens when the worker is cancelled? You may have an active remote request.","zh":"worker被取消怎么办？可能有活动远程请求。"},
+      {"sp":"Raj","en":"I'd stop claiming work and close local resources. Active requests remain unknown until their outcomes reconcile.","zh":"停止取新任务，释放本地资源，活动请求核对前保留未知状态。"},
+      {"sp":"Raj","en":"Then expired leases allow another worker to recover. It checks durable state before repeating any request.","zh":"租约过期后另一worker接管，重复请求前检查持久状态。"}
+    ]},
+    {"id":"0212","part":7,"stage":"边界测试","title":"把崩溃窗口测出来","premise":"状态分类完成，候选人解释如何证明幂等与恢复逻辑。","listeningTask":"识别发送、结果落盘与消息确认之间的故障窗口。","newPhrase":"p487","phrases":["p487","p010","p327:extra","p210:extra","p302:extra","p009:extra"],"lines":[
+      {"sp":"Hannah","en":"Describe your tests for crash recovery. Which failure windows would you deliberately exercise?","zh":"描述崩溃恢复测试，会特意覆盖哪些故障窗口？"},
+      {"sp":"Raj","en":"I'd use fault injection around each transition. Just to confirm, we can simulate lost responses, right?","zh":"各状态转换附近做故障注入，确认一下，可模拟响应丢失，对吧？"},
+      {"sp":"Lukas","en":"Yes, include success before local persistence. Then crash before queue acknowledgement as well.","zh":"可以，包括成功后本地落盘前，再测确认消息前崩溃。"},
+      {"sp":"Raj","en":"Okay, each restart reads the persisted operation. Tests assert one applied effect, not one request.","zh":"好，重启读持久操作，断言副作用一次，不是请求一次。"},
+      {"sp":"Raj","en":"I'd dry-run it first with deterministic fakes. Maybe property tests help explore duplicate message sequences.","zh":"先用确定性假实现预演，属性测试可能有助探索重复消息序列。"},
+      {"sp":"Hannah","en":"How do you test concurrent workers? A sequential duplicate test won't expose claim races.","zh":"如何测并发worker？顺序重复测试发现不了取任务竞态。"},
+      {"sp":"Raj","en":"I'd coordinate contenders with a controlled barrier. We can rule that out only after racing claims.","zh":"用受控屏障协调竞争者，实际竞争取任务后才可排除问题。"},
+      {"sp":"Lukas","en":"Would you also test the real contract? Fake deduplication could be stronger than production behavior.","zh":"也测真实契约吗？假去重可能比生产行为更强。"},
+      {"sp":"Raj","en":"Yes, a sandbox smoke test checks deduplication. One action item covers retention expiry and payload mismatch.","zh":"是，沙箱冒烟测试验证去重，保留期结束和负载冲突也列测试任务。"},
+      {"sp":"Raj","en":"I'd also test stale versions and oversized input. Those cases must avoid sending unsafe updates.","zh":"还测旧版本和超大输入，这些情况不能发送不安全更新。"}
+    ]},
+    {"id":"0213","part":8,"stage":"性能追问","title":"吞吐受哪个瓶颈限制","premise":"正确性测试方案已说明，面试者提高吞吐需求。","listeningTask":"听出并发上限、队列背压与测量先于优化。","newPhrase":"p488","phrases":["p488","p010","p483:extra","p319:extra","p309:extra","p335:extra"],"lines":[
+      {"sp":"Lukas","en":"Now assume ten thousand queued updates. How would you increase throughput without overloading dependencies?","zh":"现在有一万条待更新，如何提高吞吐又不压垮依赖？"},
+      {"sp":"Raj","en":"I'd use bounded concurrency in the worker pool. Just to confirm, the API publishes limits, right?","zh":"worker池采用有限并发，确认一下，API公布限额，对吧？"},
+      {"sp":"Hannah","en":"Yes, requests and active connections are limited. Does your queue also stay in memory?","zh":"是，请求和活动连接均有限，队列也全放内存吗？"},
+      {"sp":"Raj","en":"No, I'd fetch a limited batch size. That preserves memory headroom and avoids unbounded buffering.","zh":"不，每次取有限批量，保留内存余量，避免无限缓冲。"},
+      {"sp":"Raj","en":"Okay, my working hypothesis is network waiting dominates. Maybe profiling shows serialization matters more instead.","zh":"好，初步假设网络等待占主导，也可能剖析后发现序列化更重要。"},
+      {"sp":"Lukas","en":"What would you measure before choosing async? Concurrency isn't always the same as throughput.","zh":"选异步前测什么？并发不总等于吞吐。"},
+      {"sp":"Raj","en":"I'd measure queue age and request latency. Keep an eye on throttling and retry amplification.","zh":"测排队年龄和请求延迟，关注限流与重试放大。"},
+      {"sp":"Hannah","en":"How would you keep retries fair? New work could starve older unresolved operations.","zh":"如何让重试公平？新任务可能让旧未决操作饥饿。"},
+      {"sp":"Raj","en":"I'd schedule due retries with bounded shares. They shouldn't monopolize workers or disappear behind newcomers.","zh":"到期重试分配有限份额，不独占worker，也不被新任务淹没。"},
+      {"sp":"Raj","en":"Then benchmark representative payloads under sandbox limits. I'd tune from evidence, not thread-count guesses.","zh":"在沙箱限额下用代表性负载压测，按证据调，不猜线程数。"}
+    ]},
+    {"id":"0214","part":9,"stage":"方案取舍","title":"不声称端到端恰好一次","premise":"吞吐方案有上限，面试者追问跨系统一致性和复杂度取舍。","listeningTask":"区分投递保证、副作用幂等与不确定结果核对。","newPhrase":"p489","phrases":["p489","p010","p484:extra","p334:extra","p009:extra","p004:extra"],"lines":[
+      {"sp":"Hannah","en":"Would you describe this as exactly-once processing? Explain the guarantee without hiding its limits.","zh":"会称为恰好一次处理吗？解释保证，不隐藏限制。"},
+      {"sp":"Raj","en":"No, our queue provides at-least-once delivery. The idempotency key limits duplicate remote side effects.","zh":"不会，队列至少一次投递，幂等键限制重复远程副作用。"},
+      {"sp":"Lukas","en":"But the local ledger isn't remotely atomic. What remains uncertain after a long outage?","zh":"本地记录与远端不是原子事务，长故障后还有什么不确定？"},
+      {"sp":"Raj","en":"Unknown results may outlive the deduplication period. Just to confirm, blind resubmission is unsafe, right?","zh":"未知结果可能超过去重期限，确认一下，盲重发不安全，对吧？"},
+      {"sp":"Raj","en":"Okay, a temporary workaround pauses those operations. One action item is authoritative result reconciliation.","zh":"好，临时措施是暂停这些操作，需核对权威结果。"},
+      {"sp":"Hannah","en":"Would adding another database solve that gap? Or does it merely move the uncertainty?","zh":"再加数据库能解决缺口吗？还是只移动不确定性？"},
+      {"sp":"Raj","en":"It won't create a cross-system transaction automatically. Maybe stronger service contracts are needed for guarantees.","zh":"不会自动建立跨系统事务，更强保证可能需要加强服务契约。"},
+      {"sp":"Lukas","en":"What complexity would you defer initially? We still want a maintainable first solution.","zh":"初版推迟什么复杂度？仍希望首版可维护。"},
+      {"sp":"Raj","en":"Let's park that custom distributed transaction coordinator. I'd prefer the provided contract and explicit reconciliation.","zh":"先放下自建分布式事务协调器，优先给定契约和显式核对。"},
+      {"sp":"Raj","en":"The trade-off is visible operational follow-up work. I'd document that rather than promise impossible semantics.","zh":"代价是需要明确运维跟进，会记录它，不承诺不可能语义。"}
+    ]},
+    {"id":"0215","part":10,"stage":"候选人反问","title":"询问团队怎样支持安全交付","premise":"技术讨论结束，面试者邀请候选人反问工程流程与入职支持。","listeningTask":"听出候选人的真正问题和面试者的实际回答。","newPhrase":"p490","phrases":["p490","p010","p006:extra","p009:extra","p310:extra","p481:extra"],"lines":[
+      {"sp":"Lukas","en":"We've covered the technical exercise now. What questions do you have about our team?","zh":"技术题已讨论完，你对团队有什么问题？"},
+      {"sp":"Raj","en":"How does engineering onboarding cover unsafe operations? Just to confirm, new engineers get sandbox access, right?","zh":"入职培训如何覆盖危险操作？确认一下，新人有沙箱访问，对吧？"},
+      {"sp":"Hannah","en":"Yes, with a mentor and scoped permissions. Production changes need review and explicit approval.","zh":"有，配导师和限定权限，生产变更需评审与明确审批。"},
+      {"sp":"Raj","en":"Mentors walk you through approvals, right? Sorry, I mean the production review process.","zh":"导师会带新人了解审批，对吧？抱歉，我具体指生产变更评审流程。"},
+      {"sp":"Raj","en":"How much bandwidth do mentors usually reserve? Maybe pairing early prevents repeated safety mistakes.","zh":"导师通常留多少时间？早期结对可能防止反复安全失误。"},
+      {"sp":"Lukas","en":"We reserve pairing time during initial weeks. Small changes get feedback before larger independent work.","zh":"最初几周预留结对时间，先小改动获反馈，再独立做大任务。"},
+      {"sp":"Raj","en":"How do you close the loop on incidents? Does each action item get an owner?","zh":"事件改进如何闭环？每个行动项都有负责人吗？"},
+      {"sp":"Hannah","en":"Yes, owners provide evidence at follow-up reviews. We track completion, not just ticket creation.","zh":"有，负责人在跟进评审提供证据，跟踪完成，不只建工单。"},
+      {"sp":"Raj","en":"That helps me understand your engineering expectations. I'd also ask how testing time gets protected.","zh":"这样更理解团队工程要求，还想问如何保障测试时间。"},
+      {"sp":"Raj","en":"Thanks, those answers address my main concerns. I'd enjoy learning within those clear safety boundaries.","zh":"谢谢，回答了我的主要问题，希望在明确安全边界内学习。"}
+    ]}
+  ]
+}

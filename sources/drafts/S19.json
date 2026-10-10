@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"开发站会十段，非生产故障会；固定角色报告进度、阻塞与今日承诺，技术展开另约会后。未配音，无时间轴。",
+  "series":{"id":"sc-S19-coding-tool-standup","title":"运维工具站会：评审、测试缺口与团队依赖","domain":"coding","group":"ops-standup","service":"read-only fleet inventory CLI","premise":"团队开发只读资产查询工具，距离内部演示还有两天；分页接口契约未定、评审等待，开发阶段无生产故障。","outcome":"限定本周只读范围，安排评审与契约负责人；拆开解析、契约和性能任务，今日提交测试证据，真实接口未验收的部分明确使用fixture，会后讨论不阻塞站会。"},
+  "speakers":{
+    "Priya":{"role":"Standup facilitator and delivery owner","accent":"en-IN","voice":null},
+    "Raj":{"role":"CLI implementation engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"API integration engineer","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Code reviewer and platform engineer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Test and acceptance engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p461","en":"read-only scope","zh":"只读功能范围","layer":"L1","level":"core","target":5},
+    {"id":"p462","en":"up for review","zh":"已提交等待评审","layer":"L0","level":"core","target":8},
+    {"id":"p463","en":"review queue","zh":"评审队列","layer":"L0","level":"core","target":8},
+    {"id":"p464","en":"test coverage gap","zh":"测试覆盖缺口","layer":"L1","level":"core","target":5},
+    {"id":"p465","en":"structured error","zh":"结构化错误","layer":"L1","level":"core","target":5},
+    {"id":"p466","en":"API contract","zh":"接口契约","layer":"L1","level":"core","target":5},
+    {"id":"p467","en":"pair on it","zh":"结对处理这项任务","layer":"L0","level":"core","target":8},
+    {"id":"p468","en":"independent work item","zh":"可独立推进的任务","layer":"L0","level":"core","target":8},
+    {"id":"p469","en":"end-of-day checkpoint","zh":"日终检查点","layer":"L0","level":"core","target":8},
+    {"id":"p470","en":"follow-up slot","zh":"会后跟进时段","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来场景候选，非实际出现；只依赖既有p001-p350或本稿早段，不引用并行稿。","S30":["p461","p462","p463","p464","p469"],"S39":["p465","p466","p467","p468","p470"]},
+  "dialogues":[
+    {"id":"0186","part":1,"stage":"目标","title":"先对齐本周只读目标","premise":"今日站会开始，先确认两天后演示的范围。","listeningTask":"听出演示目标、非目标与站会结束时间。","newPhrase":"p461","phrases":["p461","p010","p007:extra","p004:extra","p009:extra","p006:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, we're keeping the read-only scope. Today's standup has a ten-minute hard stop.","zh":"好，保持只读范围，今天站会十分钟到点结束。"},
+      {"sp":"Lukas","en":"Does that exclude editing inventory records? Review complexity changes if writes sneak in.","zh":"这排除修改资产记录吗？混入写功能会改变评审复杂度。"},
+      {"sp":"Raj","en":"Yes, listing and filtering records only. Just to confirm, bulk updates stay out, right?","zh":"是，只列出和筛选记录，确认一下，批量更新不做，对吧？"},
+      {"sp":"Anika","en":"The demo should show two inventory pages. Maybe a third if the fixture is ready.","zh":"演示展示两页资产，fixture就绪的话可能展示第三页。"},
+      {"sp":"Hannah","en":"Two pages already exercise cursor handling. A third page isn't the acceptance gate.","zh":"两页已覆盖游标处理，第三页不是验收关卡。"},
+      {"sp":"Priya","en":"Good, one action item is confirming ownership. Who has bandwidth for the parser review?","zh":"好，一项任务是确认负责人，谁有时间评审解析器？"},
+      {"sp":"Lukas","en":"I can review after my platform check. Send the focused change, not unrelated cleanup.","zh":"平台检查后我能评审，发聚焦变更，不夹带无关整理。"},
+      {"sp":"Raj","en":"The export feature can wait another sprint. Let's park that until this demo works.","zh":"导出功能可以等下个迭代，当前演示跑通前先放下。"},
+      {"sp":"Hannah","en":"I'll report test progress after the implementation. We should surface blockers before assigning more work.","zh":"实现进度后我汇报测试，增加任务前先暴露阻塞。"},
+      {"sp":"Anika","en":"Agreed, I'll cover the API dependency next. No production rollout is planned this week.","zh":"同意，接着我说接口依赖，本周不计划生产上线。"}
+    ]},
+    {"id":"0187","part":2,"stage":"开发进度","title":"昨天完成了什么","premise":"只读范围明确，Raj报告实现进度与今日安排。","listeningTask":"区分已完成实现、待评审代码和未验收集成。","newPhrase":"p462","phrases":["p462","p010","p005:extra","p014:extra","p008:extra","p461:extra"],"lines":[
+      {"sp":"Raj","en":"The parser is up for review now. Yesterday I finished cursor parsing and filtering.","zh":"解析器现在待评审，昨天完成游标解析与筛选。"},
+      {"sp":"Lukas","en":"Does it run against the real endpoint? Or does that progress describe fixtures only?","zh":"是用真实接口跑过，还是仅指fixture进度？"},
+      {"sp":"Raj","en":"Fixtures only until the contract is confirmed. Just to confirm, that's clearly labelled, right?","zh":"契约确认前只用fixture，确认一下，已明确标注，对吧？"},
+      {"sp":"Anika","en":"Yes, my integration note states that limitation. The read-only scope hasn't changed since yesterday.","zh":"是，我的集成说明写了这个限制，只读范围没有变化。"},
+      {"sp":"Hannah","en":"Parser tests pass for valid cursors. Malformed cursor coverage still needs additional cases.","zh":"合法游标测试通过，异常游标还需要补用例。"},
+      {"sp":"Priya","en":"Okay, what's the ETA for those cases? A rough estimate is enough right now.","zh":"好，补用例预计多久？现在给大概估算即可。"},
+      {"sp":"Lukas","en":"I'll review the existing parser this morning. Additional tests can land in that change.","zh":"今天上午评审现有解析器，新增测试可放同一变更。"},
+      {"sp":"Raj","en":"I'm on it before lunch, roughly two hours. Then I'll be heads-down on error handling.","zh":"我午饭前做，大约两小时，之后专注错误处理。"},
+      {"sp":"Hannah","en":"Please include the exact rejected input shapes. We need reproducible cases, not just descriptions.","zh":"请附具体拒绝输入结构，需要可复现用例，不只是描述。"},
+      {"sp":"Anika","en":"I'll share the sanitized API samples too. That should keep our fixtures closer to reality.","zh":"我也分享脱敏接口样本，让fixture更接近实际。"}
+    ]},
+    {"id":"0188","part":3,"stage":"评审等待","title":"评审有明确时段","premise":"解析器待评审，Lukas尚有平台工作，站会协调排期。","listeningTask":"听出评审承诺与不能提前视为完成的事项。","newPhrase":"p463","phrases":["p463","p006","p462:extra","p010:extra","p008:extra","p001:extra"],"lines":[
+      {"sp":"Raj","en":"The review queue is my main blocker. The change is up for review already.","zh":"主要阻塞是评审队列，变更已经提交评审。"},
+      {"sp":"Lukas","en":"I've got bandwidth at eleven this morning. I can't promise approval before reading it.","zh":"上午十一点我有时间，但读之前不能承诺通过。"},
+      {"sp":"Priya","en":"Just to confirm, eleven is review start, right? What's the ETA for initial feedback?","zh":"确认一下，十一点开始评审，对吧？初次反馈预计什么时候？"},
+      {"sp":"Anika","en":"My integration branch depends on its output shape. I can still prepare the adapter tests.","zh":"集成分支依赖输出结构，我仍能先准备适配器测试。"},
+      {"sp":"Hannah","en":"Keep the interface description beside the change. Reviewers shouldn't reverse-engineer the expected output.","zh":"变更旁放接口说明，不该让评审者反推预期输出。"},
+      {"sp":"Raj","en":"Okay, I'll add that description before eleven. Maybe ten minutes for the example outputs.","zh":"好，十一点前补说明，示例输出可能需十分钟。"},
+      {"sp":"Lukas","en":"Initial feedback should arrive before lunch. Larger design questions may need a separate discussion.","zh":"午饭前给初次反馈，大的设计问题可能另需讨论。"},
+      {"sp":"Priya","en":"We'll circle back at the afternoon checkpoint. Don't mark the review complete before feedback.","zh":"下午检查点再跟进，反馈前不标成评审完成。"},
+      {"sp":"Hannah","en":"I can review test clarity in parallel. That doesn't replace Lukas's implementation review.","zh":"我可并行审查测试清晰度，不能替代Lukas审实现。"},
+      {"sp":"Anika","en":"Good, I'll prepare integration fixtures meanwhile. That keeps progress moving without assuming interface approval.","zh":"好，我同时准备集成fixture，不假设接口已获批准。"}
+    ]},
+    {"id":"0189","part":4,"stage":"测试缺口","title":"演示成功不等于测试齐全","premise":"评审时段确定，Hannah报告尚缺的异常路径测试。","listeningTask":"识别异常游标、空页和取消操作三项测试缺口。","newPhrase":"p464","phrases":["p464","p010","p009:extra","p302:extra","p014:extra","p004:extra"],"lines":[
+      {"sp":"Hannah","en":"There's a test coverage gap around pagination. Empty pages and repeated cursors aren't covered.","zh":"分页存在测试缺口，空页和重复游标未覆盖。"},
+      {"sp":"Raj","en":"I'm on it with repeated cursor detection. A repeated token must stop pagination safely.","zh":"重复游标检测我来做，重复令牌必须安全停止分页。"},
+      {"sp":"Lukas","en":"An empty page can still have continuation. Don't automatically treat it as completion.","zh":"空页仍可能带续页标识，不能自动当作结束。"},
+      {"sp":"Anika","en":"Just to confirm, the API allows that, right? I'll ask its owner for an example.","zh":"确认一下，接口允许这种情况，对吧？我找负责人要例子。"},
+      {"sp":"Priya","en":"Okay, one action item per missing case. Maybe cancellation can pair with parser cleanup.","zh":"好，每个缺口单列任务，取消操作可能与解析器释放资源一起做。"},
+      {"sp":"Hannah","en":"We can't rule that out without tests. A successful demo doesn't exercise cancellation behavior.","zh":"没测试就不能排除问题，演示成功没覆盖取消行为。"},
+      {"sp":"Lukas","en":"I'll check resource ownership during review. Close the response when the user interrupts.","zh":"评审时检查资源所有权，用户中断要关闭响应。"},
+      {"sp":"Raj","en":"A new paging framework would take longer. Let's park that and test our current loop.","zh":"新分页框架会耗时更多，先放下，测试当前循环。"},
+      {"sp":"Anika","en":"I'll log the unresolved contract question separately. That shouldn't hide the known local gaps.","zh":"未决契约问题单独记录，不能遮住已知本地缺口。"},
+      {"sp":"Priya","en":"Agreed, report test evidence at day's end. No claim of complete coverage until then.","zh":"同意，日终报告测试证据，在那之前不宣称覆盖完整。"}
+    ]},
+    {"id":"0190","part":5,"stage":"错误处理","title":"错误要可辨别也不泄密","premise":"测试任务已分配，Raj汇报错误处理实现边界。","listeningTask":"理解标准错误输出、退出码与敏感信息过滤。","newPhrase":"p465","phrases":["p465","p010","p103:extra","p461:extra","p009:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Each failure now returns a structured error. Normal inventory output stays clean on stdout.","zh":"失败现在返回结构化错误，标准输出保持纯资产数据。"},
+      {"sp":"Lukas","en":"Where do human-readable diagnostics go then? Automation must distinguish failure from empty results.","zh":"可读诊断发到哪里？自动化要区分失败与空结果。"},
+      {"sp":"Raj","en":"Stderr, with documented nonzero exit codes. Just to confirm, no tokens in diagnostics, right?","zh":"标准错误输出，配非零退出码文档。确认一下，不含令牌，对吧？"},
+      {"sp":"Anika","en":"Yes, the read-only scope still needs redaction. Request metadata can contain sensitive query values.","zh":"是，即使只读也需脱敏，请求元数据可能含敏感查询值。"},
+      {"sp":"Hannah","en":"Let me tail the log in testing. I'll verify redaction with deliberately sensitive fixtures.","zh":"测试时我检查日志，用专门敏感fixture验证脱敏。"},
+      {"sp":"Priya","en":"Okay, make exit-code documentation an action item. Maybe our shell examples need updates too.","zh":"好，退出码文档列任务，shell示例可能也需更新。"},
+      {"sp":"Lukas","en":"Don't catch every exception as authentication failure. Preserve distinct categories and safe diagnostic context.","zh":"不要把所有异常都当认证失败，保留不同类别和安全诊断上下文。"},
+      {"sp":"Raj","en":"I'm on it with explicit exception categories. Unexpected failures retain a sanitized trace identifier.","zh":"我做显式异常分类，意外失败保留脱敏追踪标识。"},
+      {"sp":"Hannah","en":"I'll test malformed responses and permission denial. Those should produce different actionable error categories.","zh":"我测试异常响应和权限拒绝，它们应产生可行动的不同错误类别。"},
+      {"sp":"Anika","en":"Good, that's enough detail for the standup. I'll bring sample failures to the follow-up.","zh":"好，站会这些细节够了，会后我带失败样本。"}
+    ]},
+    {"id":"0191","part":6,"stage":"外部依赖","title":"接口契约由谁确认","premise":"本地实现可推进，真实集成仍等资产API团队确认游标行为。","listeningTask":"听清外部依赖、负责人和fixture演示的限制。","newPhrase":"p466","phrases":["p466","p010","p008:extra","p336:extra","p464:extra","p001:extra"],"lines":[
+      {"sp":"Anika","en":"The API contract still needs owner confirmation. We're waiting on empty-page continuation behavior.","zh":"接口契约仍需负责人确认，在等空页续页行为说明。"},
+      {"sp":"Lukas","en":"Can the integration work continue with fixtures? Mark assumptions explicitly so they aren't forgotten.","zh":"能用fixture继续集成吗？明确假设，避免遗忘。"},
+      {"sp":"Anika","en":"Yes, but real endpoint acceptance stays blocked. Just to confirm, that's not demo completion, right?","zh":"可以，但真实接口验收仍阻塞，确认一下，这不算演示完成，对吧？"},
+      {"sp":"Priya","en":"Okay, what's the ETA from their owner? Use our escalation path if today's reply slips.","zh":"好，对方负责人预计什么时候回复？今天没回就按升级路径联系。"},
+      {"sp":"Hannah","en":"Keep the test coverage gap visible separately. External waiting doesn't prevent local boundary tests.","zh":"本地测试缺口单独保留，等外部回复不影响本地边界测试。"},
+      {"sp":"Raj","en":"Maybe the cursor is opaque by design. I'll avoid parsing or modifying its contents.","zh":"游标可能设计为不透明，我不会解析或修改内部内容。"},
+      {"sp":"Lukas","en":"Good, pass it back exactly as received. Only validate the documented envelope and limits.","zh":"好，原样传回，只验证文档规定的外层结构与限制。"},
+      {"sp":"Priya","en":"We'll circle back with the API lead. Anika, send the two concrete questions now.","zh":"与接口负责人再跟进，Anika现在发两个具体问题。"},
+      {"sp":"Hannah","en":"I can attach failing contract examples. That's more useful than a general compatibility question.","zh":"我附失败契约样例，比笼统兼容问题更有用。"},
+      {"sp":"Anika","en":"I'll send them immediately after this standup. The owner suggested roughly three this afternoon.","zh":"站会后立即发，对方说今天下午大约三点回复。"}
+    ]},
+    {"id":"0192","part":7,"stage":"帮助请求","title":"结对看测试而不是接管任务","premise":"接口问题明确，Raj请求协助检查游标与取消测试。","listeningTask":"辨别结对协助的范围和任务责任归属。","newPhrase":"p467","phrases":["p467","p006","p010:extra","p014:extra","p464:extra","p002:extra"],"lines":[
+      {"sp":"Raj","en":"Could someone pair on it before lunch? I need help checking cancellation test design.","zh":"午饭前能有人结对吗？需要帮忙检查取消测试设计。"},
+      {"sp":"Hannah","en":"I've got bandwidth for thirty minutes. We'll focus on the test coverage gap.","zh":"我有半小时，聚焦测试覆盖缺口。"},
+      {"sp":"Priya","en":"Just to confirm, Raj keeps implementation ownership, right? Hannah helps validate the failure cases.","zh":"确认一下，实现仍归Raj，对吧？Hannah协助验证失败用例。"},
+      {"sp":"Anika","en":"I'm on it for realistic response samples. Maybe those make cancellation timing less artificial.","zh":"真实响应样本我来准备，能让取消时机不那么人为。"},
+      {"sp":"Lukas","en":"Use controlled scheduling in the tests. Real-time sleeps make concurrency tests unreliable.","zh":"测试用可控调度，实际睡眠会让并发测试不稳定。"},
+      {"sp":"Raj","en":"Okay, I'll inject the scheduler for tests. Production behavior doesn't need a new timing policy.","zh":"好，测试注入调度器，生产不必引入新时间策略。"},
+      {"sp":"Hannah","en":"Let's take it offline after the standup. We can inspect the test harness together.","zh":"站会后单独聊，一起检查测试框架。"},
+      {"sp":"Priya","en":"Good, today's commitment should remain small enough. Don't turn pairing into a framework rewrite.","zh":"好，今天承诺规模别太大，结对不变成重写框架。"},
+      {"sp":"Lukas","en":"I'll review the seam for scheduler injection. Keep it narrow and internal to testing.","zh":"我审查调度器注入点，保持小范围测试用途。"},
+      {"sp":"Anika","en":"I'll join for the first sample walkthrough. Then I'll return to the contract request.","zh":"我参加首个样例讲解，之后回去处理契约请求。"}
+    ]},
+    {"id":"0193","part":8,"stage":"拆分","title":"让未阻塞任务继续走","premise":"结对安排已定，把本地测试与外部契约验收拆开跟踪。","listeningTask":"识别可独立完成的任务和仍不能合并的集成。","newPhrase":"p468","phrases":["p468","p010","p466:extra","p462:extra","p009:extra","p004:extra"],"lines":[
+      {"sp":"Priya","en":"Make cancellation tests an independent work item. The API contract remains a separate dependency.","zh":"取消测试单独成任务，接口契约仍是另一项依赖。"},
+      {"sp":"Lukas","en":"Does the parser change require that contract? Avoid merging behavior based on guessed semantics.","zh":"解析器变更依赖契约吗？不能基于猜测语义合并。"},
+      {"sp":"Raj","en":"Only the integration adapter needs confirmed semantics. Just to confirm, parser review can proceed, right?","zh":"只有集成适配器需要确认语义，确认一下，解析器评审可继续，对吧？"},
+      {"sp":"Anika","en":"Yes, I'll isolate adapter assumptions in fixtures. Maybe the final response changes one test.","zh":"是，我把适配器假设放fixture里，最终回复可能改变一个测试。"},
+      {"sp":"Hannah","en":"Keep contract tests unapproved until confirmation. Passing local fixtures doesn't certify the real endpoint.","zh":"确认前不批准契约测试，本地fixture通过不证明真实接口正确。"},
+      {"sp":"Raj","en":"The parser stays up for review today. Its task includes malformed inputs and resource cleanup.","zh":"解析器今天继续待评审，任务含异常输入与资源释放。"},
+      {"sp":"Lukas","en":"The performance benchmark is another separate item. It shouldn't delay functional feedback on parsing.","zh":"性能基准单独列项，不拖延解析功能反馈。"},
+      {"sp":"Priya","en":"Okay, give each action item one owner. Let's park that optional export benchmark for later.","zh":"好，每项任务一个负责人，可选导出基准先放下。"},
+      {"sp":"Hannah","en":"I'll attach acceptance evidence to each task. That makes partial completion visible without exaggeration.","zh":"每项任务附验收证据，让部分完成可见但不夸大。"},
+      {"sp":"Anika","en":"Good, the board will show integration waiting. We can finish local work without hiding it.","zh":"好，看板显示集成等待，完成本地工作也不遮住依赖。"}
+    ]},
+    {"id":"0194","part":9,"stage":"今日承诺","title":"承诺交证据不是承诺一切完成","premise":"任务已拆开，逐人确认今日可交付成果。","listeningTask":"辨别具体承诺、估计时间和依赖条件。","newPhrase":"p469","phrases":["p469","p010","p008:extra","p014:extra","p463:extra","p012:extra"],"lines":[
+      {"sp":"Priya","en":"We'll use an end-of-day checkpoint today. Just to recap, local testing can proceed independently.","zh":"今天设日终检查点，小结一下，本地测试能独立推进。"},
+      {"sp":"Lukas","en":"My commitment is initial review feedback. The review queue won't imply automatic approval.","zh":"我承诺给初次评审反馈，排队评审不意味着自动通过。"},
+      {"sp":"Raj","en":"I'm on it for cancellation and cursor tests. Just to confirm, evidence by five, right?","zh":"我负责取消与游标测试，确认一下，五点前交证据，对吧？"},
+      {"sp":"Anika","en":"I'll obtain the owner's contract response today. If it slips, I'll report the dependency.","zh":"今天争取拿到契约回复，若延期就报告依赖。"},
+      {"sp":"Hannah","en":"I'll provide the boundary-test review results. A failing case stays visible until repaired.","zh":"我交边界测试评审结果，失败用例修好前持续可见。"},
+      {"sp":"Priya","en":"Okay, what's the ETA for the demo fixture? Maybe we need a fallback presentation.","zh":"好，演示fixture预计什么时候好？可能需备用演示方案。"},
+      {"sp":"Lukas","en":"A fixture demo is fine if labelled. Don't present it as completed live integration.","zh":"明确标注的话fixture演示可以，不能冒充真实集成完成。"},
+      {"sp":"Raj","en":"The fixture demo will be ready by four. I'll include the visible integration limitation.","zh":"fixture演示四点前就绪，会显示集成限制。"},
+      {"sp":"Hannah","en":"We'll review the acceptance checklist at five. Missing evidence means incomplete, not presumed success.","zh":"五点审验收清单，缺证据就未完成，不能假定成功。"},
+      {"sp":"Anika","en":"Agreed, I'll update the board before then. No deployment decision belongs in today's standup.","zh":"同意，之前更新看板，今天站会不做部署决策。"}
+    ]},
+    {"id":"0195","part":10,"stage":"会后安排","title":"只邀请需要的人深入讨论","premise":"今日承诺确定，安排取消测试与契约问题的短讨论。","listeningTask":"听清会后参与者、议题和结束条件。","newPhrase":"p470","phrases":["p470","p002","p007:extra","p467:extra","p469:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"The follow-up slot starts after this standup. We have a twenty-minute hard stop there.","zh":"站会后开始跟进讨论，二十分钟到点结束。"},
+      {"sp":"Hannah","en":"Raj and I will pair on it. Cancellation scheduling is the first concrete topic.","zh":"Raj和我结对，第一个具体议题是取消调度。"},
+      {"sp":"Raj","en":"Okay, let's take it offline as agreed. We'll need the sanitized samples there itself.","zh":"好，按约定会后单聊，当场就需要脱敏样本。"},
+      {"sp":"Anika","en":"I'll bring those and join the opening. Maybe ten minutes, then back to integration.","zh":"我带样本参加开头，可能十分钟，之后回去集成。"},
+      {"sp":"Lukas","en":"I don't need the full test discussion. Tag me if the interface design changes.","zh":"我不必全程参加测试讨论，接口设计变化再通知我。"},
+      {"sp":"Priya","en":"Good, each new action item gets recorded. The end-of-day checkpoint stays at five.","zh":"好，新增任务逐项记录，日终检查仍在五点。"},
+      {"sp":"Hannah","en":"Our output is a deterministic failing test. Not a new architecture proposal this morning.","zh":"产出是确定性失败测试，不是今天上午提新架构。"},
+      {"sp":"Raj","en":"Agreed, I'll bring the current minimal harness. We can demonstrate cancellation without live API access.","zh":"同意，我带最小测试框架，不访问真实接口也能展示取消。"},
+      {"sp":"Lukas","en":"I'll start review at eleven as promised. Keep the standup notes linked to tasks.","zh":"按承诺十一点评审，站会记录关联任务。"},
+      {"sp":"Anika","en":"Then I'll send the contract questions now. Everyone has today's next step and owner.","zh":"那我现在发契约问题，大家都明确今天下一步和负责人。"}
+    ]}
+  ]
+}

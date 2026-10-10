@@ -1,0 +1,146 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "三角色技术面试人工中英草稿。以候选人英文词数规划印度口音约60%，真实音频待核验；未发布，无虚构时间轴。旧引用仅来自既有库、S03-S07和本文件先前段。",
+  "series": {"id": "sc-S26-ha-design-interview", "title": "高可用设计面试：明确假设，再谈取舍", "domain": "ha", "group": "interview", "service": "proposed order ledger and checkout service", "premise": "候选人设计订单系统，面试官要求解释可用性、强一致写入、可用区故障与成本。双方逐步澄清需求，不把面试写成线上应急会。", "outcome": "形成三故障域法定人数复制的订单账本、幂等订单键、有界重试和关键路径容量预留方案。说明少数分区拒绝写入、存储端拒绝过期写者令牌，跨地域灾备数据目标需另议；候选人总结未经测试的假设并反问运行责任和预算。"},
+  "speakers": {
+    "Raj": {"role": "DevOps system design candidate", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Reliability interviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Data systems interviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p531", "en": "availability target", "zh": "可用性目标", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p532", "en": "error budget", "zh": "允许的可靠性损耗预算", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p533", "en": "peak concurrency", "zh": "峰值并发量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p534", "en": "quorum decision", "zh": "法定人数作出的决策", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p535", "en": "read-your-writes", "zh": "能读到自己已提交写入的一致性保证", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p536", "en": "fencing token", "zh": "由存储侧校验的递增写者隔离令牌", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p537", "en": "minority partition", "zh": "不具备法定人数的少数网络分区", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p538", "en": "capacity trade-off", "zh": "容量方面的取舍", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p539", "en": "dependency timeout", "zh": "依赖服务调用超时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p540", "en": "design assumption", "zh": "设计假设", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来回访候选而非实绩，本面试不依赖其他并行新表达。", "S36": ["p531", "p532", "p533", "p538", "p540"], "S50": ["p534", "p535", "p536", "p537", "p539"]},
+  "dialogues": [
+    {"id": "0256", "part": 1, "stage": "业务需求", "title": "先问业务：什么必须正确", "premise": "面试官提出高可用订单系统题目，候选人先澄清业务要求。", "listeningTask": "听出候选人为何不立即画多活架构。", "newPhrase": "p531", "phrases": ["p531", "p010", "p335", "p004:extra", "p106:extra", "p011:extra"], "lines": [
+      {"sp": "Lukas", "en": "Design checkout for us. Start with your questions.", "zh": "请设计结账系统，先说你要问什么。"},
+      {"sp": "Raj", "en": "What's the availability target for completed orders?", "zh": "已完成订单的可用性目标是什么？"},
+      {"sp": "Raj", "en": "Just to confirm, no lost acknowledged orders, right?", "zh": "确认一下，不能丢已确认订单，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Duplicate charges are unacceptable as well.", "zh": "对，重复扣款也不能接受。"},
+      {"sp": "Raj", "en": "My working hypothesis separates orders from recommendations.", "zh": "我当前的假设是把订单与推荐分开。"},
+      {"sp": "Lukas", "en": "Why separate them? Explain the customer impact.", "zh": "为什么分开？说明对客户的影响。"},
+      {"sp": "Raj", "en": "That's our blast radius if shared resources overload.", "zh": "如果共享资源过载，这就是影响范围。"},
+      {"sp": "Raj", "en": "Recommendations can degrade. Orders probably need stronger guarantees.", "zh": "推荐可以降级，订单大概需要更强保证。"},
+      {"sp": "Hannah", "en": "Okay, let me play that back. Different service classes.", "zh": "好，我复述一下：不同业务类别。"},
+      {"sp": "Raj", "en": "Yes. Global multi-active writes? Let's park that initially.", "zh": "是的，全球多活写入？先暂存这个方案。"}
+    ]},
+    {"id": "0257", "part": 2, "stage": "可用性目标", "title": "目标：不能靠组件数字相乘许愿", "premise": "确认订单正确性优先，面试官要求定义用户可见的可用性指标。", "listeningTask": "听懂目标、错误预算和测量口径。", "newPhrase": "p532", "phrases": ["p532", "p531", "p010", "p335:extra", "p309:extra", "p012:extra"], "lines": [
+      {"sp": "Lukas", "en": "Use ninety-nine point nine percent monthly availability.", "zh": "使用每月百分之九十九点九的可用性目标。"},
+      {"sp": "Raj", "en": "The error budget follows eligible checkout attempts.", "zh": "错误预算以符合统计口径的结账尝试为基础。"},
+      {"sp": "Raj", "en": "Just to confirm, correctness failures count too, right?", "zh": "确认一下，正确性失败也计入，对吧？"},
+      {"sp": "Hannah", "en": "Yes. A fast incorrect response isn't success.", "zh": "是的，快速但错误的响应不算成功。"},
+      {"sp": "Raj", "en": "I'll keep an eye on user-visible completion.", "zh": "我会关注用户可见的业务完成。"},
+      {"sp": "Lukas", "en": "Does your availability target cover payment-provider failures?", "zh": "可用性目标包括支付提供方故障吗？"},
+      {"sp": "Raj", "en": "Probably yes for customer outcomes. Attribute causes separately.", "zh": "客户结果大概应该计入，原因另行归属。"},
+      {"sp": "Raj", "en": "My working hypothesis needs agreed exclusions first.", "zh": "我当前的假设需要先约定排除口径。"},
+      {"sp": "Hannah", "en": "Okay, avoid hiding failures behind convenient exclusions.", "zh": "好，不要用方便的排除条件掩盖失败。"},
+      {"sp": "Raj", "en": "Just to recap, measure the whole checkout journey.", "zh": "小结一下，要测量完整的结账过程。"}
+    ]},
+    {"id": "0258", "part": 3, "stage": "流量估算", "title": "并发估算：先声明假设", "premise": "用户指标已明确，候选人估算峰值并发与请求成本。", "listeningTask": "听出吞吐乘耗时只是并发估算而非容量证明。", "newPhrase": "p533", "phrases": ["p533", "p335", "p319", "p010:extra", "p314:extra", "p316:extra"], "lines": [
+      {"sp": "Lukas", "en": "Assume two thousand requests per second at peak.", "zh": "假设峰值每秒两千个请求。"},
+      {"sp": "Raj", "en": "Peak concurrency also depends on request latency.", "zh": "峰值并发还取决于请求延迟。"},
+      {"sp": "Raj", "en": "Just to confirm, half-second average latency, right?", "zh": "确认一下，假定平均延迟半秒，对吧？"},
+      {"sp": "Hannah", "en": "For estimation, yes. Tail latency needs separate treatment.", "zh": "估算时可以，但尾延迟需要另行处理。"},
+      {"sp": "Raj", "en": "Roughly a thousand inflight requests. Under that assumption, I mean.", "zh": "大约一千个进行中的请求。我的意思是，在那个假设下。"},
+      {"sp": "Lukas", "en": "Traffic is flat in testing. Is that enough?", "zh": "测试流量平稳，这样够吗？"},
+      {"sp": "Raj", "en": "No. My working hypothesis needs bursts and retries.", "zh": "不够，我当前的假设还需要突发和重试测试。"},
+      {"sp": "Raj", "en": "Memory headroom matters when slow requests accumulate.", "zh": "慢请求积累时，内存余量很重要。"},
+      {"sp": "Hannah", "en": "Okay, how would you protect orders during overload?", "zh": "好，过载时你会怎么保护订单？"},
+      {"sp": "Raj", "en": "I'd shed load from optional work first.", "zh": "我会先减少可选工作的承接负载。"}
+    ]},
+    {"id": "0259", "part": 4, "stage": "架构草图", "title": "三个区：法定人数不是三份备份", "premise": "并发与负载保护初步估算完成，候选人提出可用区架构。", "listeningTask": "辨别副本数量、法定人数和持久化确认语义。", "newPhrase": "p534", "phrases": ["p534", "p106", "p330", "p010:extra", "p335:extra", "p011:extra"], "lines": [
+      {"sp": "Lukas", "en": "Sketch the storage layer. Where do replicas live?", "zh": "画一下存储层，副本放在哪里？"},
+      {"sp": "Raj", "en": "Three zones. A quorum decision authorizes leadership.", "zh": "三个区，由法定人数决策授权领导者。"},
+      {"sp": "Raj", "en": "Just to confirm, majority-durable acknowledgments, right?", "zh": "确认一下，确认写入须在多数副本持久化，对吧？"},
+      {"sp": "Hannah", "en": "Yes. Don't count an unpersisted network acknowledgment.", "zh": "是的，不能把未持久化的网络响应算进去。"},
+      {"sp": "Raj", "en": "My working hypothesis uses a proven consensus database.", "zh": "我当前的方案假设使用成熟的共识数据库。"},
+      {"sp": "Lukas", "en": "What shared infrastructure could still break all zones?", "zh": "哪些共享基础设施仍可能使所有区失效？"},
+      {"sp": "Raj", "en": "Managed configuration could. I'd stage configuration changes.", "zh": "受管理配置可能做到，我会分阶段改配置。"},
+      {"sp": "Raj", "en": "That's our blast radius for a shared bad rule.", "zh": "一条共享错误规则的影响范围会覆盖这些区。"},
+      {"sp": "Hannah", "en": "Let me play that back. Maybe separate rollout domains.", "zh": "我复述一下，也许还要分开发布故障域。"},
+      {"sp": "Raj", "en": "Exactly. API replicas and gateways stay zone-separated too.", "zh": "正是，API副本和网关也按区分开。"}
+    ]},
+    {"id": "0260", "part": 5, "stage": "数据一致性", "title": "刚写的订单不能在旧副本上消失", "premise": "选择法定人数复制，面试官继续追问订单读取与支付副作用。", "listeningTask": "区分账本一致性和外部支付幂等性。", "newPhrase": "p535", "phrases": ["p535", "p534", "p302", "p010:extra", "p327:extra", "p335:extra"], "lines": [
+      {"sp": "Hannah", "en": "Could a customer read stale data after checkout?", "zh": "客户结账后可能读到旧数据吗？"},
+      {"sp": "Raj", "en": "Read-your-writes matters for confirmation itself.", "zh": "确认本身需要能读到已提交写入。"},
+      {"sp": "Raj", "en": "I'd use linearizable reads for confirmation.", "zh": "确认时我会使用线性一致读取。"},
+      {"sp": "Lukas", "en": "Does a quorum decision make payments exactly once?", "zh": "法定人数决策能保证支付恰好一次吗？"},
+      {"sp": "Raj", "en": "No. We can't rule that out. Duplicate attempts remain possible.", "zh": "不能，不能排除这种情况，重复尝试仍有可能。"},
+      {"sp": "Hannah", "en": "Then explain protection at that boundary.", "zh": "那么解释这个边界上的保护措施。"},
+      {"sp": "Raj", "en": "Stable payment keys and provider deduplication. Plus durable reconciliation.", "zh": "稳定支付键和提供方去重，再加上持久化核对。"},
+      {"sp": "Raj", "en": "My working hypothesis requires provider idempotency.", "zh": "我当前的假设要求提供方支持幂等性。"},
+      {"sp": "Lukas", "en": "Perhaps a smoke test isn't enough. Test ambiguous responses too.", "zh": "也许快速功能验证还不够，也要测试含糊响应。"},
+      {"sp": "Raj", "en": "Just to confirm, timeouts don't prove failure.", "zh": "确认一下，超时不能证明事务失败。"}
+    ]},
+    {"id": "0261", "part": 6, "stage": "故障切换", "title": "令牌放哪：存储端必须拒绝旧写者", "premise": "一致性与外部支付边界已说明，推演领导者失联后的安全切换。", "listeningTask": "听出发放令牌不等于已经隔离旧写者。", "newPhrase": "p536", "phrases": ["p536", "p534", "p324", "p010:extra", "p325:extra", "p327:extra"], "lines": [
+      {"sp": "Lukas", "en": "The old leader disappears. Would you promote immediately?", "zh": "旧领导者失联，你会立即提升新主吗？"},
+      {"sp": "Raj", "en": "No. A fencing token needs storage-side enforcement.", "zh": "不会，隔离令牌需要存储端强制校验。"},
+      {"sp": "Raj", "en": "Just to confirm, stale writers get rejected, right?", "zh": "确认一下，过期写者会被拒绝，对吧？"},
+      {"sp": "Hannah", "en": "Where is the new epoch persisted and checked?", "zh": "新写者代次在哪里持久化和校验？"},
+      {"sp": "Raj", "en": "The quorum decision persists it in replicated storage.", "zh": "法定人数决策将它持久化在复制存储中。"},
+      {"sp": "Lukas", "en": "What if that rejection mechanism can't be verified?", "zh": "如果无法验证拒绝旧写者的机制呢？"},
+      {"sp": "Raj", "en": "Pause writes. Use verified power fencing if needed.", "zh": "暂停写入，必要时采用已验证的电源隔离。"},
+      {"sp": "Raj", "en": "The out-of-band console can independently confirm shutdown.", "zh": "带外控制台可以独立确认关闭。"},
+      {"sp": "Hannah", "en": "Okay, maybe define a rollback trigger for uncertainty.", "zh": "好，也许应为状态不明定义停止回退条件。"},
+      {"sp": "Raj", "en": "Stop routing writes. A smoke test follows safe authority transfer.", "zh": "停止路由写入。安全转移写权后再做快速验证。"}
+    ]},
+    {"id": "0262", "part": 7, "stage": "分区推演", "title": "少数分区：拒绝写入是正确行为", "premise": "隔离机制已说明，面试官提出一对二网络分区与旧领导者复归。", "listeningTask": "听出可用性与强一致性在分区时的明确取舍。", "newPhrase": "p537", "phrases": ["p537", "p536", "p302", "p010:extra", "p106:extra", "p011:extra"], "lines": [
+      {"sp": "Hannah", "en": "One replica loses contact. It still serves local clients.", "zh": "一个副本失去联系，但仍能接本地客户端。"},
+      {"sp": "Raj", "en": "The minority partition must reject authoritative writes.", "zh": "少数分区必须拒绝权威写入。"},
+      {"sp": "Raj", "en": "Just to confirm, availability yields to consistency, right?", "zh": "确认一下，此时可用性让位于一致性，对吧？"},
+      {"sp": "Lukas", "en": "What if its old process continues issuing writes?", "zh": "如果旧进程还在继续发写请求呢？"},
+      {"sp": "Raj", "en": "The fencing token blocks stale storage operations.", "zh": "隔离令牌会阻止过期写者的存储操作。"},
+      {"sp": "Hannah", "en": "Could local uncommitted records later overwrite majority decisions?", "zh": "本地未提交记录以后会覆盖多数分区的决策吗？"},
+      {"sp": "Raj", "en": "No. Consensus recovery discards conflicting uncommitted log entries.", "zh": "不会，共识恢复会丢弃冲突的未提交日志项。"},
+      {"sp": "Raj", "en": "That's our blast radius: minority-side write unavailability.", "zh": "影响范围是少数分区一侧的写入不可用。"},
+      {"sp": "Lukas", "en": "Let me play that back. Perhaps stale reads too?", "zh": "我复述一下，也许还会有旧读取？"},
+      {"sp": "Raj", "en": "We can't rule that out. Block authoritative reads there.", "zh": "不能排除，所以也阻止那边的权威读取。"}
+    ]},
+    {"id": "0263", "part": 8, "stage": "容量与成本", "title": "容量取舍：失一区以后仍能承载", "premise": "分区语义已明确，讨论故障后容量、预留和跨地域成本。", "listeningTask": "听懂本地域强一致目标不能直接等同跨地域零损失。", "newPhrase": "p538", "phrases": ["p538", "p319", "p316", "p010:extra", "p306:extra", "p335:extra"], "lines": [
+      {"sp": "Lukas", "en": "Your budget's limited. Explain the capacity trade-off.", "zh": "预算有限，解释一下容量方面的取舍。"},
+      {"sp": "Raj", "en": "Surviving zones need memory headroom for peak writes.", "zh": "剩余区需要有承受峰值写入的内存余量。"},
+      {"sp": "Raj", "en": "Just to confirm, scaling isn't immediate, right?", "zh": "确认一下，扩容不是立即完成，对吧？"},
+      {"sp": "Hannah", "en": "Correct. What's your plan while new capacity starts?", "zh": "对，新增容量启动期间怎么处理？"},
+      {"sp": "Raj", "en": "I'd shed load from recommendations and exports.", "zh": "我会减少推荐和导出的承接负载。"},
+      {"sp": "Lukas", "en": "Would asynchronous regional DR meet zero data loss?", "zh": "异步地域灾备能满足零数据损失吗？"},
+      {"sp": "Raj", "en": "No. My working hypothesis needs an agreed loss allowance.", "zh": "不能，我当前的假设需要约定损失容忍范围。"},
+      {"sp": "Raj", "en": "Buffering could buy us time, within bounded queues.", "zh": "有界队列里的缓冲能争取时间。"},
+      {"sp": "Hannah", "en": "Maybe synchronous regional replication, with higher latency costs?", "zh": "也许采用同步地域复制，但延迟成本更高？"},
+      {"sp": "Raj", "en": "Yes, that's a business decision, not free redundancy.", "zh": "是的，这是业务决策，不是免费的冗余。"}
+    ]},
+    {"id": "0264", "part": 9, "stage": "深入追问", "title": "支付超时：不能盲目换个节点重试", "premise": "容量取舍说明完毕，面试官追问下游慢调用造成的资源积压。", "listeningTask": "听出超时预算、幂等键与取消不等于事务撤销。", "newPhrase": "p539", "phrases": ["p539", "p533", "p302", "p010:extra", "p309:extra", "p327:extra"], "lines": [
+      {"sp": "Hannah", "en": "The payment provider slows down. What breaks first?", "zh": "支付提供方变慢，什么会先出问题？"},
+      {"sp": "Raj", "en": "A dependency timeout limits waiting, not transaction execution.", "zh": "依赖调用超时限制等待，不会直接终止事务执行。"},
+      {"sp": "Raj", "en": "Just to confirm, cancellation isn't payment rollback, right?", "zh": "确认一下，取消等待不等于支付回滚，对吧？"},
+      {"sp": "Lukas", "en": "Correct. How do you prevent retries multiplying load?", "zh": "对，如何避免重试放大负载？"},
+      {"sp": "Raj", "en": "Bound attempts, add jitter, reuse payment keys.", "zh": "限制尝试次数，加入抖动，复用支付键。"},
+      {"sp": "Hannah", "en": "Would peak concurrency still follow your earlier estimate?", "zh": "峰值并发还会符合你之前的估算吗？"},
+      {"sp": "Raj", "en": "Probably not. Slow dependencies increase inflight requests.", "zh": "大概不会，慢依赖会增加进行中的请求。"},
+      {"sp": "Raj", "en": "I'd keep an eye on concurrency and queue age.", "zh": "我会留意并发和队列等待时间。"},
+      {"sp": "Lukas", "en": "Okay, a smoke test won't prove overload behavior.", "zh": "好，快速功能验证不能证明过载行为可靠。"},
+      {"sp": "Raj", "en": "We can't rule that out. Test sustained downstream latency.", "zh": "不能排除过载风险，要测试持续的下游延迟。"}
+    ]},
+    {"id": "0265", "part": 10, "stage": "总结反问", "title": "总结设计，再问运行责任", "premise": "面试推演结束，候选人总结保证边界与待验证假设并反问团队。", "listeningTask": "听出候选人没有把设计草图说成已经验证的系统。", "newPhrase": "p540", "phrases": ["p540", "p531", "p310", "p012:extra", "p009:extra", "p339:extra"], "lines": [
+      {"sp": "Lukas", "en": "Summarize your design. Then ask us something.", "zh": "总结你的设计，然后向我们提问。"},
+      {"sp": "Raj", "en": "Just to recap, consistency wins during ambiguous partitions.", "zh": "小结一下，状态不明的分区期间优先保证一致性。"},
+      {"sp": "Raj", "en": "The availability target still needs fault-test evidence.", "zh": "可用性目标仍需要故障测试证据。"},
+      {"sp": "Hannah", "en": "Which design assumption would you validate first?", "zh": "你会先验证哪项设计假设？"},
+      {"sp": "Raj", "en": "Storage fencing itself, then acknowledged-write recovery under partition.", "zh": "先验证存储隔离本身，再测分区下已确认写入的恢复。"},
+      {"sp": "Lukas", "en": "Maybe include operational access. Who maintains that protection?", "zh": "也许还要包含操作权限，谁维护这些保护？"},
+      {"sp": "Raj", "en": "That's my question. Who owns reliability across teams?", "zh": "这也是我的问题，跨团队可靠性由谁负责？"},
+      {"sp": "Raj", "en": "An action item needs owners, budget, and evidence.", "zh": "待办项需要负责人、预算和证据。"},
+      {"sp": "Hannah", "en": "Yes, service owners share it with SRE. Anything else?", "zh": "是的，服务负责人和SRE共同承担，还有别的问题吗？"},
+      {"sp": "Raj", "en": "Okay, have I missed anything? How do teams close the loop?", "zh": "好，有没有遗漏？团队如何完成跟进反馈？"}
+    ]}
+  ]
+}

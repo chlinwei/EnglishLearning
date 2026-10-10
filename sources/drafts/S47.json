@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "防御漏洞响应十段中英草稿，不含利用步骤。版本命中不等于可利用，补丁覆盖不等于安全证明；实际音频待验证，无估造时间轴。",
+  "series": {"id": "sc-S47-sec-vulnerability-response", "title": "漏洞响应：版本命中、可利用暴露与补丁验证", "domain": "sec", "group": "incident", "service": "document-preview gateway", "premise": "供应商通报文档预览组件漏洞，镜像清单疑似命中受影响版本，运行配置与外部路径未知。", "outcome": "确认六个实例中四个启用相关解析功能，外部上传路径可达；限制预览入口并保留安全替代下载。补丁灰度发现插件不兼容，更新插件后分批修复六个实例，验证运行版本与业务路径；历史日志空档及新变种风险保留复查。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Vulnerability response operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Document service owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and patch reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Security exposure analyst", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p741", "en": "affected version range", "zh": "受影响版本范围", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p742", "en": "asset reconciliation", "zh": "资产清单核对", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p743", "en": "exploit prerequisites", "zh": "可利用的前提条件", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p744", "en": "reachable attack surface", "zh": "可达的攻击面", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p745", "en": "compensating control", "zh": "补偿性控制措施", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p746", "en": "patch canary", "zh": "补丁灰度实例", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p747", "en": "compatibility check", "zh": "兼容性检查", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p748", "en": "patch coverage", "zh": "补丁覆盖情况", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p749", "en": "residual exposure", "zh": "残余暴露", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p750", "en": "response checkpoint", "zh": "响应复查节点", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来回访候选，不计实际出现；不依赖其他同期草稿。", "futureAdvisoryDrill": ["p741", "p742", "p743", "p744", "p749", "p750"], "futurePatchReview": ["p745", "p746", "p747", "p748"]},
+  "dialogues": [
+    {"id": "0466", "part": 1, "stage": "漏洞通报", "title": "扫描命中还不是利用结论", "premise": "供应商通报刚收到，镜像扫描提示预览组件受影响。", "listeningTask": "听出版本判断与运行风险判断的区别。", "newPhrase": "p741", "phrases": ["p741", "p003", "p010", "p014:extra", "p008:extra", "p335:extra"], "lines": [
+      {"sp": "Raj", "en": "Our image matches the affected version range. Runtime details aren't checked yet.", "zh": "镜像命中受影响版本范围，运行细节尚未检查。"},
+      {"sp": "Hannah", "en": "Does the advisory mention distribution backports? Package labels can mislead us.", "zh": "通报提到发行版回补吗？包版本标签可能误导。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, no exploit claim, right?", "zh": "好，我来协调。确认一下，还不能宣称可利用，对吧？"},
+      {"sp": "Lukas", "en": "Right. Compare vendor guidance with running builds. Don't trust scanner names alone.", "zh": "对。把厂商指南和运行构建对比，别只信扫描名称。"},
+      {"sp": "Anika", "en": "I'm on it for service inventory. Preview runs behind the gateway.", "zh": "我来整理服务清单，预览服务在网关后面运行。"},
+      {"sp": "Raj", "en": "Our working hypothesis is parser exposure. Its enabled state remains unknown.", "zh": "当前假设是解析器暴露，但是否启用仍未知。"},
+      {"sp": "Hannah", "en": "Gateway placement isn't a safety guarantee. We need effective request paths.", "zh": "位于网关后不保证安全，需要实际请求路径。"},
+      {"sp": "Priya", "en": "What's the ETA for running versions? About five minutes, maybe?", "zh": "运行版本预计多久确认？可能大约五分钟？"},
+      {"sp": "Lukas", "en": "Also check dormant instances and jobs. They may process documents later.", "zh": "也检查休眠实例和任务，它们之后可能处理文档。"},
+      {"sp": "Anika", "en": "I'll include those owners too. No production probing beyond approved checks.", "zh": "我也会纳入那些负责人，不在生产做超出批准范围的探测。"}
+    ]},
+    {"id": "0467", "part": 2, "stage": "确认资产", "title": "清单漏掉了两个备用实例", "premise": "运行版本待核对，部署清单与服务发现数量不符。", "listeningTask": "听出备用实例为什么仍需纳入漏洞响应。", "newPhrase": "p742", "phrases": ["p742", "p010", "p106", "p330:extra", "p014:extra", "p012:extra"], "lines": [
+      {"sp": "Raj", "en": "Asset reconciliation found six instances. The deployment sheet lists four only.", "zh": "资产核对发现六个实例，部署表只列了四个。"},
+      {"sp": "Lukas", "en": "Are the other two stale records? Confirm whether they're actually running.", "zh": "另外两个是过期记录吗？确认是否确实运行。"},
+      {"sp": "Anika", "en": "They're warm standbys for batch previews. Both use the same component.", "zh": "是批量预览的温备实例，两者使用相同组件。"},
+      {"sp": "Priya", "en": "Just to confirm, six candidates, right? That's our blast radius for review.", "zh": "确认一下，六个候选，对吧？这是本次评审范围。"},
+      {"sp": "Hannah", "en": "Candidates, not six exposed instances. Configuration could change the risk.", "zh": "是候选，不是六个暴露实例，配置会改变风险。"},
+      {"sp": "Raj", "en": "Managed configuration disables parsing on standbys. I'll verify effective settings.", "zh": "受管配置在备用实例禁用了相关解析，我会核对生效设置。"},
+      {"sp": "Lukas", "en": "Check queued jobs too. A standby could activate during failover.", "zh": "也检查排队任务，备用实例可能在故障切换时启用。"},
+      {"sp": "Anika", "en": "I'm on it. Maybe failover enables that feature automatically. I'll check.", "zh": "我来查，故障切换可能自动启用那个功能。"},
+      {"sp": "Hannah", "en": "Keep version evidence per instance. Inventory completeness needs independent confirmation.", "zh": "按实例保留版本证据，清单完整性需要独立确认。"},
+      {"sp": "Priya", "en": "Okay, just to recap, patch planning includes all six. Exposure assessment comes next.", "zh": "好，小结一下，补丁计划包括全部六个，接下来判断暴露。"}
+    ]},
+    {"id": "0468", "part": 3, "stage": "判断可利用性", "title": "功能启用仍需路径证据", "premise": "六个实例均命中组件版本，四个线上实例启用相关解析，备用未启用。", "listeningTask": "辨别版本、功能条件和来源可控性。", "newPhrase": "p743", "phrases": ["p743", "p010", "p335", "p302:extra", "p008:extra", "p004:extra"], "lines": [
+      {"sp": "Hannah", "en": "Exploit prerequisites include the affected parser. Four live instances enable it.", "zh": "可利用前提包括受影响解析器，四个线上实例启用了它。"},
+      {"sp": "Raj", "en": "Then all four are exploitable? Or is input access still uncertain?", "zh": "那四个都能被利用？还是输入访问条件仍不确定？"},
+      {"sp": "Lukas", "en": "Input access matters. Check approved advisory conditions without recreating attacks here.", "zh": "输入访问条件很重要，按批准通报检查条件，不在这里复现攻击。"},
+      {"sp": "Priya", "en": "Just to confirm, configuration matches one condition, right? Others remain open.", "zh": "确认一下，配置只满足一个条件，对吧？其他条件仍待核实。"},
+      {"sp": "Anika", "en": "Our working hypothesis involves uploads. Internal imports also reach preview workers.", "zh": "当前假设涉及上传，内部导入也会进入预览工作进程。"},
+      {"sp": "Hannah", "en": "Then authentication alone doesn't rule that out. An authorized user may supply documents.", "zh": "那仅有认证不能排除风险，授权用户也能提供文档。"},
+      {"sp": "Raj", "en": "I overstated the conclusion earlier. Maybe the upload route is filtered.", "zh": "我刚才下结论太早，上传路径可能有过滤。"},
+      {"sp": "Lukas", "en": "Verify filtering coverage and bypass routes. Don't assume one rule covers everything.", "zh": "验证过滤覆盖和其他路径，别假设一条规则覆盖所有情况。"},
+      {"sp": "Priya", "en": "What's the ETA for route evidence? A broad rewrite, let's park that.", "zh": "路径证据预计多久？大规模重写先放一边。"},
+      {"sp": "Anika", "en": "About three minutes for the map. I'll include import and failover paths.", "zh": "整理路径图大约三分钟，我会包括导入和故障切换路径。"}
+    ]},
+    {"id": "0469", "part": 4, "stage": "检查暴露面", "title": "网关后仍接收外部文档", "premise": "发现上传和内部导入均能到达线上解析功能，过滤覆盖待核实。", "listeningTask": "听出确认可达的范围和不能从日志空白推断的结论。", "newPhrase": "p744", "phrases": ["p744", "p010", "p106", "p309:extra", "p320:extra", "p336:extra"], "lines": [
+      {"sp": "Raj", "en": "Reachable attack surface includes authenticated uploads. Those documents reach the affected parser.", "zh": "可达攻击面包括已认证上传，文档会到达受影响解析器。"},
+      {"sp": "Hannah", "en": "Does the filter remove the relevant input? Show effective coverage, not its name.", "zh": "过滤器去除了相关输入吗？看实际覆盖，不看名称。"},
+      {"sp": "Anika", "en": "No, it checks size only. That's our blast radius for live preview.", "zh": "没有，只检查大小。这是线上预览的影响范围。"},
+      {"sp": "Priya", "en": "Just to confirm, standbys are disabled now, right? Keep activation blocked.", "zh": "确认一下，备用当前禁用，对吧？继续阻止启用。"},
+      {"sp": "Lukas", "en": "Yes, but patch them too. Disabled today isn't permanently unreachable.", "zh": "对，但它们也要打补丁，今天禁用不代表永远不可达。"},
+      {"sp": "Raj", "en": "No suspicious requests in available logs. Maybe older records are missing.", "zh": "现有日志未见可疑请求，但旧记录可能缺失。"},
+      {"sp": "Hannah", "en": "That isn't proof of no exploitation. The root cause is still open for gaps.", "zh": "这不证明没有被利用，日志空档根因仍未查明。"},
+      {"sp": "Anika", "en": "I'll keep an eye on queue age. Restricting preview will delay customers.", "zh": "我会关注队列等待时间，限制预览会让客户等待。"},
+      {"sp": "Lukas", "en": "Use the escalation path for suspicious activity. Preserve evidence before rotation.", "zh": "可疑活动走升级路径，日志轮转前保存证据。"},
+      {"sp": "Priya", "en": "Okay, prepare a preview restriction. Downloads need a separately validated safe path.", "zh": "好，准备限制预览，下载需要单独验证的安全路径。"}
+    ]},
+    {"id": "0470", "part": 5, "stage": "临时缓解", "title": "限制解析而非声称永久修复", "premise": "外部文档可达受影响功能，拟限制线上预览并继续安全下载。", "listeningTask": "理解补偿控制范围、业务代价与旁路检查。", "newPhrase": "p745", "phrases": ["p745", "p010", "p334", "p306:extra", "p324:extra", "p014:extra"], "lines": [
+      {"sp": "Priya", "en": "Disabling preview is a compensating control. It should buy us time for patching.", "zh": "禁用预览是补偿控制，应该能为补丁争取时间。"},
+      {"sp": "Lukas", "en": "What about internal imports? Blocking the public route alone leaves that path.", "zh": "内部导入呢？只阻止公共路径还会留下那条路径。"},
+      {"sp": "Anika", "en": "We'll pause both parsing routes. Safe downloads don't invoke this component.", "zh": "暂停两条解析路径，安全下载不调用这个组件。"},
+      {"sp": "Hannah", "en": "Verify that separation with traces. Labels aren't enough to confirm isolation.", "zh": "用链路记录验证分离，标签不足以确认隔离。"},
+      {"sp": "Raj", "en": "I'm on it. Just to confirm, queued documents stay unprocessed, right?", "zh": "我来做。确认一下，排队文档保持未处理，对吧？"},
+      {"sp": "Priya", "en": "Yes, this temporary workaround costs preview availability. Maybe an hour initially.", "zh": "对，这个临时缓解牺牲预览可用性，初步可能一小时。"},
+      {"sp": "Lukas", "en": "Define a rollback trigger for service errors. Don't reopen vulnerable parsing blindly.", "zh": "设定服务错误的回退条件，别盲目恢复有漏洞的解析。"},
+      {"sp": "Anika", "en": "Download errors mean stop and review. Preview remains blocked during troubleshooting.", "zh": "下载错误就停下评审，排查期间预览仍阻止。"},
+      {"sp": "Hannah", "en": "Both routes now reject parsing requests. Preserve the control's tested coverage.", "zh": "两条路径现在都拒绝解析请求，保存控制的已测覆盖。"},
+      {"sp": "Raj", "en": "Okay, queues are held and downloads pass. I'll prepare an isolated patch candidate.", "zh": "好，队列已暂停且下载通过，我准备隔离的补丁候选。"}
+    ]},
+    {"id": "0471", "part": 6, "stage": "补丁灰度", "title": "灰度发现插件不兼容", "premise": "两条解析路径已阻止，隔离实例安装厂商补丁，准备测试业务。", "listeningTask": "听出补丁安装成功与应用测试失败可同时成立。", "newPhrase": "p746", "phrases": ["p746", "p010", "p327", "p324:extra", "p323:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The patch canary runs the fixed build. The smoke test fails on thumbnails.", "zh": "补丁灰度运行修复构建，但缩略图冒烟测试失败。"},
+      {"sp": "Lukas", "en": "What's the error boundary? Startup, parsing, or the thumbnail plugin?", "zh": "错误发生在哪个边界？启动、解析还是缩略图插件？"},
+      {"sp": "Anika", "en": "The plugin rejects the updated interface. Parsing itself completes with synthetic documents.", "zh": "插件拒绝新接口，合成文档的解析本身完成了。"},
+      {"sp": "Priya", "en": "Just to confirm, no wider rollout, right? That's our rollback trigger.", "zh": "确认一下，不扩大部署，对吧？这触发回退条件。"},
+      {"sp": "Hannah", "en": "Pause expansion. Don't restore exposed production parsing to meet the schedule.", "zh": "暂停扩大，不要为了赶进度恢复暴露的生产解析。"},
+      {"sp": "Raj", "en": "I'm on it for vendor guidance. Maybe a supported plugin update exists.", "zh": "我来查厂商指南，可能有受支持的插件更新。"},
+      {"sp": "Lukas", "en": "Keep the canary isolated during repair. Retest the complete workflow afterward.", "zh": "修复期间保持灰度隔离，之后重测完整流程。"},
+      {"sp": "Anika", "en": "The vendor lists a compatible plugin. I'll test that combination first.", "zh": "厂商列出了兼容插件，我先测试那个组合。"},
+      {"sp": "Hannah", "en": "Record both build identifiers. A package installation message isn't runtime evidence.", "zh": "记录两个构建标识，安装成功消息不是运行证据。"},
+      {"sp": "Priya", "en": "Okay, staged rollout stays paused. Update the business estimate after retesting.", "zh": "好，分阶段部署保持暂停，重测后更新业务时间预估。"}
+    ]},
+    {"id": "0472", "part": 7, "stage": "验证业务", "title": "插件更新后的完整路径", "premise": "隔离灰度安装受支持插件更新，待重新验证预览、下载和失败处理。", "listeningTask": "辨别业务兼容验证与漏洞条件验证。", "newPhrase": "p747", "phrases": ["p747", "p010", "p327", "p309:extra", "p111:extra", "p008:extra"], "lines": [
+      {"sp": "Anika", "en": "The compatibility check now passes. Previews and thumbnails match expected output.", "zh": "兼容检查现在通过，预览和缩略图输出符合预期。"},
+      {"sp": "Hannah", "en": "Did it cover invalid documents too? Error handling can change after updates.", "zh": "也覆盖无效文档了吗？更新后错误处理可能变化。"},
+      {"sp": "Raj", "en": "Yes, approved malformed fixtures reject safely. No secrets appear in error logs.", "zh": "是，批准的格式异常测试样本被安全拒绝，错误日志没有秘密。"},
+      {"sp": "Priya", "en": "Just to confirm, the smoke test covers downloads too, right?", "zh": "确认一下，冒烟测试也覆盖下载，对吧？"},
+      {"sp": "Lukas", "en": "It does. But business success doesn't prove vulnerability remediation by itself.", "zh": "覆盖了，但业务成功本身不能证明漏洞修复。"},
+      {"sp": "Anika", "en": "Agreed, vendor conditions need separate verification. Runtime build matches the advisory fix.", "zh": "同意，厂商条件需要单独验证，运行构建匹配通报修复。"},
+      {"sp": "Hannah", "en": "Let's keep it under observation. Record limits of the approved security checks.", "zh": "继续观察，记录批准安全检查的局限。"},
+      {"sp": "Raj", "en": "I'll keep an eye on memory too. Maybe larger documents behave differently.", "zh": "我也关注内存，大文档可能表现不同。"},
+      {"sp": "Lukas", "en": "Use representative safe fixtures. Keep real customer documents out of test logs.", "zh": "用有代表性的安全样本，别让真实客户文档进入测试日志。"},
+      {"sp": "Priya", "en": "Okay, what's the ETA for expansion? Wait for the observation checkpoint first.", "zh": "好，扩大部署预计什么时候？先等观察检查点。"}
+    ]},
+    {"id": "0473", "part": 8, "stage": "全量修复", "title": "六个实例都核实运行构建", "premise": "灰度观察通过，按批更新四个线上实例及两个备用，限制仍保持。", "listeningTask": "听出全量覆盖的分母和解除限制的条件。", "newPhrase": "p748", "phrases": ["p748", "p010", "p323", "p330:extra", "p012:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Patch coverage is six of six. Every running build matches the fixed release.", "zh": "补丁覆盖六个中的全部六个，每个运行构建都匹配修复版本。"},
+      {"sp": "Lukas", "en": "Did managed configuration update the standby image? Restarts must not restore old builds.", "zh": "受管配置更新了备用镜像吗？重启不能恢复旧构建。"},
+      {"sp": "Anika", "en": "Yes, both image references are pinned. The standby startup check passed too.", "zh": "是，两处镜像引用都锁定了，备用启动检查也通过。"},
+      {"sp": "Priya", "en": "Just to confirm, staged rollout checks passed per batch, right?", "zh": "确认一下，每批的分阶段部署检查都通过，对吧？"},
+      {"sp": "Hannah", "en": "Yes, with inventory evidence. Coverage isn't a universal safety certificate.", "zh": "是，有清单证据，但覆盖不是普遍安全证明。"},
+      {"sp": "Raj", "en": "I'm on it for controlled reopening. One route first, then internal imports.", "zh": "我负责受控重开，先一条路径，再内部导入。"},
+      {"sp": "Lukas", "en": "Recheck parser configuration before reopening. Keep the restriction available if errors recur.", "zh": "重开前再次检查解析配置，错误复发时能恢复限制。"},
+      {"sp": "Anika", "en": "Maybe queues need rate control. I'll resume slowly to avoid overload.", "zh": "队列可能需要速率控制，我会缓慢恢复，避免过载。"},
+      {"sp": "Hannah", "en": "Record which restrictions were lifted. Audit logs still need historical review.", "zh": "记录解除了哪些限制，历史审计日志仍需检查。"},
+      {"sp": "Priya", "en": "Okay, just to recap, patched paths reopen gradually. Incident review remains active.", "zh": "好，小结一下，修复路径逐步重开，事件评审继续。"}
+    ]},
+    {"id": "0474", "part": 9, "stage": "风险通报", "title": "修复已知条件，不承诺绝对安全", "premise": "受控重开后业务恢复，历史日志空档尚未补齐。", "listeningTask": "区分当前修复证据、历史未知和后续风险。", "newPhrase": "p749", "phrases": ["p749", "p010", "p110", "p349:extra", "p001:extra", "p336:extra"], "lines": [
+      {"sp": "Priya", "en": "Our update must mention residual exposure. Historical logging gaps remain unresolved.", "zh": "更新必须说明残余暴露，历史日志空档尚未解决。"},
+      {"sp": "Hannah", "en": "Separate current conditions from past activity. We've fixed the known version issue.", "zh": "把当前条件和历史活动分开，已修复已知版本问题。"},
+      {"sp": "Anika", "en": "We're back to baseline on previews. Queue age is normal again.", "zh": "预览回到基线，队列等待时间也正常了。"},
+      {"sp": "Lukas", "en": "Report tested routes, not total security. New advisories may change our assessment.", "zh": "报告已测路径，不宣称完全安全，新通报可能改变判断。"},
+      {"sp": "Raj", "en": "Just to confirm, the mitigation is holding, right? Reblocking remains available.", "zh": "确认一下，缓解持续有效，对吧？仍能重新阻止解析。"},
+      {"sp": "Priya", "en": "Yes, maybe another checkpoint tomorrow. We'll circle back after log review.", "zh": "对，明天可能再检查一次，日志评审后再沟通。"},
+      {"sp": "Hannah", "en": "Use the escalation path for new indicators. Absence of alerts isn't proof.", "zh": "新线索走升级路径，没有告警不代表已经证明无事。"},
+      {"sp": "Anika", "en": "Support gets a sanitized statement. I'll mention restored service and ongoing investigation.", "zh": "支持团队收到脱敏说明，我会写明服务恢复和持续调查。"},
+      {"sp": "Lukas", "en": "Good. Avoid component details in public updates. Keep evidence internally accessible.", "zh": "好。公共更新不放组件细节，内部保留可访问证据。"},
+      {"sp": "Raj", "en": "I'll track advisory changes daily. The repaired inventory needs ongoing drift checks.", "zh": "我每天跟踪通报变化，修复后的清单仍需持续漂移检查。"}
+    ]},
+    {"id": "0475", "part": 10, "stage": "复盘响应", "title": "把清单和证据缺口转成任务", "premise": "已知漏洞条件修复，业务恢复；复盘遗漏备用资产和日志覆盖不足。", "listeningTask": "听出响应改进的具体责任与验收标准。", "newPhrase": "p750", "phrases": ["p750", "p009", "p310", "p013:extra", "p012:extra", "p742:extra"], "lines": [
+      {"sp": "Priya", "en": "Set a response checkpoint for Friday. Each action item needs measurable evidence.", "zh": "设周五响应检查点，每项待办都要有可衡量证据。"},
+      {"sp": "Lukas", "en": "The missed standbys slowed us down. Asset reconciliation must include activation paths.", "zh": "遗漏备用拖慢了响应，资产核对必须包括启用路径。"},
+      {"sp": "Raj", "en": "I'll own that inventory change. Maybe compare discovery and deployment daily.", "zh": "我负责清单改进，可能每天对比服务发现和部署记录。"},
+      {"sp": "Hannah", "en": "I'll own log completeness tests. They must flag collection gaps explicitly.", "zh": "我负责日志完整性测试，必须明确标记采集空档。"},
+      {"sp": "Anika", "en": "Who's picking this up for plugin tests? I'll take those by Thursday.", "zh": "谁负责插件测试？我来做，周四前完成。"},
+      {"sp": "Priya", "en": "Okay, include both safe documents and errors. No attack fixtures here, right?", "zh": "好，包括安全文档和错误路径，这里不用攻击样本，对吧？"},
+      {"sp": "Lukas", "en": "Correct. Specialist security validation follows an approved separate process, with isolation.", "zh": "对，专业安全验证走批准的独立流程，并保持隔离。"},
+      {"sp": "Raj", "en": "Just to recap, patch completion isn't incident proof. Historical review stays open.", "zh": "小结一下，补丁完成不是事件无风险证明，历史调查保持开放。"},
+      {"sp": "Hannah", "en": "We'll close the loop with documented limits. Unknown activity must remain visible.", "zh": "我们用有明确局限的记录完成反馈，未知活动必须保持可见。"},
+      {"sp": "Anika", "en": "Agreed, I'll link test evidence Friday. Then we review remaining risk together.", "zh": "同意，周五我附上测试证据，然后一起评审剩余风险。"}
+    ]}
+  ]
+}

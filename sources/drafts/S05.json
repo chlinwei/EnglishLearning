@@ -1,0 +1,223 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "完整文本草稿，未配音或发布。引用既有表达库及S03/S04草稿表达；不包含猜测的音频时间轴。",
+  "series": {
+    "id": "sc-S05-linux-kernel-patch",
+    "title": "内核补丁维护：灰度、驱动检查与分批重启",
+    "domain": "linux", "group": "change", "service": "catalog-api Linux VM fleet",
+    "premise": "为四台catalog-api虚拟机安装发行版提供的安全内核补丁。预发布已跑过基础测试，生产尚未开始；计划窗口五十五分钟，逐台退出流量并重启。",
+    "outcome": "确认驱动签名、旧内核与带外控制台回退准备；一台生产灰度通过启动、驱动和业务验证后，逐台完成其余三台维护。按计划结束并留下真实回退演练与自动验收改进任务。"
+  },
+  "speakers": {
+    "Priya": {"role": "Change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Linux operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "API owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p321", "en": "maintenance window", "zh": "维护时间窗口", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p322", "en": "kernel regression", "zh": "内核升级引入的功能退化或故障", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p323", "en": "staged rollout", "zh": "分阶段发布", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p324", "en": "rollback trigger", "zh": "触发回退的条件", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p325", "en": "out-of-band console", "zh": "独立于常规网络连接的管理控制台", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p326", "en": "unsigned module", "zh": "未经可信签名的内核模块", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p327", "en": "smoke test", "zh": "关键功能的快速验证", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p328", "en": "go/no-go", "zh": "继续或停止的决策", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p329", "en": "boot the old kernel", "zh": "使用旧内核启动", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p330", "en": "managed configuration", "zh": "由配置管理统一维护的配置", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {
+    "note": "每段一个新表达与五个已引入表达。候选后续回访需按相应场景细化，不能把未编稿的排期算为已复现。",
+    "S06": ["p321", "p322", "p324", "p325", "p329", "p330"],
+    "S08": ["p321", "p323", "p324", "p327", "p328"],
+    "S11": ["p321", "p322", "p326", "p327", "p329", "p330"],
+    "S18": ["p322", "p323", "p324", "p327", "p328"],
+    "S28": ["p321", "p323", "p324", "p327", "p328"],
+    "S37": ["p325", "p326", "p329", "p330"]
+  },
+  "dialogues": [
+    {
+      "id": "0046", "part": 1, "stage": "申请", "title": "申请维护：哪四台，什么时候动",
+      "premise": "catalog-api四台虚拟机需要安全内核补丁，先确认窗口和变更范围。",
+      "listeningTask": "听清维护对象、预计耗时和不属于本次变更的节点。",
+      "newPhrase": "p321", "phrases": ["p321", "p010", "p317", "p008:extra", "p004:extra", "p320:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "I'd like a maintenance window for the catalog hosts. Four machines, kernel patch only.", "zh": "我想申请catalog主机的维护窗口。四台机器，只做内核补丁。"},
+        {"sp": "Lukas", "en": "Are the enrichment workers included? That memory investigation isn't finished.", "zh": "包含订单补充信息消费者吗？那项内存调查还没有结束。"},
+        {"sp": "Priya", "en": "No, the root cause is still open there. Those hosts are out of scope.", "zh": "不包含，那边根因仍未查明。那些主机不在本次范围内。"},
+        {"sp": "Anika", "en": "Just to confirm, no app release alongside this, right? Keep the change isolated.", "zh": "我确认一下，不同时发布应用，对吧？保持变更单一。"},
+        {"sp": "Hannah", "en": "Good. Mixing changes would make any new error harder to explain.", "zh": "好。混合变更会让新错误更难定位。"},
+        {"sp": "Raj", "en": "Agreed. What's the ETA for approval? I'm proposing fifty-five minutes tonight.", "zh": "同意。审批预计什么时候完成？我建议今晚留五十五分钟。"},
+        {"sp": "Lukas", "en": "Does that include checks and time to back out? Not just reboot time?", "zh": "包括检查和回退时间吗？不是只算重启吧？"},
+        {"sp": "Priya", "en": "Yes. Like one worker at a time, but these are API hosts. One host only.", "zh": "包括。类似一次只处理一个消费者，不过这里是API主机，一次只动一台。"},
+        {"sp": "Hannah", "en": "Let's review capacity before approving. Three hosts need to carry the live traffic.", "zh": "批准前先评审容量，其余三台需要承担线上流量。"},
+        {"sp": "Anika", "en": "A full fleet refresh? Let's park that. This request is just the patch.", "zh": "整组机器更新的事先放一边。这次申请只涉及补丁。"}
+      ]
+    },
+    {
+      "id": "0047", "part": 2, "stage": "风险评审", "title": "评审补丁：发行版补丁也要验证",
+      "premise": "已确认只维护四台catalog-api主机，旧内存事件节点被排除。",
+      "listeningTask": "分辨已有测试证据、尚未覆盖的风险和批准所需材料。",
+      "newPhrase": "p322", "phrases": ["p322", "p010", "p302", "p311:extra", "p312:extra", "p319:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "What's our evidence against a kernel regression? Which tests ran in staging?", "zh": "有哪些证据能降低内核回归风险？预发布跑过哪些测试？"},
+        {"sp": "Raj", "en": "Boot, network, and storage checks passed. Same image family, same Secure Boot setting.", "zh": "启动、网络和存储检查通过。同一镜像系列，Secure Boot设置也一致。"},
+        {"sp": "Hannah", "en": "Same driver versions too? A matching image name doesn't guarantee matching modules.", "zh": "驱动版本也一致吗？镜像名字一致不代表模块一致。"},
+        {"sp": "Anika", "en": "App tests passed under load. Memory headroom stayed healthy throughout the run.", "zh": "应用通过了带负载测试，运行期间内存余量一直正常。"},
+        {"sp": "Priya", "en": "Just to confirm, no memory pressure in that run, right? Attach the graphs.", "zh": "我确认一下，那次测试没有内存压力，对吧？把曲线附上。"},
+        {"sp": "Lukas", "en": "If anything got OOM-killed, we'd need to separate capacity from kernel behavior.", "zh": "如果有进程被OOM机制终止，我们得区分容量问题和内核行为。"},
+        {"sp": "Raj", "en": "Nothing did. I checked the kernel log too. We can rule that out for this test.", "zh": "没有。我也查了内核日志，可以排除这次测试中发生过OOM。"},
+        {"sp": "Hannah", "en": "I'll compare the driver manifests next. That's the remaining gap in the evidence.", "zh": "接下来我会对比驱动清单，那是当前证据还缺的一块。"},
+        {"sp": "Anika", "en": "Maybe add a longer soak later. The current test doesn't cover every production pattern.", "zh": "以后可以增加长时间测试，现在的测试覆盖不了所有生产模式。"},
+        {"sp": "Priya", "en": "Agreed. Record the limitation. We still need a small first batch tonight.", "zh": "同意，把限制记下来。今晚仍然要从小批次开始。"}
+      ]
+    },
+    {
+      "id": "0048", "part": 3, "stage": "划分批次", "title": "逐台发布：容量够不够不能靠感觉",
+      "premise": "补丁测试通过，驱动清单正在复核，开始确认逐台执行顺序及容量。",
+      "listeningTask": "听出单台维护的容量前提、故障域分布和并行执行限制。",
+      "newPhrase": "p323", "phrases": ["p323", "p010", "p211", "p014:extra", "p008:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "We'll use a staged rollout. Host A first. Then one node at a time.", "zh": "我们分阶段发布，先A主机，然后一次只处理一台节点。"},
+        {"sp": "Lukas", "en": "Can three hosts handle tonight's traffic with room for a spike?", "zh": "今晚三台能承担流量，并给突增保留余量吗？"},
+        {"sp": "Anika", "en": "The load test says yes. Three hosts covered the recent peak with spare capacity.", "zh": "负载测试结果可以。三台能覆盖近期峰值，而且还有余量。"},
+        {"sp": "Raj", "en": "Just to confirm, no two hosts draining together, right? Even in different zones?", "zh": "我确认一下，不同时让两台退出流量，对吧？不同区域也不行？"},
+        {"sp": "Hannah", "en": "Right. We should also confirm the remaining hosts span both failure zones.", "zh": "对，也要确认剩余主机仍分布在两个故障域。"},
+        {"sp": "Priya", "en": "I'm on it for the schedule. What's the ETA per host, including validation?", "zh": "执行安排我来负责。每台包括验证预计多久？"},
+        {"sp": "Lukas", "en": "Allow ten minutes. If one takes longer, stop and reassess the window.", "zh": "留十分钟。如果一台超时，就停止并重新评估窗口。"},
+        {"sp": "Anika", "en": "I'll keep an eye on latency. We shouldn't use the whole margin on maintenance.", "zh": "我会留意延迟，维护不能把全部余量用光。"},
+        {"sp": "Hannah", "en": "I'll record the before-and-after checks. No next host until the current one passes.", "zh": "我会记录操作前后检查。当前这台没通过，就不能动下一台。"},
+        {"sp": "Raj", "en": "Okay. Probably forty minutes of work, with fifteen left for delays or rollback.", "zh": "好。大约四十分钟操作，剩下十五分钟用于延误或回退。"}
+      ]
+    },
+    {
+      "id": "0049", "part": 4, "stage": "回退准备", "title": "什么情况回退：先把条件说清",
+      "premise": "确定A主机先做灰度，其余逐台推进，批准前明确回退与停止条件。",
+      "listeningTask": "区分暂停发布、诊断及真正回退，记住明确触发条件。",
+      "newPhrase": "p324", "phrases": ["p324", "p010", "p318", "p011:extra", "p004:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "What's the rollback trigger? Let's agree before anyone starts changing hosts.", "zh": "什么情况触发回退？任何人开始改主机前先达成一致。"},
+        {"sp": "Lukas", "en": "Failure to boot, missing network or storage, or a confirmed regression in the canary.", "zh": "无法启动、网络或存储不可用，或者灰度节点出现已确认的回归问题。"},
+        {"sp": "Raj", "en": "A latency spike alone means pause first. Check the evidence before blaming the patch.", "zh": "仅延迟突增先暂停，查看证据后再判断是不是补丁的问题。"},
+        {"sp": "Hannah", "en": "Let me play that back. Pause on uncertainty, roll back when the canary fails agreed checks?", "zh": "我复述一下：不确定时暂停，灰度节点不满足约定检查时回退？"},
+        {"sp": "Priya", "en": "Exactly. Just to confirm, the recovery window includes checks after backing out, right?", "zh": "对。我确认一下，恢复窗口也包括回退后的检查，对吧？"},
+        {"sp": "Anika", "en": "Yes. The app stays off traffic until health and business checks pass again.", "zh": "包括。健康和业务检查再次通过前，应用不接回流量。"},
+        {"sp": "Lukas", "en": "And rollback may mean another reboot. Keep the old kernel and its modules available.", "zh": "回退可能还需要一次重启，所以要保留旧内核及对应模块。"},
+        {"sp": "Raj", "en": "I'm on it. I'll verify the boot entry and the console access before draining.", "zh": "我来核对。退出流量前先验证启动项和控制台访问。"},
+        {"sp": "Hannah", "en": "If console access fails, it's a no-go. We can't rely on SSH after a bad boot.", "zh": "控制台访问失败就不能开始，启动异常后不能指望SSH仍然可用。"},
+        {"sp": "Priya", "en": "A broader rollback redesign? Let's park that. Verify tonight's documented procedure first.", "zh": "更全面的回退方案重设计先放一边。先核实今晚文档规定的流程。"}
+      ]
+    },
+    {
+      "id": "0050", "part": 5, "stage": "灰度重启", "title": "先退出流量：控制台就绪再重启",
+      "premise": "维护批准，回退条件明确，开始A主机灰度并准备带外访问。",
+      "listeningTask": "听清请求排空、旧内核保留和重启开始条件。",
+      "newPhrase": "p325", "phrases": ["p325", "p010", "p309", "p014:extra", "p008:extra", "p111:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The out-of-band console works. Old kernel entry is present. Host A is ready to drain.", "zh": "带外控制台可用，旧内核启动项存在。A主机可以退出流量了。"},
+        {"sp": "Lukas", "en": "Does your account have reboot access there? A visible console isn't the whole check.", "zh": "你的账号在那里有重启权限吗？能看到控制台不代表检查完整。"},
+        {"sp": "Raj", "en": "Yes, permissions are verified. I won't test a reboot outside the approved sequence.", "zh": "有，权限已核实。我不会脱离批准顺序去试重启。"},
+        {"sp": "Priya", "en": "Just to confirm, active requests must finish first, right? No abrupt service stop.", "zh": "我确认一下，先让在途请求结束，对吧？不直接停服务。"},
+        {"sp": "Hannah", "en": "Traffic is removed. I'm watching active connections and the other hosts' latency.", "zh": "已摘除流量。我正在看活跃连接和其他主机的延迟。"},
+        {"sp": "Anika", "en": "I'll keep an eye on background jobs too. They don't show up as incoming connections.", "zh": "我也会盯着后台任务，它们不会显示为入站连接。"},
+        {"sp": "Lukas", "en": "Good. Confirm those are idle before stopping the app and rebooting.", "zh": "好。确认后台任务空闲后，再停应用并重启。"},
+        {"sp": "Raj", "en": "I'm on it. Jobs are idle now. What's the ETA for the final connection check?", "zh": "我来确认。后台任务现在空闲了，最后的连接检查预计多久？"},
+        {"sp": "Hannah", "en": "Done. No active requests. Let's keep it under observation when it comes back.", "zh": "完成，没有活跃请求。启动回来后继续观察。"},
+        {"sp": "Priya", "en": "Okay, proceed with A only. Call out the boot result before restoring traffic.", "zh": "好，只操作A主机。恢复流量前先报告启动结果。"}
+      ]
+    },
+    {
+      "id": "0051", "part": 6, "stage": "驱动检查", "title": "机器起来了：驱动签名也要核对",
+      "premise": "A主机已进入新内核，仍未接回流量；开始验证网络、存储与驱动加载。",
+      "listeningTask": "听懂模块文件存在与成功加载的区别，不把关闭安全机制当快速修复。",
+      "newPhrase": "p326", "phrases": ["p326", "p010", "p302", "p008:extra", "p014:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Host A is back. Running kernel matches the patch. Network and storage are visible.", "zh": "A主机启动了，运行中的内核符合补丁版本，网络和存储都可见。"},
+        {"sp": "Hannah", "en": "Loaded drivers too? An unsigned module could be rejected with Secure Boot enabled.", "zh": "驱动也加载了吗？开启Secure Boot时，未签名模块可能被拒绝。"},
+        {"sp": "Anika", "en": "Just to confirm, we check the loaded module, right? Not just the package files?", "zh": "我确认一下，要检查实际加载的模块，对吧？不是只看软件包文件？"},
+        {"sp": "Lukas", "en": "Exactly. Check the loaded version and kernel messages for signature failures.", "zh": "对。检查已加载版本，并看内核日志是否有签名验证失败。"},
+        {"sp": "Raj", "en": "I'm on it. Both drivers loaded. Signatures match the trusted vendor packages.", "zh": "我在查。两个驱动都加载了，签名来自受信任的供应商包。"},
+        {"sp": "Priya", "en": "Okay, we can rule that out here. What's the ETA for the service checks?", "zh": "好，这里可以排除签名问题。服务检查预计多久？"},
+        {"sp": "Hannah", "en": "About two minutes. I'll keep an eye on link errors while they run.", "zh": "大约两分钟。检查期间我会留意链路错误。"},
+        {"sp": "Anika", "en": "If a driver fails elsewhere, we stop. No turning off Secure Boot as a shortcut.", "zh": "其他主机如果驱动失败就停止，不把关闭Secure Boot当作捷径。"},
+        {"sp": "Lukas", "en": "Agreed. Keep that host off traffic, then follow the approved recovery path.", "zh": "同意。让那台保持不接流量，然后走批准的恢复流程。"},
+        {"sp": "Raj", "en": "So far, no new errors. I'll attach the versions and log checks to the change.", "zh": "目前没有新错误。我会把版本和日志检查附到变更记录。"}
+      ]
+    },
+    {
+      "id": "0052", "part": 7, "stage": "业务验证", "title": "健康检查之外：业务请求真的成功吗",
+      "premise": "A主机网络、存储和驱动验证通过，准备先做业务检查再恢复少量流量。",
+      "listeningTask": "区分进程健康、业务验证和生产流量观察。",
+      "newPhrase": "p327", "phrases": ["p327", "p010", "p319", "p008:extra", "p111:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Health endpoint is green. I'll run the smoke test through our approved test route.", "zh": "健康端点正常。我会通过批准的测试路由跑关键功能快速验证。"},
+        {"sp": "Lukas", "en": "Does it exercise dependencies? A healthy process can still fail real requests.", "zh": "会覆盖依赖吗？进程健康也可能处理不了真实请求。"},
+        {"sp": "Anika", "en": "Yes. Catalog lookup, cache access, and database reads. Test credentials only, no production writes.", "zh": "会，商品查询、缓存访问和数据库读取。只用测试凭据，不执行生产写操作。"},
+        {"sp": "Priya", "en": "Just to confirm, routing reaches A specifically, right? Not one of the healthy hosts?", "zh": "我确认一下，路由明确到A主机，对吧？不是误打到其他健康主机？"},
+        {"sp": "Hannah", "en": "Yes, the response identifies A. Dependency checks pass and error counts stay flat.", "zh": "对，响应标识来自A。依赖检查通过，错误数没有增长。"},
+        {"sp": "Raj", "en": "Memory headroom looks normal too. What's the ETA before we restore a little traffic?", "zh": "内存余量看起来也正常，预计多久可以恢复少量流量？"},
+        {"sp": "Lukas", "en": "Now, if the checks are recorded. Use the approved low weight first.", "zh": "如果检查已记录，现在可以。先用批准的低权重。"},
+        {"sp": "Priya", "en": "I'm on it for approval. Let's keep it under observation before increasing that weight.", "zh": "我来确认批准。提高权重之前先保持观察。"},
+        {"sp": "Hannah", "en": "We'll compare latency and errors against the untouched hosts, under the same traffic mix.", "zh": "我们会在相同流量组成下，与未变更主机比较延迟和错误。"},
+        {"sp": "Anika", "en": "Maybe five minutes for this first check. If traffic is too light, we'll need longer.", "zh": "首次观察大约五分钟。如果流量太低，就需要更久。"}
+      ]
+    },
+    {
+      "id": "0053", "part": 8, "stage": "扩大批次", "title": "继续还是停：灰度验收后再放行",
+      "premise": "A主机在低权重真实流量下表现正常，证据已记录，决定是否逐台继续。",
+      "listeningTask": "听清继续发布的依据、负责人和下一台的前置条件。",
+      "newPhrase": "p328", "phrases": ["p328", "p010", "p211", "p008:extra", "p309:extra", "p011:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Time for the go/no-go. Anika, are the business checks good enough to proceed?", "zh": "该决定继续还是停止了。Anika，业务检查结果足够支持继续吗？"},
+        {"sp": "Anika", "en": "Yes. Error rate and latency match the other hosts. We've seen enough requests.", "zh": "是的，错误率和延迟与其他主机一致，观察到的请求数量也够了。"},
+        {"sp": "Lukas", "en": "And no driver errors? We need both app and host checks for that decision.", "zh": "也没有驱动错误？这项决策需要应用和主机两方面检查。"},
+        {"sp": "Raj", "en": "None. Just to confirm, one node at a time still, right? B next, not B and C.", "zh": "没有。我确认一下，仍然一次一台，对吧？接下来B，不是B和C一起。"},
+        {"sp": "Hannah", "en": "Let me play that back. Restore A's normal weight, verify it, then drain B?", "zh": "我复述一下：先恢复A的正常权重并验证，然后让B退出流量？"},
+        {"sp": "Priya", "en": "Exactly. What's the ETA for all remaining hosts if each check stays clean?", "zh": "对。如果每次检查都正常，其余主机预计多久全部完成？"},
+        {"sp": "Lukas", "en": "About thirty minutes. Pause if a step runs long; don't shorten validation to catch up.", "zh": "大约三十分钟。某一步超时就暂停，不要为了赶进度缩短验证。"},
+        {"sp": "Anika", "en": "I'll keep an eye on errors as the weights change. Call out each transition.", "zh": "权重变化时我会关注错误。每次切换都要说清楚。"},
+        {"sp": "Hannah", "en": "I'll keep a separate result for each host. A passing doesn't prove B will pass.", "zh": "我会分别记录每台结果。A通过不代表B必然通过。"},
+        {"sp": "Raj", "en": "A is fully back now. Checks are clean. I'll start B's drain next.", "zh": "A已完全恢复流量，检查正常。接下来让B退出流量。"}
+      ]
+    },
+    {
+      "id": "0054", "part": 9, "stage": "收尾验收", "title": "四台完成：回退准备别立即删",
+      "premise": "B、C、D已分别退出流量、重启并验收，全部恢复正常权重；核对最终状态。",
+      "listeningTask": "听清当前验收范围，以及为什么仍要保留旧内核和回退证据。",
+      "newPhrase": "p329", "phrases": ["p329", "p010", "p110", "p012:extra", "p001:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "All four hosts run the patched kernel. Each has passed the same checks.", "zh": "四台都运行补丁内核，每台都通过了同一套检查。"},
+        {"sp": "Hannah", "en": "Normal traffic weights too? No host left drained or stuck on the test route?", "zh": "流量权重也恢复正常了？没有主机还被摘流量或卡在测试路由上？"},
+        {"sp": "Anika", "en": "All normal. Latency and errors look healthy. We're back to baseline across the fleet.", "zh": "全部正常。延迟和错误指标健康，整个主机组回到基线了。"},
+        {"sp": "Priya", "en": "Just to confirm, we can still boot the old kernel, right? Don't clean it up tonight.", "zh": "我确认一下，现在仍然能用旧内核启动，对吧？今晚不要清掉它。"},
+        {"sp": "Lukas", "en": "Right. Keep the approved previous version and its modules for the observation period.", "zh": "对。在观察期间保留批准的前一版本及对应模块。"},
+        {"sp": "Raj", "en": "I'll keep an eye on the host logs. We didn't need rollback during this change.", "zh": "我会关注主机日志。这次变更没有实际用到回退。"},
+        {"sp": "Hannah", "en": "So record it as prepared, not exercised. We haven't tested that path in production.", "zh": "所以要记为已准备，而不是已演练。我们没有在生产走过这条路径。"},
+        {"sp": "Priya", "en": "Just to recap, service checks passed. Let's circle back after the overnight observation.", "zh": "小结一下，服务检查通过。夜间观察后我们再确认。"},
+        {"sp": "Lukas", "en": "If errors appear, preserve evidence first. Then follow the agreed pause and rollback rules.", "zh": "如果出现错误，先保留证据，再按约定的暂停和回退规则处理。"},
+        {"sp": "Anika", "en": "Agreed. I'll tell support maintenance is complete, with monitoring continuing overnight.", "zh": "同意。我会告知支持团队维护已完成，夜间监控仍继续。"}
+      ]
+    },
+    {
+      "id": "0055", "part": 10, "stage": "运行手册改进", "title": "更新手册：把验收证据写进流程",
+      "premise": "维护在批准窗口内结束，未触发回退；记录结果并安排流程改进任务。",
+      "listeningTask": "抓住后续任务的责任、期限和验收标准，不把未执行的回退写成通过。",
+      "newPhrase": "p330", "phrases": ["p330", "p009", "p310", "p013:extra", "p002:extra", "p012:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Just to recap, we finished inside the window. Driver and service checks passed on every host.", "zh": "小结一下，我们在窗口内完成，每台主机的驱动和服务检查都通过了。"},
+        {"sp": "Lukas", "en": "Keep the patch settings in managed configuration. No one-off edits left behind.", "zh": "补丁相关设置保持在统一配置管理中，不留下临时手工修改。"},
+        {"sp": "Raj", "en": "First action item: compare the final state with the approved template. I'll do that tomorrow.", "zh": "第一个行动项：把最终状态与批准模板对比。我明天完成。"},
+        {"sp": "Hannah", "en": "Who's picking this up for the checklist? Add loaded drivers and actual kernel version.", "zh": "检查清单谁来改？要加实际加载的驱动和运行中的内核版本。"},
+        {"sp": "Anika", "en": "I'll own the business checks by Friday. They need to identify the target host.", "zh": "业务检查我负责，周五前完成，必须能确认目标主机身份。"},
+        {"sp": "Priya", "en": "Raj, can you own the host checks too? We need one clear owner, right?", "zh": "Raj，主机检查也由你负责可以吗？要有明确负责人，对吧？"},
+        {"sp": "Lukas", "en": "And schedule a rollback drill in staging. Tonight's preparation isn't evidence of a successful rollback.", "zh": "还要安排预发布回退演练。今晚的准备不能当作回退成功的证据。"},
+        {"sp": "Raj", "en": "Yes, by Thursday. I'll attach the drill results so we can close the loop.", "zh": "可以，周四前完成。我会附上演练结果，反馈并闭环。"},
+        {"sp": "Hannah", "en": "I'll verify the evidence afterward. Keep the follow-up tasks open until those checks pass.", "zh": "之后我来核验证据。检查通过前，后续任务保持未关闭。"},
+        {"sp": "Priya", "en": "Agreed. Let's take it offline for the drill schedule. Thanks, everyone. No more changes tonight.", "zh": "同意。演练时间会后单独安排。谢谢大家，今晚不再做其他变更。"}
+      ]
+    }
+  ]
+}

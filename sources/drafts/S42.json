@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"人工双语文本，待配音，不虚构音频时间；减少噪音不能以漏报真实事故为代价。",
+  "series":{"id":"sc-S42-obs-alert-tuning","title":"告警调整：降噪但不漏事故","domain":"obs","group":"change","service":"checkout paging rules","premise":"短暂低流量错误导致重复夜间呼叫。团队核查误报、设计持续时间与恢复参数，用历史事故回放和影子规则验证。","outcome":"历史回放否决过长等待参数；保留快速严重故障路径与数据缺失告警。经过影子规则、受控路由测试和评审后发布较短持续窗口与恢复滞回，继续追踪检测延迟及遗漏。"},
+  "speakers":{
+    "Priya":{"role":"Change coordinator","accent":"en-IN","voice":null},
+    "Raj":{"role":"On-call SRE","accent":"en-IN","voice":null},
+    "Anika":{"role":"Checkout application owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Alerting platform engineer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Reliability validation engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p691","en":"the alert is too noisy","zh":"这个告警噪音太多","layer":"L1","level":"core","target":5},
+    {"id":"p692","en":"false positive","zh":"误报","layer":"L1","level":"core","target":5},
+    {"id":"p693","en":"missed detection","zh":"漏检","layer":"L1","level":"core","target":5},
+    {"id":"p694","en":"tune the threshold","zh":"调整触发阈值","layer":"L1","level":"core","target":5},
+    {"id":"p695","en":"historical replay","zh":"历史数据回放","layer":"L1","level":"core","target":5},
+    {"id":"p696","en":"shadow rule","zh":"不实际呼叫的影子规则","layer":"L1","level":"core","target":5},
+    {"id":"p697","en":"actionable page","zh":"需要采取行动的呼叫","layer":"L1","level":"core","target":5},
+    {"id":"p698","en":"recovery hysteresis","zh":"恢复判定滞回","layer":"L1","level":"core","target":5},
+    {"id":"p699","en":"detection latency","zh":"故障检测延迟","layer":"L1","level":"core","target":5},
+    {"id":"p700","en":"noise reduction isn't success alone","zh":"仅降噪还不算成功","layer":"L1","level":"core","target":5}
+  ],
+  "recycling":{"note":"未来候选不计实际复现；旧引用仅使用p001–p350及本文件此前。","S47":["p691","p692","p693","p694","p695"],"S48":["p696","p697","p698","p699","p700"]},
+  "dialogues":[
+    {"id":"0416","part":1,"stage":"现状","title":"夜间页数不是唯一指标","premise":"开始评审checkout重复夜间呼叫，尚未批准改规则。","listeningTask":"听清降噪目标不能替代事故检测目标。","newPhrase":"p691","phrases":["p691","p010","p006","p009:extra","p008:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the alert is too noisy overnight. Twelve incidents... no, twelve pages from one burst.","zh":"好，这个告警夜间噪音太多。十二次事故……不，是一次突发发了十二次呼叫。"},
+      {"sp":"Lukas","en":"Were they duplicates or separate failures? Fewer pages aren't automatically better detection.","zh":"是重复呼叫还是不同故障？页数更少不自动意味着检测更好。"},
+      {"sp":"Priya","en":"Just to confirm, we'll audit each page, right? No blanket mute for checkout.","zh":"确认一下，每次呼叫都审查，对吧？不把结账整体静音。"},
+      {"sp":"Anika","en":"I've got bandwidth for the request review. Maybe some bursts affected real customers.","zh":"我有精力核查请求，有些突发可能影响了真实客户。"},
+      {"sp":"Hannah","en":"Keep an eye on detection timing too. We need known incidents as test cases.","zh":"也留意检测时间，需要用已知事故作测试案例。"},
+      {"sp":"Raj","en":"I'll gather incident labels and page timestamps. One action item is duplicate grouping.","zh":"我会收集事故标注和呼叫时间，一个行动项是重复分组。"},
+      {"sp":"Lukas","en":"Separate grouping from trigger changes. Otherwise we can't explain which change helped.","zh":"分组与触发变更分开，否则无法解释哪个变更起效。"},
+      {"sp":"Priya","en":"So, what's the ETA for that evidence? We'll decide after reviewing impact.","zh":"那么，证据预计多久？看完影响再决定。"},
+      {"sp":"Hannah","en":"By lunch for the initial set. Include quiet periods and severe outages.","zh":"初始集合午饭前完成，包含安静期和严重宕机。"},
+      {"sp":"Anika","en":"I'll add customer outcomes, not dashboard color. Then we can inspect the burst.","zh":"我会补客户结果，不看仪表盘颜色，然后检查这次突发。"}
+    ]},
+    {"id":"0417","part":2,"stage":"案例","title":"短突发为什么被反复呼叫","premise":"已汇总呼叫记录，用一个低流量案例检查误报与重复。","listeningTask":"区分无需人工介入和没有客户影响。","newPhrase":"p692","phrases":["p692","p010","p109","p335:extra","p103:extra","p004:extra"],"lines":[
+      {"sp":"Anika","en":"This false positive came from three requests. One failed, then traffic went quiet.","zh":"这次误报来自三次请求，一次失败，之后没有流量。"},
+      {"sp":"Hannah","en":"A request really failed, though. Why call the page false rather than harmless?","zh":"确实有请求失败，为什么说呼叫误报，而不是说没有危害？"},
+      {"sp":"Raj","en":"Okay, no operator action was needed here. The retry succeeded; that failure still counts.","zh":"好，这里不需要人工处理。重试成功，但那次失败仍要计入。"},
+      {"sp":"Priya","en":"Just to confirm, it's flapping around the threshold, right? Not twelve separate incidents.","zh":"确认一下，是在阈值附近反复切换，对吧？不是十二次不同事故。"},
+      {"sp":"Lukas","en":"Yes, repeated firing and recovery messages. Grouping can reduce duplicates without changing sensitivity.","zh":"是，反复触发和恢复。分组可减少重复而不改变敏感度。"},
+      {"sp":"Anika","en":"Our working hypothesis is sparse traffic distortion. Maybe a longer window helps here.","zh":"当前假设是稀疏流量造成比例失真，较长窗口可能有帮助。"},
+      {"sp":"Hannah","en":"It could also delay a real outage. Test that trade-off before accepting it.","zh":"也可能拖延真正宕机的检测，接受前要测试取舍。"},
+      {"sp":"Raj","en":"Let me tail the log for timings. I'll match retries without exposing customer details.","zh":"我盯日志核对时间，匹配重试但不暴露客户细节。"},
+      {"sp":"Lukas","en":"An unlimited minimum-volume gate is risky. Low traffic doesn't mean low importance.","zh":"无限制的最小流量门槛有风险，低流量不代表不重要。"},
+      {"sp":"Priya","en":"So, let's park that volume gate. Review missed incidents before designing the threshold.","zh":"那么，流量门槛先放一边，设计阈值前先看漏报事故。"}
+    ]},
+    {"id":"0418","part":3,"stage":"风险","title":"低流量也可能是真事故","premise":"重复与稀疏流量已识别，检查改动可能漏掉的真实故障。","listeningTask":"识别独立严重故障路径的作用。","newPhrase":"p693","phrases":["p693","p010","p324","p336:extra","p309:extra","p014:extra"],"lines":[
+      {"sp":"Hannah","en":"Missed detection is our main risk. Last month's outage began during low traffic.","zh":"漏检是主要风险，上个月宕机是在低流量时开始的。"},
+      {"sp":"Raj","en":"Okay, all checkout attempts failed then. A minimum request gate could hide that.","zh":"好，当时所有结账尝试都失败了，最小请求门槛可能藏住它。"},
+      {"sp":"Priya","en":"Just to confirm, severe failure stays fast, right? We aren't delaying every page.","zh":"确认一下，严重故障仍快速响应，对吧？不是延迟所有呼叫。"},
+      {"sp":"Lukas","en":"Keep the independent transaction failure rule. Missing telemetry must also remain alertable.","zh":"保留独立交易失败规则，遥测缺失也必须仍能告警。"},
+      {"sp":"Anika","en":"I'll keep an eye on failed completions. Maybe latency failures need separate replay cases.","zh":"我留意完成失败，延迟故障可能也需要单独回放案例。"},
+      {"sp":"Hannah","en":"Yes, include slow success and total failure. An error-only test misses latency incidents.","zh":"是，包含缓慢成功和完全失败，只测错误会漏掉延迟事故。"},
+      {"sp":"Raj","en":"I'm on it for those labelled windows. The escalation path stays unchanged during tests.","zh":"这些标注窗口我来整理，测试期间升级路径不变。"},
+      {"sp":"Priya","en":"So, any missed severe case is a rollback trigger. Review quieter incidents too.","zh":"那么，漏掉任何严重案例都触发回退，也评审较轻事故。"},
+      {"sp":"Lukas","en":"Compare the old rule's detection time. The new rule must meet agreed deadlines.","zh":"比较旧规则检测时间，新规则必须满足约定时限。"},
+      {"sp":"Anika","en":"Let's propose separate paths, not one mute. That gives the replay a clear question.","zh":"提出不同路径，不做整体静音，这样回放有明确验证问题。"}
+    ]},
+    {"id":"0419","part":4,"stage":"设计","title":"先定义检测时限","premise":"严重故障保留快速路径，噪音规则需要候选持续窗口。","listeningTask":"听清候选参数尚未获准上线。","newPhrase":"p694","phrases":["p694","p010","p335","p210:extra","p324:extra","p009:extra"],"lines":[
+      {"sp":"Lukas","en":"We can tune the threshold for sustained errors. Start with a three-minute pending period.","zh":"可调整持续错误阈值，先试三分钟待触发期。"},
+      {"sp":"Raj","en":"Okay, that's a working hypothesis, not approval. The short severe-failure path stays separate.","zh":"好，这是待验证假设，不是批准，严重故障短路径另保留。"},
+      {"sp":"Priya","en":"Just to confirm, we'll dry-run it first, right? Old paging remains active throughout.","zh":"确认一下，先试运行，对吧？旧呼叫全程保持有效。"},
+      {"sp":"Hannah","en":"Require severe detection within two minutes. Other sustained incidents must meet five minutes.","zh":"要求严重故障两分钟内检测，其他持续事故必须在五分钟内。"},
+      {"sp":"Anika","en":"Maybe three minutes misses short real failures. We need those labelled in replay.","zh":"三分钟可能漏掉短暂真实故障，需要在回放里标注。"},
+      {"sp":"Lukas","en":"Agreed. We won't delete those cases. Threshold selection needs impact, not page counts alone.","zh":"同意，不删这些案例，选阈值要看影响，不只看页数。"},
+      {"sp":"Raj","en":"My action item is an explicit missing-data branch. Missing samples must never become zeros.","zh":"我的行动项是明确缺数据分支，缺样本绝不能变成零。"},
+      {"sp":"Priya","en":"So, the rollback trigger includes routing failure. A correct rule without delivery still fails.","zh":"那么，回退条件包含路由失败，规则正确却未投递仍算失败。"},
+      {"sp":"Hannah","en":"Record these gates before testing. Otherwise we'd change the standards after seeing results.","zh":"测试前记录关口，否则会在看到结果后改变标准。"},
+      {"sp":"Anika","en":"I'll approve the labelled impact windows today. Then replay can challenge this proposal.","zh":"我今天审核影响窗口标注，随后回放可以挑战提案。"}
+    ]},
+    {"id":"0420","part":5,"stage":"回放","title":"历史事故否决长等待","premise":"三分钟持续窗口进入历史回放，旧规则不变。","listeningTask":"听清失败结果如何改变参数。","newPhrase":"p695","phrases":["p695","p010","p302","p335:extra","p008:extra","p014:extra"],"lines":[
+      {"sp":"Hannah","en":"Historical replay caught the severe outage quickly. But it missed a two-minute customer failure.","zh":"历史回放快速检出严重宕机，但漏掉两分钟客户故障。"},
+      {"sp":"Raj","en":"Okay, the pending period was too long. We can't rule that out as harmless noise.","zh":"好，待触发期太长，不能把那次当无害噪音排除。"},
+      {"sp":"Priya","en":"Just to confirm, this candidate fails acceptance, right? Lower page count doesn't rescue it.","zh":"确认一下，这个候选未通过验收，对吧？页数更少不能挽救它。"},
+      {"sp":"Lukas","en":"Correct. Try one minute for sustained errors. Keep duplicate grouping as a separate setting.","zh":"对，持续错误改试一分钟，重复分组继续单独设置。"},
+      {"sp":"Anika","en":"Our working hypothesis needs revision, not relabelling. Maybe test borderline cases near one minute.","zh":"要修假设，不能改案例标注，也许测试接近一分钟的边界案例。"},
+      {"sp":"Hannah","en":"I'll replay the full set again. Include ingestion delays and missing samples this time.","zh":"我重新回放整套数据，这次包含摄入延迟和缺失样本。"},
+      {"sp":"Raj","en":"I'm on it for input completeness. Unknown windows won't be marked successful detections.","zh":"输入完整性我来查，未知窗口不标为检测成功。"},
+      {"sp":"Priya","en":"So, what's the ETA for revised results? We need timing and impact together.","zh":"那么，修订结果预计多久？时间与影响一起报告。"},
+      {"sp":"Lukas","en":"This afternoon, if labels are complete. Replay covers known history, not every future failure.","zh":"标注完整的话今天下午，回放覆盖已知历史，不是所有未来故障。"},
+      {"sp":"Anika","en":"Agreed. Passing replay only permits shadow testing. It doesn't authorize replacing live paging.","zh":"同意，通过回放只允许影子测试，不授权替换线上呼叫。"}
+    ]},
+    {"id":"0421","part":6,"stage":"灰度","title":"影子规则不实际呼叫","premise":"一分钟窗口通过已知案例回放，进入影子评估。","listeningTask":"区分逻辑评估、路由测试和接管。","newPhrase":"p696","phrases":["p696","p323","p010","p327:extra","p330:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the shadow rule evaluates live samples. It records results without paging operators.","zh":"好，影子规则评估实时样本，只记录，不呼叫值班。"},
+      {"sp":"Lukas","en":"Old rules still page normally. Don't create duplicate production notifications during this comparison.","zh":"旧规则正常呼叫，对比期间不要制造重复生产通知。"},
+      {"sp":"Priya","en":"Just to confirm, managed configuration records both versions, right? Rollback stays straightforward.","zh":"确认一下，统一配置记录两版，对吧？回退保持直接。"},
+      {"sp":"Hannah","en":"Yes, but shadow evaluation doesn't test delivery. Run a controlled routing smoke test separately.","zh":"是，但影子评估不测投递，另做受控路由快速验证。"},
+      {"sp":"Anika","en":"I'll keep an eye on customer failures. Maybe shadow outputs disagree with live pages.","zh":"我会留意客户失败，影子结果可能与线上呼叫不同。"},
+      {"sp":"Raj","en":"Each disagreement gets a labelled review. Our staged rollout starts with one service only.","zh":"每处分歧都标注评审，分阶段发布先只覆盖一个服务。"},
+      {"sp":"Lukas","en":"Don't count an unreviewed disagreement as improvement. It could be a missed incident.","zh":"未评审分歧不能算改善，可能是漏报事故。"},
+      {"sp":"Priya","en":"So, three nights of observation before review. Severe-path failures stop the trial immediately.","zh":"那么，观察三晚再评审，严重路径失败立即停止试验。"},
+      {"sp":"Hannah","en":"I'll test the backup notification route today. The primary route alone isn't enough.","zh":"我今天测后备通知路径，只有主要路径不够。"},
+      {"sp":"Anika","en":"I'll bring morning feedback from the on-call. We need usefulness, not just less noise.","zh":"我带来值班晨间反馈，需要有用，不只是安静。"}
+    ]},
+    {"id":"0422","part":7,"stage":"反馈","title":"恢复消息仍然重复","premise":"影子试验完成三晚，逻辑通过但反复恢复仍造成重复。","listeningTask":"识别呼叫是否有明确行动。","newPhrase":"p697","phrases":["p697","p010","p337","p109:extra","p006:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"An actionable page needs a clear response. This rule now links the right runbook.","zh":"可行动呼叫要有明确响应，这条规则现在链接正确手册。"},
+      {"sp":"Hannah","en":"Did the primary on-call follow it successfully? A link alone doesn't make it useful.","zh":"第一响应值班人成功按手册处理了吗？有链接不等于有用。"},
+      {"sp":"Anika","en":"Okay, the drill worked, but recovery still repeats. It's flapping after the burst ends.","zh":"好，演练成功，但恢复仍反复，突发后状态还在切换。"},
+      {"sp":"Priya","en":"Just to confirm, pages still reach backup, right? We shouldn't fix noise by dropping routes.","zh":"确认一下，后备仍收到呼叫，对吧？不能删路由来降噪。"},
+      {"sp":"Lukas","en":"Both routes passed controlled tests. Repeated recoveries need state handling, not higher error thresholds.","zh":"两条路由通过受控测试，重复恢复要改状态处理，不是提高错误阈值。"},
+      {"sp":"Raj","en":"I've got bandwidth to review state transitions. Maybe require sustained health before clearing.","zh":"我有精力检查状态切换，也许清除前要求持续健康。"},
+      {"sp":"Hannah","en":"That can help, but don't hide renewed failures. A new severe event must still page.","zh":"这可能有用，但不能掩盖再次失败，新严重事件仍要呼叫。"},
+      {"sp":"Priya","en":"So, let's park that global threshold increase. Focus on recovery behavior for this rule.","zh":"那么，全局提高阈值先放下，专注本规则恢复行为。"},
+      {"sp":"Lukas","en":"Record first detection and each recovery. We need evidence that grouping preserves incident boundaries.","zh":"记录首次检测与每次恢复，要证明分组保留事故边界。"},
+      {"sp":"Anika","en":"I'll label renewed customer failures separately. We shouldn't merge unrelated incidents for nicer numbers.","zh":"我单独标注再次客户失败，不能为数字好看合并无关事故。"}
+    ]},
+    {"id":"0423","part":8,"stage":"参数修订","title":"稳定恢复而不掩盖复发","premise":"触发参数保留，重复恢复需要持续健康判定。","listeningTask":"听清恢复滞回不延迟首次检测。","newPhrase":"p698","phrases":["p698","p010","p324","p210:extra","p335:extra","p014:extra"],"lines":[
+      {"sp":"Lukas","en":"Recovery hysteresis requires two healthy minutes. It doesn't change the initial firing threshold.","zh":"恢复滞回要求健康两分钟，不改变首次触发阈值。"},
+      {"sp":"Raj","en":"Okay, that's our revised working hypothesis. Renewed severe failures still enter the fast path.","zh":"好，这是修订假设，再次严重失败仍走快速路径。"},
+      {"sp":"Priya","en":"Just to confirm, we'll dry-run it first, right? Replay incident boundaries as well.","zh":"确认一下，先试运行，对吧？事故边界也回放。"},
+      {"sp":"Hannah","en":"Test recovery followed by another outage. Grouping must not suppress a genuinely new event.","zh":"测试恢复后再次宕机，分组不能抑制真正新事件。"},
+      {"sp":"Anika","en":"Maybe a long grouping window hides that return. Keep the deduplication scope explicit.","zh":"过长分组窗口可能藏住复发，要明确去重范围。"},
+      {"sp":"Lukas","en":"Use incident state, service, and alert identity. Don't group every checkout problem together.","zh":"使用事故状态、服务和告警身份，不把所有结账问题一锅合并。"},
+      {"sp":"Raj","en":"I'm on it for repeat-outage tests. Any suppressed severe page remains a rollback trigger.","zh":"重复宕机测试我来做，严重呼叫被抑制仍触发回退。"},
+      {"sp":"Priya","en":"So, compare old and revised outputs again. Parameter changes invalidate the earlier acceptance result.","zh":"那么，再比较旧版与修订版，参数变化使此前验收结果失效。"},
+      {"sp":"Hannah","en":"The revised set passes labelled cases now. Controlled routing also preserves new incident pages.","zh":"修订集合现通过标注案例，受控路由也保留新事故呼叫。"},
+      {"sp":"Anika","en":"I'll sign the customer-impact review after reading it. Then we can discuss production approval.","zh":"我读完后签客户影响评审，随后才讨论生产批准。"}
+    ]},
+    {"id":"0424","part":9,"stage":"发布确认","title":"带时限和回退的批准","premise":"修订回放和路由测试通过，进入变更审批。","listeningTask":"抓住批准范围及监护人。","newPhrase":"p699","phrases":["p699","p328","p010","p323:extra","p324:extra","p330:extra"],"lines":[
+      {"sp":"Hannah","en":"Detection latency meets our recorded gates. Known severe cases arrive within two minutes.","zh":"检测延迟满足记录关口，已知严重案例两分钟内到达。"},
+      {"sp":"Raj","en":"Okay, go/no-go is ready for checkout only. Managed configuration stores the approved version.","zh":"好，继续或停止决策仅针对结账，统一配置保存批准版本。"},
+      {"sp":"Priya","en":"Just to confirm, old settings remain recoverable, right? No unreviewed changes in this release.","zh":"确认一下，旧设置仍可恢复，对吧？本次不含未评审改动。"},
+      {"sp":"Lukas","en":"Correct. Switch one production rule after approval. Don't leave old and new paging together.","zh":"对，批准后切一条生产规则，不让新旧同时呼叫。"},
+      {"sp":"Anika","en":"Maybe traffic changes after deployment. I'll monitor customer impact through the observation period.","zh":"部署后流量可能变化，我会在观察期监测客户影响。"},
+      {"sp":"Hannah","en":"A missed incident or late severe detection stops expansion. Routing failures count too.","zh":"漏报或严重检测迟到就停止扩大，路由失败也算。"},
+      {"sp":"Raj","en":"That's our rollback trigger in the ticket. The staged rollout doesn't include other services.","zh":"工单写了回退条件，分阶段发布不含其他服务。"},
+      {"sp":"Priya","en":"So, approved with Raj watching the first night. Report failures immediately, not tomorrow morning.","zh":"那么，批准，Raj守第一晚，失败立即报告，不等明早。"},
+      {"sp":"Lukas","en":"I'll verify loaded rule hashes after deployment. A saved file isn't proof of activation.","zh":"部署后我核对加载规则哈希，文件保存不证明激活。"},
+      {"sp":"Anika","en":"I'll join the morning review with request evidence. Quiet paging still needs an explanation.","zh":"我带请求证据参加晨间评审，安静呼叫仍需要解释。"}
+    ]},
+    {"id":"0425","part":10,"stage":"跟踪","title":"降噪还要查漏报","premise":"新规则上线首晚正常，确定持续跟踪。","listeningTask":"理解降噪、遗漏和检测延迟联合验收。","newPhrase":"p700","phrases":["p700","p009","p310","p001:extra","p309:extra","p012:extra"],"lines":[
+      {"sp":"Raj","en":"Noise reduction isn't success alone. Last night had fewer duplicates and no known missed incidents.","zh":"仅降噪不算成功，昨晚重复更少，未发现已知漏报。"},
+      {"sp":"Hannah","en":"One night is limited evidence. Compare incidents, timing, and routing over two weeks.","zh":"一晚证据有限，两周内对比事故、时序与路由。"},
+      {"sp":"Priya","en":"Okay, action item: keep an eye on disagreements. Review customer failures without matching pages.","zh":"好，行动项是关注分歧，评审没有对应呼叫的客户失败。"},
+      {"sp":"Anika","en":"Maybe support finds a missed short outage. I'll reconcile those reports each morning.","zh":"支持可能发现漏掉的短宕机，我每天早上核对报告。"},
+      {"sp":"Lukas","en":"Keep the missing-data branch tested too. Missing telemetry must never make performance look better.","zh":"缺数据分支也保持测试，缺遥测不能让性能看起来更好。"},
+      {"sp":"Raj","en":"The severe path stays unchanged, right? I'll record any delay against our two-minute gate.","zh":"严重路径保持不变，对吧？我按两分钟关口记录延迟。"},
+      {"sp":"Hannah","en":"Yes. Repeat historical cases after future edits. This approval doesn't cover new parameter choices.","zh":"是，未来修改后重跑历史案例，本次批准不覆盖新参数。"},
+      {"sp":"Priya","en":"So, just to recap, checkout only today. We'll circle back next Friday with evidence.","zh":"那么，小结一下，今天仅结账，下周五带证据再讨论。"},
+      {"sp":"Lukas","en":"I'll review the delivery audit then. Page counts and successful notifications are different measures.","zh":"届时我评审投递审计，页数与成功通知是不同指标。"},
+      {"sp":"Anika","en":"We'll close the loop on customer impact. Fewer wake-ups matter only with reliable detection.","zh":"我们对客户影响闭环反馈，少被叫醒必须建立在可靠检测上。"}
+    ]}
+  ]
+}

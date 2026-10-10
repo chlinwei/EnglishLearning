@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "最小权限变更十段中英草稿。撤权前检查依赖和审计覆盖，灰度误伤仅修复必要权限；未配音，无虚构时间轴。",
+  "series": {"id": "sc-S48-sec-least-privilege", "title": "最小权限收敛：审计依赖与灰度误伤", "domain": "sec", "group": "change", "service": "invoice-export service roles", "premise": "导出服务共享角色权限过宽，拟拆分读取与写入职责，但月底任务依赖尚未完全核实。", "outcome": "通过九十天日志及任务负责人核对依赖，灰度撤权发现失败文件隔离路径漏列。暂停扩大，批准限定隔离前缀写入；验证正常、拒绝及月底模拟路径后分批收敛，保留短期例外的到期复查。"},
+  "speakers": {
+    "Priya": {"role": "Change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "IAM policy operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Export and reporting owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE dependency reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Security policy validator", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p751", "en": "least privilege", "zh": "最小权限", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p752", "en": "permission dependency", "zh": "权限依赖", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p753", "en": "scoped policy", "zh": "限定范围的策略", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p754", "en": "dormant permission", "zh": "暂未使用的权限", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p755", "en": "revocation approval", "zh": "撤权审批", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p756", "en": "permission canary", "zh": "权限灰度试点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p757", "en": "access denied", "zh": "访问被拒绝", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p758", "en": "narrow exception", "zh": "范围受限的例外", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p759", "en": "negative permission test", "zh": "应拒绝权限的验证", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p760", "en": "exception expiry", "zh": "例外到期时间", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来候选非实际复现；旧表达限既有库、S03–S07及本文件已引入项。", "futurePolicyReview": ["p751", "p752", "p753", "p754", "p755", "p760"], "futureAccessDrill": ["p756", "p757", "p758", "p759"]},
+  "dialogues": [
+    {"id": "0476", "part": 1, "stage": "权限现状", "title": "过宽权限先盘点后撤销", "premise": "评审导出服务共享角色，尚未批准生产撤权。", "listeningTask": "听出权限风险与未经验证不能立即撤权的原因。", "newPhrase": "p751", "phrases": ["p751", "p010", "p003", "p004:extra", "p008:extra", "p335:extra"], "lines": [
+      {"sp": "Raj", "en": "Least privilege isn't met here. The export role can write across buckets.", "zh": "这里不满足最小权限，导出角色可以跨桶写入。"},
+      {"sp": "Hannah", "en": "Which effective grants allow that? Include inherited and resource-level policies too.", "zh": "哪些实际授权允许这样？也包括继承和资源级策略。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, no immediate revocation, right?", "zh": "好，我来协调。确认一下，不立即撤权，对吧？"},
+      {"sp": "Lukas", "en": "Correct. First check dependencies and audit coverage. Unused isn't always unnecessary.", "zh": "对，先检查依赖和审计覆盖，未使用不总是无需使用。"},
+      {"sp": "Anika", "en": "Our working hypothesis is old migration access. Monthly reporting may still depend on it.", "zh": "当前假设是旧迁移权限，月度报表可能仍依赖它。"},
+      {"sp": "Raj", "en": "What's the ETA for job inventory? Maybe a day for owner responses.", "zh": "任务清单预计多久？负责人回复可能需要一天。"},
+      {"sp": "Hannah", "en": "Compare effective permissions with recorded actions. Both views have blind spots.", "zh": "对比实际权限和已记录操作，两种视角都有盲点。"},
+      {"sp": "Priya", "en": "A fleet-wide identity redesign? Let's park that. Start with export roles.", "zh": "整组身份重设计？先放一边，从导出角色开始。"},
+      {"sp": "Lukas", "en": "Keep emergency recovery dependencies visible. They may not appear in routine logs.", "zh": "保留应急恢复依赖，它们可能不出现在日常日志中。"},
+      {"sp": "Anika", "en": "I'll contact reporting and recovery owners. Production permissions stay unchanged for now.", "zh": "我会联系报表和恢复负责人，生产权限暂时不变。"}
+    ]},
+    {"id": "0477", "part": 2, "stage": "梳理依赖", "title": "七天日志漏了月底任务", "premise": "权限清单已汇总，最近七天访问记录未见跨桶写入。", "listeningTask": "理解日志时间窗口与低频依赖之间的差异。", "newPhrase": "p752", "phrases": ["p752", "p010", "p302", "p305:extra", "p014:extra", "p011:extra"], "lines": [
+      {"sp": "Anika", "en": "One permission dependency appears monthly. The report copies exports into an archive.", "zh": "有一项权限依赖每月出现，报表将导出复制到归档。"},
+      {"sp": "Lukas", "en": "Then seven days won't cover it. Is longer history available?", "zh": "那七天覆盖不到，有更长历史吗？"},
+      {"sp": "Raj", "en": "The retention policy gives ninety days. I'll check collection gaps before querying.", "zh": "保留策略提供九十天，我先查采集空档再查询。"},
+      {"sp": "Priya", "en": "Just to confirm, no recorded use isn't enough, right? Ask owners too.", "zh": "确认一下，没有使用记录还不够，对吧？也要问负责人。"},
+      {"sp": "Hannah", "en": "Yes. Simulation helps, but it may miss dynamic resource names.", "zh": "对，模拟有帮助，但可能漏掉动态资源名称。"},
+      {"sp": "Anika", "en": "I'm on it for archive paths. Maybe quarter-end adds another destination.", "zh": "我来核对归档路径，季末可能增加另一个目标。"},
+      {"sp": "Lukas", "en": "Don't rule that out without evidence. Include failure and recovery workflows.", "zh": "没有证据别排除，也要包括失败和恢复流程。"},
+      {"sp": "Raj", "en": "Let me play that back. We need actual actions and owner-confirmed dependencies.", "zh": "我复述一下，需要实际操作和负责人确认的依赖。"},
+      {"sp": "Hannah", "en": "Correct. Record uncertainty per permission. A complete-looking spreadsheet can still miss paths.", "zh": "对，按权限记录不确定项，看起来完整的表格仍可能漏路径。"},
+      {"sp": "Priya", "en": "Okay, wait for that review. The change request must include uncovered cases.", "zh": "好，等评审结果，变更申请必须列出未覆盖情况。"}
+    ]},
+    {"id": "0478", "part": 3, "stage": "最小权限方案", "title": "按任务和前缀拆分", "premise": "九十天日志覆盖通过，确认日常读取及月底归档写入，失败路径仍需测试。", "listeningTask": "听出角色拆分与资源范围限定的理由。", "newPhrase": "p753", "phrases": ["p753", "p010", "p330", "p327:extra", "p323:extra", "p324:extra"], "lines": [
+      {"sp": "Raj", "en": "A scoped policy separates reading from archiving. Archive writes use a dedicated role.", "zh": "限定策略分开读取与归档，归档写入使用独立角色。"},
+      {"sp": "Hannah", "en": "Are prefixes enforced on both roles? Separate names alone don't reduce permissions.", "zh": "两个角色都强制限定前缀吗？仅名称不同不会缩小权限。"},
+      {"sp": "Anika", "en": "Yes, only approved export and archive paths. Dynamic dates stay within those prefixes.", "zh": "是，只允许批准的导出和归档路径，动态日期位于这些前缀内。"},
+      {"sp": "Priya", "en": "Just to confirm, managed configuration owns the policies, right? No manual drift.", "zh": "确认一下，策略由受管配置管理，对吧？不做漂移的手工修改。"},
+      {"sp": "Lukas", "en": "Yes, with reviewed versions. Prepare a rollback trigger before production changes.", "zh": "是，用评审版本，生产变更前准备回退条件。"},
+      {"sp": "Raj", "en": "Unexpected denials mean pause expansion. Maybe restore a reviewed specific grant.", "zh": "非预期拒绝就暂停扩大，可能恢复经评审的特定授权。"},
+      {"sp": "Hannah", "en": "Not the blanket policy by default. Restoration needs scope and approval.", "zh": "不是默认恢复全权限，恢复也需要范围和审批。"},
+      {"sp": "Anika", "en": "Okay, the smoke test covers monthly archives. Failure handling needs separate fixtures.", "zh": "好，冒烟测试覆盖月度归档，失败处理需要独立样本。"},
+      {"sp": "Lukas", "en": "Use a staged rollout with one worker. Keep unaffected workers available.", "zh": "从一个工作进程分阶段变更，保留未受影响进程。"},
+      {"sp": "Priya", "en": "Agreed, I'll put those gates in review. Business owners must confirm coverage.", "zh": "同意，我把门槛列入评审，业务负责人必须确认覆盖。"}
+    ]},
+    {"id": "0479", "part": 4, "stage": "业务方质疑", "title": "没有调用不代表可以删除", "premise": "提交角色拆分方案，业务方担心灾备和季末低频路径误伤。", "listeningTask": "听出异议如何改变验证范围而非被忽略。", "newPhrase": "p754", "phrases": ["p754", "p010", "p335", "p302:extra", "p004:extra", "p008:extra"], "lines": [
+      {"sp": "Anika", "en": "A dormant permission may serve recovery. I don't support deleting it blindly.", "zh": "暂未使用权限可能服务恢复，我不支持盲目删除。"},
+      {"sp": "Lukas", "en": "Fair challenge. Which recovery step needs it? Let's make that dependency explicit.", "zh": "这个质疑合理，哪步恢复需要它？把依赖明确化。"},
+      {"sp": "Raj", "en": "Our working hypothesis was migration leftovers. I need to revise that claim.", "zh": "原假设是迁移遗留，我需要修正那个判断。"},
+      {"sp": "Priya", "en": "Just to confirm, evidence first, right? We won't dismiss low-frequency work.", "zh": "确认一下，先看证据，对吧？不会忽视低频工作。"},
+      {"sp": "Hannah", "en": "Recovery access can use a separate controlled role. It needn't remain always active.", "zh": "恢复访问可以使用独立受控角色，不必一直启用。"},
+      {"sp": "Anika", "en": "Maybe that's workable. Who approves activation when the main owner is unavailable?", "zh": "可能可行，主要负责人不在时谁批准启用？"},
+      {"sp": "Lukas", "en": "Name a backup approver and test response time. Otherwise availability risk grows.", "zh": "指定后备审批人并测试响应时间，否则可用性风险增大。"},
+      {"sp": "Raj", "en": "We can't rule that out yet. What's the ETA for a recovery rehearsal?", "zh": "目前不能排除这个风险，恢复演练预计何时完成？"},
+      {"sp": "Hannah", "en": "Tomorrow in the test environment. Use equivalent permissions, not production secrets.", "zh": "明天在测试环境做，使用等效权限而非生产秘密。"},
+      {"sp": "Priya", "en": "Okay, let's park that deletion until rehearsal. Routine role narrowing can proceed to review.", "zh": "好，演练前暂缓删除那项权限，日常角色收窄可继续评审。"}
+    ]},
+    {"id": "0480", "part": 5, "stage": "审批确认", "title": "批准范围和例外都写清", "premise": "恢复演练验证后备审批和独立角色，日常权限收敛具备审批材料。", "listeningTask": "听出批准的是明确批次而非无限扩大。", "newPhrase": "p755", "phrases": ["p755", "p010", "p328", "p321:extra", "p324:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Revocation approval covers one export worker first. The maintenance window starts tonight.", "zh": "撤权审批先覆盖一个导出工作进程，维护窗口今晚开始。"},
+      {"sp": "Hannah", "en": "Does approval include the recovery role? Its activation evidence should be attached.", "zh": "审批包括恢复角色吗？应该附上启用证据。"},
+      {"sp": "Raj", "en": "Yes, rehearsal passed with the backup approver. Emergency grants expire after use.", "zh": "包括，后备审批人的演练通过，应急授权使用后到期。"},
+      {"sp": "Anika", "en": "Just to confirm, monthly tests passed, right? Failure fixtures had limited coverage.", "zh": "确认一下，月度测试通过，对吧？失败样本覆盖有限。"},
+      {"sp": "Lukas", "en": "Then record that limit. The first batch needs close denial-log review.", "zh": "那就记录限制，首批需要密切检查拒绝日志。"},
+      {"sp": "Priya", "en": "Okay, go/no-go depends on that review. Maybe thirty minutes for observation.", "zh": "好，继续或停止取决于该评审，可能观察三十分钟。"},
+      {"sp": "Hannah", "en": "Confirm a rollback trigger for failed exports. New exceptions need security approval.", "zh": "确认导出失败的回退条件，新例外要安全审批。"},
+      {"sp": "Raj", "en": "Unexpected failures stop expansion immediately. We won't restore all permissions automatically.", "zh": "意外失败立即停止扩大，不自动恢复全部权限。"},
+      {"sp": "Lukas", "en": "Keep the previous policy version available for review. Availability still matters.", "zh": "保留旧策略版本供评审，可用性仍重要。"},
+      {"sp": "Anika", "en": "Just to recap, narrow first, observe, then decide. I'll watch export completion.", "zh": "小结一下，先收窄再观察再决定，我盯导出完成情况。"}
+    ]},
+    {"id": "0481", "part": 6, "stage": "分批撤权", "title": "一个工作进程先改", "premise": "批准首批一个进程收窄权限，保存策略版本，其他进程不变。", "listeningTask": "区分策略写入和实际权限生效。", "newPhrase": "p756", "phrases": ["p756", "p010", "p323", "p330:extra", "p309:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The permission canary has the new policy. Managed configuration recorded its version.", "zh": "权限灰度已应用新策略，受管配置记录了版本。"},
+      {"sp": "Lukas", "en": "Did active sessions refresh? Old grants may survive a policy change.", "zh": "活动会话刷新了吗？策略修改后旧授权可能暂时仍有效。"},
+      {"sp": "Raj", "en": "The provider confirms new evaluations. A controlled outside-prefix request now rejects.", "zh": "提供方确认采用新权限评估，受控前缀外请求现在被拒绝。"},
+      {"sp": "Priya", "en": "Just to confirm, only one worker, right? Staged rollout hasn't expanded.", "zh": "确认一下，只有一个进程，对吧？分阶段变更还没扩大。"},
+      {"sp": "Hannah", "en": "Correct. Check legitimate actions too. Denial alone doesn't prove a good policy.", "zh": "对。也检查合法操作，仅有拒绝不能证明策略合理。"},
+      {"sp": "Anika", "en": "I'm on it for completion checks. Ordinary exports are finishing normally.", "zh": "我来检查完成情况，普通导出正常完成。"},
+      {"sp": "Lukas", "en": "Keep an eye on retries and queue age. Hidden failures can accumulate.", "zh": "关注重试和队列等待时间，隐藏失败可能积累。"},
+      {"sp": "Priya", "en": "Maybe longer observation helps. Wait through the first scheduled archive run.", "zh": "更长观察可能有用，等首个定时归档运行完。"},
+      {"sp": "Hannah", "en": "I'll correlate denial events with job results. Preserve both successful and rejected requests.", "zh": "我关联拒绝事件和任务结果，保存成功及拒绝请求。"},
+      {"sp": "Anika", "en": "Okay, I'll add a controlled failure case. Normal exports don't cover quarantine handling.", "zh": "好，我加一个受控失败案例，正常导出不覆盖隔离处理。"}
+    ]},
+    {"id": "0482", "part": 7, "stage": "检查拒绝日志", "title": "失败隔离路径被误伤", "premise": "普通导出正常，但受控失败案例触发此前未测试的文件隔离路径。", "listeningTask": "听出预期拒绝与业务误伤如何区分。", "newPhrase": "p757", "phrases": ["p757", "p010", "p335", "p324:extra", "p103:extra", "p014:extra"], "lines": [
+      {"sp": "Anika", "en": "The failure case gets access denied. It can't write its quarantine record.", "zh": "失败案例收到访问拒绝，无法写入隔离记录。"},
+      {"sp": "Hannah", "en": "Is quarantine a legitimate dependency? Or is the application writing outside scope?", "zh": "隔离是合法依赖吗？还是应用写到了范围外？"},
+      {"sp": "Raj", "en": "Let me tail the log. The destination belongs to approved failed-export storage.", "zh": "我盯一下日志，目标属于批准的失败导出存储。"},
+      {"sp": "Priya", "en": "Just to confirm, expansion stops, right? That's our rollback trigger for review.", "zh": "确认一下，停止扩大，对吧？这触发回退评审。"},
+      {"sp": "Lukas", "en": "Yes. Keep unaffected workers available. Don't remove the deliberate outside-prefix denial.", "zh": "对，保留未受影响进程，不要取消故意设置的前缀外拒绝。"},
+      {"sp": "Anika", "en": "Our working hypothesis was complete path coverage. Correction, quarantine was missed.", "zh": "原假设是路径覆盖完整。更正一下，漏掉了隔离路径。"},
+      {"sp": "Hannah", "en": "That supports a limited repair. Check the required operation, resource, and owner.", "zh": "这支持有限修复，核对必要操作、资源和所有者。"},
+      {"sp": "Raj", "en": "I'm on it. Maybe a single-prefix write grant is enough for quarantine.", "zh": "我来查，隔离可能只需一个前缀的写入授权。"},
+      {"sp": "Lukas", "en": "Test that proposal before approving it. Broad write access isn't the only fallback.", "zh": "批准前测试该方案，广泛写权限不是唯一后备方案。"},
+      {"sp": "Priya", "en": "Okay, hold the canary job safely. Document the missed dependency and proposed repair.", "zh": "好，安全暂停灰度任务，记录遗漏依赖和拟议修复。"}
+    ]},
+    {"id": "0483", "part": 8, "stage": "修复误伤", "title": "只补隔离前缀写权限", "premise": "确认隔离路径合法且漏列，拟补范围限定的写入例外。", "listeningTask": "听出例外审批、到期与禁止恢复全权限的条件。", "newPhrase": "p758", "phrases": ["p758", "p010", "p327", "p330:extra", "p324:extra", "p012:extra"], "lines": [
+      {"sp": "Raj", "en": "A narrow exception permits quarantine writes. It doesn't allow listing or other buckets.", "zh": "窄范围例外允许隔离写入，不允许列表或其他桶。"},
+      {"sp": "Hannah", "en": "Who approved it, and when does it expire? Exceptions need lifecycle control.", "zh": "谁批准，何时到期？例外需要生命周期管理。"},
+      {"sp": "Priya", "en": "Security and the data owner approved seven days. Just to confirm, review before expiry, right?", "zh": "安全和数据负责人批准七天，确认一下，到期前评审，对吧？"},
+      {"sp": "Lukas", "en": "Yes. Permanent dependency needs a reviewed baseline policy, not endless renewals.", "zh": "对，永久依赖需要评审基线策略，不是无限续期。"},
+      {"sp": "Anika", "en": "The smoke test now quarantines failures. Successful exports still work as expected.", "zh": "冒烟测试现在能隔离失败文件，成功导出仍符合预期。"},
+      {"sp": "Raj", "en": "Managed configuration records the exception separately. Maybe policy linting can catch excess scope.", "zh": "受管配置单独记录例外，策略静态检查可能发现过宽范围。"},
+      {"sp": "Hannah", "en": "Keep outside-prefix rejection tests. A fix shouldn't silently restore unnecessary access.", "zh": "保留前缀外拒绝测试，修复不应悄悄恢复不必要访问。"},
+      {"sp": "Priya", "en": "Okay, the rollback trigger remains unexplained failures. No automatic broad-policy restoration.", "zh": "好，无法解释的失败仍触发回退评审，不自动恢复广泛策略。"},
+      {"sp": "Lukas", "en": "Retest monthly archive and recovery paths too. One repaired path isn't full coverage.", "zh": "也重测月度归档和恢复路径，修好一条不是完整覆盖。"},
+      {"sp": "Anika", "en": "Just to recap, quarantine works with limited access. We'll rerun the complete fixture set.", "zh": "小结一下，隔离用有限权限工作，我们重跑全部样本。"}
+    ]},
+    {"id": "0484", "part": 9, "stage": "验证权限", "title": "允许与拒绝都要验证", "premise": "隔离例外部署后完整样本通过，需独立核实有效权限与剩余批次。", "listeningTask": "理解负向验证以及测试不能证明的边界。", "newPhrase": "p759", "phrases": ["p759", "p010", "p323", "p309:extra", "p111:extra", "p302:extra"], "lines": [
+      {"sp": "Hannah", "en": "Each negative permission test rejects outside scope. Approved workflows still complete successfully.", "zh": "每个负向权限测试都拒绝范围外操作，批准流程仍成功完成。"},
+      {"sp": "Raj", "en": "Can we rule that out as excess access? Or just the tested operations?", "zh": "能排除过宽访问了吗？还是只能排除已测操作？"},
+      {"sp": "Lukas", "en": "Just tested operations. Effective-policy review also checks inherited grants and session state.", "zh": "只是已测操作，实际策略评审还检查继承授权和会话状态。"},
+      {"sp": "Priya", "en": "Just to confirm, that review passed, right? Then staged rollout can resume.", "zh": "确认一下，那项评审通过，对吧？那分阶段变更可以恢复。"},
+      {"sp": "Anika", "en": "Monthly fixtures passed too. Maybe real month-end still reveals timing differences.", "zh": "月度样本也通过了，真实月底仍可能显现时间差异。"},
+      {"sp": "Hannah", "en": "Then let's keep it under observation through month-end. Synthetic coverage has limits.", "zh": "那继续观察到月底，合成验证有局限。"},
+      {"sp": "Raj", "en": "I'll keep an eye on deny counts. Remaining batches use the reviewed version.", "zh": "我会关注拒绝计数，剩余批次使用评审版本。"},
+      {"sp": "Lukas", "en": "Pause if denials diverge by worker. Dynamic paths may differ across instances.", "zh": "不同进程拒绝情况分化就暂停，实例间动态路径可能不同。"},
+      {"sp": "Anika", "en": "Okay, all batches have completed now. Exports, archives, and quarantine checks pass.", "zh": "好，现在所有批次完成，导出、归档和隔离检查通过。"},
+      {"sp": "Priya", "en": "Record the final effective policies. Monitoring continues beyond the maintenance window.", "zh": "记录最终实际策略，维护窗口后监控继续。"}
+    ]},
+    {"id": "0485", "part": 10, "stage": "变更收尾", "title": "例外到期不能靠人记住", "premise": "全部批次收敛完成，七天隔离例外及月底观察仍需跟进。", "listeningTask": "听出例外如何转入基线或到期收回。", "newPhrase": "p760", "phrases": ["p760", "p009", "p310", "p013:extra", "p012:extra", "p751:extra"], "lines": [
+      {"sp": "Priya", "en": "Exception expiry is next Tuesday. Who's picking this up before then?", "zh": "例外下周二到期，谁在那之前接手？"},
+      {"sp": "Hannah", "en": "I'll review its necessity Monday. Permanent quarantine access needs a scoped baseline.", "zh": "我周一评审必要性，永久隔离访问需要限定基线。"},
+      {"sp": "Raj", "en": "My action item is expiry automation. No silent renewal if review slips.", "zh": "我的待办是到期自动化，评审延期也不能默默续期。"},
+      {"sp": "Lukas", "en": "But unexpected expiry can break failure handling. Alert owners before enforcement.", "zh": "但意外到期会破坏失败处理，执行前提醒所有者。"},
+      {"sp": "Anika", "en": "I'll add quarantine to dependency tests. Maybe that prevents this omission next time.", "zh": "我把隔离加入依赖测试，可能防止下次遗漏。"},
+      {"sp": "Priya", "en": "Okay, least privilege still needs availability safeguards. Both risks stay documented, right?", "zh": "好，最小权限仍需要可用性保护，两种风险都记录，对吧？"},
+      {"sp": "Hannah", "en": "Yes. We'll close the loop after expiry review and the real monthly run.", "zh": "对，到期评审及真实月度运行后完成反馈。"},
+      {"sp": "Raj", "en": "Just to recap, no blanket grants remain. The limited exception stays separately tracked.", "zh": "小结一下，不再有全权限授权，限定例外单独跟踪。"},
+      {"sp": "Lukas", "en": "Keep recovery activation rehearsed. Restricted access isn't useful if emergency ownership fails.", "zh": "持续演练恢复启用，应急责任失效时限制权限也没有用。"},
+      {"sp": "Anika", "en": "Agreed, I'll confirm the next rehearsal date. Today's change closes with follow-up still open.", "zh": "同意，我确认下次演练日期，今天变更收尾但跟进仍开放。"}
+    ]}
+  ]
+}

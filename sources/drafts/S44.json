@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"人工双语站会草稿，待配音，不预填时间。SLO分子分母共享入口请求范围、窗口与完成归属；缺失数据保持未知。",
+  "series":{"id":"sc-S44-obs-slo-standup","title":"SLO治理：对齐口径后再报进度","domain":"obs","group":"ops-standup","service":"checkout request SLO","premise":"团队每日站会推进checkout SLO治理，旧仪表盘混用成功分子与不同窗口分母，告警出现误报。","outcome":"确认99.9%目标、滚动28天和入口有效请求口径；修正500ms内成功完成的分子及同范围分母。一次站会落实仪表盘、双窗口燃烧率回放、入口标注依赖与今日任务，评审和发布仍待次日检查。"},
+  "speakers":{
+    "Priya":{"role":"SRE standup facilitator","accent":"en-IN","voice":null},
+    "Raj":{"role":"SLO dashboard engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Checkout service owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Reliability policy reviewer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"SLI and alert validation engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p711","en":"service level objective","zh":"服务级别目标","layer":"L1","level":"core","target":5},
+    {"id":"p712","en":"eligible requests","zh":"纳入口径的有效请求","layer":"L1","level":"core","target":5},
+    {"id":"p713","en":"error budget","zh":"错误预算","layer":"L1","level":"core","target":5},
+    {"id":"p714","en":"matching measurement windows","zh":"一致的测量窗口","layer":"L1","level":"core","target":5},
+    {"id":"p715","en":"burn rate alert","zh":"错误预算燃烧率告警","layer":"L1","level":"core","target":5},
+    {"id":"p716","en":"SLI owner","zh":"服务级别指标负责人","layer":"L1","level":"core","target":5},
+    {"id":"p717","en":"missing eligibility labels","zh":"缺少有效请求分类标签","layer":"L1","level":"core","target":5},
+    {"id":"p718","en":"up for review","zh":"等待评审","layer":"L0","level":"core","target":8},
+    {"id":"p719","en":"on track","zh":"按计划推进","layer":"L0","level":"core","target":8},
+    {"id":"p720","en":"no blockers","zh":"没有阻塞项","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来候选不算实际复现；旧引用仅来自p001–p350及本文件此前。","S47":["p711","p712","p713","p714","p715"],"S50":["p716","p717","p718","p719","p720"]},
+  "dialogues":[
+    {"id":"0436","part":1,"stage":"目标","title":"站会先对齐治理目标","premise":"每日站会开始，checkout旧SLO面板口径待修正。","listeningTask":"辨别进度汇报与技术深谈的边界。","newPhrase":"p711","phrases":["p711","p010","p009","p007:extra","p006:extra","p002:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, today's service level objective work needs owners. I've got a hard stop at ten.","zh":"好，今天服务级别目标工作要明确负责人，我十点必须结束。"},
+      {"sp":"Lukas","en":"Keep this a progress check. We can take it offline for detailed query design.","zh":"保持进度检查，详细查询设计可以会后单独聊。"},
+      {"sp":"Raj","en":"I've got bandwidth for dashboard fixes today. The old ratio is wrong. Sorry, maybe the periods don't match.","zh":"我今天有精力修仪表盘。旧比例错了。抱歉，是时间段可能不匹配。"},
+      {"sp":"Anika","en":"Just to confirm, checkout owns the target, right? Our team agreed three nines.","zh":"确认一下，结账团队负责目标，对吧？团队约定了三个九。"},
+      {"sp":"Hannah","en":"Yes, ninety-nine point nine percent. Define good requests before calculating the budget.","zh":"是，百分之九十九点九，计算预算前先定义好请求。"},
+      {"sp":"Priya","en":"First action item is the definition review. No green progress without an agreed denominator.","zh":"第一个行动项是定义评审，没有约定分母就不能报绿。"},
+      {"sp":"Lukas","en":"Include window and exclusions in that definition. Otherwise teams could report incompatible targets.","zh":"定义包含窗口与排除项，否则团队可能报告不兼容目标。"},
+      {"sp":"Raj","en":"So, I'll show the proposed counting boundary. It uses entrance requests, not internal spans.","zh":"那么，我说明拟定计数边界，用入口请求，不用内部跨度。"},
+      {"sp":"Hannah","en":"Good. Progress and remaining uncertainty can coexist. Don't turn today's standup into release approval.","zh":"好，进展和剩余不确定性可以共存，今天站会不是发布批准。"},
+      {"sp":"Anika","en":"I'll confirm the customer-facing scope next. Then we'll check the budget and pending tasks.","zh":"接着确认面向客户的范围，然后检查预算和待办。"}
+    ]},
+    {"id":"0437","part":2,"stage":"口径","title":"分子分母共享同一批请求","premise":"99.9%目标已重申，明确入口有效请求及成功判定。","listeningTask":"听清分子分母的范围、时间和延迟条件。","newPhrase":"p712","phrases":["p712","p010","p011","p335:extra","p009:extra","p302:extra"],"lines":[
+      {"sp":"Anika","en":"Eligible requests are valid checkout entrance attempts. Exclude tagged probes and malformed input only.","zh":"有效请求是入口合法结账尝试，只排除标记探测和畸形输入。"},
+      {"sp":"Lukas","en":"Don't exclude dependency failures or internal timeouts. Those count against the customer-facing objective.","zh":"不要排除依赖失败或内部超时，它们计入面向客户目标的失败。"},
+      {"sp":"Raj","en":"Okay, good means successful completion below five hundred milliseconds. The denominator includes all eligible attempts.","zh":"好，好请求是五百毫秒以下成功完成，分母含全部有效尝试。"},
+      {"sp":"Priya","en":"Just to confirm, both use rolling twenty-eight days, right? Same region and service scope.","zh":"确认一下，两者用滚动二十八天，对吧？区域和服务范围相同。"},
+      {"sp":"Hannah","en":"Yes, assign requests by entrance time. Resolve outcomes before finalizing the window's counts.","zh":"是，按请求入口时间归属，最终确定窗口计数前解析结果。"},
+      {"sp":"Anika","en":"Let me play that back. Slow successes aren't good requests. Maybe retries need explicit treatment.","zh":"我复述一下，缓慢成功不算好请求，重试可能要明确处理。"},
+      {"sp":"Lukas","en":"Each valid entrance attempt counts once. Internal retries aren't additional entrance requests.","zh":"每次合法入口尝试计一次，内部重试不是额外入口请求。"},
+      {"sp":"Raj","en":"So, our working hypothesis is query mismatch. We can rule that out only after comparison.","zh":"那么，当前假设是查询不匹配，只有对比后才能排除。"},
+      {"sp":"Hannah","en":"Late outcomes need a completeness indicator. Unknown requests mustn't disappear from the denominator silently.","zh":"延迟结果需要完整性标记，未知请求不能悄悄从分母消失。"},
+      {"sp":"Priya","en":"That's an action item for the contract. Next, calculate the budget with that same scope.","zh":"这列为口径契约行动项，接着用同范围计算预算。"}
+    ]},
+    {"id":"0438","part":3,"stage":"预算","title":"预算不是任意停机许可","premise":"有效请求和28天窗口对齐，说明错误预算计算。","listeningTask":"区分请求预算和固定停机时长。","newPhrase":"p713","phrases":["p713","p010","p012","p335:extra","p309:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"The error budget allows point one percent bad. It's based on eligible requests, not minutes.","zh":"错误预算允许百分之零点一坏请求，基于有效请求，不是分钟。"},
+      {"sp":"Hannah","en":"For one million eligible attempts, that's one thousand. Slow or failed attempts both consume it.","zh":"一百万次有效尝试对应一千次预算，缓慢或失败都消耗。"},
+      {"sp":"Priya","en":"Okay, just to confirm, those counts share a window, right? Not last week's numerator.","zh":"好，确认一下，计数共享窗口，对吧？不能拿上周分子。"},
+      {"sp":"Anika","en":"Just to recap, internal retries don't multiply attempts. Maybe unresolved outcomes make remaining budget provisional.","zh":"小结一下，内部重试不增加尝试数，未定结果可能使剩余预算暂定。"},
+      {"sp":"Lukas","en":"Exactly. Unknown coverage isn't unused budget. Show incomplete results rather than claiming extra headroom.","zh":"没错，未知覆盖不等于未用预算，展示不完整而非宣称额外余量。"},
+      {"sp":"Raj","en":"I'll keep an eye on completeness flags. Our working hypothesis shouldn't drive an unverified budget report.","zh":"我会关注完整性标记，不能用假设驱动未验证预算报告。"},
+      {"sp":"Hannah","en":"And don't convert this into fixed downtime. Request-weighted failure varies with traffic volume.","zh":"也不能换成固定停机时长，请求加权失败随流量变化。"},
+      {"sp":"Priya","en":"So, let's park that downtime conversion. Today we need a consistent request-based dashboard.","zh":"那么，停机换算先放下，今天需要一致的请求型仪表盘。"},
+      {"sp":"Lukas","en":"Record the policy response when budget burns. The calculation alone doesn't define release restrictions.","zh":"记录预算燃烧时的政策响应，计算本身不定义发布限制。"},
+      {"sp":"Anika","en":"I'll bring our reviewed policy to tomorrow's check. Raj can report dashboard progress now.","zh":"我明天带来已评审政策，现在Raj可报告仪表盘进展。"}
+    ]},
+    {"id":"0439","part":4,"stage":"仪表盘","title":"修正窗口不等于改目标","premise":"预算口径一致，汇报旧面板查询修正进展。","listeningTask":"识别查询错误及缺失数据处理。","newPhrase":"p714","phrases":["p714","p010","p330","p008:extra","p014:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Matching measurement windows fix the old ratio. It mixed daily good counts with monthly totals.","zh":"一致测量窗口修复旧比例，它混用了日好请求和月总数。"},
+      {"sp":"Lukas","en":"That's a query defect, not a new target. Check label sets and late outcomes too.","zh":"这是查询缺陷，不是新目标，也查标签集合和延迟结果。"},
+      {"sp":"Priya","en":"Okay, just to confirm, managed configuration records changes, right? The definition remains unchanged today.","zh":"好，确认一下，统一配置记录修改，对吧？今天定义不变。"},
+      {"sp":"Anika","en":"I'm on it for test request labels. Maybe regional filters also differ between panels.","zh":"测试请求标签我来查，各面板区域过滤可能也不同。"},
+      {"sp":"Hannah","en":"I found one region omitted from good counts. It still appeared in the total count.","zh":"发现好请求计数漏了一个区域，总计数仍含该区域。"},
+      {"sp":"Raj","en":"So, I'll align both filters before review. What's the ETA for the shared label contract?","zh":"那么，评审前我对齐两个过滤，共享标签契约预计多久？"},
+      {"sp":"Lukas","en":"Before lunch for the review copy. Missing labels need an explicit unknown category.","zh":"评审副本午饭前，缺标签要有明确未知类别。"},
+      {"sp":"Priya","en":"We'll keep an eye on that dependency. Don't publish a polished graph with incomplete counts.","zh":"我们关注该依赖，不发布计数不完整的漂亮图。"},
+      {"sp":"Hannah","en":"The test fixture should include an empty interval. Missing measurements aren't a perfect success rate.","zh":"测试数据要含空时段，缺测量不等于完美成功率。"},
+      {"sp":"Anika","en":"Agreed. After the query fix, I'll check whether the noisy budget alert uses it too.","zh":"同意，查询修好后我检查噪音预算告警是否也用了它。"}
+    ]},
+    {"id":"0440","part":5,"stage":"告警进展","title":"误报先修口径再审触发","premise":"旧查询混用窗口及区域，检查预算告警关联查询。","listeningTask":"区分SLO窗口与告警短长窗口。","newPhrase":"p715","phrases":["p715","p010","p335","p210:extra","p324:extra","p014:extra"],"lines":[
+      {"sp":"Hannah","en":"The burn rate alert uses that mismatched query. Its numerator and denominator don't align.","zh":"燃烧率告警使用不匹配查询，分子分母未对齐。"},
+      {"sp":"Raj","en":"Okay, I'll fix both before threshold review. Maybe the query defect explains these false pages.","zh":"好，阈值评审前修两者，查询缺陷可能解释这些误报。"},
+      {"sp":"Priya","en":"Just to confirm, alert windows can be shorter, right? Counts within each still match.","zh":"确认一下，告警窗口可以更短，对吧？每个窗口内部计数仍一致。"},
+      {"sp":"Lukas","en":"Yes, short and long burn windows serve detection. Both normalize against the same allowed bad fraction.","zh":"是，短长燃烧窗口用于检测，都按同一允许坏比例归一。"},
+      {"sp":"Anika","en":"Our working hypothesis isn't an excuse to mute. Customer failure pages stay active during tests.","zh":"当前假设不是静音借口，测试期间客户失败呼叫保持有效。"},
+      {"sp":"Hannah","en":"Dry-run it first against known incidents. Query corrections can still change detection timing.","zh":"先对已知事故试运行，查询修正仍可能改变检测时间。"},
+      {"sp":"Raj","en":"I'm on it for the replay task. A missed severe incident is our rollback trigger.","zh":"回放任务我来做，漏掉严重事故是回退条件。"},
+      {"sp":"Priya","en":"So, report progress today, not final approval. Bring both windows and incident results tomorrow.","zh":"那么，今天报进度，不作最终批准，明天带两个窗口和事故结果。"},
+      {"sp":"Lukas","en":"Also preserve the missing-data alert. A zero denominator mustn't produce a healthy signal.","zh":"也保留缺数据告警，零分母不能产生健康信号。"},
+      {"sp":"Anika","en":"I'll attach business-impact labels to the replay. Then we can assign the long-term owners.","zh":"我给回放附业务影响标注，随后明确长期负责人。"}
+    ]},
+    {"id":"0441","part":6,"stage":"责任","title":"口径和查询谁负责","premise":"仪表盘与告警修正已分配，明确长期指标责任。","listeningTask":"听出服务方和平台方责任不同。","newPhrase":"p716","phrases":["p716","p009","p010","p013:extra","p310:extra","p006:extra"],"lines":[
+      {"sp":"Anika","en":"I'm the SLI owner for checkout scope. Platform engineers maintain the collection and query path.","zh":"我是结账口径的SLI负责人，平台工程师维护采集和查询路径。"},
+      {"sp":"Lukas","en":"Ownership includes approving exclusions and changes. It isn't just having your name on a graph.","zh":"责任包含批准排除项和变更，不只把名字写在图上。"},
+      {"sp":"Priya","en":"Okay, who's picking this up for query review? Just to confirm, Hannah has bandwidth, right?","zh":"好，查询评审谁来接？确认一下，Hannah有余力，对吧？"},
+      {"sp":"Raj","en":"My action item is reproducible comparison data. Maybe the ingress team needs its own reviewer.","zh":"我的行动项是可复现对比数据，入口团队可能需要自己的评审人。"},
+      {"sp":"Hannah","en":"I can review the query this afternoon. The ingress contract still needs its owning team's approval.","zh":"今天下午我可评审查询，入口契约仍需所属团队批准。"},
+      {"sp":"Anika","en":"I'll close the loop with that owner today. Customer failures can't be excluded for cleaner numbers.","zh":"我今天向负责人反馈闭环，不能为数字好看排除客户失败。"},
+      {"sp":"Lukas","en":"And policy changes need a separate review. Today's standup doesn't silently redefine acceptable reliability.","zh":"政策变更需另评审，今天站会不能悄悄重定义可接受可靠性。"},
+      {"sp":"Priya","en":"So, owners are clear for each boundary. Let's name the blocking dependency next.","zh":"那么，各边界负责人清楚，接着说阻塞依赖。"},
+      {"sp":"Hannah","en":"Record backup ownership as well. Otherwise a missing reviewer could stall this again tomorrow.","zh":"也记录后备负责人，否则明天缺评审人又会卡住。"},
+      {"sp":"Raj","en":"I'll add the platform backup to the ticket. We still need complete eligibility labels.","zh":"我把平台后备加到工单，仍需完整有效请求标签。"}
+    ]},
+    {"id":"0442","part":7,"stage":"阻塞","title":"入口标签仍有依赖","premise":"负责人确认，但部分入口请求缺有效性标注。","listeningTask":"辨别已完成任务与仍阻塞的验收。","newPhrase":"p717","phrases":["p717","p010","p008","p334:extra","p335:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"Missing eligibility labels block final dashboard acceptance. One gateway version omits the probe tag.","zh":"缺有效请求标签阻塞最终面板验收，一个网关版本漏探测标记。"},
+      {"sp":"Hannah","en":"Don't silently classify those requests as customers. We need evidence for the eligible set.","zh":"不要悄悄把它们归为客户请求，有效集合需要证据。"},
+      {"sp":"Priya","en":"Okay, just to confirm, other query tests proceed, right? The label dependency remains open.","zh":"好，确认一下，其他查询测试继续，对吧？标签依赖仍未解决。"},
+      {"sp":"Anika","en":"What's the ETA from the gateway owner? Maybe the versioned contract is ready by lunch.","zh":"网关负责人预计多久？版本化契约可能午饭前备好。"},
+      {"sp":"Lukas","en":"They confirmed a review copy at noon. Deployment timing isn't confirmed yet.","zh":"他们确认中午给评审副本，部署时间尚未确认。"},
+      {"sp":"Raj","en":"Our temporary workaround marks unknown label coverage. It doesn't estimate a fake customer total.","zh":"临时方案标未知标签覆盖，不估造客户总数。"},
+      {"sp":"Hannah","en":"That's safe for preview, not final SLO reporting. Keep the limitation visible to readers.","zh":"可安全预览，但不能作最终SLO报告，让读者看到限制。"},
+      {"sp":"Priya","en":"So, let's park that release date claim. Our working hypothesis doesn't replace delivery confirmation.","zh":"那么，发布日期说法先放下，假设不能代替投递确认。"},
+      {"sp":"Lukas","en":"Ask for a named reviewer and rollout plan. That makes the dependency actionable.","zh":"要求具名评审人和发布计划，让依赖可推进。"},
+      {"sp":"Anika","en":"I'll request those after this standup. Raj can submit the completed query slice meanwhile.","zh":"站会后我请求这些，期间Raj可提交已完成查询部分。"}
+    ]},
+    {"id":"0443","part":8,"stage":"评审请求","title":"可评审但尚不可发布","premise":"标签部署未确认，完成的查询部分提交评审。","listeningTask":"识别评审范围与验收条件。","newPhrase":"p718","phrases":["p718","p010","p006","p327:extra","p009:extra","p002:extra"],"lines":[
+      {"sp":"Raj","en":"The query patch is up for review. It includes matching windows and empty-interval fixtures.","zh":"查询补丁等待评审，包含一致窗口和空时段测试数据。"},
+      {"sp":"Lukas","en":"List what's excluded from this patch. The pending gateway deployment shouldn't look completed.","zh":"列出补丁不包含什么，待定网关部署不能看起来已完成。"},
+      {"sp":"Priya","en":"Okay, just to confirm, Hannah has review bandwidth, right? Keep detailed comments in the ticket.","zh":"好，确认一下，Hannah有评审余力，对吧？详细意见放工单。"},
+      {"sp":"Anika","en":"Maybe we can take it offline after ten. I need to approve the request scope too.","zh":"也许十点后会后聊，我也要批准请求范围。"},
+      {"sp":"Hannah","en":"Yes, at two this afternoon. A smoke test alone won't verify numerator-denominator equivalence.","zh":"可以，今天下午两点，快速测试不足以验证分子分母口径一致。"},
+      {"sp":"Raj","en":"I'll add failure and slow-success fixtures. Each fixture checks eligible counts before the ratio.","zh":"我加失败与缓慢成功数据，每份先查有效计数再查比例。"},
+      {"sp":"Lukas","en":"Also check requests crossing the window boundary. Entrance-time assignment must stay consistent.","zh":"也查跨窗口请求，入口时间归属必须一致。"},
+      {"sp":"Priya","en":"So, the action item is evidence-backed review. Approval still depends on labels and replay.","zh":"那么，行动项是有证据的评审，批准仍依赖标签和回放。"},
+      {"sp":"Hannah","en":"I'll mark unverified coverage explicitly. Review comments shouldn't imply production acceptance.","zh":"我明确标未验证覆盖，评审意见不能暗示生产验收。"},
+      {"sp":"Anika","en":"I'll bring the contract copy at two. Let's finish today's assignments before the hard stop.","zh":"我两点带契约副本，在必须结束前定完今日安排。"}
+    ]},
+    {"id":"0444","part":9,"stage":"今日安排","title":"按计划推进也要说依赖","premise":"下午评审已约定，分配今日交付而非提前报完成。","listeningTask":"辨别条件承诺与已经完成。","newPhrase":"p719","phrases":["p719","p009","p010","p008:extra","p309:extra","p001:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, query review is on track today. Label deployment remains a separate dependency.","zh":"好，今天查询评审按计划，标签部署仍是独立依赖。"},
+      {"sp":"Hannah","en":"I'll review counts and windows at two. Then I'll replay incident detection with both burn windows.","zh":"我两点评审计数和窗口，然后用两个燃烧窗口回放检测。"},
+      {"sp":"Raj","en":"My action item is fixtures before lunch. Maybe late-outcome examples need one more check.","zh":"我的行动项是午饭前交测试数据，延迟结果例子可能还需一次检查。"},
+      {"sp":"Anika","en":"Just to confirm, no SLO report goes live today, right? Coverage still needs acceptance.","zh":"确认一下，今天不发布SLO报告，对吧？覆盖仍需验收。"},
+      {"sp":"Lukas","en":"Correct. I'll keep an eye on contract changes. The target and exclusions must remain versioned.","zh":"对，我关注契约变化，目标和排除项必须版本化。"},
+      {"sp":"Priya","en":"So, what's the ETA for gateway confirmation? Ask for a time without inventing a promise.","zh":"那么，网关确认预计多久？询问时间但不编造承诺。"},
+      {"sp":"Hannah","en":"Anika will ask the owner after ten. We can finish independent tests while waiting.","zh":"Anika十点后问负责人，等待时可完成独立测试。"},
+      {"sp":"Raj","en":"I'll circle back with fixtures at eleven. The preview will keep its incomplete-coverage banner.","zh":"我十一点带测试数据回来，预览继续保留覆盖不完整提示。"},
+      {"sp":"Lukas","en":"If replay misses a real incident, stop approval. Fixing an old query doesn't guarantee safe alerts.","zh":"回放漏真事故就停止批准，修旧查询不保证告警安全。"},
+      {"sp":"Anika","en":"I'll document today's deliverables in the ticket. Tomorrow's check can test these exact commitments.","zh":"我把今日交付写工单，明日检查可验证这些准确承诺。"}
+    ]},
+    {"id":"0445","part":10,"stage":"下次检查","title":"局部无阻塞不是整体完成","premise":"今日任务与条件承诺已明确，站会收尾。","listeningTask":"听清哪些无阻塞、哪些仍待定。","newPhrase":"p720","phrases":["p720","p012","p010","p310:extra","p007:extra","p001:extra"],"lines":[
+      {"sp":"Raj","en":"No blockers for my query fixtures now. Final acceptance still waits on gateway labels.","zh":"我的查询测试数据现在无阻塞，最终验收仍等网关标签。"},
+      {"sp":"Lukas","en":"Good distinction. Don't report no blockers for the whole initiative while that dependency remains.","zh":"区分得好，依赖仍在时不要报告整个项目无阻塞。"},
+      {"sp":"Priya","en":"Okay, just to recap, reviews start at two. My hard stop is ten, so let's finish.","zh":"好，小结一下，评审两点开始，我十点必须结束，收尾吧。"},
+      {"sp":"Anika","en":"Just to confirm, tomorrow at nine thirty, right? Maybe the deployment date becomes clearer then.","zh":"确认一下，明天九点半，对吧？部署日期届时可能更清楚。"},
+      {"sp":"Hannah","en":"Yes, bring numerator, denominator, and completeness evidence. Both burn windows need their replay results.","zh":"是，带分子、分母与完整性证据，两燃烧窗口带回放结果。"},
+      {"sp":"Raj","en":"I'll circle back if fixtures reveal mismatches. Otherwise the review copy stays versioned today.","zh":"测试数据发现不匹配我再反馈，否则今天评审副本保持版本化。"},
+      {"sp":"Lukas","en":"And budget reports stay provisional during unknown coverage. Reliability mustn't improve because measurements disappear.","zh":"未知覆盖时预算报告仍暂定，不能因测量消失让可靠性变好。"},
+      {"sp":"Priya","en":"So, we'll close the loop tomorrow with evidence. This standup assigns work; it doesn't approve release.","zh":"那么，明天带证据闭环，站会分配工作，不批准发布。"},
+      {"sp":"Hannah","en":"I'll post review findings before the next check. Any missed severe case blocks deployment.","zh":"下次检查前我发评审发现，任何严重漏检都阻塞部署。"},
+      {"sp":"Anika","en":"Thanks, I'll contact the gateway owner now. We have clear next steps without overstating progress.","zh":"谢谢，我现在联系网关负责人，下一步清楚，不夸大进展。"}
+    ]}
+  ]
+}

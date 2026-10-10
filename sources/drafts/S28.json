@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段连续双语变更草稿；设计：按指标暂停灰度，确认应用回归后回滚已验证制品，保留向后兼容的扩展schema。未配音，不填时间轴。",
+  "series": {"id": "sc-S28-cicd-canary-rollback", "title": "灰度发布：指标暂停与兼容回滚", "domain": "cicd", "group": "change", "service": "checkout release", "premise": "checkout 2.8发布改善报价路径，2.7仍在生产。数据库已做可空字段扩展，必须证明旧代码仍可读写。", "outcome": "5%灰度出现报价回归，按预设指标先暂停放量，再由发布审批人批准回滚2.7的固定摘要。保留兼容schema，不执行破坏性降级，观察恢复后安排修复和重新审批。"},
+  "speakers": {
+    "Priya": {"role": "Release approver", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Deployment operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Checkout application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Database compatibility engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Release validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p551", "en": "canary cohort", "zh": "灰度流量组", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p552", "en": "immutable artifact", "zh": "不可变制品", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p553", "en": "promotion gate", "zh": "放量门禁", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p554", "en": "backward-compatible schema", "zh": "向后兼容的数据库结构", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p555", "en": "traffic weight", "zh": "流量权重", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p556", "en": "cohort comparison", "zh": "灰度组与对照组比较", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p557", "en": "pause promotion", "zh": "暂停放量", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p558", "en": "roll back the release", "zh": "回滚这次发布", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p559", "en": "rollback verification", "zh": "回滚恢复验证", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p560", "en": "expand and contract", "zh": "先扩展后收缩的结构迁移方式", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来候选不算实际复现；本场实际复现只引用既有库、S03至S07及本场先前段。", "futureCandidates": {"S37": ["p552", "p553", "p554", "p558", "p560"], "S39": ["p551", "p555", "p556", "p557", "p559"]}},
+  "dialogues": [
+    {"id": "0276", "part": 1, "stage": "发布目标", "title": "目标是更快报价，不是尽快全量", "premise": "2.8报价优化进入发布评审，2.7仍提供全部流量。", "listeningTask": "听出灰度范围、预期收益及独立审批要求。", "newPhrase": "p551", "phrases": ["p551", "p323", "p010:extra", "p328:extra", "p309:extra", "p321:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, today's staged rollout targets checkout. Start with a five-percent canary cohort.", "zh": "好，今天分阶段发布checkout。先用5%的灰度组。"},
+      {"sp": "Anika", "en": "We're shortening the quote lookup path. Not changing payment behavior itself.", "zh": "我们缩短报价查询路径，不改变支付行为本身。"},
+      {"sp": "Lukas", "en": "But there's a schema extension involved. Explain that before we approve traffic.", "zh": "但涉及结构扩展。批准流量前先解释清楚。"},
+      {"sp": "Raj", "en": "Just to confirm, no automatic full rollout? Each increase needs a go/no-go.", "zh": "确认一下，不自动全量发布？每次增加都要判断继续还是停止。"},
+      {"sp": "Hannah", "en": "Yes, compare equivalent requests across versions. Faster averages alone aren't enough evidence.", "zh": "对，要跨版本比较等价请求。平均更快本身不够。"},
+      {"sp": "Priya", "en": "The maintenance window starts at ten. We have about forty minutes available.", "zh": "维护窗口十点开始。我们大约有四十分钟。"},
+      {"sp": "Lukas", "en": "A window ending isn't a success signal. Leave time for a verified rollback.", "zh": "窗口结束不是成功信号。要留出验证回滚的时间。"},
+      {"sp": "Anika", "en": "So, I'll keep an eye on quotes. Payment retries retain their existing keys.", "zh": "那么我关注报价。支付重试保留现有键。"},
+      {"sp": "Hannah", "en": "I'll check correctness alongside latency today. Missing metrics mean no further promotion.", "zh": "今天我把正确性与延迟一起检查。指标缺失就不能继续放量。"},
+      {"sp": "Raj", "en": "Fair, first let's confirm artifact identities. Then we'll review schema compatibility evidence. I'll record the decision in our ticket. Unresolved checks keep traffic unchanged.", "zh": "明白，先确认制品身份，再评审结构兼容证据。我把决定记在工单里。检查未决就不改变流量。"}
+    ]},
+    {"id": "0277", "part": 2, "stage": "制品确认", "title": "摘要固定，签名不能代替审批", "premise": "5%灰度计划待批准；需先核对2.8与回退用2.7制品。", "listeningTask": "区分标签、摘要、签名和发布审批。", "newPhrase": "p552", "phrases": ["p552", "p551", "p010:extra", "p327:extra", "p328:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The immutable artifact is version 2.8. Its digest matches our reviewed release record.", "zh": "不可变制品是2.8版。摘要和已评审发布记录一致。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, deploy by digest. Moving tags won't select our release.", "zh": "好，确认一下，按摘要部署。不能让可变标签选择版本。"},
+      {"sp": "Lukas", "en": "What about the previous production artifact? Rollback mustn't mean rebuilding old source.", "zh": "之前生产制品呢？回滚不能变成重新构建旧源码。"},
+      {"sp": "Anika", "en": "The 2.7 digest is retained securely. That's our tested fallback, right?", "zh": "2.7摘要已安全保留。这是测试过的回退目标，对吧？"},
+      {"sp": "Hannah", "en": "Yes, both signatures match approved identities. Provenance links their commits and build inputs.", "zh": "对，两者签名都匹配批准身份。来源证明关联提交与构建输入。"},
+      {"sp": "Raj", "en": "I'm on it for staging verification. The smoke test used that exact digest.", "zh": "预发布验证我来确认。冒烟测试用的正是那个摘要。"},
+      {"sp": "Lukas", "en": "Keep secrets outside both artifact images. Confirm runtime secret references work for both.", "zh": "秘密留在两个制品镜像之外。确认两版运行时秘密引用都可用。"},
+      {"sp": "Priya", "en": "So, canary cohort gets no special bypass. Go/no-go still depends on compatibility checks.", "zh": "那么灰度组也没有特殊豁免。是否继续仍取决于兼容检查。"},
+      {"sp": "Hannah", "en": "Secret scanning and runtime checks passed. Signature verification doesn't replace change approval.", "zh": "秘密扫描与运行时检查通过。签名验证不替代变更审批。"},
+      {"sp": "Anika", "en": "Agreed, roughly ten minutes of evidence next. Let's define the comparison gates clearly. I'll attach the reviewed source commit. That keeps support's version report traceable.", "zh": "同意，接下来积累约十分钟证据，明确比较门槛。我附上评审过的源码提交，让支持团队版本报告可追溯。"}
+    ]},
+    {"id": "0278", "part": 3, "stage": "指标门槛", "title": "先定样本，再定暂停和回滚", "premise": "两版固定摘要均通过签名、来源与运行时检查；定义灰度验收。", "listeningTask": "区分正常放量、暂停及回滚三种条件。", "newPhrase": "p553", "phrases": ["p553", "p551", "p010:extra", "p324:extra", "p309:extra", "p008:extra"], "lines": [
+      {"sp": "Hannah", "en": "The promotion gate needs ten minutes. At least a thousand requests per cohort.", "zh": "放量门禁需要十分钟。每组至少一千个请求。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, compare matched requests. Control errors currently sit near point-two percent.", "zh": "好，确认一下，比较匹配请求。对照组错误率目前约0.2%。"},
+      {"sp": "Lukas", "en": "Require canary errors below point-five percent. Its p95 must stay below three hundred.", "zh": "灰度错误率须低于0.5%。p95必须低于三百。"},
+      {"sp": "Raj", "en": "Three hundred milliseconds, right? Control p95 is roughly two-twenty milliseconds today. I'll label the canary cohort explicitly. We must exclude synthetic probe requests.", "zh": "三百毫秒，对吧？今天对照p95大约二百二十毫秒。我明确标注灰度组，必须排除合成探测请求。"},
+      {"sp": "Hannah", "en": "Yes, pause above one-percent errors for two minutes. Or p95 above four hundred likewise.", "zh": "对，错误率超过1%持续两分钟就暂停。p95超过四百毫秒同样处理。"},
+      {"sp": "Anika", "en": "What's the rollback trigger beyond pausing? We mustn't leave bad quotes running indefinitely.", "zh": "除了暂停，回滚触发条件是什么？不能一直运行坏报价。"},
+      {"sp": "Lukas", "en": "Above two-percent errors for five minutes. Confirmed severe correctness failures trigger immediate rollback.", "zh": "错误率超过2%持续五分钟。确认严重正确性失败就立即回滚。"},
+      {"sp": "Priya", "en": "So, keep an eye on both. Missing samples block promotion, not justify it.", "zh": "那么两项都关注。样本不足阻止放量，不是放量理由。"},
+      {"sp": "Hannah", "en": "Review rollout approval after every observation window. No scheduled timer can approve an increase.", "zh": "每个观察窗口后审查放量审批。定时器不能批准增加。"},
+      {"sp": "Raj", "en": "What's the ETA if samples arrive slowly? We'll hold five percent until sufficient evidence.", "zh": "样本来得慢，预计怎么办？证据充分前保持5%。"}
+    ]},
+    {"id": "0279", "part": 4, "stage": "回退条件", "title": "旧代码读写必须兼容新结构", "premise": "指标门槛已记录，流量尚未切入；核验数据库回退条件。", "listeningTask": "听出为何回滚应用不等于删除新字段。", "newPhrase": "p554", "phrases": ["p554", "p552", "p324:extra", "p010:extra", "p327:extra", "p328:extra"], "lines": [
+      {"sp": "Lukas", "en": "We require a backward-compatible schema today. The new quote field is nullable.", "zh": "今天要求向后兼容的结构。新报价字段允许为空。"},
+      {"sp": "Anika", "en": "Okay, old readers ignore that field. Old writers can still omit it.", "zh": "好，旧读取代码忽略这个字段。旧写入代码仍可省略它。"},
+      {"sp": "Hannah", "en": "Did tests include new-version written rows? Old code must handle those too.", "zh": "测试包括新版写出的行吗？旧代码也必须处理。"},
+      {"sp": "Raj", "en": "Yes, the mixed-version smoke test passed. We keep the expanded schema, right?", "zh": "是，混合版本冒烟测试通过。我们保留扩展结构，对吧？"},
+      {"sp": "Lukas", "en": "Correct, no dropped columns or renamed types. Don't run destructive down migrations during rollback.", "zh": "对，没有删列或重命名类型。回滚时不执行破坏性降级迁移。"},
+      {"sp": "Priya", "en": "Just to confirm, that immutable artifact remains available. What's the compatibility rollback trigger?", "zh": "确认一下，那个不可变制品仍可用。兼容性回退触发条件是什么？"},
+      {"sp": "Hannah", "en": "If compatibility evidence fails, stop before deployment. Don't assume binary rollback repairs stored data.", "zh": "兼容证据失败就部署前停止。不能假设二进制回滚能修复存储数据。"},
+      {"sp": "Anika", "en": "So, no data conversion in this release. Quote values retain their existing representation.", "zh": "那么本次不转换数据。报价值保留现有表示方式。"},
+      {"sp": "Lukas", "en": "And both versions retain request deduplication. Retry after rollback mustn't duplicate payments.", "zh": "两版都保留请求去重。回滚后重试不能重复支付。"},
+      {"sp": "Priya", "en": "Fair, go/no-go is approved for five percent. Further increases need my explicit approval. Record these compatibility tests with approval. Any different digest invalidates this permission.", "zh": "明白，批准5%灰度，后续增加需要我明确批准。兼容测试随审批记录，摘要不同就使本次许可失效。"}
+    ]},
+    {"id": "0280", "part": 5, "stage": "首批发布", "title": "5%流量到达，开始观察窗口", "premise": "兼容性测试通过，Priya批准5%灰度，保留旧结构和旧制品。", "listeningTask": "辨别权重配置成功和真实请求进入灰度。", "newPhrase": "p555", "phrases": ["p555", "p553", "p010:extra", "p309:extra", "p327:extra", "p111:extra"], "lines": [
+      {"sp": "Raj", "en": "Traffic weight is now five percent. Running pods show the approved 2.8 digest.", "zh": "流量权重现在5%。运行Pod显示批准的2.8摘要。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, actual requests arrived? A config update isn't enough proof.", "zh": "好，确认一下，实际请求到了吗？配置更新不足以证明。"},
+      {"sp": "Lukas", "en": "Routing counters show the intended split. Existing connections may shift more slowly.", "zh": "路由计数显示预期比例。已有连接转移可能更慢。"},
+      {"sp": "Anika", "en": "The smoke test reached new pods. I'm checking quote correctness itself now.", "zh": "冒烟测试到达新Pod。我正在检查报价正确性本身。"},
+      {"sp": "Hannah", "en": "Version labels identify both cohorts correctly. The promotion gate clock starts here.", "zh": "版本标签正确识别两组。放量门禁的观察从这里开始。"},
+      {"sp": "Raj", "en": "I'll keep an eye on routing. No additional weight changes are scheduled. The previous digest stays locally available. Registry disruption won't force a rebuild.", "zh": "我关注路由，没有安排进一步权重变更。旧摘要在本地保留可用，仓库中断不会迫使重新构建。"},
+      {"sp": "Lukas", "en": "Database writes remain compatible so far. Check the optional field in new rows.", "zh": "目前数据库写入兼容。检查新行中的可选字段。"},
+      {"sp": "Priya", "en": "So, let's keep it under observation. A clean first minute isn't release success.", "zh": "那么继续观察。第一分钟正常不等于发布成功。"},
+      {"sp": "Hannah", "en": "Agreed, error counters need adequate volume. Record timestamps rather than rely on impressions.", "zh": "同意，错误计数需要足够量。记录时间戳，不靠感觉。"},
+      {"sp": "Anika", "en": "Actually, quote errors are appearing now. Maybe one product class is affected.", "zh": "其实现在开始出现报价错误。可能影响某一商品类别。"}
+    ]},
+    {"id": "0281", "part": 6, "stage": "指标异动", "title": "总均值正常，灰度报价明显变差", "premise": "5%灰度已收到请求，初始检查正常，随后出现报价错误。", "listeningTask": "听出分组比较如何避免整体均值掩盖问题。", "newPhrase": "p556", "phrases": ["p556", "p555", "p101:extra", "p010:extra", "p335:extra", "p309:extra"], "lines": [
+      {"sp": "Hannah", "en": "Cohort comparison shows a clear difference. Canary errors reached one-point-four percent.", "zh": "两组比较有明显差异。灰度错误率达到1.4%。"},
+      {"sp": "Raj", "en": "Okay, traffic weight hasn't changed since approval. Control stays around point-two percent.", "zh": "好，批准后权重没有变。对照仍约0.2%。"},
+      {"sp": "Lukas", "en": "Compare matching product classes and regions. Otherwise traffic mix could distort that difference.", "zh": "比较匹配商品类别和区域。否则流量构成可能扭曲差异。"},
+      {"sp": "Anika", "en": "Matched discount quotes fail on canary. The error rate spiked there only.", "zh": "匹配的折扣报价在灰度失败。错误率只在那里陡涨。"},
+      {"sp": "Hannah", "en": "Its p95 is four-thirty milliseconds now. Control remains roughly two-twenty, with fresh samples.", "zh": "灰度p95现在四百三十毫秒。新鲜样本显示对照仍约二百二十。"},
+      {"sp": "Priya", "en": "Just to confirm, how long above thresholds? I'll keep an eye on duration.", "zh": "确认一下，超门槛多久了？我关注持续时间。"},
+      {"sp": "Lukas", "en": "One minute forty seconds so far. We're approaching the two-minute pause threshold.", "zh": "目前一分四十秒。快到两分钟暂停门槛了。"},
+      {"sp": "Raj", "en": "So, prepare the pause without increasing traffic. Our working hypothesis is quote-path regression.", "zh": "那么准备暂停，不增加流量。当前假设是报价路径回归。"},
+      {"sp": "Hannah", "en": "Don't restart pods to reset evidence. Save traces with sensitive fields redacted.", "zh": "别重启Pod重置证据。保存脱敏后的追踪。"},
+      {"sp": "Anika", "en": "Fair, no confirmed incorrect charges yet. Failures occur before payment submission begins. I'll check rejected quote samples directly. We shouldn't infer correctness from status codes.", "zh": "明白，目前未确认错误扣款，失败发生在支付提交前。我直接检查被拒报价样本，不能从状态码推断正确性。"}
+    ]},
+    {"id": "0282", "part": 7, "stage": "暂停放量", "title": "门槛触发就暂停，不靠感觉等", "premise": "灰度错误率和p95持续升高，即将达到两分钟暂停条件。", "listeningTask": "抓住暂停决定、保持的流量比例及下一次检查。", "newPhrase": "p557", "phrases": ["p557", "p553", "p010:extra", "p324:extra", "p008:extra", "p111:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, pause promotion now, thresholds persisted. Keep five percent while we assess rollback.", "zh": "好，门槛持续触发，现在暂停放量。评估回滚时保持5%。"},
+      {"sp": "Raj", "en": "Promotion is disabled in the controller. Just to confirm, no increase at all?", "zh": "控制器已禁用放量。确认一下，完全不增加？"},
+      {"sp": "Lukas", "en": "Correct, disable the queued increase too. An operator pause must survive controller reconciliation.", "zh": "对，也禁用排队的增加操作。控制器同步不能覆盖人工暂停。"},
+      {"sp": "Anika", "en": "The promotion gate has failed, right? I'd rather not wait for the window.", "zh": "放量门禁失败了，对吧？我不想等窗口结束。"},
+      {"sp": "Hannah", "en": "We aren't waiting for that window. Evaluate the predefined rollback trigger continuously.", "zh": "我们不是在等那个窗口。持续评估预设回滚触发条件。"},
+      {"sp": "Priya", "en": "What's the ETA for trace evidence? Maybe two minutes, not another rollout. I'll notify support about delayed quotes. They shouldn't advise repeated payment submissions.", "zh": "追踪证据预计多久？可以两分钟，不是再发一次。我通知支持团队报价延迟，不能建议反复提交支付。"},
+      {"sp": "Lukas", "en": "The discount lookup waits on retries. Retrying a deterministic error won't resolve it.", "zh": "折扣查询在等待重试。重试确定性错误解决不了问题。"},
+      {"sp": "Raj", "en": "So, let's keep it under observation briefly. The old digest is ready for rollback.", "zh": "那么短暂继续观察。旧摘要已准备好回滚。"},
+      {"sp": "Hannah", "en": "Both cohorts now exceed a thousand requests. Canary errors just crossed two percent.", "zh": "两组现在都超过一千请求。灰度错误率刚超过2%。"},
+      {"sp": "Anika", "en": "I'll timestamp that crossing for accuracy. Correctness checks still show rejected quotes, not charges.", "zh": "我记录越线时间以确保准确。正确性检查仍是报价拒绝，不是扣款。"}
+    ]},
+    {"id": "0283", "part": 8, "stage": "回滚决策", "title": "持续越线，审批回滚旧摘要", "premise": "放量已暂停，灰度错误超过2%；继续计时并核对兼容回滚准备。", "listeningTask": "听出审批人、操作人和保留数据库扩展的条件。", "newPhrase": "p558", "phrases": ["p558", "p554", "p324:extra", "p010:extra", "p206:extra", "p011:extra"], "lines": [
+      {"sp": "Hannah", "en": "Errors exceeded two percent for five minutes. That meets the documented rollback trigger.", "zh": "错误率超过2%已持续五分钟。达到记录的回滚触发条件。"},
+      {"sp": "Priya", "en": "Okay, let's abort the rollout now. I approve: roll back the release.", "zh": "好，现在中止发布。我批准回滚这次发布。"},
+      {"sp": "Lukas", "en": "The backward-compatible schema remains in place. Old code reads these new rows correctly.", "zh": "向后兼容的结构保持不动。旧代码能正确读取这些新行。"},
+      {"sp": "Raj", "en": "Let me play that back first. Restore verified 2.7, retain expanded schema, right?", "zh": "我先复述：恢复验证过的2.7，保留扩展结构，对吧？"},
+      {"sp": "Hannah", "en": "Yes, reverify signer and digest before applying. Keep deployment receipts for each operation.", "zh": "对，执行前再验签名者和摘要。每个操作都保留部署回执。"},
+      {"sp": "Anika", "en": "Just to confirm, stop new canary assignments. Drain active requests without duplicating payments.", "zh": "确认一下，停止新的灰度分配。排空在途请求，不重复支付。"},
+      {"sp": "Lukas", "en": "Keep existing idempotency keys across retries. No destructive migration or blanket data reset.", "zh": "重试保留现有幂等键。不执行破坏性迁移或全量数据重置。"},
+      {"sp": "Priya", "en": "So, Raj executes under this approval. Stop if compatibility or artifact checks fail.", "zh": "那么Raj按这次审批执行。兼容性或制品检查失败就停止。"},
+      {"sp": "Hannah", "en": "Unknown controller results require state reconciliation. Don't blindly repeat the deployment command.", "zh": "控制器结果未知需要核对状态。不能盲目重复部署命令。"},
+      {"sp": "Raj", "en": "Understood, applying the recorded operation identifier. Then I'll verify running digests and routing. I won't retry an unknown result. I'll reconcile the controller state first.", "zh": "明白，使用记录的操作标识执行，随后核对运行摘要和路由。结果未知我不重试，先核对控制器状态。"}
+    ]},
+    {"id": "0284", "part": 9, "stage": "验证恢复", "title": "恢复旧版后仍需看新鲜业务指标", "premise": "Priya批准回滚，Raj恢复2.7摘要并停止新灰度分配，结构保持扩展。", "listeningTask": "区分操作完成、流量恢复和正确性恢复。", "newPhrase": "p559", "phrases": ["p559", "p558", "p010:extra", "p110:extra", "p309:extra", "p327:extra"], "lines": [
+      {"sp": "Raj", "en": "Rollback verification shows only 2.7 serving. No new requests reach canary pods.", "zh": "回滚验证显示只有2.7提供服务。没有新请求到灰度Pod。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, receipts reconcile? We did roll back the release cleanly?", "zh": "好，确认一下，回执已核对？这次发布干净回滚了吗？"},
+      {"sp": "Lukas", "en": "Receipts and running digests match now. The schema expansion remains, as approved.", "zh": "回执和运行摘要现在匹配。结构扩展按审批保留。"},
+      {"sp": "Anika", "en": "The discount quote smoke test passes. Payment deduplication still works itself.", "zh": "折扣报价冒烟测试通过。支付去重机制本身仍正常。"},
+      {"sp": "Hannah", "en": "Ten fresh minutes of metrics look healthy. Errors point-two percent, p95 two-twenty milliseconds.", "zh": "新的十分钟指标正常。错误率0.2%，p95二百二十毫秒。"},
+      {"sp": "Raj", "en": "I'll keep an eye on old writers. New optional fields haven't blocked writes.", "zh": "我关注旧写入代码。新可选字段没有阻塞写入。"},
+      {"sp": "Lukas", "en": "Matched discount traffic has recovered too. No observed duplicate charges in reconciliation.", "zh": "匹配的折扣流量也恢复了。核对未发现重复扣款。"},
+      {"sp": "Priya", "en": "So, we're back to baseline for service. The failed candidate remains blocked.", "zh": "那么服务回到基线。失败的候选版本继续阻止发布。"},
+      {"sp": "Hannah", "en": "Archive traces under restricted evidence access. Recovery doesn't erase the regression finding.", "zh": "追踪归档为受限证据。恢复不抹掉回归发现。"},
+      {"sp": "Anika", "en": "Fair, I'll tell support service recovered. Candidate repair needs fresh tests and approval. The evidence covers both product classes. I'll include that coverage with timestamps.", "zh": "明白，我告诉支持团队服务恢复，候选修复需新测试和审批。证据覆盖两类商品，我附上覆盖范围和时间戳。"}
+    ]},
+    {"id": "0285", "part": 10, "stage": "发布复盘", "title": "修报价回归，不删除回滚所需兼容性", "premise": "2.7恢复后观察十分钟健康，2.8候选继续阻止；整理发布复盘。", "listeningTask": "听出阶段化迁移的收缩条件和下一次验收。", "newPhrase": "p560", "phrases": ["p560", "p556", "p009:extra", "p010:extra", "p310:extra", "p324:extra"], "lines": [
+      {"sp": "Lukas", "en": "Expand and contract separates migration stages. We aren't ready for contraction yet.", "zh": "先扩展后收缩把迁移拆成阶段。现在还不能收缩。"},
+      {"sp": "Priya", "en": "Okay, first action item fixes discount lookup. Anika owns evidence by Thursday.", "zh": "好，第一个行动项修折扣查询。Anika周四前负责证据。"},
+      {"sp": "Hannah", "en": "Add cohort comparison for discount traffic. Today's aggregate dashboard hid that regression initially.", "zh": "增加折扣流量分组比较。今天整体面板最初掩盖了回归。"},
+      {"sp": "Anika", "en": "Just to confirm, new approval after fixes? We won't reuse today's permission, right?", "zh": "确认一下，修复后重新审批？不复用今天的许可，对吧？"},
+      {"sp": "Lukas", "en": "Correct, old versions and rollback paths remain. Remove fields only after compatibility consumers retire.", "zh": "对，旧版和回滚路径保留。兼容消费者退役后才移除字段。"},
+      {"sp": "Raj", "en": "I'll test pause persistence by Friday. The rollback trigger should survive controller restarts. I'll attach failure-injection results for review. Approval must depend on the tested controller.", "zh": "我周五前测试暂停持久性，回滚触发条件应跨控制器重启保留。我附故障注入结果供评审，审批须基于测过的控制器。"},
+      {"sp": "Hannah", "en": "Also test unknown deployment outcomes explicitly. Receipts should prevent duplicate rollout side effects.", "zh": "也明确测试部署结果未知的情况。回执应防止重复发布副作用。"},
+      {"sp": "Priya", "en": "So, we'll close the loop Friday. Keep today's candidate unavailable for promotion.", "zh": "那么周五反馈闭环。今天的候选保持不可晋级。"},
+      {"sp": "Lukas", "en": "No schema contraction during that follow-up. It needs its own reviewed migration plan.", "zh": "那次跟进不收缩结构。它需要独立评审迁移计划。"},
+      {"sp": "Anika", "en": "Fair, maybe we lost rollout time. We didn't trade correctness for the window.", "zh": "明白，可能损失了发布时间。但没有为赶窗口牺牲正确性。"}
+    ]}
+  ]
+}

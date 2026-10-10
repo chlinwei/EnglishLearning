@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "仅文本编稿，音色待试听，音频比例未验。纠正既有p203说明：readiness失败改变就绪状态及常规Service端点资格，不直接重启容器；liveness和startup失败达到阈值才可触发容器重启。每段六引用；未来回访不计实绩。",
+  "series": {"id": "sc-S31-k8s-readiness-misjudgment", "title": "就绪误判：进程活着，服务端点却掉了", "domain": "k8s", "group": "incident", "service": "checkout API", "premise": "checkout发布只改探针超时配置，四个副本中两个反复失去就绪资格。应用错误增加，但没有容器退出证据。", "outcome": "同路径测试确认一秒超时过于严格，健康处理器在合法请求负载下偶尔需约一点四秒。经应用与平台授权先将一个副本恢复为原先两秒超时，验证真实流量与故障检测后逐个修复。保留依赖故障风险，补充探针分工与负载测试。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator and change approver", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Kubernetes platform on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Checkout application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and rollout safety reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Probe and traffic validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p581", "en": "ready endpoints", "zh": "可接收服务流量的就绪端点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p582", "en": "endpoint removal", "zh": "撤销端点的流量接收资格", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p583", "en": "liveness probe", "zh": "存活探针", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p584", "en": "probe timeout", "zh": "探针超时设置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p585", "en": "false negative", "zh": "正常状态被误判为失败", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p586", "en": "readiness gate", "zh": "额外的Pod就绪条件门槛", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p587", "en": "endpoint propagation", "zh": "端点状态向流量路径传播", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p588", "en": "failure threshold", "zh": "连续失败次数阈值", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p589", "en": "startup probe", "zh": "启动探针", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p590", "en": "probe contract", "zh": "探针应检测什么的约定", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "候选回访仅是未来排期，不是已发生复现；本稿旧表达仅来自p001-p350或本场此前段。", "futureCandidates": {"S42": ["p581", "p582", "p583", "p584", "p585"], "S44": ["p586", "p587", "p588", "p589", "p590"]}},
+  "dialogues": [
+    {"id": "0306", "part": 1, "stage": "告警", "title": "就绪异常，不先猜重启", "premise": "探针配置发布后四副本中两个就绪状态反复变化。", "listeningTask": "区分就绪异常、错误率和待核实的进程状态。", "newPhrase": "p581", "phrases": ["p581", "p003", "p010:extra", "p109:extra", "p101:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "We've lost two ready endpoints. It's flapping after the probe change.", "zh": "两个就绪端点没了，探针变更后状态反复变化。"},
+      {"sp": "Lukas", "en": "Two out of four replicas? Are containers actually exiting, or just unready?", "zh": "四副本里的两个？容器真的退出了，还是只是未就绪？"},
+      {"sp": "Anika", "en": "The error rate spiked. I haven't checked container exits yet.", "zh": "错误率陡涨了，我还没核对容器是否退出。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, scope is checkout, right?", "zh": "好，我来协调。确认一下，目前范围是结账服务，对吧？"},
+      {"sp": "Hannah", "en": "Yes, from this alert. Other services still need a separate check.", "zh": "这条告警是这样，其他服务还得另查。"},
+      {"sp": "Raj", "en": "The changed deployment is checkout only. I'll compare status and recent events.", "zh": "这次只改了结账部署，我对比状态和近期事件。"},
+      {"sp": "Lukas", "en": "Keep the current evidence. A restart could hide the original state.", "zh": "保留现有证据，重启可能掩盖原始状态。"},
+      {"sp": "Priya", "en": "So, what's the ETA for that comparison? About two minutes?", "zh": "那么，对比预计多久？两分钟左右吗？"},
+      {"sp": "Hannah", "en": "That should cover initial samples. It won't establish the cause yet.", "zh": "初步采样应该够，但还不能确定原因。"},
+      {"sp": "Anika", "en": "I'll check customer failures alongside it. No application restart for now.", "zh": "我同时核对客户请求失败，暂不重启应用。"}
+    ]},
+    {"id": "0307", "part": 2, "stage": "服务影响", "title": "端点减少如何影响请求", "premise": "确认告警来自checkout；先核对真实流量与就绪端点变化。", "listeningTask": "理解常规Service新流量与已有连接行为并不相同。", "newPhrase": "p582", "phrases": ["p582", "p581", "p106:extra", "p010:extra", "p309:extra", "p335:extra"], "lines": [
+      {"sp": "Anika", "en": "Endpoint removal matches the error rise. The remaining replicas take more requests.", "zh": "端点撤出与错误上涨时间吻合，剩余副本接了更多请求。"},
+      {"sp": "Hannah", "en": "Do we know the routing behavior? Existing connections might behave differently.", "zh": "知道路由行为了吗？已有连接可能表现不同。"},
+      {"sp": "Raj", "en": "This Service uses ready endpoints normally. Unready replicas stop receiving new routed traffic.", "zh": "这个Service正常使用就绪端点，未就绪副本不再接收新路由流量。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, existing connections aren't automatically killed, right?", "zh": "好，确认一下，已有连接不会因此自动被杀掉，对吧？"},
+      {"sp": "Lukas", "en": "Correct. Endpoint updates don't guarantee immediate changes on every traffic path.", "zh": "对，端点更新不保证每条流量路径立即变化。"},
+      {"sp": "Anika", "en": "That's our blast radius from current logs. Roughly three percent of requests fail.", "zh": "当前日志显示的影响范围就是这些请求，约百分之三失败。"},
+      {"sp": "Hannah", "en": "I'll keep an eye on routing. Separate failures from slow successful requests.", "zh": "我关注路由，分开统计失败和慢但成功的请求。"},
+      {"sp": "Raj", "en": "Our working hypothesis is probe misjudgment. We still need application evidence.", "zh": "当前假设是探针误判，但还需要应用证据。"},
+      {"sp": "Lukas", "en": "Don't equate a healthy process with readiness. Dependencies could still prevent service.", "zh": "不要把进程正常等同于就绪，依赖故障仍可能使服务不可用。"},
+      {"sp": "Priya", "en": "So, check exits and dependency results next. Keep that distinction in our update.", "zh": "那么，接下来查退出和依赖结果，更新里保留这个区分。"}
+    ]},
+    {"id": "0308", "part": 3, "stage": "排除退出", "title": "未重启，不等于一定可服务", "premise": "端点撤出关联错误上涨，但探针误判尚未得到直接证据。", "listeningTask": "听出readiness与liveness职责，及零重启能排除什么。", "newPhrase": "p583", "phrases": ["p583", "p332", "p302:extra", "p203:extra", "p010:extra", "p103:extra"], "lines": [
+      {"sp": "Raj", "en": "The restart count hasn't changed. The liveness probe stayed successful throughout.", "zh": "重启计数没变，存活探针一直成功。"},
+      {"sp": "Lukas", "en": "Then readiness didn't restart anything. It controls readiness, not container restart policy.", "zh": "所以readiness没有重启任何东西，它控制就绪，不控制容器重启策略。"},
+      {"sp": "Anika", "en": "Let me tail the log. No exits, and sampled dependency calls succeed.", "zh": "我盯一下日志，没有退出，抽样依赖调用也成功。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, we can rule that out as repeated exits, right?", "zh": "好，确认一下，可以排除反复退出，对吧？"},
+      {"sp": "Hannah", "en": "Yes, in this interval. That doesn't prove every request can complete.", "zh": "这个时段可以，但不能证明所有请求都能完成。"},
+      {"sp": "Raj", "en": "I said it caused restarts earlier. Correction: it removed readiness, not running containers.", "zh": "我之前说它造成重启，纠正一下：它撤销就绪，不会移除正在运行的容器。"},
+      {"sp": "Lukas", "en": "Good correction. Repeated liveness failures can restart a container after its threshold.", "zh": "这个纠正很重要，liveness连续失败达到阈值才可能重启容器。"},
+      {"sp": "Anika", "en": "Maybe the readiness probe is too aggressive. I'll time the same health handler.", "zh": "可能就绪探针太严格了，我测同一个健康处理器的耗时。"},
+      {"sp": "Hannah", "en": "Use the kubelet path too. Local tests might miss a path-specific problem.", "zh": "也测kubelet走的路径，本地测试可能遗漏路径特有问题。"},
+      {"sp": "Priya", "en": "So, compare both paths under current load. Don't change the evidence yet.", "zh": "那么，在当前负载下比较两条路径，先不改变现场。"}
+    ]},
+    {"id": "0309", "part": 4, "stage": "配置对照", "title": "一秒与两秒的差别", "premise": "无容器退出，liveness正常；开始对比部署前后有效探针配置。", "listeningTask": "抓住唯一变化项，而不是将所有阈值一起调整。", "newPhrase": "p584", "phrases": ["p584", "p583", "p330:extra", "p010:extra", "p335:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The probe timeout changed from two seconds. It's one second now.", "zh": "探针超时从两秒改成了现在的一秒。"},
+      {"sp": "Hannah", "en": "Only readiness changed? Compare the effective spec against the last revision.", "zh": "只改了readiness？把生效配置与上一版对比。"},
+      {"sp": "Anika", "en": "Yes, path and failure count stayed unchanged. The liveness probe uses its separate handler.", "zh": "是的，路径和失败次数没变，存活探针仍用单独的处理器。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, no application release, right? This was configuration only.", "zh": "好，确认一下，没发布应用版本，对吧？这次只有配置。"},
+      {"sp": "Lukas", "en": "Correct, the image digest matches. Check request load before blaming the timeout.", "zh": "对，镜像摘要一致，但归咎于超时前还要核对请求负载。"},
+      {"sp": "Raj", "en": "I'm on it. Managed configuration records both revisions and the approval.", "zh": "我来查，统一配置管理记录了两版配置和审批。"},
+      {"sp": "Hannah", "en": "The handler sometimes takes about fourteen hundred milliseconds. That's above one second.", "zh": "处理器有时花约一千四百毫秒，超过一秒。"},
+      {"sp": "Anika", "en": "Our working hypothesis fits those samples. But timing alone doesn't establish service health.", "zh": "当前假设符合这些样本，但仅耗时不能证明服务健康。"},
+      {"sp": "Lukas", "en": "Exactly. Pair each slow probe with application and dependency outcomes.", "zh": "正是如此，把每次慢探针与应用和依赖结果对应起来。"},
+      {"sp": "Priya", "en": "So, retain both revisions for review. We'll decide after that paired comparison.", "zh": "那么，保留两版配置供评审，完成对应比较后再决定。"}
+    ]},
+    {"id": "0310", "part": 5, "stage": "确认阈值", "title": "误判有证据，但不能关探针", "premise": "仅readiness超时由两秒降至一秒，慢探针样本正在关联业务结果。", "listeningTask": "听出误判的证据范围、批准的修复和不能采取的捷径。", "newPhrase": "p585", "phrases": ["p585", "p584", "p324:extra", "p010:extra", "p004:extra", "p306:extra"], "lines": [
+      {"sp": "Anika", "en": "These samples show a false negative. The handler completes successfully after one second.", "zh": "这些样本显示误判，处理器在一秒后成功完成。"},
+      {"sp": "Hannah", "en": "And matching application requests succeed. We reproduced it under representative load.", "zh": "对应的应用请求也成功了，在代表性负载下复现了问题。"},
+      {"sp": "Raj", "en": "The old probe timeout covers those samples. Restoring it should buy us time.", "zh": "原先超时覆盖这些样本，恢复原值应能争取时间。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, restore two seconds, right? Not disable readiness entirely.", "zh": "好，确认一下，恢复两秒，对吧？不是彻底关闭readiness。"},
+      {"sp": "Lukas", "en": "Disabling it could route traffic to unhealthy replicas. What's the rollback trigger?", "zh": "关闭可能把流量发给不健康副本，回退触发条件是什么？"},
+      {"sp": "Anika", "en": "Higher customer failures mean stop expansion. Failed health detection means stop too.", "zh": "客户失败增多就停止扩大，健康故障检测失效也要停。"},
+      {"sp": "Hannah", "en": "Test dependency failure in staging. Don't inject that failure into production now.", "zh": "在预发布测试依赖失败，现在不要向生产注入这个故障。"},
+      {"sp": "Raj", "en": "Maybe increase every threshold? No, let's park that. One variable makes comparison clearer.", "zh": "要不要把所有阈值都提高？不，先搁置，单变量更便于比较。"},
+      {"sp": "Lukas", "en": "I agree with the narrow change. Check replacement capacity before approving the canary.", "zh": "我同意窄范围变更，批准灰度前先查替换容量。"},
+      {"sp": "Priya", "en": "So, approval covers one replica initially. Raj owns execution; Hannah owns validation.", "zh": "那么，先批准一个副本，Raj执行，Hannah验收。"}
+    ]},
+    {"id": "0311", "part": 6, "stage": "灰度修复", "title": "替换副本与额外就绪条件", "premise": "批准先恢复一个副本的两秒超时，已确认替换容量。", "listeningTask": "区分探针成功与Pod整体就绪，并听清变更范围。", "newPhrase": "p586", "phrases": ["p586", "p584", "p323:extra", "p010:extra", "p014:extra", "p111:extra"], "lines": [
+      {"sp": "Raj", "en": "The staged rollout replaced one replica. Its probe timeout now allows two seconds.", "zh": "分阶段发布替换了一个副本，它的探针超时现在允许两秒。"},
+      {"sp": "Lukas", "en": "Any additional readiness gate? Probe success alone might not make it ready.", "zh": "有没有额外就绪门槛？探针成功不一定代表整个Pod就绪。"},
+      {"sp": "Raj", "en": "No custom readiness gate here. All container readiness conditions are now satisfied.", "zh": "这里没有自定义就绪门槛，所有容器就绪条件现在都满足了。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, one replacement only, right? No wider rollout yet.", "zh": "好，确认一下，只替换一个，对吧？还没扩大发布。"},
+      {"sp": "Hannah", "en": "Right. Let's keep it under observation. Check actual Service traffic as well.", "zh": "对，保持观察，也检查真实Service流量。"},
+      {"sp": "Anika", "en": "I'm on it. Customer request samples are successful on that new replica.", "zh": "我来查，这个新副本上的客户请求样本成功。"},
+      {"sp": "Lukas", "en": "Don't count only synthetic successes. Compare errors and latency with untouched replicas.", "zh": "不要只数模拟请求成功，对比未变副本的错误和延迟。"},
+      {"sp": "Priya", "en": "So, maybe ten minutes of comparison. Keep the deployment paused meanwhile.", "zh": "那么，先比较十分钟左右，期间继续暂停扩大部署。"},
+      {"sp": "Hannah", "en": "Staging still rejects the broken dependency. Detection remains within our agreed window.", "zh": "预发布仍能拒绝坏依赖，检测时间还在约定窗口内。"},
+      {"sp": "Raj", "en": "I'll attach that evidence to approval. Probe success isn't our only acceptance check.", "zh": "我把证据附在审批里，探针成功不是唯一验收项。"}
+    ]},
+    {"id": "0312", "part": 7, "stage": "验证流量", "title": "端点就绪后流量是否到达", "premise": "灰度副本探针与整体就绪均通过，预发布依赖故障检测有效。", "listeningTask": "听清状态传播、真实流量与恢复宣告的先后顺序。", "newPhrase": "p587", "phrases": ["p587", "p581", "p585:extra", "p010:extra", "p309:extra", "p110:extra"], "lines": [
+      {"sp": "Hannah", "en": "Endpoint propagation is visible now. The gateway is sending new requests there.", "zh": "现在看到端点状态传播了，网关正往那里发送新请求。"},
+      {"sp": "Raj", "en": "Three ready endpoints remain stable. The unchanged fourth replica still drops readiness.", "zh": "三个就绪端点保持稳定，未修改的第四个副本仍掉就绪。"},
+      {"sp": "Lukas", "en": "That comparison supports the fix. Is request load comparable across replicas?", "zh": "这个对照支持修复判断，各副本请求负载可比吗？"},
+      {"sp": "Anika", "en": "Yes, roughly comparable in this window. No false negative on the changed replica.", "zh": "这个窗口里大致可比，修改副本没有出现误判。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, don't say we're back to baseline yet, right?", "zh": "好，确认一下，还不能说回到基线，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Aggregate latency remains slightly high. The remaining replicas still carry extra load.", "zh": "对，总体延迟仍略高，剩余副本仍承担额外负载。"},
+      {"sp": "Raj", "en": "I'll keep an eye on endpoint changes. We need stability before expanding anything.", "zh": "我持续关注端点变化，扩大前必须稳定。"},
+      {"sp": "Lukas", "en": "Check failure detection evidence too. More endpoints alone isn't proof of correctness.", "zh": "也检查故障检测证据，端点更多本身不能证明正确。"},
+      {"sp": "Anika", "en": "Staging evidence is attached already. Production requests and dependency samples look healthy.", "zh": "预发布证据已经附上，生产请求和依赖样本看起来正常。"},
+      {"sp": "Priya", "en": "So, prepare the next reviewed batch. We'll restore the rest one by one.", "zh": "那么，准备下一批评审，逐个恢复其余副本。"}
+    ]},
+    {"id": "0313", "part": 8, "stage": "扩展修复", "title": "只恢复超时，不顺手改阈值", "premise": "灰度证据支持修复，但第四副本仍未就绪，总体延迟还未恢复。", "listeningTask": "辨别审批范围和避免同时调整多个探针参数的理由。", "newPhrase": "p588", "phrases": ["p588", "p584", "p010:extra", "p324:extra", "p330:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The failure threshold stays at three. We're restoring only the probe timeout.", "zh": "失败次数阈值仍是三，只恢复探针超时。"},
+      {"sp": "Lukas", "en": "Why not allow more failed checks? Would that reduce the remaining noise?", "zh": "为什么不允许更多次失败？会不会减少剩余噪声？"},
+      {"sp": "Anika", "en": "It might, but delays real failure detection. We haven't tested that trade yet.", "zh": "可能会，但会延迟真实故障检测，还没测试这个取舍。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, timeout change only, right? That's the reviewed scope.", "zh": "好，确认一下，只改超时，对吧？这才是评审范围。"},
+      {"sp": "Hannah", "en": "Agreed. Keep the same rollback trigger. Stop if customer failures rise.", "zh": "同意，保留相同回退触发条件，客户失败上升就停。"},
+      {"sp": "Raj", "en": "I'm on it through managed configuration. The next replacement is ready now.", "zh": "我通过统一配置执行，下一个替换副本现在就绪。"},
+      {"sp": "Lukas", "en": "Its traffic checks pass as well. Continue only after each replacement stabilizes.", "zh": "它的流量检查也通过了，每个替换稳定后再继续。"},
+      {"sp": "Anika", "en": "So, about five minutes between replacements. I'll compare customer errors each time.", "zh": "那么，替换之间约五分钟，我每次都比较客户错误。"},
+      {"sp": "Hannah", "en": "The remaining revisions are now corrected. All four replicas have the approved timeout.", "zh": "剩余版本现在都纠正了，四个副本都是批准的超时。"},
+      {"sp": "Priya", "en": "Keep the incident open for observation. Configuration completion isn't service acceptance yet.", "zh": "故障继续开放观察，配置完成还不等于服务验收。"}
+    ]},
+    {"id": "0314", "part": 9, "stage": "稳定观察", "title": "启动期间另有探针职责", "premise": "四副本均恢复两秒超时，进入全服务稳定观察。", "listeningTask": "理解startup如何影响其他探针启动，以及恢复与永久改进的区别。", "newPhrase": "p589", "phrases": ["p589", "p583", "p349:extra", "p110:extra", "p010:extra", "p111:extra"], "lines": [
+      {"sp": "Anika", "en": "We're back to baseline for twenty minutes. The mitigation is holding across replicas.", "zh": "已经回到基线二十分钟，所有副本的缓解持续有效。"},
+      {"sp": "Hannah", "en": "All four endpoints remain stable. No rising errors or hidden dependency failures.", "zh": "四个端点保持稳定，没有错误上涨，也没发现隐藏依赖故障。"},
+      {"sp": "Raj", "en": "The startup probe passed on replacements. It protects their initialization window.", "zh": "替换副本的启动探针通过了，它保护初始化窗口。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, readiness waits for startup success here, right?", "zh": "好，确认一下，这里readiness要等启动成功，对吧？"},
+      {"sp": "Lukas", "en": "Yes, the liveness probe waits too. Startup failures reaching its threshold can restart containers.", "zh": "对，存活探针也等，startup失败达到阈值可能重启容器。"},
+      {"sp": "Anika", "en": "That's different from readiness failure. Our running replicas weren't repeatedly restarting earlier.", "zh": "这与readiness失败不同，之前运行副本没有反复重启。"},
+      {"sp": "Hannah", "en": "Let's keep it under observation. Startup success doesn't guarantee later dependency health.", "zh": "继续观察，启动成功不保证后续依赖一直健康。"},
+      {"sp": "Raj", "en": "So, maybe another thirty minutes. I'll keep probe and request signals together.", "zh": "那么，再观察三十分钟左右，我一起监控探针和请求信号。"},
+      {"sp": "Lukas", "en": "Record the recovered interval clearly. We still owe a durable handler review.", "zh": "清楚记录恢复时段，我们仍欠长期处理器评审。"},
+      {"sp": "Priya", "en": "I'll report recovery, not permanent prevention. We'll assign that review next.", "zh": "我报告恢复，不宣称永久预防，接下来指派评审。"}
+    ]},
+    {"id": "0315", "part": 10, "stage": "探针规范", "title": "把探针职责写进规范", "premise": "服务稳定恢复，超时误判证据已确认，需安排长期探针设计与测试。", "listeningTask": "听出技术原因、规范任务和仍未证实的流程原因。", "newPhrase": "p590", "phrases": ["p590", "p585", "p009:extra", "p012:extra", "p013:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, just to recap, one second caused this false negative. Release review missed it.", "zh": "好，小结一下，一秒超时造成这次误判，发布评审漏掉了。"},
+      {"sp": "Lukas", "en": "We know the technical cause. Why review missed it still needs investigation.", "zh": "技术原因已知，评审为什么漏掉仍需调查。"},
+      {"sp": "Anika", "en": "First action item: define the probe contract. I'll own application semantics by Friday.", "zh": "第一项任务是定义探针契约，我周五前负责应用语义。"},
+      {"sp": "Hannah", "en": "Include representative load and dependency failures. Test detection timing, not just successful responses.", "zh": "包含代表性负载和依赖失败，测故障检测时间，不只测成功响应。"},
+      {"sp": "Raj", "en": "Who's picking this up for platform checks? I'll verify startup and liveness separation.", "zh": "平台检查谁来接？我验证startup和liveness的分工。"},
+      {"sp": "Priya", "en": "Readiness doesn't restart containers, right? Put that correction in the runbook itself.", "zh": "readiness不会重启容器，对吧？把这个纠正写进运行手册。"},
+      {"sp": "Lukas", "en": "I'll review failure thresholds with Raj. Increasing them needs detection-window evidence.", "zh": "我和Raj评审失败阈值，提高它们必须有检测窗口证据。"},
+      {"sp": "Anika", "en": "So, about one week for handler tests. We'll track results before another tightening.", "zh": "那么，处理器测试约一周，下次收紧前跟踪结果。"},
+      {"sp": "Hannah", "en": "I'll review the paired traffic evidence. Endpoint counts alone won't pass acceptance.", "zh": "我评审配对流量证据，仅端点数量不能通过验收。"},
+      {"sp": "Raj", "en": "We'll close the loop with that record. Recovery is done; prevention work stays assigned.", "zh": "我们带着记录闭环，恢复完成，预防工作继续有负责人。"}
+    ]}
+  ]
+}

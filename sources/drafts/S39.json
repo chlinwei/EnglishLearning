@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "周进展站会十段人工双语草稿。表达依赖限p001-p350和本文件先前段落；未来回访不计实绩。音色待试听、音频60/40待核验，不含时间轴。",
+  "series": {"id": "sc-S39-cloud-migration-standup", "title": "云迁移周站会：说清进度与依赖", "domain": "cloud", "group": "ops-standup", "service": "catalog migration to cloud east", "premise": "周三迁移站会确认周五测试就绪目标。网络已通，数据仍追赶，目标身份缺少受限密钥权限；生产切换另设审批。", "outcome": "限定周五承诺为测试就绪并附数据、权限、容量验收条件。安排最小权限评审与测试支援，每日下午更新依赖，未达标则调整测试日期；不承诺本周生产切换。"},
+  "speakers": {
+    "Priya": {"role": "Migration delivery lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Cloud networking engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Data migration owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and cutover reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "IAM and test environment engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p661", "en": "on track", "zh": "按计划推进", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p662", "en": "private connectivity", "zh": "私有网络连通", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p663", "en": "replication checkpoint", "zh": "复制进度检查点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p664", "en": "blocked on", "zh": "受阻于某项依赖", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p665", "en": "environment parity", "zh": "环境关键配置一致性", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p666", "en": "cutover dependency", "zh": "切换前必须满足的依赖", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p667", "en": "milestone at risk", "zh": "里程碑有延期风险", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p668", "en": "pair on this", "zh": "结对处理这项工作", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p669", "en": "ready for testing", "zh": "已具备测试条件", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p670", "en": "dependency update", "zh": "依赖事项进展更新", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选仅作安排，不计实际复现。", "futureCandidates": ["p661", "p662", "p663", "p664", "p665", "p666", "p667", "p668", "p669", "p670"]},
+  "dialogues": [
+    {"id": "0386", "part": 1, "stage": "迁移目标", "title": "周五目标是测试就绪", "premise": "周三站会开场，需要统一本周里程碑口径。", "listeningTask": "抓住测试就绪与生产切换的区别。", "newPhrase": "p661", "phrases": ["p661", "p010", "p007", "p008:extra", "p012:extra", "p004:extra"], "lines": [
+      {"sp": "Priya", "en": "Are we on track for Friday's rehearsal? I've got a hard stop at ten.", "zh": "周五演练是否按计划？我十点必须结束。"},
+      {"sp": "Lukas", "en": "First, Friday means testing readiness, not cutover. So, production approval needs a separate review.", "zh": "先明确，周五是测试就绪，不是切换。所以，生产批准需要独立评审。"},
+      {"sp": "Raj", "en": "Yesterday I finished the private network route. Today I'll test service paths from both zones.", "zh": "昨天完成私网路由。今天从两个区测试服务路径。"},
+      {"sp": "Hannah", "en": "My test environment is mostly provisioned now. The application identity still needs key access.", "zh": "测试环境大部分已建好。应用身份仍需要密钥访问。"},
+      {"sp": "Anika", "en": "Well, copying continues from the source database. Maybe another day before the backlog clears.", "zh": "嗯，数据仍从源数据库复制。积压可能还要一天清完。"},
+      {"sp": "Priya", "en": "Just to confirm, source stays authoritative, right? What's the ETA for a firmer data estimate?", "zh": "确认一下，源端仍是权威数据源，对吧？更可靠的数据估时何时能给？"},
+      {"sp": "Lukas", "en": "Give the estimate after today's throughput sample. A copied percentage alone won't predict completion.", "zh": "今天吞吐样本后再估时。复制百分比本身不能预测完成。"},
+      {"sp": "Raj", "en": "A production date now? Let's park that. Network readiness is only one of several gates.", "zh": "现在定生产日期？先放一边。网络就绪只是多个门槛之一。"},
+      {"sp": "Hannah", "en": "Right, I'll explain the permission gap next. We can resolve that without expanding everyone's access.", "zh": "对，接下来说明权限缺口。不用扩大所有人的访问权限就能解决。"},
+      {"sp": "Anika", "en": "Just to recap, we're tracking rehearsal readiness. I'll keep migration estimates separate from release promises.", "zh": "小结一下，我们跟踪演练就绪。我会区分迁移估时与发布承诺。"}
+    ]},
+    {"id": "0387", "part": 2, "stage": "网络进展", "title": "路由已通，不代表业务路径都通", "premise": "Raj汇报路由完成，补充今日网络测试和未决项。", "listeningTask": "辨别网络配置完成和应用路径验证完成。", "newPhrase": "p662", "phrases": ["p662", "p661", "p327", "p010:extra", "p309:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, private connectivity works in both zones. Route tables match the approved network design.", "zh": "好，两个区私网均已连通。路由表符合批准设计。"},
+      {"sp": "Lukas", "en": "Well, what did yesterday's check actually cover? A route doesn't prove name resolution or authorization.", "zh": "嗯，昨天检查实际覆盖什么？路由不能证明名称解析或授权。"},
+      {"sp": "Raj", "en": "Right, our smoke test covered internal DNS. Database connections wait for Hannah's permission review.", "zh": "对，关键功能测试覆盖内部DNS。数据库连接等Hannah权限评审。"},
+      {"sp": "Anika", "en": "The data channel uses a different identity. It's on track, but not application proof.", "zh": "数据通道用另一身份。它按计划推进，但不能证明应用可用。"},
+      {"sp": "Hannah", "en": "Good distinction, test the intended runtime identity. My admin session isn't an acceptable substitute.", "zh": "区分正确，要测预定运行身份。我的管理员会话不能替代。"},
+      {"sp": "Priya", "en": "Just to confirm, business paths still pending, right? Raj owns both-zone tests by this afternoon.", "zh": "确认一下，业务路径仍待测，对吧？Raj今天下午前负责两区测试。"},
+      {"sp": "Lukas", "en": "Include failover routing without changing live traffic. Sandbox tests can expose asymmetric return paths.", "zh": "不改线上流量也测故障切换路由。沙箱测试能暴露非对称回程。"},
+      {"sp": "Raj", "en": "I'm on it for that test matrix. Maybe two hours once the identity works.", "zh": "我来做测试矩阵。身份可用后可能两小时。"},
+      {"sp": "Hannah", "en": "I'll keep an eye on permission approval. Until then, mark those cases as untested.", "zh": "我关注权限审批。此前把这些用例标为未测试。"},
+      {"sp": "Anika", "en": "So, I'll share critical endpoint details now. That keeps the test scope tied to consumers.", "zh": "所以，现在分享关键端点信息。让测试范围与消费者对应。"}
+    ]},
+    {"id": "0388", "part": 3, "stage": "数据同步", "title": "九成完成不等于快追平", "premise": "私网就绪，Anika汇报数据复制进度与完成估算依据。", "listeningTask": "听出复制积压、持续写入和数据一致性检查。", "newPhrase": "p663", "phrases": ["p663", "p308", "p010", "p008:extra", "p335:extra", "p309:extra"], "lines": [
+      {"sp": "Anika", "en": "Okay, the replication checkpoint advanced last night. Initial copying is roughly ninety percent complete.", "zh": "好，复制检查点昨晚推进了。初始复制约完成百分之九十。"},
+      {"sp": "Lukas", "en": "The last tables might be the largest. What's the backlog size alongside incoming writes?", "zh": "最后几张表可能最大。积压多大，新增写入又多少？"},
+      {"sp": "Anika", "en": "Right, backlog is shrinking at current throughput. We'll catch up if that rate holds.", "zh": "对，当前吞吐下积压正在缩小。维持速率就能追上。"},
+      {"sp": "Hannah", "en": "Well, check counts and sampled checksums too. Low lag alone doesn't prove matching data.", "zh": "嗯，也查计数和抽样校验和。低延迟本身不证明数据一致。"},
+      {"sp": "Priya", "en": "Just to confirm, no target writes yet, right? Source changes still drive the replication stream.", "zh": "确认一下，目标端尚无业务写入，对吧？源端变化仍驱动复制流。"},
+      {"sp": "Raj", "en": "So, I'll keep an eye on throughput. Network saturation could change that estimate this afternoon.", "zh": "所以，我关注吞吐。网络饱和可能在下午改变估时。"},
+      {"sp": "Lukas", "en": "What happens if replication pauses for hours? Source log retention must cover the interruption.", "zh": "复制停几小时怎么办？源日志保留必须覆盖中断。"},
+      {"sp": "Anika", "en": "Our working hypothesis allows a short interruption. Longer gaps need a fresh copy assessment.", "zh": "当前假设允许短中断。更长缺口需要评估重新复制。"},
+      {"sp": "Hannah", "en": "What's the ETA for today's checksum sample? I'll reserve a test slot after it.", "zh": "今天校验和抽样预计何时完成？之后我预留测试时段。"},
+      {"sp": "Priya", "en": "Okay, Anika posts that estimate after lunch. Keep confidence and assumptions beside the date.", "zh": "好，Anika午饭后发布估时。日期旁写置信程度和假设。"}
+    ]},
+    {"id": "0389", "part": 4, "stage": "权限阻塞", "title": "缺密钥权限，不借管理员绕过", "premise": "应用路径测试受目标运行身份权限阻塞，明确需审批的最小范围。", "listeningTask": "抓住阻塞对象、负责人与禁止捷径。", "newPhrase": "p664", "phrases": ["p664", "p662", "p010", "p006:extra", "p014:extra", "p336:extra"], "lines": [
+      {"sp": "Hannah", "en": "Okay, we're blocked on target key permissions. The runtime role can't decrypt the test credentials.", "zh": "好，受阻于目标密钥权限。运行角色不能解密测试凭据。"},
+      {"sp": "Raj", "en": "Right, private connectivity isn't blocking us here. The denial names the intended key identifier.", "zh": "对，这次阻塞不是私网连通。拒绝记录明确指向预定密钥标识。"},
+      {"sp": "Lukas", "en": "Request access to that key and action. Don't grant broad administrator rights to unblock testing.", "zh": "只申请该密钥和操作访问。不要为解阻塞授予管理员权限。"},
+      {"sp": "Priya", "en": "Just to confirm, Hannah owns the request, right? Who has bandwidth for the security review?", "zh": "确认一下，Hannah负责申请，对吧？谁有空做安全评审？"},
+      {"sp": "Anika", "en": "Our security reviewer is available after lunch. I'll send the denial and consumer context.", "zh": "安全评审者午饭后有空。我发送拒绝记录和消费者背景。"},
+      {"sp": "Hannah", "en": "Well, key policy needs review as well. A role policy alone may not enable access.", "zh": "嗯，密钥策略也要评审。仅角色策略可能不能启用访问。"},
+      {"sp": "Raj", "en": "I'm on it for the identity check. We'll verify the role actually assumed at runtime.", "zh": "我来核验身份。确认运行时实际承担的角色。"},
+      {"sp": "Lukas", "en": "So, don't paste credentials into status threads. Share redacted evidence through the approved channel.", "zh": "所以，不要把凭据贴到状态讨论。通过批准渠道分享脱敏证据。"},
+      {"sp": "Priya", "en": "Maybe approval can finish before three today. The escalation path is our security duty reviewer.", "zh": "今天可能三点前批准。升级路径是安全值班评审者。"},
+      {"sp": "Anika", "en": "Okay, no borrowed admin credentials for testing. That would hide the exact dependency we're tracking.", "zh": "好，不借管理员凭据测试。否则会掩盖正跟踪的依赖。"}
+    ]},
+    {"id": "0390", "part": 5, "stage": "测试环境", "title": "环境相似不等于可代表生产", "premise": "权限评审已排期，Hannah说明测试环境覆盖与剩余差异。", "listeningTask": "识别测试结论的适用范围。", "newPhrase": "p665", "phrases": ["p665", "p664", "p327", "p330:extra", "p010:extra", "p004:extra"], "lines": [
+      {"sp": "Hannah", "en": "Okay, environment parity covers versions and policies. Test quotas are lower than production quotas.", "zh": "好，环境一致性覆盖版本和策略。测试配额低于生产配额。"},
+      {"sp": "Raj", "en": "Managed configuration builds both environments from templates. The account-specific inputs still need separate validation.", "zh": "统一配置从模板构建两个环境。账户专属输入仍需独立验证。"},
+      {"sp": "Lukas", "en": "So passing tests won't prove production capacity. Record quota differences and expected runtime identities.", "zh": "所以测试通过不证明生产容量。记录配额差异和预期运行身份。"},
+      {"sp": "Anika", "en": "We're still blocked on key approval itself. Today's smoke test can't cover protected reads yet.", "zh": "仍受密钥审批本身阻塞。今天关键功能测试暂不能覆盖受保护读取。"},
+      {"sp": "Priya", "en": "Just to confirm, masked data in testing, right? No customer export into an open bucket.", "zh": "确认一下，测试使用脱敏数据，对吧？不能把客户导出放到公开桶。"},
+      {"sp": "Hannah", "en": "Yes, access is restricted and data masked. The permission test uses approved synthetic credentials.", "zh": "对，访问受限且数据脱敏。权限测试使用批准的合成凭据。"},
+      {"sp": "Raj", "en": "Maybe the lower quota changes load results. I'll label functional and capacity checks separately.", "zh": "较低配额可能改变带载结果。我分别标注功能和容量检查。"},
+      {"sp": "Lukas", "en": "A larger test account? Let's park that. First confirm what evidence the existing environment supplies.", "zh": "扩大测试账户？先放一边。先确认现有环境能提供什么证据。"},
+      {"sp": "Anika", "en": "I'll document the representative datasets this morning. Reviewers need to know which edge cases remain.", "zh": "上午我记录代表性数据集。评审者要知道剩余哪些边界情况。"},
+      {"sp": "Priya", "en": "Okay, keep those gaps on the board. Provisioned doesn't mean ready for every test.", "zh": "好，把缺口保留在看板。资源已建不等于所有测试已就绪。"}
+    ]},
+    {"id": "0391", "part": 6, "stage": "切换依赖", "title": "演练不能授权生产切换", "premise": "测试环境边界明确，站会列出未来切换评审所需材料。", "listeningTask": "抓住生产切换的前置条件及写入回退复杂性。", "newPhrase": "p666", "phrases": ["p666", "p663", "p665", "p328:extra", "p324:extra", "p010:extra"], "lines": [
+      {"sp": "Lukas", "en": "First, every cutover dependency needs an owner. Data validation, capacity, and write control come first.", "zh": "先明确，每项切换依赖都需负责人。先准备数据验证、容量和写入控制。"},
+      {"sp": "Anika", "en": "Right, the replication checkpoint supports data acceptance. We'll need a controlled write pause at cutover.", "zh": "对，复制检查点支持数据验收。切换时需要受控暂停写入。"},
+      {"sp": "Raj", "en": "Routing changes need their own reviewed sequence. Maybe DNS caching extends the transition window.", "zh": "路由变更需要独立评审顺序。DNS缓存可能延长过渡窗口。"},
+      {"sp": "Hannah", "en": "Well, environment parity won't prove data-safe rollback. New target writes require a data-safe return strategy.", "zh": "嗯，环境一致不能证明数据安全回退。目标新增写入需要数据安全的返回策略。"},
+      {"sp": "Priya", "en": "Just to confirm, Friday isn't go/no-go, right? That decision waits for a separate change review.", "zh": "确认一下，周五不做生产继续或停止决定，对吧？等独立变更评审。"},
+      {"sp": "Anika", "en": "Correct, reverting DNS alone isn't enough itself. We must account for writes already accepted there.", "zh": "对，单独改回DNS本身不够。必须处理目标已接收的写入。"},
+      {"sp": "Lukas", "en": "Define the rollback trigger and safe boundary. Before target writes, fallback differs from after writes.", "zh": "明确回退触发条件和安全边界。目标写入前后回退不同。"},
+      {"sp": "Raj", "en": "I'll bring the routing draft by Thursday. Today I'm validating paths, not scheduling production changes.", "zh": "周四前带路由草案。今天验证路径，不安排生产变更。"},
+      {"sp": "Hannah", "en": "I own the identity validation evidence package. It includes failed access tests as well.", "zh": "我负责身份验证证据包，也包含拒绝访问测试。"},
+      {"sp": "Priya", "en": "Okay, put those owners beside each dependency. No implied approval from a green progress board.", "zh": "好，每项依赖旁写负责人。进度看板变绿不隐含批准。"}
+    ]},
+    {"id": "0392", "part": 7, "stage": "里程碑风险", "title": "风险标黄，不隐瞒不确定性", "premise": "权限与数据检查仍待完成，重新评估周五测试里程碑。", "listeningTask": "听出延期风险与已延期之间的区别。", "newPhrase": "p667", "phrases": ["p667", "p661", "p664", "p008:extra", "p335:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "So, is Friday's milestone at risk now? We've got two dependencies without completed acceptance checks.", "zh": "所以，周五里程碑现在有风险吗？两项依赖尚未完成验收。"},
+      {"sp": "Anika", "en": "Maybe, if copy throughput falls overnight again. Our working hypothesis assumes today's rate continues.", "zh": "可能，如果夜间复制吞吐再次下降。当前假设是今天速率持续。"},
+      {"sp": "Lukas", "en": "Well, don't call everything on track unqualified. Mark confidence separately from the scheduled date.", "zh": "嗯，别无条件说全部按计划。置信程度和排定日期分别标注。"},
+      {"sp": "Raj", "en": "The network work is on track itself. Whole-project confidence depends on permissions and data checks.", "zh": "网络工作本身按计划。整个项目置信程度取决于权限和数据检查。"},
+      {"sp": "Hannah", "en": "Right, we're blocked on review, not implementation. My policy request is ready for security.", "zh": "对，受阻于评审，不是实现。策略申请已准备给安全团队。"},
+      {"sp": "Priya", "en": "What's the ETA for a decision update? Give me the next checkpoint, not a guarantee.", "zh": "决策更新预计何时？给下一检查点，不作保证。"},
+      {"sp": "Lukas", "en": "This afternoon's review should clarify the risk. If it slips, shorten scope before extending hours.", "zh": "下午评审应能明确风险。若延期，先缩范围再考虑延长工时。"},
+      {"sp": "Anika", "en": "We could rehearse networking without final data. But label it as a partial rehearsal.", "zh": "可以未有最终数据先演练网络。但要标为部分演练。"},
+      {"sp": "Hannah", "en": "Agreed, but that won't satisfy data acceptance. Keep the missing evidence visible afterward too.", "zh": "同意，但那不能满足数据验收。之后也保留缺失证据标记。"},
+      {"sp": "Priya", "en": "Just to recap, Friday has conditional confidence. We'll update the date if gates stay incomplete.", "zh": "小结一下，周五只有条件置信。门槛仍不完整就更新日期。"}
+    ]},
+    {"id": "0393", "part": 8, "stage": "请求支援", "title": "具体请求，比泛泛求助更有效", "premise": "里程碑标注条件风险，团队安排评审与测试支援。", "listeningTask": "听出谁需要什么帮助以及原责任是否改变。", "newPhrase": "p668", "phrases": ["p668", "p006", "p013", "p002:extra", "p008:extra", "p664:extra"], "lines": [
+      {"sp": "Raj", "en": "So, could Lukas pair on this test? I need a reviewer for return-path coverage.", "zh": "那Lukas能结对做这个测试吗？需要评审回程路径覆盖。"},
+      {"sp": "Lukas", "en": "Yes, I've got bandwidth after eleven today. You keep ownership; I'll challenge the test cases.", "zh": "可以，今天十一点后有空。你保留责任，我检查测试用例。"},
+      {"sp": "Anika", "en": "Who's picking this up for checksum review? My data specialist is out of station.", "zh": "校验和评审谁接？我的数据专家不在本地。"},
+      {"sp": "Hannah", "en": "Well, I can review the comparison method. A domain owner still signs data acceptance.", "zh": "嗯，我能评审比较方法。数据验收仍由领域负责人签。"},
+      {"sp": "Priya", "en": "Okay, support doesn't transfer the decision itself. Anika stays accountable for the data gate.", "zh": "好，支援不转移决策本身。Anika仍对数据门槛负责。"},
+      {"sp": "Raj", "en": "Right, what's the ETA for that slot? Maybe an hour covers the route matrix.", "zh": "好，那个时段预计何时？路由矩阵可能一小时。"},
+      {"sp": "Lukas", "en": "Eleven to noon works on my calendar. Send the topology and expected paths beforehand.", "zh": "我日程十一点到十二点可行。提前发拓扑和预期路径。"},
+      {"sp": "Anika", "en": "We're blocked on one specialist's sign-off too. I'll ask her backup to review remotely.", "zh": "还受一个专家签字阻塞。我请她的替补远程评审。"},
+      {"sp": "Hannah", "en": "Anyway, let's take it offline for details. They don't need everyone's standup time today.", "zh": "总之，细节会后单聊。不需要占大家今天站会时间。"},
+      {"sp": "Priya", "en": "I'll note these slots on the board. Raise conflicts early rather than assuming overtime.", "zh": "我把时段记到看板。冲突提前说，不默认加班。"}
+    ]},
+    {"id": "0394", "part": 9, "stage": "本周承诺", "title": "承诺可控交付，不承诺外部审批", "premise": "支援时段确定，站会收敛本周各自可控的成果。", "listeningTask": "区分承诺、目标与条件依赖。", "newPhrase": "p669", "phrases": ["p669", "p667", "p661", "p009:extra", "p010:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, let's define ready for testing precisely. Friday needs approved identity, validated data, and paths.", "zh": "好，精确定义测试就绪。周五需批准身份、验证数据和路径。"},
+      {"sp": "Lukas", "en": "And documented gaps in production capacity evidence. Testing readiness isn't a production release commitment.", "zh": "还要记录生产容量证据缺口。测试就绪不是生产发布承诺。"},
+      {"sp": "Raj", "en": "My action item is both-zone path evidence. I'll close the loop by Thursday noon.", "zh": "我的待办是两区路径证据。周四中午前闭环。"},
+      {"sp": "Anika", "en": "I'll publish validation results and lag trends. Maybe Friday readiness holds if throughput stays steady.", "zh": "我发布验证结果和延迟趋势。吞吐稳定则周五可能就绪。"},
+      {"sp": "Hannah", "en": "Well, I commit to the policy request. I can't guarantee an external approval date.", "zh": "嗯，我承诺完成策略申请。不能保证外部批准日期。"},
+      {"sp": "Priya", "en": "Just to confirm, a milestone at risk, right? Not a failed project or an incident.", "zh": "确认一下，是里程碑有风险，对吧？不是项目失败或故障。"},
+      {"sp": "Lukas", "en": "Correct, adjust expectations without hiding incomplete checks. We'll reschedule testing if acceptance gates don't pass.", "zh": "对，调整预期但不隐瞒未完整检查。验收门槛不通过就重排测试。"},
+      {"sp": "Raj", "en": "So, network delivery stays on track this week. The whole test date remains conditional on others.", "zh": "所以，网络交付本周按计划。整体测试日期仍受其他条件约束。"},
+      {"sp": "Hannah", "en": "I'll post the approval outcome after review. Denials need reasons and a revised request.", "zh": "评审后发布审批结果。拒绝需要原因和修订申请。"},
+      {"sp": "Anika", "en": "Okay, I'll keep estimates visibly separate too. Nobody should read a target as a promise.", "zh": "好，我也明确区分估算。别让大家把目标读成承诺。"}
+    ]},
+    {"id": "0395", "part": 10, "stage": "更新安排", "title": "下午更新依赖，明早不重复读看板", "premise": "周内承诺已记录，收尾确定异步更新与升级安排。", "listeningTask": "抓住更新时间、负责人和里程碑调整规则。", "newPhrase": "p670", "phrases": ["p670", "p669", "p667", "p001:extra", "p012:extra", "p336:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, post a dependency update at four. Use owners, next steps, and changed estimates.", "zh": "好，四点发布依赖更新。写负责人、下一步和变化估时。"},
+      {"sp": "Hannah", "en": "I'll include the permission review outcome today. The escalation path stays with the security reviewer.", "zh": "今天包含权限评审结果。升级路径仍是安全评审者。"},
+      {"sp": "Raj", "en": "Maybe we can circle back tomorrow morning. Only discuss changes that affect the shared plan.", "zh": "明早可以再跟进。只讨论影响共同计划的变化。"},
+      {"sp": "Lukas", "en": "Well, keep debugging in the working sessions. Standup should expose dependencies, not reproduce every test.", "zh": "嗯，调试留到工作会。站会暴露依赖，不重放每个测试。"},
+      {"sp": "Anika", "en": "Right, ready for testing needs evidence first. The data gate needs acceptance itself.", "zh": "对，测试就绪先要证据。数据门槛本身需要验收。"},
+      {"sp": "Priya", "en": "Just to recap, no production cutover this week. A milestone at risk gets an explicit update.", "zh": "小结一下，本周不生产切换。风险里程碑要明确更新。"},
+      {"sp": "Hannah", "en": "Link evidence rather than copying sensitive details. Reviewers can use the restricted test record.", "zh": "链接证据，不复制敏感细节。评审者使用受限测试记录。"},
+      {"sp": "Raj", "en": "I'll update the route matrix after pairing. Any new gap gets an owner before tomorrow.", "zh": "结对后更新路由矩阵。明天前给每个新缺口指定负责人。"},
+      {"sp": "Lukas", "en": "So, revise Friday if Thursday's gates remain open. Don't compress review just to preserve the date.", "zh": "所以，周四门槛仍未完成，就调整周五安排。别为保日期压缩评审。"},
+      {"sp": "Anika", "en": "Okay, I'll send the shared summary now. My next step is the checksum comparison.", "zh": "好，现在发送共同摘要。我的下一步是校验和比较。"}
+    ]}
+  ]
+}

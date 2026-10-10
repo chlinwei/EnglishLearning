@@ -1,0 +1,149 @@
+{
+  "version":1,
+  "status":"draft-awaiting-voice",
+  "note":"十段连续专线交接双语文本，待配音。接班复述包含边界、联系人和更新时点；没有推测音频时长或时间轴。",
+  "series":{"id":"sc-S10-network-private-circuit-handoff","title":"专线抖动交接：绕行不等于修复","domain":"network","group":"handoff","service":"checkout to remote inventory over private circuits","premise":"日班观察到主专线间歇丢包和时延抖动；少量库存查询已通过批准的备用专线路由绕行。夜班接手供应商跟进、证据采集和明确的升级阈值。","outcome":"夜班复述并接手当前小范围绕行、证据与监控；供应商原因仍未确认，不自动切回主线，约定21:00或阈值触发时提前更新。"},
+  "speakers":{
+    "Priya":{"role":"Outgoing shift coordinator","accent":"en-IN","voice":null},
+    "Raj":{"role":"Outgoing network on-call","accent":"en-IN","voice":null},
+    "Anika":{"role":"Inventory integration owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Incoming primary on-call","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Incoming network responder","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p371","en":"packet loss","zh":"丢包","layer":"L1","level":"core","target":5},
+    {"id":"p372","en":"jitter","zh":"时延抖动","layer":"L1","level":"core","target":5},
+    {"id":"p373","en":"carrier ticket","zh":"运营商工单","layer":"L1","level":"core","target":5},
+    {"id":"p374","en":"backup circuit","zh":"备用专线","layer":"L1","level":"core","target":5},
+    {"id":"p375","en":"affected sessions","zh":"受影响会话","layer":"L1","level":"core","target":5},
+    {"id":"p376","en":"capture filter","zh":"抓包过滤器","layer":"L1","level":"core","target":5},
+    {"id":"p377","en":"escalation threshold","zh":"升级门槛","layer":"L0","level":"core","target":8},
+    {"id":"p378","en":"handoff checklist","zh":"交接检查清单","layer":"L0","level":"core","target":8},
+    {"id":"p379","en":"duty contact","zh":"值班联系人","layer":"L0","level":"core","target":8},
+    {"id":"p380","en":"next update","zh":"下一次更新","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"复现使用已存在的网络与交接表达；以下仅为未来候选排期，不计已出现。","plannedFuture":{"S39":["p371","p372","p373","p374","p375"],"S43":["p376","p377","p378","p379","p380"]}},
+  "dialogues":[
+    {"id":"0096","part":1,"stage":"抖动背景","title":"先交代事实，再交代假设","premise":"20:30日夜班交接开始，主专线异常仍未确认原因。","listeningTask":"听清受影响路径、当前措施和不能宣称已经修复的原因。","newPhrase":"p371","phrases":["p371","p331","p010","p320:extra","p334:extra","p337:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, we'll hand over the private circuit. Packet loss started around six this evening.","zh":"好，现在交接这条专线。丢包大约今晚六点开始。"},
+      {"sp":"Lukas","en":"Which applications use the affected path? I'm the incoming primary on-call tonight.","zh":"哪些应用使用受影响路径？今晚我接任主值班。"},
+      {"sp":"Anika","en":"Checkout inventory queries cross that circuit. Payments use another path and look normal.","zh":"结账的库存查询走这条专线，支付走另一条路径，看起来正常。"},
+      {"sp":"Hannah","en":"Have you confirmed a carrier fault? Similar symptoms could come from our equipment.","zh":"确认是运营商故障了吗？我们的设备也可能出现类似症状。"},
+      {"sp":"Raj","en":"No, the root cause is still open. Local interface checks found no obvious errors.","zh":"没有，根因仍未确定。本地接口检查没有发现明显错误。"},
+      {"sp":"Priya","en":"Just to confirm, no repair claim, right? A temporary workaround is active for selected clients.","zh":"我确认一下，不声称已经修复，对吧？目前对选定客户端启用临时绕行。"},
+      {"sp":"Lukas","en":"How broad is that workaround currently? I need the exact client scope.","zh":"目前绕行范围多大？我需要准确的客户端范围。"},
+      {"sp":"Anika","en":"Two inventory workers, roughly ten percent of calls. Their configuration versions are in the record.","zh":"两个库存工作进程，大约百分之十调用。记录里有它们的配置版本。"},
+      {"sp":"Hannah","en":"Good, don't expand during the handoff itself. Show us the evidence before changing scope.","zh":"好，交接过程中先不扩大范围。改变范围前先看证据。"},
+      {"sp":"Raj","en":"Agreed, scope stays fixed during this call. So, let's review the measured loss first.","zh":"同意，这次会议期间范围不变。先看实测丢包。"}
+    ]},
+    {"id":"0097","part":2,"stage":"丢包证据","title":"探测丢包与业务重传互相印证","premise":"已确定库存查询路径和绕行范围，展示有时间戳的测量证据。","listeningTask":"区分ICMP探测结果与实际业务连接证据。","newPhrase":"p372","phrases":["p372","p371","p010","p335:extra","p302:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, packet loss reaches roughly two percent. That's from the five-minute probe window.","zh":"好，五分钟探测窗内丢包大约达到百分之二。"},
+      {"sp":"Hannah","en":"Are those probes ICMP or application traffic? Diagnostic responses can be rate-limited separately.","zh":"是ICMP探测还是应用流量？诊断响应可能单独被限速。"},
+      {"sp":"Raj","en":"ICMP, plus actual TCP retransmission samples. Jitter rises in the same recorded periods.","zh":"有ICMP，也有实际TCP重传样本。同期记录的时延抖动升高。"},
+      {"sp":"Lukas","en":"Does that prove where the loss occurs? We still need both endpoint observations.","zh":"这能证明丢包发生在哪里吗？仍需要两端的观察。"},
+      {"sp":"Anika","en":"No, the working hypothesis is path degradation. Client timeout bursts align with those periods.","zh":"不能，当前假设是路径劣化。客户端超时突发与这些时段吻合。"},
+      {"sp":"Priya","en":"Just to confirm, not a location claim, right? Evidence links timing, not the faulty device.","zh":"我确认一下，不是在定位故障设备，对吧？证据关联时序，不确认坏设备。"},
+      {"sp":"Hannah","en":"Right, we can't rule that out yet. Congestion and physical errors need separate checks.","zh":"对，尚不能排除其他可能，拥塞与物理错误需要分别检查。"},
+      {"sp":"Raj","en":"I'll keep an eye on interface counters. They've stayed clean at our local endpoint.","zh":"我会留意接口计数器。本地端点目前没有错误。"},
+      {"sp":"Lukas","en":"Save counters with the same timestamps. Clean local counters don't clear the remote side.","zh":"用相同时间戳保存计数器。本地正常不代表远端正常。"},
+      {"sp":"Priya","en":"So, keep the conclusion narrow for now. Next, review what the carrier actually promised.","zh":"因此当前结论保持谨慎。接下来核对运营商实际承诺。"}
+    ]},
+    {"id":"0098","part":3,"stage":"供应商进度","title":"检查时间不是修复时间","premise":"证据表明异常时段相关，但尚未定位故障点；交代供应商进展。","listeningTask":"听清供应商受理、检查时点与修复ETA的区别。","newPhrase":"p373","phrases":["p373","p008","p010","p336:extra","p320:extra","p004:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, carrier ticket C-four-eighty-two remains open. They acknowledged the evidence at seven thirty.","zh":"好，运营商工单C-482仍开放。他们七点半确认收到证据。"},
+      {"sp":"Lukas","en":"What's the ETA for a repair? Did they commit to a restoration time?","zh":"修复预计多久？他们承诺恢复时间了吗？"},
+      {"sp":"Raj","en":"No restoration estimate, only a diagnostic update. That's due at nine this evening.","zh":"没有恢复时间估计，只承诺今晚九点给诊断更新。"},
+      {"sp":"Hannah","en":"Which checks have they completed already? An acknowledgment isn't evidence of technical progress.","zh":"他们已经完成了什么检查？受理确认不代表技术进展。"},
+      {"sp":"Raj","en":"They report clean optics at their local handoff. Remote segment counters are still pending.","zh":"他们报告本地交接端光指标正常，远端链路计数器还未提供。"},
+      {"sp":"Priya","en":"Just to confirm, the root cause is still open, right? We haven't verified their remote segment.","zh":"我确认一下，根因仍未定，对吧？还没核实他们的远端链路。"},
+      {"sp":"Lukas","en":"Please record that wording in the ticket. Who owns the carrier escalation path?","zh":"把这个措辞写进工单。谁负责运营商升级路径？"},
+      {"sp":"Anika","en":"Raj owns it until this handoff closes. Then Hannah takes the carrier follow-up.","zh":"交接完成前由Raj负责，之后Hannah跟进运营商。"},
+      {"sp":"Hannah","en":"Accepted, with ticket access verified first. I'll request the missing remote counter evidence.","zh":"接受，但要先确认工单访问权限。我会索取缺失的远端计数器证据。"},
+      {"sp":"Priya","en":"Compensation discussion? Let's park that for later. So, technical follow-up continues around nine.","zh":"赔偿讨论先留到以后。技术跟进继续在九点左右进行。"}
+    ]},
+    {"id":"0099","part":4,"stage":"临时绕行","title":"备用线容量有限，不能盲目全切","premise":"供应商尚无修复时间，说明两个工作进程的备用线绕行及容量保护。","listeningTask":"听清绕行范围、备用容量和恢复旧配置的风险。","newPhrase":"p374","phrases":["p374","p334","p010","p324:extra","p349:extra","p309:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the backup circuit serves two workers. It's a temporary workaround, not a repair.","zh":"好，备用专线承接两个工作进程。这是临时缓解，不是修复。"},
+      {"sp":"Hannah","en":"How much spare capacity remains there? Does it share the carrier's affected segment?","zh":"那里还剩多少容量？与运营商受影响链路共用吗？"},
+      {"sp":"Raj","en":"Utilization is roughly forty percent right now. Documented routing differs, but physical diversity isn't confirmed.","zh":"当前利用率大约百分之四十。文档路由不同，但物理独立性未确认。"},
+      {"sp":"Lukas","en":"Then don't call it fully independent. What's the rollback trigger for this workaround?","zh":"那就不要称它完全独立。这项绕行的回退条件是什么？"},
+      {"sp":"Anika","en":"Sustained utilization above seventy percent means stop expansion. New correctness errors require immediate incident review.","zh":"利用率持续超过百分之七十就停止扩大；新的正确性错误立即进入故障评估。"},
+      {"sp":"Priya","en":"Just to confirm, no automatic return, right? The primary path may still be worse.","zh":"我确认一下，不自动切回，对吧？主路径可能仍更差。"},
+      {"sp":"Hannah","en":"Correct, assess both paths before any reversal. Saved settings alone don't make returning safe.","zh":"对，切回前评估两条路径。保存配置不代表回去就安全。"},
+      {"sp":"Raj","en":"The mitigation is holding on these workers. Keep an eye on backup queue depth too.","zh":"这两个工作进程上的缓解仍有效，也要关注备用线队列深度。"},
+      {"sp":"Lukas","en":"Record any routing change with its scope. Don't move unrelated services during this shift.","zh":"任何路由变化都记录范围，这个班次不要迁移无关服务。"},
+      {"sp":"Priya","en":"Agreed, expansion needs the incident coordinator's approval. So, leave current routing unchanged for now.","zh":"同意，扩大需要故障协调人批准。所以目前路由不变。"}
+    ]},
+    {"id":"0100","part":5,"stage":"业务影响","title":"超时要核对，不能盲目重试","premise":"绕行仅覆盖两个工作进程，主路径业务仍可能超时；交代业务监控。","listeningTask":"区分库存查询失败、订单状态和重试安全边界。","newPhrase":"p375","phrases":["p375","p010","p106","p101:extra","p349:extra","p309:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, affected sessions show slower inventory checks. The error rate spiked before the workaround.","zh":"好，受影响会话的库存检查较慢，绕行前错误率曾陡涨。"},
+      {"sp":"Lukas","en":"Did any orders reserve inventory twice? Timeouts don't always mean the request failed.","zh":"有订单重复预留库存吗？超时不一定意味着请求失败。"},
+      {"sp":"Anika","en":"No duplicates found in sampled reservations. We reconcile uncertain results using operation identifiers.","zh":"抽样预留里未发现重复。通过操作标识核对不确定结果。"},
+      {"sp":"Hannah","en":"Keep an eye on that reconciliation queue. Growing backlog could hide continuing business impact.","zh":"留意核对队列，积压增长可能掩盖持续业务影响。"},
+      {"sp":"Raj","en":"Two workers route differently; that's our blast radius for this change. Other clients still use primary.","zh":"本次变更的影响范围是两个改路由的工作进程，其他客户端仍走主线。"},
+      {"sp":"Priya","en":"Just to confirm, not total incident scope, right? We separate change scope from affected customers.","zh":"我确认一下，这不是整个事件影响范围，对吧？变更范围和客户影响分开描述。"},
+      {"sp":"Lukas","en":"Exactly, report those populations separately overnight. Are retries restricted for reservation writes?","zh":"对，夜间分开报告这些群体。库存预留写入的重试受限制吗？"},
+      {"sp":"Anika","en":"Yes, approved idempotency safeguards remain in place. No blanket retry changes during this handoff.","zh":"是，批准的幂等保护仍在，交接期间不统一修改重试。"},
+      {"sp":"Hannah","en":"And the mitigation is holding for routed workers? Compare them with primary-path workers separately.","zh":"绕行工作进程缓解持续有效吗？要与主路径进程分开比较。"},
+      {"sp":"Priya","en":"Yes, their timeouts are roughly near baseline. So, preserve both views in the update.","zh":"是，超时大致接近基线。因此更新中保留这两种视图。"}
+    ]},
+    {"id":"0101","part":6,"stage":"留存抓包","title":"短抓包、有权限、不带载荷外发","premise":"业务指标按路径分别观察，夜班需要继续保存可对齐的网络证据。","listeningTask":"听清过滤、时钟、容量、访问与供应商分享边界。","newPhrase":"p376","phrases":["p376","p010","p103","p305:extra","p014:extra","p009:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the capture filter limits endpoint pairs. The approved capture excludes application payload bytes.","zh":"好，抓包过滤器限制端点对，批准的抓包不包含应用载荷字节。"},
+      {"sp":"Hannah","en":"Does truncation still preserve TCP metadata? We need sequence, acknowledgment, and timing fields.","zh":"截断后还保留TCP元数据吗？需要序号、确认号和时间字段。"},
+      {"sp":"Raj","en":"Yes, validated against the actual header lengths. Each bounded capture runs about sixty seconds.","zh":"是，已按实际首部长度验证。每次受限抓包大约六十秒。"},
+      {"sp":"Lukas","en":"What prevents the capture filling local storage? Also check permissions before starting it.","zh":"如何防止抓包写满本地存储？开始前也检查权限。"},
+      {"sp":"Anika","en":"The reserved directory has a size cap. Access is restricted to approved incident responders.","zh":"专用目录有容量上限，访问仅限批准的故障响应人员。"},
+      {"sp":"Priya","en":"Just to confirm, follow the retention policy, right? No raw evidence in public chat.","zh":"我确认一下，遵守保留策略，对吧？不在公开聊天里发原始证据。"},
+      {"sp":"Hannah","en":"Right, I'll share reviewed summaries with the carrier. Raw transfers require security approval first.","zh":"对，我会向运营商分享审核后的汇总。原始传输先要安全批准。"},
+      {"sp":"Raj","en":"I'm on it for clock status evidence. Let me tail the log alongside captures.","zh":"时钟状态证据我来补，同时盯日志配合抓包。"},
+      {"sp":"Lukas","en":"Mark any clock offset in the summary. Otherwise comparing both ends could mislead us.","zh":"汇总里标明时钟偏差，否则两端对比可能误导。"},
+      {"sp":"Priya","en":"So, evidence review is an action item. Keep the originals sealed in controlled storage.","zh":"因此证据审核是一项待办，原始证据封存于受控存储。"}
+    ]},
+    {"id":"0102","part":7,"stage":"升级触发条件","title":"量化门槛，也保留立即升级条件","premise":"证据采集流程已交代，明确夜班升级与扩大绕行的边界。","listeningTask":"抓住连续窗口、正确性风险和联系不到主值班的备用路径。","newPhrase":"p377","phrases":["p377","p371","p010","p336:extra","p338:extra","p008:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, the escalation threshold is written here. Packet loss above two percent needs attention.","zh":"好，升级门槛写在这里。丢包超过百分之二需要关注。"},
+      {"sp":"Lukas","en":"Over what window, and how many times? A single probe failure isn't enough.","zh":"哪个时间窗，连续几次？单次探测失败还不够。"},
+      {"sp":"Raj","en":"Two consecutive five-minute windows on approved probes. Corroborating application timeouts trigger a coordinated review.","zh":"批准探测连续两个五分钟窗超标，并有应用超时印证，就触发协调评估。"},
+      {"sp":"Hannah","en":"What bypasses that wait for urgent impact? Complete loss shouldn't wait ten minutes.","zh":"哪些紧急影响不等观察窗？完全中断不能等十分钟。"},
+      {"sp":"Anika","en":"Complete reachability loss or any correctness failure. Page the coordinator immediately in either case.","zh":"完全不可达或任何正确性问题。这两种都立即呼叫协调人。"},
+      {"sp":"Priya","en":"Just to confirm, no automatic reroute, right? The escalation path starts a human decision.","zh":"我确认一下，不自动改路由，对吧？升级路径启动的是人工决策。"},
+      {"sp":"Lukas","en":"Agreed, I'll assess capacity before proposing expansion. What's the ETA if nobody responds?","zh":"同意，提出扩大前我先评估容量。没人回应时等多久？"},
+      {"sp":"Raj","en":"After five minutes, page the backup. The roster includes a separate coordinator contact.","zh":"五分钟后呼叫备班，轮值表还有单独的协调人联系方式。"},
+      {"sp":"Hannah","en":"Keep the current safe scope while escalating. Silence doesn't authorize a wider reroute.","zh":"升级过程中保持当前安全范围，沉默不授权扩大绕行。"},
+      {"sp":"Priya","en":"So, that's roughly the response ladder. For correctness risks, escalate immediately without waiting.","zh":"这就是大致响应层级。正确性风险立即升级，不等待。"}
+    ]},
+    {"id":"0103","part":8,"stage":"接班追问","title":"接班人复述边界和未决事实","premise":"阈值与操作边界明确，接班人检查是否遗漏并复述行动。","listeningTask":"听出复述中哪些是事实、哪些是未决假设。","newPhrase":"p378","phrases":["p378","p011","p010","p339:extra","p334:extra","p320:extra"],"lines":[
+      {"sp":"Lukas","en":"Let me play that back now. The handoff checklist leaves primary routing mostly unchanged.","zh":"我现在复述一下，交接清单要求主路由大体不变。"},
+      {"sp":"Raj","en":"Okay, exactly two workers use the workaround. The others remain on the primary circuit.","zh":"好，准确说只有两个工作进程绕行，其他仍用主专线。"},
+      {"sp":"Hannah","en":"And the root cause is still open. Carrier diagnosis hasn't confirmed a failed segment.","zh":"根因仍未确定，运营商诊断尚未确认故障链路。"},
+      {"sp":"Anika","en":"Correct, and reservation reconciliation stays active. Don't add blanket retries for write operations.","zh":"对，预留核对继续运行，不给写操作增加统一重试。"},
+      {"sp":"Priya","en":"Just to confirm, two windows for loss, right? Correctness failures skip that waiting period.","zh":"我确认一下，丢包看两个时间窗，对吧？正确性问题不等观察期。"},
+      {"sp":"Lukas","en":"Yes, assess both paths before changing routing. Have I missed anything about backup capacity?","zh":"是，改路由前评估两条路径。备用容量方面我漏了什么吗？"},
+      {"sp":"Raj","en":"Stop expansion above seventy percent sustained utilization. That doesn't mean automatically return to primary.","zh":"利用率持续超过百分之七十就停止扩大，但不自动回主线。"},
+      {"sp":"Hannah","en":"Understood, a temporary workaround with limited scope. I'll collect bounded captures and reviewed summaries.","zh":"明白，是有限范围临时缓解。我负责受限抓包和审核后的汇总。"},
+      {"sp":"Anika","en":"And watch both worker populations separately. Roughly normal routed workers don't clear the incident.","zh":"还要分开看两类工作进程。绕行进程大致正常不代表事件结束。"},
+      {"sp":"Priya","en":"So, that covers the technical handoff. Let's verify actual contact access before acceptance.","zh":"这样技术交接完整了。确认实际联系人可达后再接受交接。"}
+    ]},
+    {"id":"0104","part":9,"stage":"联系人确认","title":"姓名、职责和可用联系路径","premise":"接班复述正确，验证轮值、供应商入口与升级备选。","listeningTask":"区分内部决策人、供应商跟进人和备班。","newPhrase":"p379","phrases":["p379","p337","p010","p338:extra","p336:extra","p014:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, the duty contact list is current. Lukas is primary on-call from this point.","zh":"好，值班联系人表已更新，从现在起Lukas是主值班。"},
+      {"sp":"Lukas","en":"I can open the roster and incident record. Who approves any wider routing change?","zh":"我能打开轮值表和事件记录。谁批准更大范围路由变化？"},
+      {"sp":"Raj","en":"The rostered incident coordinator owns that decision. Their paging alias is tested and recorded.","zh":"轮值故障协调人负责该决策，呼叫别名已验证并记录。"},
+      {"sp":"Hannah","en":"I'm on it for carrier communications. Ticket access works, but phone escalation needs verification.","zh":"运营商沟通我来负责。工单访问可用，电话升级还要验证。"},
+      {"sp":"Anika","en":"Raj verified the contracted support number earlier. Use the authenticated account reference in storage.","zh":"Raj之前验证了合同支持号码，使用受控存储里的认证账号参考信息。"},
+      {"sp":"Priya","en":"Just to confirm, secrets stay out of chat, right? Contact references don't need copied credentials.","zh":"我确认一下，秘密信息不进聊天，对吧？联系记录不需要复制凭据。"},
+      {"sp":"Lukas","en":"Agreed, and if I don't respond promptly? Who receives the backup page tonight?","zh":"同意。如果我没及时回应，今晚备班呼叫发给谁？"},
+      {"sp":"Raj","en":"The roster routes it to the backup SRE. Page the backup after about five minutes.","zh":"轮值表会路由到备班SRE，大约五分钟后呼叫备班。"},
+      {"sp":"Hannah","en":"The escalation path opens from my account too. We won't depend on an outgoing engineer.","zh":"我的账号也能打开升级路径，不依赖已经下班的工程师。"},
+      {"sp":"Priya","en":"So, contact access is now confirmed. Raj remains available until final acceptance only.","zh":"因此联系权限现在已确认。Raj只在最终接受前继续待命。"}
+    ]},
+    {"id":"0105","part":10,"stage":"下一次更新","title":"接手确认和下一次更新","premise":"技术边界与联系人均确认，明确21:00更新与提前触发条件。","listeningTask":"复述接班负责内容和无新证据时也必须更新的承诺。","newPhrase":"p380","phrases":["p380","p340","p010","p012:extra","p349:extra","p008:extra"],"lines":[
+      {"sp":"Priya","en":"Just to recap, the next update is nine. That's local time on the incident record.","zh":"小结一下，下次更新九点，按事件记录上的本地时区。"},
+      {"sp":"Lukas","en":"I've got it from here on coordination. Two workers remain rerouted; primary diagnosis stays open.","zh":"协调从这里我接手。两个工作进程维持绕行，主线诊断尚未结束。"},
+      {"sp":"Raj","en":"Okay, the mitigation is holding for those workers. Saved configurations and evidence references are attached.","zh":"好，这些工作进程缓解仍有效。已附保存配置和证据引用。"},
+      {"sp":"Hannah","en":"I'll request the carrier's pending diagnostic update. No reply still becomes an explicit status.","zh":"我会索取运营商尚未给出的诊断更新。未回复也会明确报状态。"},
+      {"sp":"Anika","en":"I'll monitor reconciliation and both client groups. Any correctness issue gets an immediate page.","zh":"我监控核对和两类客户端。任何正确性问题立即呼叫。"},
+      {"sp":"Priya","en":"Just to confirm, threshold breaches update earlier, right? Don't wait for the scheduled nine.","zh":"我确认一下，超过门槛要提前更新，对吧？不等计划九点。"},
+      {"sp":"Lukas","en":"Correct, and routing changes need capacity assessment. We won't automatically restore the primary path.","zh":"对，路由变化需评估容量，不自动恢复主路径。"},
+      {"sp":"Raj","en":"If asked what's the ETA, distinguish diagnosis. We still have no repair estimate.","zh":"被问预计多久时要区分诊断，目前仍没有修复时间估计。"},
+      {"sp":"Hannah","en":"Understood, ticket evidence before any recovery claim. Quiet probes alone won't close this incident.","zh":"明白，宣称恢复前需要工单证据。探测平静不能单独关闭事件。"},
+      {"sp":"Priya","en":"So, handoff accepted at roughly eight forty-five. Update at nine even without new findings.","zh":"因此大约八点四十五接受交接。即使没有新发现，九点也更新。"}
+    ]}
+  ]
+}

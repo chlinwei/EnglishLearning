@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "审计前正常轮换十段中英草稿。双凭据仅用于未泄漏且风险经审批的受控短期过渡，最终旧凭据及会话失效；无秘密值，无时间轴猜测。",
+  "series": {"id": "sc-S49-sec-key-rotation", "title": "密钥轮换：安全过渡与旧凭据失效", "domain": "sec", "group": "change", "service": "partner-reconciliation API clients", "premise": "审计要求证明对账API凭据生命周期受控，旧凭据无泄漏迹象，消费者清单包含定时任务但版本尚未核实。", "outcome": "核实三个消费者，批准二十分钟受控双凭据窗口；灰度发现客户端缓存旧引用，修复刷新后验证全部消费者使用新凭据。按窗口撤销旧凭据及关联会话，受控拒绝检查与业务运行通过；审计签收限定于已验收控制，不宣称全系统合规。"},
+  "speakers": {
+    "Priya": {"role": "Rotation change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Secrets lifecycle operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Reconciliation consumer owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE transition reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Audit evidence reviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p761", "en": "rotation evidence", "zh": "轮换证据", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p762", "en": "credential inventory", "zh": "凭据清单", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p763", "en": "consumer ownership", "zh": "消费者责任归属", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p764", "en": "bounded overlap", "zh": "有明确边界的并存期", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p765", "en": "secret version reference", "zh": "秘密版本引用", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p766", "en": "credential refresh", "zh": "凭据刷新", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p767", "en": "new-identity usage", "zh": "新身份使用情况", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p768", "en": "old credential is invalid", "zh": "旧凭据已失效", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p769", "en": "audit trail", "zh": "审计追踪记录", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p770", "en": "control sign-off", "zh": "控制项验收签收", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来轮换演练候选，不计实际复现；不引用S46–S48或其他并行草稿。", "futureRotationExercise": ["p761", "p762", "p763", "p764", "p765", "p766", "p767", "p768"], "futureAuditReview": ["p769", "p770"]},
+  "dialogues": [
+    {"id": "0486", "part": 1, "stage": "审计要求", "title": "审计要的是生命周期证据", "premise": "对账API轮换评审开始，审计要求证明旧凭据最终失效。", "listeningTask": "听出轮换日期与控制有效证据的区别。", "newPhrase": "p761", "phrases": ["p761", "p010", "p003", "p008:extra", "p004:extra", "p009:extra"], "lines": [
+      {"sp": "Priya", "en": "We need rotation evidence for reconciliation. I'll take point on this review.", "zh": "对账需要轮换证据，这次评审我来协调。"},
+      {"sp": "Hannah", "en": "A change date isn't enough. Show creation, usage, revocation, and verification.", "zh": "变更日期不够，需要创建、使用、撤销及验证证据。"},
+      {"sp": "Raj", "en": "Just to confirm, the old credential must fail afterward, right?", "zh": "确认一下，之后旧凭据必须失败，对吧？"},
+      {"sp": "Lukas", "en": "Yes, including derived sessions where applicable. Consumers must still work afterward.", "zh": "对，包括适用的派生会话，之后消费者也必须仍工作。"},
+      {"sp": "Anika", "en": "Maybe three clients need updates. I'll verify jobs rather than assume.", "zh": "可能三个客户端要更新，我核实任务，不先假设。"},
+      {"sp": "Priya", "en": "What's the ETA for inventory? Tomorrow's audit isn't a reason to skip checks.", "zh": "清单预计多久？明天审计不能成为跳过检查的理由。"},
+      {"sp": "Hannah", "en": "Record any missing coverage honestly. Evidence should show limits, not hide them.", "zh": "如实记录覆盖缺失，证据要说明局限而非隐藏。"},
+      {"sp": "Raj", "en": "A full identity redesign? Let's park that. Today's action item is controlled rotation.", "zh": "身份全面重设计？先放一边，今天待办是受控轮换。"},
+      {"sp": "Lukas", "en": "First confirm this isn't a leak response. Exposed credentials shouldn't get routine overlap.", "zh": "先确认不是泄漏应急，暴露凭据不应获得常规并存期。"},
+      {"sp": "Anika", "en": "No leak indicator has been reported. Security still needs to confirm that assessment.", "zh": "目前没有报告泄漏迹象，安全团队仍需确认判断。"}
+    ]},
+    {"id": "0487", "part": 2, "stage": "密钥清单", "title": "清单包括身份和派生会话", "premise": "安全评估未发现泄漏迹象，核对秘密库记录与提供方身份清单。", "listeningTask": "区分秘密值、版本引用和撤销范围。", "newPhrase": "p762", "phrases": ["p762", "p010", "p330", "p014:extra", "p335:extra", "p012:extra"], "lines": [
+      {"sp": "Raj", "en": "Credential inventory matches one service identity. Two vault versions exist, one inactive.", "zh": "凭据清单对应一个服务身份，秘密库有两个版本，一个未启用。"},
+      {"sp": "Hannah", "en": "Don't reuse the inactive version blindly. Its history and scope need review.", "zh": "别盲目复用未启用版本，其历史和范围需要评审。"},
+      {"sp": "Anika", "en": "Our working hypothesis was a spare. Maybe it belongs to an abandoned test.", "zh": "原假设是备用，可能来自废弃测试。"},
+      {"sp": "Priya", "en": "Just to confirm, create fresh material, right? No values in meeting notes.", "zh": "确认一下，创建全新凭据，对吧？会议记录不放值。"},
+      {"sp": "Lukas", "en": "Correct. Map sessions and provider revocation behavior. Stored values aren't the whole identity.", "zh": "对。梳理会话和提供方撤销行为，存储值不是整个身份。"},
+      {"sp": "Raj", "en": "I'm on it. Managed configuration holds references only. Vault access stays named.", "zh": "我来做。受管配置只存引用，秘密库访问保持实名。"},
+      {"sp": "Hannah", "en": "Check effective permissions before creating replacements. Don't perpetuate excess access during rotation.", "zh": "创建替代前检查实际权限，别在轮换中延续过宽访问。"},
+      {"sp": "Anika", "en": "This identity needs reconciliation reads only. Writes use a separate reviewed role.", "zh": "这个身份只需对账读取，写入使用独立评审角色。"},
+      {"sp": "Lukas", "en": "Good. Record the old identity's permitted scope. That bounds overlap risk.", "zh": "好。记录旧身份允许范围，这限定并存风险。"},
+      {"sp": "Priya", "en": "Okay, just to recap, fresh limited credentials. Next confirm every consumer and owner.", "zh": "好，小结一下，创建全新受限凭据，接下来确认所有消费者和负责人。"}
+    ]},
+    {"id": "0488", "part": 3, "stage": "消费者确认", "title": "定时任务不能从清单消失", "premise": "确认读取范围与会话撤销能力，开始核对三个疑似消费者。", "listeningTask": "听出消费者责任确认和实际使用记录如何相互核实。", "newPhrase": "p763", "phrases": ["p763", "p010", "p302", "p011:extra", "p014:extra", "p008:extra"], "lines": [
+      {"sp": "Anika", "en": "Consumer ownership covers the API and nightly job. A weekly exporter is unconfirmed.", "zh": "消费者归属覆盖API和夜间任务，周度导出尚未确认。"},
+      {"sp": "Lukas", "en": "Check its last run and deployment reference. Quiet traffic doesn't mean retirement.", "zh": "检查上次运行和部署引用，流量安静不代表退役。"},
+      {"sp": "Raj", "en": "I'm on it. The weekly exporter still runs. Its owner is available today.", "zh": "我来查。周度导出仍运行，负责人今天在。"},
+      {"sp": "Priya", "en": "Just to confirm, three consumers now, right? Each needs a validation plan.", "zh": "确认一下，现在三个消费者，对吧？各自需要验证计划。"},
+      {"sp": "Hannah", "en": "Yes, plus a usage search for unknown clients. Owner confirmation alone has limits.", "zh": "对，还要搜索未知客户端使用情况，只由负责人确认有局限。"},
+      {"sp": "Anika", "en": "Let me play that back. Verify inventory against provider request identities too.", "zh": "我复述一下，也用提供方请求身份核对清单。"},
+      {"sp": "Lukas", "en": "Exactly. Include retries and restart behavior. Cached credentials can survive configuration changes.", "zh": "正是这样，包括重试和重启行为，配置改变后缓存凭据可能仍保留。"},
+      {"sp": "Raj", "en": "We can't rule that out for the API. Maybe its client holds credentials in memory.", "zh": "API不能排除这种情况，客户端可能将凭据保留在内存。"},
+      {"sp": "Hannah", "en": "Then validate refresh behavior before overlap starts. Don't discover it at expiry.", "zh": "那就在并存开始前验证刷新行为，别等到期才发现。"},
+      {"sp": "Priya", "en": "Okay, what's the ETA for that check? Set a stop condition if it fails.", "zh": "好，检查预计多久？如果失败要设置停止条件。"}
+    ]},
+    {"id": "0489", "part": 4, "stage": "协调窗口", "title": "双凭据过渡必须有截止", "premise": "三个消费者均有负责人，测试环境刷新通过，但生产客户端版本需灰度核实。", "listeningTask": "听出允许并存的安全条件和不可自动延期的边界。", "newPhrase": "p764", "phrases": ["p764", "p010", "p321", "p324:extra", "p336:extra", "p328:extra"], "lines": [
+      {"sp": "Priya", "en": "Bounded overlap is approved for twenty minutes. The maintenance window includes revocation checks.", "zh": "批准二十分钟有界并存，维护窗口包括撤销检查。"},
+      {"sp": "Hannah", "en": "What makes overlap acceptable here? State the security conditions explicitly.", "zh": "这里为什么可接受并存？明确说出安全条件。"},
+      {"sp": "Raj", "en": "No exposure indicators, limited reads, monitored use. Both identities stay under vault control.", "zh": "无暴露迹象、读取受限、使用受监控，两个身份都在秘密库控制下。"},
+      {"sp": "Anika", "en": "Just to confirm, deadline doesn't extend automatically, right? Maybe stop before activation if unready.", "zh": "确认一下，截止不会自动延长，对吧？未准备好可能在启用前停止。"},
+      {"sp": "Lukas", "en": "Correct. A suspected leak cancels routine overlap. Containment takes priority over availability.", "zh": "对。怀疑泄漏就取消常规并存，控制暴露优先于可用性。"},
+      {"sp": "Priya", "en": "Go/no-go needs all owners present. Unexpected failures are the rollback trigger for pausing.", "zh": "继续或停止需要所有负责人在场，意外失败触发暂停评审。"},
+      {"sp": "Hannah", "en": "After revocation, rollback cannot revive old credentials. Use a reviewed replacement or pause.", "zh": "撤销后回退不能复活旧凭据，使用评审替代或暂停。"},
+      {"sp": "Raj", "en": "The escalation path reaches security and service owners. I'll monitor provider identity usage.", "zh": "升级路径联系安全和服务负责人，我监控提供方身份使用。"},
+      {"sp": "Lukas", "en": "Reserve time for session invalidation. New logins failing isn't enough if sessions survive.", "zh": "留时间使会话失效，新登录失败还不够，会话可能仍存活。"},
+      {"sp": "Anika", "en": "Okay, owners agree to pause on deadline failure. Controlled jobs won't send customer duplicates.", "zh": "好，负责人同意截止失败就暂停，受控任务不会给客户重复发送。"}
+    ]},
+    {"id": "0490", "part": 5, "stage": "创建新凭据", "title": "只传版本引用不传秘密", "premise": "过渡窗口与停止条件已审批，三个负责人就绪。", "listeningTask": "听出新凭据创建成功不代表消费者已经使用。", "newPhrase": "p765", "phrases": ["p765", "p010", "p330", "p014:extra", "p327:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "The secret version reference is ready. New credentials have the reviewed read scope.", "zh": "秘密版本引用已就绪，新凭据拥有评审过的读取范围。"},
+      {"sp": "Hannah", "en": "Confirm vault readers and delivery controls. A new secret can still be exposed.", "zh": "确认秘密库读取者和分发控制，新秘密仍可能暴露。"},
+      {"sp": "Anika", "en": "Only the three workload identities can retrieve it. Human access is separately audited.", "zh": "只有三个工作负载身份能获取，人工访问另行审计。"},
+      {"sp": "Priya", "en": "Just to confirm, values never enter logs, right? Use references in managed configuration.", "zh": "确认一下，值不会进入日志，对吧？受管配置使用引用。"},
+      {"sp": "Lukas", "en": "Yes. Check the reference resolves correctly. Configuration success doesn't establish runtime adoption.", "zh": "对。检查引用正确解析，配置成功不证明运行时已采用。"},
+      {"sp": "Raj", "en": "I'm on it for the first client. Maybe a controlled read confirms delivery.", "zh": "我来处理首个客户端，一次受控读取可能确认分发。"},
+      {"sp": "Hannah", "en": "Use a synthetic reconciliation record. Don't print response contents into change notes.", "zh": "用合成对账记录，不把响应内容打印到变更记录。"},
+      {"sp": "Anika", "en": "The smoke test is prepared. It checks identity and output without secret values.", "zh": "冒烟测试已准备，不暴露秘密值地检查身份和输出。"},
+      {"sp": "Lukas", "en": "Activate the overlap timer with provider confirmation. Keep one clear effective start.", "zh": "提供方确认时启动并存计时，保留明确实际开始时间。"},
+      {"sp": "Priya", "en": "Okay, what's the ETA for canary checks? Five minutes leaves room for revocation.", "zh": "好，灰度检查预计多久？五分钟能为撤销留时间。"}
+    ]},
+    {"id": "0491", "part": 6, "stage": "灰度切换", "title": "引用已改客户端仍用旧缓存", "premise": "并存窗口开始，首个API客户端引用更新，但实际身份使用待验证。", "listeningTask": "听出为什么配置与成功请求都可能掩盖未刷新。", "newPhrase": "p766", "phrases": ["p766", "p010", "p335", "p324:extra", "p309:extra", "p014:extra"], "lines": [
+      {"sp": "Anika", "en": "Credential refresh hasn't taken effect. Requests succeed, but provider logs show the old identity.", "zh": "凭据刷新没有生效，请求成功但提供方日志显示旧身份。"},
+      {"sp": "Lukas", "en": "Check the deployed client version. The test environment may have newer refresh support.", "zh": "检查部署客户端版本，测试环境可能有更新的刷新支持。"},
+      {"sp": "Raj", "en": "Our working hypothesis was a cache delay. Actually, this client lacks automatic reload.", "zh": "原假设是缓存延迟，实际上这个客户端不支持自动重载。"},
+      {"sp": "Priya", "en": "Just to confirm, expansion pauses, right? Our rollback trigger doesn't stop the timer.", "zh": "确认一下，暂停扩大，对吧？回退评审不会停止计时。"},
+      {"sp": "Hannah", "en": "Correct. No silent extension. If the deadline is missed, pause affected consumers.", "zh": "对，不能默默延期，错过截止就暂停受影响消费者。"},
+      {"sp": "Anika", "en": "I'm on it for approved client reinitialization. Maybe two minutes, with requests drained.", "zh": "我按批准流程重新初始化客户端，排空请求后可能两分钟。"},
+      {"sp": "Lukas", "en": "Avoid dropping active transactions. Verify retry behavior before resuming the worker.", "zh": "避免丢弃活动事务，恢复工作进程前验证重试行为。"},
+      {"sp": "Raj", "en": "I'll keep an eye on the deadline. Twelve minutes remain for all checks.", "zh": "我盯截止时间，还剩十二分钟完成全部检查。"},
+      {"sp": "Hannah", "en": "The new identity now appears in logs. Still verify output and duplicate handling.", "zh": "日志现在出现新身份，仍需验证输出和重复处理。"},
+      {"sp": "Priya", "en": "Okay, record the mismatch and correction. Continue only after the consumer owner confirms.", "zh": "好，记录不匹配和修正，消费者负责人确认后才继续。"}
+    ]},
+    {"id": "0492", "part": 7, "stage": "验证调用", "title": "每个消费者都有新身份记录", "premise": "首个客户端刷新和输出验证通过，夜间及周度任务受控验证开始。", "listeningTask": "区分新身份使用证据与旧身份完全停用的证据。", "newPhrase": "p767", "phrases": ["p767", "p010", "p327", "p309:extra", "p011:extra", "p012:extra"], "lines": [
+      {"sp": "Raj", "en": "New-identity usage now covers all three consumers. Each controlled run used the new reference.", "zh": "新身份使用覆盖全部三个消费者，每次受控运行都用新引用。"},
+      {"sp": "Hannah", "en": "Did the scheduled jobs finish? Authentication records alone don't prove reconciliation output.", "zh": "定时任务完成了吗？认证记录本身不证明对账输出正确。"},
+      {"sp": "Anika", "en": "Yes, the smoke test reconciles expected totals. Notifications were suppressed for test runs.", "zh": "是，冒烟测试对账总数符合预期，测试运行抑制了通知。"},
+      {"sp": "Priya", "en": "Just to confirm, no old identity traffic now, right? Check background retries too.", "zh": "确认一下，现在没有旧身份流量，对吧？也检查后台重试。"},
+      {"sp": "Lukas", "en": "No observed traffic in the checked interval. That's not proof that no hidden consumer exists.", "zh": "检查期间未观察到流量，但不证明没有隐藏消费者。"},
+      {"sp": "Raj", "en": "I'll keep an eye on provider logs. Maybe delayed retries need another check.", "zh": "我继续盯提供方日志，延迟重试可能还需检查。"},
+      {"sp": "Hannah", "en": "Record the interval and inventory search. Then revoke within the approved deadline.", "zh": "记录检查区间和清单搜索，然后在批准截止内撤销。"},
+      {"sp": "Anika", "en": "Let me play that back. Validated new calls don't automatically disable old access.", "zh": "我复述一下，新调用验证通过不会自动禁用旧访问。"},
+      {"sp": "Lukas", "en": "Exactly. Revocation is a separate control. Verify its effect after provider confirmation.", "zh": "正是这样，撤销是独立控制，提供方确认后验证效果。"},
+      {"sp": "Priya", "en": "Okay, just to recap, consumers are ready. Proceed with old-identity and session invalidation.", "zh": "好，小结一下，消费者就绪，继续使旧身份和会话失效。"}
+    ]},
+    {"id": "0493", "part": 8, "stage": "失效旧凭据", "title": "旧凭据拒绝会话也失效", "premise": "三个消费者验证新身份成功，仍处批准窗口内，开始撤销旧身份。", "listeningTask": "听出控制面确认、拒绝检查与会话失效的不同证据。", "newPhrase": "p768", "phrases": ["p768", "p010", "p110", "p111:extra", "p336:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The old credential is invalid now. Provider confirmation arrived before the overlap deadline.", "zh": "旧凭据现在失效，提供方确认在并存截止前到达。"},
+      {"sp": "Hannah", "en": "Show the controlled rejection result. Also confirm associated sessions are invalidated.", "zh": "展示受控拒绝结果，也确认关联会话失效。"},
+      {"sp": "Anika", "en": "Just to confirm, new consumers still work, right? We're back to baseline on outputs.", "zh": "确认一下，新消费者仍工作，对吧？输出回到基线。"},
+      {"sp": "Lukas", "en": "Yes, new calls pass. The approved old-session check rejects too.", "zh": "对，新调用通过，批准的旧会话检查也被拒绝。"},
+      {"sp": "Raj", "en": "I'm on it for vault retirement. Old material stays inaccessible outside controlled evidence retention.", "zh": "我来退役秘密库材料，旧材料仅受控证据留存可访问。"},
+      {"sp": "Priya", "en": "Okay, let's keep it under observation. Maybe hidden clients will report failures.", "zh": "好，继续观察，隐藏客户端可能报告失败。"},
+      {"sp": "Hannah", "en": "Any failure uses the escalation path. Don't reactivate old credentials to hide impact.", "zh": "失败走升级路径，别为了掩盖影响重新启用旧凭据。"},
+      {"sp": "Anika", "en": "Agreed, pause affected work if needed. A fresh reviewed identity is the recovery option.", "zh": "同意，必要时暂停工作，新建评审身份是恢复选项。"},
+      {"sp": "Lukas", "en": "Keep monitoring through real scheduled runs. Controlled runs don't cover every timing condition.", "zh": "监控到真实定时运行，受控运行不覆盖所有时间条件。"},
+      {"sp": "Priya", "en": "Record effective revocation and rejection times. The overlap is closed, not merely scheduled to close.", "zh": "记录实际撤销和拒绝时间，并存已经结束，不只是计划结束。"}
+    ]},
+    {"id": "0494", "part": 9, "stage": "留存证据", "title": "审计追踪不能包含秘密值", "premise": "旧凭据及会话验证失效，当前业务正常，整理轮换证据。", "listeningTask": "理解证据完整性与敏感材料限制访问的平衡。", "newPhrase": "p769", "phrases": ["p769", "p010", "p305", "p330:extra", "p014:extra", "p012:extra"], "lines": [
+      {"sp": "Hannah", "en": "The audit trail needs approvals and effective results. Exclude secret values from the packet.", "zh": "审计追踪需要审批和实际结果，证据包排除秘密值。"},
+      {"sp": "Raj", "en": "I'm on it. Managed configuration versions link to vault events without exposing material.", "zh": "我来做，受管配置版本关联秘密库事件，不暴露材料。"},
+      {"sp": "Lukas", "en": "Check timestamps and access controls. A complete record that's publicly readable creates risk.", "zh": "检查时间戳和访问控制，完整却公开可读的记录会制造风险。"},
+      {"sp": "Priya", "en": "Just to confirm, retention policy is approved, right? Maybe audit needs longer coverage.", "zh": "确认一下，保留策略已批准，对吧？审计可能需要更长覆盖。"},
+      {"sp": "Anika", "en": "The reviewer confirmed the period. Consumer results use sanitized record references only.", "zh": "评审人确认了期限，消费者结果只用脱敏记录引用。"},
+      {"sp": "Hannah", "en": "Include the cache mismatch and repair. Hiding that would weaken the evidence.", "zh": "包括缓存不匹配和修复，隐藏它会削弱证据。"},
+      {"sp": "Raj", "en": "I'll attach runtime identity checks too. Installation notes alone wouldn't establish adoption.", "zh": "我也附上运行身份检查，仅安装记录不能证明采用。"},
+      {"sp": "Lukas", "en": "And preserve the old-session rejection evidence. It proves more than vault deletion.", "zh": "也保留旧会话拒绝证据，它比秘密库删除更有证明力。"},
+      {"sp": "Priya", "en": "Okay, just to recap, evidence records limits. The actual weekly schedule still awaits observation.", "zh": "好，小结一下，证据记录局限，真实周度运行仍待观察。"},
+      {"sp": "Anika", "en": "I'll label that follow-up clearly. Audit can review today's tested controls separately.", "zh": "我明确标记跟进，审计可单独评审今天已测控制。"}
+    ]},
+    {"id": "0495", "part": 10, "stage": "审计签收", "title": "签收限定控制不宣称全面合规", "premise": "审计证据包完整，真实周度运行跟进仍开放，审核今天的轮换控制。", "listeningTask": "听出签收范围与遗留观察责任。", "newPhrase": "p770", "phrases": ["p770", "p009", "p310", "p013:extra", "p012:extra", "p761:extra"], "lines": [
+      {"sp": "Hannah", "en": "Control sign-off covers today's rotation evidence. It isn't certification of every security control.", "zh": "控制签收覆盖今天轮换证据，不是认证所有安全控制。"},
+      {"sp": "Priya", "en": "Okay, who's picking this up for weekly observation? Each action item needs closure evidence.", "zh": "好，谁接周度观察？每项待办都要结项证据。"},
+      {"sp": "Lukas", "en": "I'll review scheduled-run results with Anika. Unexpected failures must remain visible.", "zh": "我和Anika评审定时运行结果，意外失败必须可见。"},
+      {"sp": "Anika", "en": "I'll own that next Tuesday. Maybe a dry rehearsal before then catches timing gaps.", "zh": "我负责下周二跟进，之前预演可能发现时间覆盖缺口。"},
+      {"sp": "Raj", "en": "Just to recap, old access stays invalid. No fallback to retired material, right?", "zh": "小结一下，旧访问保持失效，不回退到退役材料，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Any new replacement needs independent approval and the same controlled delivery.", "zh": "对，任何新替代都需独立审批及同样受控分发。"},
+      {"sp": "Priya", "en": "I'll track client-version consistency separately. Test and production differed during this rotation.", "zh": "我单独跟踪客户端版本一致性，这次测试和生产不一致。"},
+      {"sp": "Lukas", "en": "That deserves a prevention task. Configuration review must include credential reload behavior.", "zh": "这需要预防任务，配置评审必须包括凭据重载行为。"},
+      {"sp": "Raj", "en": "I'll close the loop on automation Friday. It checks runtime identity and deadline enforcement.", "zh": "周五我完成自动化反馈，它检查运行身份和截止执行。"},
+      {"sp": "Anika", "en": "Agreed, signing this control won't close follow-up. I'll link results after the scheduled run.", "zh": "同意，签收控制不会关闭跟进，定时运行后我附上结果。"}
+    ]}
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "十段完整中英容灾演练回顾人工草稿，尚未配音发布；无预填音频时间。仅复现允许的旧库与本文件已引入表达。",
+  "series": {"id": "sc-S25-ha-dr-retro", "title": "容灾演练回顾：恢复耗时、权限与改进", "domain": "ha", "group": "agile", "service": "isolated regional order-ledger DR replica", "premise": "团队回顾昨天隔离环境的地域故障演练。异步容灾副本目标恢复十五分钟、可容忍六十秒数据损失；实际业务验证完成十八分钟，核对发现三十七秒测试写入未复制。", "outcome": "按证据拆分检测、权限、隔离、提升回放与业务验证时间；确认隔离旧主先于提升，未隐瞒异步数据损失。将权限预检、决策职责和手册缺口列为优先行动，下轮维持隔离范围并验收安全门槛与完整恢复时间。"},
+  "speakers": {
+    "Priya": {"role": "Retrospective facilitator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "DR exercise operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Order service exercise owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Exercise safety observer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Recovery measurement analyst", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p521", "en": "recovery time", "zh": "恢复业务所需时间", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p522", "en": "recovery point", "zh": "恢复到的数据时间点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p523", "en": "what worked", "zh": "哪些做法有效", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p524", "en": "access bottleneck", "zh": "访问权限卡点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p525", "en": "decision owner", "zh": "决策负责人", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p526", "en": "runbook gap", "zh": "操作手册缺口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p527", "en": "improvement backlog", "zh": "改进待办清单", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p528", "en": "rehearsal scope", "zh": "演练范围", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p529", "en": "evidence pack", "zh": "验收证据集", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p530", "en": "follow-through", "zh": "把承诺落实到完成", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选回访非实绩；不假定其他并行草稿定义可用。", "S29": ["p521", "p522", "p524", "p526"], "S35": ["p523", "p525", "p527", "p528", "p529", "p530"]},
+  "dialogues": [
+    {"id": "0246", "part": 1, "stage": "演练目标", "title": "回顾开场：目标与结果分开", "premise": "昨天隔离容灾演练已结束，今天回顾目标与真实结果。", "listeningTask": "听出恢复时间超标与数据目标达标是两件事。", "newPhrase": "p521", "phrases": ["p521", "p010", "p321", "p007:extra", "p004:extra", "p335:extra"], "lines": [
+      {"sp": "Priya", "en": "Our recovery time target was fifteen minutes.", "zh": "恢复时间目标是十五分钟。"},
+      {"sp": "Hannah", "en": "Actual completion took eighteen. That's a missed target.", "zh": "实际完成花了十八分钟，没有达到目标。"},
+      {"sp": "Raj", "en": "The maintenance window was forty minutes overall. Sorry, that's not recovery time.", "zh": "整个维护窗口是四十分钟。说准确点，那不是恢复时间。"},
+      {"sp": "Lukas", "en": "Okay, window length isn't the recovery measure.", "zh": "好，窗口长度不是恢复指标。"},
+      {"sp": "Anika", "en": "Just to confirm, business validation counts, right?", "zh": "确认一下，业务验证时间也算，对吧？"},
+      {"sp": "Priya", "en": "Yes, not merely a promoted database process.", "zh": "是的，不是数据库进程提升后就算恢复。"},
+      {"sp": "Hannah", "en": "Our working hypothesis blamed access delays initially.", "zh": "起初的假设认为延迟来自权限问题。"},
+      {"sp": "Raj", "en": "Maybe several stages contributed. Let's inspect the timeline.", "zh": "也许多个阶段都有影响，我们看时间线。"},
+      {"sp": "Lukas", "en": "I've got a hard stop at eleven.", "zh": "我十一点必须离开。"},
+      {"sp": "Priya", "en": "New regional topology? Let's park that today.", "zh": "新的地域拓扑？今天先暂存这个话题。"}
+    ]},
+    {"id": "0247", "part": 2, "stage": "时间线回顾", "title": "顺序正确：隔离先于提升", "premise": "团队查看统一时钟下的日志与观察员记录。", "listeningTask": "听出数据恢复点不等于业务恢复完成时刻。", "newPhrase": "p522", "phrases": ["p522", "p521", "p103", "p011:extra", "p010:extra", "p325:extra"], "lines": [
+      {"sp": "Raj", "en": "Let me tail the log from yesterday's archive.", "zh": "我查看昨天归档日志的尾部。"},
+      {"sp": "Hannah", "en": "The recovery point trails cutoff by thirty-seven seconds.", "zh": "数据恢复点比故障切断时刻落后三十七秒。"},
+      {"sp": "Anika", "en": "Those test writes weren't replicated. We recorded them.", "zh": "那些测试写入未复制，我们已记录。"},
+      {"sp": "Lukas", "en": "When did fencing complete relative to promotion?", "zh": "隔离完成与提升的先后时刻是什么？"},
+      {"sp": "Raj", "en": "Minute eleven. Promotion started after independent power confirmation.", "zh": "第十一分钟完成，独立确认电源关闭后才开始提升。"},
+      {"sp": "Priya", "en": "Just to confirm, out-of-band console evidence, right?", "zh": "确认一下，是带外控制台证据，对吧？"},
+      {"sp": "Hannah", "en": "Yes, with restart inhibition captured in logs.", "zh": "是的，日志还记录了禁止重启。"},
+      {"sp": "Anika", "en": "Let me play that back. Data loss remains.", "zh": "我复述一下：仍然存在数据损失。"},
+      {"sp": "Lukas", "en": "Correct. Safe promotion doesn't undo asynchronous replication loss.", "zh": "对，安全提升不能消除异步复制的数据损失。"},
+      {"sp": "Priya", "en": "Recovery time includes validation, roughly three more minutes.", "zh": "恢复时间包括验证，又花了大约三分钟。"}
+    ]},
+    {"id": "0248", "part": 3, "stage": "恢复耗时", "title": "十八分钟拆开看", "premise": "隔离顺序与恢复点已确认，拆分延迟来源并核对计时口径。", "listeningTask": "听懂各阶段相加以及数据损失仅在本轮测得。", "newPhrase": "p523", "phrases": ["p523", "p521", "p522", "p335:extra", "p302:extra", "p010:extra"], "lines": [
+      {"sp": "Hannah", "en": "Let's separate what worked from what delayed recovery.", "zh": "把有效做法和延误恢复的因素分开。"},
+      {"sp": "Raj", "en": "Detection took two minutes. Access took six.", "zh": "检测两分钟，取得权限六分钟。"},
+      {"sp": "Lukas", "en": "Fencing took three. Promotion and replay took four.", "zh": "隔离三分钟，提升和回放四分钟。"},
+      {"sp": "Anika", "en": "Validation took three. Recovery time totals eighteen.", "zh": "验证三分钟，总恢复时间十八分钟。"},
+      {"sp": "Priya", "en": "Just to confirm, sequential stages here, right?", "zh": "确认一下，这里各阶段是顺序执行，对吧？"},
+      {"sp": "Raj", "en": "Yes. Our working hypothesis about access fits evidence.", "zh": "是的，权限问题这一假设与证据相符。"},
+      {"sp": "Hannah", "en": "But don't rule that out for other delays.", "zh": "但不能因此排除其他延迟因素。"},
+      {"sp": "Anika", "en": "The recovery point met this run's loss allowance.", "zh": "恢复点符合本轮允许的数据损失范围。"},
+      {"sp": "Lukas", "en": "Probably not a guarantee for every future outage.", "zh": "大概不能作为未来每次故障的保证。"},
+      {"sp": "Priya", "en": "Exactly. Record measured results, not universal claims.", "zh": "正是，只记录测得结果，不做普遍保证。"}
+    ]},
+    {"id": "0249", "part": 4, "stage": "做得好的事", "title": "把有效做法留下来", "premise": "已量化延迟，团队先辨认应保留的安全和协作实践。", "listeningTask": "听出安全等待为何不应简单归为浪费。", "newPhrase": "p524", "phrases": ["p524", "p523", "p210", "p011:extra", "p327:extra", "p010:extra"], "lines": [
+      {"sp": "Priya", "en": "Despite the access bottleneck, let's name what worked.", "zh": "虽有权限卡点，先说哪些做法有效。"},
+      {"sp": "Lukas", "en": "The team refused promotion without verified fencing.", "zh": "团队拒绝在隔离未验证时提升。"},
+      {"sp": "Raj", "en": "We chose to dry-run it first beforehand.", "zh": "事先我们选择先试运行一遍。"},
+      {"sp": "Hannah", "en": "That caught the wrong target host identifier.", "zh": "那发现了目标主机标识写错。"},
+      {"sp": "Anika", "en": "Our smoke test checked actual order retrieval.", "zh": "快速验证检查了实际订单读取。"},
+      {"sp": "Priya", "en": "Just to confirm, safety checks stay, right?", "zh": "确认一下，安全检查保留，对吧？"},
+      {"sp": "Lukas", "en": "Let me play that back. Faster isn't always better.", "zh": "我复述一下：更快不总是更好。"},
+      {"sp": "Raj", "en": "Exactly. We can shorten approval waits, not fencing.", "zh": "正是，可以缩短批准等待，不能跳过隔离。"},
+      {"sp": "Hannah", "en": "Maybe automate evidence collection without removing independent checks.", "zh": "也许可以自动收集证据，但不移除独立检查。"},
+      {"sp": "Priya", "en": "Good distinction. Keep the successful steps visible.", "zh": "这个区分重要，保留并突出有效步骤。"}
+    ]},
+    {"id": "0250", "part": 5, "stage": "权限卡点", "title": "权限等了六分钟：查流程，不怪人", "premise": "权限等待是最长可改善阶段，检查授权记录和联系路径。", "listeningTask": "听出权限不足与操作员犹豫的证据差别。", "newPhrase": "p525", "phrases": ["p525", "p524", "p336", "p337:extra", "p338:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "The access bottleneck came from missing shutdown permission.", "zh": "权限卡点来自缺少关闭主机权限。"},
+      {"sp": "Hannah", "en": "Not hesitation? What do the audit records show?", "zh": "不是犹豫吗？审计记录显示什么？"},
+      {"sp": "Raj", "en": "Two denied requests. The escalation path then worked.", "zh": "两次请求被拒，随后升级联系路径起效。"},
+      {"sp": "Lukas", "en": "Who was the decision owner for emergency access?", "zh": "应急权限的决策负责人是谁？"},
+      {"sp": "Anika", "en": "The infrastructure duty manager, not our primary on-call.", "zh": "是基础设施值班经理，不是我们的第一响应值班人。"},
+      {"sp": "Priya", "en": "Just to confirm, preapproved scoped access, right?", "zh": "确认一下，改用预批准的限定权限，对吧？"},
+      {"sp": "Hannah", "en": "Maybe, with expiry and auditable two-person approval.", "zh": "也许可以，但要有有效期和可审计的双人批准。"},
+      {"sp": "Raj", "en": "We'll page the backup if access checks fail.", "zh": "权限检查失败时，我们会呼叫后备人员。"},
+      {"sp": "Lukas", "en": "Okay, test permissions without touching production power controls.", "zh": "好，测试权限时不能触碰生产电源控制。"},
+      {"sp": "Priya", "en": "Agreed. Make that a preflight check next time.", "zh": "同意，下次将它列为演练前检查。"}
+    ]},
+    {"id": "0251", "part": 6, "stage": "职责争议", "title": "谁批准提升：责任不能靠猜", "premise": "权限流程可改善，但业务与基础设施双方对提升审批职责有不同理解。", "listeningTask": "听出执行者、安全见证者与业务风险批准者的区别。", "newPhrase": "p526", "phrases": ["p526", "p525", "p331", "p011:extra", "p010:extra", "p004:extra"], "lines": [
+      {"sp": "Anika", "en": "The decision owner wasn't clear during promotion.", "zh": "提升时决策负责人不明确。"},
+      {"sp": "Lukas", "en": "Was that a runbook gap or conflicting instructions?", "zh": "是手册缺口，还是指令冲突？"},
+      {"sp": "Raj", "en": "Both teams expected the other to approve.", "zh": "两支团队都以为另一方会批准。"},
+      {"sp": "Hannah", "en": "Execution ownership isn't approval for potential data loss.", "zh": "执行责任不等于批准潜在数据损失。"},
+      {"sp": "Priya", "en": "Just to confirm, business sign-off needed, right?", "zh": "确认一下，需要业务批准，对吧？"},
+      {"sp": "Anika", "en": "Yes, within agreed loss limits. Safety still gates promotion.", "zh": "是的，必须在约定损失范围内，提升仍受安全门槛约束。"},
+      {"sp": "Lukas", "en": "Let me play that back. Approval cannot bypass fencing.", "zh": "我复述一下：批准不能绕过隔离。"},
+      {"sp": "Raj", "en": "We should hand over authority explicitly between shifts.", "zh": "班次之间应明确交接决策权。"},
+      {"sp": "Hannah", "en": "Maybe include a delegate when the owner disappears.", "zh": "也许应安排负责人不在时的代理人。"},
+      {"sp": "Priya", "en": "Staffing changes? Let's park that; define roles first.", "zh": "人员调整？先暂存，先定义职责。"}
+    ]},
+    {"id": "0252", "part": 7, "stage": "手册缺口", "title": "检查框不能代替证据", "premise": "职责需明确，操作手册也缺少隔离证据与数据损失核对步骤。", "listeningTask": "听出API受理、隔离完成与业务验证不是同一阶段。", "newPhrase": "p527", "phrases": ["p527", "p526", "p009", "p327:extra", "p335:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "The runbook gap concerns fencing evidence.", "zh": "手册缺口涉及隔离证据。"},
+      {"sp": "Lukas", "en": "API success isn't confirmed power isolation.", "zh": "API成功不等于电源隔离已确认。"},
+      {"sp": "Anika", "en": "The improvement backlog needs restart inhibition.", "zh": "改进清单需要包含禁止重启措施。"},
+      {"sp": "Hannah", "en": "And reconciliation beyond a simple smoke test.", "zh": "还需要简单快速验证以外的数据核对。"},
+      {"sp": "Priya", "en": "Just to confirm, evidence required, right? For every action item.", "zh": "确认一下，需要证据，对吧？每个待办项都需要。"},
+      {"sp": "Raj", "en": "Yes, including host identity and independent observer confirmation.", "zh": "是的，包括主机标识和独立观察员确认。"},
+      {"sp": "Lukas", "en": "Maybe capture replication position before changing any role.", "zh": "也许应在改变任何角色前记录复制位置。"},
+      {"sp": "Anika", "en": "Our working hypothesis needs recorded loss boundaries too.", "zh": "当前假设也需要记录数据损失边界。"},
+      {"sp": "Hannah", "en": "Okay, preserve old logs before rebuilding replicas.", "zh": "好，重建副本前先保留旧日志。"},
+      {"sp": "Priya", "en": "We'll link evidence examples, not only checkbox labels.", "zh": "我们会附证据示例，不只列勾选框标题。"}
+    ]},
+    {"id": "0253", "part": 8, "stage": "改进排序", "title": "先做减少风险的改进", "premise": "权限、职责与手册缺口已列出，团队选择下一轮前必须完成的工作。", "listeningTask": "听出排序理由与延期项，不把所有改进都标最高优先级。", "newPhrase": "p528", "phrases": ["p528", "p527", "p306", "p006:extra", "p004:extra", "p010:extra"], "lines": [
+      {"sp": "Priya", "en": "Our improvement backlog won't fit one sprint.", "zh": "改进待办清单一个迭代做不完。"},
+      {"sp": "Hannah", "en": "Prioritize unsafe ambiguity before shaving recovery seconds.", "zh": "先解决危险的职责不明，再考虑节省恢复秒数。"},
+      {"sp": "Raj", "en": "Permission checks and fencing evidence come first.", "zh": "权限检查和隔离证据排第一。"},
+      {"sp": "Lukas", "en": "What rehearsal scope can validate those improvements?", "zh": "什么演练范围能验证这些改进？"},
+      {"sp": "Anika", "en": "The same isolated cluster. No broader production experiment.", "zh": "用同一隔离集群，不扩大生产实验。"},
+      {"sp": "Priya", "en": "Just to confirm, no shortcuts, right?", "zh": "确认一下，不走捷径，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Better access could buy us time safely.", "zh": "对，更好的权限准备能安全争取时间。"},
+      {"sp": "Raj", "en": "I've got bandwidth for the preflight work.", "zh": "我有精力做演练前检查的改进。"},
+      {"sp": "Lukas", "en": "Dashboard redesign? Let's park that, perhaps until next sprint.", "zh": "仪表盘重设计？先暂存，也许放到下个迭代。"},
+      {"sp": "Priya", "en": "Agreed. Limit commitments to work we can verify.", "zh": "同意，只承诺我们能验证完成的工作。"}
+    ]},
+    {"id": "0254", "part": 9, "stage": "下轮计划", "title": "下轮验证：权限拒绝也要测", "premise": "优先改进已选定，安排下周隔离演练与验收材料。", "listeningTask": "听出安全拒绝提升也是成功的测试结果。", "newPhrase": "p529", "phrases": ["p529", "p528", "p210", "p324:extra", "p010:extra", "p327:extra"], "lines": [
+      {"sp": "Hannah", "en": "The evidence pack needs synchronized logs. And request IDs.", "zh": "证据集需要同步时钟的日志，还有请求编号。"},
+      {"sp": "Raj", "en": "We'll dry-run it first. Then deny fencing permission.", "zh": "先试运行，再模拟隔离权限被拒。"},
+      {"sp": "Lukas", "en": "Expected result: no standby promotion.", "zh": "预期结果是备机不提升。"},
+      {"sp": "Anika", "en": "Our rehearsal scope includes acknowledged-write comparison.", "zh": "演练范围包括已确认写入的对比。"},
+      {"sp": "Priya", "en": "Just to confirm, isolated test accounts, right?", "zh": "确认一下，用隔离测试账号，对吧？"},
+      {"sp": "Raj", "en": "Yes, no production credentials or shared power targets.", "zh": "是的，不用生产凭据或共享电源目标。"},
+      {"sp": "Hannah", "en": "External traffic is our rollback trigger. Stop immediately.", "zh": "外部流量是回退触发条件，立即停止。"},
+      {"sp": "Anika", "en": "A smoke test follows each approved recovery step.", "zh": "每个获批恢复步骤后都做快速验证。"},
+      {"sp": "Lukas", "en": "Maybe rotate operators to expose hidden assumptions.", "zh": "也许换操作员能暴露隐藏假设。"},
+      {"sp": "Priya", "en": "Okay, Friday morning, with a safety observer present.", "zh": "好，周五上午进行，安全观察员必须在场。"}
+    ]},
+    {"id": "0255", "part": 10, "stage": "确认行动项", "title": "回顾结束：承诺要带验收", "premise": "下轮范围和预期结果已约定，确认负责人、期限与跟进机制。", "listeningTask": "听出任务完成必须包含证据，不只是更新手册。", "newPhrase": "p530", "phrases": ["p530", "p529", "p009", "p013:extra", "p310:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Follow-through means tested changes, not a rewritten document.", "zh": "落实承诺意味着改动经过测试，不只是重写文档。"},
+      {"sp": "Lukas", "en": "Who's picking this up for approval boundaries?", "zh": "审批边界这件事谁来接？"},
+      {"sp": "Anika", "en": "I own that action item. Due Wednesday itself.", "zh": "这个待办项我负责，就在周三到期。"},
+      {"sp": "Hannah", "en": "I'll own the evidence pack and timing checks.", "zh": "我负责证据集和计时检查。"},
+      {"sp": "Raj", "en": "Permission preflight is mine. I'll test denied access.", "zh": "权限预检归我，我会测试访问被拒。"},
+      {"sp": "Priya", "en": "Just to recap, Thursday is readiness review.", "zh": "小结一下，周四进行就绪评审。"},
+      {"sp": "Lukas", "en": "Perhaps postpone Friday if any safety gate fails.", "zh": "如果任何安全门槛失败，周五也许应延期。"},
+      {"sp": "Anika", "en": "Agreed. No pressure to manufacture a passing result.", "zh": "同意，不能为了通过而制造结果。"},
+      {"sp": "Hannah", "en": "Okay, compare both recovery and data-loss measurements.", "zh": "好，对比恢复时间和数据损失两项测量。"},
+      {"sp": "Priya", "en": "We'll close the loop at next week's retrospective.", "zh": "我们会在下周回顾会上完成反馈。"}
+    ]}
+  ]
+}

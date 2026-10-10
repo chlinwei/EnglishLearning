@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段双语人工草稿。表达仅依赖p001-p350和本文件前段；未来回访不算实绩。配音待试听，按实际音频复核60/40，不预填时间轴。",
+  "series": {"id": "sc-S37-cloud-iac-drift", "title": "IaC漂移修复：审阅计划，不强行覆盖", "domain": "cloud", "group": "change", "service": "analytics worker Terraform stack", "premise": "漂移检查发现工作节点规格及安全组与仓库不一致。手工扩容是批准的高峰措施，计划还显示数据库意外替换。", "outcome": "保留批准扩容，回退无依赖临时安全规则，修正误改的数据库参数。确认工作区与锁持有者，审阅无销毁计划后按独立工作栈执行；验证业务与最终无差异计划。禁止盲目解锁或删除状态。"},
+  "speakers": {
+    "Priya": {"role": "Change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Terraform maintainer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Analytics service owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Infrastructure plan reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "State backend and validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p641", "en": "configuration drift", "zh": "实际配置偏离代码配置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p642", "en": "manual override", "zh": "手工覆盖配置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p643", "en": "source of truth", "zh": "权威配置来源", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p644", "en": "review the plan", "zh": "审阅基础设施变更计划", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p645", "en": "replacement risk", "zh": "资源被替换的风险", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p646", "en": "state lock", "zh": "防并发修改的状态锁", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p647", "en": "apply the saved plan", "zh": "执行已保存的变更计划", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p648", "en": "refresh-only plan", "zh": "只核对远端变化与状态的计划", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p649", "en": "state lineage", "zh": "标识状态文件所属历史的谱系", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p650", "en": "no changes proposed", "zh": "计划未提出变更", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "以下只为未来回访候选，非实际次数。", "futureCandidates": ["p641", "p642", "p643", "p644", "p645", "p646", "p647", "p648", "p649", "p650"]},
+  "dialogues": [
+    {"id": "0366", "part": 1, "stage": "发现漂移", "title": "发现差异，不立即覆盖", "premise": "日常漂移检查报告工作节点规格和安全规则变化。", "listeningTask": "听出漂移并不自动等于未经授权的变更。", "newPhrase": "p641", "phrases": ["p641", "p010", "p335", "p003:extra", "p004:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "We've got configuration drift in analytics. Worker sizes and ingress rules differ from code.", "zh": "分析服务出现配置漂移。节点规格和入站规则与代码不同。"},
+      {"sp": "Lukas", "en": "Well, different doesn't automatically mean unauthorized. Check approvals before proposing any restoration work.", "zh": "嗯，不同不自动等于未授权。提议恢复前查批准记录。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, no apply yet, right?", "zh": "好，我来协调。确认一下，先不执行apply，对吧？"},
+      {"sp": "Hannah", "en": "Yes, the detector only read remote settings. Save its output and the workspace identifier.", "zh": "对，检测器只读取远端设置。保存输出和工作区标识。"},
+      {"sp": "Anika", "en": "We approved extra capacity during the sale. Maybe the code update never got merged.", "zh": "促销时批准过扩容。可能代码更新一直未合入。"},
+      {"sp": "Raj", "en": "Right, that's our working hypothesis for sizing. The network rule needs a separate explanation.", "zh": "对，那是节点规格差异的当前假设。网络规则需要单独解释。"},
+      {"sp": "Lukas", "en": "Compare against the exact deployed revision first. A developer branch isn't the approved baseline.", "zh": "先对比确切部署版本。开发分支不是批准基线。"},
+      {"sp": "Priya", "en": "What's the ETA for those approval records? We need the business context before changing anything.", "zh": "拿到批准记录预计多久？变更前需要业务背景。"},
+      {"sp": "Hannah", "en": "So, I'll securely archive current state too. It may contain secrets, so restrict access.", "zh": "所以，我也会安全归档当前状态。可能含秘密，因此限制访问。"},
+      {"sp": "Anika", "en": "About ten minutes for the sale ticket. A full rollback? Let's park that first.", "zh": "促销工单大约十分钟。全面回退？先放一边。"}
+    ]},
+    {"id": "0367", "part": 2, "stage": "核对手工修改", "title": "批准扩容与临时规则分别处理", "premise": "部署基线已找到，需将实际差异对应审批与审计记录。", "listeningTask": "辨别已确认的手工操作和仍待调查的改动。", "newPhrase": "p642", "phrases": ["p642", "p641", "p010", "p302:extra", "p014:extra", "p011:extra"], "lines": [
+      {"sp": "Anika", "en": "The manual override has a sale approval. It covers worker sizes, not network rules.", "zh": "手工覆盖有促销批准。只涵盖节点规格，不涵盖网络规则。"},
+      {"sp": "Hannah", "en": "Audit events name the operator and time. The rule was added during connectivity testing.", "zh": "审计事件记有操作者和时间。规则是在连通性测试时加的。"},
+      {"sp": "Raj", "en": "Okay, that explains the configuration drift partly. I'll contact the test owner for evidence.", "zh": "好，这解释了部分漂移。我联系测试负责人取证。"},
+      {"sp": "Lukas", "en": "Well, audit events prove who changed it. They don't prove the rule remains necessary.", "zh": "嗯，审计证明是谁改的，但不能证明规则现在仍有必要。"},
+      {"sp": "Priya", "en": "Just to confirm, capacity approval still stands, right? Don't shrink workers while that demand remains.", "zh": "确认一下，容量批准仍有效，对吧？需求仍在就不要缩节点。"},
+      {"sp": "Anika", "en": "Yes, the reporting peak runs through Friday. Roughly three more days of elevated demand.", "zh": "对，报表高峰持续到周五。大约还有三天高需求。"},
+      {"sp": "Hannah", "en": "The test owner says testing has finished. We still need consumer checks before removal.", "zh": "测试负责人说测试已结束。但删除规则前仍需查消费者。"},
+      {"sp": "Raj", "en": "I'm on it for those flow checks. We can't rule that out from tags alone.", "zh": "我来查流量。不能仅凭标签排除仍有依赖。"},
+      {"sp": "Lukas", "en": "Let me play that back for review. Keep approved capacity; investigate the temporary access rule.", "zh": "我为评审复述一下。保留批准容量，调查临时访问规则。"},
+      {"sp": "Priya", "en": "Good, attach both decisions to separate changes. That keeps the approval boundaries clear later.", "zh": "好，把两个决定附在各自变更里。方便之后明确审批边界。"}
+    ]},
+    {"id": "0368", "part": 3, "stage": "确认源配置", "title": "把批准意图写回代码", "premise": "业务扩容继续有效，临时访问规则已完成依赖核查。", "listeningTask": "理解权威来源不是盲目恢复旧代码。", "newPhrase": "p643", "phrases": ["p643", "p642", "p330", "p009:extra", "p010:extra", "p006:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, our repository is the source of truth. But its capacity values need the approved update.", "zh": "好，仓库是权威配置来源。但容量值需要补上已批准更新。"},
+      {"sp": "Lukas", "en": "Exactly, codify the approved business intent first. Don't treat stale code as automatically correct.", "zh": "对，先把批准的业务意图写进代码。过期代码不自动正确。"},
+      {"sp": "Anika", "en": "Right, I'll attach the manual override approval. The temporary rule has no remaining consumer.", "zh": "对，我附上手工覆盖审批。临时规则已无剩余消费者。"},
+      {"sp": "Hannah", "en": "Flow samples support that, and owners confirmed. Keep both checks with the removal request.", "zh": "流量样本支持，负责人也确认了。两项检查都附到移除申请。"},
+      {"sp": "Priya", "en": "Just to confirm, retain capacity, remove access, right? Those are the only intended remote changes.", "zh": "确认一下，保留容量、移除访问，对吧？远端只允许这些预期变化。"},
+      {"sp": "Raj", "en": "Managed configuration will include the worker values. I'll pin the module and provider versions.", "zh": "统一配置会包含节点规格。我会锁定模块和提供者版本。"},
+      {"sp": "Lukas", "en": "Review the effective inputs for this workspace. Shared defaults can change unrelated stacks too.", "zh": "评审本工作区实际输入。共享默认值也可能影响无关栈。"},
+      {"sp": "Anika", "en": "One action item is the capacity expiry. Maybe review it after Friday's demand falls.", "zh": "一项待办是容量到期安排。可以在周五需求下降后评审。"},
+      {"sp": "Hannah", "en": "Good, I've got bandwidth for workspace comparison. I'll check the account and backend mapping.", "zh": "好，我有空对比工作区。我会核对账户与后端映射。"},
+      {"sp": "Priya", "en": "Okay, merge only after the plan review. An approved code change still needs execution approval.", "zh": "好，计划评审后再合入。代码获批仍需要执行审批。"}
+    ]},
+    {"id": "0369", "part": 4, "stage": "审阅plan", "title": "出现数据库替换就停", "premise": "候选代码保留扩容、移除临时规则，开始审阅完整计划。", "listeningTask": "听出plan不是安全承诺，意外替换必须调查。", "newPhrase": "p644", "phrases": ["p644", "p643", "p210", "p004:extra", "p010:extra", "p335:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, let's review the plan before applying. It unexpectedly proposes replacing the reporting database.", "zh": "好，执行前审阅计划。它意外提出替换报表数据库。"},
+      {"sp": "Lukas", "en": "Stop there, that isn't an approved change. Which attribute forces the replacement this time?", "zh": "先停，那不在批准范围。这次哪个属性触发替换？"},
+      {"sp": "Raj", "en": "Well, the encryption key input changed accidentally. Our working hypothesis is a copied variable.", "zh": "嗯，加密密钥输入意外变了。当前假设是变量复制错误。"},
+      {"sp": "Hannah", "en": "The diff shows that exact input change. Confirm the approved key before correcting it.", "zh": "差异明确显示该输入变化。修正前确认批准密钥。"},
+      {"sp": "Priya", "en": "Just to confirm, no database replacement, right? Any shortcut around this? Let's park that.", "zh": "确认一下，不替换数据库，对吧？想绕过？先放一边。"},
+      {"sp": "Anika", "en": "Right, it holds live reporting history itself. Replacement needs its own migration and approval.", "zh": "对，它本身保存线上报表历史。替换需要独立迁移和批准。"},
+      {"sp": "Lukas", "en": "When we say dry-run it first here, we mean plan, not a reversible apply.", "zh": "这里说先试运行，是指plan，不是可逆apply。"},
+      {"sp": "Raj", "en": "So, I'll correct inputs and regenerate everything. Maybe ten minutes for a second review.", "zh": "所以，我修正输入并重新生成完整计划。第二次评审可能十分钟。"},
+      {"sp": "Hannah", "en": "Good, discard the old plan after archiving. Execution must use the reviewed replacement-free version.", "zh": "好，归档后废弃旧计划。执行必须使用评审过且无替换的版本。"},
+      {"sp": "Priya", "en": "The source of truth needs that correction. No approval until the complete diff is understood.", "zh": "权威配置需要这项修正。完整差异理解清楚前不批准。"}
+    ]},
+    {"id": "0370", "part": 5, "stage": "依赖风险", "title": "删一条规则也要查调用方", "premise": "密钥输入已修正，新计划无数据库替换，仅移除临时规则。", "listeningTask": "理解独立栈边界和回退不是恢复旧state。", "newPhrase": "p645", "phrases": ["p645", "p644", "p324", "p327:extra", "p010:extra", "p323:extra"], "lines": [
+      {"sp": "Lukas", "en": "Okay, the replacement risk is gone. But removing access still needs a dependency review.", "zh": "好，替换风险消除了。但移除访问仍需依赖评审。"},
+      {"sp": "Raj", "en": "We'll review the plan for each stack. Workers and database already use separate states.", "zh": "每个栈都审阅计划。节点和数据库已有独立状态。"},
+      {"sp": "Hannah", "en": "Well, separate states don't remove runtime dependencies. Confirm worker connections use the retained rules.", "zh": "嗯，独立状态不消除运行依赖。确认节点连接使用保留规则。"},
+      {"sp": "Anika", "en": "Right, our smoke test used production identity. Database reads worked through the retained private path.", "zh": "对，关键功能测试使用生产身份。数据库读取通过保留的私有路径正常。"},
+      {"sp": "Priya", "en": "Just to confirm, worker stack first, right? This staged rollout doesn't touch the database stack.", "zh": "确认一下，先节点栈，对吧？分阶段发布不碰数据库栈。"},
+      {"sp": "Lukas", "en": "What's the rollback trigger for rule removal? Define failed connections and their observation window.", "zh": "移除规则的回退触发条件是什么？明确连接失败与观察窗口。"},
+      {"sp": "Raj", "en": "Repeated access failures mean pause and investigate. Restore approved access through a new reviewed plan.", "zh": "反复访问失败就暂停调查。通过新评审计划恢复批准访问。"},
+      {"sp": "Hannah", "en": "So, don't use old state for rollback. State records resources; it doesn't restore their configuration.", "zh": "所以，不要用旧状态回退。状态记录资源，不会恢复配置。"},
+      {"sp": "Anika", "en": "Maybe one reporting cycle gives enough coverage. I'll include scheduled reads, not just interactive ones.", "zh": "观察一个报表周期可能足够。我会覆盖定时读取，不只交互读取。"},
+      {"sp": "Priya", "en": "Okay, log that window in the approval. No broad resource targeting to bypass review.", "zh": "好，在批准记录里写明窗口。不靠大范围target绕过评审。"}
+    ]},
+    {"id": "0371", "part": 6, "stage": "小范围apply", "title": "锁还在，先找持有者", "premise": "工作栈计划获批，执行器报告已有状态锁。", "listeningTask": "听出锁冲突的正确处理与禁止动作。", "newPhrase": "p646", "phrases": ["p646", "p644", "p645", "p010:extra", "p008:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The state lock blocked our execution attempt. A scheduled runner still owns this workspace.", "zh": "状态锁阻止了执行尝试。定时runner仍持有这个工作区。"},
+      {"sp": "Hannah", "en": "First, check its job status and owner. Don't force-unlock while another writer is active.", "zh": "先查任务状态和负责人。另一个写入者活跃时不能强制解锁。"},
+      {"sp": "Priya", "en": "Just to confirm, no state deletion, right? What's the ETA for contacting that owner?", "zh": "确认一下，不删state，对吧？联系负责人预计多久？"},
+      {"sp": "Lukas", "en": "Well, deleting state loses tracked resource bindings. It wouldn't safely resolve this concurrency problem.", "zh": "嗯，删除状态会丢失资源绑定，不能安全解决并发问题。"},
+      {"sp": "Raj", "en": "I'm on it, the owner just replied. It's a read check, finishing in two minutes.", "zh": "我在联系，负责人刚回复。是读取检查，两分钟后结束。"},
+      {"sp": "Anika", "en": "We can wait inside the approved window. Nobody needs to push past the lock itself.", "zh": "可以在批准窗口内等待。没必要绕过锁本身。"},
+      {"sp": "Hannah", "en": "Right, it finished and released the lock. Generate a fresh plan against the latest state.", "zh": "对，它已完成并释放锁。针对最新状态生成新计划。"},
+      {"sp": "Raj", "en": "Okay, we'll review the plan again now. The replacement risk stays absent in this version.", "zh": "好，我们再审阅计划。这个版本仍无替换风险。"},
+      {"sp": "Lukas", "en": "Good, the full diff matches our approval. Apply this saved worker-stack plan with locking enabled.", "zh": "好，完整差异符合批准。保持锁启用，执行这份节点栈保存计划。"},
+      {"sp": "Priya", "en": "Raj can execute after both reviewers sign. Roughly five minutes remain for validation afterward.", "zh": "两位评审签字后Raj执行。之后大约剩五分钟验证。"}
+    ]},
+    {"id": "0372", "part": 7, "stage": "验证资源", "title": "apply成功还要验证真实路径", "premise": "新计划获批并执行，工作栈移除临时规则但保留批准规格。", "listeningTask": "区分执行器成功、远端配置正确和业务正常。", "newPhrase": "p647", "phrases": ["p647", "p646", "p643", "p327:extra", "p309:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "We did apply the saved plan successfully. Worker sizes stayed unchanged, as the approval required.", "zh": "保存计划执行成功。节点规格按批准要求保持不变。"},
+      {"sp": "Lukas", "en": "Well, runner success isn't the whole check. Verify the actual security rules and connections.", "zh": "嗯，runner成功不是全部检查。要验证实际安全规则与连接。"},
+      {"sp": "Anika", "en": "Our smoke test passed against live workers. Scheduled reporting reads also finished without access failures.", "zh": "线上节点关键功能测试通过。定时报表读取也完成，没有访问失败。"},
+      {"sp": "Hannah", "en": "Good, remote rules match the approved configuration. The temporary ingress entry is no longer present.", "zh": "好，远端规则符合批准配置。临时入站规则已不存在。"},
+      {"sp": "Priya", "en": "Just to confirm, the state lock released, right? No second writer ran during our apply.", "zh": "确认一下，状态锁释放了，对吧？apply期间没有其他写入者。"},
+      {"sp": "Raj", "en": "Yes, the runner recorded normal lock release. I'll keep an eye on subsequent drift checks.", "zh": "对，runner记录了正常释放。我会关注后续漂移检查。"},
+      {"sp": "Lukas", "en": "And the source of truth includes capacity? The next pipeline mustn't shrink those workers.", "zh": "权威配置也包含容量更新吗？下次流水线不能缩这些节点。"},
+      {"sp": "Anika", "en": "It does, the reviewed revision is merged. We still need the peak reporting cycle itself.", "zh": "包含，评审版本已合入。还需要验证高峰报表周期本身。"},
+      {"sp": "Hannah", "en": "So, maybe another hour covers that peak. Keep the validation window open until then.", "zh": "所以，再一小时可能覆盖高峰。此前不要关闭验证窗口。"},
+      {"sp": "Priya", "en": "Okay, don't close the change just yet. Plan alignment and business validation need separate evidence.", "zh": "好，先不关闭变更。计划一致和业务验证需要分别留证。"}
+    ]},
+    {"id": "0373", "part": 8, "stage": "处理残余漂移", "title": "refresh不是修复代码", "premise": "主变更验证正常，扫描仍显示一个未管理对象需要解释。", "listeningTask": "理解refresh-only、import与真实配置修复的边界。", "newPhrase": "p648", "phrases": ["p648", "p641", "p643", "p004:extra", "p335:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "A refresh-only plan shows one output changed. It records remote facts, not configuration repairs.", "zh": "只刷新计划显示一个输出变化。它记录远端事实，不修复配置。"},
+      {"sp": "Hannah", "en": "Well, we also found an untracked dashboard. State refresh won't discover and import everything.", "zh": "嗯，还发现一个未跟踪看板。状态刷新不会发现并导入全部对象。"},
+      {"sp": "Priya", "en": "Just to confirm, no blind import, right? We need its owner and intended configuration first.", "zh": "确认一下，不盲目import，对吧？先要负责人和预期配置。"},
+      {"sp": "Lukas", "en": "Yes, verify its account and resource identifier. Importing the wrong object creates misleading ownership.", "zh": "对，要核实账户和资源标识。导错对象会造成错误归属。"},
+      {"sp": "Anika", "en": "Our working hypothesis is a sale dashboard. Maybe its owner intended it as temporary.", "zh": "当前假设是促销看板。负责人可能本来打算临时使用。"},
+      {"sp": "Raj", "en": "We'll handle that configuration drift separately tomorrow. The main worker change is still fully scoped.", "zh": "那项漂移明天单独处理。主节点变更范围仍明确。"},
+      {"sp": "Hannah", "en": "So, reviewed imports need matching configuration too. Otherwise the next plan might destroy the object.", "zh": "所以，评审过的导入也需要匹配配置。否则下次计划可能销毁对象。"},
+      {"sp": "Priya", "en": "Okay, let's park that import until review. Keep the dashboard running while ownership stays uncertain.", "zh": "好，import等评审再说。归属不明时保持看板运行。"},
+      {"sp": "Lukas", "en": "Don't edit state to hide the difference. That would change records, not the live infrastructure.", "zh": "不要编辑state掩盖差异。那改变记录，不改变线上基础设施。"},
+      {"sp": "Anika", "en": "I'll help establish the source of truth. Then its owner can choose adoption or retirement.", "zh": "我帮助确认权威配置。之后负责人选择纳管或退役。"}
+    ]},
+    {"id": "0374", "part": 9, "stage": "更新状态", "title": "记录状态，不拿旧文件回退", "premise": "业务高峰验证通过，团队归档变更后的状态证据。", "listeningTask": "听清状态归档目的和损坏恢复的审批边界。", "newPhrase": "p649", "phrases": ["p649", "p646", "p648", "p012:extra", "p331:extra", "p305:extra"], "lines": [
+      {"sp": "Hannah", "en": "Okay, state lineage matches our backend history. The serial increased after the successful apply.", "zh": "好，状态谱系符合后端历史。成功apply后序号增加。"},
+      {"sp": "Raj", "en": "Right, the state lock released without intervention. Backend versioning kept the previous state copy.", "zh": "对，状态锁无需干预就释放。后端版本管理保留了上版状态。"},
+      {"sp": "Lukas", "en": "So, keep execution logs with that version. A snapshot isn't a license to overwrite state.", "zh": "所以，执行日志与版本一起保留。快照不是随意覆盖状态的许可。"},
+      {"sp": "Priya", "en": "Just to recap, no manual state edits. We hand over the revision and evidence links.", "zh": "小结一下，没有手工改state。交接版本和证据链接。"},
+      {"sp": "Anika", "en": "The peak cycle passed as expected itself. Reporting timings stayed inside our normal service targets.", "zh": "高峰周期本身按预期通过。报表时效保持在正常服务目标内。"},
+      {"sp": "Hannah", "en": "Well, a refresh-only plan needs separate review. Don't apply it automatically after every drift alert.", "zh": "嗯，只刷新计划需要独立评审。不要每次漂移告警后自动执行。"},
+      {"sp": "Raj", "en": "Our retention policy covers sensitive state snapshots. Access stays limited to the infrastructure maintainers.", "zh": "敏感状态快照受保留策略约束。访问仅限基础设施维护者。"},
+      {"sp": "Lukas", "en": "If the backend becomes corrupted, stop writers. Recovery requires identity checks and an approved procedure.", "zh": "若后端损坏，先停写入者。恢复需要身份核验和批准流程。"},
+      {"sp": "Priya", "en": "Maybe add that procedure to the handover. We don't want improvised recovery under time pressure.", "zh": "可以把那流程加入交接。避免时间紧张时临时拼凑恢复。"},
+      {"sp": "Anika", "en": "Good, I'll link business validation there too. The deferred dashboard review keeps a separate owner.", "zh": "好，我也链接业务验证。暂缓的看板评审有独立负责人。"}
+    ]},
+    {"id": "0375", "part": 10, "stage": "防手工变更", "title": "无差异之后还要补流程", "premise": "工作栈配置和状态一致，遗留看板另立评审，讨论防止再次漂移。", "listeningTask": "抓住紧急变更允许方式和代码回写责任。", "newPhrase": "p650", "phrases": ["p650", "p642", "p644", "p009:extra", "p310:extra", "p013:extra"], "lines": [
+      {"sp": "Raj", "en": "The worker plan says no changes proposed. That's for this workspace and revision only.", "zh": "节点计划显示未提出变更。只适用于这个工作区和版本。"},
+      {"sp": "Lukas", "en": "Good, don't call the entire estate clean. Well, that dashboard still needs its ownership review.", "zh": "好，不要说全部资源都一致。嗯，那个看板仍需归属评审。"},
+      {"sp": "Priya", "en": "First action item, tighten routine console access. Emergency access stays available with approval and logging.", "zh": "第一项待办，收紧日常控制台权限。紧急访问保留，但要批准和记录。"},
+      {"sp": "Anika", "en": "A manual override needs an expiry itself. Who's picking this up for the sale exception?", "zh": "手工覆盖本身需要到期时间。促销例外谁来接？"},
+      {"sp": "Hannah", "en": "Raj should track expiry with the owner. Automated alerts can flag overdue code updates.", "zh": "Raj应与负责人跟踪到期。自动告警可提示逾期代码更新。"},
+      {"sp": "Raj", "en": "I'll close the loop by Friday afternoon. Maybe the extra capacity can shrink after review.", "zh": "我周五下午前闭环。评审后可能缩减额外容量。"},
+      {"sp": "Lukas", "en": "Then review the plan for that change. A future scale-down isn't approved by today's result.", "zh": "那次变更也要审阅计划。今天结果不等于批准未来缩容。"},
+      {"sp": "Priya", "en": "Okay, approvals stay tied to specific diffs. No blanket permission for later infrastructure changes.", "zh": "好，批准绑定具体差异。不提供后续基础设施变更的通用许可。"},
+      {"sp": "Hannah", "en": "So, I'll test lock contention in our sandbox. The runbook must preserve active writers safely.", "zh": "所以，我会在沙箱测试锁冲突。操作手册必须安全保护活跃写入者。"},
+      {"sp": "Anika", "en": "I'll review the emergency workflow with operations. Fast fixes still need a clear return path.", "zh": "我与运维评审紧急流程。快速修复仍需要清楚的回归路径。"}
+    ]}
+  ]
+}

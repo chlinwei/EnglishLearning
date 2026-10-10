@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段完整交接对话文本，未配音或发布。引用既有表达库与S03–S05草稿定义；不包含虚构时间轴。",
+  "series": {
+    "id": "sc-S06-linux-restart-handoff",
+    "title": "服务反复重启的夜班交接：临时稳定，调查未结",
+    "domain": "linux", "group": "handoff", "service": "invoice-export service",
+    "premise": "19:00白班向夜班交接。一台Linux虚拟机上的invoice-export在18:40至18:48间发生三次watchdog触发的重启；18:52暂停新任务拉取后保持运行。导出请求延迟，根因尚未证实。",
+    "outcome": "接班人核对重启证据、临时暂停范围与待导出请求，约定重启复发立即升级、20:00检查最长等待时间，确认主备联系人和任务恢复审批。明确转交值守责任，不把短期稳定写成故障结案。"
+  },
+  "speakers": {
+    "Priya": {"role": "Shift coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Outgoing Linux on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Outgoing application owner", "accent": "en-IN", "voice": null},
+    "Hannah": {"role": "Incoming primary on-call", "accent": "German-accented English", "voice": null},
+    "Lukas": {"role": "Incoming backup SRE", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p331", "en": "hand over", "zh": "交接事项或责任", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p332", "en": "restart count", "zh": "重启次数", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p333", "en": "watchdog timeout", "zh": "看门狗因未及时收到心跳而超时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p334", "en": "temporary workaround", "zh": "临时绕过或缓解措施", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p335", "en": "working hypothesis", "zh": "当前待验证的解释", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p336", "en": "escalation path", "zh": "升级处理的联系与响应路径", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p337", "en": "primary on-call", "zh": "第一响应值班人", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p338", "en": "page the backup", "zh": "呼叫后备值班人", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p339", "en": "have I missed anything", "zh": "我有没有遗漏什么", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p340", "en": "I've got it from here", "zh": "接下来由我负责", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {
+    "note": "新表达首次在本场景引入，其他五项复现已有表达。后续回访是编稿排期，不计为实际出现。",
+    "S10": ["p331", "p332", "p334", "p335", "p336", "p337", "p338", "p339", "p340"],
+    "S15": ["p331", "p334", "p335", "p336", "p337", "p338", "p339", "p340"],
+    "S29": ["p331", "p332", "p333", "p334", "p336", "p337", "p338", "p339", "p340"],
+    "S33": ["p331", "p332", "p333", "p334", "p335", "p336", "p337", "p338", "p339", "p340"],
+    "S43": ["p331", "p333", "p334", "p335", "p336", "p337", "p338", "p339", "p340"]
+  },
+  "dialogues": [
+    {
+      "id": "0056", "part": 1, "stage": "交班背景", "title": "交接开场：稳定了，但还没修好",
+      "premise": "19:00开始交接，invoice-export在暂停拉取后暂时稳定，导出延迟仍在。",
+      "listeningTask": "听清当前影响和服务状态，区分缓解与结案。",
+      "newPhrase": "p331", "phrases": ["p331", "p109", "p320", "p010:extra", "p004:extra", "p111:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Before I hand over, one service needs attention. Invoice-export has restarted three times.", "zh": "交班前有一个服务需要重点关注。invoice-export已经重启了三次。"},
+        {"sp": "Hannah", "en": "Is it down now, or does it keep coming back?", "zh": "现在是停着，还是会反复恢复？"},
+        {"sp": "Raj", "en": "It kept coming back. It's flapping, or it was. It's stayed up since we paused fetching.", "zh": "之前不断恢复又退出。状态反复抖动——准确说之前是。暂停拉取后一直运行。"},
+        {"sp": "Priya", "en": "Just to confirm, exports are delayed, right? The billing API itself is still working.", "zh": "我确认一下，是导出延迟，对吧？计费API本身仍在工作。"},
+        {"sp": "Lukas", "en": "What's still open? We shouldn't inherit a resolved ticket if the cause isn't known.", "zh": "还有哪些问题未解决？原因未知的话，我们不该接手一个被标为已解决的工单。"},
+        {"sp": "Anika", "en": "The root cause is still open. Pausing fetches stopped the symptom, not the investigation.", "zh": "根因仍未查明。暂停拉取只是让症状停止，不代表调查结束。"},
+        {"sp": "Hannah", "en": "Okay. I'll need the exact pause setting and the affected requests.", "zh": "好。我需要知道具体暂停了哪个设置、影响哪些请求。"},
+        {"sp": "Priya", "en": "Let's keep it under observation. Any bigger redesign? Let's park that until tomorrow.", "zh": "继续观察。大规模重设计的事先放一边，明天再讨论。"},
+        {"sp": "Lukas", "en": "First walk us through the timeline. Then we'll agree what needs a call tonight.", "zh": "先讲一遍时间线，再约定今晚哪些情况需要呼叫。"},
+        {"sp": "Raj", "en": "Sure. I'll separate what we've checked from what we're only assuming.", "zh": "可以。我会把已经检查的事实和目前的假设分开说。"}
+      ]
+    },
+    {
+      "id": "0057", "part": 2, "stage": "重启时间线", "title": "三次重启：时间和计数一起核对",
+      "premise": "确认服务尚未结案，接班方要求核对重启与暂停操作的时间线。",
+      "listeningTask": "区分本次记录的重启次数与计数器可能重置的问题。",
+      "newPhrase": "p332", "phrases": ["p332", "p010", "p302", "p011:extra", "p309:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The restart count rose three times. Eighteen forty, eighteen forty-four, then eighteen forty-eight.", "zh": "重启计数增加了三次，分别是18:40、18:44和18:48。"},
+        {"sp": "Hannah", "en": "Since the last boot? Or since someone reset the service state?", "zh": "是从上次开机开始算，还是从有人重置服务状态开始算？"},
+        {"sp": "Raj", "en": "I matched the increments to journal entries. The timestamps are in the ticket.", "zh": "我把计数变化和journal日志对应上了，时间戳写在工单里。"},
+        {"sp": "Priya", "en": "Just to confirm, no manual restart in that period, right?", "zh": "我确认一下，那段时间没有手动重启，对吧？"},
+        {"sp": "Lukas", "en": "Let me play that back. Three automatic restarts, then fetching paused at eighteen fifty-two?", "zh": "我复述一下：三次自动重启，然后18:52暂停拉取？"},
+        {"sp": "Anika", "en": "Exactly. No deploy or manual stop. We can rule that out from the change log.", "zh": "正是这样。没有部署或手动停止，可以根据变更记录排除。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on new increments. Don't rely on the counter without the journal.", "zh": "我会关注新增次数。不能离开journal记录只看计数器。"},
+        {"sp": "Priya", "en": "Raj, attach the matching entries. We need evidence the next shift can follow.", "zh": "Raj，把对应记录附上，下个班需要能追溯的证据。"},
+        {"sp": "Lukas", "en": "And include the pause timestamp. That gives us a useful before-and-after boundary.", "zh": "也加上暂停时间，那能作为对比操作前后的边界。"},
+        {"sp": "Raj", "en": "I'm on it. They're saved already. I'll link the exact section before I leave.", "zh": "我来处理。记录已经保存，我离开前会链接到具体位置。"}
+      ]
+    },
+    {
+      "id": "0058", "part": 3, "stage": "已查证据", "title": "看门狗超时：不是OOM，也不能直接怪网络",
+      "premise": "三次自动重启与日志时间一致，无部署或人工停止，进一步交代退出原因。",
+      "listeningTask": "区分已确认的终止机制与仍未知的心跳中断原因。",
+      "newPhrase": "p333", "phrases": ["p333", "p010", "p302", "p312:extra", "p311:extra", "p301:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Each exit says watchdog timeout. Systemd stopped the process after missing its heartbeat.", "zh": "每次退出都显示看门狗超时。systemd因为没收到心跳而终止了进程。"},
+        {"sp": "Lukas", "en": "Do we know why the heartbeat stopped? That's different from knowing who stopped it.", "zh": "知道心跳为什么停止了吗？这和知道谁终止了进程是两回事。"},
+        {"sp": "Anika", "en": "Not yet. Export calls slowed around those times. We don't know if they blocked the heartbeat.", "zh": "还不知道。那些时间附近导出调用变慢，但不知道是否阻塞了心跳。"},
+        {"sp": "Priya", "en": "Just to confirm, nothing got OOM-killed, right? We checked more than the exit status?", "zh": "我确认一下，没有进程被OOM机制终止，对吧？不是只看退出状态？"},
+        {"sp": "Hannah", "en": "Yes, the kernel log has no matching OOM event. Available memory stayed healthy.", "zh": "是的，内核日志没有对应OOM事件，可用内存一直正常。"},
+        {"sp": "Raj", "en": "No memory pressure in the host charts either. We can rule that out for these exits.", "zh": "主机曲线也没有内存压力，可以排除这几次退出由OOM造成。"},
+        {"sp": "Lukas", "en": "And disk writes? The last log incident makes that worth checking, not assuming.", "zh": "磁盘写入呢？上次日志故障说明应该核查，但不能直接假定又是它。"},
+        {"sp": "Anika", "en": "No sign the disk is filling up. Writes worked, and free space stayed normal.", "zh": "没有磁盘写满迹象，写入成功，空闲空间也一直正常。"},
+        {"sp": "Hannah", "en": "Good. Keep the timeout as a fact, and the blocked-heartbeat idea as a hypothesis.", "zh": "好。把超时记为事实，心跳被阻塞记为假设。"},
+        {"sp": "Priya", "en": "Agreed. Don't close off other explanations until we can reproduce the behavior.", "zh": "同意。能够复现之前，不要排除其他解释。"}
+      ]
+    },
+    {
+      "id": "0059", "part": 4, "stage": "临时措施", "title": "暂停了什么：请求仍在，不能随手恢复",
+      "premise": "看门狗超时已确认，暂停新任务拉取后暂时稳定，交代临时措施边界。",
+      "listeningTask": "听清暂停范围、业务代价和恢复审批要求。",
+      "newPhrase": "p334", "phrases": ["p334", "p010", "p306", "p308:extra", "p014:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The temporary workaround pauses new fetches. It doesn't delete queued export requests.", "zh": "临时措施是暂停新任务拉取，不会删除队列中的导出请求。"},
+        {"sp": "Hannah", "en": "What about a task already running? Was anything interrupted or left half-written?", "zh": "已经在运行的任务呢？有没有被中断，或留下半写入文件？"},
+        {"sp": "Raj", "en": "None was active when we paused. We checked the task record and output list.", "zh": "暂停时没有活跃任务，我们核对了任务记录和输出列表。"},
+        {"sp": "Priya", "en": "Just to confirm, fetching stays paused overnight unless approved, right?", "zh": "我确认一下，未经批准，夜间继续暂停拉取，对吧？"},
+        {"sp": "Lukas", "en": "Yes. Who approves resuming, and how do we confirm the setting actually changed?", "zh": "对。谁批准恢复，怎样确认设置确实生效？"},
+        {"sp": "Anika", "en": "The duty app owner approves. The admin status and fetch metrics must agree.", "zh": "由当值应用负责人批准。管理状态和拉取指标必须一致。"},
+        {"sp": "Hannah", "en": "This will buy us time, but request age keeps increasing while we wait.", "zh": "这能争取时间，但等待期间请求等待时间会继续增长。"},
+        {"sp": "Raj", "en": "I'm on it for the written steps. It'll need controlled recovery to catch up later.", "zh": "我来写清操作步骤，之后要受控恢复，才能处理完积压。"},
+        {"sp": "Lukas", "en": "Don't test resuming during handoff. We'd lose the stable baseline and divide responsibility.", "zh": "不要在交接时测试恢复，不然会失去稳定基线，也会让责任不清。"},
+        {"sp": "Priya", "en": "Changing the watchdog timeout? Let's park that. No unreviewed tuning tonight.", "zh": "修改看门狗超时的事先放一边，今晚不做未经评审的调整。"}
+      ]
+    },
+    {
+      "id": "0060", "part": 5, "stage": "未决疑点", "title": "猜测怎么传：别让接班人把假设当结论",
+      "premise": "已交代暂停拉取的临时措施；继续说明慢调用与心跳阻塞的调查线索。",
+      "listeningTask": "听出下一步需要的证据，以及今晚不应该执行的诊断。",
+      "newPhrase": "p335", "phrases": ["p335", "p010", "p320", "p315:extra", "p002:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Our working hypothesis is a blocked heartbeat during slow export calls. It's not proven.", "zh": "当前假设是慢导出调用阻塞了心跳，但没有证实。"},
+        {"sp": "Lukas", "en": "What evidence would separate that from a CPU stall or another blocked thread?", "zh": "什么证据能把它和CPU停顿或其他线程阻塞区分开？"},
+        {"sp": "Anika", "en": "Timing traces from a controlled reproduction. The current logs aren't detailed enough.", "zh": "需要受控复现中的时序跟踪，现有日志细节不够。"},
+        {"sp": "Priya", "en": "Just to confirm, the root cause is still open, right? That's explicit in the ticket.", "zh": "我确认一下，根因仍未查明，对吧？工单里要明确写着。"},
+        {"sp": "Hannah", "en": "Should I collect a heap snapshot if it happens again? Or is that unrelated?", "zh": "如果复发，我要采集堆快照吗？还是和这次问题无关？"},
+        {"sp": "Raj", "en": "Not by default. No memory evidence points there. Follow the lightweight evidence checklist first.", "zh": "不要默认采集。没有内存证据指向那里，先按轻量证据清单做。"},
+        {"sp": "Lukas", "en": "Agreed. Heavy diagnostics could cause another pause. Don't add them without approval.", "zh": "同意。重型诊断可能再造成暂停，未经批准不要增加。"},
+        {"sp": "Anika", "en": "I'll reproduce it tomorrow. Then we'll close the loop with traces, not guesses.", "zh": "我明天复现，再带着跟踪证据反馈结果，而不是猜测。"},
+        {"sp": "Hannah", "en": "Please link the checklist. I need to know what to save before contacting you.", "zh": "把清单链接给我，我需要知道联系你们前要保存什么。"},
+        {"sp": "Priya", "en": "Done. Let's take it offline for the reproduction design. Tonight is monitoring and escalation.", "zh": "已附上。复现设计会后单独聊，今晚的工作是监控和升级处理。"}
+      ]
+    },
+    {
+      "id": "0061", "part": 6, "stage": "值守条件", "title": "何时拉会：重启复发和请求超时分开处理",
+      "premise": "调查线索已写清，根因未结案；接班方要求明确夜间升级触发条件。",
+      "listeningTask": "区分立即升级的事件和定时检查的业务等待指标。",
+      "newPhrase": "p336", "phrases": ["p336", "p010", "p309", "p008:extra", "p011:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "What's the escalation path if it restarts while fetching is paused?", "zh": "如果暂停拉取期间又重启，升级处理怎么联系？"},
+        {"sp": "Priya", "en": "Page the duty app owner immediately. Keep an eye on new exits, not just uptime.", "zh": "立即呼叫当值应用负责人。要关注新的退出，不只看运行时间。"},
+        {"sp": "Raj", "en": "I'll leave the journal filter and alert link. New exits should reach your pager.", "zh": "我会留下journal筛选方式和告警链接，新的退出应该能送达你的呼叫设备。"},
+        {"sp": "Lukas", "en": "And delayed exports? They're already waiting. When does that become urgent?", "zh": "导出延迟呢？现在已经在等待，什么时候算紧急？"},
+        {"sp": "Anika", "en": "Check the oldest request at twenty hundred. Escalate if it exceeds the agreed two-hour limit.", "zh": "20:00检查最老请求，等待超过约定的两小时限制就升级处理。"},
+        {"sp": "Priya", "en": "Just to confirm, that's request age, right? Not two hours since this handoff?", "zh": "我确认一下，指请求已经等了多久，对吧？不是交班后再等两小时？"},
+        {"sp": "Hannah", "en": "Let me play that back. New restart means immediate call; request age gets the scheduled check.", "zh": "我复述一下：新的重启立即呼叫，请求等待时间按计划检查。"},
+        {"sp": "Raj", "en": "Correct. I'm on it for the reminder. What's the ETA for your first status update?", "zh": "对，提醒我来设置。你的首次状态更新预计什么时候？"},
+        {"sp": "Lukas", "en": "At twenty hundred, or earlier if a trigger fires. Don't wait for the scheduled update then.", "zh": "20:00，触发条件出现就提前。那时不能等到例行更新时间。"},
+        {"sp": "Anika", "en": "Agreed. Maybe no change until then, but record both service state and customer delay.", "zh": "同意。也许到时状态没变，但服务状态和用户延迟都要记录。"}
+      ]
+    },
+    {
+      "id": "0062", "part": 7, "stage": "联系人确认", "title": "谁先响应：联系人不是只有一个名字",
+      "premise": "确定重启复发立即升级、20:00检查请求等待时间，开始核对主备联系安排。",
+      "listeningTask": "听清夜间第一响应、后备及应用负责人之间的职责区别。",
+      "newPhrase": "p337", "phrases": ["p337", "p010", "p331", "p006:extra", "p014:extra", "p009:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Hannah is primary on-call tonight. Lukas is backup. The duty app owner is in the rota.", "zh": "今晚Hannah是第一响应值班人，Lukas后备，当值应用负责人在排班表中。"},
+        {"sp": "Hannah", "en": "I'll acknowledge alerts and coordinate the first response. Who approves application changes?", "zh": "我确认告警并协调初步响应。应用变更由谁批准？"},
+        {"sp": "Anika", "en": "The duty app owner, not me by default. Use the live rota, not this meeting's attendee list.", "zh": "当值应用负责人，不是默认找我。以实时排班表为准，不以参会名单为准。"},
+        {"sp": "Raj", "en": "Just to confirm, my pager rotates away after we hand over, right?", "zh": "我确认一下，交接完成后呼叫会转走，不再默认发给我，对吧？"},
+        {"sp": "Lukas", "en": "Yes. Check the routing state before leaving. Don't assume the calendar changes it automatically.", "zh": "对。离开前检查路由状态，不要以为日历到了时间就必然自动切换。"},
+        {"sp": "Priya", "en": "That's an action item for me. I'll confirm the rota and alert routing now.", "zh": "这项我来做，现在确认排班和告警路由。"},
+        {"sp": "Hannah", "en": "I have bandwidth for monitoring. If we open an incident, I'll ask Lukas to track the timeline.", "zh": "我有精力做监控。如果启动故障响应，我会请Lukas记录时间线。"},
+        {"sp": "Raj", "en": "I'm on it for the evidence links. They won't depend on my personal access.", "zh": "证据链接我来整理，不会依赖我的个人访问权限。"},
+        {"sp": "Lukas", "en": "Good. I'll verify access from my account too, not just watch Raj open the links.", "zh": "好。我也会用自己的账号验证访问，不只是看Raj能打开。"},
+        {"sp": "Anika", "en": "And I'll check the app owner's contact. One stale number could cost us time tonight.", "zh": "我会核对应用负责人联系方式，一个过期号码就可能耽误今晚响应。"}
+      ]
+    },
+    {
+      "id": "0063", "part": 8, "stage": "接班追问", "title": "没收到确认怎么办：后备路径要可用",
+      "premise": "主备责任、告警路由和证据访问已核对；进一步确认联系人未响应时的路径。",
+      "listeningTask": "听出呼叫、确认响应和审批是三件不同的事。",
+      "newPhrase": "p338", "phrases": ["p338", "p010", "p302", "p011:extra", "p008:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "If the app owner doesn't acknowledge, do I page the backup or keep trying?", "zh": "应用负责人没确认响应时，是呼叫后备，还是继续联系？"},
+        {"sp": "Priya", "en": "Use the rota's escalation timer. At five minutes, page the backup and notify the coordinator.", "zh": "按排班的升级计时，五分钟没有确认，就呼叫后备并通知协调人。"},
+        {"sp": "Raj", "en": "Keep an eye on the acknowledgement, not just whether the message was delivered.", "zh": "要看有没有确认响应，不只看消息是否送达。"},
+        {"sp": "Lukas", "en": "Let me play that back. The backup helps respond, but doesn't automatically approve an app change?", "zh": "我复述一下：后备协助响应，但不会自动获得应用变更审批权？"},
+        {"sp": "Anika", "en": "Correct. Just to confirm, the designated approver still applies, right? It's in the runbook.", "zh": "对。我确认一下，仍由指定审批人批准，对吧？运行手册里写清了。"},
+        {"sp": "Priya", "en": "Yes. What's the ETA before the coordinator joins? The contact route has a second step.", "zh": "对。协调人预计多久加入？联系路径还有第二级。"},
+        {"sp": "Hannah", "en": "I'll follow that step if there's no response. Meanwhile I can preserve evidence and monitor.", "zh": "没响应时我会按第二级联系，同时保留证据并监控。"},
+        {"sp": "Raj", "en": "Exactly. If the service restarts, we can't rule that out as harmless just because it comes back.", "zh": "对。服务重启后即使自己恢复，也不能认为一定无害。"},
+        {"sp": "Lukas", "en": "And no repeated manual restarts while we wait. They could hide the evidence.", "zh": "等待期间不要反复手动重启，那可能掩盖证据。"},
+        {"sp": "Anika", "en": "Agreed. Use the approved containment steps only. Maybe we'll need an incident call, not more guessing.", "zh": "同意，只用批准的控制措施。可能需要正式故障会议，而不是继续猜测。"}
+      ]
+    },
+    {
+      "id": "0064", "part": 9, "stage": "复述行动项", "title": "接班人复述：有没有遗漏",
+      "premise": "触发条件、联系人和未响应处理路径已明确，由接班人复述检查。",
+      "listeningTask": "找出复述中的遗漏，并听出白班补充的具体条件。",
+      "newPhrase": "p339", "phrases": ["p339", "p012", "p331", "p011:extra", "p009:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "Let me play that back. Fetching stays paused. New restarts trigger an immediate app-owner page.", "zh": "我复述一下：继续暂停拉取，新的重启立即呼叫应用负责人。"},
+        {"sp": "Raj", "en": "Yes. Keep an eye on the journal and request age. Both links are in the ticket.", "zh": "对。关注journal和请求等待时间，两项链接都在工单里。"},
+        {"sp": "Hannah", "en": "At twenty hundred I check the oldest request. Over two hours means escalation. Have I missed anything?", "zh": "20:00检查最老请求，超过两小时就升级。我有没有遗漏什么？"},
+        {"sp": "Anika", "en": "The resume approval. You don't re-enable fetching just because the process has stayed up.", "zh": "还有恢复审批。不能只是因为进程一直运行，就重新启用拉取。"},
+        {"sp": "Priya", "en": "Right. Just to recap, short-term stability isn't a fix. The investigation remains open.", "zh": "对。小结一下，短期稳定不是修复，调查仍保持未结案。"},
+        {"sp": "Lukas", "en": "I take the timeline if we open an incident. Hannah keeps coordination and primary response.", "zh": "如果启动故障响应，我记录时间线，Hannah负责协调和第一响应。"},
+        {"sp": "Raj", "en": "One action item before I hand over: confirm you can open the saved evidence.", "zh": "正式交班前还有一个行动项：确认你们能打开保存的证据。"},
+        {"sp": "Hannah", "en": "I can. The links and restricted log access both work from my account.", "zh": "可以。我的账号能打开链接，也有受限日志访问权限。"},
+        {"sp": "Anika", "en": "Good. And no customer-facing promise of recovery yet. We haven't resumed exports.", "zh": "好。也不要向客户承诺已经恢复，导出还没有恢复运行。"},
+        {"sp": "Priya", "en": "Agreed, right? We'll report the current delay honestly and update after the scheduled check.", "zh": "这一点都同意，对吧？如实报告当前延迟，在计划检查后更新。"}
+      ]
+    },
+    {
+      "id": "0065", "part": 10, "stage": "确认接管", "title": "正式接班：责任交出去了，调查没关",
+      "premise": "接班方已复述并补齐恢复审批，证据可访问，准备正式确认交接。",
+      "listeningTask": "听出谁接管、下一次更新时间和哪些任务仍由白班跟进。",
+      "newPhrase": "p340", "phrases": ["p340", "p331", "p310", "p009:extra", "p001:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "All checks are done. Raj, you can hand over now. Hannah, ready to take ownership?", "zh": "检查都完成了。Raj，现在可以交班。Hannah，准备好接管了吗？"},
+        {"sp": "Hannah", "en": "Yes, I've got it from here. I'll update at twenty hundred or sooner if anything changes.", "zh": "是的，接下来我负责。20:00更新，有变化就提前。"},
+        {"sp": "Raj", "en": "Just to confirm, alert routing is yours now, right? The rota shows the new shift.", "zh": "我确认一下，告警现在转到你这里，对吧？排班显示已经进入新班次。"},
+        {"sp": "Lukas", "en": "Confirmed. Primary and backup routes are correct. I'll stay available for escalation.", "zh": "确认，主备路由都正确。我会保持可联系，支持升级响应。"},
+        {"sp": "Anika", "en": "Tomorrow's reproduction is still my action item. I'll close the loop with the results.", "zh": "明天复现仍然是我的任务，我会反馈结果并完成跟进。"},
+        {"sp": "Priya", "en": "Let's circle back tomorrow morning. Tonight's status stays mitigated, with exports delayed.", "zh": "明早再回来看。今晚状态保持为已缓解，导出仍延迟。"},
+        {"sp": "Hannah", "en": "I'll put that in the update. No resolved label and no restart experiment overnight.", "zh": "我会在更新里写清。不标为已解决，夜间也不做重启试验。"},
+        {"sp": "Raj", "en": "Thanks. I've recorded the handoff time and left the evidence where you can reach it.", "zh": "谢谢。我已记录交接时间，证据也放在你们能访问的位置。"},
+        {"sp": "Lukas", "en": "If the approved conditions change, we'll reopen the discussion rather than improvise a fix.", "zh": "如果批准的条件发生变化，我们会重新讨论，而不是临时拼凑修复。"},
+        {"sp": "Anika", "en": "Agreed. Use the duty contact tonight, not my chat status. The ownership is clear now.", "zh": "同意。今晚按当值联系人联系，不要看我的聊天在线状态。现在责任已经明确。"}
+      ]
+    }
+  ]
+}

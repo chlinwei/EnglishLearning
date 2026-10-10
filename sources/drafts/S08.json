@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段连续双语编稿，待配音。词数仅为口音时长代理，不填时间轴；未来复现排期不计实际出现。",
+  "series": {"id":"sc-S08-network-lb-migration","title":"负载均衡迁移：验证后逐级切换","domain":"network","group":"change","service":"checkout regional ingress","premise":"在保持公共域名和边缘入口不变的前提下，把checkout入口从旧负载均衡池迁往新池。边缘路由器按新连接权重分流。","outcome":"新池完成逐级业务验证并承接全部新连接；旧池排空后仍保留二十四小时回退能力，随后另行审批退役。"},
+  "speakers": {
+    "Priya":{"role":"Change coordinator","accent":"en-IN","voice":null},
+    "Raj":{"role":"Network engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Checkout owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"SRE reviewer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Validation engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p351","en":"shift traffic","zh":"迁移流量","layer":"L1","level":"core","target":5},
+    {"id":"p352","en":"backend pool","zh":"后端池","layer":"L1","level":"core","target":5},
+    {"id":"p353","en":"probe interval","zh":"探测间隔","layer":"L1","level":"core","target":5},
+    {"id":"p354","en":"restore the previous weights","zh":"恢复原权重","layer":"L1","level":"core","target":5},
+    {"id":"p355","en":"connection draining","zh":"连接排空","layer":"L1","level":"core","target":5},
+    {"id":"p356","en":"compare like for like","zh":"在相同条件下对比","layer":"L0","level":"core","target":8},
+    {"id":"p357","en":"weighted routing","zh":"加权路由","layer":"L1","level":"core","target":5},
+    {"id":"p358","en":"session affinity","zh":"会话亲和性","layer":"L1","level":"core","target":5},
+    {"id":"p359","en":"keep the old endpoint","zh":"保留旧入口端点","layer":"L1","level":"core","target":5},
+    {"id":"p360","en":"decommission approval","zh":"退役审批","layer":"L1","level":"core","target":5}
+  ],
+  "recycling":{"note":"实际复现见各段引用；后续候选排期尚未编稿，不计次数。","plannedFuture":{"S39":["p351","p352","p354","p355","p357","p358","p359"],"S24":["p353","p356","p360"]}},
+  "dialogues":[
+    {"id":"0076","part":1,"stage":"迁移申请","title":"入口不变，池逐步迁移","premise":"提交checkout负载均衡池迁移申请，先确定范围和实施窗口。","listeningTask":"辨别公共入口与内部池切换，并听清申请尚未授权执行。","newPhrase":"p351","phrases":["p351","p321","p010","p003:extra","p008:extra","p323:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, I'll take point on this. We propose to shift traffic tonight.","zh":"好，这次我来主抓。我们提议今晚迁移流量。"},
+      {"sp":"Lukas","en":"Does that include a public DNS change? That would complicate our rollback timing.","zh":"包括公共DNS变更吗？那会让回退时间复杂起来。"},
+      {"sp":"Raj","en":"No, the public entry stays unchanged. Edge routing selects the internal pool.","zh":"不，公共入口不变，由边缘路由选择内部池。"},
+      {"sp":"Hannah","en":"So clients keep the same hostname. What problem does this migration solve?","zh":"所以客户端继续使用相同主机名。这次迁移解决什么问题？"},
+      {"sp":"Anika","en":"The old platform loses support next month. There's no current checkout outage.","zh":"旧平台下个月停止支持，目前结账服务并无故障。"},
+      {"sp":"Priya","en":"Just to confirm, a staged rollout, right? Approval doesn't mean immediate full traffic.","zh":"我确认一下，是分阶段切换，对吧？批准不代表立即全量迁移。"},
+      {"sp":"Lukas","en":"Agreed, with gates between each step. We need tested rollback access first.","zh":"同意，每一步之间都要有验收门槛。先验证回退权限可用。"},
+      {"sp":"Raj","en":"The maintenance window starts at ten. We'll leave roughly two hours available.","zh":"维护窗口十点开始，预留大约两小时。"},
+      {"sp":"Hannah","en":"What's the ETA for the dependency checklist? I can't approve an incomplete boundary.","zh":"依赖清单预计什么时候完成？边界不完整，我无法批准。"},
+      {"sp":"Priya","en":"By nine, before the final approval. First, let's check those dependencies together.","zh":"九点前完成，在最终批准之前。先一起检查依赖。"}
+    ]},
+    {"id":"0077","part":2,"stage":"依赖确认","title":"证书、源地址和私有解析","premise":"公共入口不变，迁移仅影响内部池；开始核对端到端依赖。","listeningTask":"听清私有解析正常不等于证书、源地址和回调都正常。","newPhrase":"p352","phrases":["p352","p348","p010","p327:extra","p014:extra","p008:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the backend pool matches production. Both zones have the intended targets.","zh":"好，后端池与生产配置对应，两个区都有预期目标。"},
+      {"sp":"Hannah","en":"Does split-horizon DNS return private addresses? Test from the new balancer subnet.","zh":"分视图DNS返回私有地址吗？要从新负载均衡器子网测试。"},
+      {"sp":"Raj","en":"Yes, from that subnet itself. Certificate names and trust chains pass too.","zh":"是，从该子网本身测试的。证书名称和信任链也通过了。"},
+      {"sp":"Lukas","en":"What about source addresses at the application? Allow lists might reject the new pool.","zh":"应用看到的源地址呢？允许列表可能拒绝新池。"},
+      {"sp":"Anika","en":"Good catch, the proxy ranges differ. We've added only the approved ranges.","zh":"提醒得好，代理网段确实不同。我们只添加了批准的网段。"},
+      {"sp":"Priya","en":"Just to confirm, callbacks tested too, right? Include payment redirects in the smoke test.","zh":"我确认一下，回调也测了，对吧？冒烟测试要包括支付跳转。"},
+      {"sp":"Hannah","en":"Sandbox redirects pass through the new path. Production callbacks need the canary check.","zh":"沙箱跳转通过了新路径，生产回调还要在灰度时检查。"},
+      {"sp":"Raj","en":"I'm on it for firewall evidence. No broad subnet allowance as a shortcut.","zh":"防火墙证据我来补，不用放开整个子网来走捷径。"},
+      {"sp":"Lukas","en":"What's the ETA for that evidence? Record the effective rules, not just requests.","zh":"那些证据预计多久？记录实际生效规则，不只记录申请。"},
+      {"sp":"Anika","en":"About ten minutes, alongside callback evidence. Then we can review probe behavior.","zh":"大约十分钟，与回调证据一起补齐。然后可以评审探测行为。"}
+    ]},
+    {"id":"0078","part":3,"stage":"健康检查评审","title":"探测响应不是结账成功","premise":"依赖检查通过，生产回调保留灰度验证；审查新池健康检查。","listeningTask":"区分探测误判、服务故障和端到端验证。","newPhrase":"p353","phrases":["p353","p108","p010","p302:extra","p004:extra","p327:extra"],"lines":[
+      {"sp":"Hannah","en":"The health check is failing in staging. It receives an unexpected redirect response.","zh":"预生产的健康检查失败了，收到了非预期的重定向响应。"},
+      {"sp":"Raj","en":"Okay, the probe used the wrong hostname. The service itself accepts valid requests.","zh":"好，探测用了错误主机名，服务本身能处理有效请求。"},
+      {"sp":"Lukas","en":"Can we rule that out in production? Staging behavior alone isn't enough evidence.","zh":"生产也能排除这个问题吗？只看预生产行为还不够。"},
+      {"sp":"Anika","en":"The new production pool has zero traffic. An approved direct test succeeds there.","zh":"新生产池目前没有业务流量，批准的直连测试在那里成功。"},
+      {"sp":"Priya","en":"Just to confirm, correct hostname first, right? Don't simply accept redirects as healthy.","zh":"我确认一下，先纠正主机名，对吧？不能简单把重定向当健康。"},
+      {"sp":"Hannah","en":"Exactly, require the expected status and body. Also check the probe interval.","zh":"对，要检查预期状态码和响应内容，还要检查探测间隔。"},
+      {"sp":"Raj","en":"Five seconds, with three failures before removal. Recovery also needs three consecutive passes.","zh":"每五秒一次，连续三次失败才移除；恢复也需要连续三次通过。"},
+      {"sp":"Lukas","en":"Roughly fifteen seconds before removal, then. How will you test actual checkout behavior?","zh":"那么大约十五秒才移除。实际结账行为怎么测？"},
+      {"sp":"Anika","en":"The smoke test covers sandbox payments separately. A green probe isn't that test.","zh":"冒烟测试单独覆盖沙箱支付。探测变绿不等于做了那项测试。"},
+      {"sp":"Priya","en":"Deeper dependency checks? Let's park that. First, validate these agreed probe settings.","zh":"更深入的依赖探测先记下来。先验证已商定的探测设置。"}
+    ]},
+    {"id":"0079","part":4,"stage":"回退准备","title":"恢复权重，也保留已有连接","premise":"正确探测配置已验证，尚未放入业务流量；核对回退操作和门槛。","listeningTask":"听出权重回退作用于新连接，以及旧池必须持续健康。","newPhrase":"p354","phrases":["p354","p324","p010","p107:extra","p328:extra","p014:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, define the rollback trigger clearly. What's our threshold for stopping expansion?","zh":"好，明确回退触发条件。达到什么门槛停止放量？"},
+      {"sp":"Lukas","en":"Any confirmed payment correctness failure means stop. Sustained extra errors also block expansion.","zh":"任何确认的支付正确性问题都要停止。错误持续增加也不能放量。"},
+      {"sp":"Raj","en":"Above baseline by half a percentage point. Two consecutive minutes trigger a rollback review.","zh":"比基线高半个百分点，连续两分钟就触发回退评估。"},
+      {"sp":"Hannah","en":"Who can restore the previous weights? Test access before we start the canary.","zh":"谁能恢复原权重？开始灰度前要验证权限。"},
+      {"sp":"Raj","en":"I'm on it, using the approved console. The saved configuration passes validation.","zh":"我来做，使用批准的控制台。已保存配置通过了校验。"},
+      {"sp":"Priya","en":"Just to confirm, new connections return first, right? Existing connections aren't forcibly closed.","zh":"我确认一下，先让新连接回去，对吧？不强制关闭已有连接。"},
+      {"sp":"Lukas","en":"Correct, unless their behavior risks data correctness. That needs an explicit incident decision.","zh":"对，除非这些连接的行为威胁数据正确性，那需要明确的故障处置决策。"},
+      {"sp":"Anika","en":"So, if tests fail, let's roll back the config. Keep the old pool healthy.","zh":"所以测试失败就回滚配置，保持旧池健康。"},
+      {"sp":"Hannah","en":"The old pool passes current checks. We have roughly twice the canary capacity.","zh":"旧池当前检查通过，其容量约为灰度所需的两倍。"},
+      {"sp":"Priya","en":"That supports a go/no-go decision now. Approved for five percent, not beyond.","zh":"现在可以作出是否执行的决定了。批准百分之五，不批准更多。"}
+    ]},
+    {"id":"0080","part":5,"stage":"小流量切换","title":"百分之五指的是新连接","premise":"获准迁移百分之五新连接，旧池健康且配置可回退。","listeningTask":"不要把连接权重误听为请求比例，并识别长连接保护。","newPhrase":"p355","phrases":["p355","p351","p010","p309:extra","p327:extra","p008:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, ready to shift traffic now. Five percent of new connections uses green.","zh":"好，现在准备迁移流量。百分之五的新连接进入绿池。"},
+      {"sp":"Hannah","en":"The observed request share isn't five percent. Long connections explain some of that difference.","zh":"实际请求比例不是百分之五，长连接能解释部分差异。"},
+      {"sp":"Anika","en":"The first sandbox checkout passed through green. The callback followed the correct path.","zh":"首个沙箱结账通过绿池，回调也走了正确路径。"},
+      {"sp":"Lukas","en":"Did you verify the pool identifier? Success alone doesn't prove the new path.","zh":"核对池标识了吗？成功本身不能证明走了新路径。"},
+      {"sp":"Anika","en":"Yes, the request trace includes green. No customer payloads in that evidence.","zh":"核对了，请求链路包含绿池，证据不包含客户载荷。"},
+      {"sp":"Priya","en":"Just to confirm, keep an eye on resets, right? Include errors from both pools.","zh":"我确认一下，也留意连接重置，对吧？两个池的错误都要看。"},
+      {"sp":"Hannah","en":"No resets above baseline so far. Keep watching; the sample is small.","zh":"目前连接重置未高于基线。继续观察，样本还少。"},
+      {"sp":"Raj","en":"Connection draining protects the old sessions. We'll allow their normal timeout period.","zh":"连接排空保护旧会话，我们会允许其正常超时周期。"},
+      {"sp":"Lukas","en":"What's the ETA for enough canary samples? Include another smoke test before expansion.","zh":"灰度样本达到足量预计多久？扩大前再做一次冒烟测试。"},
+      {"sp":"Priya","en":"Roughly ten minutes at current load. So, hold five percent until then.","zh":"按当前负载大约十分钟。所以此前保持百分之五。"}
+    ]},
+    {"id":"0081","part":6,"stage":"对比指标","title":"相同请求，不看混合均值","premise":"百分之五灰度无新增异常，但样本有限；按相同条件比较两池指标。","listeningTask":"听出总体均值为何不足以批准放量。","newPhrase":"p356","phrases":["p356","p010","p342","p004:extra","p309:extra","p014:extra"],"lines":[
+      {"sp":"Hannah","en":"Let's compare like for like here. Match route, region, and request size.","zh":"这里要在相同条件下对比，匹配接口、区域和请求大小。"},
+      {"sp":"Raj","en":"Okay, the overall mean looked faster. Green received fewer large requests though.","zh":"好，总体均值看起来更快，但绿池收到的大请求更少。"},
+      {"sp":"Lukas","en":"Then that comparison doesn't establish an improvement. What do the matched percentiles show?","zh":"那就不能据此证明改善。匹配后的分位数怎么样？"},
+      {"sp":"Anika","en":"The payment route stays around baseline. Its tail latency hasn't shifted much.","zh":"支付接口接近基线，尾延迟变化不大。"},
+      {"sp":"Priya","en":"Just to confirm, no intermittent failures, right? Include callbacks and new connection errors.","zh":"我确认一下，没有间歇失败，对吧？回调和新连接错误都算。"},
+      {"sp":"Hannah","en":"None in the observed sample so far. That's evidence, not a permanent guarantee.","zh":"当前观察样本里没有。这是证据，不是永久保证。"},
+      {"sp":"Raj","en":"I'm on it for connection setup timings. Both pools use the same collection window.","zh":"连接建立耗时我来查。两个池使用相同采集时间窗。"},
+      {"sp":"Lukas","en":"Any missing metrics during that window? A blank series isn't zero errors.","zh":"这个时间窗有指标缺失吗？空序列不等于零错误。"},
+      {"sp":"Anika","en":"No gaps in either pool's counters. I'll keep an eye on callback totals.","zh":"两个池计数器都没有断档。我会留意回调总数。"},
+      {"sp":"Priya","en":"Fine tuning? Let's park that for later. So, these checks support the next gate.","zh":"细调留到以后。这样，这些检查支持进入下一道门槛。"}
+    ]},
+    {"id":"0082","part":7,"stage":"调整权重","title":"每个台阶单独批准","premise":"匹配指标与业务检查通过，计划先升到百分之二十五，再到五十。","listeningTask":"抓住每个放量台阶的观察和回退条件。","newPhrase":"p357","phrases":["p357","p354","p010","p324:extra","p014:extra","p008:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, weighted routing goes to twenty-five percent. Fifty still needs a separate approval.","zh":"好，加权路由先升到百分之二十五。五十仍需单独批准。"},
+      {"sp":"Lukas","en":"Are those weights for new connections only? Existing traffic won't immediately match them.","zh":"权重只对新连接生效吗？已有流量不会马上符合比例。"},
+      {"sp":"Raj","en":"Yes, new connections only, not requests. We'll measure actual distribution alongside configured weights.","zh":"是，只针对新连接，不是请求。同时测实际分布和配置权重。"},
+      {"sp":"Hannah","en":"What's the ETA for the next gate? Check new pool capacity before raising weights.","zh":"下一道门槛预计多久？提高权重前检查新池容量。"},
+      {"sp":"Anika","en":"Roughly ten minutes, with matched request samples. Green still has comfortable capacity now.","zh":"大约十分钟，还要有匹配请求样本。绿池现在仍有充足容量。"},
+      {"sp":"Priya","en":"Just to confirm, the rollback trigger stays, right? Approval doesn't relax our error threshold.","zh":"我确认一下，回退条件不变，对吧？批准不代表放宽错误阈值。"},
+      {"sp":"Lukas","en":"Correct, restore the previous weights if needed. Record each step's known good state.","zh":"对，必要时恢复原权重。记录每一步已确认正常的状态。"},
+      {"sp":"Raj","en":"I'm on it, snapshots before each step. Twenty-five is applied; counters are arriving normally.","zh":"我来做，每一步前保存快照。二十五已生效，计数器正常上报。"},
+      {"sp":"Hannah","en":"After the observation window, checks still pass. Payment correctness and setup errors remain stable.","zh":"观察窗结束后检查仍通过。支付正确性和连接建立错误保持稳定。"},
+      {"sp":"Priya","en":"Then fifty is approved with identical checks. So, repeat observation before proposing full traffic.","zh":"那么批准五十，检查要求相同。提出全量前再观察一次。"}
+    ]},
+    {"id":"0083","part":8,"stage":"完成切换","title":"全量新连接，旧会话继续排空","premise":"百分之五十观察通过，授权全部新连接进入绿池。","listeningTask":"区分切换配置完成与旧连接完全排空。","newPhrase":"p358","phrases":["p358","p355","p010","p327:extra","p111:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, all new connections now select green. Some old sessions are still draining.","zh":"好，所有新连接现在选择绿池，有些旧会话仍在排空。"},
+      {"sp":"Lukas","en":"How does session affinity behave across pools? A sticky cookie could still matter.","zh":"跨池时会话亲和性如何处理？粘性Cookie仍可能影响行为。"},
+      {"sp":"Anika","en":"Session state lives in the shared store. Checkout doesn't depend on balancer stickiness.","zh":"会话状态在共享存储中，结账不依赖负载均衡器粘性。"},
+      {"sp":"Hannah","en":"Was that verified with a returning session? A fresh login doesn't exercise existing state.","zh":"用回访会话验证了吗？新登录测不到已有状态。"},
+      {"sp":"Anika","en":"Yes, the smoke test reused sandbox state. The basket and callback both survived.","zh":"测了，冒烟测试复用了沙箱状态。购物篮和回调都正常。"},
+      {"sp":"Priya","en":"Just to confirm, no forced disconnects, right? Connection draining continues within the agreed limits.","zh":"我确认一下，没有强制断开，对吧？继续按商定限制排空连接。"},
+      {"sp":"Lukas","en":"Yes, and remaining counts are falling. Investigate any sessions beyond the documented timeout.","zh":"是的，剩余连接数在下降。超过文档超时的会话要排查。"},
+      {"sp":"Raj","en":"I'm on it for remaining connection counts. They should clear in about fifteen minutes.","zh":"剩余连接计数我来跟踪，预计大约十五分钟清零。"},
+      {"sp":"Hannah","en":"Let's keep it under observation meanwhile. Full routing doesn't finish business acceptance.","zh":"与此同时继续观察。全量路由不代表业务验收完成。"},
+      {"sp":"Priya","en":"So, retain the rollback route unchanged. We'll confirm empty counts before closing execution.","zh":"所以保留回退路由不变。确认连接清零后才结束执行。"}
+    ]},
+    {"id":"0084","part":9,"stage":"保留旧入口","title":"零业务流量，也不能立刻删除","premise":"旧连接已正常排空，新池运行稳定；确定旧入口保留期限。","listeningTask":"识别零业务流量与回退能力仍需维护的区别。","newPhrase":"p359","phrases":["p359","p354","p010","p309:extra","p009:extra","p336:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, keep the old endpoint for tomorrow. We agreed on twenty-four hours of coverage.","zh":"好，旧入口保留到明天。已商定保留二十四小时回退保障。"},
+      {"sp":"Hannah","en":"Does that include certificates and backend access? An idle endpoint can still lose readiness.","zh":"也包括证书和后端访问吗？闲置入口仍可能失去就绪状态。"},
+      {"sp":"Raj","en":"Yes, those dependencies stay active too. Synthetic checks continue without customer traffic.","zh":"是，这些依赖也保持有效。继续合成检查，但不走客户流量。"},
+      {"sp":"Lukas","en":"Who checks the saved rollback route overnight? Don't rely on yesterday's successful validation.","zh":"夜间谁检查保存的回退路由？不能只依赖昨天验证成功。"},
+      {"sp":"Anika","en":"I'll keep an eye on business checks. Raj owns both pools' network readiness.","zh":"我关注业务检查，Raj负责两个池的网络就绪状态。"},
+      {"sp":"Priya","en":"Just to confirm, no automatic deletion, right? Removing it needs a separate action item.","zh":"我确认一下，不自动删除，对吧？移除要作为单独待办项。"},
+      {"sp":"Hannah","en":"Correct, and record the escalation path. Who can authorize a return overnight?","zh":"对，还要记录升级路径。夜间谁能批准切回？"},
+      {"sp":"Raj","en":"The change on-call can authorize that. I can restore the previous weights.","zh":"变更值班负责人可以批准，我能恢复原权重。"},
+      {"sp":"Lukas","en":"Only after checking the old pool's health. Returning to an unhealthy pool adds risk.","zh":"要先检查旧池健康。切回不健康的池会增加风险。"},
+      {"sp":"Priya","en":"Agreed, that's roughly our overnight safety net. So, document it before the handoff.","zh":"同意，这就是夜间的大致保障。因此交接前把它写清。"}
+    ]},
+    {"id":"0085","part":10,"stage":"验收收尾","title":"关闭迁移，不提前批准退役","premise":"全量新池通过观察和业务检查，旧入口保留到次日；完成迁移验收。","listeningTask":"听清迁移验收与旧池退役审批是两件事。","newPhrase":"p360","phrases":["p360","p310","p010","p012:extra","p009:extra","p331:extra"],"lines":[
+      {"sp":"Priya","en":"Just to recap, business acceptance is complete. The old pool remains available overnight.","zh":"小结一下，业务验收完成，旧池夜间仍可用。"},
+      {"sp":"Hannah","en":"Matched latency and payment checks pass. Both zones have complete monitoring coverage.","zh":"匹配后的延迟和支付检查通过，两个区监控覆盖完整。"},
+      {"sp":"Anika","en":"Okay, no unresolved checkout defects found. That's based on roughly thirty minutes' observation.","zh":"好，未发现未解决的结账缺陷。依据是大约三十分钟观察。"},
+      {"sp":"Lukas","en":"Can we close the loop on access? The overnight operator must have working permissions.","zh":"权限方面能闭环吗？夜间操作人员必须有可用权限。"},
+      {"sp":"Raj","en":"Access is tested, with the saved configuration. I'll hand over both readiness checks.","zh":"权限已验证，保存配置也可用。我会交接两个池的就绪检查。"},
+      {"sp":"Priya","en":"Just to confirm, decommission approval comes later, right? Tonight's acceptance doesn't authorize deletion.","zh":"我确认一下，退役审批以后再做，对吧？今晚验收不授权删除。"},
+      {"sp":"Hannah","en":"Right, tomorrow's review checks residual dependencies. Include private monitoring clients and firewall references.","zh":"对，明天评审检查残余依赖，包括私有监控客户端和防火墙引用。"},
+      {"sp":"Anika","en":"I'll take the business confirmation action item. No new application work is required tonight.","zh":"业务确认待办我来负责。今晚不需要新增应用操作。"},
+      {"sp":"Lukas","en":"Then close migration execution, not asset retirement. Keep the rollback evidence with the record.","zh":"那么关闭迁移执行，不关闭资产退役。把回退证据留在记录中。"},
+      {"sp":"Priya","en":"Agreed, tomorrow we review before removing anything. So, this change is accepted with retention.","zh":"同意，明天先评审再移除任何内容。这次变更验收通过，并保留旧入口。"}
+    ]}
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "十段中英容量评审人工草稿，无音频时间轴。表达仅引用既有库、S03-S07和本文件先前段，未发布。",
+  "series": {"id": "sc-S24-ha-capacity-review", "title": "容量与单点评审：按故障后的能力选方案", "domain": "ha", "group": "ops-review", "service": "checkout API, database and outbound payment routing", "premise": "为季度促销评审容量与故障域。API有多副本，但数据库代理、出口和配置发布存在共享依赖，单区测试不足以证明区域故障后的能力。", "outcome": "选择两区分布式API、分区出口、具有可靠隔离机制的同步数据库主备和异区见证。按单区失效及真实业务混合压测设验收门槛，暂缓多活写入；批准有条件预算并明确各依赖负责人和期限。"},
+  "speakers": {
+    "Priya": {"role": "Architecture review chair", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Infrastructure capacity engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Service and budget owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Reliability architect", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Performance engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p511", "en": "capacity envelope", "zh": "已验证的容量工作范围", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p512", "en": "at capacity", "zh": "达到容量上限", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p513", "en": "single point of failure", "zh": "单点故障源", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p514", "en": "failure domain", "zh": "故障域", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p515", "en": "redundancy plan", "zh": "冗余方案", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p516", "en": "headroom", "zh": "容量余量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p517", "en": "cost ceiling", "zh": "成本上限", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p518", "en": "representative workload", "zh": "有代表性的业务负载", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p519", "en": "conditional approval", "zh": "附条件批准", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p520", "en": "acceptance criteria", "zh": "验收标准", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选而非实绩；新表达目标需后续独立编稿兑现。", "S26": ["p511", "p513", "p514", "p516", "p518"], "S33": ["p512", "p515", "p517", "p519", "p520"]},
+  "dialogues": [
+    {"id": "0236", "part": 1, "stage": "需求与目标", "title": "评审范围：故障时也要够用", "premise": "开始季度容量评审，先统一业务目标与评审输出。", "listeningTask": "听出正常峰值能力和故障后能力是不同目标。", "newPhrase": "p511", "phrases": ["p511", "p007", "p010", "p006:extra", "p004:extra", "p335:extra"], "lines": [
+      {"sp": "Priya", "en": "Let's define the capacity envelope before picking machines.", "zh": "选机器前先定义已验证的容量范围。"},
+      {"sp": "Lukas", "en": "Normal traffic only, or after losing a zone?", "zh": "只考虑正常流量，还是失去一个区以后？"},
+      {"sp": "Anika", "en": "Both. Checkout must survive the forecast peak.", "zh": "两者都考虑，结账必须承受预测峰值。"},
+      {"sp": "Hannah", "en": "Survive with what latency and completion rate?", "zh": "要以什么延迟和完成率维持服务？"},
+      {"sp": "Priya", "en": "Just to confirm, existing business targets, right?", "zh": "确认一下，沿用现有业务目标，对吧？"},
+      {"sp": "Raj", "en": "Yes. Our working hypothesis needs degraded-mode measurements.", "zh": "是的，当前假设需要降级状态下的测量。"},
+      {"sp": "Lukas", "en": "Okay, maybe separate read and write targets.", "zh": "好，也许应该分开读写目标。"},
+      {"sp": "Anika", "en": "I've got bandwidth to validate product priorities.", "zh": "我有精力核实产品优先级。"},
+      {"sp": "Hannah", "en": "We've got a hard stop at noon.", "zh": "我们中午必须结束。"},
+      {"sp": "Priya", "en": "New hardware vendors? Let's park that for now.", "zh": "新硬件供应商？先暂存这个话题。"}
+    ]},
+    {"id": "0237", "part": 2, "stage": "峰值数据", "title": "高CPU不是唯一上限", "premise": "评审要求两区失一后的业务能力，开始看历史与测试数据。", "listeningTask": "辨别吞吐平台期、尾延迟与CPU使用率。", "newPhrase": "p512", "phrases": ["p512", "p511", "p314", "p011:extra", "p302:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "The database was at capacity during replay.", "zh": "回放时数据库达到容量上限了。"},
+      {"sp": "Hannah", "en": "Based on CPU, or a throughput plateau?", "zh": "依据CPU，还是吞吐不再增长？"},
+      {"sp": "Raj", "en": "Throughput flattened while tail latency kept rising.", "zh": "吞吐趋平，尾延迟却继续上升。"},
+      {"sp": "Lukas", "en": "Traffic is flat now, but replay wasn't.", "zh": "现在流量平稳，但回放并不是。"},
+      {"sp": "Anika", "en": "The campaign probably adds more expensive order writes.", "zh": "促销大概会增加更多高成本订单写入。"},
+      {"sp": "Priya", "en": "Just to confirm, mix changes too, right?", "zh": "确认一下，请求构成也会变，对吧？"},
+      {"sp": "Hannah", "en": "Let me play that back. RPS alone misleads.", "zh": "我复述一下：只看每秒请求数会误导。"},
+      {"sp": "Raj", "en": "The capacity envelope must include that write mix.", "zh": "容量工作范围必须包含这种写入构成。"},
+      {"sp": "Lukas", "en": "Don't rule that out as a storage bottleneck.", "zh": "不能排除存储瓶颈这一可能性。"},
+      {"sp": "Priya", "en": "Okay, bring disk latency into the next comparison.", "zh": "好，下次对比加入磁盘延迟。"}
+    ]},
+    {"id": "0238", "part": 3, "stage": "单点梳理", "title": "多副本后面的共享单点", "premise": "吞吐与存储瓶颈待复测，先列出整条业务链的共享依赖。", "listeningTask": "听出代理、出口和配置管理也是可用性依赖。", "newPhrase": "p513", "phrases": ["p513", "p106", "p330", "p010:extra", "p339:extra", "p335:extra"], "lines": [
+      {"sp": "Lukas", "en": "One proxy host. A single point of failure.", "zh": "只有一台代理主机，是单点故障源。"},
+      {"sp": "Raj", "en": "Two proxies exist, but share one host.", "zh": "有两个代理，但共用一台主机。"},
+      {"sp": "Hannah", "en": "And both zones use the same outbound gateway.", "zh": "而且两个区都用同一个出口网关。"},
+      {"sp": "Anika", "en": "That's our blast radius: every payment callback.", "zh": "影响范围就是所有支付回调。"},
+      {"sp": "Priya", "en": "Just to confirm, inventory includes dependencies, right?", "zh": "确认一下，清单包括依赖项，对吧？"},
+      {"sp": "Raj", "en": "Yes, managed configuration is shared too.", "zh": "是的，受管理配置也是共享的。"},
+      {"sp": "Lukas", "en": "Maybe running services survive control-plane loss, though.", "zh": "不过控制平面失效时，运行中的服务也许能继续。"},
+      {"sp": "Anika", "en": "Our working hypothesis assumes cached configuration remains valid.", "zh": "当前假设是缓存配置继续有效。"},
+      {"sp": "Hannah", "en": "Test expiry and restarts, not just steady operation.", "zh": "还要测试过期和重启，不只测试稳定运行。"},
+      {"sp": "Priya", "en": "Have I missed anything? DNS belongs here too.", "zh": "有没有遗漏？DNS也应该列在这里。"}
+    ]},
+    {"id": "0239", "part": 4, "stage": "故障域", "title": "两区部署仍可能一起失效", "premise": "单点清单已包含代理、出口、DNS和控制配置，开始检查相关故障。", "listeningTask": "辨别机架、可用区与同步配置错误的故障边界。", "newPhrase": "p514", "phrases": ["p514", "p513", "p106", "p330:extra", "p010:extra", "p011:extra"], "lines": [
+      {"sp": "Raj", "en": "Each zone forms a separate failure domain.", "zh": "每个可用区形成一个独立故障域。"},
+      {"sp": "Lukas", "en": "For power, yes. What about shared configuration pushes?", "zh": "供电方面是。共享配置发布呢？"},
+      {"sp": "Anika", "en": "Managed configuration currently updates both zones together.", "zh": "受管理配置目前同时更新两个区。"},
+      {"sp": "Hannah", "en": "So a bad rule could remove both paths.", "zh": "所以一条错误规则可能同时断掉两条路径。"},
+      {"sp": "Priya", "en": "Just to confirm, staged updates required, right?", "zh": "确认一下，需要分阶段更新，对吧？"},
+      {"sp": "Raj", "en": "Yes, separate approval gates and tested last-good versions.", "zh": "是的，要独立批准门槛和已验证的上一正常版本。"},
+      {"sp": "Lukas", "en": "Let me play that back. Geography isn't independence.", "zh": "我复述一下：地理分散不等于独立。"},
+      {"sp": "Anika", "en": "That's our blast radius even without hardware failure.", "zh": "即使没有硬件故障，影响范围也可能如此。"},
+      {"sp": "Hannah", "en": "The single point of failure is operational, perhaps.", "zh": "这个单点故障源也许属于操作层面。"},
+      {"sp": "Priya", "en": "Okay, record correlated failures alongside physical ones.", "zh": "好，把相关故障和物理故障一起记录。"}
+    ]},
+    {"id": "0240", "part": 5, "stage": "冗余方案", "title": "冗余不自动解决双主", "premise": "需要分离物理与发布故障域，评审API、出口和数据库冗余。", "listeningTask": "听懂数据库同步主备与多活写入的取舍。", "newPhrase": "p515", "phrases": ["p515", "p514", "p335", "p010:extra", "p325:extra", "p004:extra"], "lines": [
+      {"sp": "Raj", "en": "Our redundancy plan separates proxies and outbound gateways.", "zh": "冗余方案把代理和出口网关分开部署。"},
+      {"sp": "Lukas", "en": "And the database? Active-active writes aren't free redundancy.", "zh": "数据库呢？多活写入不是无代价的冗余。"},
+      {"sp": "Anika", "en": "Synchronous primary-standby, with a third-domain quorum witness.", "zh": "采用同步主备，法定人数见证位于第三个故障域。"},
+      {"sp": "Hannah", "en": "Quorum must authorize fencing before promoting any standby.", "zh": "法定人数决策必须在提升任何备机前授权隔离旧主。"},
+      {"sp": "Priya", "en": "Just to confirm, independent fencing access, right?", "zh": "确认一下，要有独立隔离访问路径，对吧？"},
+      {"sp": "Raj", "en": "Yes, the out-of-band console remains separately reachable.", "zh": "是的，带外控制台保持独立可达。"},
+      {"sp": "Lukas", "en": "A failure domain shouldn't contain every voting member.", "zh": "不能把所有投票成员放在一个故障域。"},
+      {"sp": "Anika", "en": "Our working hypothesis accepts added synchronous write latency.", "zh": "当前方案假设业务能接受同步写入增加的延迟。"},
+      {"sp": "Hannah", "en": "Maybe acceptable, but test it across zones.", "zh": "也许可以接受，但需要跨区测试。"},
+      {"sp": "Priya", "en": "Multi-region writers? Let's park that pending consistency requirements.", "zh": "多地域写入？先暂存，等一致性要求明确后再讨论。"}
+    ]},
+    {"id": "0241", "part": 6, "stage": "容量余量", "title": "余量按失去一区以后算", "premise": "初选两区冗余方案，需验证剩余区能承受完整关键流量。", "listeningTask": "区分当前平均空闲与故障后的容量余量。", "newPhrase": "p516", "phrases": ["p516", "p512", "p319", "p316:extra", "p010:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "We need headroom after losing either zone.", "zh": "失去任一区后，仍需要容量余量。"},
+      {"sp": "Hannah", "en": "Not thirty percent idle across both zones combined.", "zh": "不能只看两个区合计有百分之三十空闲。"},
+      {"sp": "Anika", "en": "Right, survivors could be at capacity. Sorry, at peak, not now.", "zh": "对，剩余节点可能达到容量上限。说准确点，是峰值时，不是现在。"},
+      {"sp": "Lukas", "en": "What about memory headroom during cache warming?", "zh": "缓存预热时的内存余量呢？"},
+      {"sp": "Raj", "en": "We'll measure cold caches and connection recovery.", "zh": "我们会测冷缓存和连接恢复。"},
+      {"sp": "Priya", "en": "Just to confirm, scale-out isn't instant, right?", "zh": "确认一下，扩容不是瞬间完成，对吧？"},
+      {"sp": "Hannah", "en": "Exactly. Provisioning might take several minutes, perhaps longer.", "zh": "正是，资源供应可能要几分钟，也许更久。"},
+      {"sp": "Anika", "en": "We can shed load from exports temporarily.", "zh": "可以暂时减少导出业务的承接负载。"},
+      {"sp": "Lukas", "en": "Okay, keep an eye on queue age too.", "zh": "好，也要留意队列等待时间。"},
+      {"sp": "Priya", "en": "Critical writes must fit without waiting for scaling.", "zh": "关键写入必须无需等待扩容就能承载。"}
+    ]},
+    {"id": "0242", "part": 7, "stage": "成本争议", "title": "预算争论：先保不可妥协的业务", "premise": "单区失效后余量会增加预算，业务与架构方讨论削减范围。", "listeningTask": "听出削减非关键服务与削减一致性保障的区别。", "newPhrase": "p517", "phrases": ["p517", "p515", "p306", "p006:extra", "p004:extra", "p010:extra"], "lines": [
+      {"sp": "Anika", "en": "This redundancy plan exceeds our cost ceiling.", "zh": "这个冗余方案超出成本上限了。"},
+      {"sp": "Lukas", "en": "Which guarantee are we willing to relax?", "zh": "我们愿意放宽哪项保证？"},
+      {"sp": "Anika", "en": "Exports can wait. Orders can't lose acknowledged writes.", "zh": "导出可以等待，订单不能丢已确认写入。"},
+      {"sp": "Hannah", "en": "Then don't reduce database protection to fund browsing.", "zh": "那就不能削减数据库保护来给浏览业务省预算。"},
+      {"sp": "Raj", "en": "Smaller recommendation pools could buy us time.", "zh": "更小的推荐资源池能暂时争取时间。"},
+      {"sp": "Priya", "en": "Just to confirm, fencing stays funded, right?", "zh": "确认一下，隔离机制预算保留，对吧？"},
+      {"sp": "Lukas", "en": "Yes. Maybe defer analytics capacity, not safety.", "zh": "是的，也许可以推迟分析容量，不能推迟安全保障。"},
+      {"sp": "Anika", "en": "I've got bandwidth to price that alternative.", "zh": "我有精力核算这个替代方案。"},
+      {"sp": "Hannah", "en": "Include support effort and cross-zone transfer charges.", "zh": "要计入支持工作量和跨区传输费用。"},
+      {"sp": "Priya", "en": "New discounts? Let's park that until scope settles.", "zh": "新折扣？等范围确定后再讨论。"}
+    ]},
+    {"id": "0243", "part": 8, "stage": "压测计划", "title": "验收测试要覆盖坏的时候", "premise": "预算方案暂保关键保障，准备以真实业务构成验证单区能力。", "listeningTask": "听出压测阶段、隔离范围和不能混淆的观测结果。", "newPhrase": "p518", "phrases": ["p518", "p511", "p327", "p210:extra", "p335:extra", "p010:extra"], "lines": [
+      {"sp": "Hannah", "en": "A representative workload includes callbacks. Include realistic reads and writes too.", "zh": "有代表性的负载包括回调，也要包含真实的读写。"},
+      {"sp": "Raj", "en": "We'll dry-run it first without fault injection.", "zh": "先不注入故障，试运行一遍。"},
+      {"sp": "Lukas", "en": "Then remove one zone. Use isolated production-equivalent infrastructure.", "zh": "然后移除一个区，使用隔离的生产等效基础设施。"},
+      {"sp": "Anika", "en": "Our working hypothesis needs cold-cache and retry coverage.", "zh": "当前假设需要冷缓存和重试场景的覆盖。"},
+      {"sp": "Priya", "en": "Just to confirm, no customer traffic, right?", "zh": "确认一下，没有客户流量，对吧？"},
+      {"sp": "Raj", "en": "Yes, sanitized data and simulated payment providers.", "zh": "是的，使用脱敏数据和模拟支付提供方。"},
+      {"sp": "Hannah", "en": "A smoke test precedes each load stage.", "zh": "每个负载阶段前都做关键功能快速验证。"},
+      {"sp": "Anika", "en": "Okay, measure order completion, not only response speed.", "zh": "好，要测订单完成，不只测响应速度。"},
+      {"sp": "Lukas", "en": "Perhaps record whether the capacity envelope actually holds.", "zh": "也许还应记录容量工作范围是否真正成立。"},
+      {"sp": "Priya", "en": "Yes, with abort thresholds agreed before testing.", "zh": "是的，测试前先约定中止阈值。"}
+    ]},
+    {"id": "0244", "part": 9, "stage": "方案确认", "title": "附条件批准不是宣称已达标", "premise": "测试计划已评审，但尚未执行完整故障负载验收。", "listeningTask": "区分预算批准、架构方向和生产上线许可。", "newPhrase": "p519", "phrases": ["p519", "p515", "p328", "p011:extra", "p010:extra", "p324:extra"], "lines": [
+      {"sp": "Priya", "en": "Conditional approval covers procurement, not production readiness.", "zh": "附条件批准仅涵盖采购，不代表生产已就绪。"},
+      {"sp": "Lukas", "en": "Let me play that back. Tests still gate deployment.", "zh": "我复述一下：部署仍要通过测试门槛。"},
+      {"sp": "Raj", "en": "Yes, the redundancy plan needs measured failover evidence.", "zh": "是的，冗余方案需要实测切换证据。"},
+      {"sp": "Hannah", "en": "And a rollback trigger for every infrastructure change.", "zh": "每项基础设施变更还要有回退触发条件。"},
+      {"sp": "Anika", "en": "Budget is approved within the revised scope.", "zh": "预算在调整后的范围内获批。"},
+      {"sp": "Priya", "en": "Just to confirm, multi-active writes excluded, right?", "zh": "确认一下，不包括多活写入，对吧？"},
+      {"sp": "Lukas", "en": "Correct. Conflict resolution isn't specified or tested.", "zh": "对，冲突处理既未定义也未测试。"},
+      {"sp": "Raj", "en": "Go/no-go remains pending full degraded-load results.", "zh": "继续或停止的决策仍待完整降级负载结果。"},
+      {"sp": "Hannah", "en": "Maybe one redesign follows testing. Keep that possibility.", "zh": "测试后也许还需要一次重设计，要留出这种可能。"},
+      {"sp": "Priya", "en": "Okay, publish the decision with its explicit limits.", "zh": "好，公布决策时写明限制。"}
+    ]},
+    {"id": "0245", "part": 10, "stage": "责任与期限", "title": "谁交证据，什么时候复审", "premise": "架构和采购有条件通过，安排容量证据、预算复核与上线复审。", "listeningTask": "抓住负责人、期限与可判定的验收结果。", "newPhrase": "p520", "phrases": ["p520", "p009", "p310", "p008:extra", "p013:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Acceptance criteria cover single-zone peak targets.", "zh": "验收标准涵盖单区峰值目标。"},
+      {"sp": "Hannah", "en": "And zero missing acknowledged orders after failover.", "zh": "还包括切换后零丢失已确认订单。"},
+      {"sp": "Raj", "en": "I'll own load evidence. What's the ETA constraint?", "zh": "我负责负载证据，完成时间要求是什么？"},
+      {"sp": "Lukas", "en": "Friday for tests, Monday for the review.", "zh": "周五完成测试，周一评审。"},
+      {"sp": "Priya", "en": "The proxy action item: who's picking this up?", "zh": "代理这个待办项由谁来接？"},
+      {"sp": "Anika", "en": "I'll name its owner today itself. Before lunch.", "zh": "今天我就确定负责人，午饭前完成。"},
+      {"sp": "Hannah", "en": "Perhaps add a test-access backup owner.", "zh": "也许还应为测试权限安排后备负责人。"},
+      {"sp": "Raj", "en": "I'll close the loop with reports and exceptions.", "zh": "我会用报告和异常记录完成反馈。"},
+      {"sp": "Lukas", "en": "Just to recap, no launch without acceptance evidence.", "zh": "小结一下，没有验收证据就不上线。"},
+      {"sp": "Priya", "en": "Agreed. Book the follow-up, not an incident bridge.", "zh": "同意，安排后续评审，不是故障战情会。"}
+    ]}
+  ]
+}

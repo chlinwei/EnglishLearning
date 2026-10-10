@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "十段人工编写的中英变更草稿，未配音未发布；无虚构时间轴，引用只来自允许的旧库和本文件。",
+  "series": {"id": "sc-S23-ha-rate-limits", "title": "高峰前限流上线：保护关键业务，观察误伤", "domain": "ha", "group": "change", "service": "checkout gateway and shared database", "premise": "晚间促销前评审网关限流。峰值可能超过数据库安全吞吐，支付回调和订单提交必须受保护，推荐与导出可降级。", "outcome": "先按业务成本与可信租户身份分桶，在影子模式发现共享IP误伤，改用认证租户配额与关键路径预留。灰度验证、生产等效压测和回退演练通过后批准分阶段上线，保留全局安全上限和应急负载保护。"},
+  "speakers": {
+    "Priya": {"role": "Change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Gateway engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Checkout product engineer", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Capacity reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p501", "en": "peak forecast", "zh": "峰值预测", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p502", "en": "critical path", "zh": "关键业务路径", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p503", "en": "rate limit", "zh": "请求速率限制", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p504", "en": "graceful degradation", "zh": "有控制的功能降级", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p505", "en": "shadow mode", "zh": "只记录不执行拦截的影子模式", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p506", "en": "false rejections", "zh": "对正常请求的误拒", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p507", "en": "dial it back", "zh": "调低干预强度", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p508", "en": "retry budget", "zh": "允许的重试次数与负载预算", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p509", "en": "fallback policy", "zh": "回退策略", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p510", "en": "reserved capacity", "zh": "预留容量", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "仅列未来候选，非已发生复现；实际引用逐段记录于phrases。", "S24": ["p501", "p502", "p508", "p510"], "S26": ["p503", "p504", "p506", "p509"]},
+  "dialogues": [
+    {"id": "0226", "part": 1, "stage": "峰值预测", "title": "预测不是已测容量", "premise": "促销今晚开始，需先核对预计流量与数据库承载能力。", "listeningTask": "区分预测值、压测值和安全工作点。", "newPhrase": "p501", "phrases": ["p501", "p335", "p316", "p010:extra", "p006:extra", "p008:extra"], "lines": [
+      {"sp": "Anika", "en": "Our peak forecast is six thousand requests.", "zh": "预测峰值是每秒六千个请求。"},
+      {"sp": "Lukas", "en": "Per second? What's the expected request mix?", "zh": "每秒吗？预计的请求构成是什么？"},
+      {"sp": "Anika", "en": "Yes. Browsing dominates, but checkout bursts matter.", "zh": "是的，浏览居多，但结账突发也重要。"},
+      {"sp": "Hannah", "en": "Our database test used a different mix.", "zh": "数据库测试用的是另一种请求构成。"},
+      {"sp": "Raj", "en": "We may need to shed load early.", "zh": "可能要提前减轻承接负载。"},
+      {"sp": "Priya", "en": "Just to confirm, no enforcement yet, right?", "zh": "确认一下，还没执行拦截，对吧？"},
+      {"sp": "Lukas", "en": "Correct. The working hypothesis needs representative testing.", "zh": "对，当前假设需要有代表性的测试。"},
+      {"sp": "Raj", "en": "I've got bandwidth for replay analysis today.", "zh": "今天我有精力做流量回放分析。"},
+      {"sp": "Hannah", "en": "Okay, include expensive writes and callback bursts.", "zh": "好，要包含高成本写入和回调突发。"},
+      {"sp": "Priya", "en": "What's the ETA? Roughly before lunch?", "zh": "预计多久？大概午饭前能完成吗？"}
+    ]},
+    {"id": "0227", "part": 2, "stage": "业务分级", "title": "关键请求不是全部免限流", "premise": "回放确认数据库成本差异，需要对业务路径分级。", "listeningTask": "听出关键业务预留资源与无限豁免的区别。", "newPhrase": "p502", "phrases": ["p502", "p501", "p316", "p010:extra", "p011:extra", "p106:extra"], "lines": [
+      {"sp": "Anika", "en": "Our critical path includes orders and payment callbacks.", "zh": "关键业务路径包括订单和支付回调。"},
+      {"sp": "Lukas", "en": "Are callbacks authenticated before getting priority?", "zh": "回调获得优先级前是否经过认证？"},
+      {"sp": "Raj", "en": "Yes, provider signatures. Headers alone aren't trusted.", "zh": "是的，要校验提供方签名，不能只信请求头。"},
+      {"sp": "Hannah", "en": "Which requests can we shed load from?", "zh": "可以从哪些请求上减轻承接负载？"},
+      {"sp": "Anika", "en": "Recommendations and exports. Checkout confirmation stays protected.", "zh": "推荐和导出可以降级，结账确认保持保护。"},
+      {"sp": "Priya", "en": "Just to confirm, protected isn't unlimited, right?", "zh": "确认一下，受保护不代表无限制，对吧？"},
+      {"sp": "Hannah", "en": "Let me play that back. Separate bounded pools.", "zh": "我复述一下：分开的、有上限的资源池。"},
+      {"sp": "Raj", "en": "That's our blast radius if shared storage overloads.", "zh": "共享存储过载会影响到这些业务。"},
+      {"sp": "Lukas", "en": "Maybe callbacks need buffering, not immediate rejection.", "zh": "也许回调需要缓冲，而不是立即拒绝。"},
+      {"sp": "Priya", "en": "Okay, use the peak forecast for each class.", "zh": "好，按每个业务类别使用峰值预测。"}
+    ]},
+    {"id": "0228", "part": 3, "stage": "阈值设计", "title": "配额：算业务成本，不只数请求", "premise": "已划分关键与可降级业务，设计桶容量和全局上限。", "listeningTask": "听出单租户、公平性和数据库总成本三个限制层。", "newPhrase": "p503", "phrases": ["p503", "p502", "p319", "p010:extra", "p335:extra", "p327:extra"], "lines": [
+      {"sp": "Raj", "en": "The rate limit uses weighted token buckets.", "zh": "速率限制使用加权令牌桶。"},
+      {"sp": "Lukas", "en": "Weighted by measured database cost, or guesswork?", "zh": "权重依据实测数据库成本，还是猜测？"},
+      {"sp": "Raj", "en": "Measured samples. Our working hypothesis still needs validation.", "zh": "依据实测样本，但当前假设仍需验证。"},
+      {"sp": "Hannah", "en": "How much burst allowance can memory absorb?", "zh": "内存能承受多少突发余量？"},
+      {"sp": "Anika", "en": "Memory headroom supports two seconds of callbacks.", "zh": "内存余量可支持两秒的回调缓冲。"},
+      {"sp": "Priya", "en": "Just to confirm, queues stay bounded, right?", "zh": "确认一下，队列会有上限，对吧？"},
+      {"sp": "Lukas", "en": "Yes. Bound concurrency on the critical path too.", "zh": "是的，关键业务路径的并发也要有上限。"},
+      {"sp": "Raj", "en": "A global ceiling protects shared database capacity.", "zh": "全局上限保护共享数据库容量。"},
+      {"sp": "Hannah", "en": "Okay, a smoke test won't establish that ceiling.", "zh": "好，快速功能验证不能确定这个上限。"},
+      {"sp": "Priya", "en": "Agreed. Roughly twenty percent spare, pending load tests.", "zh": "同意，暂定约百分之二十余量，待压测确认。"}
+    ]},
+    {"id": "0229", "part": 4, "stage": "降级评审", "title": "降级后也不能误报支付成功", "premise": "阈值初稿完成，产品评审可见的降级行为与重试语义。", "listeningTask": "辨别推荐回退、支付结果未知和业务成功。", "newPhrase": "p504", "phrases": ["p504", "p502", "p324", "p004:extra", "p306:extra", "p010:extra"], "lines": [
+      {"sp": "Anika", "en": "Graceful degradation removes recommendations, not order confirmation.", "zh": "有控制的降级移除推荐，不移除订单确认。"},
+      {"sp": "Hannah", "en": "What does the customer see during payment uncertainty?", "zh": "支付结果不明时，客户会看到什么？"},
+      {"sp": "Anika", "en": "Pending status. Never a fabricated success message.", "zh": "显示处理中，绝不虚构成功消息。"},
+      {"sp": "Lukas", "en": "Does cached content remain tenant-safe and fresh?", "zh": "缓存内容是否保持租户隔离和适当时效？"},
+      {"sp": "Raj", "en": "Public recommendations only. Personalized responses aren't shared.", "zh": "只缓存公共推荐，不共享个性化响应。"},
+      {"sp": "Priya", "en": "Just to confirm, critical path intact, right?", "zh": "确认一下，关键业务路径保持完整，对吧？"},
+      {"sp": "Hannah", "en": "Maybe. Test confirmation when recommendations are unavailable.", "zh": "也许。测试推荐不可用时的订单确认。"},
+      {"sp": "Raj", "en": "That'll buy us time without hiding payment errors.", "zh": "这能争取时间，又不掩盖支付错误。"},
+      {"sp": "Lukas", "en": "Okay, define the rollback trigger using business outcomes.", "zh": "好，用业务结果定义回退触发条件。"},
+      {"sp": "Priya", "en": "New recommendation designs? Let's park that today.", "zh": "新的推荐设计？今天先暂存这个话题。"}
+    ]},
+    {"id": "0230", "part": 5, "stage": "灰度限流", "title": "影子数据先行，灰度范围有限", "premise": "降级行为通过功能验证，先记录拟拦截再选择灰度。", "listeningTask": "区分影子命中率和真实业务影响。", "newPhrase": "p505", "phrases": ["p505", "p323", "p503", "p309:extra", "p010:extra", "p327:extra"], "lines": [
+      {"sp": "Raj", "en": "Shadow mode records decisions without rejecting requests.", "zh": "影子模式记录决策，但不拒绝请求。"},
+      {"sp": "Hannah", "en": "Does that show actual client retry behavior?", "zh": "这能显示真实客户端重试行为吗？"},
+      {"sp": "Anika", "en": "No, only predicted rejections. Enforcement tests come next.", "zh": "不能，只能显示预计拦截，执行测试在后面。"},
+      {"sp": "Lukas", "en": "Okay, compare eligible requests by business class.", "zh": "好，按业务类别对比符合条件的请求。"},
+      {"sp": "Priya", "en": "Just to confirm, staged rollout follows review, right?", "zh": "确认一下，评审后才分阶段发布，对吧？"},
+      {"sp": "Raj", "en": "Yes. The rate limit initially covers recommendations.", "zh": "是的，速率限制最初只覆盖推荐。"},
+      {"sp": "Hannah", "en": "A smoke test passed for fallback content.", "zh": "回退内容的关键功能快速验证通过了。"},
+      {"sp": "Anika", "en": "I'll keep an eye on checkout completion too.", "zh": "我也会留意结账完成率。"},
+      {"sp": "Lukas", "en": "Perhaps shared-IP shoppers need closer inspection first.", "zh": "也许得先仔细检查共享IP的购物者。"},
+      {"sp": "Priya", "en": "Agreed. Review that cohort before enabling rejection.", "zh": "同意，启用拒绝前先评审这类用户。"}
+    ]},
+    {"id": "0231", "part": 6, "stage": "观察误伤", "title": "共享IP：正常用户撞上同一个桶", "premise": "影子模式显示办公室共享IP命中异常，灰度需暂停扩大。", "listeningTask": "听出误拒证据来自正常业务样本而非所有429。", "newPhrase": "p506", "phrases": ["p506", "p505", "p335", "p302:extra", "p010:extra", "p101:extra"], "lines": [
+      {"sp": "Hannah", "en": "Shadow mode suggests false rejections for office shoppers.", "zh": "影子模式提示办公室购物者可能被误拒。"},
+      {"sp": "Raj", "en": "The working hypothesis is shared-IP bucket collisions.", "zh": "当前假设是共享IP导致令牌桶冲突。"},
+      {"sp": "Lukas", "en": "Can you identify legitimate authenticated requests there?", "zh": "能识别其中合法的已认证请求吗？"},
+      {"sp": "Anika", "en": "Yes, separate customers. Their combined traffic hits quotas.", "zh": "能，是不同客户，合计流量碰到配额了。"},
+      {"sp": "Priya", "en": "Just to confirm, expansion pauses, right?", "zh": "确认一下，暂停扩大范围，对吧？"},
+      {"sp": "Raj", "en": "Yes. The error rate spiked on recommendation canaries.", "zh": "是的，推荐灰度的错误率陡涨了。"},
+      {"sp": "Hannah", "en": "Separate deliberate throttling from unexpected server failures.", "zh": "要区分有意限流与意外服务器故障。"},
+      {"sp": "Anika", "en": "Checkout's stable. We can't rule that out later.", "zh": "结账目前稳定，但不能排除后续受到影响。"},
+      {"sp": "Lukas", "en": "Maybe identity-based quotas would reduce collateral damage.", "zh": "也许按身份设置配额能减少误伤。"},
+      {"sp": "Priya", "en": "Okay, test that before touching the global ceiling.", "zh": "好，调整全局上限前先测试这个方案。"}
+    ]},
+    {"id": "0232", "part": 7, "stage": "调整阈值", "title": "调轻误伤，保留总保护", "premise": "确认共享IP误伤，调整配额身份与突发容忍，不放开数据库上限。", "listeningTask": "听清调回哪一层，而不是一律关闭限流。", "newPhrase": "p507", "phrases": ["p507", "p506", "p503", "p330:extra", "p010:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Let's dial it back for authenticated tenants. I mean, reduce false rejections.", "zh": "对已认证租户调轻干预强度。我的意思是，减少误拒。"},
+      {"sp": "Lukas", "en": "Which setting changes? The global rate limit?", "zh": "改哪个设置？全局速率限制吗？"},
+      {"sp": "Raj", "en": "No, bucket identity and per-tenant burst allowance.", "zh": "不是，改桶身份和单租户突发余量。"},
+      {"sp": "Hannah", "en": "How are anonymous requests treated without identity?", "zh": "匿名请求没有身份时怎么处理？"},
+      {"sp": "Anika", "en": "Conservative anonymous quotas. Authentication doesn't bypass safety ceilings.", "zh": "匿名配额保持保守，认证不绕过安全上限。"},
+      {"sp": "Priya", "en": "Just to confirm, trusted identity only, right?", "zh": "确认一下，只用可信身份，对吧？"},
+      {"sp": "Lukas", "en": "Yes, not a client-supplied tenant header.", "zh": "是的，不能用客户端自行提供的租户头。"},
+      {"sp": "Raj", "en": "Managed configuration holds the reviewed policy version.", "zh": "受管理配置保存已评审的策略版本。"},
+      {"sp": "Hannah", "en": "False rejections should fall, perhaps not disappear.", "zh": "误拒应该下降，但也许不会完全消失。"},
+      {"sp": "Priya", "en": "We'll keep an eye on legitimate completion rates.", "zh": "我们会留意合法请求的业务完成率。"}
+    ]},
+    {"id": "0233", "part": 8, "stage": "模拟高峰", "title": "重试也占容量", "premise": "身份调整通过小范围测试，开始生产等效混合负载测试。", "listeningTask": "听出重试放大、退避抖动和幂等保护。", "newPhrase": "p508", "phrases": ["p508", "p504", "p316", "p210:extra", "p319:extra", "p010:extra"], "lines": [
+      {"sp": "Hannah", "en": "The retry budget caps attempts and elapsed time.", "zh": "重试预算限制尝试次数和总耗时。"},
+      {"sp": "Raj", "en": "We'll dry-run it first in isolated infrastructure.", "zh": "我们先在隔离基础设施里试运行。"},
+      {"sp": "Lukas", "en": "Does the replay include clients ignoring retry hints?", "zh": "回放包括不遵守重试提示的客户端吗？"},
+      {"sp": "Anika", "en": "Yes. Gateway limits still shed load safely.", "zh": "包括，网关限制仍能安全减轻负载。"},
+      {"sp": "Priya", "en": "Just to confirm, no live payment calls, right?", "zh": "确认一下，不调用真实支付，对吧？"},
+      {"sp": "Raj", "en": "Correct. Provider simulators preserve realistic callback bursts.", "zh": "对，提供方模拟器保留真实的回调突发模式。"},
+      {"sp": "Hannah", "en": "Graceful degradation works under twice the forecast.", "zh": "在预测两倍负载下，有控制的降级有效。"},
+      {"sp": "Anika", "en": "Retries use backoff, jitter, and idempotency keys.", "zh": "重试使用退避、抖动和幂等键。"},
+      {"sp": "Lukas", "en": "Memory headroom stayed healthy. Database queues stayed bounded.", "zh": "内存余量保持正常，数据库队列没有失控。"},
+      {"sp": "Priya", "en": "Okay, probably ready to rehearse policy rollback.", "zh": "好，大概可以开始演练策略回退了。"}
+    ]},
+    {"id": "0234", "part": 9, "stage": "回退演练", "title": "撤新策略，不撤保护", "premise": "高峰测试通过，需要验证策略回退和限流组件故障行为。", "listeningTask": "听懂回退不等于全量放行。", "newPhrase": "p509", "phrases": ["p509", "p324", "p107", "p334:extra", "p010:extra", "p327:extra"], "lines": [
+      {"sp": "Raj", "en": "The fallback policy retains emergency admission control.", "zh": "回退策略保留应急准入控制。"},
+      {"sp": "Lukas", "en": "What happens if the shared limiter disappears?", "zh": "共享限流组件不可用时怎么办？"},
+      {"sp": "Raj", "en": "Local bounded limits apply. No unlimited fail-open.", "zh": "启用本地有界限制，不无限制放行。"},
+      {"sp": "Hannah", "en": "What's the rollback trigger for legitimate checkout failures?", "zh": "合法结账请求失败的回退触发条件是什么？"},
+      {"sp": "Anika", "en": "A one-point completion drop against matched controls.", "zh": "与匹配对照相比，完成率下降一个百分点。"},
+      {"sp": "Priya", "en": "Just to confirm, sustained five minutes, right?", "zh": "确认一下，持续五分钟，对吧？"},
+      {"sp": "Hannah", "en": "Yes, but correctness failures stop enforcement immediately.", "zh": "是的，但正确性失败要立即停止新策略执行。"},
+      {"sp": "Raj", "en": "Let's roll back the config. Rehearsal completed.", "zh": "回退配置。演练完成了。"},
+      {"sp": "Lukas", "en": "Maybe this temporary workaround needs a time limit.", "zh": "这个临时缓解也许需要设定有效期限。"},
+      {"sp": "Priya", "en": "Agreed. The smoke test confirms old protection remains.", "zh": "同意。关键功能快速验证确认旧保护仍在。"}
+    ]},
+    {"id": "0235", "part": 10, "stage": "确认上线", "title": "批准分批上线：盯业务完成率", "premise": "灰度、高峰测试与回退演练通过，安排上线值守。", "listeningTask": "抓住上线条件、关键资源预留和停止负责人。", "newPhrase": "p510", "phrases": ["p510", "p328", "p323", "p009:extra", "p336:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Go/no-go is green for the staged rollout.", "zh": "继续决策已通过，可以分阶段发布。"},
+      {"sp": "Lukas", "en": "Is reserved capacity enforced across all replicas?", "zh": "预留容量在所有副本上都能落实吗？"},
+      {"sp": "Raj", "en": "Yes, allocations sum below the global safe ceiling.", "zh": "是的，分配总额低于全局安全上限。"},
+      {"sp": "Hannah", "en": "Okay, watch critical completion and callback delay.", "zh": "好，要观察关键业务完成率和回调延迟。"},
+      {"sp": "Anika", "en": "Just to recap, recommendations can degrade first.", "zh": "小结一下，推荐可以优先降级。"},
+      {"sp": "Priya", "en": "Raj owns stopping expansion itself if checks fail.", "zh": "检查失败时，停止扩大的操作由Raj负责。"},
+      {"sp": "Lukas", "en": "What's the escalation path if Raj's unavailable?", "zh": "Raj无法响应时，升级联系路径是什么？"},
+      {"sp": "Raj", "en": "The gateway backup has tested rollback access.", "zh": "网关后备人员已测试过回退权限。"},
+      {"sp": "Hannah", "en": "An action item: review fairness tomorrow, perhaps.", "zh": "一个待办项：明天也许应复查公平性。"},
+      {"sp": "Priya", "en": "Tomorrow morning, yes. Keep emergency limits active tonight.", "zh": "是的，明天上午复查。今晚保持应急限制有效。"}
+    ]}
+  ]
+}

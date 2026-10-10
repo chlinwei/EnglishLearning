@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段中英草稿；仅依赖p001-p350及本文件已引入表达。未来回访不计实绩，音色待试听，音频时长待核验，无预填时间轴。",
+  "series": {"id": "sc-S36-cloud-billing-spike", "title": "云账单暴涨：先查用量，再安全止损", "domain": "cloud", "group": "incident", "service": "analytics cloud account", "premise": "分析账户月末预测从四万欧元升至七万。团队核对同周期净费用，发现跨区重复导出与遗留测试机器。", "outcome": "保留账单导出、流量记录和变更证据，经业务批准暂停重复任务并停用无依赖测试机器。预测降至五万二，历史费用仍待结算；增加延迟感知告警和责任人标签。"},
+  "speakers": {
+    "Priya": {"role": "Cloud operations coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Cloud platform engineer", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Analytics business owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and dependency reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "FinOps analyst", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p631", "en": "the bill spiked", "zh": "账单费用突然大涨", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p632", "en": "billing period", "zh": "计费周期", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p633", "en": "cost allocation tags", "zh": "成本归属标签", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p634", "en": "egress charges", "zh": "数据流出费用", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p635", "en": "idle instances", "zh": "闲置实例", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p636", "en": "stop the duplicate job", "zh": "停止重复任务", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p637", "en": "spend rate", "zh": "单位时间费用增长速度", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p638", "en": "month-end forecast", "zh": "月末费用预测", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p639", "en": "final invoice", "zh": "最终结算账单", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p640", "en": "billing data lag", "zh": "计费用量数据延迟", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "仅为未来回访候选，不代表已达复现目标。", "futureCandidates": ["p631", "p632", "p633", "p634", "p635", "p636", "p637", "p638", "p639", "p640"]},
+  "dialogues": [
+    {"id": "0356", "part": 1, "stage": "账单告警", "title": "七万是预测，不是已付账单", "premise": "月末预测突然提高，业务尚未报告服务故障。", "listeningTask": "听出预测金额与已发生费用的区别。", "newPhrase": "p631", "phrases": ["p631", "p003", "p010", "p008:extra", "p335:extra", "p004:extra"], "lines": [
+      {"sp": "Raj", "en": "The bill spiked on our dashboard. Actually, it's the forecast that jumped.", "zh": "看板上账单暴涨了。准确说，涨的是预测。"},
+      {"sp": "Hannah", "en": "Well, seventy thousand is a projected total. It isn't money already charged to us.", "zh": "嗯，七万是预计总额，不是已经向我们收取的金额。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, analytics only, right?", "zh": "好，我来协调。确认一下，只涉及分析账户，对吧？"},
+      {"sp": "Lukas", "en": "That's the alert's scope, not the cause. Check other accounts before narrowing further.", "zh": "那是告警范围，不是原因。进一步缩小范围前也查其他账户。"},
+      {"sp": "Anika", "en": "Reports still arrive at the usual time. Maybe yesterday's backfill added some traffic.", "zh": "报表仍按时到达。可能昨天的补数增加了流量。"},
+      {"sp": "Hannah", "en": "Right, but let's check the usage records. A forecast alone can't prove the cause.", "zh": "对，但要查用量记录。单凭预测不能证明原因。"},
+      {"sp": "Raj", "en": "Our working hypothesis is extra transfer traffic. I'll separate that from compute costs.", "zh": "当前假设是额外传输流量。我会把它和计算费用分开。"},
+      {"sp": "Priya", "en": "What's the ETA for the first breakdown? A rough range will do for now.", "zh": "首次费用拆分预计多久？现在给个大概范围就行。"},
+      {"sp": "Lukas", "en": "So, save the alert and its filters. We may need to reproduce this comparison.", "zh": "所以，保存原告警和筛选条件。我们可能需要重现这个对比。"},
+      {"sp": "Anika", "en": "About ten minutes for my job list. Blanket shutdowns? Let's park that for now.", "zh": "我的任务清单大约十分钟。全部停机？先不考虑。"}
+    ]},
+    {"id": "0357", "part": 2, "stage": "对齐计费周期", "title": "同周期同口径才可比较", "premise": "告警指向分析账户预测，需要核对实际累计用量。", "listeningTask": "抓住时区、净费用口径和未结算项目。", "newPhrase": "p632", "phrases": ["p632", "p631", "p010", "p011:extra", "p014:extra", "p012:extra"], "lines": [
+      {"sp": "Hannah", "en": "Use the same billing period for both. Compare this month's first nine days only.", "zh": "两边使用相同计费周期，只对比本月前九天。"},
+      {"sp": "Raj", "en": "Okay, the bill spiked on that comparison. Usage costs doubled before any tax adjustments.", "zh": "好，按这个对比，费用确实暴涨。税费调整前的用量费用翻倍了。"},
+      {"sp": "Lukas", "en": "Before credits too, or after credits? Those views can tell very different stories.", "zh": "也是抵扣前吗，还是抵扣后？两个视图可能很不一样。"},
+      {"sp": "Priya", "en": "Just to confirm, net usage costs, right? Keep tax outside the comparison for now.", "zh": "确认一下，用净用量费用，对吧？暂时把税排除在比较之外。"},
+      {"sp": "Hannah", "en": "Yes, applied credits are already included here. Pending credits could still change the total.", "zh": "对，这里已包含生效抵扣。待处理抵扣仍可能改变总额。"},
+      {"sp": "Anika", "en": "Let me play that back before sharing. The increase is real, but not settled.", "zh": "分享前我复述一下。增长是真的，但还未结算。"},
+      {"sp": "Raj", "en": "I'm on it for the export. Both views use UTC day boundaries now.", "zh": "我来导出数据。两个视图现在都用UTC日期边界。"},
+      {"sp": "Lukas", "en": "Good, keep the export timestamp as well. Recent hours may not be fully reported.", "zh": "好，也保留导出时间。最近几小时可能尚未完全上报。"},
+      {"sp": "Priya", "en": "Just to recap, roughly twice last month's usage. No claim about the settled total yet.", "zh": "小结一下，用量费用约为上月同期两倍。还不能说最终结算总额。"},
+      {"sp": "Anika", "en": "I'll label those numbers as provisional costs. That should stop the payment confusion spreading.", "zh": "我会把数字标为暂定费用，避免大家误解为已付款。"}
+    ]},
+    {"id": "0358", "part": 3, "stage": "圈定服务", "title": "标签缺失不等于无人使用", "premise": "同口径比较确认累计费用增加，开始追踪服务归属。", "listeningTask": "区分归属证据、标签缺失和责任猜测。", "newPhrase": "p633", "phrases": ["p633", "p632", "p335", "p302:extra", "p006:extra", "p013:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, cost allocation tags mostly identify analytics. Some older machines have no owner tag.", "zh": "好，成本标签主要指向分析服务。一些旧机器没有负责人标签。"},
+      {"sp": "Lukas", "en": "Well, missing tags don't mean abandoned machines. Check inventory and service dependencies before touching them.", "zh": "嗯，缺标签不代表机器已废弃。动它们前查资产和业务依赖。"},
+      {"sp": "Anika", "en": "The export workers belong to my team. The untagged machines might be load generators.", "zh": "导出消费者属于我团队。没标签的机器可能是压测机。"},
+      {"sp": "Priya", "en": "That's a working hypothesis, not ownership proof. You've got bandwidth to check, right?", "zh": "这是当前假设，还不是归属证据。你有空核对，对吧？"},
+      {"sp": "Hannah", "en": "So, most extra costs span two categories. Compute and transfer need separate owner checks.", "zh": "所以，大部分新增费用属于两类。计算和传输分别需要核对负责人。"},
+      {"sp": "Raj", "en": "Same billing period, same account filters throughout. I'll attach resource identifiers to each row.", "zh": "全程保持相同周期和账户筛选。我会为每行附上资源标识。"},
+      {"sp": "Lukas", "en": "Could another team share those export workers? An account boundary isn't a dependency boundary.", "zh": "其他团队会共用导出消费者吗？账户边界不等于依赖边界。"},
+      {"sp": "Anika", "en": "Right, I can't rule that out yet. I'll check scheduled consumers and their owners.", "zh": "对，我现在还不能排除。我会查定时消费者及其负责人。"},
+      {"sp": "Priya", "en": "Okay, who's picking this up for inventory? We need names before making shutdown choices.", "zh": "好，资产清单谁来接？决定停机前要找到负责人。"},
+      {"sp": "Hannah", "en": "Good, I'll match inventory against cost exports. Keep unknown owners visible, not silently reassigned.", "zh": "好，我将资产清单和费用导出匹配。未知归属要保留，不能悄悄重分配。"}
+    ]},
+    {"id": "0359", "part": 4, "stage": "查跨区流量", "title": "重复导出还是正常补数", "premise": "传输费用主要来自分析导出，任务归属已确认。", "listeningTask": "听出日志已证明什么、还没有证明什么。", "newPhrase": "p634", "phrases": ["p634", "p633", "p010", "p103:extra", "p335:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Egress charges rose on the west account. Two exports now cross into the east.", "zh": "西区账户数据流出费上涨。现在有两条导出流向东区。"},
+      {"sp": "Hannah", "en": "First, check billed transfer types and directions. Cross-region traffic isn't always priced the same.", "zh": "先检查计费传输类型和方向。跨区流量并不总是同价。"},
+      {"sp": "Raj", "en": "Let me tail the log for transfers. These runs use the same dataset version.", "zh": "我盯一下传输日志。这些运行使用相同数据集版本。"},
+      {"sp": "Anika", "en": "Well, one schedule moved west for backfill. Maybe the old schedule stayed enabled too.", "zh": "嗯，补数时一条定时任务移到西区。可能旧定时任务也还开着。"},
+      {"sp": "Lukas", "en": "Matching versions suggest duplication, but check consumers. One export may serve a different contract.", "zh": "版本相同提示重复，但要查消费者。一条导出可能服务不同约定。"},
+      {"sp": "Priya", "en": "Just to confirm, both are business exports, right? Nobody disables either until Anika checks.", "zh": "确认一下，两条都是业务导出，对吧？Anika核对前不关任何一条。"},
+      {"sp": "Hannah", "en": "Right, cost allocation tags identify both schedules. The billing rows match their transfer windows.", "zh": "对，标签能识别两条定时任务。计费记录与传输时段一致。"},
+      {"sp": "Raj", "en": "Our working hypothesis is a duplicate schedule. I'll keep an eye on both destinations.", "zh": "当前假设是定时任务重复。我会盯着两个目标位置。"},
+      {"sp": "Lukas", "en": "So, save schedule history and flow records. Those explain the increase better than screenshots.", "zh": "所以，保存定时任务历史和流量记录，它们比截图更能解释增长。"},
+      {"sp": "Anika", "en": "Okay, I'll compare the delivery contracts next. No guessing from the job names alone.", "zh": "好，接下来比较交付约定。不单靠任务名字猜。"}
+    ]},
+    {"id": "0360", "part": 5, "stage": "查闲置资源", "title": "CPU低不能直接停机", "premise": "疑似重复导出仍在核实，同时检查计算费用增长。", "listeningTask": "听出停机批准需要哪些业务和保留条件。", "newPhrase": "p635", "phrases": ["p635", "p305", "p010", "p302:extra", "p009:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, we found six apparently idle instances. CPU stays low across the last week.", "zh": "好，找到六台看似闲置的实例。过去一周CPU一直很低。"},
+      {"sp": "Lukas", "en": "Well, low CPU won't prove they're unused. Check overnight schedules, connections, and recovery duties too.", "zh": "嗯，低CPU不能证明不用。还要查夜间任务、连接和恢复职责。"},
+      {"sp": "Anika", "en": "Right, four supported a now-finished rehearsal. Their owner confirmed no scheduled work remains.", "zh": "对，四台用于已结束的演练。负责人确认没有剩余定时工作。"},
+      {"sp": "Hannah", "en": "And the other two machines stay running? Don't mix confirmed idle with unknown use.", "zh": "另外两台继续运行吗？不要把确认闲置和用途未知混在一起。"},
+      {"sp": "Priya", "en": "Just to confirm, four approved candidates, right? The other two stay outside this change.", "zh": "确认一下，四台批准候选，对吧？另外两台不在这次变更中。"},
+      {"sp": "Raj", "en": "I'm on it for the dependency scan. We can rule that out for consumers.", "zh": "我来做依赖扫描。可以据此排除仍有消费者的可能。"},
+      {"sp": "Lukas", "en": "Attach the scan and owner approval first. Evidence must survive stopping those test machines.", "zh": "先附上扫描结果和负责人批准。停机后证据也必须保留。"},
+      {"sp": "Anika", "en": "Our retention policy covers the rehearsal results. Roughly thirty days, with restricted evidence access.", "zh": "演练结果受保留策略约束。约三十天，证据访问受限。"},
+      {"sp": "Hannah", "en": "So, storage charges won't all disappear. Include attached disks in the remaining estimate.", "zh": "所以，存储费不会全部消失。剩余估算要包含挂载磁盘。"},
+      {"sp": "Priya", "en": "Okay, one action item before stopping them. Raj saves configurations, records, and recovery instructions.", "zh": "好，停机前一个待办。Raj保存配置、记录和恢复说明。"}
+    ]},
+    {"id": "0361", "part": 6, "stage": "止损决策", "title": "只停重复任务和确认闲置机器", "premise": "业务确认旧导出没有独立消费者，四台测试机器通过依赖检查。", "listeningTask": "抓住授权范围、回退触发条件与排除项。", "newPhrase": "p636", "phrases": ["p636", "p634", "p635", "p324:extra", "p334:extra", "p010:extra"], "lines": [
+      {"sp": "Anika", "en": "Right, we can stop the duplicate job. Both deliveries serve the same approved consumer.", "zh": "对，可以停重复任务。两条交付服务同一个已批准消费者。"},
+      {"sp": "Lukas", "en": "Pause its schedule, don't delete its records. Keep the approved export and verify delivery.", "zh": "暂停定时调度，不删除记录。保留批准的导出并验证交付。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, old schedule only, right? Four idle instances stop after evidence capture.", "zh": "好，确认一下，只停旧调度，对吧？四台闲置实例保存证据后停机。"},
+      {"sp": "Hannah", "en": "So, future egress charges should fall. Past transfers will still appear in the bill.", "zh": "所以，未来流出费用应该下降。过去传输仍会出现在账单里。"},
+      {"sp": "Raj", "en": "What's our rollback trigger for the pause? Missing delivery, or a growing consumer backlog?", "zh": "暂停的回退触发条件是什么？漏交付，还是消费者积压增长？"},
+      {"sp": "Anika", "en": "Either one needs a business check first. Restore the schedule if this change caused it.", "zh": "任一情况都先让业务核对。如果确由此变更引起，就恢复调度。"},
+      {"sp": "Lukas", "en": "Don't restart blindly and duplicate another batch. Check which dataset the consumer actually lacks.", "zh": "不要盲目重启又重复一批。查消费者实际缺哪个数据集。"},
+      {"sp": "Raj", "en": "Understood, I'll keep the saved settings available. This is a reversible temporary workaround today.", "zh": "明白，我保留设置以便恢复。今天这是可逆的临时处理。"},
+      {"sp": "Hannah", "en": "Maybe the cost dashboard won't fall immediately. Usage arrives later than the operational counters.", "zh": "费用看板可能不会马上下降。用量比运行计数器更晚到达。"},
+      {"sp": "Priya", "en": "Then we judge execution from system evidence. Billing confirmation comes after the data arrives.", "zh": "那就先从系统证据判断执行结果。计费确认等数据到达后再做。"}
+    ]},
+    {"id": "0362", "part": 7, "stage": "执行限制", "title": "调度已停，交付仍需验证", "premise": "暂停旧调度、停四台机器已获批准，记录与恢复配置保留。", "listeningTask": "区分操作成功、业务交付成功和费用下降。", "newPhrase": "p637", "phrases": ["p637", "p636", "p309", "p327:extra", "p010:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "We did stop the duplicate job successfully. The audit log records the schedule pause.", "zh": "重复任务确实停成功了。审计日志记下了调度暂停。"},
+      {"sp": "Lukas", "en": "Well, was any transfer already running then? Pausing a schedule won't cancel active work.", "zh": "嗯，当时有正在传输的任务吗？暂停调度不会取消正在运行的工作。"},
+      {"sp": "Raj", "en": "One transfer finished under its existing lease. No later run started after the pause.", "zh": "一条传输按既有租约完成。暂停后没有新的运行启动。"},
+      {"sp": "Anika", "en": "Good, the export passed our smoke test. Its consumer accepted the next complete dataset.", "zh": "好，批准的导出通过了关键功能测试。消费者接收了下一份完整数据集。"},
+      {"sp": "Hannah", "en": "So, the spend rate is still provisional. Wait for usage covering the changed hours.", "zh": "所以，费用增长速度仍是暂定值。要等覆盖变更后时段的用量。"},
+      {"sp": "Priya", "en": "Just to confirm, all four machines stopped, right? Their disks and evidence are still retained.", "zh": "确认一下，四台机器都停了，对吧？磁盘和证据仍保留。"},
+      {"sp": "Lukas", "en": "Yes, recovery instructions are in the ticket. The unknown pair remains running and unchanged.", "zh": "对，恢复说明在工单里。用途未知的两台仍运行，未改动。"},
+      {"sp": "Raj", "en": "I'm on it for the next check. I'll keep an eye on transfer counters.", "zh": "我来做下一次检查。我会盯着传输计数器。"},
+      {"sp": "Hannah", "en": "They look lower over this short sample. That supports containment, not final savings yet.", "zh": "这段短样本显示流量降低。支持已受控，但还不能确认最终节省。"},
+      {"sp": "Anika", "en": "Okay, reports still meet the delivery deadline. We'll watch another cycle, roughly one hour.", "zh": "好，报表仍按时交付。再观察一个周期，大约一小时。"}
+    ]},
+    {"id": "0363", "part": 8, "stage": "估算剩余费用", "title": "五万二仍带假设", "premise": "系统显示新增重复流量停止，等待延迟计费数据并估算月末费用。", "listeningTask": "听出预测假设和不能追回的历史费用。", "newPhrase": "p638", "phrases": ["p638", "p637", "p632", "p011:extra", "p010:extra", "p004:extra"], "lines": [
+      {"sp": "Hannah", "en": "Our month-end forecast is roughly fifty-two thousand. That assumes normal traffic from tomorrow onward.", "zh": "月末预测约五万二。假定从明天起流量恢复正常。"},
+      {"sp": "Raj", "en": "Right, the spend rate uses reported hours. Recent unreported usage sits in the estimate.", "zh": "对，费用增长速度使用已上报时段。最近未上报用量纳入估算。"},
+      {"sp": "Lukas", "en": "Does it include retained disks and snapshots? Stopped machines can still leave billable storage.", "zh": "包括保留磁盘和快照吗？停机后仍可能有计费存储。"},
+      {"sp": "Anika", "en": "Let me play that back for finance. We're avoiding future growth, not reversing past usage.", "zh": "我给财务复述一下。我们避免未来增长，不是撤销过去用量。"},
+      {"sp": "Hannah", "en": "Exactly, storage and normal transfers are included. Tax and pending credits remain separate adjustments.", "zh": "对，存储和正常传输都包含了。税和待处理抵扣另外调整。"},
+      {"sp": "Priya", "en": "Just to confirm, same billing period, right? Don't compare this forecast with yesterday's partial total.", "zh": "确认一下，同一个计费周期，对吧？不要与昨天的部分累计总额相比。"},
+      {"sp": "Lukas", "en": "Add a range for upcoming demand changes. One exact number suggests more certainty than exists.", "zh": "为接下来的需求变化加上区间。精确单值会显得比实际更确定。"},
+      {"sp": "Raj", "en": "I'll show fifty to fifty-five thousand instead. The assumptions will sit beside that range.", "zh": "我改成五万到五万五。假设会写在区间旁边。"},
+      {"sp": "Priya", "en": "A refund request? Let's park that briefly. First reconcile which charges were genuinely incurred.", "zh": "申请退款？先暂放一下。先核对哪些费用确实发生。"},
+      {"sp": "Anika", "en": "Okay, I'll share the range with finance. No promise that the provider waives anything.", "zh": "好，我将区间发给财务。不承诺云厂商免除任何费用。"}
+    ]},
+    {"id": "0364", "part": 9, "stage": "向业务解释", "title": "已止损不等于账单归零", "premise": "月末预测已下调，仍需解释历史费用、保留资源和未结算项目。", "listeningTask": "区分结算状态与业务恢复状态。", "newPhrase": "p639", "phrases": ["p639", "p638", "p634", "p012:extra", "p001:extra", "p336:extra"], "lines": [
+      {"sp": "Anika", "en": "Okay, finance asked whether today's figure is settled. Can they use it for the payment?", "zh": "好，财务问今天的数字是否已结算。能拿它付款吗？"},
+      {"sp": "Hannah", "en": "No, wait for the final invoice first. This month-end forecast is for planning only.", "zh": "不能，先等最终账单。月末预测只用于规划。"},
+      {"sp": "Priya", "en": "Just to recap, reports remain on schedule. Duplicate traffic stopped; earlier egress charges remain.", "zh": "小结一下，报表仍按时交付。重复流量停了，之前的流出费用还在。"},
+      {"sp": "Lukas", "en": "Right, retained evidence still has storage costs. Don't describe every test resource as removed.", "zh": "对，保留证据仍有存储费。别说所有测试资源都移除了。"},
+      {"sp": "Raj", "en": "The remaining pair needs owner confirmation itself. We won't stop it to hit a target.", "zh": "剩余两台仍需要负责人确认。不会为了达标就停掉。"},
+      {"sp": "Anika", "en": "Okay, I'll explain that in plain terms. Maybe include the approved changes as bullets.", "zh": "好，我会用明白的话解释。可以列出已批准变更。"},
+      {"sp": "Hannah", "en": "So, keep identifiers in the internal attachment. The business summary needs totals and assumptions.", "zh": "所以，资源标识留在内部附件。业务摘要需要总额和假设。"},
+      {"sp": "Priya", "en": "We'll circle back after the next export. The escalation path goes through Hannah for discrepancies.", "zh": "下一次导出后再跟进。费用差异通过Hannah升级处理。"},
+      {"sp": "Lukas", "en": "Well, delivery problems need operational monitoring instead. A delayed bill can't warn about missing reports.", "zh": "嗯，交付问题需要运行监控。延迟账单不能预警漏报表。"},
+      {"sp": "Raj", "en": "I'll keep both checks in the ticket. Separate owners, separate signals, and clear update times.", "zh": "两个检查都会写进工单。分别列负责人、信号和更新时间。"}
+    ]},
+    {"id": "0365", "part": 10, "stage": "成本告警改进", "title": "让延迟数据和未知归属可见", "premise": "业务认可止损结果，团队制定账单监控和资源归属改进。", "listeningTask": "抓住负责人、期限与结算后核对安排。", "newPhrase": "p640", "phrases": ["p640", "p633", "p639", "p009:extra", "p310:extra", "p013:extra"], "lines": [
+      {"sp": "Hannah", "en": "Billing data lag hid several expensive hours. Let's show freshness beside every cost alert.", "zh": "计费数据延迟掩盖了几个高费用小时。每条费用告警旁显示数据新鲜度。"},
+      {"sp": "Priya", "en": "First action item, Hannah owns that change. A tested rule by Friday sounds reasonable.", "zh": "第一项待办由Hannah负责。周五前交付测试过的规则比较合理。"},
+      {"sp": "Lukas", "en": "First, test late and missing data separately. Neither should silently look like zero spending.", "zh": "先分别测试延迟和缺失数据。两者都不能悄悄显示成零费用。"},
+      {"sp": "Raj", "en": "Right, we'll require cost allocation tags upfront. Existing unknown owners need a review queue.", "zh": "对，我们要求一开始填写成本标签。已有未知归属进入评审队列。"},
+      {"sp": "Anika", "en": "Who's picking this up for schedule ownership? My team can review exports this week.", "zh": "定时任务归属谁接？我团队本周可以评审导出。"},
+      {"sp": "Hannah", "en": "So, I'll reconcile the final invoice afterward. Credits and adjustments need their own evidence.", "zh": "所以，之后我来核对最终账单。抵扣和调整需要各自证据。"},
+      {"sp": "Priya", "en": "Okay, Anika owns the export review, right? Raj tracks the remaining two unknown machines.", "zh": "好，Anika负责导出评审，对吧？Raj跟进另外两台未知机器。"},
+      {"sp": "Lukas", "en": "Evidence deletion still needs retention approval. Cost pressure doesn't override the legal holding requirements.", "zh": "删除证据仍需保留审批。费用压力不能凌驾于依法保留要求。"},
+      {"sp": "Raj", "en": "Good, we'll close the loop with evidence. Maybe savings differ once reconciliation is done.", "zh": "好，我们用证据完成闭环。核对完后节省可能不同。"},
+      {"sp": "Anika", "en": "I'll share the owners and dates today. Next review checks outcomes, not just completed tickets.", "zh": "今天我发布负责人和日期。下次评审看结果，不只看已完成工单。"}
+    ]}
+  ]
+}

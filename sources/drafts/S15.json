@@ -1,0 +1,193 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "仅完整中英文本草稿，未配音未发布。英文词数规划60/40；实际角色配音时长比例未验证，不填写start/end/duration。",
+  "series": {
+    "id": "sc-S15-database-restore-handoff", "title": "备份恢复交接：恢复点校验与超时演练",
+    "domain": "database", "group": "handoff", "service": "orders recovery drill / PostgreSQL",
+    "premise": "使用隔离合成订单数据进行夜间时间点恢复。模拟02:15 UTC故障，目标恢复到02:10 UTC提交状态，基础备份来自00:00；03:00开始演练，首批检查到03:42完成。交班时完整对账和应用测试尚未结束。",
+    "outcome": "接班方核实备份来源、WAL完整性和目标点前后标记，明确五分钟设计恢复点差距。首批可检访问耗时42分钟，未达到30分钟目标，最终验收尚未完成。剩余对账、重试测试与时长复盘明确交接，失败不得接生产或自动提升。"
+  },
+  "speakers": {
+    "Priya": {"role": "Recovery drill coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Outgoing database on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Outgoing application validation owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Incoming database on-call", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Incoming reconciliation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p421", "en": "backup manifest", "zh": "备份文件及校验信息清单", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p422", "en": "base backup", "zh": "用于日志恢复的基础备份", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p423", "en": "recovery target", "zh": "目标恢复点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p424", "en": "archived WAL", "zh": "已归档预写日志", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p425", "en": "reconciliation checks", "zh": "对账一致性检查", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p426", "en": "restore elapsed time", "zh": "恢复流程已经耗用的时间", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p427", "en": "pending validation", "zh": "尚待完成的验证", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p428", "en": "isolated restore environment", "zh": "隔离的恢复环境", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p429", "en": "recovery escalation", "zh": "恢复异常的升级联系流程", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p430", "en": "handoff acceptance", "zh": "接班方确认接收责任", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选回访不计实际复现；本文件旧引用只依赖p001-p350或此前本场景定义。", "S25": ["p421", "p422", "p423", "p424", "p425", "p426", "p428"], "S29": ["p427", "p429", "p430"], "S39": ["p423", "p425", "p427", "p430"]},
+  "dialogues": [
+    {
+      "id": "0146", "part": 1, "stage": "交班背景", "title": "交的是演练，不是生产切换", "premise": "夜班交接恢复演练，先明确数据、环境和验收状态。", "listeningTask": "听清接班责任不代表批准生产使用。",
+      "newPhrase": "p421", "phrases": ["p421", "p331", "p010:extra", "p336:extra", "p339:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "I'll hand over the restore drill. The backup manifest is in our ticket.", "zh": "我交接恢复演练，备份清单在工单里。"},
+        {"sp": "Lukas", "en": "Is this connected to production anywhere? I need the environment boundary first.", "zh": "它有任何地方连着生产吗？先明确环境边界。"},
+        {"sp": "Priya", "en": "No, a separate test network throughout. Just to confirm, no live cutover, right?", "zh": "没有，全程单独测试网络。确认一下，不做线上切换，对吧？"},
+        {"sp": "Anika", "en": "Correct, synthetic orders and test credentials. Outbound payment calls are blocked too.", "zh": "对，合成订单和测试凭据，对外支付调用也阻断了。"},
+        {"sp": "Hannah", "en": "Good. Is data validation finished yet? Starting the database isn't full acceptance.", "zh": "好，数据验证完成了吗？数据库启动不等于完整验收。"},
+        {"sp": "Raj", "en": "Only the initial checks have passed. Full reconciliation still needs your shift.", "zh": "只有首批检查通过，完整对账还需要你们班完成。"},
+        {"sp": "Lukas", "en": "Then show the escalation path clearly. I'll take ownership after reviewing evidence.", "zh": "那写清升级联系路径，评审证据后我再接责。"},
+        {"sp": "Priya", "en": "Okay, what's the ETA for review? About ten minutes for this handoff.", "zh": "好，评审预计多久？这次交接大约十分钟。"},
+        {"sp": "Hannah", "en": "That works if the evidence opens. Have I missed anything about access?", "zh": "证据能打开就可以，访问权限方面我漏了什么吗？"},
+        {"sp": "Anika", "en": "So, access is through approved accounts. No production secrets copied into notes.", "zh": "那访问使用批准账户，记录里没有复制生产密钥。"}
+      ]
+    },
+    {
+      "id": "0147", "part": 2, "stage": "备份来源", "title": "核实基础备份和来源链", "premise": "隔离边界明确，接班方核对基础备份标识与文件校验。", "listeningTask": "辨别备份创建时间、完成时间和恢复目标。",
+      "newPhrase": "p422", "phrases": ["p422", "p421", "p010:extra", "p103:extra", "p014:extra", "p335:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The base backup started at midnight. It completed at twenty past, UTC.", "zh": "基础备份午夜开始，UTC零点二十分完成。"},
+        {"sp": "Lukas", "en": "Which backup identifier did you restore? Filenames alone aren't enough provenance evidence.", "zh": "恢复的是哪个备份标识？只看文件名不足以证明来源。"},
+        {"sp": "Anika", "en": "Drill backup B seventeen, recorded here. Its backup manifest matches verified file checksums.", "zh": "演练备份B17，记录在这里，备份清单和已核验文件校验和一致。"},
+        {"sp": "Priya", "en": "Just to confirm, drill source only, right? Not a convenient untracked production copy.", "zh": "确认一下，只用演练数据源，对吧？不是随手拿的未追踪生产副本。"},
+        {"sp": "Hannah", "en": "Yes, the dataset approval is attached. Were encryption and restore access tested?", "zh": "是，数据集批准记录已附，加密和恢复权限测试了吗？"},
+        {"sp": "Raj", "en": "They were, through the approved key service. We recorded outcomes, not secret values.", "zh": "测了，通过批准的密钥服务，记录结果而非密钥值。"},
+        {"sp": "Lukas", "en": "Let me tail the log next. I want the backup identity during startup.", "zh": "接下来我盯日志，看启动时确认的备份标识。"},
+        {"sp": "Anika", "en": "Okay, I'm on it for that link. Maybe the storage view needs refreshing.", "zh": "好，我提供链接，存储视图可能需要刷新。"},
+        {"sp": "Hannah", "en": "The startup record matches B seventeen. That removes one source mismatch concern.", "zh": "启动记录匹配B17，排除了一个来源不匹配疑点。"},
+        {"sp": "Priya", "en": "So, our working hypothesis has verified provenance. Next separate backup time from target.", "zh": "那当前假设有已验证来源，下一步区分备份时间和恢复目标。"}
+      ]
+    },
+    {
+      "id": "0148", "part": 3, "stage": "恢复点", "title": "五分钟差距是设计边界", "premise": "B17基础备份来源确认，核对模拟故障和恢复目标时间。", "listeningTask": "听懂恢复点、数据损失窗口和提交边界。",
+      "newPhrase": "p423", "phrases": ["p423", "p422", "p010:extra", "p012:extra", "p302:extra", "p339:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The recovery target is two ten UTC. Simulated failure happens five minutes later.", "zh": "恢复目标是UTC两点十分，模拟故障发生在五分钟后。"},
+        {"sp": "Hannah", "en": "So transactions after that point aren't expected? Even if their logs are available?", "zh": "所以不期望包含目标点后的事务，即使日志可用？"},
+        {"sp": "Anika", "en": "Correct, this drill tests a chosen point. We expect commits through two ten.", "zh": "对，这次测试选定时间点，期望包含截至两点十分的提交。"},
+        {"sp": "Priya", "en": "Just to confirm, all timestamps UTC, right? We can rule that out as ambiguity.", "zh": "确认一下，全是UTC，对吧？可以排除时区歧义。"},
+        {"sp": "Lukas", "en": "And the target setting is inclusive? Transactions commit, not start, at that boundary.", "zh": "目标设置包含边界吗？看的是事务提交时间，不是开始时间。"},
+        {"sp": "Raj", "en": "Yes, inclusive and the timeline checked. The base backup precedes that target safely.", "zh": "是，包含边界且时间线已检查，基础备份早于目标。"},
+        {"sp": "Hannah", "en": "Just to recap, five minutes intentionally excluded. That's recovery-point scope, not restore duration.", "zh": "小结一下，有意排除五分钟，这是恢复点范围，不是恢复耗时。"},
+        {"sp": "Anika", "en": "Exactly, about five minutes of simulated changes. We mustn't call that zero loss.", "zh": "对，大约五分钟模拟变更，不能称零损失。"},
+        {"sp": "Lukas", "en": "Have I missed anything about target selection? Was that loss window approved beforehand?", "zh": "恢复点选择方面还有遗漏吗？这个损失窗口提前批准了吗？"},
+        {"sp": "Priya", "en": "Okay, yes, the drill sponsor approved it. Final success still requires data checks.", "zh": "好，是，演练负责人批准了，但最终成功仍要数据校验。"}
+      ]
+    },
+    {
+      "id": "0149", "part": 4, "stage": "已完成步骤", "title": "回放停止在目标点", "premise": "恢复目标和时区明确，核对日志连续性与回放停止记录。", "listeningTask": "辨别日志归档可用、回放完成和允许接入应用。",
+      "newPhrase": "p424", "phrases": ["p424", "p423", "p421:extra", "p103:extra", "p010:extra", "p327:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Archived WAL covers the whole required chain. Segments remain available through two fifteen.", "zh": "归档WAL覆盖所需完整链，日志段可用到两点十五分。"},
+        {"sp": "Lukas", "en": "Did replay stop at the requested point? Availability beyond it doesn't change scope.", "zh": "回放停在请求目标点了吗？后面的日志可用不改变范围。"},
+        {"sp": "Anika", "en": "Yes, logs show the recovery target reached. We inspected that before test access.", "zh": "是，日志显示达到恢复目标，开放测试访问前检查过。"},
+        {"sp": "Priya", "en": "Just to confirm, isolation remained intact, right? No application production endpoint was changed.", "zh": "确认一下，隔离始终保持，对吧？没有改任何应用生产端点。"},
+        {"sp": "Hannah", "en": "Let me tail the log myself. I see no missing segment warnings.", "zh": "我自己盯日志，没有看到缺日志段警告。"},
+        {"sp": "Raj", "en": "The backup manifest checks passed before replay. Timeline and target settings are attached.", "zh": "回放前备份清单校验通过，时间线和目标设置已附。"},
+        {"sp": "Lukas", "en": "Was recovery left paused or ended? I need the current server state.", "zh": "恢复还暂停着还是已结束？需要明确服务器当前状态。"},
+        {"sp": "Anika", "en": "It ended under the reviewed drill procedure. Test access opened after boundary checks.", "zh": "按评审过的演练流程结束，边界检查后开放测试访问。"},
+        {"sp": "Hannah", "en": "So a smoke test can run. That still doesn't prove every row.", "zh": "那可以跑冒烟测试，但仍不能证明每一行正确。"},
+        {"sp": "Priya", "en": "Okay, maybe summarize those checks next. Keep completed steps distinct from acceptance.", "zh": "好，接下来总结检查吧，把已完成步骤和验收分开。"}
+      ]
+    },
+    {
+      "id": "0150", "part": 5, "stage": "数据校验", "title": "对账要按同一个时间点", "premise": "回放达到目标点并开放隔离测试访问，核验目标点前后数据。", "listeningTask": "听出行数匹配还不足够，以及为何不能直接比当前生产。",
+      "newPhrase": "p425", "phrases": ["p425", "p423", "p010:extra", "p302:extra", "p327:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Initial reconciliation checks passed for sampled tenants. Counts and payment totals match references.", "zh": "抽样租户初步对账通过，行数和付款总额匹配参考值。"},
+        {"sp": "Hannah", "en": "Which reference time does that represent? Current source totals would be wrong.", "zh": "参考值代表哪个时间？当前数据源总额不能直接比较。"},
+        {"sp": "Raj", "en": "The frozen drill ledger at two ten. It matches our recovery target exactly.", "zh": "两点十分的冻结演练账本，准确匹配恢复目标。"},
+        {"sp": "Priya", "en": "Just to confirm, boundary markers too, right? Counts can match with wrong rows.", "zh": "确认一下，也查边界标记，对吧？行错了也可能数量一致。"},
+        {"sp": "Lukas", "en": "Yes, show commits around that boundary. We need positive and negative evidence.", "zh": "对，展示边界前后的提交，需要存在和不存在两类证据。"},
+        {"sp": "Anika", "en": "The two-oh-nine-fifty-eight commit is present. The two-ten-oh-two commit is correctly absent.", "zh": "两点九分五十八秒提交存在，两点十分零二秒提交正确地不存在。"},
+        {"sp": "Hannah", "en": "Good, the smoke test checks references too. But full tenant reconciliation remains unfinished.", "zh": "好，冒烟测试也核对关联关系，但完整租户对账仍没完成。"},
+        {"sp": "Raj", "en": "I'm on it for query evidence links. Maybe larger tenants need longer checks.", "zh": "我提供查询证据链接，大租户检查可能更久。"},
+        {"sp": "Lukas", "en": "Full validation? We can rule that out. A sample doesn't cover every tenant.", "zh": "完整验收？这可以排除。抽样并不覆盖每个租户。"},
+        {"sp": "Priya", "en": "Okay, label the sample coverage clearly. The next shift owns remaining checks.", "zh": "好，清楚标记抽样覆盖，下个班负责剩余检查。"}
+      ]
+    },
+    {
+      "id": "0151", "part": 6, "stage": "时间差距", "title": "四十二分钟不是三十分钟达标", "premise": "首批数据校验通过，核算恢复步骤耗时及尚未完成的最终验收。", "listeningTask": "区分恢复点差距与恢复耗时目标。",
+      "newPhrase": "p426", "phrases": ["p426", "p423", "p425:extra", "p008:extra", "p318:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Restore elapsed time reached forty-two minutes. We started at three, UTC today.", "zh": "恢复已耗时四十二分钟，今天UTC三点开始。"},
+        {"sp": "Lukas", "en": "That's through the initial checked access? Final application acceptance isn't done yet.", "zh": "这是到首批经过检查的访问为止？最终应用验收还没完成。"},
+        {"sp": "Anika", "en": "Yes, thirty-three minutes restoring and replaying. Nine more minutes for initial checks.", "zh": "对，恢复和回放三十三分钟，初步检查又九分钟。"},
+        {"sp": "Priya", "en": "Just to confirm, target was thirty, right? The recovery window already exceeded that.", "zh": "确认一下，目标是三十分钟，对吧？恢复时间已经超了。"},
+        {"sp": "Hannah", "en": "Correct. Don't stop the clock retroactively. Remaining reconciliation checks add more elapsed time.", "zh": "对，别倒推提前停表，剩余对账检查还会增加耗时。"},
+        {"sp": "Raj", "en": "The recovery target still excludes five minutes. That's separate from these forty-two minutes.", "zh": "恢复目标仍排除五分钟数据，这与四十二分钟耗时是两回事。"},
+        {"sp": "Lukas", "en": "Where did the extra time accumulate? Measure download, replay, and validation separately.", "zh": "多出来的时间在哪？分别测下载、回放和验证。"},
+        {"sp": "Anika", "en": "Download took longer than our rehearsal. Maybe bandwidth limits explain part of it.", "zh": "下载比预演久，带宽限制可能解释一部分。"},
+        {"sp": "Hannah", "en": "What's the ETA for final checks? Call it provisional until jobs finish.", "zh": "最终检查预计何时完成？任务结束前只能说暂估。"},
+        {"sp": "Priya", "en": "Okay, roughly another twenty minutes estimated. No completed recovery-time claim before acceptance.", "zh": "好，估计再二十分钟左右，验收前不宣称恢复耗时已最终确定。"}
+      ]
+    },
+    {
+      "id": "0152", "part": 7, "stage": "剩余任务", "title": "剩余校验逐项交责", "premise": "耗时目标已超出，完整对账和应用行为测试还需接班完成。", "listeningTask": "抓住未完成事项、负责人和停止条件。",
+      "newPhrase": "p427", "phrases": ["p427", "p425", "p009:extra", "p013:extra", "p014:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Pending validation covers three large tenants. Application retry behavior also needs testing.", "zh": "待验证项包括三个大租户，还要测应用重试行为。"},
+        {"sp": "Hannah", "en": "I'll own the remaining reconciliation checks. Where are expected totals and job IDs?", "zh": "我负责剩余对账，预期总额和任务ID在哪里？"},
+        {"sp": "Raj", "en": "In the handoff ticket, beside coverage. I'm on it for read access confirmation.", "zh": "交接工单里，在覆盖记录旁边，我确认读取权限。"},
+        {"sp": "Priya", "en": "Who's picking this up for retries? Lukas, the test harness is yours, right?", "zh": "谁接重试测试？Lukas，测试工具由你负责，对吧？"},
+        {"sp": "Lukas", "en": "Yes, using synthetic writes on a clone. I'll preserve the restored reference database.", "zh": "是，在克隆上用合成写入测试，保留恢复参考库不变。"},
+        {"sp": "Anika", "en": "Good, retries can change test data. About ten cases cover the known branches.", "zh": "好，重试会改变测试数据，大约十个用例覆盖已知分支。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on failed totals. A mismatch means halt, not patch rows.", "zh": "我关注总额失败，不匹配就暂停，不是直接修补行。"},
+        {"sp": "Raj", "en": "Okay, another action item is timing analysis. I'll separate transfer from replay tomorrow.", "zh": "好，另一个行动项是耗时分析，明天我拆分传输和回放。"},
+        {"sp": "Lukas", "en": "Maybe we need automated validation preparation. But don't weaken checks for faster numbers.", "zh": "可能需要自动准备校验，但别为数字更快而削弱检查。"},
+        {"sp": "Priya", "en": "So, update each item with evidence. Completion needs results, not a started job.", "zh": "那每项都带证据更新，完成需要结果，不是任务已经启动。"}
+      ]
+    },
+    {
+      "id": "0153", "part": 8, "stage": "接班提问", "title": "接班方复查隔离边界", "premise": "剩余任务已分配，接班方追问恢复环境和写测试克隆的访问边界。", "listeningTask": "听清测试克隆不改变恢复参考点。",
+      "newPhrase": "p428", "phrases": ["p428", "p427", "p423:extra", "p010:extra", "p011:extra", "p339:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "Show me the isolated restore environment. Can its test clone contact production services?", "zh": "给我看隔离恢复环境，测试克隆能联系生产服务吗？"},
+        {"sp": "Raj", "en": "No, network policy blocks those routes. Both environments use drill credentials exclusively.", "zh": "不能，网络策略阻断那些路由，两种环境都只用演练凭据。"},
+        {"sp": "Anika", "en": "The reference stays read-only for comparisons. The clone handles synthetic retry writes.", "zh": "参考库保持只读用于比较，克隆处理合成重试写入。"},
+        {"sp": "Priya", "en": "Just to confirm, reference remains unchanged, right? New test writes aren't restored history.", "zh": "确认一下，参考库不变，对吧？新的测试写入不是恢复历史。"},
+        {"sp": "Hannah", "en": "Let me play that back carefully. Compare reference data, test behavior on clone.", "zh": "我仔细复述：参考库对数据，克隆测行为。"},
+        {"sp": "Raj", "en": "Yes, label both connection profiles clearly. Maybe the similar names need stronger warnings.", "zh": "是，两个连接配置都清楚标记，相似名字可能需要更明显提示。"},
+        {"sp": "Lukas", "en": "Have I missed anything about cleanup? When will temporary drill credentials expire?", "zh": "清理方面还有遗漏吗？临时演练凭据什么时候过期？"},
+        {"sp": "Anika", "en": "At noon, unless approved extension happens. Evidence remains in the restricted drill archive.", "zh": "中午过期，除非批准延期，证据保留在受限演练归档。"},
+        {"sp": "Hannah", "en": "Pending validation may need more time. Request extension before expiry, never bypass access.", "zh": "待验证可能更久，过期前申请延期，不能绕过访问控制。"},
+        {"sp": "Priya", "en": "Okay, the recovery target stays documented. No clone results replace reference-point checks.", "zh": "好，恢复目标保持记录，克隆结果不能替代参考点检查。"}
+      ]
+    },
+    {
+      "id": "0154", "part": 9, "stage": "失败升级", "title": "不匹配就暂停并保留证据", "premise": "接班方确认隔离和权限边界，明确失败时联系谁及不得做什么。", "listeningTask": "抓住数据不匹配、日志缺口和时间超标的不同处理。",
+      "newPhrase": "p429", "phrases": ["p429", "p336", "p424:extra", "p338:extra", "p010:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Recovery escalation starts with me tonight. Page the backup if I'm unreachable.", "zh": "今晚恢复异常先找我，联系不上就呼叫后备。"},
+        {"sp": "Lukas", "en": "What should halt the validation work? Data mismatch, missing logs, or unsafe access?", "zh": "什么情况暂停验证？数据不匹配、缺日志还是不安全访问？"},
+        {"sp": "Anika", "en": "Any of those means stop and preserve evidence. No manual row corrections to pass.", "zh": "任何一种都停止并保留证据，不能手工改行让检查通过。"},
+        {"sp": "Priya", "en": "Just to confirm, no production promotion, right? A failed drill stays isolated throughout.", "zh": "确认一下，不提升成生产，对吧？失败演练全程保持隔离。"},
+        {"sp": "Hannah", "en": "And archived WAL gaps need source review. Don't invent a newer target instead.", "zh": "归档日志缺口需要复查来源，不能擅自换成更新恢复点。"},
+        {"sp": "Raj", "en": "The escalation path includes backup storage owner. I'll attach their approved contact entry.", "zh": "升级路径也包括备份存储负责人，我附上批准联系人记录。"},
+        {"sp": "Lukas", "en": "What's the ETA if reconciliation stalls? We need a reporting deadline as well.", "zh": "对账卡住时预计何时更新？还需要报告期限。"},
+        {"sp": "Priya", "en": "Update at four ten even if unfinished. Maybe sooner for any data mismatch.", "zh": "即使未完成也四点十分更新，数据不匹配则更早。"},
+        {"sp": "Hannah", "en": "The time target is already missed. That needs review, not unsafe shortcuts.", "zh": "耗时目标已未达标，需要评审，不是走不安全捷径。"},
+        {"sp": "Anika", "en": "So, preserve logs and exact job outputs. We'll investigate before restarting the drill.", "zh": "那保留日志和准确任务输出，重做演练前先调查。"}
+      ]
+    },
+    {
+      "id": "0155", "part": 10, "stage": "交接确认", "title": "接收责任，不提前签验收", "premise": "来源、恢复点、校验覆盖及升级条件明确，接班方复述并接责。", "listeningTask": "区分交接接收和恢复演练最终验收。",
+      "newPhrase": "p430", "phrases": ["p430", "p427", "p425:extra", "p340:extra", "p012:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "Handoff acceptance means I own next steps. It doesn't mean the drill passed.", "zh": "接收交接代表我负责下一步，不代表演练通过。"},
+        {"sp": "Priya", "en": "Just to recap, source and point verified. Pending validation still blocks final acceptance.", "zh": "小结一下，来源和恢复点已核验，待验证仍阻止最终验收。"},
+        {"sp": "Raj", "en": "Correct, sampled reconciliation checks passed already. Three large tenants remain with Hannah.", "zh": "对，抽样对账已通过，三个大租户由Hannah继续。"},
+        {"sp": "Anika", "en": "And Lukas owns clone retry testing, right? The unchanged reference keeps its target.", "zh": "Lukas负责克隆重试测试，对吧？不变的参考库保持目标点。"},
+        {"sp": "Hannah", "en": "I've got it from here for reconciliation. I'll report failures without editing results.", "zh": "对账我接下了，失败会如实报告，不修改结果。"},
+        {"sp": "Raj", "en": "Okay, I'm available through four thirty. About twenty minutes remains our estimate.", "zh": "好，我四点半前都可联系，估计仍需二十分钟左右。"},
+        {"sp": "Lukas", "en": "I'll report at four ten either way. Final elapsed time stays open until acceptance.", "zh": "无论结果我四点十分更新，最终耗时到验收才确定。"},
+        {"sp": "Priya", "en": "So, no claim of thirty-minute recovery. We'll review the timing gap tomorrow.", "zh": "那不宣称三十分钟恢复达标，明天评审时间差距。"},
+        {"sp": "Hannah", "en": "Evidence links and access work now. I accept the remaining validation responsibility.", "zh": "证据链接和权限现在都可用，我接收剩余验证责任。"},
+        {"sp": "Anika", "en": "We'll close the loop after your results. Keep the drill separate from production.", "zh": "你们结果出来后闭环，演练继续与生产分开。"}
+      ]
+    }
+  ]
+}

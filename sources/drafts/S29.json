@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段发布交接双语草稿；设计：固定制品、核实冻结规则与回退证据，接班复述，明确未决审批。未配音，交接确认不代表发布获准。",
+  "series": {"id": "sc-S29-cicd-release-handoff", "title": "发布值班交接：接班不是发布审批", "domain": "cicd", "group": "handoff", "service": "catalog release desk", "premise": "17:45交接catalog 2.9候选，生产为2.8。18:00至20:00冻结，安全评审与生产审批未完成。", "outcome": "Raj复述并接收值守职责，确认固定制品、冻结窗口、幂等操作及回退条件。安全审核19:30反馈，生产审批仍由Priya负责；冻结解除和全部审批均满足前不得发布。"},
+  "speakers": {
+    "Priya": {"role": "Release approver and handoff coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Incoming release on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Catalog application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Outgoing deployment operator", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Security approval owner", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p561", "en": "release checklist", "zh": "发布检查清单", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p562", "en": "artifact digest", "zh": "制品摘要", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p563", "en": "pending approval", "zh": "等待审批", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p564", "en": "release freeze", "zh": "发布冻结", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p565", "en": "known limitation", "zh": "已知限制", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p566", "en": "coverage roster", "zh": "值守覆盖名单", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p567", "en": "rollback entry point", "zh": "回退操作入口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p568", "en": "read back the plan", "zh": "复述计划以确认", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p569", "en": "approval owner", "zh": "审批负责人", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p570", "en": "handoff accepted", "zh": "交接已接收", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来候选不计实际复现；本文件只复现已有库、S03至S07及本文件前段。", "futureCandidates": {"S39": ["p561", "p562", "p563", "p564", "p565", "p566"], "S49": ["p567", "p568", "p569", "p570"]}},
+  "dialogues": [
+    {"id": "0286", "part": 1, "stage": "发布清单", "title": "先交清单，再交权限边界", "premise": "17:45开始交接，catalog候选尚未获生产审批。", "listeningTask": "听出接班范围和不属于交接授权的操作。", "newPhrase": "p561", "phrases": ["p561", "p331", "p010:extra", "p339:extra", "p008:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, let's hand over release coverage. The release checklist is in our ticket.", "zh": "好，交接发布值守。发布清单在工单里。"},
+      {"sp": "Raj", "en": "Just to confirm, I'm receiving operational coverage. Not production approval authority itself.", "zh": "确认一下，我接的是操作值守，不是生产审批权本身。"},
+      {"sp": "Lukas", "en": "Correct, production still serves version 2.8. The 2.9 candidate remains in staging.", "zh": "对，生产仍是2.8。2.9候选留在预发布环境。"},
+      {"sp": "Anika", "en": "The candidate improves catalog lookup speed. It doesn't change order writes today.", "zh": "候选改善商品目录查询速度。今天不改订单写入。"},
+      {"sp": "Hannah", "en": "Don't infer approval from completed tests. My security review remains unfinished today.", "zh": "不要从测试完成推断审批。今天我的安全评审仍未结束。"},
+      {"sp": "Priya", "en": "What's the ETA for your review? We need an owner and checkpoint.", "zh": "你的评审预计何时完成？需要负责人和检查时点。"},
+      {"sp": "Lukas", "en": "Before timings, verify the checklist version. An old link may omit current restrictions.", "zh": "先别说时间，核对清单版本。旧链接可能缺少当前限制。"},
+      {"sp": "Raj", "en": "So, just to recap, revision six. Have I missed anything in scope?", "zh": "那么小结一下，是第六版。范围里有我漏掉的吗？"},
+      {"sp": "Hannah", "en": "It includes signed artifact evidence links. They require authenticated access, not public sharing.", "zh": "它含有签名制品证据链接。需要认证访问，不能公开分享。"},
+      {"sp": "Anika", "en": "Fair, I'll stay for application questions. Let's verify both artifact versions next.", "zh": "明白，我留下回答应用问题。接下来核对两版制品。"}
+    ]},
+    {"id": "0287", "part": 2, "stage": "制品版本", "title": "固定摘要与旧版来源一起交接", "premise": "接班范围和第六版清单已确认，生产2.8，候选2.9。", "listeningTask": "抓住制品追溯链及不可接受的替代动作。", "newPhrase": "p562", "phrases": ["p562", "p561", "p010:extra", "p327:extra", "p330:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The artifact digest matches the release checklist. I'll deploy no moving tags.", "zh": "制品摘要匹配发布清单。我不会用可变标签部署。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, both versions retained? Registry retention must cover our rollback window.", "zh": "好，确认一下，两版都保留？仓库保留期必须覆盖回滚窗口。"},
+      {"sp": "Lukas", "en": "Yes, 2.8 remains protected from cleanup. Rebuilding source isn't an equivalent rollback artifact.", "zh": "对，2.8受保护不会清理。重建源码不等于同一回退制品。"},
+      {"sp": "Anika", "en": "The smoke test used candidate digest directly. Its source commit is linked, right?", "zh": "冒烟测试直接用候选摘要。源码提交有链接，对吧？"},
+      {"sp": "Hannah", "en": "Yes, provenance lists builder and inputs. Both signatures verify against approved signer identities.", "zh": "对，来源证明列出构建者和输入。两版签名均匹配批准身份。"},
+      {"sp": "Raj", "en": "I'm on it for access verification. My account can read both retained artifacts.", "zh": "访问验证我来做。我的账户能读取两份保留制品。"},
+      {"sp": "Lukas", "en": "Runtime secrets stay outside artifact images. Use managed configuration references, not copied tokens.", "zh": "运行时秘密在制品镜像外。用受管配置引用，不复制令牌。"},
+      {"sp": "Priya", "en": "So, record access evidence without secret values. Approval will bind this digest specifically.", "zh": "那么记录访问证据，不记录秘密值。审批将绑定这个具体摘要。"},
+      {"sp": "Hannah", "en": "Signature verification doesn't finish security review. Dependency and secret findings still need resolution.", "zh": "验证签名不等于安全评审完成。依赖和秘密发现仍需核查。"},
+      {"sp": "Anika", "en": "Understood, roughly one remaining review step. I'll attach existing tests rather than rerun blindly.", "zh": "明白，大约还剩一个评审步骤。我附上已有测试，不盲目重跑。"}
+    ]},
+    {"id": "0288", "part": 3, "stage": "审批状态", "title": "测试通过，审批仍待完成", "premise": "两版制品追溯和访问已核实，安全及生产审批仍未完成。", "listeningTask": "区分证据上传、评审完成与明确签批。", "newPhrase": "p563", "phrases": ["p563", "p562", "p010:extra", "p008:extra", "p328:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, production remains pending approval today. I haven't issued the release go/no-go.", "zh": "好，今天生产仍等待审批。我没有给出发布继续许可。"},
+      {"sp": "Raj", "en": "Just to confirm, a green checklist isn't approval? I'll check recorded signatures separately.", "zh": "确认一下，清单全绿不是审批？我单独查记录的签批。"},
+      {"sp": "Lukas", "en": "Right, ticket comments can be ambiguous. Require explicit approval for target and digest.", "zh": "对，工单评论可能含糊。要求明确批准目标和摘要。"},
+      {"sp": "Anika", "en": "My staging signoff covers functional tests only. It doesn't authorize production promotion itself.", "zh": "我的预发布签收只覆盖功能测试，本身不授权生产晋级。"},
+      {"sp": "Hannah", "en": "Security review needs one dependency exception assessed. No secret leak has been identified.", "zh": "安全评审还要评估一个依赖例外。目前未发现秘密泄漏。"},
+      {"sp": "Priya", "en": "What's the ETA for that assessment? Please close the loop in this ticket.", "zh": "那个评估预计多久？请在此工单反馈闭环。"},
+      {"sp": "Lukas", "en": "If approval times out, leave it blocked. Silence isn't permission to ship anything.", "zh": "审批超时就保持阻止。沉默不是发布任何东西的许可。"},
+      {"sp": "Raj", "en": "So, the artifact digest stays fixed. Changed content needs renewed review and approval.", "zh": "那么制品摘要保持固定。内容变化要重新评审和审批。"},
+      {"sp": "Hannah", "en": "I'll provide a decision at nineteen-thirty. That may be rejection, not guaranteed approval.", "zh": "我十九点三十分给决定。可能拒绝，不保证批准。"},
+      {"sp": "Anika", "en": "Fair, I'll be available for clarification. We shouldn't promise a release time yet.", "zh": "明白，我会待命澄清。目前不应承诺发布时间。"}
+    ]},
+    {"id": "0289", "part": 4, "stage": "冻结窗口", "title": "到点解冻不自动触发发布", "premise": "审批仍待完成，Hannah将在19:30反馈；需核对18:00至20:00冻结。", "listeningTask": "听出冻结例外和解冻后的审批条件。", "newPhrase": "p564", "phrases": ["p564", "p563", "p010:extra", "p007:extra", "p209:extra", "p336:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, release freeze runs eighteen to twenty. Let's freeze changes before that boundary.", "zh": "好，发布冻结是十八点到二十点。在边界前冻结变更。"},
+      {"sp": "Raj", "en": "Just to confirm, eighteen is a hard stop? Even if approval arrives earlier?", "zh": "确认一下，十八点是硬截止？就算更早拿到审批也一样？"},
+      {"sp": "Lukas", "en": "Correct, today's candidate can't start before freeze. We haven't reserved a safe observation window.", "zh": "对，今天候选不能在冻结前开始。没有预留安全观察窗口。"},
+      {"sp": "Anika", "en": "And after twenty, approval still matters, right? Unlocking the window doesn't approve deployment.", "zh": "二十点后审批仍重要，对吧？窗口解锁不等于批准部署。"},
+      {"sp": "Hannah", "en": "Emergency mitigation has a separate escalation path. It requires incident approval, not this checklist.", "zh": "紧急缓解走独立升级路径。需要故障审批，不是这份清单。"},
+      {"sp": "Priya", "en": "Pending approval stays blocked through the freeze. I've disabled scheduled promotion as well.", "zh": "待审批状态在冻结期间继续阻止。我也禁用了定时晋级。"},
+      {"sp": "Lukas", "en": "Verify the controller won't replay queued actions. A timer mustn't bypass the freeze lock.", "zh": "核对控制器不会重放排队动作。定时器不能绕过冻结锁。"},
+      {"sp": "Raj", "en": "So, I checked the effective lock. No queued production action is present now.", "zh": "那么我检查了生效的锁。目前没有排队生产动作。"},
+      {"sp": "Hannah", "en": "Keep the freeze decision in audit history. Don't alter timestamps to fit an approval.", "zh": "冻结决定留在审计历史里。别改时间戳去匹配审批。"},
+      {"sp": "Anika", "en": "Fair, support gets a delayed-release update. Not a maybe-live message during this freeze.", "zh": "明白，支持团队收到延期更新，不是冻结期间可能上线的消息。"}
+    ]},
+    {"id": "0290", "part": 5, "stage": "已知风险", "title": "兼容检查通过，长尾风险仍在", "premise": "冻结规则及控制器锁已确认，接着说明候选的已知限制。", "listeningTask": "抓住已知限制、停放量条件和未证明事项。", "newPhrase": "p565", "phrases": ["p565", "p561", "p010:extra", "p324:extra", "p327:extra", "p309:extra"], "lines": [
+      {"sp": "Anika", "en": "Our known limitation is large-catalog latency. Small-catalog tests aren't representative enough yet.", "zh": "已知限制是大目录延迟。小目录测试还不够有代表性。"},
+      {"sp": "Priya", "en": "Okay, release checklist includes that distinction. Just to confirm, no data conversion?", "zh": "好，发布清单包含这个区分。确认一下，没有数据转换？"},
+      {"sp": "Lukas", "en": "Only an optional nullable column was added. Old readers and writers remain compatible.", "zh": "只增加一个可空可选列。旧读取和写入代码保持兼容。"},
+      {"sp": "Raj", "en": "The mixed-version smoke test passed, right? I'll keep an eye on large catalogs.", "zh": "混合版本冒烟测试通过了，对吧？我关注大目录。"},
+      {"sp": "Hannah", "en": "Yes, including rows the candidate wrote. No column removal is authorized for rollback.", "zh": "对，包括候选写出的行。回滚没有获准删列。"},
+      {"sp": "Anika", "en": "Pause promotion if p95 exceeds five hundred. Two consecutive minutes trigger that pause.", "zh": "p95超过五百就暂停放量。连续两分钟触发暂停。"},
+      {"sp": "Lukas", "en": "Milliseconds, with matched large-catalog request samples. Missing metrics also block any further increase.", "zh": "单位毫秒，用匹配的大目录请求样本。指标缺失也阻止继续增加。"},
+      {"sp": "Priya", "en": "So, the rollback trigger needs recording too. Confirmed wrong catalog results mean immediate rollback.", "zh": "那么也要记录回滚触发条件。确认目录结果错误就立即回滚。"},
+      {"sp": "Hannah", "en": "Errors above one percent pause after two minutes. Above two percent for five means rollback. Raj must review those before execution.", "zh": "错误率超过1%持续两分钟就暂停，超过2%持续五分钟就回滚。Raj执行前必须评审这些条件。"},
+      {"sp": "Raj", "en": "Fair, they're recorded, not improvised tonight. I'll verify alert routing before taking coverage.", "zh": "明白，它们已记录，不是今晚临时想。我接班前验证告警路由。"}
+    ]},
+    {"id": "0291", "part": 6, "stage": "值守安排", "title": "主值班和后备都要真正可达", "premise": "已知大目录风险和观察门槛已记录，需落实今晚值守。", "listeningTask": "听出主值班、后备、应用联系人和升级时点。", "newPhrase": "p566", "phrases": ["p566", "p337", "p338:extra", "p336:extra", "p010:extra", "p008:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, the coverage roster names Raj. He's primary on-call from eighteen tonight.", "zh": "好，覆盖名单列明Raj。他今晚十八点起主值班。"},
+      {"sp": "Raj", "en": "Just to confirm, Lukas is my backup? We tested the paging route, right?", "zh": "确认一下，Lukas是后备？我们测过呼叫路由，对吧？"},
+      {"sp": "Lukas", "en": "Yes, test notification reached my phone. Page the backup after five unanswered minutes.", "zh": "对，测试通知到了我手机。五分钟无人回应就呼叫后备。"},
+      {"sp": "Anika", "en": "I'll cover application questions until twenty-two. The later application rota is linked too.", "zh": "我到二十二点负责应用问题。之后应用轮值也有链接。"},
+      {"sp": "Hannah", "en": "Security contact remains me through review. Suspected credential exposure needs immediate security escalation.", "zh": "评审期间安全联系人仍是我。疑似凭据泄漏立即升级安全团队。"},
+      {"sp": "Priya", "en": "What's the ETA for access confirmation? Don't wait for an alert to discover gaps.", "zh": "访问确认预计多久？别等告警才发现权限缺口。"},
+      {"sp": "Lukas", "en": "Raj has dashboard and rollback access. Approval permissions are intentionally excluded from that role.", "zh": "Raj有面板和回滚访问权。这个角色故意不含审批权限。"},
+      {"sp": "Raj", "en": "So, I verified the escalation path. My test alert reached both named operators.", "zh": "那么我验证了升级路径。测试告警到达两位指定操作员。"},
+      {"sp": "Hannah", "en": "Contact details stay in authenticated directories. Don't paste personal numbers into public release notes.", "zh": "联系方式留在认证目录里。别在公开发布说明贴个人号码。"},
+      {"sp": "Anika", "en": "Fair, coverage looks complete for tonight. Let's check the rollback procedure before questions.", "zh": "明白，今晚值守看起来完整。提问前先查回滚流程。"}
+    ]},
+    {"id": "0292", "part": 7, "stage": "回退入口", "title": "入口可用，但重试必须核对状态", "premise": "值守名单、告警路由和权限已验证；演示回退入口但不执行。", "listeningTask": "分清预演与真实操作，以及结果未知时的处理。", "newPhrase": "p567", "phrases": ["p567", "p562", "p210:extra", "p010:extra", "p324:extra", "p330:extra"], "lines": [
+      {"sp": "Lukas", "en": "The rollback entry point is this runbook. It selects the retained 2.8 digest.", "zh": "回退入口是这份运行手册。它选择保留的2.8摘要。"},
+      {"sp": "Raj", "en": "Okay, dry-run it first without applying. Just to confirm, artifact digest stays fixed?", "zh": "好，先预演不执行。确认一下，制品摘要固定？"},
+      {"sp": "Hannah", "en": "Yes, reverify signatures before real execution. Stale verification records aren't a permanent exception.", "zh": "对，真实执行前再验签。旧验证记录不是永久豁免。"},
+      {"sp": "Anika", "en": "Keep expanded schema during rollback, right? Mixed-version compatibility evidence is linked beside it.", "zh": "回滚时保留扩展结构，对吧？旁边有混合版本兼容证据链接。"},
+      {"sp": "Lukas", "en": "Correct, managed configuration restores runtime references. No copying secret values between versions.", "zh": "对，受管配置恢复运行时引用。不在版本间复制秘密值。"},
+      {"sp": "Priya", "en": "The rollback trigger permits approved mitigation only. Routine release freeze still blocks new rollout.", "zh": "回退触发只允许批准的缓解。常规冻结仍阻止新发布。"},
+      {"sp": "Hannah", "en": "Unknown outcomes need receipt and controller checks. Blind retries might duplicate external actions.", "zh": "结果未知要查回执和控制器。盲目重试可能重复外部动作。"},
+      {"sp": "Raj", "en": "So, preserve the original operation key. Attempt identifiers can differ for audit tracking.", "zh": "那么保留原操作键。尝试标识可不同以跟踪审计。"},
+      {"sp": "Lukas", "en": "The dry run validates target and access. It does not modify production state.", "zh": "预演验证目标和访问权。不修改生产状态。"},
+      {"sp": "Anika", "en": "Fair, I'll verify business requests after rollback. Green pods alone won't demonstrate correct results.", "zh": "明白，回滚后我验证业务请求。Pod全绿不能单独证明结果正确。"}
+    ]},
+    {"id": "0293", "part": 8, "stage": "接班提问", "title": "接班者复述并澄清自动动作", "premise": "回退入口已预演，未执行生产操作；Raj开始复述并提问。", "listeningTask": "听出复述中的误解如何被纠正。", "newPhrase": "p568", "phrases": ["p568", "p564", "p011:extra", "p010:extra", "p339:extra", "p331:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, I'll read back the plan. Let me play that back before acceptance.", "zh": "好，我复述计划。接收前先复述确认。"},
+      {"sp": "Priya", "en": "We're ready to hand over coverage. Start with what you won't execute.", "zh": "我们准备好交接值守。先说你不会执行什么。"},
+      {"sp": "Lukas", "en": "Include the exact freeze boundary too. The controller lock remains a separate safeguard.", "zh": "也说准确冻结边界。控制器锁仍是独立保障。"},
+      {"sp": "Raj", "en": "Release freeze ends at twenty tonight. Then 2.9 starts automatically... no, that's wrong.", "zh": "发布冻结今晚二十点结束。然后2.9自动开始……不，这不对。"},
+      {"sp": "Hannah", "en": "Right, explicit approvals must also exist. Freeze expiry doesn't fulfill security or release approval.", "zh": "对，还必须有明确审批。冻结到期不满足安全或发布审批。"},
+      {"sp": "Anika", "en": "Just to confirm, tests cover both versions. Data compatibility stays required during rollback itself.", "zh": "确认一下，测试覆盖两版。回滚本身仍要求数据兼容。"},
+      {"sp": "Lukas", "en": "And retain the old artifact without rebuilding. Unknown deployment state requires reconciliation before retries.", "zh": "保留旧制品，不重建。部署状态未知先核对再重试。"},
+      {"sp": "Raj", "en": "So, fixed digests and no secret copying. Have I missed anything about approvals?", "zh": "那么固定摘要，不复制秘密。审批方面有我遗漏的吗？"},
+      {"sp": "Hannah", "en": "Approval must name this target environment. A staging signoff doesn't transfer to production.", "zh": "审批必须写明目标环境。预发布签收不能转成生产审批。"},
+      {"sp": "Priya", "en": "Fair, that correction matters for tonight. Let's name each unresolved owner explicitly now.", "zh": "明白，这个纠正今晚很重要。现在明确每个未决负责人的名字。"}
+    ]},
+    {"id": "0294", "part": 9, "stage": "未决负责人", "title": "安全反馈与生产审批分别追踪", "premise": "Raj已纠正自动发布误解；最后确认未决评审和审批负责人。", "listeningTask": "区分给出决定的时点与保证批准的承诺。", "newPhrase": "p569", "phrases": ["p569", "p563", "p013:extra", "p010:extra", "p008:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, who's picking this up for security? Hannah remains that approval owner tonight.", "zh": "好，安全这块谁接？今晚Hannah仍是审批负责人。"},
+      {"sp": "Raj", "en": "Just to confirm, production stays pending approval. You're the release approver after security, right?", "zh": "确认一下，生产仍等待审批。安全之后你负责发布审批，对吧？"},
+      {"sp": "Lukas", "en": "Even security acceptance won't approve production alone. Both decisions need recorded scope and evidence.", "zh": "安全接受也不能单独批准生产。两项决定都要记录范围和证据。"},
+      {"sp": "Anika", "en": "What's the ETA for dependency clarification? I'll attach the affected package's actual usage.", "zh": "依赖澄清预计多久？我附上受影响包的实际用途。"},
+      {"sp": "Hannah", "en": "I need that by nineteen tonight. I'll post my decision at nineteen-thirty.", "zh": "今晚十九点前需要。十九点三十分我发决定。"},
+      {"sp": "Priya", "en": "I'll close the loop after that decision. No approval from me before reviewing it.", "zh": "那个决定出来后我反馈闭环。没评审之前我不批准。"},
+      {"sp": "Lukas", "en": "If either owner misses the checkpoint, escalate. Don't substitute another person's casual agreement.", "zh": "任何负责人错过检查时点都升级。不能用别人随口同意替代。"},
+      {"sp": "Raj", "en": "So, I'll chase the checkpoint directly. We can delay instead of forcing approval.", "zh": "那么我直接跟踪检查时点。可以延期，不强行推动审批。"},
+      {"sp": "Hannah", "en": "And new findings may change the decision. My deadline promises feedback, not acceptance.", "zh": "新发现可能改变决定。截止承诺的是反馈，不是接受。"},
+      {"sp": "Anika", "en": "Fair, I'll tell stakeholders it's still blocked. Their launch notice waits for explicit authorization.", "zh": "明白，我告诉相关方仍阻止发布。上线通知等待明确授权。"}
+    ]},
+    {"id": "0295", "part": 10, "stage": "交接确认", "title": "接收值守，保留全部发布限制", "premise": "负责人和反馈时点已确认，当前仍17:55，生产审批未给出。", "listeningTask": "听出最终复述、交接确认和仍未解除的限制。", "newPhrase": "p570", "phrases": ["p570", "p568", "p340:extra", "p010:extra", "p012:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, handoff accepted for operational coverage. I've got it from here at eighteen.", "zh": "好，操作值守交接已接收。十八点起由我接手。"},
+      {"sp": "Priya", "en": "Just to confirm, read back the plan. Include release restrictions in your acceptance.", "zh": "确认一下，复述计划。接收时包含发布限制。"},
+      {"sp": "Lukas", "en": "I'll remain backup through the shift. The runbook and access tests are recorded.", "zh": "这个班我继续后备。运行手册和访问测试已记录。"},
+      {"sp": "Raj", "en": "Just to recap, production remains 2.8. Candidate 2.9 cannot ship during freeze itself.", "zh": "小结一下，生产仍是2.8。冻结本身期间2.9候选不能发布。"},
+      {"sp": "Hannah", "en": "My security decision arrives at nineteen-thirty. It isn't currently an approval to deploy.", "zh": "我的安全决定十九点三十分给出。目前它不是部署审批。"},
+      {"sp": "Anika", "en": "I'll provide dependency details by nineteen. I'll keep an eye on application questions.", "zh": "十九点前我提供依赖细节。我关注应用问题。"},
+      {"sp": "Lukas", "en": "Rollback retains schema and verified old digest. Unknown action outcomes stay held until reconciled.", "zh": "回滚保留结构和验证过的旧摘要。动作结果未知就挂起直到核对。"},
+      {"sp": "Raj", "en": "So, after twenty needs both approvals. Same digest, same target, no silent substitutions.", "zh": "那么二十点后需要两项审批。同一摘要、同一目标，不暗自替换。"},
+      {"sp": "Hannah", "en": "Correct, keep secrets in approved storage. Suspected exposure requires revocation and security escalation.", "zh": "对，秘密留在批准存储中。疑似泄漏需要撤销和安全升级。"},
+      {"sp": "Priya", "en": "Fair, I confirm coverage handoff only. No production release is approved by this conversation.", "zh": "明白，我只确认值守交接。本次对话没有批准任何生产发布。"}
+    ]}
+  ]
+}

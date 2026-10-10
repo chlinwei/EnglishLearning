@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"十段连续变更编稿，未配音未发布；版本锁、目标平台、构建输入与回退制品一起验收，不填写音频时间轴。",
+  "series":{"id":"sc-S18-coding-python-dependencies","title":"Python依赖升级：锁定、重建与灰度验收","domain":"coding","group":"change","service":"inventory sync Python worker","premise":"库存同步工具需升级HTTP客户端以采用维护中的版本；旧认证插件约束冲突，生产任务不能重复写入。","outcome":"升级兼容认证插件，按生产Python与平台解析带哈希锁文件，固定构建输入并核对两次干净重建；兼容、预演与灰度通过，验证旧制品可回退，无数据格式迁移。"},
+  "speakers":{
+    "Priya":{"role":"Change coordinator and approval owner","accent":"en-IN","voice":null},
+    "Raj":{"role":"Python dependency maintainer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Inventory application owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Build and release SRE","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Compatibility and reproducibility tester","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p451","en":"supported release","zh":"仍受维护支持的版本","layer":"L1","level":"core","target":5},
+    {"id":"p452","en":"dependency resolver","zh":"依赖解析器","layer":"L1","level":"core","target":5},
+    {"id":"p453","en":"hash-locked requirements","zh":"带哈希锁定的依赖清单","layer":"L1","level":"core","target":5},
+    {"id":"p454","en":"compatibility matrix","zh":"兼容性测试矩阵","layer":"L1","level":"core","target":5},
+    {"id":"p455","en":"clean rebuild","zh":"干净环境重新构建","layer":"L1","level":"core","target":5},
+    {"id":"p456","en":"canary cohort","zh":"灰度实例组","layer":"L1","level":"core","target":5},
+    {"id":"p457","en":"deprecation warning","zh":"接口弃用警告","layer":"L1","level":"core","target":5},
+    {"id":"p458","en":"promote the same artifact","zh":"逐级推广同一个制品","layer":"L1","level":"core","target":5},
+    {"id":"p459","en":"previous image digest","zh":"上一个镜像摘要","layer":"L1","level":"core","target":5},
+    {"id":"p460","en":"build provenance","zh":"构建来源与输入记录","layer":"L1","level":"core","target":5}
+  ],
+  "recycling":{"note":"以下仅未来场景候选，不算实际出现；本稿旧引用限p001-p350及自身早段。","S27":["p451","p452","p453","p455","p460"],"S28":["p454","p456","p457","p458","p459"]},
+  "dialogues":[
+    {"id":"0176","part":1,"stage":"申请","title":"为什么现在升级","premise":"现有客户端分支将停止维护，提出受控升级申请。","listeningTask":"抓住维护动机与不包含的功能变更。","newPhrase":"p451","phrases":["p451","p010","p009:extra","p321:extra","p008:extra","p327:extra"],"lines":[
+      {"sp":"Raj","en":"We need a supported release of the client. Our current branch loses maintenance next month.","zh":"客户端需要换到受支持版本，当前分支下月停止维护。"},
+      {"sp":"Lukas","en":"Is this maintenance or a feature rollout? Keep the approval scope explicit here.","zh":"这是维护还是功能发布？明确审批范围。"},
+      {"sp":"Anika","en":"Maintenance only, no new inventory behavior. The authentication plugin may need upgrading too.","zh":"只做维护，不改变库存行为，认证插件可能也需升级。"},
+      {"sp":"Priya","en":"Okay, just to confirm, no schema migration, right? We need a reversible application change.","zh":"好，确认一下，不改数据结构，对吧？应用变更要能回退。"},
+      {"sp":"Hannah","en":"I'll define a smoke test for syncing. Include authentication, pagination, and duplicate write protection.","zh":"我定义同步冒烟测试，覆盖认证、分页与防重复写入。"},
+      {"sp":"Raj","en":"One action item is checking transitive dependencies. What's the ETA for the test environment?","zh":"一项任务是检查间接依赖，测试环境预计多久就绪？"},
+      {"sp":"Lukas","en":"The environment is ready this afternoon. Use the production interpreter and base image.","zh":"今天下午环境就绪，使用生产解释器和基础镜像。"},
+      {"sp":"Priya","en":"We'll request a maintenance window after testing. Maybe Thursday works for the service owner.","zh":"测试后申请维护窗口，服务负责人可能周四方便。"},
+      {"sp":"Hannah","en":"Don't approve the window as release permission. Evidence still needs review before production deployment.","zh":"窗口获批不等于可以发布，上生产前仍要审查证据。"},
+      {"sp":"Anika","en":"Agreed, I'll confirm the inventory workload schedule. We shouldn't overlap the nightly reconciliation job.","zh":"同意，我确认库存作业时间，不能与夜间对账重叠。"}
+    ]},
+    {"id":"0177","part":2,"stage":"冲突","title":"解析失败不是强装理由","premise":"在生产匹配环境解析升级依赖，认证插件约束冲突。","listeningTask":"区分版本约束冲突与运行时问题。","newPhrase":"p452","phrases":["p452","p010","p335:extra","p302:extra","p014:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"The dependency resolver rejects the proposed set. Our plugin requires the older client range.","zh":"依赖解析器拒绝这组版本，插件要求旧客户端范围。"},
+      {"sp":"Hannah","en":"Show both constraints in the review. Don't force installation by ignoring dependency checks.","zh":"评审展示两边约束，不能忽略依赖检查强行安装。"},
+      {"sp":"Anika","en":"Our working hypothesis is outdated plugin compatibility. A newer plugin advertises the required range.","zh":"目前假设是插件兼容范围过时，新插件声明支持所需范围。"},
+      {"sp":"Priya","en":"Just to confirm, advertised isn't tested, right? We'll verify behavior before accepting that pair.","zh":"确认一下，声明支持不等于已测，对吧？接受这组版本前验证行为。"},
+      {"sp":"Lukas","en":"Check interpreter requirements and available platform wheels. A solvable graph can still fail installation.","zh":"检查解释器要求与平台wheel，版本图可解也可能安装失败。"},
+      {"sp":"Raj","en":"I'm on it for the candidate plugin. We can rule that out as network failure.","zh":"候选插件我来查，可以排除这次解析失败是网络故障。"},
+      {"sp":"Hannah","en":"Yes, the error cites incompatible version constraints. Keep the complete resolver output as evidence.","zh":"对，错误明确指出版本约束不兼容，保留完整解析输出。"},
+      {"sp":"Anika","en":"Okay, the plugin itself handles token refresh. Maybe that path needs extra compatibility tests.","zh":"好，插件本身处理令牌刷新，该路径可能需要额外兼容测试。"},
+      {"sp":"Lukas","en":"A client replacement is another option. But it's outside this maintenance change's scope.","zh":"换客户端也是选项，但超出本次维护变更范围。"},
+      {"sp":"Priya","en":"Let's park that larger replacement for now. Test the compatible pair without broadening scope.","zh":"先放下大范围替换，测试兼容组合，不扩大范围。"}
+    ]},
+    {"id":"0178","part":3,"stage":"锁定","title":"锁版本也锁安装输入","premise":"选择候选客户端和插件组合，解析生产平台的完整依赖。","listeningTask":"辨别直接依赖固定与完整哈希锁定。","newPhrase":"p453","phrases":["p453","p010","p452:extra","p014:extra","p330:extra","p009:extra"],"lines":[
+      {"sp":"Raj","en":"We've generated hash-locked requirements for production. Direct and transitive versions are both fixed.","zh":"已生成生产用带哈希锁依赖，直接与间接版本都固定了。"},
+      {"sp":"Lukas","en":"Which interpreter and platform produced that lock? Keep those inputs under version control too.","zh":"锁文件针对什么解释器和平台？这些输入也要版本管理。"},
+      {"sp":"Anika","en":"Python three twelve on our Linux image. Just to confirm, other platforms need validation, right?","zh":"Linux镜像上的Python 3.12，确认一下，其他平台另需验证，对吧？"},
+      {"sp":"Priya","en":"Okay, the dependency resolver output is attached. No hand-edited version exceptions in this approval.","zh":"好，附上解析输出，本次审批不接受手工改版本例外。"},
+      {"sp":"Hannah","en":"Check every artifact's hash during installation. Hashes verify identity, not package security alone.","zh":"安装核对每个包的哈希，哈希验证身份，本身不证明包安全。"},
+      {"sp":"Raj","en":"I'm on it with the approved package mirror. Maybe we'll need to retain older wheels.","zh":"批准的镜像源我来处理，可能也需保留旧wheel。"},
+      {"sp":"Lukas","en":"Retain them for reproducible rollback builds. Pin the base image and installer version too.","zh":"保留以便重建回退版本，也固定基础镜像与安装器。"},
+      {"sp":"Anika","en":"The lock becomes part of managed configuration. I'll stop production installs from resolving afresh.","zh":"锁文件纳入受管配置，生产安装不能重新自由解析版本。"},
+      {"sp":"Hannah","en":"Build inputs also include compiler toolchains. Prefer approved wheels where the platform supports them.","zh":"构建输入还包括编译工具链，平台支持时优先批准的wheel。"},
+      {"sp":"Priya","en":"Make retaining inputs an explicit action item. The lock alone isn't our reproducibility claim.","zh":"保留输入列为明确任务，不能只靠锁文件宣称可复现。"}
+    ]},
+    {"id":"0179","part":4,"stage":"兼容","title":"兼容测试覆盖真实调用","premise":"依赖和构建输入锁定，开始验证客户端调用行为。","listeningTask":"听出刷新令牌、超时与分页为什么都在验收范围。","newPhrase":"p454","phrases":["p454","p010","p327:extra","p451:extra","p453:extra","p302:extra"],"lines":[
+      {"sp":"Hannah","en":"The compatibility matrix covers our production interpreter. Authentication refresh, pagination, and timeout paths pass.","zh":"兼容矩阵覆盖生产解释器，认证刷新、分页和超时路径通过。"},
+      {"sp":"Raj","en":"The supported release changes timeout exception types. I updated our explicit handling and tests.","zh":"受支持版本改变了超时异常类型，我更新了显式处理和测试。"},
+      {"sp":"Lukas","en":"Did the tests use real response shapes? Simplified mocks can hide pagination changes.","zh":"测试使用真实响应结构吗？简化模拟可能掩盖分页变化。"},
+      {"sp":"Anika","en":"Yes, sanitized captured responses and contract fixtures. Just to confirm, no production tokens, right?","zh":"是，用脱敏响应和契约用例。确认一下，没有生产令牌，对吧？"},
+      {"sp":"Hannah","en":"Correct, credentials come from the test tenant. The smoke test checks the complete sync.","zh":"对，凭据来自测试租户，冒烟测试检查完整同步。"},
+      {"sp":"Priya","en":"Okay, install using hash-locked requirements every time. We need the tested combination, not something similar.","zh":"好，每次都按哈希锁安装，需要已测组合，不是类似组合。"},
+      {"sp":"Lukas","en":"Check connection cleanup after cancelled requests too. Success paths won't expose leaked resources.","zh":"也检查取消请求后的连接释放，只测成功路径发现不了泄漏。"},
+      {"sp":"Raj","en":"The cancellation tests now release their connections. We can rule that out in covered cases.","zh":"取消测试现在会释放连接，可在已覆盖情况排除泄漏。"},
+      {"sp":"Anika","en":"Maybe large inventories still behave differently here. I'll add a representative multi-page dataset.","zh":"大库存可能仍有不同表现，我增加有代表性的多页数据集。"},
+      {"sp":"Priya","en":"Agreed, keep untested combinations clearly excluded. Approval covers this interpreter and platform only.","zh":"同意，明确排除未测组合，审批仅覆盖当前解释器和平台。"}
+    ]},
+    {"id":"0180","part":5,"stage":"预演","title":"两次干净重建再预演","premise":"兼容测试通过，验证构建可复现与非生产同步。","listeningTask":"区分依赖一致、镜像一致和业务预演成功。","newPhrase":"p455","phrases":["p455","p010","p210:extra","p453:extra","p454:extra","p328:extra"],"lines":[
+      {"sp":"Lukas","en":"Each clean rebuild used the same inputs. Normalized build timestamps keep image outputs deterministic.","zh":"两次干净重建输入相同，标准化构建时间戳让镜像输出确定。"},
+      {"sp":"Raj","en":"Both images match by digest and inventory. Hash-locked requirements installed without using local caches.","zh":"两个镜像摘要与包清单一致，哈希锁依赖安装未用本地缓存。"},
+      {"sp":"Hannah","en":"Matching package versions isn't sufficient by itself. Here the final artifact digests match too.","zh":"仅包版本相同本身不够，这里最终制品摘要也相同。"},
+      {"sp":"Priya","en":"Okay, dry-run it first against test inventory. Just to confirm, writes stay disabled, right?","zh":"好，先针对测试库存预演。确认一下，写入保持禁用，对吧？"},
+      {"sp":"Anika","en":"Yes, then isolated writes test real effects. The compatibility matrix includes duplicate request handling.","zh":"是，随后隔离写入测试实际效果，兼容矩阵含重复请求处理。"},
+      {"sp":"Raj","en":"Maybe the cached build masked an issue before. These clean runs remove that particular uncertainty.","zh":"之前缓存构建可能掩盖问题，这次干净重建消除了这项不确定性。"},
+      {"sp":"Lukas","en":"The rehearsal must use the approved artifact. Don't rebuild a different image for deployment.","zh":"预演必须用批准制品，部署不能另建不同镜像。"},
+      {"sp":"Priya","en":"We'll hold the go/no-go review after rehearsal. No production access before explicit approval.","zh":"预演后做放行评审，明确批准前不访问生产。"},
+      {"sp":"Hannah","en":"Isolated writes produced the expected inventory state. Replayed requests didn't create duplicate records.","zh":"隔离写入产生预期库存状态，重放请求没有产生重复记录。"},
+      {"sp":"Anika","en":"Good, I'll attach those results for approval. The deployment still needs its rollback checks.","zh":"好，我提交这些结果，部署仍需要回退检查。"}
+    ]},
+    {"id":"0181","part":6,"stage":"灰度","title":"只切一个同步分区","premise":"预演通过，审批批准一个分区切换，旧制品已保留。","listeningTask":"识别防止新旧worker重复写入的切换顺序。","newPhrase":"p456","phrases":["p456","p010","p323:extra","p324:extra","p327:extra","p309:extra"],"lines":[
+      {"sp":"Priya","en":"Approve one canary cohort for this window. The staged rollout starts with one partition.","zh":"本窗口批准一组灰度，分阶段发布从一个分区开始。"},
+      {"sp":"Lukas","en":"Drain the old worker before assigning ownership. Two workers mustn't process the same partition.","zh":"先排空旧worker再转移所有权，不能两个worker同时处理该分区。"},
+      {"sp":"Raj","en":"Just to confirm, the lease transfers once, right? I'll verify no overlapping writer remains.","zh":"确认一下，租约只转移一次，对吧？我验证没有重叠写入者。"},
+      {"sp":"Anika","en":"Okay, keep an eye on reconciliation lag. Maybe the first batch warms connections slowly.","zh":"好，关注对账延迟，首批连接预热可能较慢。"},
+      {"sp":"Hannah","en":"The smoke test uses this production partition. Compare output counts with its expected inventory.","zh":"冒烟测试针对这个生产分区，把输出计数与预期库存比较。"},
+      {"sp":"Raj","en":"The new worker holds the sole lease. Token refresh and the initial batch pass.","zh":"新worker独占租约，令牌刷新和首批处理通过。"},
+      {"sp":"Lukas","en":"State the rollback trigger before further batches. Duplicates or reconciliation mismatches mean immediate pause.","zh":"继续批次前明确回退条件，重复记录或对账不符立即暂停。"},
+      {"sp":"Priya","en":"Agreed, pause and evaluate before reverting ownership. Don't start old workers beside new ones.","zh":"同意，暂停评估后才恢复旧所有权，不能新旧worker并跑。"},
+      {"sp":"Hannah","en":"First-batch counts and signatures match expectations. We'll inspect another full token-refresh cycle.","zh":"首批计数与签名符合预期，再检查一个完整令牌刷新周期。"},
+      {"sp":"Anika","en":"I'll own that observation before expansion approval. Healthy startup alone doesn't cover steady-state behavior.","zh":"扩大审批前由我负责观察，仅启动健康不能覆盖稳定运行。"}
+    ]},
+    {"id":"0182","part":7,"stage":"观察","title":"警告与业务错误分开判断","premise":"灰度运行稳定，日志出现弃用警告，需要判断影响。","listeningTask":"听出警告不等于故障，也不能无条件忽略。","newPhrase":"p457","phrases":["p457","p010","p456:extra","p335:extra","p309:extra","p009:extra"],"lines":[
+      {"sp":"Raj","en":"We've got one deprecation warning per startup. It references our legacy token callback.","zh":"每次启动有一个弃用警告，指向旧令牌回调。"},
+      {"sp":"Hannah","en":"Does it precede an actual authentication failure? Compare events across a full refresh cycle.","zh":"之后有实际认证失败吗？跨完整刷新周期比较事件。"},
+      {"sp":"Anika","en":"The canary cohort refreshed tokens successfully twice. Our working hypothesis is future compatibility risk.","zh":"灰度组已成功刷新两次，当前假设是未来兼容风险。"},
+      {"sp":"Priya","en":"Just to confirm, no failed writes, right? Keep the warning separate from error counts.","zh":"确认一下，没有写入失败，对吧？警告与错误计数分开。"},
+      {"sp":"Lukas","en":"Check when the callback will be removed. A warning still deserves an owned task.","zh":"查回调何时被移除，警告仍需有人负责处理。"},
+      {"sp":"Raj","en":"Okay, that becomes my next action item. Maybe the replacement needs its own compatibility review.","zh":"好，列为我的下一项任务，替代接口可能另需兼容评审。"},
+      {"sp":"Hannah","en":"Current documentation confirms support in this release. Tests show successful refresh, not future guarantees.","zh":"当前文档确认本版本仍支持，测试说明目前刷新成功，不保证未来。"},
+      {"sp":"Anika","en":"I'll keep an eye on latency too. The steady-state comparison matches our previous baseline.","zh":"我也关注延迟，稳定运行对比与旧基线一致。"},
+      {"sp":"Lukas","en":"Record the observation period and sample size. Avoid claiming every workload is fully covered.","zh":"记录观察时段和样本量，不宣称覆盖所有负载。"},
+      {"sp":"Priya","en":"Agreed, expansion waits for the review decision. The warning gets a deadline, not silence.","zh":"同意，扩大要等评审决定，警告设期限，不直接静音。"}
+    ]},
+    {"id":"0183","part":8,"stage":"扩大","title":"推广同一个制品","premise":"观察无业务回归，弃用警告已定责任与期限，批准逐批扩大。","listeningTask":"抓住同制品、逐分区切换和每批检查。","newPhrase":"p458","phrases":["p458","p010","p323:extra","p456:extra","p327:extra","p111:extra"],"lines":[
+      {"sp":"Priya","en":"We'll promote the same artifact through batches. The review approves two more partitions first.","zh":"各批推广同一个制品，评审先批准再扩大两个分区。"},
+      {"sp":"Lukas","en":"Verify its digest before each deployment. A matching tag doesn't guarantee identical bytes.","zh":"每次部署前验证摘要，同标签不保证字节相同。"},
+      {"sp":"Raj","en":"Just to confirm, no dependency resolution during deployment, right? We deploy the already-tested image only.","zh":"确认一下，部署时不重新解析依赖，对吧？只部署已测镜像。"},
+      {"sp":"Anika","en":"The canary cohort remains our comparison group. Maybe regional latency needs separate thresholds here.","zh":"灰度组保留作对照，区域延迟可能需要单独阈值。"},
+      {"sp":"Hannah","en":"Yes, compare each partition with its baseline. Don't average a regional problem away.","zh":"对，各分区与自身基线比，不能用平均值掩盖区域问题。"},
+      {"sp":"Raj","en":"Okay, the staged rollout retains exclusive leases. Each old worker drains before ownership moves.","zh":"好，分阶段发布保持独占租约，转移所有权前旧worker排空。"},
+      {"sp":"Lukas","en":"Let's keep it under observation between batches. Stop expansion if reconciliation results diverge.","zh":"各批之间观察，对账结果偏离就停止扩大。"},
+      {"sp":"Priya","en":"Run the smoke test for each batch. Anika signs off before the next one.","zh":"每批做冒烟测试，Anika验收后才进入下一批。"},
+      {"sp":"Hannah","en":"Both additional partitions match expected output. Their latency and token refresh remain healthy.","zh":"新增两个分区输出符合预期，延迟和令牌刷新正常。"},
+      {"sp":"Anika","en":"I'll approve the remaining batches under those gates. No changes to the approved image.","zh":"按这些关卡批准剩余批次，批准镜像不能改变。"}
+    ]},
+    {"id":"0184","part":9,"stage":"回退确认","title":"旧镜像能否接回任务","premise":"扩大完成无回归，在隔离环境复核旧版本回退兼容性。","listeningTask":"区别保留镜像与完成回退验证。","newPhrase":"p459","phrases":["p459","p010","p324:extra","p334:extra","p455:extra","p327:extra"],"lines":[
+      {"sp":"Lukas","en":"The previous image digest is retained locally. Its signature and retrieval path are verified.","zh":"旧镜像摘要对应制品已保留，签名与取回路径验证通过。"},
+      {"sp":"Raj","en":"The clean rebuild record covers that image. But rollback uses retained bytes, not rebuilding.","zh":"干净重建记录涵盖该镜像，但回退直接用留存制品，不临时重建。"},
+      {"sp":"Hannah","en":"Can the old worker read current checkpoints? Image availability alone doesn't prove operational rollback.","zh":"旧worker能读当前检查点吗？镜像可取不等于回退可用。"},
+      {"sp":"Anika","en":"Yes, checkpoint format stayed unchanged this time. Just to confirm, we tested that, right?","zh":"可以，这次检查点格式未变。确认一下，已经测试，对吧？"},
+      {"sp":"Priya","en":"Okay, the smoke test passed after simulated rollback. No live production reversal is needed now.","zh":"好，模拟回退后冒烟测试通过，现在不必反转生产。"},
+      {"sp":"Raj","en":"Maybe the callback replacement will change compatibility. We'll review it as a separate change.","zh":"替换回调可能改变兼容性，会作为独立变更评审。"},
+      {"sp":"Lukas","en":"Document draining before restoring the old lease. The rollback trigger must include duplicate writes.","zh":"记录恢复旧租约前的排空步骤，回退触发必须包含重复写入。"},
+      {"sp":"Anika","en":"A temporary workaround would pause the partition. We'd preserve its checkpoint before any reversal.","zh":"临时措施是暂停分区，任何反向切换前保留检查点。"},
+      {"sp":"Hannah","en":"The isolated rollback preserved all processed records. Unprocessed records resumed without duplicate side effects.","zh":"隔离回退保留已处理记录，未处理记录恢复时没有重复副作用。"},
+      {"sp":"Priya","en":"Good, keep the old artifact through retention. We can close deployment, not erase recovery options.","zh":"好，按期限保留旧制品，可关闭部署，不能删除恢复选项。"}
+    ]},
+    {"id":"0185","part":10,"stage":"文档","title":"记录可复现边界","premise":"升级完成且回退复核通过，整理构建与运行记录。","listeningTask":"听清哪些输入固定、哪些组合未验证和遗留任务。","newPhrase":"p460","phrases":["p460","p009","p453:extra","p454:extra","p457:extra","p310:extra"],"lines":[
+      {"sp":"Raj","en":"Build provenance now records all pinned inputs. That includes interpreter, mirror snapshots, and toolchain.","zh":"构建来源记录全部固定输入，包括解释器、镜像源快照和工具链。"},
+      {"sp":"Hannah","en":"Attach final digests and comparison results. The reproducibility claim covers our tested platform only.","zh":"附最终摘要与比较结果，可复现结论仅限已测平台。"},
+      {"sp":"Anika","en":"Hash-locked requirements live beside the build recipe. The compatibility matrix links to behavior tests.","zh":"哈希锁依赖与构建步骤放一起，兼容矩阵链接行为测试。"},
+      {"sp":"Priya","en":"The deprecation warning has an action item. Raj owns the replacement next sprint, right?","zh":"弃用警告已设行动项，Raj下个迭代负责替换，对吧？"},
+      {"sp":"Lukas","en":"Keep approval and rollback records linked too. An engineer should retrieve the exact previous artifact.","zh":"也关联审批与回退记录，工程师应能取回准确旧制品。"},
+      {"sp":"Raj","en":"Yes, maybe one sprint for the replacement. I'll estimate after reviewing the new callback.","zh":"是，替换可能需一个迭代，审查新回调后再估算。"},
+      {"sp":"Hannah","en":"Don't generalize success to untested interpreter versions. Those need their own locks and validation.","zh":"不能把成功推广到未测解释器版本，它们需要独立锁与验证。"},
+      {"sp":"Anika","en":"Okay, I'll close the loop with operations. They have the stop and recovery procedures.","zh":"好，我与运维确认闭环，他们已经拿到停止和恢复流程。"},
+      {"sp":"Lukas","en":"The retained artifacts have a named owner. Expiry reminders prevent accidental loss before review.","zh":"留存制品有明确负责人，到期提醒避免评审前误丢。"},
+      {"sp":"Priya","en":"Agreed, deployment is complete with follow-up tracked. Next sprint we'll review the callback replacement.","zh":"同意，部署完成，遗留改进持续跟踪，下个迭代评审回调替换。"}
+    ]}
+  ]
+}

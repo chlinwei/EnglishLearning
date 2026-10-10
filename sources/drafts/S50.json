@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "安全合规架构评审十段中英草稿，呈现权限、隐私、证据与可用性的实际取舍；风险接受有责任人和到期日，未配音，无虚构时间轴。",
+  "series": {"id": "sc-S50-sec-compliance-review", "title": "安全合规评审：边界、审计与限期风险接受", "domain": "sec", "group": "ops-review", "service": "customer-support data access platform", "premise": "客服数据平台准备合规评审，现有角色分组与跨租户访问证据不足，旧系统管理员审批可用性是争议点。", "outcome": "发现导出角色可继承管理权限，选择短期隔离遗留入口、实名限时双人审批及租户级数据边界，长期拆分授权服务；采用脱敏审计与受限关联证据，明确采集缺口。风险负责人只接受十四天有限遗留风险，不豁免法定义务，设置到期禁用及提前退出条件。"},
+  "speakers": {
+    "Priya": {"role": "Risk review coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Identity architecture owner", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Customer-support platform owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and availability reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Compliance and privacy reviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p771", "en": "control objective", "zh": "控制目标", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p772", "en": "authorization boundary", "zh": "授权边界", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p773", "en": "privilege escalation", "zh": "权限提升", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p774", "en": "evidence integrity", "zh": "证据完整性与可信性", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p775", "en": "purpose-limited access", "zh": "限于明确目的的访问", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p776", "en": "control trade-off", "zh": "控制措施的取舍", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p777", "en": "risk acceptance", "zh": "风险接受", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p778", "en": "evidence gap", "zh": "证据缺口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p779", "en": "decision record", "zh": "决策记录", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p780", "en": "remediation deadline", "zh": "整改截止日期", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来评审候选，不算实际出现；本文件旧表达只使用既有库、S03–S07或本文件此前。", "futureArchitectureReview": ["p771", "p772", "p773", "p775", "p776", "p779"], "futureComplianceCheckpoint": ["p774", "p777", "p778", "p780"]},
+  "dialogues": [
+    {"id": "0496", "part": 1, "stage": "合规目标", "title": "先定义要证明什么", "premise": "客服数据平台评审开始，尚未决定架构和风险接受。", "listeningTask": "听出合规目标如何转成可检查的权限和证据要求。", "newPhrase": "p771", "phrases": ["p771", "p010", "p003", "p009:extra", "p008:extra", "p004:extra"], "lines": [
+      {"sp": "Priya", "en": "Our control objective is accountable data access. I'll take point on this review.", "zh": "控制目标是可追责的数据访问，这次评审我来协调。"},
+      {"sp": "Hannah", "en": "Define accountable in testable terms. Who can access which tenant, and why?", "zh": "把可追责转成可测条件，谁能访问哪个租户，为什么？"},
+      {"sp": "Raj", "en": "Just to confirm, authorization and evidence both matter, right? A role name isn't enough.", "zh": "确认一下，授权和证据都重要，对吧？角色名称不够。"},
+      {"sp": "Lukas", "en": "Neither is an audit badge. We need actual controls and recovery behavior.", "zh": "审计标签也不够，需要实际控制和恢复行为。"},
+      {"sp": "Anika", "en": "Maybe current groups already cover most access. I'll bring effective policy results.", "zh": "当前分组可能覆盖大部分访问，我拿实际策略结果。"},
+      {"sp": "Priya", "en": "What's the ETA for those results? Each action item needs evidence, not reassurance.", "zh": "结果预计多久？每项待办需要证据而非保证。"},
+      {"sp": "Hannah", "en": "Privacy and legal obligations need separate confirmation. This meeting can't waive them.", "zh": "隐私和法律义务需要单独确认，本会议不能豁免。"},
+      {"sp": "Raj", "en": "A new platform purchase? Let's park that. First examine current trust boundaries.", "zh": "购买新平台？先放一边，先检查现有信任边界。"},
+      {"sp": "Lukas", "en": "Include administrative recovery access. Restrictions must not make incident response impossible.", "zh": "包括管理恢复访问，限制不能让事件响应无法执行。"},
+      {"sp": "Anika", "en": "Okay, I'll list support and recovery workflows. Their needs aren't identical.", "zh": "好，我列出客服和恢复流程，它们需求不一样。"}
+    ]},
+    {"id": "0497", "part": 2, "stage": "权限边界", "title": "租户标记不是强制授权", "premise": "现有角色清单提交，客服请求含租户标签，但服务端强制检查待核实。", "listeningTask": "区分界面选择、请求标签和服务端授权边界。", "newPhrase": "p772", "phrases": ["p772", "p010", "p106", "p330:extra", "p335:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "The authorization boundary sits in the export service. Tenant labels reach it from support.", "zh": "授权边界位于导出服务，客服将租户标签传给它。"},
+      {"sp": "Hannah", "en": "Does the service verify tenant entitlement? A supplied label isn't an authorization decision.", "zh": "服务会验证租户授权吗？传入标签不是授权决定。"},
+      {"sp": "Anika", "en": "Our working hypothesis was server enforcement. Actually, this legacy path checks group membership only.", "zh": "原假设是服务端强制检查，实际上旧路径只检查组成员身份。"},
+      {"sp": "Priya", "en": "Just to confirm, that's our blast radius for review, right? The legacy export path.", "zh": "确认一下，旧导出路径是评审影响范围，对吧？"},
+      {"sp": "Lukas", "en": "It's the confirmed gap. Check other routes before treating it as the only one.", "zh": "这是确认的缺口，检查其他路径后再判断是否唯一。"},
+      {"sp": "Raj", "en": "I'm on it. Managed configuration lists two routes. One uses tenant-level checks already.", "zh": "我来做。受管配置列出两条路径，一条已用租户级检查。"},
+      {"sp": "Hannah", "en": "Compare effective behavior, including exports and retries. Don't infer controls from configuration names.", "zh": "对比实际行为，包括导出和重试，别从配置名称推断控制。"},
+      {"sp": "Anika", "en": "Maybe the shared export group is too broad. I'll bring its inherited grants.", "zh": "共享导出组可能过宽，我拿继承授权记录。"},
+      {"sp": "Lukas", "en": "Good. Preserve current policy evidence before changes. We need a defensible baseline.", "zh": "好，修改前保存当前策略证据，需要可证明的基线。"},
+      {"sp": "Priya", "en": "Okay, isolate the finding in our notes. No claim of cross-tenant access yet.", "zh": "好，记录中单独列出发现，尚不宣称已经发生跨租户访问。"}
+    ]},
+    {"id": "0498", "part": 3, "stage": "提权风险", "title": "继承授权跨过管理边界", "premise": "旧导出路径缺少租户检查，审查共享组继承的管理授权。", "listeningTask": "听出潜在提权与已发生事件的区别。", "newPhrase": "p773", "phrases": ["p773", "p010", "p302", "p335:extra", "p336:extra", "p014:extra"], "lines": [
+      {"sp": "Hannah", "en": "Inherited grants create privilege escalation risk. Export users can obtain an administrative role.", "zh": "继承授权造成提权风险，导出用户可以获得管理角色。"},
+      {"sp": "Raj", "en": "I thought roles were separated. The inherited trust policy changes that conclusion.", "zh": "我以为角色隔离了，继承信任策略改变了结论。"},
+      {"sp": "Lukas", "en": "Separate potential permission from observed use. Has anyone reviewed activation records?", "zh": "把潜在权限和实际使用分开，有人检查启用记录了吗？"},
+      {"sp": "Priya", "en": "Just to confirm, no confirmed abuse, right? That doesn't remove the permission risk.", "zh": "确认一下，未确认滥用，对吧？但这不会消除权限风险。"},
+      {"sp": "Anika", "en": "Our working hypothesis is legacy recovery access. Maybe support inherited it by mistake.", "zh": "当前假设是旧恢复访问，客服可能误继承了它。"},
+      {"sp": "Hannah", "en": "We can't rule that out yet. Missing activation logs also limit historical conclusions.", "zh": "目前不能排除，缺少启用日志也限制历史判断。"},
+      {"sp": "Raj", "en": "I'm on it for owner confirmation. Recovery can use a separately approved identity.", "zh": "我来找负责人确认，恢复可以用独立批准身份。"},
+      {"sp": "Lukas", "en": "Verify that identity works before removing grants. Otherwise we create a recovery outage.", "zh": "撤权前验证那个身份工作，否则造成恢复中断。"},
+      {"sp": "Priya", "en": "Okay, use the escalation path for suspected misuse. Architecture review won't replace incident handling.", "zh": "好，怀疑滥用就走升级路径，架构评审不能替代事件处理。"},
+      {"sp": "Anika", "en": "I'll gather sanctioned recovery scenarios. No production attack demonstration is needed here.", "zh": "我整理批准的恢复场景，这里不需要生产攻击演示。"}
+    ]},
+    {"id": "0499", "part": 4, "stage": "证据留存", "title": "完整日志也要控制敏感内容", "premise": "发现继承管理风险及历史日志缺口，需设计可信且受限的审计留存。", "listeningTask": "理解完整性、防篡改和隐私最小化不是同一件事。", "newPhrase": "p774", "phrases": ["p774", "p010", "p305", "p309:extra", "p008:extra", "p014:extra"], "lines": [
+      {"sp": "Hannah", "en": "Evidence integrity needs protected storage and trusted timestamps. Raw payload logging isn't required.", "zh": "证据可信性需要受保护存储和可信时间戳，不必记录原始载荷。"},
+      {"sp": "Raj", "en": "I'm on it for event fields. Identity, purpose, tenant, decision, and reference should suffice.", "zh": "我整理事件字段，身份、目的、租户、决定和引用应该足够。"},
+      {"sp": "Lukas", "en": "Also monitor delivery failures and gaps. Protected storage can't fix missing events.", "zh": "也监控投递失败和空档，受保护存储修不好缺失事件。"},
+      {"sp": "Priya", "en": "Just to confirm, administrators can't delete their own records, right? Separate storage ownership.", "zh": "确认一下，管理员不能删除自己的记录，对吧？存储责任分开。"},
+      {"sp": "Anika", "en": "Maybe immutable storage raises costs. The retention policy needs a justified period.", "zh": "不可变存储可能增加费用，保留策略需要有依据的期限。"},
+      {"sp": "Hannah", "en": "Yes, legal and privacy reviewers confirm it. Keep restricted correlation data separately.", "zh": "对，由法务和隐私评审人确认，受限关联数据单独保留。"},
+      {"sp": "Raj", "en": "We'll keep an eye on collection lag. Sanitized dashboards show coverage without customer content.", "zh": "我们盯采集延迟，脱敏仪表盘展示覆盖而不含客户内容。"},
+      {"sp": "Lukas", "en": "Test restore and access auditing too. Retained evidence must remain usable by authorized reviewers.", "zh": "也测试恢复和访问审计，保留证据必须可供授权评审人使用。"},
+      {"sp": "Priya", "en": "Okay, what's the ETA for cost and coverage estimates? Roughly tomorrow afternoon?", "zh": "好，成本和覆盖预估何时完成？大约明天下午？"},
+      {"sp": "Anika", "en": "That works for initial figures. I'll mark uncertain volume estimates rather than promise savings.", "zh": "初步数字可以，我标记不确定的量级预估，不承诺节省。"}
+    ]},
+    {"id": "0500", "part": 5, "stage": "数据访问", "title": "客服访问要有目的和期限", "premise": "审计字段与保护方向明确，讨论客服数据访问和应急管理访问分离。", "listeningTask": "听出授权目的、租户范围与应急例外的边界。", "newPhrase": "p775", "phrases": ["p775", "p010", "p330", "p327:extra", "p324:extra", "p012:extra"], "lines": [
+      {"sp": "Anika", "en": "Purpose-limited access should follow a support case. Tenant scope and expiry accompany each grant.", "zh": "目的限定访问应关联客服案件，每项授权带租户范围和到期。"},
+      {"sp": "Hannah", "en": "A case number alone isn't permission. Validate ownership and requested data categories.", "zh": "案件编号本身不是权限，需要验证归属和所需数据类别。"},
+      {"sp": "Raj", "en": "Managed configuration can enforce those checks. Normal support gets masked fields by default.", "zh": "受管配置可强制那些检查，普通客服默认看到遮蔽字段。"},
+      {"sp": "Priya", "en": "Just to confirm, emergency access isn't blanket access, right? Name two approvers.", "zh": "确认一下，应急访问不是全权限，对吧？指定两个审批人。"},
+      {"sp": "Lukas", "en": "And backup approvers. Waiting for two unavailable people can extend an outage.", "zh": "也指定后备审批人，等两个不在的人可能延长故障。"},
+      {"sp": "Anika", "en": "Maybe a time-limited recovery role works. We'll rehearse the approval path before switching.", "zh": "限时恢复角色可能可行，切换前演练审批路径。"},
+      {"sp": "Hannah", "en": "Record why unmasked data is necessary. Emergency access still needs retrospective review.", "zh": "记录为何需要未遮蔽数据，应急访问仍需事后评审。"},
+      {"sp": "Raj", "en": "The smoke test must cover rejection too. Missing tenant approval should fail closed.", "zh": "冒烟测试也必须覆盖拒绝，缺少租户审批应拒绝访问。"},
+      {"sp": "Lukas", "en": "Set a rollback trigger for legitimate failures. Don't restore broad access without review.", "zh": "合法访问失败要设回退条件，不经评审别恢复广泛访问。"},
+      {"sp": "Priya", "en": "Okay, just to recap, separate support and recovery. Both paths need audited expiry.", "zh": "好，小结一下，客服和恢复分开，两条路径都要审计到期。"}
+    ]},
+    {"id": "0501", "part": 6, "stage": "方案比较", "title": "快隔离与长期重建的取舍", "premise": "访问控制目标明确，比较立即拆分授权服务和短期隔离遗留入口。", "listeningTask": "听出上线风险、审计成本和残余权限风险如何比较。", "newPhrase": "p776", "phrases": ["p776", "p010", "p334", "p306:extra", "p323:extra", "p004:extra"], "lines": [
+      {"sp": "Priya", "en": "The control trade-off is speed versus completeness. Which option reduces immediate risk safely?", "zh": "控制取舍是速度与完整性，哪个方案能安全降低眼前风险？"},
+      {"sp": "Lukas", "en": "Full separation takes weeks and changes recovery. Rushing it could create service outages.", "zh": "全面隔离需要数周并改变恢复流程，仓促实施可能导致中断。"},
+      {"sp": "Raj", "en": "A temporary workaround isolates the legacy entry. Named approvals can buy us time.", "zh": "临时缓解隔离旧入口，实名审批能争取时间。"},
+      {"sp": "Anika", "en": "Just to confirm, this doesn't fix inherited trust, right? That risk remains underneath.", "zh": "确认一下，这没修好继承信任，对吧？底层风险仍在。"},
+      {"sp": "Hannah", "en": "Correct. Restricted reachability is weaker than removing excess authority. Say that explicitly.", "zh": "对，限制可达性弱于移除过宽授权，要明确说明。"},
+      {"sp": "Priya", "en": "Maybe choose containment now, separation next. A staged rollout needs independent gates.", "zh": "可能先控制再隔离，分阶段发布需要独立门槛。"},
+      {"sp": "Lukas", "en": "Compare staffing and logging costs too. Dual approval isn't free operationally.", "zh": "也比较人员和日志成本，双人审批有实际运维成本。"},
+      {"sp": "Raj", "en": "A company-wide redesign? Let's park that. This proposal covers one legacy service boundary.", "zh": "全公司重设计？先放一边，这个提案覆盖一个旧服务边界。"},
+      {"sp": "Hannah", "en": "Acceptable only with a deadline and accountable owner. Compensating controls need evidence.", "zh": "必须有截止和责任人才可接受，补偿控制需要证据。"},
+      {"sp": "Anika", "en": "Okay, I'll budget reviewer coverage. We need an after-hours backup, not just office availability.", "zh": "好，我预算评审人覆盖，需要非工作时间后备，而非只工作时间可用。"}
+    ]},
+    {"id": "0502", "part": 7, "stage": "风险接受", "title": "限期接受不是豁免义务", "premise": "选择先隔离旧入口，继承管理权限暂未消除，需风险负责人明确接受。", "listeningTask": "听出风险接受范围、退出条件和不能接受的义务。", "newPhrase": "p777", "phrases": ["p777", "p010", "p336", "p324:extra", "p009:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Risk acceptance needs the accountable business owner. Our technical team can't sign for them.", "zh": "风险接受需要负责的业务负责人，技术团队不能代签。"},
+      {"sp": "Hannah", "en": "Nor can they waive legal obligations. Privacy counsel must confirm the permitted scope.", "zh": "他们也不能豁免法律义务，隐私法律顾问必须确认允许范围。"},
+      {"sp": "Anika", "en": "The risk owner approves fourteen days. Only isolated legacy exports are included.", "zh": "风险负责人批准十四天，仅包括隔离的旧导出。"},
+      {"sp": "Raj", "en": "Just to confirm, expiry disables that entry, right? No automatic renewal on delay.", "zh": "确认一下，到期禁用入口，对吧？延期不自动续期。"},
+      {"sp": "Lukas", "en": "Then test the alternate workflow now. An expiry outage shouldn't surprise support.", "zh": "那现在测试替代流程，到期中断不该让客服措手不及。"},
+      {"sp": "Priya", "en": "Missing approvals or logs are a rollback trigger. Maybe immediate suspension is safer than fallback.", "zh": "缺审批或日志就触发暂停评审，立即暂停可能比回退更安全。"},
+      {"sp": "Hannah", "en": "Yes, define those as early-exit conditions. Any suspected misuse activates the escalation path.", "zh": "对，将其定义为提前退出条件，怀疑滥用就启动升级路径。"},
+      {"sp": "Anika", "en": "I'll add an action item for backup coverage. Support accepts the limited temporary delay.", "zh": "我加上后备覆盖待办，客服接受有限临时延迟。"},
+      {"sp": "Lukas", "en": "Keep that impact visible in the risk record. Security gains have operational costs.", "zh": "在风险记录保留影响，安全收益也有运维成本。"},
+      {"sp": "Raj", "en": "Okay, just to recap, fourteen days maximum. Permanent separation still requires tested implementation.", "zh": "好，小结一下，最长十四天，永久隔离仍需经测试实现。"}
+    ]},
+    {"id": "0503", "part": 8, "stage": "审计追问", "title": "审批记录缺少一个时间段", "premise": "风险期限已批准，审计抽查发现昨日审批事件有采集空档。", "listeningTask": "听出证据缺口为何不能用仪表盘绿色掩盖。", "newPhrase": "p778", "phrases": ["p778", "p010", "p335", "p302:extra", "p305:extra", "p014:extra"], "lines": [
+      {"sp": "Hannah", "en": "There's an evidence gap yesterday afternoon. Some approval events never reached protected storage.", "zh": "昨天下午有证据缺口，一些审批事件未进入受保护存储。"},
+      {"sp": "Raj", "en": "The dashboard was green. Our working hypothesis was complete delivery, but that's wrong.", "zh": "仪表盘是绿色，原假设是完整投递，但那是错的。"},
+      {"sp": "Lukas", "en": "Does green mean storage availability only? That wouldn't measure event completeness.", "zh": "绿色是否只表示存储可用？那不能衡量事件完整性。"},
+      {"sp": "Priya", "en": "Just to confirm, we can't claim continuous coverage, right? Pause acceptance of that evidence.", "zh": "确认一下，不能宣称连续覆盖，对吧？暂停接受那部分证据。"},
+      {"sp": "Anika", "en": "Maybe source approval records can fill it. Their integrity needs verification before reuse.", "zh": "源审批记录可能补齐，复用前需要验证其可信性。"},
+      {"sp": "Hannah", "en": "Correct. Don't recreate missing approvals from memory. Unrecoverable gaps must stay explicitly marked.", "zh": "对，不要凭记忆重建审批，无法恢复的空档必须明确标记。"},
+      {"sp": "Raj", "en": "I'm on it for source reconciliation. The retention policy still preserves yesterday's events.", "zh": "我来核对源记录，保留策略仍保存昨天事件。"},
+      {"sp": "Lukas", "en": "Add delivery counters and gap alarms. Storage protection doesn't prove pipeline completeness.", "zh": "加投递计数和空档告警，存储保护不证明链路完整。"},
+      {"sp": "Priya", "en": "We can't rule that out as a control failure. Keep the legacy entry closed meanwhile.", "zh": "不能排除控制失效，旧入口暂时保持关闭。"},
+      {"sp": "Anika", "en": "Okay, support uses the validated alternate path. I'll report the delay honestly.", "zh": "好，客服使用已验证替代路径，我如实报告延迟。"}
+    ]},
+    {"id": "0504", "part": 9, "stage": "决策确认", "title": "决策写明已证实和未证实", "premise": "源记录核对补齐部分事件，两条无法恢复；修正采集监控并验证替代流程。", "listeningTask": "理解条件批准与全面合规声明的区别。", "newPhrase": "p779", "phrases": ["p779", "p010", "p328", "p330:extra", "p327:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "The decision record lists two unrecovered events. It cannot claim complete historical coverage.", "zh": "决策记录列出两条无法恢复事件，不能宣称历史覆盖完整。"},
+      {"sp": "Hannah", "en": "Agreed. Updated delivery monitoring passes tests. Historical uncertainty remains a separate finding.", "zh": "同意，更新投递监控通过测试，历史不确定仍是单独发现。"},
+      {"sp": "Raj", "en": "Managed configuration now enforces named approvals. The smoke test covers missing-event suspension too.", "zh": "受管配置现在强制实名审批，冒烟测试也覆盖事件缺失时暂停。"},
+      {"sp": "Anika", "en": "Just to confirm, go/no-go depends on live evidence, right? Not the deadline alone.", "zh": "确认一下，继续或停止取决于实时证据，对吧？不只是截止。"},
+      {"sp": "Lukas", "en": "Yes, and alternate access passed recovery tests. Limited reopening still needs both approvers.", "zh": "对，替代访问通过恢复测试，有限重开仍需要两名审批人。"},
+      {"sp": "Priya", "en": "Maybe reopen only reviewed cases today. The original fourteen-day expiry doesn't move.", "zh": "今天可能只重开已评审案件，原十四天到期不改变。"},
+      {"sp": "Hannah", "en": "The risk owner reconfirmed those conditions. That isn't a blanket compliance endorsement.", "zh": "风险负责人重确认条件，这不是全面合规背书。"},
+      {"sp": "Raj", "en": "Just to recap, containment is active. Permanent trust-policy removal remains scheduled and tested separately.", "zh": "小结一下，控制已生效，永久移除信任策略仍单独安排和测试。"},
+      {"sp": "Lukas", "en": "Record dissent about approval delays too. Future reviews need the operational trade-offs.", "zh": "也记录对审批延迟的异议，未来评审需要运维取舍。"},
+      {"sp": "Anika", "en": "I'll attach measured wait times. We can improve coverage without hiding customer impact.", "zh": "我附上实测等待时间，可以改善覆盖而不隐藏客户影响。"}
+    ]},
+    {"id": "0505", "part": 10, "stage": "责任期限", "title": "到期前验收长期隔离", "premise": "条件批准已记录，十四天风险窗口剩余时间内需完成长期隔离和审计验收。", "listeningTask": "听出整改负责人、日期、证据及未完成时的处理。", "newPhrase": "p780", "phrases": ["p780", "p009", "p310", "p013:extra", "p012:extra", "p771:extra"], "lines": [
+      {"sp": "Priya", "en": "The remediation deadline is day fourteen. Who's picking this up for trust-policy removal?", "zh": "整改截止是第十四天，谁负责移除信任策略？"},
+      {"sp": "Raj", "en": "I'll deliver the separated role by day ten. My action item includes inherited-grant rejection tests.", "zh": "我第十天前交付隔离角色，待办包括继承授权拒绝测试。"},
+      {"sp": "Lukas", "en": "I'll validate recovery by day eleven. Both regular and backup approvers must participate.", "zh": "我第十一天前验证恢复，常规和后备审批人都必须参与。"},
+      {"sp": "Anika", "en": "Maybe support testing needs two days. I'll finish tenant-scope fixtures by day twelve.", "zh": "客服测试可能需要两天，我第十二天前完成租户范围样本。"},
+      {"sp": "Hannah", "en": "I'll review evidence on day thirteen. Unresolved findings won't disappear behind a signature.", "zh": "我第十三天评审证据，未解决发现不会因签字消失。"},
+      {"sp": "Priya", "en": "Okay, our control objective stays unchanged. Missed deadlines mean the legacy entry closes, right?", "zh": "好，控制目标不变，错过截止就关闭旧入口，对吧？"},
+      {"sp": "Lukas", "en": "Correct. Keep the alternate path staffed. Closure must not force unsafe emergency access.", "zh": "对。保持替代路径人员覆盖，关闭不能迫使不安全应急访问。"},
+      {"sp": "Raj", "en": "Just to recap, no automatic risk renewal. I'll track implementation and effective permissions daily.", "zh": "小结一下，不自动续期风险接受，我每天跟踪实现和实际权限。"},
+      {"sp": "Hannah", "en": "We'll close the loop with tested evidence. Historical gaps remain visible in the final report.", "zh": "用经测试证据完成反馈，历史空档仍在最终报告可见。"},
+      {"sp": "Anika", "en": "Agreed, I'll confirm owners today. Compliance review continues after this architecture decision.", "zh": "同意，今天我确认负责人，这次架构决策后合规评审继续。"}
+    ]}
+  ]
+}

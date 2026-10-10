@@ -1,0 +1,224 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "完整文本草稿。未发布，不载入现有构建索引；确认配音来源后再合并源数据。无虚构时间轴。",
+  "series": {
+    "id": "sc-S03-linux-disk-full",
+    "title": "日志写满磁盘：恢复写入与修复轮转",
+    "domain": "linux",
+    "group": "incident",
+    "service": "order-events worker",
+    "premise": "09:12，单台 worker 的 /var 使用率达到 98%，订单事件消费变慢。队列仍接收事件，消费者尚未恢复正常。",
+    "outcome": "清理经确认可删除的旧压缩日志，受控重开已删除日志的文件句柄，再修复轮转配置；磁盘回落至 46%，消费积压清空，保留后续观察与验证任务。"
+  },
+  "speakers": {
+    "Priya": {"role": "Incident lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Linux on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Operations engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p301", "en": "the disk is filling up", "zh": "磁盘空间正在被占满", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p302", "en": "rule that out", "zh": "排除那个可能性", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p303", "en": "deleted but still open", "zh": "文件已删除，但进程仍持有句柄", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p304", "en": "reopen the log", "zh": "重新打开日志文件", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p305", "en": "retention policy", "zh": "保留策略", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p306", "en": "buy us time", "zh": "为我们争取时间", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p307", "en": "rotate the log", "zh": "轮转日志文件", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p308", "en": "catch up", "zh": "追上进度；处理完积压", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p309", "en": "keep an eye on", "zh": "持续留意", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p310", "en": "close the loop", "zh": "完成跟进并反馈结果", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {
+    "note": "首次引入的新表达不要求在本批立即达成全库目标。后续回访须在编稿前细化至片段，并同步表达库实际出现次数。",
+    "S04": ["p301", "p302", "p306", "p308", "p309", "p310"],
+    "S05": ["p302", "p304", "p305", "p307", "p309", "p310"],
+    "S06": ["p301", "p303", "p304", "p305", "p306", "p307", "p308", "p309", "p310"],
+    "S11": ["p301", "p302", "p303", "p304", "p305", "p306", "p307", "p308", "p309", "p310"],
+    "S17": ["p302", "p303", "p305", "p306", "p308", "p310"]
+  },
+  "dialogues": [
+    {
+      "id": "0026", "part": 1, "stage": "告警", "title": "磁盘告警：先说清影响",
+      "premise": "09:12，收到 /var 磁盘使用率 98% 的告警。",
+      "listeningTask": "区分已知影响和待验证原因，听出谁负责协调、谁负责排查。",
+      "newPhrase": "p301", "phrases": ["p301", "p003", "p010", "p014:extra", "p008:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "We've just been paged. The disk is filling up. It's at ninety-eight percent.", "zh": "刚收到告警。磁盘快被占满了，使用率已经到百分之九十八。"},
+        {"sp": "Lukas", "en": "Which host? Is this affecting checkout, or just the worker?", "zh": "哪台主机？影响的是结账服务，还是只有这个工作进程？"},
+        {"sp": "Raj", "en": "Orders-worker-three. The alert is for slash var. I haven't checked writes yet.", "zh": "orders-worker-three。告警针对 /var，我还没检查写入情况。"},
+        {"sp": "Priya", "en": "Okay, I'll take point on this. Anika, can you check the queue?", "zh": "好，这次我来协调。Anika，你查一下队列好吗？"},
+        {"sp": "Hannah", "en": "Just to confirm, we're not restarting anything yet?", "zh": "我确认一下，现在还不重启任何服务，对吧？"},
+        {"sp": "Anika", "en": "Right, not yet. I'm on it. The queue is accepting events, but consumption looks slow.", "zh": "对，先不重启。我在查。队列还能接收事件，但消费看起来变慢了。"},
+        {"sp": "Lukas", "en": "Then let's check the errors before touching files. We need evidence.", "zh": "那就先检查错误，再动文件。我们需要有证据。"},
+        {"sp": "Priya", "en": "Raj, what's the ETA for a first look? Roughly is fine.", "zh": "Raj，初步检查预计多久？给个大概时间就行。"},
+        {"sp": "Hannah", "en": "I can check the other workers while Raj checks this one.", "zh": "Raj 查这台时，我可以检查其他工作节点。"},
+        {"sp": "Raj", "en": "About two minutes. More disk space might help, but let's park that. We need the cause first, right?", "zh": "大约两分钟。扩容可能有用，但先把这个放一边。我们得先查原因，对吧？"}
+      ]
+    },
+    {
+      "id": "0027", "part": 2, "stage": "确认影响", "title": "写入失败：订单没有丢，但积压在涨",
+      "premise": "已确认 orders-worker-three 的 /var 接近写满，暂未操作文件或重启。",
+      "listeningTask": "听清客户端影响、队列状态，以及不能贸然下结论的部分。",
+      "newPhrase": "p302", "phrases": ["p302", "p010", "p004", "p014:extra", "p008:extra", "p001:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The worker is logging write failures. The queue depth is climbing now.", "zh": "工作进程在报写入失败，队列积压现在正在增加。"},
+        {"sp": "Lukas", "en": "Are events being dropped? Or are they waiting for another attempt?", "zh": "事件被丢弃了，还是在等待重试？"},
+        {"sp": "Anika", "en": "They're still queued. A failed event stays unacknowledged. That's the retry path.", "zh": "还在队列里。失败的事件不会被确认，之后会重试。"},
+        {"sp": "Priya", "en": "Just to confirm, checkout is working? Confirmation emails might be delayed, right?", "zh": "我确认一下，结账还正常？确认邮件可能会延迟，对吧？"},
+        {"sp": "Hannah", "en": "The other two workers look normal. Their disks are below fifty percent.", "zh": "另外两台工作节点看起来正常，磁盘使用率都不到百分之五十。"},
+        {"sp": "Raj", "en": "This one says no space left. Inodes look fine. We can rule that out.", "zh": "这台报磁盘空间不足。inode 数量没问题，可以排除 inode 耗尽。"},
+        {"sp": "Lukas", "en": "Okay. Don't call it no data loss yet. Check the retry metrics too.", "zh": "好，但先别宣布没有数据丢失。还要检查重试指标。"},
+        {"sp": "Priya", "en": "I'm on it. What's the ETA for that check? Expansion? Let's park that.", "zh": "我来跟进。检查那些指标预计多久？扩容的事？先放一边。"},
+        {"sp": "Hannah", "en": "I'll compare queue arrivals with acknowledgements. That should show the gap.", "zh": "我会对比入队数量和确认数量，这样能看到差额。"},
+        {"sp": "Anika", "en": "Maybe three minutes. Let's circle back once we've checked. Raj, can you find what's taking the space?", "zh": "大概三分钟。核实后我们再回来确认。Raj，你查一下空间被什么占用了好吗？"}
+      ]
+    },
+    {
+      "id": "0028", "part": 3, "stage": "定位", "title": "目录对不上：空间去了哪里",
+      "premise": "单台 worker 报空间不足，inode 正常，队列持续积压；开始核对磁盘占用。",
+      "listeningTask": "听出 df 与 du 的差额只是线索，不是已经确认的根因。",
+      "newPhrase": "p303", "phrases": ["p303", "p010", "p014", "p011:extra", "p008:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The directory totals don't match. D-f shows much more than d-u.", "zh": "目录统计对不上。df 显示的已用空间明显比 du 多。"},
+        {"sp": "Lukas", "en": "Same filesystem? Otherwise that comparison could send us the wrong way.", "zh": "统计的是同一个文件系统吗？否则这个对比可能会误导我们。"},
+        {"sp": "Raj", "en": "Yes, slash var only. Same mount. I stayed on that filesystem.", "zh": "对，只查 /var，是同一个挂载点。我没有跨文件系统统计。"},
+        {"sp": "Priya", "en": "Just to confirm, this could be deleted but still open? Not proven yet, right?", "zh": "我确认一下，可能是文件已删除，但句柄还开着？现在还没证实，对吧？"},
+        {"sp": "Hannah", "en": "Let me play that back. The filenames are gone, but a process might still hold the space?", "zh": "我复述一下：文件名已经没了，但某个进程可能仍占着空间？"},
+        {"sp": "Anika", "en": "That fits yesterday's cleanup. Someone removed a large log. I'll check the ticket.", "zh": "这和昨天的清理操作有点吻合。有人删过一个大日志，我去查工单。"},
+        {"sp": "Lukas", "en": "Could be. Let's look at the open files before blaming that cleanup.", "zh": "有可能。先查打开的文件，别急着认定是昨天清理造成的。"},
+        {"sp": "Raj", "en": "I'm on it. What's the ETA on the ticket, Anika?", "zh": "我在查。Anika，工单预计多久能找到？"},
+        {"sp": "Hannah", "en": "I'll record both measurements. We'll need them when we review this.", "zh": "我会把两组测量结果记下来，复盘时需要。"},
+        {"sp": "Anika", "en": "A minute, probably. Who's to blame? Let's park that. We need the process and the file first.", "zh": "大概一分钟。谁的责任？先不讨论这个，得先找出具体进程和文件。"}
+      ]
+    },
+    {
+      "id": "0029", "part": 4, "stage": "验证假设", "title": "句柄没关：不能见到日志就删",
+      "premise": "df 与 du 有显著差额，昨天曾清理大日志；正在检查进程持有的文件。",
+      "listeningTask": "理解删除文件名不等于释放空间，以及为什么不能随意发送信号。",
+      "newPhrase": "p304", "phrases": ["p304", "p303", "p010", "p014:extra", "p008:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Found it. Worker process, twenty-four gigs, deleted but still open.", "zh": "找到了。工作进程占着二十四 GB，文件已经删除，但句柄还开着。"},
+        {"sp": "Lukas", "en": "That explains the gap. Removing another filename won't release this file.", "zh": "这就解释了空间差额。再删其他文件名也不会释放这个文件。"},
+        {"sp": "Anika", "en": "The app can reopen the log. There's a documented signal for that.", "zh": "应用支持重新打开日志，文档里规定了对应的信号。"},
+        {"sp": "Priya", "en": "Just to confirm, for this exact version? We shouldn't guess the signal, right?", "zh": "我确认一下，适用于当前这个版本？我们不能凭猜测发送信号，对吧？"},
+        {"sp": "Hannah", "en": "Yes. A signal can terminate a process if the handler isn't there.", "zh": "是的。如果没有对应处理逻辑，信号可能会把进程终止掉。"},
+        {"sp": "Anika", "en": "I'm on it. I'll check the deployed version against the runbook.", "zh": "我来核对，会把已部署版本和运行手册对一下。"},
+        {"sp": "Lukas", "en": "Save the file details first. We need to verify the handle closes afterward.", "zh": "先保存文件信息。操作后我们需要验证句柄确实关闭了。"},
+        {"sp": "Priya", "en": "What's the ETA? A restart? Let's park that until the check is done.", "zh": "预计多久？重启的事？核对完成前先放一边。"},
+        {"sp": "Hannah", "en": "There's also a small set of old archives. I'll check whether they're safe to remove.", "zh": "另外还有一小批旧归档。我会检查能不能安全删除。"},
+        {"sp": "Raj", "en": "Okay, maybe two minutes. I'll keep the evidence. No truncating file descriptors on the fly.", "zh": "好，大概两分钟。我先留好证据，不临时通过文件描述符去截断文件。"}
+      ]
+    },
+    {
+      "id": "0030", "part": 5, "stage": "确定安全边界", "title": "能删哪一批：保留策略先确认",
+      "premise": "已定位未关闭的已删除日志；应用重开日志的操作仍在核对，先审查旧归档。",
+      "listeningTask": "听出清理范围、保留要求和谁批准，不把临时清理当根因修复。",
+      "newPhrase": "p305", "phrases": ["p305", "p010", "p013", "p014:extra", "p008:extra", "p001:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "The archives are compressed logs. These ones are over fourteen days old.", "zh": "归档是压缩日志。这一批都超过十四天了。"},
+        {"sp": "Priya", "en": "What's the retention policy? I don't want to lose anything we need.", "zh": "保留策略是什么？我不想删掉还需要的资料。"},
+        {"sp": "Anika", "en": "Seven days locally. Longer retention is in central storage. I'll check the uploads.", "zh": "本地保留七天，更长期的日志在集中存储里。我去检查上传情况。"},
+        {"sp": "Lukas", "en": "And any legal hold? Age alone doesn't make a file safe to delete.", "zh": "有没有要求暂停删除的留存事项？不能只因为文件旧就认为能删。"},
+        {"sp": "Raj", "en": "Just to confirm, only this reviewed list? Not everything under the log directory, right?", "zh": "我确认一下，只处理审过的这个清单？不是删整个日志目录，对吧？"},
+        {"sp": "Hannah", "en": "Exactly. About three gigs. No active logs, and no files from this incident.", "zh": "对，大约三 GB。不包含活跃日志，也不包含本次故障的日志。"},
+        {"sp": "Priya", "en": "Who's picking this up? What's the ETA once the checks are done?", "zh": "谁来接这件事？核查完成后预计多久？"},
+        {"sp": "Anika", "en": "Uploads are complete. No hold on this batch. I'm on it for approval.", "zh": "这批上传完整，没有暂停删除要求。我来确认批准。"},
+        {"sp": "Lukas", "en": "Good. That gives us some room, not a fix for the open file.", "zh": "好。这能腾一点空间，但解决不了那个未关闭文件的问题。"},
+        {"sp": "Raj", "en": "About a minute after approval. Let's circle back to the open handle once we've cleared these.", "zh": "批准后大约一分钟。清理完这批，我们再回到那个未关闭的句柄上。"}
+      ]
+    },
+    {
+      "id": "0031", "part": 6, "stage": "临时缓解", "title": "腾出余量：缓解不等于解决",
+      "premise": "经确认，超过十四天的指定归档已集中保存且无保留限制，批准清理三 GB。",
+      "listeningTask": "分辨磁盘暂时可写、消费者恢复和根因解决这三个不同状态。",
+      "newPhrase": "p306", "phrases": ["p306", "p304", "p010", "p014:extra", "p008:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Reviewed archives are gone. We're at ninety-two percent. Writes are getting through again.", "zh": "审核过的归档已清理。现在使用率百分之九十二，写入又能成功了。"},
+        {"sp": "Hannah", "en": "That's still tight. How quickly is the space being used?", "zh": "空间还是很紧张。现在占用增长有多快？"},
+        {"sp": "Raj", "en": "Roughly two hundred megs a minute. This will buy us time, not much.", "zh": "大概每分钟两百 MB。这能争取一点时间，但不多。"},
+        {"sp": "Priya", "en": "Just to confirm, the open handle is still there? We haven't fixed that, right?", "zh": "我确认一下，那个句柄还开着？这个问题还没解决，对吧？"},
+        {"sp": "Lukas", "en": "Right. We should watch free space while we prepare the next step.", "zh": "对。准备下一步时，我们得一直盯着剩余空间。"},
+        {"sp": "Anika", "en": "Version check is done. This build supports the documented reopen signal.", "zh": "版本核对完成。当前构建支持文档规定的日志重开信号。"},
+        {"sp": "Hannah", "en": "Does it only reopen the log, or reload other settings too?", "zh": "这个信号只重开日志，还是会同时重新加载其他配置？"},
+        {"sp": "Anika", "en": "Only the log in this build. I'm on it for the change record.", "zh": "当前版本只重开日志。我来记录这次变更。"},
+        {"sp": "Lukas", "en": "If it fails, stop there. We can drain this worker before a restart.", "zh": "如果失败，就先停下。需要重启的话，可以先让这台完成在途任务并退出消费。"},
+        {"sp": "Priya", "en": "What's the ETA to reopen the log? A restart? Let's park that unless we need it.", "zh": "重开日志预计多久？重启的事先放一边，除非确实需要。"}
+      ]
+    },
+    {
+      "id": "0032", "part": 7, "stage": "修复", "title": "修复轮转：先释放，再防复发",
+      "premise": "临时清理已恢复写入；确认应用支持日志重开，计划受控操作并检查轮转配置。",
+      "listeningTask": "听出手动释放句柄和修复自动轮转是两个步骤。",
+      "newPhrase": "p307", "phrases": ["p307", "p304", "p010", "p210:extra", "p014:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The approved reopen worked. Old handle is gone. Disk usage is down to forty-six percent.", "zh": "批准的日志重开操作成功了。旧句柄关闭了，磁盘使用率降到百分之四十六。"},
+        {"sp": "Lukas", "en": "Great. Is the process writing to the new file? Check the owner too.", "zh": "好。进程现在写入新文件了吗？也检查一下文件属主。"},
+        {"sp": "Raj", "en": "Yes, both checked. Rotation didn't reopen the log. This host was missing that hook.", "zh": "是的，两项都查了。轮转后没有重新打开日志，这台主机缺了对应的钩子。"},
+        {"sp": "Priya", "en": "Just to confirm, we still need to rotate the log correctly next time, right?", "zh": "我确认一下，我们还得保证下次能正确轮转日志，对吧？"},
+        {"sp": "Hannah", "en": "Exactly. The other hosts have that hook. This one drifted from the template.", "zh": "对。其他主机都有这个钩子，这台偏离了模板配置。"},
+        {"sp": "Anika", "en": "Let's dry-run it first. The app owner has confirmed the hook for this build.", "zh": "先做试运行。应用负责人已确认这个钩子适用于当前版本。"},
+        {"sp": "Lukas", "en": "A dry run won't execute the hook. Test that separately in staging.", "zh": "试运行不会真的执行钩子。得在预发布环境单独验证。"},
+        {"sp": "Raj", "en": "I'm on it. Staging first, then this host. I'll save the old config.", "zh": "我来做。先预发布，再改这台主机。我会保存旧配置。"},
+        {"sp": "Hannah", "en": "Afterward, verify rotation and reopening together. Otherwise we've only checked half the fix.", "zh": "之后要一起验证轮转和重新打开日志，不然只验证了一半。"},
+        {"sp": "Priya", "en": "What's the ETA? Maybe ten minutes? Keep the queue recovery separate from that change.", "zh": "预计多久？大概十分钟？队列恢复状态要和这次配置修改分开跟踪。"}
+      ]
+    },
+    {
+      "id": "0033", "part": 8, "stage": "验证恢复", "title": "磁盘恢复了：队列还要追平",
+      "premise": "磁盘已降至 46%，日志写入恢复；轮转修复已在预发布验证，线上验证正在完成。",
+      "listeningTask": "听清当前积压、预计追平时间和宣布恢复所需证据。",
+      "newPhrase": "p308", "phrases": ["p308", "p010", "p110", "p008:extra", "p012:extra", "p001:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The worker is processing again. About twelve thousand events are still waiting.", "zh": "工作进程又开始处理了，大约还有一万两千个事件在等待。"},
+        {"sp": "Lukas", "en": "Is processing faster than arrivals? Otherwise the queue won't catch up.", "zh": "处理速度比新事件到达速度快吗？不然积压消不掉。"},
+        {"sp": "Anika", "en": "Yes, we've got spare capacity. Maybe five minutes to clear the backlog.", "zh": "是的，现在有余量。大概五分钟能清掉积压。"},
+        {"sp": "Priya", "en": "Just to confirm, that assumes traffic stays roughly steady, right?", "zh": "我确认一下，这个估算以流量大致稳定为前提，对吧？"},
+        {"sp": "Hannah", "en": "Retries look normal now. I'll check for duplicate notifications as well.", "zh": "现在重试指标正常了。我也会检查有没有重复通知。"},
+        {"sp": "Raj", "en": "Rotation is verified on this host. The new handle stays open; the old one closes.", "zh": "这台主机的轮转已验证。新文件句柄保持打开，旧的会关闭。"},
+        {"sp": "Lukas", "en": "Just to recap, disk pressure is resolved. Customer delays aren't fully cleared yet.", "zh": "小结一下，磁盘压力已解决，但用户通知延迟还没有完全消除。"},
+        {"sp": "Priya", "en": "What's the ETA for the next update? Let's circle back after the queue clears.", "zh": "下次更新预计什么时候？队列清空后我们再回来确认。"},
+        {"sp": "Hannah", "en": "Five minutes works. We'll check oldest-event age, not just queue depth.", "zh": "五分钟可以。我们会检查最老事件等待时间，不只看队列长度。"},
+        {"sp": "Anika", "en": "Agreed. Once those checks pass, we can say we're back to baseline. Not before.", "zh": "同意。那些检查都通过后，才能说恢复到正常基线，现在还不能。"}
+      ]
+    },
+    {
+      "id": "0034", "part": 9, "stage": "观察与交接", "title": "恢复基线：值班继续盯什么",
+      "premise": "五分钟后积压已清空，最老事件等待时间与通知抽查正常；准备交代观察条件。",
+      "listeningTask": "抓住观察指标、触发条件和负责人，而不是只听到恢复就结束。",
+      "newPhrase": "p309", "phrases": ["p309", "p110", "p010", "p111:extra", "p011:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Queue is clear. Oldest-event age is normal. We're back to baseline.", "zh": "积压清空了，最老事件等待时间也正常，恢复到基线了。"},
+        {"sp": "Hannah", "en": "Notification samples look good too. No duplicate spike in the delivery metrics.", "zh": "通知抽样也正常，投递指标没有出现重复发送的尖峰。"},
+        {"sp": "Priya", "en": "Okay, let's keep it under observation. Raj, keep an eye on disk growth.", "zh": "好，继续观察。Raj，留意磁盘占用增长。"},
+        {"sp": "Lukas", "en": "Let me play that back. Disk growth, write failures, and queue age?", "zh": "我复述一下：磁盘增长、写入失败，以及队列中事件的等待时间？"},
+        {"sp": "Raj", "en": "Yes. I'm on it. Maybe an hour of closer monitoring first.", "zh": "对，我来盯。先更密切地观察大约一小时。"},
+        {"sp": "Hannah", "en": "What should trigger another call? We need something more specific than looks bad.", "zh": "什么情况需要重新拉会？不能只说看起来不对。"},
+        {"sp": "Priya", "en": "Just to confirm, page on new write failures immediately. Don't wait for disk alerts, right?", "zh": "我确认一下，出现新的写入失败就立即呼叫值班，不能等磁盘告警，对吧？"},
+        {"sp": "Lukas", "en": "Agreed. And use the existing disk threshold. Record any sustained queue-age increase.", "zh": "同意。磁盘沿用现有阈值，事件等待时间持续增长也要记录。"},
+        {"sp": "Anika", "en": "I'll update support. Delays are cleared, but we're still watching for recurrence.", "zh": "我会通知支持团队：延迟已消除，但我们仍在观察是否复发。"},
+        {"sp": "Raj", "en": "I'll include that in the handoff. The retention policy stays unchanged for now.", "zh": "我会把这些写进交接。保留策略暂时不变。"}
+      ]
+    },
+    {
+      "id": "0035", "part": 10, "stage": "复盘行动", "title": "闭环：谁改模板，谁验证",
+      "premise": "服务已恢复并进入观察。复盘确认昨天的删除没有释放空间，配置漂移导致自动重开缺失。",
+      "listeningTask": "区分触发动作与系统缺口，听出行动项的负责人、期限和验收办法。",
+      "newPhrase": "p310", "phrases": ["p310", "p009", "p013", "p012:extra", "p002:extra", "p006:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Just to recap, deleting the log didn't free its space. The handle stayed open.", "zh": "小结一下，删除日志没有释放对应空间，因为句柄仍然开着。"},
+        {"sp": "Lukas", "en": "And rotation was missing the reopen hook. That's a configuration gap, not just a cleanup mistake.", "zh": "轮转配置也缺了日志重开钩子。这是配置缺口，不仅是一次清理失误。"},
+        {"sp": "Raj", "en": "Right. First action item: fix the managed template. I'll have the review ready tomorrow.", "zh": "对。第一个行动项是修正受管模板。我明天准备好评审。"},
+        {"sp": "Hannah", "en": "Can we test that the old handle closes? A syntax check won't catch this.", "zh": "能不能测试旧句柄确实关闭了？语法检查发现不了这个问题。"},
+        {"sp": "Anika", "en": "Yes. I'll add a staging test by Friday. Then we can close the loop.", "zh": "可以。我周五前加上预发布测试，然后反馈结果，把这件事闭环。"},
+        {"sp": "Lukas", "en": "Include each deployed app version. The same signal isn't safe for every service.", "zh": "要覆盖每个已部署的应用版本。同一个信号并不是对所有服务都安全。"},
+        {"sp": "Priya", "en": "Who's picking this up for the runbook? Hannah, do you have bandwidth this week?", "zh": "运行手册谁来改？Hannah，你这周有精力接吗？"},
+        {"sp": "Hannah", "en": "Yes, by Thursday. I'll cover open files, retention checks, and restart approval.", "zh": "有，周四前完成。我会补上打开文件的检查、保留要求核对和重启审批。"},
+        {"sp": "Raj", "en": "The alert threshold needs a look too. Let's take it offline after this.", "zh": "告警阈值也需要再看看。这个会后单独聊。"},
+        {"sp": "Priya", "en": "Agreed. The disk fix is verified, right? Keep the follow-up tasks open until we have evidence.", "zh": "同意。磁盘修复已经验证了，对吧？后续任务在有验收证据之前不要关闭。"}
+      ]
+    }
+  ]
+}

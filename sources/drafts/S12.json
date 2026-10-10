@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "仅完整中英草稿，不进入已发布源。按英文词数规划60/40；实际配音时长比例未验证，不预填时间轴。",
+  "series": {
+    "id": "sc-S12-database-pool-exhaustion", "title": "连接池耗尽：慢报表与超时分支泄漏",
+    "domain": "database", "group": "incident", "service": "orders API / PostgreSQL",
+    "premise": "订单API请求排队，应用连接池上限40。先检查连接占用和数据库活动，再分别验证慢查询与超时分支未归还连接的假设。",
+    "outcome": "暂停非必要报表并限流，滚动排空一台工作实例后恢复连接。隔离复现确认超时分支未归还连接，修复通过灰度；报表优化和池占用告警仍有明确负责人。"
+  },
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Database on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Orders application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and traffic controller", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Application validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p391", "en": "the pool is exhausted", "zh": "连接池已耗尽", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p392", "en": "checked-out connections", "zh": "已借出尚未归还的连接", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p393", "en": "query execution time", "zh": "查询执行耗时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p394", "en": "connection leak", "zh": "连接未归还造成的泄漏", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p395", "en": "bounded request queue", "zh": "有长度上限的请求队列", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p396", "en": "drain the worker", "zh": "停止向工作实例分派新请求并排空", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p397", "en": "connection checkout time", "zh": "等待借到连接的耗时", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p398", "en": "timeout cleanup path", "zh": "超时后的资源清理分支", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p399", "en": "requests are draining", "zh": "积压请求正在被处理完", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p400", "en": "return the connection", "zh": "把连接归还连接池", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "后续候选回访不算实际出现；本文件复现仅引用p001-p350或此前本场景已引入表达。", "S17": ["p394", "p398", "p400"], "S19": ["p391", "p392", "p393", "p395", "p396", "p397", "p399"], "S24": ["p391", "p393", "p395", "p397"]},
+  "dialogues": [
+    {
+      "id": "0116", "part": 1, "stage": "告警", "title": "请求堆积", "premise": "订单API延迟上升，先确认等待发生在哪一层。", "listeningTask": "区分等待连接和查询正在执行。",
+      "newPhrase": "p391", "phrases": ["p391", "p003", "p010:extra", "p008:extra", "p103:extra", "p101:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The pool is exhausted on orders. The error rate spiked after nine.", "zh": "订单服务连接池耗尽，九点后错误率猛涨。"},
+        {"sp": "Lukas", "en": "Are requests waiting for connections? Or already running inside the database?", "zh": "请求在等连接，还是已在数据库里执行？"},
+        {"sp": "Anika", "en": "Mostly waiting before any query starts. About two hundred requests are queued.", "zh": "大部分还没开始查询就卡住了，大约两百个请求在排队。"},
+        {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, writes still succeed, right?", "zh": "好，我来协调。确认一下，写入仍有成功的，对吧？"},
+        {"sp": "Hannah", "en": "Some do, but clients time out. Don't assume failed responses mean failed writes.", "zh": "有些成功，但客户端超时。不能把响应失败等同于写入失败。"},
+        {"sp": "Raj", "en": "Let me tail the log first. I'll separate checkout waits from execution.", "zh": "我先盯日志，把借连接等待和执行耗时分开。"},
+        {"sp": "Lukas", "en": "Good. Keep client retries bounded too. Repeated writes could make this worse.", "zh": "好，也限制客户端重试。重复写入可能让问题更严重。"},
+        {"sp": "Priya", "en": "So, what's the ETA for evidence? A rough estimate will help us.", "zh": "那预计多久有证据？给个大概时间便于安排。"},
+        {"sp": "Hannah", "en": "I'll check duplicate order protection now. We need that before suggesting retries.", "zh": "我现在检查订单去重保护，建议重试前必须确认。"},
+        {"sp": "Raj", "en": "About two minutes for pool metrics. No database restart while we're checking.", "zh": "连接池指标大约两分钟拿到，检查期间不重启数据库。"}
+      ]
+    },
+    {
+      "id": "0117", "part": 2, "stage": "池状态", "title": "借出不等于正在查询", "premise": "排队发生在获取连接前，开始对照池状态与数据库会话。", "listeningTask": "听出池借出计数与活跃查询数不是同一指标。",
+      "newPhrase": "p392", "phrases": ["p392", "p010", "p014:extra", "p309:extra", "p335:extra", "p391:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Forty checked-out connections, none available now. The pool is exhausted across three workers.", "zh": "四十条连接全部借出，没有可用连接，三台工作实例的池都耗尽了。"},
+        {"sp": "Hannah", "en": "Does checked out mean running queries? Compare that with actual session activity.", "zh": "借出就代表在执行查询吗？和实际会话活动对照一下。"},
+        {"sp": "Anika", "en": "No, ownership stays with the application. Some borrowed connections aren't executing anything.", "zh": "不是，连接仍由应用持有，有些借出的连接没有执行任何操作。"},
+        {"sp": "Priya", "en": "Just to confirm, same workers, right? Don't mix global and local counts.", "zh": "确认一下，对照的是同一批实例，对吧？别混用全局和局部计数。"},
+        {"sp": "Lukas", "en": "Exactly. The database isn't at capacity. Raising every pool limit could overload it.", "zh": "对，数据库并未满载。把每个池上限都调高可能压垮数据库。"},
+        {"sp": "Raj", "en": "Okay, I'm on it for mapping. I'll match session IDs to workers.", "zh": "好，我来做映射，把会话ID对应到工作实例。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on waits. We need ages, not just counts.", "zh": "我会观察等待情况，需要占用时长，不只是数量。"},
+        {"sp": "Anika", "en": "Our working hypothesis has two branches. Slow work or connections never returned.", "zh": "当前假设有两个方向：执行太慢，或者连接从未归还。"},
+        {"sp": "Lukas", "en": "Idle sessions alone don't prove leakage. Pools normally keep idle sessions open.", "zh": "空闲会话本身不能证明泄漏，池通常会保留空闲会话。"},
+        {"sp": "Priya", "en": "So, collect ownership and age together. Maybe both causes are contributing here.", "zh": "那就一起收集持有者和占用时长，也许两种原因都存在。"}
+      ]
+    },
+    {
+      "id": "0118", "part": 3, "stage": "慢查询证据", "title": "慢报表是真问题，但不是全部", "premise": "池已借满，数据库并非满载；先定位长时间运行的查询。", "listeningTask": "辨别慢查询能解释多少连接占用。",
+      "newPhrase": "p393", "phrases": ["p393", "p302", "p392:extra", "p008:extra", "p004:extra", "p335:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Query execution time reached thirty seconds. Six report queries are still running.", "zh": "查询耗时达到三十秒，还有六条报表查询在执行。"},
+        {"sp": "Lukas", "en": "That explains six occupied connections today. What explains the other borrowed ones?", "zh": "这能解释六条连接被占用，其他借出的连接怎么解释？"},
+        {"sp": "Anika", "en": "Not those reports, from this sample. Several checked-out connections have no owner.", "zh": "从这份样本看不是报表，有几条借出的连接已找不到请求持有者。"},
+        {"sp": "Priya", "en": "So, don't rule that out yet. Reports still make timeouts more likely, right?", "zh": "所以别排除报表因素，它仍会增加超时概率，对吧？"},
+        {"sp": "Hannah", "en": "Yes. Match each timeout to ownership. A slow query isn't a leak.", "zh": "对，把每次超时和连接持有关系对应起来。慢查询不等于泄漏。"},
+        {"sp": "Raj", "en": "The report scans old order rows. Maybe its missing filter explains that.", "zh": "报表扫描旧订单行，可能是漏掉筛选条件导致的。"},
+        {"sp": "Lukas", "en": "Check the plan before adding indexes. Today's incident isn't an indexing window.", "zh": "加索引前先查执行计划，今天的故障处理不是建索引窗口。"},
+        {"sp": "Priya", "en": "A rushed index? Let's park that. What's the ETA for timeout traces?", "zh": "临时赶建索引先放一边，超时链路预计多久拿到？"},
+        {"sp": "Hannah", "en": "Two minutes with sampled request IDs. I'll avoid collecting customer payloads here.", "zh": "用采样请求ID，两分钟。我会避免收集客户业务内容。"},
+        {"sp": "Anika", "en": "Okay, the working hypothesis stays split. We'll inspect the cancellation branch next.", "zh": "好，继续保留两个假设方向，下一步检查取消请求的分支。"}
+      ]
+    },
+    {
+      "id": "0119", "part": 4, "stage": "泄漏假设", "title": "超时后谁归还连接", "premise": "六条慢报表不能解释全部占用；检查请求超时后的连接持有记录。", "listeningTask": "听出泄漏的证据强度和待复现条件。",
+      "newPhrase": "p394", "phrases": ["p394", "p335", "p393:extra", "p010:extra", "p320:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "A connection leak looks possible here. Timed-out requests don't record a return.", "zh": "这里可能存在连接泄漏，超时请求没有记录连接归还。"},
+        {"sp": "Hannah", "en": "Could that be missing logging instead? We need a controlled cancellation test.", "zh": "会不会只是漏记日志？需要受控的取消测试。"},
+        {"sp": "Raj", "en": "Yes, it's a working hypothesis now. Query execution time alone can't prove it.", "zh": "对，现在只是工作假设，查询耗时本身不能证明泄漏。"},
+        {"sp": "Priya", "en": "Just to confirm, isolated testing, right? Don't inject cancellations into live orders.", "zh": "确认一下，在隔离环境测，对吧？别对线上订单注入取消操作。"},
+        {"sp": "Lukas", "en": "Agreed. Save current metrics before mitigation. We can recover without proving everything.", "zh": "同意，缓解前保存指标，不必查清所有问题才恢复服务。"},
+        {"sp": "Anika", "en": "Okay, I'm on it for reproduction. Same client version, synthetic orders only.", "zh": "好，我负责复现，使用同版本客户端和合成订单。"},
+        {"sp": "Hannah", "en": "I'll compare successful and cancelled requests. Both must release their borrowed resources.", "zh": "我会对比成功和取消请求，两种都必须释放借用资源。"},
+        {"sp": "Raj", "en": "The root cause is still open. Maybe report delays expose this branch.", "zh": "根因仍未定，可能报表延迟让这个分支更容易被触发。"},
+        {"sp": "Lukas", "en": "That's plausible, but not confirmed yet. We need separate evidence for each link.", "zh": "合理，但还没确认，因果链的每一环都需要各自证据。"},
+        {"sp": "Priya", "en": "So, first contain the request backlog. Then test that link without pressure.", "zh": "那先控制请求积压，再在没有线上压力的条件下验证因果联系。"}
+      ]
+    },
+    {
+      "id": "0120", "part": 5, "stage": "限流决策", "title": "限制队列，而不是无限加连接", "premise": "慢报表和泄漏假设并存，先决定有边界的缓解措施。", "listeningTask": "抓住限流对象、重试约束和不能恢复泄漏连接的原因。",
+      "newPhrase": "p395", "phrases": ["p395", "p316", "p394:extra", "p306:extra", "p324:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "Use a bounded request queue here. Reject excess work before borrowing connections.", "zh": "这里使用有上限的请求队列，借连接之前拒绝超额工作。"},
+        {"sp": "Priya", "en": "Okay, shed load from reports first. Keep order writes within safe limits.", "zh": "好，先减掉报表负载，让订单写入维持安全限额。"},
+        {"sp": "Anika", "en": "That should buy us time today. But it won't reclaim a connection leak.", "zh": "这能为今天争取时间，但不能收回泄漏的连接。"},
+        {"sp": "Hannah", "en": "Correct. Tell clients to back off. A rejection shouldn't trigger endless retries.", "zh": "对，告诉客户端退避，被拒绝不应触发无限重试。"},
+        {"sp": "Raj", "en": "Just to confirm, reports pause, right? Existing writes get time to finish.", "zh": "确认一下，报表暂停，对吧？给已有写入完成的时间。"},
+        {"sp": "Lukas", "en": "Yes, through the approved feature control. Don't kill every database session instead.", "zh": "是，通过批准的功能控制暂停，不是杀掉所有数据库会话。"},
+        {"sp": "Priya", "en": "What's our rollback trigger for limits? Maybe legitimate orders start failing faster.", "zh": "限流的回退触发条件是什么？正常订单可能反而更快失败。"},
+        {"sp": "Hannah", "en": "Compare accepted writes and rejection counts. Stop tightening if useful throughput drops.", "zh": "对比成功接纳的写入和拒绝数，有效吞吐下降就别继续收紧。"},
+        {"sp": "Anika", "en": "So, apply the limit on one worker. I'll verify idempotent retries with support.", "zh": "那先在一台实例施加限额，我和支持团队确认幂等重试。"},
+        {"sp": "Raj", "en": "I'll watch database load during that. Then we can safely rotate workers.", "zh": "我在此期间观察数据库负载，之后才能安全滚动处理实例。"}
+      ]
+    },
+    {
+      "id": "0121", "part": 6, "stage": "缓解执行", "title": "逐台排空并重建应用池", "premise": "报表暂停且单实例限流验证通过，准备回收滞留连接。", "listeningTask": "区别应用实例排空与重启整个数据库。",
+      "newPhrase": "p396", "phrases": ["p396", "p395", "p334:extra", "p309:extra", "p008:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "I'll drain the worker marked A. New requests now go elsewhere safely.", "zh": "我排空A实例，新请求现在安全地送往其他实例。"},
+        {"sp": "Lukas", "en": "Do the remaining workers have capacity? Keep the bounded request queue enabled.", "zh": "其他实例有容量吗？有上限的请求队列继续启用。"},
+        {"sp": "Raj", "en": "Yes, the lower traffic fits now. About five writes remain on A.", "zh": "有，降低后的流量现在能承受，A上还有大约五笔写入。"},
+        {"sp": "Priya", "en": "Okay, wait for those writes, right? This is still a temporary workaround.", "zh": "好，等那些写入结束，对吧？这仍是临时缓解。"},
+        {"sp": "Hannah", "en": "Check outcomes before closing the pool. Cancellation doesn't guarantee a transaction stopped.", "zh": "关闭池之前检查结果，取消请求不能保证事务已停止。"},
+        {"sp": "Anika", "en": "The five writes have completed now. I'll restart this application worker next.", "zh": "五笔写入现在都完成了，接下来重启这台应用实例。"},
+        {"sp": "Lukas", "en": "Not the database. Keep that distinction. I'll keep an eye on routing.", "zh": "不是重启数据库，要区分清楚。我会观察路由。"},
+        {"sp": "Priya", "en": "So, what's the ETA for checks? Maybe two minutes before another worker.", "zh": "检查预计多久？也许等两分钟再处理另一台。"},
+        {"sp": "Hannah", "en": "Two minutes after A returns healthy. Verify fresh writes and connection releases.", "zh": "A恢复健康后两分钟，验证新写入和连接释放。"},
+        {"sp": "Raj", "en": "I'm on it for session counts. We'll stop if database connections surge.", "zh": "我负责会话数，数据库连接暴涨就停止。"}
+      ]
+    },
+    {
+      "id": "0122", "part": 7, "stage": "连接恢复", "title": "连接能借到，但修复尚未完成", "premise": "逐台排空重启结束，限流和报表暂停仍保持。", "listeningTask": "理解指标恢复不能证明泄漏修好了。",
+      "newPhrase": "p397", "phrases": ["p397", "p391", "p392:extra", "p110:extra", "p111:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Connection checkout time is normal again. Each worker has available connections now.", "zh": "借连接等待恢复正常，每台实例现在都有可用连接。"},
+        {"sp": "Hannah", "en": "What about checked-out connections over time? A fresh pool can hide leakage.", "zh": "借出连接随时间怎么变化？新建池可能掩盖泄漏。"},
+        {"sp": "Anika", "en": "They're stable under the reduced traffic. That doesn't prove cancellation is fixed.", "zh": "在降低流量后计数稳定，但不代表取消分支修好了。"},
+        {"sp": "Priya", "en": "Just to confirm, reports stay paused, right? Don't remove both safeguards together.", "zh": "确认一下，报表仍暂停，对吧？别同时撤掉两种保护。"},
+        {"sp": "Lukas", "en": "Agreed. We're back to baseline now. State the limits with that update.", "zh": "同意，现在回到基线，更新时要一并说明限流仍在。"},
+        {"sp": "Raj", "en": "If the pool is exhausted again, stop. Maybe another path holds connections too.", "zh": "如果池再耗尽就停止，也许还有其他分支持有连接。"},
+        {"sp": "Hannah", "en": "Let's keep it under observation tonight. Track connection age beside checkout waits.", "zh": "今晚继续观察，连接占用时长和借连接等待一起跟踪。"},
+        {"sp": "Anika", "en": "Okay, isolated testing is running now. The first cancelled request retained ownership.", "zh": "好，隔离测试在进行，首个被取消请求仍持有连接。"},
+        {"sp": "Lukas", "en": "Repeat it against the current release. One sample isn't the complete diagnosis.", "zh": "针对当前发布版本重复测试，一份样本不是完整诊断。"},
+        {"sp": "Priya", "en": "So, keep recovery and repair separate. We'll review that test evidence next.", "zh": "那就把恢复和修复分开，下一步评审测试证据。"}
+      ]
+    },
+    {
+      "id": "0123", "part": 8, "stage": "排查遗留", "title": "复现超时清理缺口", "premise": "线上指标恢复，隔离测试继续验证取消后连接未归还。", "listeningTask": "听出已确认的代码缺陷和仍待完成的报表优化。",
+      "newPhrase": "p398", "phrases": ["p398", "p394", "p393:extra", "p327:extra", "p009:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The timeout cleanup path misses release. Ten cancellations retained ten borrowed connections.", "zh": "超时清理分支漏掉释放，十次取消滞留了十条借用连接。"},
+        {"sp": "Hannah", "en": "Did normal requests release them correctly? We need the successful control too.", "zh": "正常请求能正确释放吗？也需要成功请求的对照。"},
+        {"sp": "Raj", "en": "Yes, normal requests return them consistently. That confirms this connection leak now.", "zh": "能，正常请求稳定归还连接，现在确认了这一处泄漏。"},
+        {"sp": "Priya", "en": "Okay, test exceptions as well, right? Maybe cancellation isn't the sole broken branch.", "zh": "好，也测试异常分支，对吧？取消可能不是唯一有问题的分支。"},
+        {"sp": "Lukas", "en": "And check open transaction cleanup separately. Returning a dirty connection isn't safe.", "zh": "还要单独检查未结束事务的清理，归还带事务状态的连接不安全。"},
+        {"sp": "Anika", "en": "I'm on it with structured cleanup. Release follows transaction outcome handling now.", "zh": "我用结构化清理修复，现在处理好事务结果后才释放连接。"},
+        {"sp": "Hannah", "en": "The smoke test must include timeouts. Healthy requests alone won't cover this.", "zh": "冒烟测试必须包括超时，只有正常请求覆盖不到这里。"},
+        {"sp": "Raj", "en": "Query execution time remains a separate issue. Reports still need their filter reviewed.", "zh": "查询耗时仍是单独的问题，报表筛选条件仍需评审。"},
+        {"sp": "Lukas", "en": "Keep that action item after mitigation. Don't bundle an untested query rewrite.", "zh": "缓解后保留这个行动项，别捆绑未经测试的查询重写。"},
+        {"sp": "Priya", "en": "So, stage the cleanup fix first. Reports resume only after separate validation.", "zh": "那先灰度清理修复，报表要单独验证后才恢复。"}
+      ]
+    },
+    {
+      "id": "0124", "part": 9, "stage": "对外更新", "title": "恢复状态不掩盖剩余限制", "premise": "清理修复通过隔离测试和单实例灰度，订单指标稳定，报表仍暂停。", "listeningTask": "分辨客户可见恢复、修复灰度和未恢复功能。",
+      "newPhrase": "p399", "phrases": ["p399", "p397", "p334:extra", "p336:extra", "p008:extra", "p001:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Requests are draining without new buildup. Support can report order processing recovered.", "zh": "请求积压正在消化，没有新增堆积，支持团队可报告订单处理恢复。"},
+        {"sp": "Hannah", "en": "Include which functions remain restricted now. Reports are still unavailable to users.", "zh": "写清哪些功能仍受限，用户目前仍不能使用报表。"},
+        {"sp": "Raj", "en": "Connection checkout time stays near baseline. The cleanup canary passed cancellation checks.", "zh": "借连接等待保持接近基线，清理修复的灰度通过取消测试。"},
+        {"sp": "Priya", "en": "Okay, no full repair claim, right? The temporary workaround still includes limits.", "zh": "好，别宣称全部修好，对吧？临时缓解还包括限流。"},
+        {"sp": "Lukas", "en": "Yes. Expand the fix in batches. Observe each batch before relaxing limits.", "zh": "对，分批扩展修复，每批观察后才放宽限额。"},
+        {"sp": "Anika", "en": "What's the ETA for report recovery? Maybe tomorrow after the query review.", "zh": "报表恢复预计什么时候？也许明天查询评审后。"},
+        {"sp": "Hannah", "en": "Call that an estimate, not commitment. Include the escalation path for regressions.", "zh": "说明这是估计，不是承诺，也写上回归异常的升级联系路径。"},
+        {"sp": "Priya", "en": "So, circle back in thirty minutes. Earlier if waiting requests start rising.", "zh": "那三十分钟后再更新，等待请求上升就提前。"},
+        {"sp": "Lukas", "en": "I'll watch accepted throughput during expansion. Low errors with fewer orders isn't recovery.", "zh": "我在扩展时观察有效吞吐，订单少了而错误低不算恢复。"},
+        {"sp": "Raj", "en": "Agreed, throughput matches the expected demand. I'll attach that evidence to support.", "zh": "同意，吞吐符合预期需求，我把证据附给支持团队。"}
+      ]
+    },
+    {
+      "id": "0125", "part": 10, "stage": "防复发", "title": "把清理保证写进测试", "premise": "清理修复已分批完成，限额逐步放宽且稳定，报表优化仍待验收。", "listeningTask": "抓住代码、查询和监控三类任务的负责人及期限。",
+      "newPhrase": "p400", "phrases": ["p400", "p398", "p392:extra", "p009:extra", "p013:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Every exit must return the connection. The timeout cleanup path now does.", "zh": "每个退出分支都必须归还连接，超时清理分支现在也做到了。"},
+        {"sp": "Lukas", "en": "After resolving transaction state, of course. Tests must enforce that ordering too.", "zh": "当然要先处理事务状态，测试也必须保证这个顺序。"},
+        {"sp": "Raj", "en": "Okay, checked-out connections need age alerts. Counts alone hid abandoned ownership here.", "zh": "好，借出连接需要占用时长告警，这次只看数量掩盖了持有关系丢失。"},
+        {"sp": "Priya", "en": "Who's picking this up by Friday? Hannah, you own those alerts, right?", "zh": "谁周五前接这个任务？Hannah，告警由你负责，对吧？"},
+        {"sp": "Hannah", "en": "Yes, with a bounded cancellation test. I'll compare occupancy before and after.", "zh": "是，也加上有上限的取消测试，对比前后占用。"},
+        {"sp": "Anika", "en": "My action item is regression coverage. I'll add exception cases by tomorrow.", "zh": "我的行动项是回归覆盖，明天前加上异常场景。"},
+        {"sp": "Lukas", "en": "I'll review retry limits with clients. Maybe our timeout budget needs adjustment.", "zh": "我和客户端评审重试限额，可能超时预算也需要调整。"},
+        {"sp": "Raj", "en": "I'll review the report plan tomorrow. Slow reports triggered waits, not every leak.", "zh": "我明天评审报表执行计划，慢报表引发等待，但并非所有泄漏都由它解释。"},
+        {"sp": "Hannah", "en": "Report recovery needs its own evidence. Keep that acceptance separate from cleanup.", "zh": "报表恢复要有自己的证据，验收与连接清理分开。"},
+        {"sp": "Priya", "en": "So, close the loop next Friday. Bring test results, not just closed tickets.", "zh": "那下周五闭环，带测试结果，不只是关闭的工单。"}
+      ]
+    }
+  ]
+}

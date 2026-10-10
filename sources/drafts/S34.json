@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "架构评审文本，音频及音色未验，无虚构时间轴。Namespace不是完整安全隔离；ResourceQuota不保证实际容量；requests与limits修改须容量和授权审查。PDB约束经Eviction API的自愿扰动，不阻止全部故障，也不保证Deployment滚动更新的可用性。未来候选不计实绩。",
+  "series": {"id": "sc-S34-k8s-multitenant-review", "title": "多租户评审：共享成本与隔离边界", "domain": "k8s", "group": "ops-review", "service": "shared commerce cluster", "premise": "三个内部可信团队共享集群：支付、库存和批处理。批处理峰值与库存尾延迟重叠，团队评审配额、节点分池和安全策略；支付不能接受未经验证的高风险共置。", "outcome": "批准仅库存与批处理的分池试点，支付暂不迁移。以requests容量、limits风险、网络策略和RBAC为门槛；分别测试经Eviction API的维护和非自愿故障。通过延迟、成本与安全验收再决定扩大，不宣称Namespace或PDB提供绝对保护。"},
+  "speakers": {
+    "Priya": {"role": "Platform review chair and pilot approver", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Cluster platform architect", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Inventory tenant owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Capacity and cost reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Security and resilience reviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p611", "en": "tenant boundary", "zh": "租户边界", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p612", "en": "resource contention", "zh": "资源竞争", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p613", "en": "noisy neighbor", "zh": "影响同节点其他负载的高消耗租户", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p614", "en": "node pool separation", "zh": "节点池分离", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p615", "en": "quota envelope", "zh": "获准资源配额范围", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p616", "en": "voluntary disruption", "zh": "自愿性中断", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p617", "en": "network policy enforcement", "zh": "网络策略的实际执行", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p618", "en": "isolation overhead", "zh": "隔离带来的额外成本", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p619", "en": "pilot acceptance criteria", "zh": "试点验收标准", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p620", "en": "decision record", "zh": "含边界与依据的决策记录", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "只依赖p001-p350与本场此前表达，不依赖其他并行草稿；未来候选不是实际复现。", "futureCandidates": {"S38": ["p611", "p612", "p613", "p614", "p615", "p618", "p620"], "S50": ["p611", "p616", "p617", "p619", "p620"]}},
+  "dialogues": [
+    {"id": "0336", "part": 1, "stage": "需求对齐", "title": "可信内部租户也有不同目标", "premise": "三团队共享集群，评审从需求和可接受边界开始。", "listeningTask": "识别评审范围与支付暂不迁移的限制。", "newPhrase": "p611", "phrases": ["p611", "p010", "p006:extra", "p004:extra", "p335:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, just to recap, three internal tenants. Today we review their tenant boundary.", "zh": "好，小结，三个内部租户，今天评审租户边界。"},
+      {"sp": "Hannah", "en": "Are these mutually trusted teams? Hostile tenants need a stronger isolation model.", "zh": "这些团队相互信任吗？恶意租户需要更强隔离模型。"},
+      {"sp": "Raj", "en": "Yes, internal teams with controlled access. That doesn't remove accidental interference or security risks.", "zh": "是的，内部团队且访问受控，但仍有意外干扰和安全风险。"},
+      {"sp": "Anika", "en": "Just to confirm, inventory needs predictable latency, right? Batch can accept slower completion.", "zh": "确认一下，库存需要可预测延迟，对吧？批处理可接受完成更慢。"},
+      {"sp": "Lukas", "en": "Payments has stricter requirements than both. We shouldn't migrate it without separate evidence.", "zh": "支付要求比两者更严，没有单独证据不能迁移。"},
+      {"sp": "Priya", "en": "So, payments migration, let's park that. Our working hypothesis is limited pool separation.", "zh": "那么，支付迁移先搁置，当前方案假设是有限分池。"},
+      {"sp": "Hannah", "en": "Separation must match the stated threats. Namespaces alone aren't a complete security boundary.", "zh": "隔离必须对应威胁，Namespace本身不是完整安全边界。"},
+      {"sp": "Raj", "en": "Maybe shared pools still fit inventory. We'll compare evidence before choosing a design.", "zh": "也许共享池仍适合库存，选设计前先比较证据。"},
+      {"sp": "Lukas", "en": "Include operating costs and spare capacity. Isolation can create stranded resources during quiet hours.", "zh": "包含运维成本和备用容量，隔离可能使低峰资源闲置。"},
+      {"sp": "Anika", "en": "I have bandwidth for the pilot. But acceptance must protect actual customer request performance.", "zh": "我有精力参与试点，但验收必须保护真实客户请求性能。"}
+    ]},
+    {"id": "0337", "part": 2, "stage": "资源现状", "title": "看分布，不只看集群平均", "premise": "支付暂不迁移，先对库存与批处理的资源分布取证。", "listeningTask": "听出资源竞争证据的粒度及配置不等于实际消耗。", "newPhrase": "p612", "phrases": ["p612", "p611", "p010:extra", "p335:extra", "p309:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "Resource contention appears on shared nodes. Cluster averages hide the busiest batch periods.", "zh": "共享节点出现资源竞争，集群均值掩盖最忙批处理时段。"},
+      {"sp": "Lukas", "en": "Show requests, limits, and actual utilization. Those describe different resource constraints.", "zh": "展示requests、limits和实际利用率，它们描述不同约束。"},
+      {"sp": "Anika", "en": "Inventory uses modest CPU most hours. Its tail latency rises during batch overlap.", "zh": "库存多数时段CPU不高，但批处理重叠时尾延迟上升。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, correlation only so far, right? Keep the working hypothesis explicit.", "zh": "好，确认一下，目前只是相关，对吧？明确保留假设。"},
+      {"sp": "Hannah", "en": "Correct. Memory, disk, and network could matter too. Don't assign the cause prematurely.", "zh": "对，内存、磁盘和网络也可能有影响，别过早定原因。"},
+      {"sp": "Raj", "en": "Our tenant boundary currently uses namespaces. Placement rules don't separate their worker nodes.", "zh": "目前租户边界用Namespace，放置规则没分开工作节点。"},
+      {"sp": "Lukas", "en": "That explains shared exposure, not causation. Compare matched intervals and request classes.", "zh": "这解释共享暴露，不解释因果，要比较同窗和相同请求类型。"},
+      {"sp": "Priya", "en": "So, what's the ETA for matched evidence? Maybe tomorrow before the pilot review.", "zh": "那么，匹配证据预计多久？也许明天试点评审前。"},
+      {"sp": "Hannah", "en": "I can prepare it tomorrow morning. Include per-node observations, not just tenant totals.", "zh": "明早能准备，包含逐节点观察，不只租户总量。"},
+      {"sp": "Anika", "en": "I'll keep an eye on request mix. We need comparable demand to judge interference.", "zh": "我关注请求组成，要有可比需求才能判断干扰。"}
+    ]},
+    {"id": "0338", "part": 3, "stage": "干扰案例", "title": "嘈杂邻居不是随口贴标签", "premise": "次日上午获得匹配样本，评审继续对比批处理运行与暂停时段。", "listeningTask": "辨别受控复现与超出证据的归因。", "newPhrase": "p613", "phrases": ["p613", "p612", "p010:extra", "p302:extra", "p335:extra", "p314:extra"], "lines": [
+      {"sp": "Anika", "en": "The batch job acts as a noisy neighbor. Our staging comparison reproduces inventory slowdown.", "zh": "批处理表现为嘈杂邻居，预发布对比复现库存变慢。"},
+      {"sp": "Hannah", "en": "What stayed constant during that comparison? We need more than overlapping timestamps.", "zh": "对比时哪些保持不变？不能只有时间重叠。"},
+      {"sp": "Raj", "en": "Traffic is flat across matched runs. Resource contention falls when batch work is isolated.", "zh": "匹配运行中流量持平，批处理隔离后资源竞争下降。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, staging evidence only, right? Production still needs a bounded pilot.", "zh": "好，确认一下，仅预发布证据，对吧？生产仍需有边界试点。"},
+      {"sp": "Lukas", "en": "Yes, and CPU isn't the only factor. Shared disk activity also changes during isolation.", "zh": "对，CPU不是唯一因素，隔离期间共享磁盘活动也变了。"},
+      {"sp": "Anika", "en": "I called it CPU alone earlier. Correction: our working hypothesis includes shared I/O too.", "zh": "我之前说只有CPU，纠正一下，当前假设也含共享I/O。"},
+      {"sp": "Hannah", "en": "Good correction. We can't rule that out without a more discriminating test.", "zh": "纠正得对，更有区分力测试前不能排除它。"},
+      {"sp": "Raj", "en": "So, maybe separate workers first. That tests practical isolation without pretending precise causation.", "zh": "那么，也许先分工作节点，测试实际隔离，不假装精确归因。"},
+      {"sp": "Lukas", "en": "Measure the cost of that choice. A practical mitigation can still be expensive.", "zh": "测这个选择的成本，实用缓解也可能很贵。"},
+      {"sp": "Priya", "en": "We'll compare both dimensions in the pilot. No claims that every neighbor is dangerous.", "zh": "试点比较两方面，不宣称所有邻居都危险。"}
+    ]},
+    {"id": "0339", "part": 4, "stage": "隔离边界", "title": "分池需要放置与权限共同约束", "premise": "预发布支持分节点缓解，现评审实际隔离设计与残余共享风险。", "listeningTask": "理解污点、亲和性和权限必须配合，控制面仍共享。", "newPhrase": "p614", "phrases": ["p614", "p611", "p010:extra", "p106:extra", "p004:extra", "p335:extra"], "lines": [
+      {"sp": "Raj", "en": "Node pool separation reduces worker interference. We'll combine placement rules with controlled tolerations.", "zh": "节点分池减少工作节点干扰，结合放置规则和受控容忍。"},
+      {"sp": "Hannah", "en": "Taints alone don't guarantee isolation. Tenants with broad permissions could bypass intended placement.", "zh": "污点本身不保证隔离，权限宽的租户可能绕过放置意图。"},
+      {"sp": "Anika", "en": "Our tenant boundary needs enforced policy. Teams shouldn't choose arbitrary privileged placement settings.", "zh": "租户边界需要强制策略，团队不能任意选择特权放置设置。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, control plane stays shared, right? That's our blast radius remaining.", "zh": "好，确认一下，控制面仍共享，对吧？这是剩余共享影响。"},
+      {"sp": "Lukas", "en": "Yes, shared API capacity remains relevant. Separate workers don't isolate every cluster-wide dependency.", "zh": "对，共享API容量仍有关，分工作节点不隔离所有集群依赖。"},
+      {"sp": "Raj", "en": "Our working hypothesis is acceptable residual risk. We'll test API demand and placement enforcement.", "zh": "当前假设是残余风险可接受，我们测API需求和放置执行。"},
+      {"sp": "Hannah", "en": "Hostile tenants would need another design. Don't extend this internal-team pilot to them.", "zh": "恶意租户需要另一设计，不把内部团队试点扩大到他们。"},
+      {"sp": "Anika", "en": "So, dedicated clusters, let's park that. Maybe inventory can accept this reviewed shared boundary.", "zh": "那么，独立集群先搁置，库存也许可接受评审后的共享边界。"},
+      {"sp": "Lukas", "en": "Document that acceptance with the tenant owner. Don't treat silence as risk approval.", "zh": "与租户负责人记录接受意见，不把沉默当风险批准。"},
+      {"sp": "Priya", "en": "I'll require explicit approval before rollout. Payments remains outside this pilot's migration scope.", "zh": "发布前我要求明确批准，支付仍不在迁移范围。"}
+    ]},
+    {"id": "0340", "part": 5, "stage": "配额设计", "title": "配额许可不等于容量保障", "premise": "分池设计需强制放置并接受控制面共享风险，继续评审资源分配。", "listeningTask": "分清准入配额、requests调度和limits运行时约束。", "newPhrase": "p615", "phrases": ["p615", "p612", "p010:extra", "p330:extra", "p014:extra", "p335:extra"], "lines": [
+      {"sp": "Lukas", "en": "Set each tenant's quota envelope explicitly. Namespace quota controls admission, not guaranteed node capacity.", "zh": "明确每租户配额范围，Namespace配额控制准入，不保证节点容量。"},
+      {"sp": "Raj", "en": "Requests guide scheduling and capacity accounting. CPU limits constrain runtime usage, not placement alone.", "zh": "requests指导调度和容量核算，CPU limits约束运行时，不只是放置。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, raising quota doesn't fix throttling, right? We need separate demand evidence.", "zh": "好，确认一下，提高配额不修复CPU限制，对吧？需要单独需求证据。"},
+      {"sp": "Hannah", "en": "Correct, and changing requests may affect placement. Check authorized capacity before changing resource settings.", "zh": "对，改requests可能影响放置，改资源前检查授权容量。"},
+      {"sp": "Priya", "en": "So, resource contention needs its own tests. Our working hypothesis isn't unlimited resources for everyone.", "zh": "那么，资源竞争需要单独测试，当前假设不是给所有人无限资源。"},
+      {"sp": "Lukas", "en": "Include rollout overlap and failure capacity. Quota totals alone won't demonstrate safe operation.", "zh": "包含发布重叠和故障容量，配额总量不能独自证明运行安全。"},
+      {"sp": "Raj", "en": "I'm on it through managed configuration. Maybe defaults need review alongside tenant-specific requests.", "zh": "我通过统一配置执行，也许默认值要和租户requests一起评审。"},
+      {"sp": "Hannah", "en": "Test admission rejection messages as well. Teams need to distinguish quota failures from scheduling waits.", "zh": "也测试准入拒绝消息，团队要区分配额失败和调度等待。"},
+      {"sp": "Anika", "en": "I'll approve inventory's measured allocation. Any later resource increase needs another capacity review.", "zh": "我批准库存实测分配，后续增加资源需再次容量评审。"},
+      {"sp": "Priya", "en": "Keep budget ownership explicit in approval. No tenant can silently consume another tenant's commitments.", "zh": "审批明确预算归属，租户不能悄悄占别人承诺额度。"}
+    ]},
+    {"id": "0341", "part": 6, "stage": "PDB取舍", "title": "PDB能约束什么，不能保护什么", "premise": "资源方案需容量与授权审查，现评审维护和故障可用性。", "listeningTask": "区分Eviction API的自愿扰动、非自愿故障与发布策略。", "newPhrase": "p616", "phrases": ["p616", "p615", "p205:extra", "p010:extra", "p324:extra", "p111:extra"], "lines": [
+      {"sp": "Raj", "en": "A voluntary disruption can use eviction. The PDB checks allowed disruption through that API.", "zh": "自愿中断可通过驱逐，PDB通过该API检查允许中断量。"},
+      {"sp": "Hannah", "en": "But node crashes bypass that protection. PDBs don't prevent every failure or direct deletion.", "zh": "但节点崩溃不受这项保护，PDB不阻止所有故障或直接删除。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, no universal shield, right? Our quota envelope needs replacement headroom too.", "zh": "好，确认一下，不是万能护盾，对吧？配额范围也要替换余量。"},
+      {"sp": "Lukas", "en": "Yes, and deployment updates use rollout strategy. Don't assume PDB guarantees their availability.", "zh": "对，Deployment更新用发布策略，不要假定PDB保证更新可用性。"},
+      {"sp": "Priya", "en": "So, test maintenance and node failure separately. Maybe strict budgets could also stall maintenance.", "zh": "那么，维护和节点故障分开测，严格预算也可能卡维护。"},
+      {"sp": "Raj", "en": "The PDB is blocking the drain in staging. The replicas already consume its allowance.", "zh": "预发布PDB挡住排空，副本已消耗允许中断量。"},
+      {"sp": "Hannah", "en": "Don't bypass eviction to force progress. Resolve readiness or capacity, then review the budget.", "zh": "别绕过驱逐强行推进，解决就绪或容量后再评审预算。"},
+      {"sp": "Anika", "en": "What's the rollback trigger for the pilot? Failed availability checks should stop expansion immediately.", "zh": "试点回退触发是什么？可用性检查失败应立即停止扩大。"},
+      {"sp": "Lukas", "en": "Agreed. Let's keep it under observation. Spread replicas across appropriate failure domains too.", "zh": "同意，继续观察，也把副本分布到合适故障域。"},
+      {"sp": "Priya", "en": "I'll record those distinct acceptance tests. PDB success alone won't approve the design.", "zh": "我记录这些不同验收测试，仅PDB成功不批准设计。"}
+    ]},
+    {"id": "0342", "part": 7, "stage": "安全约束", "title": "策略写下了，还要实际生效", "premise": "PDB保护边界已澄清，继续核RBAC、网络策略和凭据约束。", "listeningTask": "辨别策略定义和CNI实际执行，及网络策略的安全边界。", "newPhrase": "p617", "phrases": ["p617", "p611", "p010:extra", "p330:extra", "p302:extra", "p014:extra"], "lines": [
+      {"sp": "Hannah", "en": "Network policy enforcement needs verification here. The CNI must actually support these rules.", "zh": "这里需要验证网络策略执行，CNI必须实际支持这些规则。"},
+      {"sp": "Raj", "en": "Our tenant boundary includes namespace-scoped RBAC. Managed configuration denies unnecessary cross-tenant traffic by default.", "zh": "租户边界包含Namespace范围RBAC，统一配置默认拒绝不必要跨租户流量。"},
+      {"sp": "Lukas", "en": "Allow required DNS and service dependencies. A blanket denial can break healthy workloads.", "zh": "放行必要DNS和服务依赖，一刀切拒绝可能破坏正常负载。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, network policy isn't identity authentication, right? Application access still needs checks.", "zh": "好，确认一下，网络策略不是身份认证，对吧？应用访问仍要检查。"},
+      {"sp": "Hannah", "en": "Correct, nor does it encrypt traffic. Review service identities and TLS independently.", "zh": "对，它也不加密流量，独立评审服务身份和TLS。"},
+      {"sp": "Raj", "en": "I'm on it for positive and negative tests. Maybe host networking needs separate restrictions too.", "zh": "我做允许和拒绝测试，host网络也许还要单独限制。"},
+      {"sp": "Lukas", "en": "Privileged workloads need explicit review. Worker separation doesn't remove host-level access risks.", "zh": "特权负载需要明确评审，分工作节点不消除主机级访问风险。"},
+      {"sp": "Priya", "en": "So, we can't rule that out automatically. No pilot expansion with unresolved privileged access.", "zh": "那么，不能自动排除这类风险，特权访问未解决不扩大试点。"},
+      {"sp": "Hannah", "en": "Keep Secret access tenant-scoped as well. Security evidence must never contain credential values.", "zh": "Secret访问也保持租户范围，安全证据绝不能含凭据值。"},
+      {"sp": "Anika", "en": "I'll validate inventory's required connections explicitly. Our acceptance covers denied paths, not just working requests.", "zh": "我明确验证库存必要连接，验收含拒绝路径，不只正常请求。"}
+    ]},
+    {"id": "0343", "part": 8, "stage": "成本对比", "title": "隔离成本不只看节点单价", "premise": "安全门槛要求实际执行验证，评审共享池与分池的成本取舍。", "listeningTask": "抓住可量化成本、闲置余量与不能承诺的收益。", "newPhrase": "p618", "phrases": ["p618", "p614", "p010:extra", "p006:extra", "p004:extra", "p335:extra"], "lines": [
+      {"sp": "Lukas", "en": "Isolation overhead includes spare worker capacity. Node pool separation adds operating work as well.", "zh": "隔离成本含备用工作容量，分池也增加运维工作。"},
+      {"sp": "Anika", "en": "Inventory gains more predictable latency potentially. But I can't promise revenue improvement from this.", "zh": "库存可能获得更可预测延迟，但不能承诺因此增加收入。"},
+      {"sp": "Hannah", "en": "Include policy maintenance and failure testing. Cheap nodes alone don't mean cheaper operation.", "zh": "包含策略维护和故障测试，节点便宜不等于运行便宜。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, measured cost comparison, right? Not an assumed isolation premium.", "zh": "好，确认一下，用实测成本比较，对吧？不是假定隔离溢价。"},
+      {"sp": "Raj", "en": "Our working hypothesis is bounded extra cost. Maybe off-peak batch placement reduces idle capacity.", "zh": "当前假设是额外成本可控，低峰批处理放置也许减少闲置。"},
+      {"sp": "Lukas", "en": "That needs a scheduling feasibility check. Don't reclaim capacity promised for failure recovery.", "zh": "那需要调度可行性检查，别回收承诺用于故障恢复的容量。"},
+      {"sp": "Anika", "en": "So, aggressive consolidation, let's park that. I have bandwidth to collect pilot demand data.", "zh": "那么，激进整合先搁置，我有精力收集试点需求数据。"},
+      {"sp": "Hannah", "en": "Keep payments costs separate in comparison. Its migration isn't included in this proposed pilot.", "zh": "比较时支付成本分开，它的迁移不含在本试点。"},
+      {"sp": "Raj", "en": "I'll show cost per useful workload hour. Raw utilization won't capture all operational risks.", "zh": "我展示每有效负载小时成本，原始利用率不能体现全部运行风险。"},
+      {"sp": "Priya", "en": "We'll review cost alongside latency and safety. None of those can replace the others.", "zh": "成本与延迟、安全一起评审，任何一项不能代替其他项。"}
+    ]},
+    {"id": "0344", "part": 9, "stage": "试点范围", "title": "先约定验收，再批准试点", "premise": "成本方案可测但收益未定，现确定有限试点和明确停止条件。", "listeningTask": "听清试点租户、期限、门槛及回退权限。", "newPhrase": "p619", "phrases": ["p619", "p617", "p010:extra", "p324:extra", "p009:extra", "p014:extra"], "lines": [
+      {"sp": "Priya", "en": "Set pilot acceptance criteria before approval. Two weeks, inventory and batch only.", "zh": "批准前定试点验收标准，两周，仅库存和批处理。"},
+      {"sp": "Lukas", "en": "Require measured headroom through peak demand. Include replacement overlap and a worker failure.", "zh": "要求高峰有实测余量，包含替换重叠和一个工作节点故障。"},
+      {"sp": "Raj", "en": "First action item: verify placement enforcement. I'm on it before any production migration.", "zh": "第一项是验证放置执行，生产迁移前我负责。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, payments stays unchanged, right? Inventory latency must stay within its target.", "zh": "好，确认一下，支付不变，对吧？库存延迟必须符合目标。"},
+      {"sp": "Hannah", "en": "Network policy enforcement must pass too. Include denied connections and authorized service paths.", "zh": "网络策略执行也必须通过，包含拒绝连接和授权服务路径。"},
+      {"sp": "Priya", "en": "So, what's the rollback trigger? Any safety failure means stop expansion and review.", "zh": "那么，回退触发是什么？任何安全失败都停止扩大并评估。"},
+      {"sp": "Lukas", "en": "Keep the old pool available initially. A rollback still needs capacity and approved placement.", "zh": "初期保留旧池可用，回退仍需容量和获批放置。"},
+      {"sp": "Raj", "en": "Maybe rollback crosses the quota allowance. I'll validate overlap before we start.", "zh": "回退也许会超过配额，我开始前验证重叠。"},
+      {"sp": "Hannah", "en": "Test voluntary eviction and involuntary loss separately. One passing test can't stand for both.", "zh": "自愿驱逐和非自愿丢失分开测，一个通过不能代表两者。"},
+      {"sp": "Anika", "en": "I'll approve only after those checks. The review date doesn't automatically authorize broader deployment.", "zh": "这些检查后我才批准，评审日期不自动授权更广部署。"}
+    ]},
+    {"id": "0345", "part": 10, "stage": "决策记录", "title": "有限批准与未决风险一起记录", "premise": "试点范围、停止条件和前置检查已明确，评审作最终责任确认。", "listeningTask": "复述获批范围、PDB边界和未完成事项。", "newPhrase": "p620", "phrases": ["p620", "p616", "p619:extra", "p012:extra", "p013:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, just to recap, limited pilot approval. The decision record includes every prerequisite.", "zh": "好，小结，只有限试点批准，决策记录包含所有前置条件。"},
+      {"sp": "Hannah", "en": "PDB covers eligible voluntary disruption through eviction. It doesn't protect against every outage.", "zh": "PDB通过驱逐覆盖符合条件的自愿中断，不保护所有宕机。"},
+      {"sp": "Raj", "en": "Who's picking this up for capacity? Lukas reviews requests, limits, and rollout overlap.", "zh": "容量谁接？Lukas评审requests、limits和发布重叠。"},
+      {"sp": "Lukas", "en": "I'll finish that review by Friday. Resource changes still require authorization and capacity evidence.", "zh": "我周五前完成，资源修改仍需授权和容量证据。"},
+      {"sp": "Anika", "en": "Payments stays out, right? I'll sign inventory's pilot acceptance criteria after validation.", "zh": "支付不参与，对吧？验证后我签库存试点验收标准。"},
+      {"sp": "Hannah", "en": "I'll own security and resilience tests. Shared control-plane risks remain documented, not magically removed.", "zh": "我负责安全和韧性测试，共享控制面风险仍记录，不会凭空消失。"},
+      {"sp": "Priya", "en": "So, we'll close the loop in two weeks. Maybe evidence supports expansion, maybe it doesn't.", "zh": "那么，两周后闭环，证据也许支持扩大，也许不支持。"},
+      {"sp": "Raj", "en": "I'll keep the implementation changes scoped. No hostile tenants or payments migration are included.", "zh": "我保持实施范围，不包括恶意租户和支付迁移。"},
+      {"sp": "Lukas", "en": "Compare cost and service outcomes together. We haven't approved a permanent capacity purchase today.", "zh": "一起比较成本和服务结果，今天没有批准永久容量采购。"},
+      {"sp": "Anika", "en": "I'll report acceptance with actual measurements. Namespaces, quota, and PDB aren't universal safety guarantees.", "zh": "我用实际测量报告验收，Namespace、配额和PDB都不是万能安全保证。"}
+    ]}
+  ]
+}

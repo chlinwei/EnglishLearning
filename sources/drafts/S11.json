@@ -1,0 +1,149 @@
+{
+  "version":1,
+  "status":"draft-awaiting-voice",
+  "note":"周一运维站会的十段连续双语文本，待配音。进展为会前完成事项，站会仅确认任务、依赖与承诺，不写成实时故障处置。",
+  "series":{"id":"sc-S11-linux-automation-weekly-standup","title":"运维自动化站会：进展、评审与任务重排","domain":"linux","group":"ops-standup","service":"Linux fleet maintenance automation","premise":"周一短站会跟进本周自动化目标：补丁清单、日志轮转和服务文件描述符上限。试点结果已获得，扩大范围受应用审批与测试环境依赖阻塞。","outcome":"团队把被阻塞的生产扩展留待审批，转向证据整理、测试补充和评审；确认周二报告内容，不把任务排期当作生产变更授权。"},
+  "speakers":{
+    "Priya":{"role":"Standup facilitator","accent":"en-IN","voice":null},
+    "Raj":{"role":"Linux automation engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Service configuration owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Code reviewer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Automation test engineer","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p381","en":"weekly priority","zh":"本周优先事项","layer":"L0","level":"core","target":8},
+    {"id":"p382","en":"patch inventory","zh":"补丁清单","layer":"L1","level":"core","target":5},
+    {"id":"p383","en":"rotation test","zh":"日志轮转测试","layer":"L1","level":"core","target":5},
+    {"id":"p384","en":"file descriptor limit","zh":"文件描述符上限","layer":"L1","level":"core","target":5},
+    {"id":"p385","en":"test fixture","zh":"测试预置环境或数据","layer":"L1","level":"core","target":5},
+    {"id":"p386","en":"up for review","zh":"等待评审","layer":"L0","level":"core","target":8},
+    {"id":"p387","en":"blocked on","zh":"受某项依赖阻塞","layer":"L0","level":"core","target":8},
+    {"id":"p388","en":"reassign the task","zh":"重新分配任务","layer":"L0","level":"core","target":8},
+    {"id":"p389","en":"no blockers","zh":"没有阻塞项","layer":"L0","level":"core","target":8},
+    {"id":"p390","en":"carry forward","zh":"将未完成事项结转","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"旧表达已实际放入各段台词；未来回访尚未编稿，不计次数。","plannedFuture":{"S19":["p381","p385","p386","p387","p388","p389","p390"],"S30":["p382","p383","p384"]}},
+  "dialogues":[
+    {"id":"0106","part":1,"stage":"本周目标","title":"先对齐本周交付","premise":"周一09:00站会开场，明确自动化交付和会议时间边界。","listeningTask":"听清试点准备与生产扩展不是同一项承诺。","newPhrase":"p381","phrases":["p381","p007","p010","p006:extra","p004:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, our weekly priority is safer automation. Patch evidence, rotation checks, and service limits.","zh":"好，本周优先事项是更安全的自动化：补丁证据、轮转检查和服务上限。"},
+      {"sp":"Lukas","en":"Does safer mean broader rollout this week? I'd separate review readiness from production expansion.","zh":"更安全意味着本周扩大上线吗？我会把可评审和生产扩展分开。"},
+      {"sp":"Raj","en":"Agreed, evidence first, then approved pilot expansion. We aren't promising the whole fleet yet.","zh":"同意，先有证据，再批准扩大试点，尚不承诺整个集群。"},
+      {"sp":"Hannah","en":"I have a hard stop at nine fifteen. Please keep detailed debugging outside this standup.","zh":"我九点十五必须结束，详细调试请留到站会外。"},
+      {"sp":"Anika","en":"I've got bandwidth for service validation today. Roughly half my morning is available.","zh":"今天我有精力做服务验证，大约半个上午有空。"},
+      {"sp":"Priya","en":"Just to confirm, progress and dependencies first, right? Each action item needs a clear owner.","zh":"我确认一下，先讲进展和依赖，对吧？每项待办都要明确负责人。"},
+      {"sp":"Lukas","en":"Yes, and name anything needing my review. I can reserve an afternoon slot.","zh":"对，也说清哪些需要我评审。我可以留下午时段。"},
+      {"sp":"Raj","en":"I have Friday's pilot evidence ready. The larger rollout still needs application approval.","zh":"我已备好周五试点证据，更大范围上线仍需应用批准。"},
+      {"sp":"Hannah","en":"I'll report tests already completed on Friday. We won't run experiments during this call.","zh":"我报告周五已完成的测试，不在这次会议里做试验。"},
+      {"sp":"Priya","en":"Dashboard redesign? Let's park that for now. So, start with the patch progress.","zh":"仪表盘重设计先放一边。先讲补丁进展。"}
+    ]},
+    {"id":"0107","part":2,"stage":"补丁进度","title":"清单完成，扩展仍待批准","premise":"本周以证据和审批为先，Raj报告补丁自动化进度。","listeningTask":"分辨清单生成、试点成功和生产扩展批准。","newPhrase":"p382","phrases":["p382","p323","p010","p321:extra","p327:extra","p008:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the patch inventory is generated automatically. Friday's two pilot hosts passed validation.","zh":"好，补丁清单已自动生成，周五两台试点主机验证通过。"},
+      {"sp":"Lukas","en":"Does the inventory show reboot requirements too? Package installation alone doesn't establish running kernel state.","zh":"清单也显示重启需求吗？安装软件包不代表运行内核状态已更新。"},
+      {"sp":"Raj","en":"Yes, installed and running versions appear separately. A pending reboot stays clearly flagged.","zh":"是，安装版本和运行版本分开显示，待重启状态明确标记。"},
+      {"sp":"Hannah","en":"Did each pilot include a smoke test? Include service readiness after the reboot.","zh":"每台试点都做了冒烟测试吗？也要包括重启后的服务就绪。"},
+      {"sp":"Anika","en":"Yes, both service checks passed on Friday. No remaining issue from those pilot hosts.","zh":"是，两台服务检查周五都通过了，没有遗留问题。"},
+      {"sp":"Priya","en":"Just to confirm, staged rollout still applies, right? Two hosts don't prove fleet-wide compatibility.","zh":"我确认一下，仍然分阶段发布，对吧？两台不能证明全量兼容。"},
+      {"sp":"Lukas","en":"Correct, driver variants still need coverage. Which maintenance window covers the next group?","zh":"对，驱动差异还要覆盖。下一组安排在哪个维护窗口？"},
+      {"sp":"Raj","en":"Wednesday evening, subject to the pending approval. What's the ETA from the application owner?","zh":"暂定周三晚，等待批准。应用负责人预计多久回复？"},
+      {"sp":"Hannah","en":"They haven't committed to an approval time. Show that dependency instead of assuming Wednesday.","zh":"他们尚未承诺批准时间，应展示依赖而非假定周三执行。"},
+      {"sp":"Priya","en":"So, prepare roughly ten candidate hosts today. Don't schedule reboots before that approval lands.","zh":"因此今天准备约十台候选主机，批准到位前不安排重启。"}
+    ]},
+    {"id":"0108","part":3,"stage":"日志轮转进度","title":"轮转成功，也要确认重新打开日志","premise":"补丁下一批待批准，转到日志轮转自动化进度。","listeningTask":"听清轮转文件与进程重新打开日志的区别。","newPhrase":"p383","phrases":["p383","p307","p010","p304:extra","p305:extra","p103:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, Friday's rotation test passed in staging. The service kept writing after rotation.","zh":"好，周五预生产轮转测试通过，服务轮转后继续写入。"},
+      {"sp":"Hannah","en":"Did it reopen the log correctly? A renamed file can remain open indefinitely.","zh":"它正确重新打开日志了吗？重命名的文件可能一直保持打开。"},
+      {"sp":"Anika","en":"Yes, the documented reload reopens its descriptor. We confirmed writes reached the new file.","zh":"是，文档中的重载会重新打开描述符，已确认写入新文件。"},
+      {"sp":"Lukas","en":"Is that behavior specific to this service? Don't assume every daemon handles reload identically.","zh":"这种行为是这个服务特有的吗？不能假定所有守护进程重载行为相同。"},
+      {"sp":"Raj","en":"Yes, the automation selects a service-specific handler. Unknown services stop for manual review.","zh":"是，自动化选择服务专属处理器，未知服务停止并人工评审。"},
+      {"sp":"Priya","en":"Just to confirm, retention policy stays unchanged, right? This task doesn't authorize extra deletion.","zh":"我确认一下，保留策略不变，对吧？这项任务不授权额外删除。"},
+      {"sp":"Hannah","en":"Correct, test files only in staging. I'll compare the configured retention with actual outputs.","zh":"对，预生产只用测试文件。我会比较配置保留策略和实际输出。"},
+      {"sp":"Anika","en":"Let me tail the log after standup. That will supply today's verification evidence.","zh":"站会后我会盯日志，补上今天验证证据。"},
+      {"sp":"Lukas","en":"And before you rotate the log again, save the test state. Keep results reproducible.","zh":"再次轮转前保存测试状态，让结果可复现。"},
+      {"sp":"Priya","en":"So, roughly one hour for evidence cleanup. We can review without changing production today.","zh":"因此大约一小时整理证据。今天不改生产也能评审。"}
+    ]},
+    {"id":"0109","part":4,"stage":"ulimit调整","title":"服务上限不能只看登录Shell","premise":"轮转证据需整理，Anika继续报告服务文件描述符上限试点。","listeningTask":"区分Shell设置、systemd配置和进程实际生效值。","newPhrase":"p384","phrases":["p384","p330","p010","p319:extra","p324:extra","p004:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, the file descriptor limit pilot passed. Two staging workers now have higher limits.","zh":"好，文件描述符上限试点通过，两台预生产工作进程上限已提高。"},
+      {"sp":"Lukas","en":"Did you change the shell ulimit only? Systemd services inherit their own configured limits.","zh":"只修改了Shell的ulimit吗？systemd服务使用自己的配置上限。"},
+      {"sp":"Anika","en":"No, managed configuration sets the service limit. We checked the running process after restart.","zh":"不是，受管配置设置服务上限，重启后检查了运行进程。"},
+      {"sp":"Hannah","en":"Was the kernel-wide file table checked too? A higher per-process cap isn't free capacity.","zh":"也检查了内核级文件表吗？提高单进程限制不意味着新增免费容量。"},
+      {"sp":"Raj","en":"Yes, and memory headroom stayed healthy. The test also bounded connection counts explicitly.","zh":"是，内存余量正常，测试也明确限制连接数量。"},
+      {"sp":"Priya","en":"Just to confirm, production unchanged, right? Increasing limits doesn't fix a descriptor leak.","zh":"我确认一下，生产没变，对吧？提高上限不能修复描述符泄漏。"},
+      {"sp":"Lukas","en":"Correct, document the rollback trigger separately. Restore the saved service configuration if checks fail.","zh":"对，单独写明回退条件，检查失败就恢复保存的服务配置。"},
+      {"sp":"Anika","en":"And a restart needs its approved window. Roughly five minutes per worker in staging.","zh":"重启还要有批准的窗口，预生产每个工作进程大约五分钟。"},
+      {"sp":"Hannah","en":"Don't copy that timing straight into production. Workload and draining behavior may differ there.","zh":"不要直接把这个时间用于生产，负载和排空行为可能不同。"},
+      {"sp":"Priya","en":"So, production sizing? Let's park that. Today we finish the pilot evidence first.","zh":"因此生产规模配置先搁置，今天先完成试点证据。"}
+    ]},
+    {"id":"0110","part":5,"stage":"自动化测试","title":"成功路径通过，异常路径待补","premise":"补丁、轮转和上限试点均有结果，Hannah报告自动化测试覆盖缺口。","listeningTask":"分清已通过的测试和今日计划补充的测试。","newPhrase":"p385","phrases":["p385","p210","p010","p303:extra","p332:extra","p009:extra"],"lines":[
+      {"sp":"Hannah","en":"Our test fixture covers successful rotation already. Permission failures still need an explicit case.","zh":"测试预置环境已覆盖成功轮转，权限失败还需要明确用例。"},
+      {"sp":"Raj","en":"Okay, I'll add a denied-write scenario today. The runner must stop without deleting logs.","zh":"好，我今天添加禁止写入场景。执行器必须停止且不删除日志。"},
+      {"sp":"Lukas","en":"What about deleted but still open files? Disk usage can differ from directory totals.","zh":"已删除但仍打开的文件呢？磁盘使用可能不同于目录总量。"},
+      {"sp":"Anika","en":"That case belongs in the diagnostics test. No cleanup of open descriptors by default.","zh":"这个场景属于诊断测试，默认不清理仍打开的描述符。"},
+      {"sp":"Priya","en":"Just to confirm, no production fault injection, right? Test failures stay inside isolated environments.","zh":"我确认一下，不在生产注入故障，对吧？失败测试留在隔离环境。"},
+      {"sp":"Hannah","en":"Right, and repeated runs should be idempotent. The second run must not restart healthy services.","zh":"对，多次运行应幂等，第二次不能重启健康服务。"},
+      {"sp":"Raj","en":"We'll dry-run it first for intended changes. Restart count should remain unchanged on repeats.","zh":"先预演计划变更，重复运行时重启计数应不变。"},
+      {"sp":"Lukas","en":"Capture both expected and actual changes. A successful exit alone won't establish safety.","zh":"记录预期和实际变化，仅退出成功不能证明安全。"},
+      {"sp":"Anika","en":"My action item is the descriptor case. It should take roughly an hour today.","zh":"我的待办是描述符场景，今天大约需要一小时。"},
+      {"sp":"Priya","en":"So, report coverage gaps alongside passing tests. We'll discuss implementation after this short standup.","zh":"因此报告通过测试时也报告覆盖缺口。实现细节留到短站会后讨论。"}
+    ]},
+    {"id":"0111","part":6,"stage":"评审请求","title":"明确请求，不临场审代码","premise":"测试缺口已列为今日任务，明确Lukas的评审对象和时间。","listeningTask":"听出评审请求包含哪些证据以及为什么拆开变更。","newPhrase":"p386","phrases":["p386","p006","p010","p002:extra","p013:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, the rotation change is up for review. I've attached Friday's logs and test results.","zh":"好，轮转变更等待评审，已附周五日志和测试结果。"},
+      {"sp":"Lukas","en":"Do you need approval or initial feedback? Missing permission tests may block final approval.","zh":"你需要批准还是初步反馈？缺权限测试可能阻止最终批准。"},
+      {"sp":"Raj","en":"Initial feedback first, then approval after tests. Do you have bandwidth this afternoon?","zh":"先初步反馈，测试后再批准。你今天下午有精力吗？"},
+      {"sp":"Hannah","en":"I'll link new tests when they finish. Don't describe pending coverage as already passing.","zh":"新测试完成后我会附链接，不能把待补覆盖说成已通过。"},
+      {"sp":"Anika","en":"My service limit change stays separate. Different rollback paths deserve separate review requests.","zh":"我的服务上限变更单独保留，不同回退路径应分开提评审。"},
+      {"sp":"Priya","en":"Just to confirm, not one combined approval, right? Who's picking this up for review?","zh":"我确认一下，不合并批准，对吧？谁来接评审？"},
+      {"sp":"Lukas","en":"I'm on it at about two today. I'll start with rotation and its safety checks.","zh":"我今天大约两点来做，先看轮转及安全检查。"},
+      {"sp":"Raj","en":"Great, expected changes are listed explicitly. The live service rollout is outside this request.","zh":"好，已明确列出预期变化，真实服务上线不在这次请求内。"},
+      {"sp":"Hannah","en":"Can we take it offline for code details? We still need the dependency updates here.","zh":"代码细节会后单独聊好吗？这里还要更新依赖。"},
+      {"sp":"Priya","en":"So, yes, pair after the standup. For now, review ownership and scope are clear.","zh":"可以，站会后结对讨论。目前评审负责人和范围已经明确。"}
+    ]},
+    {"id":"0112","part":7,"stage":"阻塞依赖","title":"哪些任务真正被阻塞","premise":"下午评审已安排，区分生产批准与新测试环境这两项外部依赖。","listeningTask":"听清被阻塞任务和仍可推进任务的边界。","newPhrase":"p387","phrases":["p387","p008","p010","p336:extra","p004:extra","p014:extra"],"lines":[
+      {"sp":"Anika","en":"Okay, production expansion is blocked on approval. The application team hasn't confirmed its window.","zh":"好，生产扩展被审批阻塞，应用团队尚未确认窗口。"},
+      {"sp":"Hannah","en":"My driver coverage needs another test image. The current image lacks that hardware variant.","zh":"我的驱动覆盖需要另一个测试镜像，当前镜像没有那种硬件配置。"},
+      {"sp":"Raj","en":"Those are two different dependencies, then. Existing rotation tests can still run today.","zh":"那么这是两个不同依赖，已有轮转测试今天仍能运行。"},
+      {"sp":"Lukas","en":"What's the ETA for the image? Is there a named owner for delivery?","zh":"镜像预计多久到？有没有明确的交付负责人？"},
+      {"sp":"Anika","en":"The platform owner expects it tomorrow morning. That's an estimate, not an approved commitment.","zh":"平台负责人预计明早提供，这只是估计，不是已批准承诺。"},
+      {"sp":"Priya","en":"Just to confirm, no bypassing approval, right? The escalation path is a scheduling request.","zh":"我确认一下，不绕过审批，对吧？升级路径是请求协调排期。"},
+      {"sp":"Hannah","en":"Correct, no borrowed production host for tests. I'll use the approved image when available.","zh":"对，不借生产主机做测试，获准镜像到位后再用。"},
+      {"sp":"Raj","en":"I'm on it for the owner follow-up. Roughly noon today for a clearer update.","zh":"负责人跟进我来做，今天中午左右给更明确更新。"},
+      {"sp":"Lukas","en":"Then keep blocked work visibly separate. Don't mark the entire automation project as blocked.","zh":"那就明确分开受阻工作，不能把整个自动化项目都标为阻塞。"},
+      {"sp":"Priya","en":"So, broad rollout? Let's park that. We can reorder the remaining work now.","zh":"因此大范围上线先搁置，现在可以重排其余工作。"}
+    ]},
+    {"id":"0113","part":8,"stage":"任务重排","title":"转向证据，不隐性扩大范围","premise":"生产扩展和驱动镜像受阻，重新分配今天可执行的任务。","listeningTask":"听清任务重排保留哪些范围和验收责任。","newPhrase":"p388","phrases":["p388","p006","p010","p009:extra","p002:extra","p014:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, let's reassign the task for evidence cleanup. Raj can help while approval is pending.","zh":"好，重新分配证据整理任务。等批准期间Raj可以帮忙。"},
+      {"sp":"Lukas","en":"Which task moves, and who accepts it? Avoid leaving test ownership unclear after reassignment.","zh":"哪项任务转移，谁接受？不能重分配后让测试责任不清。"},
+      {"sp":"Raj","en":"I'm on it for rotation evidence cleanup. Hannah still owns test acceptance and coverage.","zh":"轮转证据整理我来做，Hannah仍负责测试验收和覆盖。"},
+      {"sp":"Hannah","en":"Accepted, that gives me bandwidth for assertions. My driver tests remain pending the image.","zh":"接受，这样我有精力补断言。驱动测试仍等待镜像。"},
+      {"sp":"Anika","en":"I'll keep the service limit report today. It doesn't depend on that new image.","zh":"今天我继续做服务上限报告，它不依赖新镜像。"},
+      {"sp":"Priya","en":"Just to confirm, no added production scope, right? Each action item keeps its original boundary.","zh":"我确认一下，不新增生产范围，对吧？各项待办保持原边界。"},
+      {"sp":"Lukas","en":"Right, I still review rotation at two. Put the updated evidence beside the request.","zh":"对，我仍两点评审轮转，把更新证据附在请求旁。"},
+      {"sp":"Raj","en":"That takes roughly an hour after follow-up. I'll note any missing evidence rather than guessing.","zh":"跟进后整理大约一小时，缺证据就注明，不猜测。"},
+      {"sp":"Hannah","en":"Can we take it offline for assertion details? The standup only needs the changed ownership.","zh":"断言细节会后聊好吗？站会只需要知道责任变化。"},
+      {"sp":"Priya","en":"So, agreed, pair after this meeting. No new deadline for the blocked rollout today.","zh":"同意，会后结对。今天不给受阻上线新增截止时间。"}
+    ]},
+    {"id":"0114","part":9,"stage":"次日承诺","title":"承诺交付，不保证外部批准","premise":"今日任务重排完成，各人确认周二站会前可交付的内容。","listeningTask":"分辨个人交付承诺与外部依赖的估计。","newPhrase":"p389","phrases":["p389","p008","p010","p339:extra","p310:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, no blockers for evidence cleanup now. Tomorrow I'll bring the annotated rotation results.","zh":"好，证据整理现在没有阻塞。明天带来标注好的轮转结果。"},
+      {"sp":"Lukas","en":"What if review finds a safety issue? Don't promise deployment before we see results.","zh":"评审发现安全问题怎么办？看到结果前不能承诺部署。"},
+      {"sp":"Raj","en":"Right, I'm committing to evidence, not deployment. Any review issue stays in the report.","zh":"对，我承诺交证据，不承诺部署。评审问题保留在报告里。"},
+      {"sp":"Hannah","en":"I'll bring completed permission tests tomorrow. Driver coverage remains conditional on image delivery.","zh":"明天我交完成的权限测试，驱动覆盖仍以镜像到位为前提。"},
+      {"sp":"Anika","en":"I'm on it for the limits report. I'll close the loop on effective process settings.","zh":"上限报告我来做，确认实际进程设置并闭环。"},
+      {"sp":"Priya","en":"Just to confirm, report blocked items too, right? Silence doesn't mean they've been completed.","zh":"我确认一下，也报告阻塞事项，对吧？不说不代表完成。"},
+      {"sp":"Lukas","en":"Yes, what's the ETA from the approver? If unknown, say unknown rather than inventing one.","zh":"对，审批方预计什么时候回复？未知就说未知，不能编时间。"},
+      {"sp":"Raj","en":"Still unknown, I'll ask again around noon. That's a follow-up commitment, not an approval estimate.","zh":"仍未知，我中午左右再问。这是跟进承诺，不是批准时间估计。"},
+      {"sp":"Hannah","en":"Have I missed anything for tomorrow's check-in? I have tests, image status, and review feedback.","zh":"明天进度检查我漏了什么吗？我记下测试、镜像状态和评审反馈。"},
+      {"sp":"Priya","en":"So, add Anika's service limit evidence too. Roughly the same short format tomorrow morning.","zh":"再加Anika的服务上限证据，明早仍保持类似简短形式。"}
+    ]},
+    {"id":"0115","part":10,"stage":"简短收尾","title":"结转阻塞，结束站会","premise":"交付与依赖已确认，简短总结后结束站会并安排会后讨论。","listeningTask":"复述保留的阻塞事项与会后评审安排。","newPhrase":"p390","phrases":["p390","p387","p010","p012:extra","p002:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"Just to recap, carry forward the blocked expansion. Today's focus stays evidence and test coverage.","zh":"小结一下，受阻扩展结转。今天仍聚焦证据和测试覆盖。"},
+      {"sp":"Lukas","en":"Rotation feedback at two, approval after coverage. No production restart is authorized by this standup.","zh":"两点给轮转反馈，覆盖完整后才批准。站会不授权生产重启。"},
+      {"sp":"Raj","en":"Okay, the rollout remains blocked on approval. I'll update that dependency around lunchtime today.","zh":"好，上线仍受审批阻塞。我今天午饭前后更新该依赖。"},
+      {"sp":"Hannah","en":"And the driver image is still pending. I'll report availability without assuming test success.","zh":"驱动镜像仍未到位，我会报告可用性，不假定测试成功。"},
+      {"sp":"Anika","en":"My action item stays the limits report. Effective settings and resource impact both included.","zh":"我的待办仍是上限报告，包括实际设置和资源影响。"},
+      {"sp":"Priya","en":"Just to confirm, take it offline for details, right? Keep remaining implementation discussion outside standup.","zh":"我确认一下，细节会后单独聊，对吧？剩余实现讨论留在站会外。"},
+      {"sp":"Lukas","en":"Yes, I can join the review thread. Please keep separate changes in separate requests.","zh":"是，我可以参与评审讨论。不同变更继续分开提请求。"},
+      {"sp":"Raj","en":"Roughly ten minutes after this for pairing. Hannah and I will check the assertions.","zh":"会后大约十分钟结对，我和Hannah检查断言。"},
+      {"sp":"Hannah","en":"That fits before my next meeting starts. I'll link results rather than repeat details tomorrow.","zh":"能赶在下次会议前完成，明天附结果链接，不重复细节。"},
+      {"sp":"Priya","en":"So, we're done with today's standup. Next check-in tomorrow, same time and owners.","zh":"今天站会结束。明天同一时间检查进展，负责人不变。"}
+    ]}
+  ]
+}

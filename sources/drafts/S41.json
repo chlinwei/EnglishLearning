@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "人工双语编稿，仅文本待配音；不预填时间轴。独立业务证据不代表盲区全程健康。",
+  "series": {"id": "sc-S41-obs-metrics-gap", "title": "指标断档：在盲区中验证业务", "domain": "obs", "group": "incident", "service": "checkout metrics pipeline", "premise": "09:12起checkout仪表盘停止更新，尚不能判断业务状态。团队用独立探测和入口日志检查业务，同时排查采集链路。", "outcome": "确认采集器远程写入凭据未随轮换更新，更新后新样本恢复。仅重放有原始时间戳的持久队列数据，其余缺口保持未知；值班接收替代信号及独立采集心跳方案。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Observability on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Checkout application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Telemetry platform engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Independent service validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id":"p681","en":"we're flying blind","zh":"我们缺少监控视野","layer":"L1","level":"core","target":5},
+    {"id":"p682","en":"service status is unknown","zh":"业务状态尚不明确","layer":"L1","level":"core","target":5},
+    {"id":"p683","en":"independent signals","zh":"独立于故障链路的信号","layer":"L1","level":"core","target":5},
+    {"id":"p684","en":"scrape freshness","zh":"采集样本的新鲜度","layer":"L1","level":"core","target":5},
+    {"id":"p685","en":"write rejection","zh":"写入被拒绝","layer":"L1","level":"core","target":5},
+    {"id":"p686","en":"resume ingestion","zh":"恢复数据摄入","layer":"L1","level":"core","target":5},
+    {"id":"p687","en":"original timestamps","zh":"原始时间戳","layer":"L1","level":"core","target":5},
+    {"id":"p688","en":"leave the gap visible","zh":"保留可见的数据缺口","layer":"L1","level":"core","target":5},
+    {"id":"p689","en":"stale data warning","zh":"数据陈旧提示","layer":"L1","level":"core","target":5},
+    {"id":"p690","en":"monitor the monitoring","zh":"监控监控链路本身","layer":"L1","level":"core","target":5}
+  ],
+  "recycling": {"note":"未来候选不计实际复现；实际旧表达只来自p001–p350或本文件此前。", "S46":["p681","p682","p683","p684","p685"], "S49":["p686","p687","p688","p689","p690"]},
+  "dialogues": [
+    {"id":"0406","part":1,"stage":"告警","title":"指标断档","premise":"09:12后仪表盘没有新点，业务状态未确认。","listeningTask":"区分监控中断和业务故障。","newPhrase":"p681","phrases":["p681","p003","p010","p008:extra","p103:extra","p335:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, we're flying blind on checkout metrics. Last samples arrived at nine ten. Sorry, nine twelve.","zh":"好，结账指标缺少监控视野。最后样本是九点十分，抱歉，九点十二分。"},
+      {"sp":"Lukas","en":"Missing points aren't zero errors. They aren't proof of an outage either.","zh":"没有数据点不等于错误为零，也不能证明业务宕机。"},
+      {"sp":"Priya","en":"I'll take point on this. Just to confirm, service checks run separately, right?","zh":"我来协调。确认一下，业务检查独立运行，对吧？"},
+      {"sp":"Anika","en":"Yes, I'll check actual checkout requests. Maybe only this dashboard is stale.","zh":"是，我会检查实际结账请求。可能只是这个仪表盘陈旧。"},
+      {"sp":"Hannah","en":"Check the query path too. Old cached results could hide fresh samples.","zh":"也检查查询路径。旧缓存结果可能遮住新样本。"},
+      {"sp":"Raj","en":"Let me tail the log. I'll inspect collector errors without restarting anything.","zh":"我盯一下日志。先检查采集器错误，不重启任何东西。"},
+      {"sp":"Lukas","en":"Save those errors first. We need evidence before changing the pipeline.","zh":"先保存错误。改链路之前需要证据。"},
+      {"sp":"Priya","en":"So, what's the ETA for independent checks? A rough estimate is enough.","zh":"那么，独立检查预计多久？大致时间就够。"},
+      {"sp":"Hannah","en":"Two minutes for current probes. Historical coverage needs a separate review.","zh":"当前探测两分钟。历史覆盖需要单独核查。"},
+      {"sp":"Anika","en":"Our working hypothesis is telemetry loss. Business impact stays unconfirmed for now.","zh":"当前假设是遥测数据丢失，业务影响暂时未确认。"}
+    ]},
+    {"id":"0407","part":2,"stage":"业务确认","title":"确认业务状态","premise":"监控中断已立项，独立探测开始返回结果。","listeningTask":"听清当前有限证据不能覆盖整个缺口。","newPhrase":"p682","phrases":["p682","p010","p309","p011:extra","p014:extra","p336:extra"],"lines":[
+      {"sp":"Anika","en":"Service status is unknown across the gap. Current checkout probes pass in both zones.","zh":"缺口期间业务状态尚不明确。当前两区结账探测通过。"},
+      {"sp":"Hannah","en":"Those probes include payment completion. They're small samples, not every customer request.","zh":"探测包含支付完成，但只是小样本，不是全部客户请求。"},
+      {"sp":"Priya","en":"Okay, just to confirm, no all-clear yet, right? Keep the uncertainty explicit.","zh":"好，确认一下，还不能宣布全部正常，对吧？要明确不确定性。"},
+      {"sp":"Raj","en":"I'm on it for gap boundaries. I'll compare last successful sample times.","zh":"缺口边界我来查。我会比较最后成功样本的时间。"},
+      {"sp":"Lukas","en":"Let me play that back. Current tests pass; earlier business health remains unverified.","zh":"我复述一下。当前测试通过，此前业务健康仍未验证。"},
+      {"sp":"Anika","en":"Yes, I'll keep an eye on support reports. Maybe they reveal missed failures.","zh":"是，我会关注支持工单。它们可能揭示漏掉的失败。"},
+      {"sp":"Hannah","en":"Use request logs for the earlier interval. Check their completeness before drawing conclusions.","zh":"此前时段用请求日志检查，先确认完整性再下结论。"},
+      {"sp":"Priya","en":"So, our escalation path still covers business failures. Telemetry repair won't replace that.","zh":"那么，业务失败的升级路径仍有效。修遥测不能代替它。"},
+      {"sp":"Lukas","en":"Exactly. Keep service response and monitoring repair as separate workstreams.","zh":"没错，业务响应和监控修复分开推进。"},
+      {"sp":"Raj","en":"I'll record both owners in the channel. No green status from missing data.","zh":"我会在频道记录双方负责人，不能因缺数据标绿。"}
+    ]},
+    {"id":"0408","part":3,"stage":"替代观测","title":"建立替代信号","premise":"当前探测通过，缺口历史需用独立入口日志补充。","listeningTask":"识别替代信号的独立性和覆盖限制。","newPhrase":"p683","phrases":["p683","p010","p306","p334:extra","p309:extra","p008:extra"],"lines":[
+      {"sp":"Hannah","en":"Independent signals come from edge logs and probes. Neither uses the broken collector.","zh":"独立信号来自入口日志和探测，都不使用故障采集器。"},
+      {"sp":"Anika","en":"Okay, edge logs include completions and failures. I'll check both, not successes alone.","zh":"好，入口日志包含完成和失败。我会两者都查，不只看成功。"},
+      {"sp":"Priya","en":"Just to confirm, those logs arrive elsewhere, right? Otherwise we'd share the blind spot.","zh":"确认一下，日志送往别处，对吧？否则会共享盲区。"},
+      {"sp":"Lukas","en":"Yes, a separate store and delivery path. But verify its latest arrival time.","zh":"是，存储和投递路径独立，但要核对最新到达时间。"},
+      {"sp":"Raj","en":"This temporary workaround should buy us time. Maybe ten minutes for the collector check.","zh":"这个临时方案能争取时间。采集器检查可能要十分钟。"},
+      {"sp":"Hannah","en":"The probes cover two checkout journeys. They won't detect every regional problem.","zh":"探测覆盖两条结账流程，不能发现所有区域问题。"},
+      {"sp":"Anika","en":"I'll keep an eye on region-specific failures. The edge stream is current so far.","zh":"我会留意区域性失败。入口日志流目前是新的。"},
+      {"sp":"Priya","en":"So, what's the ETA for the historical review? Include missing log intervals too.","zh":"那么，历史核查预计多久？也要列出日志缺失时段。"},
+      {"sp":"Lukas","en":"About fifteen minutes with completeness checks. Don't equate no complaints with no impact.","zh":"加上完整性检查约十五分钟。没有投诉不等于没有影响。"},
+      {"sp":"Raj","en":"Agreed. I'll label coverage next to each signal. Collector diagnosis comes next.","zh":"同意。我会给每个信号标覆盖范围，接下来查采集器。"}
+    ]},
+    {"id":"0409","part":4,"stage":"采集检查","title":"采集器仍在抓取","premise":"替代信号持续运行，开始从采集端定位断档。","listeningTask":"区分抓取成功和下游写入成功。","newPhrase":"p684","phrases":["p684","p010","p335","p103:extra","p302:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, scrape freshness looks good locally. Targets still return current samples every minute.","zh":"好，本地抓取新鲜度正常。目标仍每分钟返回当前样本。"},
+      {"sp":"Lukas","en":"That proves local collection, not backend delivery. Check remote write responses next.","zh":"这证明本地采集，不证明后端投递。接着检查远程写入响应。"},
+      {"sp":"Priya","en":"Just to confirm, the collector itself runs, right? We shouldn't restart it blindly.","zh":"确认一下，采集器本身在运行，对吧？不要盲目重启。"},
+      {"sp":"Anika","en":"Can we rule that out as target failure? Maybe only for the tested targets.","zh":"能排除目标故障吗？可能只能排除已测目标。"},
+      {"sp":"Hannah","en":"Correct. List the targets checked. One healthy target doesn't clear the whole fleet.","zh":"对，列出检查目标。一个健康目标不能代表全部。"},
+      {"sp":"Raj","en":"Let me tail the log again. Write attempts return unauthorized, starting nine twelve.","zh":"我再盯一下日志。九点十二分开始，写入尝试返回未授权。"},
+      {"sp":"Lukas","en":"Check credential rotation records. Save response codes, but never paste the token.","zh":"检查凭据轮换记录。保存响应码，但绝不粘贴令牌。"},
+      {"sp":"Priya","en":"So, our working hypothesis is stale credentials. Backend confirmation still matters here.","zh":"那么，当前假设是旧凭据。仍需后端确认。"},
+      {"sp":"Hannah","en":"I'll compare backend audit timestamps. That should distinguish rejection from network loss.","zh":"我会比较后端审计时间，这能区分拒绝与网络丢失。"},
+      {"sp":"Raj","en":"I'm on it for configuration versions. No secrets in the incident notes.","zh":"配置版本我来核对。事件记录里不放秘密。"}
+    ]},
+    {"id":"0410","part":5,"stage":"后端核查","title":"后端拒绝写入","premise":"本地抓取成功，远程写入未授权，核对后端审计及凭据版本。","listeningTask":"判断为何不是存储整体故障。","newPhrase":"p685","phrases":["p685","p010","p330","p335:extra","p008:extra","p014:extra"],"lines":[
+      {"sp":"Lukas","en":"Backend audit confirms write rejection for checkout. Other tenants still ingest current samples.","zh":"后端审计确认结账写入被拒。其他租户仍摄入当前样本。"},
+      {"sp":"Raj","en":"Okay, managed configuration references the old secret. Rotation completed at nine twelve.","zh":"好，统一配置仍引用旧秘密。轮换在九点十二分完成。"},
+      {"sp":"Priya","en":"Just to confirm, this isn't storage-wide failure, right? Keep the scope to checkout.","zh":"确认一下，这不是整个存储故障，对吧？范围保持在结账。"},
+      {"sp":"Hannah","en":"Current evidence supports that scope. We haven't audited every tenant's delivery path.","zh":"当前证据支持这个范围，但没审计所有租户的投递路径。"},
+      {"sp":"Anika","en":"Our working hypothesis now has matching timestamps. Maybe review the deployment receipt too.","zh":"当前假设已有对应时间戳，也许还要核对部署回执。"},
+      {"sp":"Lukas","en":"The receipt shows the collector missed reload. Update its reference through the approved path.","zh":"回执显示采集器漏了重载。通过批准路径更新引用。"},
+      {"sp":"Raj","en":"I'm on it with the valid secret version. I'll preserve the persistent queue.","zh":"我来用有效秘密版本更新，同时保留持久队列。"},
+      {"sp":"Priya","en":"So, what's the ETA for one collector? Verify writes before expanding the change.","zh":"那么，一台采集器预计多久？验证写入后再扩大。"},
+      {"sp":"Hannah","en":"Five minutes including a backend query. Local success alone won't be our acceptance gate.","zh":"含后端查询五分钟。本地成功不能单独作为验收关口。"},
+      {"sp":"Anika","en":"I'll maintain independent business checks meanwhile. Pipeline repair doesn't prove customer recovery.","zh":"期间我继续独立业务检查。链路修复不能证明客户恢复。"}
+    ]},
+    {"id":"0411","part":6,"stage":"恢复采集","title":"新样本开始抵达","premise":"凭据引用已批准更新，先验证单采集器写入。","listeningTask":"区分恢复新数据和补齐历史。","newPhrase":"p686","phrases":["p686","p010","p323","p324:extra","p309:extra","p111:extra"],"lines":[
+      {"sp":"Raj","en":"We can resume ingestion on the canary. Backend queries show current checkout samples.","zh":"灰度采集器可以恢复摄入。后端查询能看到当前结账样本。"},
+      {"sp":"Hannah","en":"Match sample time and arrival time. Queued old samples can look newly delivered.","zh":"对比样本时间和到达时间。排队旧样本也可能刚送达。"},
+      {"sp":"Priya","en":"Okay, just to confirm, current timestamps match, right? The old gap remains separate.","zh":"好，确认一下，当前时间戳匹配，对吧？旧缺口另算。"},
+      {"sp":"Lukas","en":"Yes, fresh timestamps advance each minute. Queue replay hasn't completed yet.","zh":"是，新时间戳每分钟推进。队列重放还没完成。"},
+      {"sp":"Anika","en":"I'll keep an eye on independent probes. Maybe another fault could overlap this repair.","zh":"我会留意独立探测。其他故障可能和此次修复重叠。"},
+      {"sp":"Raj","en":"The staged rollout covers remaining collectors next. Each needs backend freshness checks.","zh":"分阶段发布接着覆盖剩余采集器，每台需查后端新鲜度。"},
+      {"sp":"Hannah","en":"What's the rollback trigger for this change? A rejected credential means stop expansion.","zh":"这次变更的回退条件是什么？凭据被拒就停止扩大。"},
+      {"sp":"Priya","en":"So, stop and investigate rejected writes. Don't restore a credential that's already revoked.","zh":"那么，写入被拒就停下排查，不恢复已撤销凭据。"},
+      {"sp":"Lukas","en":"Let's keep it under observation for ten minutes. Check queue growth as well.","zh":"继续观察十分钟，也检查队列增长。"},
+      {"sp":"Raj","en":"Agreed. I'll record accepted writes per collector. Then we'll reconstruct the timeline.","zh":"同意。我会记录各采集器接受的写入，随后重建时间线。"}
+    ]},
+    {"id":"0412","part":7,"stage":"时间线验证","title":"时间戳不能挪到现在","premise":"所有采集器新数据恢复，核对排队数据覆盖范围。","listeningTask":"听清重放必须保持原始时间与后端限制。","newPhrase":"p687","phrases":["p687","p010","p308","p011:extra","p305:extra","p008:extra"],"lines":[
+      {"sp":"Lukas","en":"Preserve original timestamps during replay. Don't stamp historical samples with the current time.","zh":"重放保留原始时间戳，不能把历史样本盖成当前时间。"},
+      {"sp":"Raj","en":"Okay, the durable queue covers nine fifteen onward. Earlier dropped samples aren't recoverable.","zh":"好，持久队列覆盖九点十五分以后。此前丢失样本无法恢复。"},
+      {"sp":"Priya","en":"Just to confirm, backend age limits allow replay, right? Check duplicate handling too.","zh":"确认一下，后端时间限制允许重放，对吧？也查重复处理。"},
+      {"sp":"Hannah","en":"Accepted within today's retention policy. Test a small batch before draining everything.","zh":"在今天的保留策略内可接受。清空队列前先测试小批。"},
+      {"sp":"Anika","en":"Let me play that back. We can catch up partly, not recreate every minute.","zh":"我复述一下。只能补上一部分，不能重建每一分钟。"},
+      {"sp":"Lukas","en":"Exactly. Report recovered coverage separately from ingestion recovery. They're different milestones.","zh":"没错，恢复的历史覆盖与恢复摄入分开报告，是不同节点。"},
+      {"sp":"Raj","en":"Maybe the accepted batch fills later points. I'll compare source and stored timestamps.","zh":"接受的批次可能补上后半段，我会比较源端与存储时间戳。"},
+      {"sp":"Priya","en":"So, what's the ETA for that comparison? Leave unrecoverable minutes explicitly unknown.","zh":"那么，对比预计多久？无法恢复的分钟要明确标未知。"},
+      {"sp":"Hannah","en":"Three minutes for this batch. Query through the dashboard path after storage verification.","zh":"本批三分钟。存储验证后再通过仪表盘路径查询。"},
+      {"sp":"Anika","en":"I'll keep business evidence in another timeline. No inferred service health from replay.","zh":"业务证据单放一条时间线，不能由重放推断业务健康。"}
+    ]},
+    {"id":"0413","part":8,"stage":"缺口处理","title":"保留未知而非补零","premise":"后半段原始样本重放通过，09:12–09:15数据不可恢复。","listeningTask":"识别缺口对图表和业务结论的影响。","newPhrase":"p688","phrases":["p688","p010","p305","p004:extra","p309:extra","p310:extra"],"lines":[
+      {"sp":"Raj","en":"Okay, leave the gap visible from nine twelve. Recoverable samples start at nine fifteen.","zh":"好，从九点十二分保留可见缺口。可恢复样本从九点十五分开始。"},
+      {"sp":"Hannah","en":"No zero fill or straight interpolation. Either would invent measurements we never collected.","zh":"不补零，也不直接插值，否则会编造从未采到的测量。"},
+      {"sp":"Priya","en":"Just to confirm, reports flag missing coverage, right? They can't claim full-window health.","zh":"确认一下，报告标注缺失覆盖，对吧？不能宣称整窗口健康。"},
+      {"sp":"Anika","en":"Yes, edge logs suggest no broad failure. Maybe small customer issues remain unobserved.","zh":"是，入口日志未显示广泛失败，但小范围客户问题可能未观察到。"},
+      {"sp":"Lukas","en":"State log coverage and its limitations. Don't silently substitute it into metric calculations.","zh":"说明日志覆盖及限制，不能默默拿日志替换指标计算。"},
+      {"sp":"Raj","en":"The retention policy protects queue evidence today. We'll save the audit before cleanup.","zh":"今天保留策略保护队列证据。清理前保存审计。"},
+      {"sp":"Hannah","en":"Keep an eye on freshness after replay. Historical recovery can mask ongoing lag.","zh":"重放后继续关注新鲜度，历史恢复可能掩盖持续延迟。"},
+      {"sp":"Priya","en":"So, let's park that cleanup until review. First close the loop with the shift.","zh":"那么，清理先留到评审后。先向值班反馈闭环。"},
+      {"sp":"Lukas","en":"Include the exact unknown interval. The next operator needs that boundary immediately.","zh":"包含准确未知时段，下个值班人需要马上知道边界。"},
+      {"sp":"Anika","en":"I'll add the customer evidence separately. Current checks pass; the gap stays qualified.","zh":"我会另附客户证据。当前检查通过，缺口结论仍有限制。"}
+    ]},
+    {"id":"0414","part":9,"stage":"值班通知","title":"恢复后仍交代盲区","premise":"采集与部分历史恢复，向下一班交代未知范围和替代观测。","listeningTask":"抓住谁接班及何时升级。","newPhrase":"p689","phrases":["p689","p331","p010","p337:extra","p338:extra","p336:extra"],"lines":[
+      {"sp":"Priya","en":"Okay, we need a stale data warning. The dashboard must show sample age clearly.","zh":"好，需要数据陈旧提示。仪表盘必须清楚显示样本年龄。"},
+      {"sp":"Lukas","en":"Use unknown rather than green during gaps. Preserve the missing interval annotation.","zh":"缺口期间用未知，不用绿色。保留缺失时段注释。"},
+      {"sp":"Raj","en":"I'll hand over to the primary on-call. Freshness checks and independent probes stay active.","zh":"我向第一响应值班人交接，新鲜度检查与独立探测继续运行。"},
+      {"sp":"Hannah","en":"Who checks the warning delivery? A dashboard banner alone won't wake anyone.","zh":"谁检查提示投递？单独仪表盘横幅叫不醒人。"},
+      {"sp":"Priya","en":"Just to confirm, Raj tests routing today, right? Maybe use a controlled stale sample.","zh":"确认一下，Raj今天测试路由，对吧？可以用受控陈旧样本。"},
+      {"sp":"Anika","en":"The escalation path separates business and telemetry alerts. Probe failures still need immediate review.","zh":"升级路径区分业务与遥测告警。探测失败仍需立即评估。"},
+      {"sp":"Lukas","en":"Page the backup if the owner doesn't acknowledge. Put that timeout in the handoff.","zh":"负责人不确认就呼叫后备，把超时时间写入交接。"},
+      {"sp":"Raj","en":"So, five minutes without acknowledgement calls backup. That's our existing rota policy.","zh":"那么，五分钟无确认就呼叫后备，这是现有轮班规则。"},
+      {"sp":"Hannah","en":"I'll test an independent notification route. It must survive the collector losing credentials.","zh":"我会测试独立通知路径，它必须能承受采集器凭据失效。"},
+      {"sp":"Anika","en":"I'll attach probe coverage and log limitations. No unsupported promise about the missing interval.","zh":"我附上探测覆盖及日志限制，不对缺失时段作无证据保证。"}
+    ]},
+    {"id":"0415","part":10,"stage":"预防","title":"监控链路也要被监控","premise":"下一班已接收未知时段和独立信号，确定防复发任务。","listeningTask":"区分已确认直接原因和流程调查。","newPhrase":"p690","phrases":["p690","p009","p310","p013:extra","p012:extra","p330:extra"],"lines":[
+      {"sp":"Raj","en":"We need to monitor the monitoring independently. The credential reload missed this collector.","zh":"需要独立监控监控链路。凭据重载漏掉了这台采集器。"},
+      {"sp":"Lukas","en":"That's the confirmed delivery failure. Why deployment missed reload still needs investigation.","zh":"这是已确认的投递失败，部署为何漏重载仍需调查。"},
+      {"sp":"Priya","en":"Okay, first action item is reload verification. Managed configuration needs a delivery receipt.","zh":"好，第一个行动项是重载验证。统一配置需要投递回执。"},
+      {"sp":"Anika","en":"Who's picking this up by Friday? Maybe Raj can own the automated check.","zh":"周五前谁来接这项？也许Raj能负责自动检查。"},
+      {"sp":"Hannah","en":"I'll own independent heartbeat routing by Thursday. We'll test the same rejection failure.","zh":"我周四前负责独立心跳路由，会测试同样的拒绝写入故障。"},
+      {"sp":"Raj","en":"Yes, I'll verify rollout receipts by Friday. The check belongs in deployment itself.","zh":"是，我周五前验证发布回执。检查应放在部署本身。"},
+      {"sp":"Lukas","en":"I'll review queue loss limits tomorrow. We need explicit bounds, not unlimited buffering.","zh":"我明天评审队列丢失限制。需要明确边界，不是无限缓存。"},
+      {"sp":"Priya","en":"So, just to recap, collection is restored. Historical gaps stay documented as unknown.","zh":"那么，小结一下，采集已恢复，历史缺口继续记录为未知。"},
+      {"sp":"Hannah","en":"Acceptance includes stale queries and notification delivery. A healthy collector alone isn't enough.","zh":"验收包含陈旧查询及通知投递，只有健康采集器不够。"},
+      {"sp":"Anika","en":"We'll close the loop after that test. Keep independent business checks until acceptance.","zh":"测试后反馈闭环，验收前继续独立业务检查。"}
+    ]}
+  ]
+}

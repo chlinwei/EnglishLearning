@@ -1,0 +1,144 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"人工双语一对一文本，只有员工与主管，待配音；个人健康细节不入团队记录，不预填时间轴。词数仅为口音规划代理。",
+  "series":{"id":"sc-S45-obs-oncall-fatigue","title":"值班疲劳：一次真实的一对一","domain":"obs","group":"allhands","service":"observability team on-call rota","premise":"印度员工Priya连续夜间被叫醒，和德国主管Lukas在私下一对一中讨论睡眠、工作负担与支持。不是故障会，也不要求员工给出诊断。","outcome":"主管确认今晚由合格同事换班并覆盖后备，取消Priya值班和发布评审任务，安排休息及下周减负。只共享排班与工作调整，健康细节私密；两天后简短确认支持、下周复查负担，不把恢复期限变成绩效要求。"},
+  "speakers":{
+    "Priya":{"role":"Observability engineer and on-call employee","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Engineering manager and trained on-call backup","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p721","en":"I'm running on empty","zh":"我已经没什么精力了","layer":"L0","level":"core","target":8},
+    {"id":"p722","en":"broken sleep","zh":"断断续续的睡眠","layer":"L0","level":"core","target":8},
+    {"id":"p723","en":"alert fatigue","zh":"告警疲劳","layer":"L1","level":"core","target":5},
+    {"id":"p724","en":"protect recovery time","zh":"保护恢复精力的时间","layer":"L0","level":"core","target":8},
+    {"id":"p725","en":"rota swap","zh":"轮班互换","layer":"L1","level":"core","target":5},
+    {"id":"p726","en":"backup coverage","zh":"后备值守覆盖","layer":"L1","level":"core","target":5},
+    {"id":"p727","en":"protected time off","zh":"不被工作打扰的休息时间","layer":"L0","level":"core","target":8},
+    {"id":"p728","en":"a sustainable workload","zh":"可持续的工作负担","layer":"L0","level":"core","target":8},
+    {"id":"p729","en":"check in next week","zh":"下周再关心确认近况","layer":"L0","level":"core","target":8},
+    {"id":"p730","en":"you don't have to push through","zh":"你不必硬撑","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来候选不计实际复现；旧引用仅来自p001–p350及本文件此前，不依赖其他新草稿。","S50":["p721","p722","p723","p724","p725","p726","p727","p728","p729","p730"],"future-one-to-one":["p721","p724","p727","p728","p729","p730"]},
+  "dialogues":[
+    {"id":"0446","part":1,"stage":"近况","title":"先听人而不是查事故","premise":"Priya在私下一对一中开始说明近期疲劳。","listeningTask":"听出主管不要求员工证明疲劳。","newPhrase":"p721","phrases":["p721","p006","p010","p004:extra","p001:extra","p007:extra"],"lines":[
+      {"sp":"Lukas","en":"How are you doing today? We don't need a status report.","zh":"今天怎么样？不需要作进度报告。"},
+      {"sp":"Priya","en":"Honestly, I'm running on empty lately. I keep saying I'm fine, but that's not quite true.","zh":"说实话，最近没精力了。我总说没事，但并不完全是真的。"},
+      {"sp":"Lukas","en":"Okay, thanks for telling me. What feels hardest right now?","zh":"好，谢谢你告诉我，现在最难的是什么？"},
+      {"sp":"Priya","en":"The nights, mostly. I've got little bandwidth afterward. Maybe I shouldn't have waited until this meeting.","zh":"主要是夜里，之后几乎没余力。也许不该等到这次会议才说。"},
+      {"sp":"Lukas","en":"You don't need to justify waiting. We can start here.","zh":"不用解释为什么等到现在，我们从这里开始。"},
+      {"sp":"Priya","en":"Just to confirm, this stays between us, right? I don't want sleep details in team notes.","zh":"确认一下，这在我们之间保密，对吧？我不想睡眠细节进团队记录。"},
+      {"sp":"Lukas","en":"Yes. I'll share agreed work changes, not your personal details.","zh":"是，只共享约定的工作调整，不共享个人细节。"},
+      {"sp":"Priya","en":"So, the backlog can wait. Let's park that for now. I'd rather explain the night shifts first.","zh":"那么，积压可以等，先放一边。我想先说夜班。"},
+      {"sp":"Lukas","en":"We can circle back to work later. There's no rush.","zh":"工作稍后再谈，不着急。"},
+      {"sp":"Priya","en":"Thanks. I have a hard stop for childcare at four. There's enough time to talk before then.","zh":"谢谢，我四点必须去照顾孩子。之前有足够时间谈。"}
+    ]},
+    {"id":"0447","part":2,"stage":"夜间负担","title":"睡了几个小时也不代表恢复","premise":"确认隐私与时间边界后，Priya描述连续夜间打断。","listeningTask":"听清休息需要，而非追问医学诊断。","newPhrase":"p722","phrases":["p722","p010","p006","p337:extra","p338:extra","p011:extra"],"lines":[
+      {"sp":"Lukas","en":"What have the nights been like? Only share what feels comfortable.","zh":"夜里是什么情况？只说你愿意分享的。"},
+      {"sp":"Priya","en":"Broken sleep for four nights now. As primary on-call, I wake up even when the pager stays quiet.","zh":"已经四晚睡得断续。第一响应值班时，即使呼叫器安静也会醒。"},
+      {"sp":"Lukas","en":"That sounds exhausting. How is it affecting your daytime work?","zh":"听着很累，这怎样影响白天工作？"},
+      {"sp":"Priya","en":"I reread simple changes several times. Maybe I'm missing things. I don't have bandwidth for reviews afterward.","zh":"简单改动也重读多次，可能有遗漏，之后没有余力评审。"},
+      {"sp":"Lukas","en":"Let me play that back. Sleep disruption is affecting concentration.","zh":"我复述一下，睡眠被打断影响了专注。"},
+      {"sp":"Priya","en":"Yes, and I hesitate to page the backup. I keep thinking I should manage the shift myself.","zh":"是，而且犹豫是否呼叫后备，总觉得应该自己撑过这个班。"},
+      {"sp":"Lukas","en":"Backup exists for support. You aren't failing by using it.","zh":"后备就是支持，使用后备不代表你失败。"},
+      {"sp":"Priya","en":"Okay, just to confirm, asking early is fine, right? Not only after something goes wrong during a shift.","zh":"好，确认一下，早点求助也可以，对吧？不是只有出事以后。"},
+      {"sp":"Lukas","en":"Yes, ask before you're stretched thin. I'll reinforce that expectation.","zh":"是，在撑不住前求助，我会强化这个约定。"},
+      {"sp":"Priya","en":"So, one repeated alert made it worse. Can I describe that without turning this into a troubleshooting meeting?","zh":"那么，有个重复告警让情况更糟。我能说说而不变成排障会吗？"}
+    ]},
+    {"id":"0448","part":3,"stage":"具体案例","title":"描述负担而不是现场修规则","premise":"Priya说明一个夜间重复告警带来的担忧。","listeningTask":"区分支持谈话与安全降噪任务。","newPhrase":"p723","phrases":["p723","p109","p010","p103:extra","p004:extra","p009:extra"],"lines":[
+      {"sp":"Lukas","en":"Yes, one example is enough. We won't debug it here.","zh":"可以，一个例子就够，这里不调试。"},
+      {"sp":"Priya","en":"That's alert fatigue, I think. It's flapping overnight, and each notification makes me wonder what I've missed.","zh":"我想这是告警疲劳。夜里反复切换，每次通知都让我担心漏了什么。"},
+      {"sp":"Lukas","en":"Okay, the repeated interruption matters. Did you get support afterward?","zh":"好，反复打断很重要，之后得到支持了吗？"},
+      {"sp":"Priya","en":"Not really. I kept saying, let me tail the log. Maybe I was too tired to judge it well.","zh":"没有，我一直说我盯一下日志。也许太累，判断不好。"},
+      {"sp":"Lukas","en":"We'll assign rule review elsewhere. You shouldn't fix it today.","zh":"规则评审交给别人，你今天不该修它。"},
+      {"sp":"Priya","en":"Just to confirm, we won't mute real failures, right? I want fewer interruptions, not less protection for customers.","zh":"确认一下，不静音真实故障，对吧？我想少打断，不是少保护客户。"},
+      {"sp":"Lukas","en":"Correct. Any tuning needs incident replay and proper detection checks.","zh":"对，任何调整都需事故回放和正式检测检查。"},
+      {"sp":"Priya","en":"So, let's park that technical review here. I can share the alert identifier later without personal sleep details.","zh":"那么，技术评审先放下，稍后可分享告警标识，不分享个人睡眠细节。"},
+      {"sp":"Lukas","en":"My action item is finding another reviewer. You can rest.","zh":"我的行动项是找其他评审人，你可以休息。"},
+      {"sp":"Priya","en":"Thanks. That helps more than asking me to be tougher. I'd like to discuss which work can wait.","zh":"谢谢，这比让我更坚强有用。我想讨论哪些工作可等待。"}
+    ]},
+    {"id":"0449","part":4,"stage":"优先级","title":"减任务而非让人恢复后补做","premise":"告警评审转给别人，双方讨论Priya近期工作优先级。","listeningTask":"听清主管承担重新分配责任。","newPhrase":"p724","phrases":["p724","p006","p010","p004:extra","p005:extra","p009:extra"],"lines":[
+      {"sp":"Lukas","en":"Let's protect recovery time first. Which commitments feel most urgent?","zh":"先保护恢复时间，哪些承诺让你最着急？"},
+      {"sp":"Priya","en":"The dashboard patch and release review. I planned to stay heads-down tomorrow, but my bandwidth isn't there.","zh":"仪表盘补丁和发布评审，本想明天专心干，但没有余力。"},
+      {"sp":"Lukas","en":"Okay, I'll reassign release review. The patch can move back.","zh":"好，我重新分配发布评审，补丁可以推后。"},
+      {"sp":"Priya","en":"Maybe moving it just creates a bigger backlog. I don't want the same work waiting after my break.","zh":"推后可能只是增加积压，我不想休息后同样工作等着。"},
+      {"sp":"Lukas","en":"Fair point. I'll reduce scope, not just move the deadline.","zh":"有道理，我减少范围，不只挪期限。"},
+      {"sp":"Priya","en":"Just to confirm, the extra panels are dropped, right? Not silently added back when I return next week.","zh":"确认一下，额外面板取消，对吧？不是下周回来又悄悄加回。"},
+      {"sp":"Lukas","en":"Yes. My action item is updating the agreed work list.","zh":"是，我的行动项是更新约定工作清单。"},
+      {"sp":"Priya","en":"So, let's park that optional dashboard expansion. I can focus on one small fix when I'm ready again.","zh":"那么，可选仪表盘扩展先搁置，准备好后可专注一个小修复。"},
+      {"sp":"Lukas","en":"Readiness isn't a promise for Monday. We'll decide together later.","zh":"准备好不是保证周一恢复，稍后一起决定。"},
+      {"sp":"Priya","en":"That feels more realistic. Sorry, I mean reassuring, not easy. I still need a clear plan for tonight.","zh":"这更现实。抱歉，我是说安心，不是容易。今晚仍需明确计划。"}
+    ]},
+    {"id":"0450","part":5,"stage":"轮班方案","title":"今晚换班要落实到人","premise":"工作范围将减少，今晚Priya仍在轮班表上，需要换班。","listeningTask":"区分提出换班与覆盖已确认。","newPhrase":"p725","phrases":["p725","p010","p331","p337:extra","p338:extra","p336:extra"],"lines":[
+      {"sp":"Lukas","en":"I'll arrange a rota swap tonight. Don't contact replacements yourself.","zh":"我安排今晚换班，不用你自己联系替班。"},
+      {"sp":"Priya","en":"Okay, I'm primary on-call until morning. Maybe a swap needs someone familiar with the telemetry alerts and runbooks.","zh":"好，我原本第一响应值班到早晨，换班可能需要熟悉遥测告警和手册的人。"},
+      {"sp":"Lukas","en":"Yes, a qualified engineer with backup. I'll confirm both names.","zh":"是，找合格工程师并配后备，我确认两个名字。"},
+      {"sp":"Priya","en":"Just to confirm, this doesn't push fatigue onto someone else, right? The replacement needs a manageable shift too.","zh":"确认一下，不把疲劳推给别人，对吧？替班也需可承受班次。"},
+      {"sp":"Lukas","en":"Agreed. I'll check their recent shifts before confirming the swap.","zh":"同意，确认换班前检查他们近期班次。"},
+      {"sp":"Priya","en":"I can hand over the current alert notes. They don't need my personal details, just the unresolved checks.","zh":"我可交当前告警记录，不需个人细节，只需未完成检查。"},
+      {"sp":"Lukas","en":"Keep it brief. I can handle the routing changes myself.","zh":"简短就好，路由调整我自己处理。"},
+      {"sp":"Priya","en":"So, the escalation path changes before tonight. If something fires, they can page the backup instead of calling me.","zh":"那么，今晚前改升级路径，触发时他们叫后备，不给我打电话。"},
+      {"sp":"Lukas","en":"Correct. I'll verify acceptance before releasing you from the shift.","zh":"对，我确认接班接受后解除你的班次。"},
+      {"sp":"Priya","en":"Thanks, that makes the plan concrete. I was worried I'd still be the unofficial backup during my rest.","zh":"谢谢，计划具体了。我担心休息时仍是非正式后备。"}
+    ]},
+    {"id":"0451","part":6,"stage":"支援需求","title":"不做隐形后备","premise":"主管正在确认合格替班与后备，Priya说明额外支持需求。","listeningTask":"听清责任移交和关闭隐形待命。","newPhrase":"p726","phrases":["p726","p010","p340","p336:extra","p006:extra","p014:extra"],"lines":[
+      {"sp":"Lukas","en":"What support would help beyond the swap? We can adjust work too.","zh":"除了换班，什么支持有用？也能调整工作。"},
+      {"sp":"Priya","en":"Real backup coverage, without messages to me. Maybe team questions could go to someone else while I'm away.","zh":"真正后备覆盖，不给我发消息，离开时团队问题也可找别人。"},
+      {"sp":"Lukas","en":"Okay, I'm on it. I'll own team routing during your break.","zh":"好，我来做，休息期间团队问题路由我负责。"},
+      {"sp":"Priya","en":"Just to confirm, I don't need spare bandwidth, right? I can stop watching chat after the handoff is accepted.","zh":"确认一下，不用预留余力，对吧？交接接受后可以不看聊天。"},
+      {"sp":"Lukas","en":"Yes. I've got it from here for coordination, including missed acknowledgements.","zh":"是，接下来的协调由我负责，包括未确认响应。"},
+      {"sp":"Priya","en":"I also need help with the customer dashboard deadline. I can't explain the change to every stakeholder separately.","zh":"客户仪表盘期限也需帮忙，不能向每个利益相关者分别解释。"},
+      {"sp":"Lukas","en":"I'll communicate the revised scope. No explanation of your health is needed.","zh":"我说明修订范围，不需要解释你的健康情况。"},
+      {"sp":"Priya","en":"So, the escalation path won't end with me. I can leave only the technical notes and stop checking replies.","zh":"那么，升级路径不以我结束，只留技术记录，不用再检查回复。"},
+      {"sp":"Lukas","en":"Exactly. We'll confirm the handoff once, not keep pulling you back.","zh":"没错，交接确认一次，不不断把你拉回来。"},
+      {"sp":"Priya","en":"That sounds helpful. I'd also like the break to feel like actual rest, not another day of remote work.","zh":"这很有帮助，我也希望休息是真休息，不是又一天远程工作。"}
+    ]},
+    {"id":"0452","part":7,"stage":"休息安排","title":"保护休息时间的边界","premise":"支持与路由责任明确，安排可执行的休息。","listeningTask":"辨别休息是无工作要求，不是保证恢复期限。","newPhrase":"p727","phrases":["p727","p010","p007","p331:extra","p305:extra","p004:extra"],"lines":[
+      {"sp":"Lukas","en":"Let's arrange protected time off tomorrow. No pager or review duties.","zh":"安排明天不受工作打扰的休息，无呼叫器或评审任务。"},
+      {"sp":"Priya","en":"Okay, tomorrow would help. Maybe one day won't fix everything. I need uninterrupted rest first. Tonight and tomorrow morning, at least.","zh":"好，明天有帮助，一天可能解决不了全部。先需要不被打断的休息，至少今晚和明早。"},
+      {"sp":"Lukas","en":"That's a start, not a recovery deadline. We can reassess later.","zh":"这是开始，不是恢复期限，稍后可重新评估。"},
+      {"sp":"Priya","en":"Just to confirm, tomorrow has no meeting, right? I need rest, not another explanation. Being offline shouldn't need defending again.","zh":"确认一下，明天没有会议，对吧？需要休息，不是再次解释，不应又要为离线辩解。"},
+      {"sp":"Lukas","en":"Correct. We'll follow the leave policy without sharing personal health details.","zh":"对，按休假政策办，不共享个人健康细节。"},
+      {"sp":"Priya","en":"I can hand over the notes before my hard stop. The record should cover technical work, not sleep history.","zh":"必须结束前可交记录，记录覆盖技术工作，不是睡眠历史。"},
+      {"sp":"Lukas","en":"Agreed. Our retention policy won't turn this conversation into team documentation.","zh":"同意，保留策略不把这次谈话变成团队文档。"},
+      {"sp":"Priya","en":"So, let's park that backlog discussion. The replacement needs to accept first. Then I'll turn off work notifications.","zh":"那么，积压讨论先放一边。替班需先接受，然后我关闭工作通知。"},
+      {"sp":"Lukas","en":"I'll confirm that before four. You won't need to chase it.","zh":"四点前我确认，不需你追问。"},
+      {"sp":"Priya","en":"Thank you. I'd rather choose what helps my rest privately. I don't need a checklist for sleeping better today.","zh":"谢谢，想私下选择怎样休息，今天不需要改善睡眠的检查清单。"}
+    ]},
+    {"id":"0453","part":8,"stage":"改进承诺","title":"支持不只靠个人调整","premise":"休息已安排，讨论后续工作与轮班系统改进。","listeningTask":"听清主管可承担的具体改进。","newPhrase":"p728","phrases":["p728","p009","p006","p001:extra","p309:extra","p010:extra"],"lines":[
+      {"sp":"Lukas","en":"We need a sustainable workload afterward. I'll review the rota this week.","zh":"之后需要可持续工作负担，这周我评审轮班表。"},
+      {"sp":"Priya","en":"Okay, one action item: fewer consecutive nights. Maybe reserve bandwidth after difficult shifts. Recovery needs space in the plan.","zh":"好，一个行动项是减少连续夜班。也许艰难班次后预留余力，计划需留恢复空间。"},
+      {"sp":"Lukas","en":"Yes, I'll propose limits and recovery cover. We'll review team capacity.","zh":"是，我提出限制和恢复覆盖，并评审团队容量。"},
+      {"sp":"Priya","en":"Just to confirm, this isn't my homework, right? I can offer feedback when ready. But I can't design the whole rota.","zh":"确认一下，这不是我的作业，对吧？准备好可以反馈，但不能设计整张轮班表。"},
+      {"sp":"Lukas","en":"Correct. I'll own the proposal and check it with the team.","zh":"对，提案我负责，与团队核查。"},
+      {"sp":"Priya","en":"I'd keep an eye on actual wake-ups. Some shifts look quiet on paper. Several interruptions can still ruin the rest.","zh":"也该关注实际叫醒次数。有些班次纸面看着安静，多次打断仍会毁掉休息。"},
+      {"sp":"Lukas","en":"We'll use voluntary feedback, not personal sleep tracking. Privacy still matters.","zh":"用自愿反馈，不追踪个人睡眠，隐私仍重要。"},
+      {"sp":"Priya","en":"So, we can circle back after review. Tonight's replacement is only a start. I need a longer-term change as well.","zh":"那么，评审后再聊。今晚替班只是开始，也需要更长期改变。"},
+      {"sp":"Lukas","en":"It won't be. Rule review and workload changes need separate owners.","zh":"不会，规则评审和负担调整各有负责人。"},
+      {"sp":"Priya","en":"That feels fair. Thanks for listening without a resilience lecture. A smaller workload would really help me.","zh":"这公平，谢谢倾听而非作韧性说教。更小工作量会真正帮助我。"}
+    ]},
+    {"id":"0454","part":9,"stage":"跟进安排","title":"跟进是关心不是恢复考核","premise":"轮班与工作改进有主管负责，约定支持确认和下周复查。","listeningTask":"听清员工可调整跟进方式。","newPhrase":"p729","phrases":["p729","p001","p010","p007:extra","p009:extra","p339:extra"],"lines":[
+      {"sp":"Lukas","en":"Can we check in next week? Focus on whether support is working.","zh":"下周再确认近况可以吗？重点是支持是否有效。"},
+      {"sp":"Priya","en":"Yes, Tuesday afternoon before my hard stop. Maybe a short conversation works better than another long meeting about progress.","zh":"可以，周二下午必须结束前，短聊可能比长进度会更好。"},
+      {"sp":"Lukas","en":"Okay, fifteen minutes. We can change that if you prefer later.","zh":"好，十五分钟，如果愿意晚些可以改。"},
+      {"sp":"Priya","en":"Just to confirm, it's not a test of recovery, right? I might still be tired, even after taking time off.","zh":"确认一下，不是恢复测试，对吧？即使休息后可能仍疲劳。"},
+      {"sp":"Lukas","en":"Right. We'll adjust support, not rate your recovery or demand details.","zh":"对，调整支持，不评价恢复或索要细节。"},
+      {"sp":"Priya","en":"We can circle back on workload then. A short message in two days could confirm the swap and work changes.","zh":"届时再谈工作量，两天后短消息可确认换班与工作调整。"},
+      {"sp":"Lukas","en":"My action item is that message. No reply needed during your break.","zh":"我的行动项是发消息，休息期间不需回复。"},
+      {"sp":"Priya","en":"So, have I missed anything about support? I know confidential wellbeing help exists, but I don't want to discuss that now.","zh":"那么，支持还有遗漏吗？知道有保密身心支持，但现在不想谈。"},
+      {"sp":"Lukas","en":"That's your choice. I can share the private contact separately if requested.","zh":"由你选择，需要时我可单独提供私密联系方式。"},
+      {"sp":"Priya","en":"Thanks, let's leave it there today. I'd like to finish by confirming tonight's coverage and the reduced work list.","zh":"谢谢，今天到这里。最后确认今晚覆盖和减少的工作清单。"}
+    ]},
+    {"id":"0455","part":10,"stage":"双方确认","title":"不用硬撑，支持已经落实","premise":"跟进方式确认，主管收到替班接受消息后总结安排。","listeningTask":"听清实际覆盖、隐私和员工休息边界。","newPhrase":"p730","phrases":["p730","p012","p010","p331:extra","p310:extra","p340:extra"],"lines":[
+      {"sp":"Lukas","en":"The qualified replacement and backup accepted. You don't have to push through.","zh":"合格替班与后备已接受，你不用硬撑。"},
+      {"sp":"Priya","en":"Okay, just to recap, I'm off the rota tonight. Tomorrow has no pager, release review, or catch-up meeting for me.","zh":"好，小结一下，今晚不在轮班表，明天无呼叫器、发布评审或补进度会。"},
+      {"sp":"Lukas","en":"Correct. I've got it from here. The routing change is verified too.","zh":"对，接下来我负责，路由变更也验证了。"},
+      {"sp":"Priya","en":"Just to confirm, optional panels are removed, right? Not postponed into my next week as an extra evening task.","zh":"确认一下，可选面板取消，对吧？不是推成下周额外晚间任务。"},
+      {"sp":"Lukas","en":"Yes. The work list reflects that. I'll notify stakeholders without personal details.","zh":"是，工作清单已体现，会通知相关人但不说个人细节。"},
+      {"sp":"Priya","en":"I'll hand over the brief technical notes now. Maybe that's enough from me today; I don't need to stay available.","zh":"现在交简短技术记录，今天我做这些就够，不必继续待命。"},
+      {"sp":"Lukas","en":"It is enough. Tonight's team has the runbooks and escalation contacts.","zh":"够了，今晚团队有手册和升级联系人。"},
+      {"sp":"Priya","en":"So, we close the loop on arrangements today. Tuesday is about support and workload, not proving that I'm fully recovered.","zh":"那么，今天把安排闭环，周二谈支持和负担，不证明完全恢复。"},
+      {"sp":"Lukas","en":"Exactly. You can ask for more help earlier. There's no need to wait.","zh":"没错，可以更早寻求更多支持，不必等待。"},
+      {"sp":"Priya","en":"Thank you. I feel heard, and the support is concrete. I'll leave work notifications off once these notes are handed over.","zh":"谢谢，感觉被听见，支持也具体。记录交出后就关工作通知。"}
+    ]}
+  ]
+}

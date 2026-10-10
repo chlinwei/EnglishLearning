@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "文本交接草稿，音色与音频比例待验，不填时间轴。认证检查仅报Secret引用、命名空间及脱敏结果，不输出token、密码或Secret值。缓存镜像能维持现有服务不代表新节点可拉取；认证错误与网络超时分别调查。",
+  "series": {"id": "sc-S33-k8s-image-pull-handoff", "title": "镜像拉取交接：认证已缓解，超时仍待查", "domain": "k8s", "group": "handoff", "service": "inventory API", "premise": "日班结束前inventory发布暂停，四个旧副本仍服务，三个新Pod无法拉取同一批准镜像。两个返回未授权，一个在不同节点超时。晚班接收部分恢复结果和明确升级条件。", "outcome": "授权人员修正两个Pod的镜像认证引用后拉取成功，保持发布暂停。第三个Pod仍有间歇超时，仓库未证实全局故障。晚班Raj接收脱敏证据、容量告警门槛和网络支持联系表，约定半小时更新，并禁止通过关闭TLS或泄露Secret绕过。"},
+  "speakers": {
+    "Priya": {"role": "Outgoing shift lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Incoming platform on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Inventory owner and authorized credential custodian", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Outgoing platform engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Registry and network validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p601", "en": "image pull failure", "zh": "镜像拉取失败", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p602", "en": "pull backoff", "zh": "镜像拉取失败后的退避重试", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p603", "en": "pull secret reference", "zh": "镜像拉取认证Secret的引用", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p604", "en": "registry availability", "zh": "镜像仓库可用性", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p605", "en": "approved image digest", "zh": "获批的镜像摘要", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p606", "en": "cached image", "zh": "节点上已缓存的镜像", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p607", "en": "retry window", "zh": "重试观察窗口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p608", "en": "sanitized events", "zh": "脱敏后的事件记录", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p609", "en": "credential owner", "zh": "认证凭据责任人", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p610", "en": "handoff acceptance", "zh": "接班方明确接收交接", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "本稿只复现既有p001-p350或本场此前表达；未来候选不算实绩。", "futureCandidates": {"S43": ["p601", "p602", "p604", "p606", "p607", "p608", "p610"], "S49": ["p603", "p605", "p609", "p610"]}},
+  "dialogues": [
+    {"id": "0326", "part": 1, "stage": "交班背景", "title": "发布暂停，旧副本仍在服务", "premise": "晚班接班时三个新Pod拉取失败，四个旧副本正常运行。", "listeningTask": "听清交接范围与当前服务可用状态。", "newPhrase": "p601", "phrases": ["p601", "p331", "p010:extra", "p208:extra", "p106:extra", "p309:extra"], "lines": [
+      {"sp": "Priya", "en": "I'll hand over the inventory issue. Three new Pods have an image pull failure.", "zh": "我交接inventory问题，三个新Pod镜像拉取失败。"},
+      {"sp": "Lukas", "en": "Four old replicas still serve traffic. The rollout is stuck, and we've paused expansion.", "zh": "四个旧副本仍服务，发布卡住，已暂停扩大。"},
+      {"sp": "Raj", "en": "Okay, just to confirm, no total outage, right? What's the current capacity margin?", "zh": "好，确认一下，没有完全宕机，对吧？现在容量余量多少？"},
+      {"sp": "Hannah", "en": "Current demand fits those four replicas. Peak demand hasn't been validated for tonight.", "zh": "当前需求四副本能承载，但今晚高峰还没验过。"},
+      {"sp": "Anika", "en": "That's our blast radius so far. New inventory replicas only, not running application requests.", "zh": "目前影响是新inventory副本，不是运行中的应用请求。"},
+      {"sp": "Lukas", "en": "Don't delete the working replicas. Cached availability isn't a reason to force replacement.", "zh": "不要删正常副本，有缓存可用也不能强制替换。"},
+      {"sp": "Priya", "en": "So, keep an eye on capacity. Roughly two hours remain before expected peak.", "zh": "那么，盯住容量，预计高峰前还有约两小时。"},
+      {"sp": "Raj", "en": "I'll check the affected Pod events first. Have we grouped the failures by reason?", "zh": "我先查受影响Pod事件，是否按原因分组了？"},
+      {"sp": "Hannah", "en": "Yes, authentication errors and timeouts differ. Treating all three alike would be misleading.", "zh": "是的，认证错误和超时不同，三个都当一样会误导。"},
+      {"sp": "Anika", "en": "I'll stay for authentication questions tonight. We won't paste credential values into this handoff.", "zh": "我今晚留下回答认证问题，不会把凭据值贴进交接。"}
+    ]},
+    {"id": "0327", "part": 2, "stage": "失败事件", "title": "退避只是状态，不是根因", "premise": "四旧副本正常，三个新Pod失败原因需分别交代。", "listeningTask": "理解pull backoff不能自行解释认证或网络故障。", "newPhrase": "p602", "phrases": ["p602", "p601", "p010:extra", "p103:extra", "p335:extra", "p014:extra"], "lines": [
+      {"sp": "Lukas", "en": "Pull backoff means retries are delayed. It doesn't identify the underlying failure reason.", "zh": "拉取退避表示重试延后，不说明底层失败原因。"},
+      {"sp": "Raj", "en": "Let me tail the log. Two Pods show unauthorized; one reports a timeout.", "zh": "我盯一下日志，两个Pod未授权，一个报告超时。"},
+      {"sp": "Hannah", "en": "Keep their event timestamps separate. The timeout occurred on a different node.", "zh": "分别保留事件时间戳，超时发生在不同节点。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, image pull failure isn't a container crash, right?", "zh": "好，确认一下，拉取失败不是容器崩溃，对吧？"},
+      {"sp": "Anika", "en": "Right, these containers haven't started yet. Application restart debugging won't explain failed image retrieval.", "zh": "对，这些容器还没启动，排应用重启不能解释镜像获取失败。"},
+      {"sp": "Lukas", "en": "Repeated manual retries may add load. Let normal backoff run while we diagnose.", "zh": "反复手动重试可能加负载，排查时让正常退避运行。"},
+      {"sp": "Raj", "en": "I'm on it. Our working hypothesis is two causes, not one registry outage.", "zh": "我来查，当前假设是两类原因，不是一次仓库全局故障。"},
+      {"sp": "Hannah", "en": "Maybe the timeout is transient. We need same-node tests before naming its cause.", "zh": "超时也许是暂时的，确定原因前需要同节点测试。"},
+      {"sp": "Priya", "en": "So, keep both tracks open tonight. Authentication first, then the registry path.", "zh": "那么，今晚保留两条调查线，先认证，再仓库路径。"},
+      {"sp": "Anika", "en": "I'll confirm the intended credential reference. Only authorized staff will inspect its contents.", "zh": "我确认预期凭据引用，只有授权人员检查内容。"}
+    ]},
+    {"id": "0328", "part": 3, "stage": "认证状态", "title": "核引用，不读出Secret", "premise": "两个Pod未授权，另一节点超时；开始核对认证引用与权限。", "listeningTask": "听出能公开的认证检查结果与禁止泄露的信息。", "newPhrase": "p603", "phrases": ["p603", "p602", "p010:extra", "p330:extra", "p302:extra", "p014:extra"], "lines": [
+      {"sp": "Anika", "en": "The pull secret reference is wrong. Those two Pods reference the previous credential object.", "zh": "拉取Secret引用错了，那两个Pod指向旧认证对象。"},
+      {"sp": "Lukas", "en": "Does the intended object exist there? Image pull Secrets must share the Pod namespace.", "zh": "预期对象在那里存在吗？拉取Secret必须与Pod同命名空间。"},
+      {"sp": "Raj", "en": "Yes, the approved object exists there. Managed configuration has the correct reference now.", "zh": "是的，获批对象存在于该命名空间，统一配置现在引用正确。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, report status only, right? No tokens or Secret values.", "zh": "好，确认一下，只报状态，对吧？不报token和Secret值。"},
+      {"sp": "Hannah", "en": "Also check repository permission and registry host. A valid credential may lack required access.", "zh": "也核仓库权限和注册表主机，有效凭据未必有目标访问权。"},
+      {"sp": "Anika", "en": "I'm on it through the authorized tool. Access checks pass for the approved repository.", "zh": "我通过授权工具检查，对获批仓库的访问检查通过。"},
+      {"sp": "Lukas", "en": "That supports a reference mismatch here. Don't copy credential material into the issue ticket.", "zh": "这支持此处引用不匹配，不要把凭据材料复制到工单。"},
+      {"sp": "Raj", "en": "We can rule that out as missing repository permission. Maybe the timeout remains unrelated.", "zh": "可以排除缺少仓库权限，超时也许仍是独立问题。"},
+      {"sp": "Hannah", "en": "For the tested identity, yes. Keep the test scope recorded, without credential contents.", "zh": "对已测身份可以，记录测试范围但不含凭据内容。"},
+      {"sp": "Priya", "en": "So, apply only the reviewed reference fix. Let pull backoff run; keep expansion paused.", "zh": "那么，只应用评审过的引用修复，让正常拉取退避重试继续，保持暂停扩大。"}
+    ]},
+    {"id": "0329", "part": 4, "stage": "仓库健康", "title": "状态页正常不代表节点路径正常", "premise": "认证引用修复获批，第三节点的拉取超时继续调查。", "listeningTask": "识别仓库全局状态与特定节点访问路径的区别。", "newPhrase": "p604", "phrases": ["p604", "p603", "p010:extra", "p335:extra", "p309:extra", "p302:extra"], "lines": [
+      {"sp": "Hannah", "en": "Registry availability looks normal from control probes. That doesn't clear the affected node's path.", "zh": "对照探测显示仓库可用，但不能排除受影响节点路径问题。"},
+      {"sp": "Raj", "en": "The pull secret reference is correct there. I'll compare DNS, TLS, and connection timings.", "zh": "那个节点的拉取引用正确，我对比DNS、TLS和连接耗时。"},
+      {"sp": "Lukas", "en": "Use the same registry endpoint and image. A public homepage tests a different path.", "zh": "用相同仓库端点和镜像，公共首页测试的是不同路径。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, keep TLS verification, right? No insecure registry shortcut.", "zh": "好，确认一下，保留TLS验证，对吧？不走不安全仓库捷径。"},
+      {"sp": "Anika", "en": "Right, the approved trust chain stays unchanged. Our working hypothesis is path-specific delay.", "zh": "对，获批信任链不变，当前假设是特定路径延迟。"},
+      {"sp": "Hannah", "en": "Maybe, but repeated samples are needed. One successful handshake doesn't prove large pulls work.", "zh": "可能，但要重复采样，一次握手成功不能证明大镜像拉取正常。"},
+      {"sp": "Raj", "en": "I'll keep an eye on timeouts. We can rule that out as confirmed global downtime.", "zh": "我关注超时，可以排除已证实全局宕机这个说法。"},
+      {"sp": "Lukas", "en": "Don't clear the registry entirely either. A regional issue could still affect this path.", "zh": "也别完全排除仓库，区域问题仍可能影响这条路径。"},
+      {"sp": "Priya", "en": "So, preserve that uncertainty in handoff. The incoming shift mustn't inherit a false conclusion.", "zh": "那么，交接保留这个不确定性，接班不能继承错误定论。"},
+      {"sp": "Anika", "en": "I'll add the exact tested scope. No credential details go in the network evidence.", "zh": "我补上准确测试范围，网络证据不含凭据细节。"}
+    ]},
+    {"id": "0330", "part": 5, "stage": "已试缓解", "title": "认证修复成功，但不放量", "premise": "仓库全局故障未确认，认证修复后两Pod开始正常拉取。", "listeningTask": "听清制品未变、已恢复范围和保留发布暂停的理由。", "newPhrase": "p605", "phrases": ["p605", "p601", "p010:extra", "p334:extra", "p014:extra", "p309:extra"], "lines": [
+      {"sp": "Anika", "en": "Both authenticated pulls succeeded now. They use the approved image digest, not a new tag.", "zh": "两个认证拉取现在成功，使用获批镜像摘要，不是新标签。"},
+      {"sp": "Lukas", "en": "That fixes their retrieval failure only. Startup and application readiness still need checking.", "zh": "这只修复镜像获取失败，启动和应用就绪还要查。"},
+      {"sp": "Raj", "en": "I'm on it. Both containers started, and readiness checks are successful now.", "zh": "我来查，两个容器已启动，就绪检查现在成功。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, keep rollout paused, right? One image pull failure remains.", "zh": "好，确认一下，继续暂停发布，对吧？还有一个拉取失败。"},
+      {"sp": "Hannah", "en": "Yes, the timeout still repeats occasionally. We haven't established its underlying cause.", "zh": "是的，超时仍偶尔重复，还没确定根本原因。"},
+      {"sp": "Anika", "en": "Keeping old replicas is our temporary workaround. Maybe tonight's peak needs additional capacity.", "zh": "保留旧副本是临时缓解，今晚高峰也许需要额外容量。"},
+      {"sp": "Lukas", "en": "Do not switch to an unapproved image. That introduces an unrelated release risk.", "zh": "不要换未批准镜像，那会引入无关发布风险。"},
+      {"sp": "Raj", "en": "So, I'll keep an eye on capacity. Two recovered Pods remain outside rollout expansion.", "zh": "那么，我关注容量，两个恢复Pod不意味着发布可以扩大。"},
+      {"sp": "Hannah", "en": "Attach the successful pull and startup evidence. Don't label the whole issue resolved.", "zh": "附上拉取和启动成功证据，不要标整个问题解决。"},
+      {"sp": "Priya", "en": "I'll carry that distinction into handoff. Authentication is mitigated; the timeout track remains open.", "zh": "我把区分写进交接，认证已缓解，超时调查仍开放。"}
+    ]},
+    {"id": "0331", "part": 6, "stage": "剩余影响", "title": "缓存不能证明新节点可拉", "premise": "两Pod恢复，第三个仍超时，旧副本继续承载请求。", "listeningTask": "识别已缓存镜像与真实远程拉取测试的差别。", "newPhrase": "p606", "phrases": ["p606", "p605", "p010:extra", "p106:extra", "p335:extra", "p111:extra"], "lines": [
+      {"sp": "Raj", "en": "One new Pod remains blocked now. That's our blast radius after authentication recovery.", "zh": "现在剩一个新Pod阻塞，这是认证恢复后的影响范围。"},
+      {"sp": "Hannah", "en": "The old nodes have a cached image. Restart success there wouldn't prove remote pulls work.", "zh": "旧节点有缓存镜像，在那里重启成功不能证明远程拉取正常。"},
+      {"sp": "Anika", "en": "The approved image digest matches everywhere. Our working hypothesis concerns the affected node's path.", "zh": "各处获批镜像摘要一致，当前假设涉及受影响节点路径。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, don't clear caches, right? They protect our current working capacity.", "zh": "好，确认一下，不清缓存，对吧？它们维持当前正常容量。"},
+      {"sp": "Lukas", "en": "Correct, and don't depend on them alone. A replacement node may need every layer remotely.", "zh": "对，也不能只靠缓存，替换节点可能要远程取全部层。"},
+      {"sp": "Raj", "en": "So, let's keep it under observation. We'll test pulls without disrupting working replicas.", "zh": "那么，继续观察，不打扰正常副本地测试拉取。"},
+      {"sp": "Hannah", "en": "Use an authorized low-rate test there. Record layer transfer timing and failure stages.", "zh": "在那里用获准低频测试，记录层传输耗时和失败阶段。"},
+      {"sp": "Anika", "en": "Maybe the timeout depends on image size. Don't change the artifact just to hide it.", "zh": "超时也许与镜像大小相关，不要换制品来掩盖。"},
+      {"sp": "Lukas", "en": "Also distinguish skipped cached layers carefully. Partial cache hits can shorten a test misleadingly.", "zh": "也仔细区分被跳过的缓存层，部分命中可能误导性缩短测试。"},
+      {"sp": "Priya", "en": "I'll record one unresolved Pod explicitly. Tonight's shift needs that count, not general reassurance.", "zh": "我明确记录一个未解决Pod，夜班需要数量，不是笼统放心话。"}
+    ]},
+    {"id": "0332", "part": 7, "stage": "升级条件", "title": "什么情况下不能继续等", "premise": "一个Pod持续超时，缓存维持现有副本，需规定重试及容量触发条件。", "listeningTask": "抓住十分钟超时、容量恶化和不同联系路径。", "newPhrase": "p607", "phrases": ["p607", "p602", "p336:extra", "p337:extra", "p338:extra", "p010:extra"], "lines": [
+      {"sp": "Priya", "en": "Use a ten-minute retry window first. Persistent timeouts then trigger the network escalation path.", "zh": "先用十分钟重试窗口，持续超时就触发网络升级路径。"},
+      {"sp": "Lukas", "en": "Don't wait if service capacity falls. Fewer than four healthy replicas requires immediate review.", "zh": "服务容量下降不要等，健康副本少于四个立即评估。"},
+      {"sp": "Raj", "en": "I'm the incoming primary on-call now. I'll page the backup if customer errors rise.", "zh": "我是接班主值班，客户错误上升就呼叫备班。"},
+      {"sp": "Hannah", "en": "Use sustained errors against the agreed alert. A single synthetic failure isn't that threshold.", "zh": "按约定告警判断持续错误，一次模拟请求失败不算该阈值。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, authentication regression comes to me, right? Network timeouts go elsewhere.", "zh": "好，确认一下，认证复发找我，对吧？网络超时走另一条。"},
+      {"sp": "Lukas", "en": "Yes, keep those contacts separate. Registry support receives sanitized timings, not credentials.", "zh": "对，联系人分开，仓库支持接收脱敏耗时，不收凭据。"},
+      {"sp": "Priya", "en": "So, normal pull backoff remains enabled. No repeated deletions to force faster retries.", "zh": "那么，保留正常拉取退避，不反复删除来强制快重试。"},
+      {"sp": "Raj", "en": "Maybe retries recover before escalation. I'll still record the successful path and timing.", "zh": "也许升级前重试会恢复，我仍记录成功路径和时间。"},
+      {"sp": "Hannah", "en": "Check peak demand before releasing the pause. Recovery on one pull isn't release acceptance.", "zh": "解除暂停前核高峰需求，一次拉取恢复不是发布验收。"},
+      {"sp": "Anika", "en": "I'll remain reachable until the next update. Credential access still follows the authorized process.", "zh": "下次更新前我保持可联系，凭据访问仍按授权流程。"}
+    ]},
+    {"id": "0333", "part": 8, "stage": "接班追问", "title": "接班人核证据与未知项", "premise": "升级门槛和联系人已明确，Raj复核交接证据并提出疑问。", "listeningTask": "听出被纠正的因果推断和脱敏材料的边界。", "newPhrase": "p608", "phrases": ["p608", "p604", "p010:extra", "p011:extra", "p339:extra", "p004:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, let me play that back. Sanitized events show two authorization failures and one timeout.", "zh": "好，我复述，脱敏事件显示两个授权失败和一个超时。"},
+      {"sp": "Hannah", "en": "Correct, the authorization failures are mitigated. Registry availability remains unproven from the affected path.", "zh": "对，授权失败已缓解，受影响路径的仓库可用性仍未证实。"},
+      {"sp": "Raj", "en": "I called it a registry outage earlier. Correction: that's not established by these samples.", "zh": "我之前叫它仓库宕机，纠正一下，这些样本没证实。"},
+      {"sp": "Lukas", "en": "Exactly, the global control probes succeeded. The remaining evidence is path-specific and incomplete.", "zh": "正是如此，全局对照成功，剩余证据仅针对路径且不完整。"},
+      {"sp": "Priya", "en": "Just to confirm, you'll preserve that uncertainty, right? Have I missed anything important?", "zh": "确认一下，你会保留不确定性，对吧？我漏了什么重要事项吗？"},
+      {"sp": "Anika", "en": "Maybe tomorrow's rollback needs the same registry. The saved revision alone doesn't guarantee retrieval.", "zh": "明天回退也许要同一个仓库，保存版本本身不保证能获取。"},
+      {"sp": "Hannah", "en": "Good point, test the rollback artifact path. Don't assume old images are available everywhere.", "zh": "说得对，测试回退制品路径，别假定旧镜像到处可用。"},
+      {"sp": "Raj", "en": "So, a full registry migration, let's park that. Tonight I'll validate only approved artifacts.", "zh": "那么，全面迁移仓库先搁置，今晚只验获批制品。"},
+      {"sp": "Lukas", "en": "The evidence folder contains no Secret values. Access to credential inspection remains separately restricted.", "zh": "证据目录没有Secret值，凭据检查访问另行受限。"},
+      {"sp": "Priya", "en": "I'll attach the internal evidence link. Customer updates get impact and next steps only.", "zh": "我附内部证据链接，客户更新只给影响和下一步。"}
+    ]},
+    {"id": "0334", "part": 9, "stage": "责任时点", "title": "谁负责，什么时候更新", "premise": "Raj已澄清未证实仓库宕机，现确认责任人与半小时更新时点。", "listeningTask": "区分值班协调、凭据责任和网络调查责任。", "newPhrase": "p609", "phrases": ["p609", "p608", "p013:extra", "p008:extra", "p010:extra", "p309:extra"], "lines": [
+      {"sp": "Priya", "en": "Who's picking this up for authentication? Anika remains the credential owner tonight.", "zh": "认证谁接？今晚Anika继续是凭据责任人。"},
+      {"sp": "Lukas", "en": "Raj owns incident coordination after handoff. Network support owns the timeout investigation once escalated.", "zh": "交接后Raj协调，升级后网络支持负责超时调查。"},
+      {"sp": "Raj", "en": "Okay, what's the ETA for another update? I'll send one in thirty minutes.", "zh": "好，下次更新什么时候？我三十分钟后发。"},
+      {"sp": "Hannah", "en": "Earlier if service conditions worsen. Don't wait for the scheduled update during customer impact.", "zh": "服务恶化就提前，影响客户时不要等计划更新。"},
+      {"sp": "Anika", "en": "Just to confirm, status not credentials, right? I'll keep an eye on authentication regression.", "zh": "确认一下，报状态不报凭据，对吧？我关注认证复发。"},
+      {"sp": "Lukas", "en": "Use the access-controlled support record. Include sanitized events and the exact tested scope.", "zh": "用访问受控支持记录，包含脱敏事件和准确测试范围。"},
+      {"sp": "Priya", "en": "So, maybe another test before peak. Raj, confirm the capacity check stays assigned.", "zh": "那么，高峰前也许再测一次，Raj确认容量检查有人负责。"},
+      {"sp": "Raj", "en": "I'll own that before peak demand. No release expansion without renewed approval and checks.", "zh": "高峰前我负责，重新审批和检查前不扩大发布。"},
+      {"sp": "Hannah", "en": "I'll stay available for the first comparison. Then the backup contact follows this roster.", "zh": "首次对比我保持可联系，之后按这个排班找备份联系人。"},
+      {"sp": "Anika", "en": "My authorized access stays with me. Incoming coordination doesn't transfer credential privileges automatically.", "zh": "授权访问仍由我持有，接班协调不自动转移凭据权限。"}
+    ]},
+    {"id": "0335", "part": 10, "stage": "交接确认", "title": "接收责任，不伪装问题已解决", "premise": "责任、证据和更新时点已明确，接班人作最终复述。", "listeningTask": "听出接班确认不是故障解决，并复述仍暂停的事项。", "newPhrase": "p610", "phrases": ["p610", "p607", "p012:extra", "p340:extra", "p010:extra", "p310:extra"], "lines": [
+      {"sp": "Raj", "en": "Okay, just to recap, two pulls recovered. One timeout remains, and release expansion stays paused.", "zh": "好，小结，两个拉取恢复，一个超时仍在，发布继续暂停扩大。"},
+      {"sp": "Lukas", "en": "Four old replicas remain our confirmed capacity. Don't replace them merely to retry pulls.", "zh": "四个旧副本是已确认容量，不为重试拉取而替换。"},
+      {"sp": "Priya", "en": "Is that your handoff acceptance, Raj? Just to confirm, you've received the evidence, right?", "zh": "Raj，这算你明确接受交接了吗？确认一下，你收到证据了，对吧？"},
+      {"sp": "Raj", "en": "Yes, I've got it from here. The ten-minute retry window and escalation contacts are recorded.", "zh": "是的，接下来我负责，十分钟窗口和升级联系人已记录。"},
+      {"sp": "Hannah", "en": "Registry downtime is still not confirmed. Keep that qualification in every update tonight.", "zh": "仍未确认仓库宕机，今晚每次更新都保留这个限定。"},
+      {"sp": "Anika", "en": "Maybe authentication could regress again. Page me through the roster, without sending credential contents.", "zh": "认证也许会再复发，按排班呼叫我，不发送凭据内容。"},
+      {"sp": "Lukas", "en": "A successful retry doesn't authorize rollout expansion. Readiness and peak capacity checks still apply.", "zh": "重试成功不授权扩大发布，仍需就绪和高峰容量检查。"},
+      {"sp": "Priya", "en": "So, we'll close the loop tomorrow. Tonight's next update comes in thirty minutes.", "zh": "那么，明天闭环，今晚下一次更新在三十分钟后。"},
+      {"sp": "Hannah", "en": "I'll attach the final control samples. They document tested paths, not guaranteed future availability.", "zh": "我附上最后对照样本，记录已测路径，不保证未来可用。"},
+      {"sp": "Raj", "en": "I accept coordination, not unrestricted access. I'll keep impact, mitigation, and open questions separate.", "zh": "我接收协调责任，不是无限访问权，分别记录影响、缓解和未决问题。"}
+    ]}
+  ]
+}

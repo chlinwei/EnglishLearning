@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段人工双语成本全员会草稿，含管理层决策与员工追问。仅引用p001-p350及本文件前段；回访候选不计实绩。音色待确认，音频口音时长待核验，无预填时间轴。",
+  "series": {"id": "sc-S40-cloud-cost-allhands", "title": "基础设施成本全员会：预算决策与员工问答", "domain": "cloud", "group": "allhands", "service": "company cloud infrastructure budget", "premise": "季度全员会公布云预算压力及降本方向。账单随客户增长、重复导出和测试资源遗留而增加；员工关注裁员、可靠性和团队考核。", "outcome": "决定先清理经依赖确认的浪费、进行有安全门槛的规格试点，不削减备份和故障余量，不立即签长期承诺。明确本次决策不含裁员，目标是单位有效工作成本改善；四周后公开结果和未决问题。"},
+  "speakers": {
+    "Priya": {"role": "Head of infrastructure and all-hands host", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Platform engineer and employee representative", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Product director", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Staff SRE and employee questioner", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Finance director", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p671", "en": "budget envelope", "zh": "预算总额边界", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p672", "en": "cost breakdown", "zh": "成本分类拆分", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p673", "en": "cost per completed order", "zh": "每完成订单的成本", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p674", "en": "protect the reliability baseline", "zh": "保护基本可靠性保障", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p675", "en": "commit to", "zh": "承诺承担或完成", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p676", "en": "shared accountability", "zh": "共同承担责任", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p677", "en": "across-the-board cuts", "zh": "不分情况的一刀切削减", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p678", "en": "raise a concern", "zh": "提出担忧", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p679", "en": "decision checkpoint", "zh": "阶段决策检查点", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p680", "en": "publish the trade-offs", "zh": "公开方案取舍", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "以下仅为未来回访候选，不代表已完成目标次数。", "futureCandidates": ["p671", "p672", "p673", "p674", "p675", "p676", "p677", "p678", "p679", "p680"]},
+  "dialogues": [
+    {"id": "0396", "part": 1, "stage": "预算开场", "title": "先听今天真正决定什么", "premise": "季度全员会开场，管理层解释云成本讨论的范围。", "listeningTask": "区分预算决定、降本方向和未宣布事项。", "newPhrase": "p671", "phrases": ["p671", "p010", "p012", "p004:extra", "p006:extra", "p008:extra"], "lines": [
+      {"sp": "Priya", "en": "Today's topic is our cloud budget envelope. We're deciding priorities, not shutting services down.", "zh": "今天讨论云预算边界。我们决定优先级，不是关闭服务。"},
+      {"sp": "Hannah", "en": "Well, our quarterly limit is three hundred thousand. Current projections put us above that limit.", "zh": "嗯，季度上限是三十万。目前预测会超过上限。"},
+      {"sp": "Anika", "en": "Customer demand grew faster than we expected. Maybe part of that spending is useful growth.", "zh": "客户需求增长快于预期。部分开销可能是有价值的增长。"},
+      {"sp": "Lukas", "en": "Are we discussing cloud charges or payroll? People need to know the scope clearly.", "zh": "讨论云费用还是薪酬？大家需要明确范围。"},
+      {"sp": "Priya", "en": "Just to confirm, cloud charges only today, right? This decision contains no layoffs or hiring freeze.", "zh": "确认一下，今天只谈云费用，对吧？本次决策不含裁员或冻结招聘。"},
+      {"sp": "Raj", "en": "Okay, teams have limited bandwidth this quarter. What's the ETA for the priority list?", "zh": "好，团队本季度精力有限。优先级清单预计何时给？"},
+      {"sp": "Hannah", "en": "Right, we'll share the approved priorities today. Specific savings estimates follow after the pilots finish.", "zh": "对，今天分享批准的优先级。试点完成后再给具体节省估算。"},
+      {"sp": "Anika", "en": "A blanket percentage per team? Let's park that. Different services have different customer demand patterns.", "zh": "每团队统一百分比？先不这样做。不同服务客户需求不同。"},
+      {"sp": "Lukas", "en": "Good, but explain the guardrails too. A target shouldn't silently override service reliability.", "zh": "好，但也说明保障线。目标不能悄悄凌驾于可靠性。"},
+      {"sp": "Priya", "en": "Just to recap, priorities and guardrails today. No promised savings before we have evidence.", "zh": "小结一下，今天确定优先级和保障线。有证据前不承诺节省。"}
+    ]},
+    {"id": "0397", "part": 2, "stage": "成本拆解", "title": "预测与已结算数字分开听", "premise": "预算范围已明确，财务介绍费用类别与结算状态。", "listeningTask": "听出当前预测不是已结算费用。", "newPhrase": "p672", "phrases": ["p672", "p671", "p010", "p011:extra", "p302:extra", "p335:extra"], "lines": [
+      {"sp": "Hannah", "en": "Okay, the cost breakdown shows compute leading. Storage and transfers make up the remaining share.", "zh": "好，成本拆分显示计算占最大份额。其余是存储和传输。"},
+      {"sp": "Priya", "en": "Our budget envelope covers all three categories. It doesn't mean every category needs equal reductions.", "zh": "预算边界覆盖三类。不是每类都要同幅削减。"},
+      {"sp": "Lukas", "en": "Are these actual charges or future projections? Mixing them would make this chart misleading.", "zh": "这些是实际费用还是未来预测？混在一起会误导。"},
+      {"sp": "Raj", "en": "Let me play that back before interpreting. The solid bars show already reported usage.", "zh": "解释前我复述一下。实心柱显示已上报用量。"},
+      {"sp": "Anika", "en": "Just to confirm, outlined bars are forecasts, right? That distinction matters when teams plan their work.", "zh": "确认一下，空心柱是预测，对吧？团队规划时这个区别重要。"},
+      {"sp": "Hannah", "en": "Yes, recent usage can still arrive late. Final settlement also includes credits and tax adjustments.", "zh": "对，最近用量仍可能延迟到达。最终结算还含抵扣和税费调整。"},
+      {"sp": "Priya", "en": "Our working hypothesis points to repeated transfers. Maybe some compute growth also reflects abandoned tests.", "zh": "当前假设指向重复传输。部分计算增长也可能来自遗留测试。"},
+      {"sp": "Lukas", "en": "Well, can we rule that out for backups? Some apparently idle storage is essential recovery evidence.", "zh": "嗯，能排除备份吗？看似闲置的存储可能是必要恢复证据。"},
+      {"sp": "Raj", "en": "We haven't labelled backups as waste here. Resource owners still need to confirm business dependencies.", "zh": "这里没把备份标为浪费。资源负责人仍需确认业务依赖。"},
+      {"sp": "Anika", "en": "Okay, I'll share those distinctions with teams. Forecasts guide planning, not immediate deletion decisions.", "zh": "好，我向团队分享区别。预测指导规划，不直接指导删除。"}
+    ]},
+    {"id": "0398", "part": 3, "stage": "增长解释", "title": "总费用增长不一定代表效率下降", "premise": "成本分类已公布，产品侧说明客户需求与单位成本。", "listeningTask": "区分增长带来的费用和可消除浪费。", "newPhrase": "p673", "phrases": ["p673", "p672", "p335", "p010:extra", "p309:extra", "p012:extra"], "lines": [
+      {"sp": "Anika", "en": "Well, cost per completed order stayed flat. Total orders rose by roughly twenty percent.", "zh": "嗯，每完成订单成本持平。总订单约增长百分之二十。"},
+      {"sp": "Hannah", "en": "That's useful, but define completed consistently. Failed attempts and refunds can change the denominator.", "zh": "有用，但完成口径要一致。失败尝试和退款会改变分母。"},
+      {"sp": "Raj", "en": "The cost breakdown also isolates duplicate transfers. Those aren't explained by useful order growth.", "zh": "成本拆分也单列重复传输。有效订单增长解释不了它们。"},
+      {"sp": "Lukas", "en": "Good, don't excuse all growth as demand. Separate expected demand costs from avoidable waste.", "zh": "好，不要用需求解释一切增长。区分合理需求成本与可避免浪费。"},
+      {"sp": "Priya", "en": "Just to confirm, comparable order definitions, right? We'll keep an eye on denominator changes.", "zh": "确认一下，订单定义可比，对吧？我们关注分母变化。"},
+      {"sp": "Anika", "en": "Yes, only completed paid orders count here. I'll label refunded orders separately for finance.", "zh": "对，只算已付款完成订单。退款订单另标给财务。"},
+      {"sp": "Hannah", "en": "So, use consistent currency and credits throughout. Otherwise apparent improvement could come from accounting.", "zh": "所以，全程使用同币种和抵扣口径。否则表面改善可能只是会计变化。"},
+      {"sp": "Raj", "en": "Our working hypothesis explains most transfer growth. The job audit still needs owner confirmation.", "zh": "当前假设解释大部分传输增长。任务审计仍需负责人确认。"},
+      {"sp": "Lukas", "en": "Publish that uncertainty beside the graph. Employees should see evidence, not just a persuasive headline.", "zh": "把不确定性写在图旁。员工应看到证据，不只看有说服力标题。"},
+      {"sp": "Priya", "en": "Just to recap, growth isn't automatically waste. But growth doesn't excuse unmanaged resources either.", "zh": "小结一下，增长不自动等于浪费。但也不能成为无人管理资源的借口。"}
+    ]},
+    {"id": "0399", "part": 4, "stage": "优先项目", "title": "清重复，保恢复能力", "premise": "区分需求增长与浪费后，管理层宣布优先项目。", "listeningTask": "抓住优先行动和明确保护的投入。", "newPhrase": "p674", "phrases": ["p674", "p673", "p305", "p009:extra", "p010:extra", "p004:extra"], "lines": [
+      {"sp": "Priya", "en": "First, we'll protect the reliability baseline. Backups, recovery drills, and failure capacity stay funded.", "zh": "首先，保护可靠性基线。备份、恢复演练和故障余量继续有资金。"},
+      {"sp": "Lukas", "en": "Does that include the second availability zone? Redundancy can look idle during normal operation.", "zh": "包括第二可用区吗？正常运行时冗余可能看似闲置。"},
+      {"sp": "Anika", "en": "Yes, normal idleness isn't waste by itself. We won't trade recovery capability for a chart.", "zh": "包括，正常空闲本身不是浪费。不会为图表牺牲恢复能力。"},
+      {"sp": "Hannah", "en": "So, start by removing verified duplicate work. Sizing trials come next with safety gates.", "zh": "所以，先移除已核实重复工作。之后是有安全门槛的规格试验。"},
+      {"sp": "Raj", "en": "One action item is mapping resource dependencies. Maybe that reveals safe candidates without hurting customers.", "zh": "一项待办是梳理资源依赖。可能找到不影响客户的安全候选。"},
+      {"sp": "Priya", "en": "Just to confirm, owner approval before stopping, right? Evidence stays under the retention policy afterward.", "zh": "确认一下，停用前负责人批准，对吧？之后证据按保留策略保存。"},
+      {"sp": "Lukas", "en": "Right, don't delete audit records for savings. Retention obligations need security and legal input.", "zh": "对，不能为了省钱删除审计记录。保留义务需安全和法务意见。"},
+      {"sp": "Anika", "en": "Cost per completed order stays our guide. A faster cheap service can still lose data.", "zh": "每完成订单成本仍是参考。更快更便宜的服务仍可能丢数据。"},
+      {"sp": "Hannah", "en": "Long-term contracts today? Let's park that. Peak demand and exit restrictions need their own review.", "zh": "今天签长期合同？先放一边。峰值需求和退出限制需独立评审。"},
+      {"sp": "Raj", "en": "Okay, teams can start dependency reviews now. No blanket permission to stop or delete resources.", "zh": "好，团队可以开始依赖评审。不是一揽子授权停用或删除资源。"}
+    ]},
+    {"id": "0400", "part": 5, "stage": "降本目标", "title": "承诺过程与证据，不编造节省", "premise": "优先级已发布，员工希望知道具体降本目标及计算方式。", "listeningTask": "听出目标、承诺和预算决策的不同。", "newPhrase": "p675", "phrases": ["p675", "p674", "p673", "p010:extra", "p335:extra", "p011:extra"], "lines": [
+      {"sp": "Priya", "en": "We commit to publishing measured improvements monthly. The initial goal is ten percent better efficiency.", "zh": "承诺每月发布测得的改善。初始目标是效率提高百分之十。"},
+      {"sp": "Hannah", "en": "So, lower cost per completed order. It doesn't guarantee a smaller total bill.", "zh": "所以，是每完成订单成本更低。不保证总账单更小。"},
+      {"sp": "Raj", "en": "Let me play that back as an employee. Growing teams aren't punished just for growing.", "zh": "我作为员工复述一下。增长团队不会仅因增长受罚。"},
+      {"sp": "Lukas", "en": "But how will a platform team compare? Its useful work isn't always measured in orders.", "zh": "但平台团队怎么比较？有效工作不总能按订单衡量。"},
+      {"sp": "Anika", "en": "We'll use service-specific units for those teams. Maybe successful builds make sense for developer tooling.", "zh": "那些团队使用服务专属单位。开发工具可以用成功构建。"},
+      {"sp": "Priya", "en": "Just to confirm, protect the reliability baseline, right? Targets don't overrule security or recovery requirements.", "zh": "确认一下，保护可靠性基线，对吧？目标不凌驾于安全或恢复要求。"},
+      {"sp": "Hannah", "en": "Our working hypothesis suggests ten percent potential. Actual pilots may show a different feasible range.", "zh": "当前假设提示有百分之十潜力。实际试点可能显示不同可行区间。"},
+      {"sp": "Raj", "en": "Then label ten percent as a target. Teams need permission to report smaller safe savings.", "zh": "那就标为目标。团队需要获准报告较小但安全的节省。"},
+      {"sp": "Lukas", "en": "Agreed, compare quality and cost together. Otherwise teams could stop useful work to look efficient.", "zh": "同意，同时比较质量与成本。否则团队可能停止有效工作来显得高效。"},
+      {"sp": "Anika", "en": "Okay, we'll publish each metric's definition itself. That makes comparisons open to challenge and correction.", "zh": "好，发布每个指标定义本身。让比较可以被质疑和修正。"}
+    ]},
+    {"id": "0401", "part": 6, "stage": "团队责任", "title": "共同责任不是人人背同一指标", "premise": "单位成本目标明确，管理层解释业务、平台和财务各自责任。", "listeningTask": "抓住跨团队责任分工而不是把降本全推给运维。", "newPhrase": "p676", "phrases": ["p676", "p675", "p006", "p009:extra", "p013:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "First, shared accountability includes product demand choices. Platform teams shouldn't carry this budget alone.", "zh": "先明确，共同责任包括产品需求选择。平台不应独自承担预算。"},
+      {"sp": "Hannah", "en": "Right, finance supplies rates and reconciled charges. We also review contract restrictions before purchasing.", "zh": "对，财务提供费率和核对后的费用，也在采购前审阅合同限制。"},
+      {"sp": "Anika", "en": "So, product will commit to naming owners. Each resource group needs a clear purpose.", "zh": "所以，产品承诺指定负责人。每组资源需要明确目的。"},
+      {"sp": "Lukas", "en": "Who's picking this up for shared services? Multiple teams may depend on the same machine.", "zh": "共享服务谁来接？多个团队可能依赖同一机器。"},
+      {"sp": "Raj", "en": "I'll map those dependencies with service owners. We've got bandwidth for two reviews weekly.", "zh": "我与服务负责人梳理依赖。每周有精力做两次评审。"},
+      {"sp": "Priya", "en": "Okay, the first action item is ownership. Maybe start with the biggest unexplained cost groups.", "zh": "好，第一项待办是归属。可以从最大未解释费用组开始。"},
+      {"sp": "Hannah", "en": "Good, I'll close the loop on allocations. Don't charge a shared resource entirely to one user.", "zh": "好，我跟进成本归属。不把共享资源全部计给一个使用者。"},
+      {"sp": "Anika", "en": "Teams can challenge the allocation itself, right? We need corrections before judging any progress.", "zh": "团队可以质疑归属本身，对吧？评价进度前需要纠正。"},
+      {"sp": "Lukas", "en": "Well, reserve time for those reviews explicitly. Unfunded cost work would just become hidden overtime.", "zh": "嗯，明确为评审留时间。没安排资源的降本工作会变成隐藏加班。"},
+      {"sp": "Priya", "en": "We'll replace lower-priority work, not add everything. Managers must publish which tasks move later.", "zh": "替换低优先级工作，不是全部追加。经理必须公布延后的任务。"}
+    ]},
+    {"id": "0402", "part": 7, "stage": "员工提问", "title": "员工问裁员、考核和公平性", "premise": "责任分工公布，进入员工对政策影响的直接追问。", "listeningTask": "听出管理层明确回答什么、没有保证什么。", "newPhrase": "p677", "phrases": ["p677", "p676", "p675", "p010:extra", "p004:extra", "p002:extra"], "lines": [
+      {"sp": "Raj", "en": "So, are we facing across-the-board cuts later? Some colleagues heard savings and assumed job losses.", "zh": "那么，以后会一刀切吗？有同事听到节省就以为要裁员。"},
+      {"sp": "Priya", "en": "Well, this plan contains no job cuts. I can't promise every future company decision.", "zh": "嗯，这份方案不含裁员。我不能保证公司未来每个决定。"},
+      {"sp": "Lukas", "en": "Okay, thanks for separating those two claims. Will missed savings targets affect individual performance reviews?", "zh": "好，感谢区分两个说法。没达节省目标影响个人绩效吗？"},
+      {"sp": "Anika", "en": "Not through an automatic savings score itself. We evaluate sound decisions, evidence, and agreed responsibilities.", "zh": "不会通过自动节省分数。评价合理决策、证据和约定职责。"},
+      {"sp": "Hannah", "en": "Right, shared accountability includes explaining uncontrollable demand. Finance won't rank teams by raw bills.", "zh": "对，共同责任包含解释不可控需求。财务不会按原始账单排名。"},
+      {"sp": "Raj", "en": "Just to confirm, failed safe tests count, right? Maybe my team finds no acceptable reduction.", "zh": "确认一下，安全试验失败也算成果，对吧？我团队可能找不到可接受缩减。"},
+      {"sp": "Lukas", "en": "That evidence should still guide a decision. Otherwise people might conceal the expensive failure cases.", "zh": "那证据仍应指导决定。否则大家可能隐瞒昂贵的失败情况。"},
+      {"sp": "Priya", "en": "Agreed, we commit to reporting those outcomes. A rejected unsafe option is useful work.", "zh": "同意，我们承诺报告那些结果。拒绝不安全方案是有效工作。"},
+      {"sp": "Hannah", "en": "Individual cases can take it offline afterward. Public questions still get an anonymized policy answer.", "zh": "个人情况之后可以单聊。公开问题仍会得到匿名化政策回答。"},
+      {"sp": "Anika", "en": "A league table? Let's park that idea. The policy rewards useful evidence, not cosmetic rankings.", "zh": "排行榜？先不考虑。政策重视有效证据，不是好看排名。"}
+    ]},
+    {"id": "0403", "part": 8, "stage": "风险回应", "title": "质疑削冗余应有出口", "premise": "员工认可考核澄清，继续追问可靠性和采购风险。", "listeningTask": "抓住提出担忧的渠道及采购安全边界。", "newPhrase": "p678", "phrases": ["p678", "p674", "p677", "p336:extra", "p010:extra", "p335:extra"], "lines": [
+      {"sp": "Lukas", "en": "Well, can I raise a concern about redundancy? A manager could call spare capacity unnecessary.", "zh": "嗯，能提一下冗余担忧吗？经理可能把备用容量说成不必要。"},
+      {"sp": "Priya", "en": "We protect the reliability baseline through review. Any redundancy reduction needs reliability-owner approval first.", "zh": "通过评审保护可靠性基线。缩冗余必须先得到可靠性负责人批准。"},
+      {"sp": "Raj", "en": "And the escalation path avoids that manager? People may need an independent technical review.", "zh": "升级路径可以绕开那经理吗？大家可能需要独立技术评审。"},
+      {"sp": "Hannah", "en": "Yes, the reliability council reviews disputed changes. Document the concern before approving the purchase.", "zh": "可以，可靠性委员会评审争议变更。批准采购前记录担忧。"},
+      {"sp": "Anika", "en": "Just to confirm, no across-the-board cuts, right? Contracts also need peak demand and exit checks.", "zh": "确认一下，不一刀切，对吧？合同也要核查峰值需求和退出限制。"},
+      {"sp": "Lukas", "en": "Exactly, a long commitment may trap us. What happens if the planned migration changes providers?", "zh": "对，长期承诺可能困住我们。计划迁移若换厂商怎么办？"},
+      {"sp": "Priya", "en": "Our working hypothesis must include that possibility. Maybe a smaller commitment preserves enough flexibility.", "zh": "当前假设必须包含那可能。较小承诺可能保留足够灵活性。"},
+      {"sp": "Hannah", "en": "So, no contract is approved here today. Cancellation and exchange rights require written confirmation.", "zh": "所以，今天这里不批准任何合同。取消和交换权利需要书面确认。"},
+      {"sp": "Raj", "en": "Okay, discounts aren't capacity guarantees by themselves. Peak availability needs separate engineering and procurement checks.", "zh": "好，折扣本身不是容量保证。峰值可用能力需要独立工程和采购检查。"},
+      {"sp": "Anika", "en": "We'll keep those restrictions in every proposal. Nobody should learn the lock-in after signing.", "zh": "每个提案都保留这些限制。不能签后才知道被锁定。"}
+    ]},
+    {"id": "0404", "part": 9, "stage": "时间安排", "title": "四周后公开结果，不提前宣布成功", "premise": "风险渠道明确，管理层宣布实施与反馈时间。", "listeningTask": "抓住两周提交、四周反馈和异常提前升级。", "newPhrase": "p679", "phrases": ["p679", "p675", "p678", "p009:extra", "p008:extra", "p001:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, our decision checkpoint is four weeks away. Teams submit reviewed options within two weeks.", "zh": "好，四周后是决策检查点。团队两周内提交评审过的方案。"},
+      {"sp": "Hannah", "en": "We commit to sharing outcomes at that checkpoint. Financial reconciliation may take longer than testing.", "zh": "承诺在检查点分享结果。财务核对可能比测试更久。"},
+      {"sp": "Raj", "en": "What's the ETA for the common template? Maybe teams can avoid five different reporting formats.", "zh": "统一模板预计何时给？可以避免团队使用五种报告格式。"},
+      {"sp": "Lukas", "en": "Well, include unresolved risks and rejected options. A status report isn't just a savings total.", "zh": "嗯，也包含未解决风险和被拒方案。状态报告不只是节省总额。"},
+      {"sp": "Anika", "en": "Today's action item includes the reporting template. Priya's team will publish it tomorrow morning.", "zh": "今天待办包括报告模板。Priya团队明早发布。"},
+      {"sp": "Priya", "en": "We'll circle back at the next all-hands. Urgent safety concerns don't wait four weeks itself.", "zh": "下次全员会再跟进。紧急安全担忧不用等四周。"},
+      {"sp": "Hannah", "en": "Right, raise a concern through the council. Budget conflicts go through finance in parallel.", "zh": "对，向委员会提出担忧。预算冲突同时通过财务处理。"},
+      {"sp": "Raj", "en": "Will pilot work stay inside normal hours? Our team already has a full release schedule.", "zh": "试点会在正常工时内吗？团队发布安排已满。"},
+      {"sp": "Lukas", "en": "So, managers must reprioritize before adding work. The schedule should expose capacity limits honestly.", "zh": "所以，经理加工作前必须重排优先级。排期应真实暴露精力限制。"},
+      {"sp": "Anika", "en": "Okay, I'll review trade-offs with team leads. We'll move lower-priority features rather than assume overtime.", "zh": "好，与团队负责人评审取舍。延后低优先功能，不默认加班。"}
+    ]},
+    {"id": "0405", "part": 10, "stage": "决策回顾", "title": "听清获批、暂缓与反馈责任", "premise": "全员会收尾，明确决策记录与未决事项反馈方式。", "listeningTask": "复述已批准措施、明确排除项和下次反馈时间。", "newPhrase": "p680", "phrases": ["p680", "p679", "p676", "p012:extra", "p310:extra", "p013:extra"], "lines": [
+      {"sp": "Priya", "en": "We'll publish the trade-offs with today's decisions. Just to recap, verified waste comes first.", "zh": "与今天决策一起公开取舍。小结一下，先处理核实的浪费。"},
+      {"sp": "Hannah", "en": "Right, sizing pilots need their safety gates. Long contracts and blanket reductions aren't approved.", "zh": "对，规格试点需要安全门槛。长期合同和全面削减未获批。"},
+      {"sp": "Raj", "en": "Who's picking this up for unanswered questions? Several colleagues asked about shared cost allocation.", "zh": "未回答问题谁接？几位同事问了共享成本归属。"},
+      {"sp": "Lukas", "en": "Well, keep questions in the published record. Silence shouldn't look like agreement or resolution.", "zh": "嗯，把问题保留在公开记录中。沉默不应像同意或解决。"},
+      {"sp": "Anika", "en": "Shared accountability includes answering those questions itself. Product and finance will review allocations together.", "zh": "共同责任包含回答问题本身。产品和财务共同评审归属。"},
+      {"sp": "Priya", "en": "I'll close the loop by next Wednesday. Maybe some answers need a second specialist review.", "zh": "我下周三前闭环。部分回答可能需要第二位专家评审。"},
+      {"sp": "Hannah", "en": "So, publish the owner and next date. We can acknowledge uncertainty without inventing an answer.", "zh": "所以，公布负责人和下个日期。可以承认不确定，而不编答案。"},
+      {"sp": "Raj", "en": "The decision checkpoint remains four weeks away. No layoffs are included in this approved plan.", "zh": "决策检查点仍是四周后。本次批准方案不含裁员。"},
+      {"sp": "Lukas", "en": "And backups and recovery capacity remain protected. That's the part employees need to hear clearly.", "zh": "备份和恢复容量继续受保护。员工需要明确听到这一点。"},
+      {"sp": "Anika", "en": "Okay, we'll share the record today. Teams get priorities and time, not just another target.", "zh": "好，今天分享记录。团队得到优先级和时间，不只是另一个指标。"}
+    ]}
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "十段完整中英人工草稿，未发布。仅引用既有库、S03-S07与本文件先前段；待真实配音核验口音，无预填时间轴。",
+  "series": {"id": "sc-S22-ha-failover", "title": "自动故障切换失效：先隔离，再恢复", "domain": "ha", "group": "incident", "service": "order ledger synchronous primary-standby cluster", "premise": "订单账本主备连接中断，自动控制器未提升备机。系统要求已确认写入同步持久化到备机；当前写入口已暂停，旧主生存状态未知。", "outcome": "确认fencing凭据失效使控制器安全拒绝提升；通过独立管理平面关闭并锁定旧主，核验备机提交点后人工提升。逐批恢复写入并核对未知提交，旧主保持隔离，自动切换修复在隔离环境验收。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Database on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Order application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Cluster safety engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Data validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p491", "en": "failover didn't kick in", "zh": "故障切换没有自动启动", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p492", "en": "last committed position", "zh": "最后提交的位置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p493", "en": "network partition", "zh": "网络分区", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p494", "en": "split brain", "zh": "双主脑裂", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p495", "en": "promotion gate", "zh": "提升为主的安全门槛", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p496", "en": "fence off", "zh": "可靠隔离并阻止节点写入", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p497", "en": "writer endpoint", "zh": "写入端点", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p498", "en": "uncertain commits", "zh": "结果未知的提交", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p499", "en": "rejoin as a replica", "zh": "以副本身份重新加入", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p500", "en": "fencing credentials", "zh": "隔离操作所需凭据", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来候选回访，不算实际复现；本场景新表达尚未达成全库目标。", "S25": ["p492", "p495", "p496", "p498", "p500"], "S26": ["p493", "p494", "p497", "p499"]},
+  "dialogues": [
+    {"id": "0216", "part": 1, "stage": "告警", "title": "切换停住：不要直接提升", "premise": "账本写入超时，控制器没有提升备机。", "listeningTask": "辨别客户端超时和主机死亡并非同一证据。", "newPhrase": "p491", "phrases": ["p491", "p003", "p101", "p010:extra", "p103:extra", "p335:extra"], "lines": [
+      {"sp": "Anika", "en": "Failover didn't kick in. No, it started, then stopped. The error rate spiked.", "zh": "故障切换没自动启动。不，准确说是启动后停住了。错误率陡涨。"},
+      {"sp": "Lukas", "en": "Is the old primary actually dead?", "zh": "旧主真的已经停机了吗？"},
+      {"sp": "Priya", "en": "I'll take point on this. No promotion yet.", "zh": "我来主抓。暂时不提升备机。"},
+      {"sp": "Raj", "en": "Let me tail the log. Writes are paused.", "zh": "我盯一下日志。写入已暂停。"},
+      {"sp": "Hannah", "en": "Paused where? Direct clients could bypass that.", "zh": "在哪层暂停？直连客户端可能绕过去。"},
+      {"sp": "Priya", "en": "Just to confirm, both entry paths, right?", "zh": "确认一下，两条入口都暂停了，对吧？"},
+      {"sp": "Raj", "en": "Yes, gateway and batch writers are blocked.", "zh": "是的，网关和批处理写入都被阻止了。"},
+      {"sp": "Lukas", "en": "Okay, that doesn't prove the host's stopped.", "zh": "好，但这不能证明主机已经停止。"},
+      {"sp": "Priya", "en": "Our working hypothesis is lost cluster connectivity.", "zh": "当前假设是集群连接丢失。"},
+      {"sp": "Hannah", "en": "Maybe. Keep host state separate from symptoms.", "zh": "可能。把主机状态与故障现象分开看。"}
+    ]},
+    {"id": "0217", "part": 2, "stage": "确认主备", "title": "提交点：已确认写入在哪里", "premise": "写入口已冻结，需要检查备机角色和持久化状态。", "listeningTask": "听懂同步确认语义，而非仅看复制延迟。", "newPhrase": "p492", "phrases": ["p492", "p010", "p302", "p011:extra", "p335:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "The last committed position matches our witness.", "zh": "最后提交位置与见证记录一致。"},
+      {"sp": "Hannah", "en": "Does that include every acknowledged client write?", "zh": "这包括所有已向客户端确认的写入吗？"},
+      {"sp": "Anika", "en": "Yes, acknowledgments require durable synchronous replication here.", "zh": "是的，这里确认写入要求同步复制持久化。"},
+      {"sp": "Lukas", "en": "Was synchronous mode enabled throughout this incident?", "zh": "整个故障期间都启用了同步模式吗？"},
+      {"sp": "Raj", "en": "Just to confirm, no asynchronous fallback, right?", "zh": "确认一下，没有退到异步模式，对吧？"},
+      {"sp": "Priya", "en": "That's our working hypothesis. The audit looks reassuring.", "zh": "这是当前假设。审计结果看起来令人放心。"},
+      {"sp": "Hannah", "en": "Let me play that back. Verify replay too.", "zh": "我复述一下。还要验证日志回放。"},
+      {"sp": "Raj", "en": "Replay reached that position. We'll keep an eye on later records.", "zh": "回放已到该位置。我们会留意后续记录。"},
+      {"sp": "Lukas", "en": "Good, but divergence remains possible until isolation.", "zh": "好，但隔离前仍有分叉可能。"},
+      {"sp": "Priya", "en": "We can't rule that out yet. Isolation next.", "zh": "还不能排除。接下来检查隔离。"}
+    ]},
+    {"id": "0218", "part": 3, "stage": "判断分区", "title": "探测失败：不等于旧主死亡", "premise": "备机提交点已核对，但旧主仍不可从集群网络访问。", "listeningTask": "区分网络路径失效和主机电源状态。", "newPhrase": "p493", "phrases": ["p493", "p335", "p302", "p325:extra", "p103:extra", "p010:extra"], "lines": [
+      {"sp": "Raj", "en": "Our working hypothesis is a network partition.", "zh": "当前假设是网络分区。"},
+      {"sp": "Lukas", "en": "What evidence separates that from host failure?", "zh": "有什么证据能区分它和主机故障？"},
+      {"sp": "Priya", "en": "The out-of-band console responds. That's independent connectivity.", "zh": "带外控制台有响应，那是独立连接。"},
+      {"sp": "Hannah", "en": "Console access alone doesn't prove database activity.", "zh": "仅能访问控制台不能证明数据库仍在运行。"},
+      {"sp": "Raj", "en": "Let me tail the log. Local write attempts appear.", "zh": "我盯一下日志，里面有本地写入尝试。"},
+      {"sp": "Anika", "en": "Scheduled jobs, perhaps. They bypass our gateway.", "zh": "也许是定时任务，它们绕过网关。"},
+      {"sp": "Lukas", "en": "Then the gateway block isn't complete fencing.", "zh": "那网关阻断就不算完整的隔离。"},
+      {"sp": "Priya", "en": "Just to confirm, no promotion now, right?", "zh": "确认一下，现在不提升，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Preserve logs before disabling the host.", "zh": "对，禁用主机前先保留日志。"},
+      {"sp": "Raj", "en": "We can rule that out as total power loss.", "zh": "可以排除完全断电这一解释。"}
+    ]},
+    {"id": "0219", "part": 4, "stage": "防双主", "title": "先锁住：路由不是隔离", "premise": "旧主仍可能执行本地任务，不能仅靠切换路由。", "listeningTask": "抓住防双写措施与不充分的网络隔离。", "newPhrase": "p494", "phrases": ["p494", "p493", "p010", "p106:extra", "p209:extra", "p336:extra"], "lines": [
+      {"sp": "Priya", "en": "Let's freeze changes. Split brain is the risk.", "zh": "冻结变更。风险是双主脑裂。"},
+      {"sp": "Lukas", "en": "Changing DNS won't stop local database writers.", "zh": "改DNS不会停止数据库本地写入者。"},
+      {"sp": "Raj", "en": "The network partition leaves old sessions uncertain.", "zh": "网络分区使旧会话状态不明。"},
+      {"sp": "Hannah", "en": "And network filters might miss another interface.", "zh": "网络过滤也可能漏掉另一个网卡。"},
+      {"sp": "Anika", "en": "That's our blast radius: conflicting order records.", "zh": "影响范围就是产生冲突的订单记录。"},
+      {"sp": "Priya", "en": "Just to confirm, power fencing first, right?", "zh": "确认一下，先做电源隔离，对吧？"},
+      {"sp": "Lukas", "en": "Yes, with independent confirmation and restart inhibition.", "zh": "是的，需独立确认并禁止自动重启。"},
+      {"sp": "Raj", "en": "The escalation path reaches our infrastructure operator.", "zh": "升级联系路径可联系基础设施操作员。"},
+      {"sp": "Hannah", "en": "Could automated recovery turn it back on?", "zh": "自动恢复会不会把它重新打开？"},
+      {"sp": "Priya", "en": "Possibly. We'll disable that before any promotion.", "zh": "有可能。提升前我们会先禁用它。"}
+    ]},
+    {"id": "0220", "part": 5, "stage": "人工决策", "title": "有条件批准：还不是开始提升", "premise": "已选择独立管理平面电源隔离，讨论提升条件。", "listeningTask": "听出条件批准与实际执行批准的差别。", "newPhrase": "p495", "phrases": ["p495", "p492", "p328", "p008:extra", "p011:extra", "p324:extra"], "lines": [
+      {"sp": "Priya", "en": "The promotion gate needs two verified checks.", "zh": "提升门槛需要两项已验证检查。"},
+      {"sp": "Lukas", "en": "Old primary fenced, and acknowledged data replayed.", "zh": "旧主已隔离，已确认数据已回放。"},
+      {"sp": "Raj", "en": "The last committed position is replayed already.", "zh": "最后提交位置已经回放完成。"},
+      {"sp": "Hannah", "en": "What's the rollback trigger after promotion starts?", "zh": "提升开始后，什么情况触发回退？"},
+      {"sp": "Anika", "en": "Pause new writes. Don't reactivate the old primary.", "zh": "暂停新写入，不要重新启用旧主。"},
+      {"sp": "Priya", "en": "Go/no-go stays pending isolation evidence itself.", "zh": "继续或停止的决策仍要等隔离证据本身。"},
+      {"sp": "Lukas", "en": "Let me play that back. Approval is conditional.", "zh": "我复述一下：批准是有条件的。"},
+      {"sp": "Raj", "en": "What's the ETA for power confirmation? Roughly?", "zh": "电源确认预计多久？大概呢？"},
+      {"sp": "Hannah", "en": "About three minutes. Verify the correct host identifier.", "zh": "大约三分钟，要核对正确主机标识。"},
+      {"sp": "Priya", "en": "Okay, I'll record both approvals before proceeding.", "zh": "好，我会在继续前记录两项批准。"}
+    ]},
+    {"id": "0221", "part": 6, "stage": "隔离旧主", "title": "电源证据：隔离成功才提升", "premise": "基础设施操作员按批准流程关闭旧主并锁定重启。", "listeningTask": "区分API请求被接受和最终关闭已确认。", "newPhrase": "p496", "phrases": ["p496", "p495", "p014", "p325:extra", "p010:extra", "p327:extra"], "lines": [
+      {"sp": "Raj", "en": "I'm on it. We'll fence off ledger-one.", "zh": "我来操作，可靠隔离ledger-one。"},
+      {"sp": "Hannah", "en": "The request was accepted. Is shutdown complete?", "zh": "请求已受理，关闭完成了吗？"},
+      {"sp": "Raj", "en": "Now confirmed off through the out-of-band console.", "zh": "现在带外控制台已确认关闭。"},
+      {"sp": "Lukas", "en": "I independently checked power and restart inhibition.", "zh": "我独立核对了电源状态和重启禁止。"},
+      {"sp": "Priya", "en": "Just to confirm, lock persists, right?", "zh": "确认一下，锁定会持续生效，对吧？"},
+      {"sp": "Anika", "en": "Yes, the automation exclusion is recorded too.", "zh": "是的，自动化排除配置也已记录。"},
+      {"sp": "Hannah", "en": "Okay, the promotion gate can now pass.", "zh": "好，现在提升门槛可以通过了。"},
+      {"sp": "Raj", "en": "Standby promoted. A local smoke test passed.", "zh": "备机已提升，本地关键功能快速验证通过。"},
+      {"sp": "Lukas", "en": "Perhaps enough for a canary, not full traffic.", "zh": "也许足够开始灰度，但还不能全量接流量。"},
+      {"sp": "Priya", "en": "Agreed. Keep application writers paused until routing validation.", "zh": "同意。路由验证前继续暂停应用写入。"}
+    ]},
+    {"id": "0222", "part": 7, "stage": "恢复请求", "title": "写端点：旧连接也要检查", "premise": "新主本地验证通过，准备恢复少量应用写入。", "listeningTask": "听懂连接池更新与幂等重试的要求。", "newPhrase": "p497", "phrases": ["p497", "p323", "p327", "p309:extra", "p010:extra", "p306:extra"], "lines": [
+      {"sp": "Anika", "en": "The writer endpoint now resolves to ledger-two.", "zh": "写入端点现在解析到ledger-two。"},
+      {"sp": "Lukas", "en": "Did existing connection pools refresh their targets?", "zh": "现有连接池更新目标了吗？"},
+      {"sp": "Raj", "en": "Yes, controlled reconnects. No blind request replay.", "zh": "是的，受控重连，没有盲目重放请求。"},
+      {"sp": "Hannah", "en": "Use idempotency keys for any uncertain retry.", "zh": "所有结果未知的重试都要用幂等键。"},
+      {"sp": "Priya", "en": "Just to confirm, staged rollout, right?", "zh": "确认一下，是分阶段恢复，对吧？"},
+      {"sp": "Anika", "en": "One tenant first. The smoke test passed.", "zh": "先一个租户，关键功能快速验证通过了。"},
+      {"sp": "Lukas", "en": "Okay, compare accepted requests against durable orders.", "zh": "好，把已受理请求与持久化订单对照。"},
+      {"sp": "Raj", "en": "We'll keep an eye on queue age.", "zh": "我们会留意队列等待时间。"},
+      {"sp": "Hannah", "en": "Maybe slower draining will buy us time.", "zh": "也许慢一些处理积压能争取核对时间。"},
+      {"sp": "Priya", "en": "Yes, expand only while those checks remain clean.", "zh": "是的，只有这些检查持续正常才扩大范围。"}
+    ]},
+    {"id": "0223", "part": 8, "stage": "验证数据", "title": "未知提交：先查订单再重试", "premise": "灰度写入正常，部分超时请求的最终结果仍未知。", "listeningTask": "区分已确认、未确认和可安全重试的提交。", "newPhrase": "p498", "phrases": ["p498", "p492", "p308", "p011:extra", "p302:extra", "p012:extra"], "lines": [
+      {"sp": "Hannah", "en": "Uncertain commits need lookup by idempotency key.", "zh": "结果未知的提交需要按幂等键查询。"},
+      {"sp": "Anika", "en": "We've matched all acknowledged requests to orders.", "zh": "所有已确认请求都匹配到了订单。"},
+      {"sp": "Lukas", "en": "What about writes without a client acknowledgment?", "zh": "没有向客户端确认的写入呢？"},
+      {"sp": "Raj", "en": "Some committed before disconnect. That's expected, right?", "zh": "有些断连前已经提交，这是可能的，对吧？"},
+      {"sp": "Hannah", "en": "Yes. A timeout doesn't mean transaction failure.", "zh": "是的，超时不等于事务失败。"},
+      {"sp": "Priya", "en": "Let me play that back. Look up first.", "zh": "我复述一下：先查结果。"},
+      {"sp": "Raj", "en": "The last committed position supports acknowledged-write coverage.", "zh": "最后提交位置支持已确认写入的覆盖核验。"},
+      {"sp": "Lukas", "en": "But don't rule that out for unacknowledged gaps.", "zh": "但未确认写入中的缺口仍不能排除。"},
+      {"sp": "Anika", "en": "Just to recap, retries can catch up safely.", "zh": "小结一下，重试可以安全补齐。"},
+      {"sp": "Priya", "en": "With deduplication, yes. Perhaps manual review for exceptions.", "zh": "有去重机制才行。异常也许需要人工核查。"}
+    ]},
+    {"id": "0224", "part": 9, "stage": "稳定观察", "title": "旧主不能直接回来", "premise": "业务恢复基线，旧主仍关机锁定；准备观察与后续重建。", "listeningTask": "听懂新写入后不能把旧主直接作为回退目标。", "newPhrase": "p499", "phrases": ["p499", "p110", "p111:extra", "p498:extra", "p331:extra", "p010:extra"], "lines": [
+      {"sp": "Anika", "en": "We're back to baseline. Queue age recovered.", "zh": "恢复基线了，队列等待时间也正常了。"},
+      {"sp": "Lukas", "en": "Can the old host rejoin as a replica?", "zh": "旧主机可以作为副本重新加入吗？"},
+      {"sp": "Raj", "en": "After rebuilding from the authoritative primary only.", "zh": "只能在从权威新主重建之后加入。"},
+      {"sp": "Hannah", "en": "Preserve its divergent records before rebuilding anything.", "zh": "重建任何内容前，先保留它的分叉记录。"},
+      {"sp": "Priya", "en": "Just to confirm, no immediate failback, right?", "zh": "确认一下，不立即切回，对吧？"},
+      {"sp": "Raj", "en": "Correct. New writes make that unsafe now.", "zh": "对，新写入使直接切回已不安全。"},
+      {"sp": "Hannah", "en": "Let's keep it under observation. Include reconciliation failures.", "zh": "继续观察，也要看核对失败。"},
+      {"sp": "Anika", "en": "Uncertain commits are resolved, except two disputed requests.", "zh": "未知提交已处理完，只剩两条有争议的请求。"},
+      {"sp": "Lukas", "en": "Those need business review, probably not automatic replay.", "zh": "那些需要业务核查，大概不适合自动重放。"},
+      {"sp": "Priya", "en": "We'll hand over those cases with named owners.", "zh": "我们会把这些案例交给明确的负责人。"}
+    ]},
+    {"id": "0225", "part": 10, "stage": "修复自动切换", "title": "修权限：安全停住并不是坏事", "premise": "服务稳定，调查控制器未能完成旧主隔离的原因。", "listeningTask": "区分安全拒绝提升与故障切换功能修复验收。", "newPhrase": "p500", "phrases": ["p500", "p496", "p320", "p009:extra", "p210:extra", "p310:extra"], "lines": [
+      {"sp": "Raj", "en": "Fencing credentials expired. The provider rejected shutdown.", "zh": "隔离凭据过期，提供方拒绝了关闭操作。"},
+      {"sp": "Lukas", "en": "So refusing promotion protected us from dual writers.", "zh": "所以拒绝提升保护了我们，避免双写。"},
+      {"sp": "Priya", "en": "Yes, but the root cause is still open.", "zh": "是的，但根因仍未查明。"},
+      {"sp": "Hannah", "en": "You mean why expiry escaped monitoring?", "zh": "你指为什么过期没被监控发现？"},
+      {"sp": "Raj", "en": "Exactly. Rotation itself worked; controller refresh didn't.", "zh": "正是。凭据轮换本身执行了，但控制器没有刷新凭据。"},
+      {"sp": "Anika", "en": "An action item: test rejection handling too.", "zh": "一个待办项：也测试隔离被拒绝的处理。"},
+      {"sp": "Lukas", "en": "Dry-run it first, then isolate a test cluster.", "zh": "先试运行，再隔离一套测试集群。"},
+      {"sp": "Priya", "en": "Verify we can fence off before promotion.", "zh": "验证提升前能够可靠隔离。"},
+      {"sp": "Hannah", "en": "Maybe include restart attempts and missing permissions.", "zh": "也许还应包含重启尝试和权限缺失测试。"},
+      {"sp": "Raj", "en": "Okay, I'll close the loop with recorded safety evidence.", "zh": "好，我会带着记录的安全证据完成反馈。"}
+    ]}
+  ]
+}

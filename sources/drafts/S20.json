@@ -1,0 +1,147 @@
+{
+  "version":1,"status":"draft-awaiting-voice","note":"同一重构迭代的计划、中期检查与回顾十段；各段背景明确时间推进，不模拟同一站会突然变成已完成项目。未配音，无时轴。",
+  "series":{"id":"sc-S20-coding-refactor-iteration","title":"脚本重构：保护行为、拆分迭代与证据回顾","domain":"coding","group":"agile","service":"nightly inventory reporting script","premise":"夜间报表脚本解析、取数与格式化混在一起，修改慢且测试不足；团队计划两周重构迭代，不改报表格式和调度。","outcome":"先固定行为，再拆纯函数和适配器；保留CLI兼容与停止回退措施，中期拒绝新增导出范围，按脱敏fixture和隔离对照验收；承认部分异常数据测试跨迭代，下一轮优先补齐。"},
+  "speakers":{
+    "Priya":{"role":"Iteration facilitator and scope owner","accent":"en-IN","voice":null},
+    "Raj":{"role":"Refactoring implementation engineer","accent":"en-IN","voice":null},
+    "Anika":{"role":"Reporting service and consumer owner","accent":"en-IN","voice":null},
+    "Lukas":{"role":"Architecture and implementation reviewer","accent":"German-accented English","voice":null},
+    "Hannah":{"role":"Behavioral testing and acceptance owner","accent":"German-accented English","voice":null}
+  },
+  "accentTarget":{"en-IN":0.6,"German-accented English":0.4,"basis":"spoken audio duration excluding silence and narration","textProxy":"English word count by speaker","verifiedAudio":false},
+  "phraseDefinitions":[
+    {"id":"p471","en":"characterization test","zh":"记录现有行为的测试","layer":"L1","level":"core","target":5},
+    {"id":"p472","en":"hidden coupling","zh":"隐藏的耦合关系","layer":"L1","level":"core","target":5},
+    {"id":"p473","en":"scope creep","zh":"未经控制的范围膨胀","layer":"L0","level":"core","target":8},
+    {"id":"p474","en":"a stretch","zh":"有难度且不宜保证的目标","layer":"L0","level":"core","target":8},
+    {"id":"p475","en":"challenge that estimate","zh":"质疑这个估算","layer":"L0","level":"core","target":8},
+    {"id":"p476","en":"vertical slice","zh":"贯通输入输出的最小功能切片","layer":"L1","level":"core","target":5},
+    {"id":"p477","en":"acceptance criteria","zh":"验收标准","layer":"L0","level":"core","target":8},
+    {"id":"p478","en":"change the commitment","zh":"调整迭代承诺","layer":"L0","level":"core","target":8},
+    {"id":"p479","en":"carry over","zh":"未完成项转入下一迭代","layer":"L0","level":"core","target":8},
+    {"id":"p480","en":"definition of done","zh":"完成的共同标准","layer":"L0","level":"core","target":8}
+  ],
+  "recycling":{"note":"未来场景候选而非实际出现；当前旧表达只取p001-p350或本文件早段。","S25":["p471","p472","p474","p475","p479","p480"],"S35":["p473","p476","p477","p478"]},
+  "dialogues":[
+    {"id":"0196","part":1,"stage":"旧脚本回顾","title":"先记录今天的行为","premise":"迭代计划会开场，团队查看旧脚本与最近修改记录。","listeningTask":"听出为何重构前需要测试旧行为。","newPhrase":"p471","phrases":["p471","p010","p009:extra","p335:extra","p302:extra","p004:extra"],"lines":[
+      {"sp":"Raj","en":"We need a characterization test before extraction. Last week's formatting change altered column order.","zh":"提取代码前需要现有行为测试，上周格式修改改变了列顺序。"},
+      {"sp":"Hannah","en":"Did a consumer depend on that order? Behavior includes interfaces, not just calculation results.","zh":"有使用方依赖列顺序吗？行为包括接口，不只是计算结果。"},
+      {"sp":"Anika","en":"Yes, a downstream import reads positional columns. Just to confirm, that order stays unchanged, right?","zh":"是，下游按列位置导入，确认一下，列顺序不变，对吧？"},
+      {"sp":"Priya","en":"Okay, our working hypothesis is tangled responsibilities. One action item is capturing current outputs.","zh":"好，目前假设是职责混杂，一项任务是固定当前输出。"},
+      {"sp":"Lukas","en":"Capture representative inputs and failure behavior too. Successful output snapshots aren't enough alone.","zh":"也记录代表性输入和失败行为，只存成功输出快照不够。"},
+      {"sp":"Raj","en":"Maybe the parser also relies on globals. We can't rule that out without inspection.","zh":"解析器可能也依赖全局状态，不检查不能排除。"},
+      {"sp":"Hannah","en":"Existing bugs shouldn't become invisible requirements. Label known defects separately from intentional behavior.","zh":"不能把现有缺陷悄悄当需求，已知缺陷与预期行为分开标。"},
+      {"sp":"Priya","en":"A report redesign can wait another iteration. Let's park that while we map behavior.","zh":"报表重设计可以等下轮，梳理行为期间先放下。"},
+      {"sp":"Lukas","en":"Keep this review tied to recent changes. We don't need a complete historical rewrite.","zh":"回顾聚焦近期修改，不需要重写全部历史。"},
+      {"sp":"Anika","en":"I'll bring sanitized examples from both consumers. That gives us evidence for scope decisions.","zh":"我带两个使用方的脱敏样本，为范围决策提供证据。"}
+    ]},
+    {"id":"0197","part":2,"stage":"痛点","title":"用修改成本说明耦合","premise":"现有行为边界已明确，团队收集维护痛点，不先选框架。","listeningTask":"识别真正的耦合证据和不属于本轮的问题。","newPhrase":"p472","phrases":["p472","p010","p006:extra","p471:extra","p009:extra","p002:extra"],"lines":[
+      {"sp":"Raj","en":"There's hidden coupling through the global client. Testing formatting currently requires a network connection.","zh":"全局客户端造成隐藏耦合，测格式化目前还需要联网。"},
+      {"sp":"Lukas","en":"That's a concrete reason to separate boundaries. Which changes have the highest recurring cost?","zh":"这是拆边界的具体理由，哪些修改反复成本最高？"},
+      {"sp":"Anika","en":"Filtering changes touch fetching and rendering together. Just to confirm, separating those helps, right?","zh":"筛选修改会同时碰取数和渲染，确认一下，拆开会有帮助，对吧？"},
+      {"sp":"Priya","en":"Okay, our bandwidth covers two engineers this sprint. Maybe three days go to test discovery.","zh":"好，本迭代只有两名工程师投入，测试梳理可能花三天。"},
+      {"sp":"Hannah","en":"A characterization test will expose those dependencies. Use injected test clients instead of real calls.","zh":"现有行为测试能暴露这些依赖，用注入测试客户端，不发真实请求。"},
+      {"sp":"Raj","en":"One action item is removing import-time requests. Importing the module shouldn't start a job.","zh":"一项任务是移除导入时请求，导入模块不应启动作业。"},
+      {"sp":"Lukas","en":"Good, but keep credential handling unchanged externally. Internal separation doesn't authorize a security redesign.","zh":"好，但外部凭据处理保持不变，内部拆分不代表授权安全重设计。"},
+      {"sp":"Priya","en":"Let's take it offline for framework comparisons. First agree on the behavior we must preserve.","zh":"框架对比会后聊，先同意必须保留的行为。"},
+      {"sp":"Hannah","en":"We'll measure isolated test runtime as evidence. Faster tests are useful, not the sole goal.","zh":"记录隔离测试耗时，测试更快有用但不是唯一目标。"},
+      {"sp":"Anika","en":"Agreed, unchanged reports matter more to consumers. I'll collect the command-line invocation examples today.","zh":"同意，使用方更重视报表不变，今天收集命令行调用样例。"}
+    ]},
+    {"id":"0198","part":3,"stage":"范围","title":"本轮不添加新报表","premise":"痛点集中于全局状态与职责混杂，确定两周重构范围。","listeningTask":"听出纳入范围、明确排除和需要单独审批的事项。","newPhrase":"p473","phrases":["p473","p010","p004:extra","p472:extra","p330:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"Let's avoid scope creep in this iteration. Preserve CLI arguments, report format, and scheduling.","zh":"本迭代避免范围膨胀，保留命令行参数、报表格式和调度。"},
+      {"sp":"Lukas","en":"Does the scope include replacing HTTP libraries? That would introduce unrelated compatibility risk.","zh":"范围含换HTTP库吗？那会增加无关兼容风险。"},
+      {"sp":"Raj","en":"No, just separate pure transformations from fetching. Just to confirm, dependency upgrades stay out, right?","zh":"不，只拆纯转换与取数，确认一下，依赖升级不做，对吧？"},
+      {"sp":"Anika","en":"The managed configuration also keeps its schema. Maybe we can document it without changing fields.","zh":"受管配置也保留结构，可能补文档但不改字段。"},
+      {"sp":"Hannah","en":"Removing hidden coupling still needs interface tests. Existing invocations should retain their exit behavior.","zh":"移除隐藏耦合仍需接口测试，现有调用退出行为应保持。"},
+      {"sp":"Priya","en":"Okay, one action item records excluded features. New JSON export belongs in another proposal.","zh":"好，记录排除功能，新JSON导出另提需求。"},
+      {"sp":"Lukas","en":"Production rollout needs a separate change approval. This planning agreement doesn't authorize replacing jobs.","zh":"生产上线另需变更审批，计划达成一致不授权替换作业。"},
+      {"sp":"Raj","en":"Let's park that release date until tests exist. We can estimate implementation before scheduling deployment.","zh":"有测试再谈发布日期，可以先估实现，再安排部署。"},
+      {"sp":"Hannah","en":"Keep the original runnable artifact available. Comparison and rollback both depend on preserving it.","zh":"保留原来可运行制品，对照与回退都依赖它。"},
+      {"sp":"Anika","en":"Agreed, I'll record consumer compatibility requirements today. They become our boundary for accepting changes.","zh":"同意，今天记录使用方兼容要求，作为接受变更的边界。"}
+    ]},
+    {"id":"0199","part":4,"stage":"估算","title":"点数不是天数保证","premise":"范围确定，团队按不确定性与工作量估算任务。","listeningTask":"听出估点、实际容量与可选目标的区别。","newPhrase":"p474","phrases":["p474","p010","p006:extra","p008:extra","p471:extra","p473:extra"],"lines":[
+      {"sp":"Raj","en":"Finishing every extraction is a stretch here. I'd estimate the first slice at five points.","zh":"全部提取完成有挑战，第一个切片估五点。"},
+      {"sp":"Lukas","en":"What uncertainty does that estimate include? Points aren't a promise of five days.","zh":"估算含什么不确定性？五点不等于承诺五天。"},
+      {"sp":"Anika","en":"Consumer fixtures still need clarification from owners. Just to confirm, discovery is included, right?","zh":"使用方fixture还需负责人澄清，确认一下，包含梳理时间，对吧？"},
+      {"sp":"Priya","en":"Yes, available bandwidth is lower than usual. What's the ETA for the first fixture set?","zh":"是，可用人力比平时少，首批fixture预计何时好？"},
+      {"sp":"Hannah","en":"About two days if consumer samples arrive. The characterization test needs expected failures too.","zh":"收到使用方样本的话约两天，现有行为测试也需预期失败。"},
+      {"sp":"Raj","en":"Maybe five points understates those error paths. I'll separate discovery from mechanical function extraction.","zh":"五点可能低估异常路径，把梳理与机械提函数拆开。"},
+      {"sp":"Lukas","en":"Make unknowns explicit before committing capacity. Otherwise estimates hide risk rather than communicate it.","zh":"承诺前明确未知项，否则估算是在藏风险，不是说明风险。"},
+      {"sp":"Priya","en":"Okay, don't solve scope creep by overtime. Optional logging cleanup can remain uncommitted this sprint.","zh":"好，不能靠加班解决范围膨胀，可选日志整理本轮不承诺。"},
+      {"sp":"Hannah","en":"The committed goal should be demonstrable behavior. Count test evidence, not just extracted functions.","zh":"承诺目标应是可演示行为，看测试证据，不只数提取函数。"},
+      {"sp":"Anika","en":"Agreed, I'll bring samples by tomorrow morning. Then we can revisit the uncertain estimate.","zh":"同意，明早带样本，然后重新看不确定的估算。"}
+    ]},
+    {"id":"0200","part":5,"stage":"估算异议","title":"允许异议改变承诺","premise":"初估五点，Lukas指出隐藏状态与回退验证可能遗漏。","listeningTask":"听懂质疑估算的依据而不是人身否定。","newPhrase":"p475","phrases":["p475","p010","p474:extra","p472:extra","p324:extra","p011:extra"],"lines":[
+      {"sp":"Lukas","en":"Can I challenge that estimate a little? Shared state makes extraction less mechanical here.","zh":"我能稍微质疑估算吗？共享状态让提取没那么机械。"},
+      {"sp":"Raj","en":"Fair, I counted functions rather than behavior. The hidden coupling probably adds integration work.","zh":"有道理，我数了函数没看行为，隐藏耦合可能增加集成工作。"},
+      {"sp":"Hannah","en":"The rollback trigger also needs rehearsal evidence. That's work, even without immediate production release.","zh":"回退触发也需预演证据，即使不立刻生产发布也有工作量。"},
+      {"sp":"Priya","en":"Let me play that back for everyone. The full extraction is a stretch, not committed.","zh":"我复述一下，完整提取是挑战目标，不是承诺。"},
+      {"sp":"Anika","en":"Just to confirm, the first slice stays useful, right? Consumers can validate one complete report.","zh":"确认一下，首个切片仍有价值，对吧？使用方能验证一份完整报表。"},
+      {"sp":"Raj","en":"Yes, I can narrow the committed output. Maybe one report path plus its failure cases.","zh":"是，可以缩小承诺产出，可能一个报表路径加失败用例。"},
+      {"sp":"Lukas","en":"That sounds clearer than inflating every estimate. Keep optional work separate from the goal.","zh":"比把每项估算都放大更清晰，可选工作与目标分开。"},
+      {"sp":"Priya","en":"Okay, we'll record the revised commitment explicitly. Nobody needs to defend the original number.","zh":"好，明确记录修改后的承诺，不必维护原数字。"},
+      {"sp":"Hannah","en":"I'll check that reduced scope remains testable. Smaller doesn't mean skipping the error paths.","zh":"我检查缩小后仍可测试，小范围不等于跳过错误路径。"},
+      {"sp":"Anika","en":"Agreed, I'll confirm it with the consumers. Their acceptance matters more than our point total.","zh":"同意，我与使用方确认，验收比总点数更重要。"}
+    ]},
+    {"id":"0201","part":6,"stage":"拆分迭代","title":"第一切片贯通输入输出","premise":"承诺缩小，拆成行为基线、一个报表切片和后续可选工作。","listeningTask":"区分贯通切片与只做某一层的横向拆分。","newPhrase":"p476","phrases":["p476","p010","p471:extra","p009:extra","p005:extra","p014:extra"],"lines":[
+      {"sp":"Raj","en":"The first vertical slice covers daily reporting. Input parsing, transformation, and output work together.","zh":"首个贯通切片覆盖日报，输入解析、转换、输出连起来。"},
+      {"sp":"Lukas","en":"That's better than extracting every helper first. We can validate an actual consumer workflow.","zh":"比先提取所有辅助函数好，可以验证真实使用流程。"},
+      {"sp":"Priya","en":"Just to confirm, baseline tests come first, right? Then Raj can be heads-down on extraction.","zh":"确认一下，基线测试先做，对吧？之后Raj专注提取。"},
+      {"sp":"Anika","en":"I'm on it with the sanitized fixtures. Maybe the failure samples need an extra day.","zh":"脱敏fixture我来做，失败样本可能额外需要一天。"},
+      {"sp":"Hannah","en":"A characterization test runs before each extraction. Afterward it compares the same input outputs.","zh":"每次提取前跑行为测试，之后对比同一输入输出。"},
+      {"sp":"Raj","en":"I'll keep the existing CLI entry point. Internal modules won't change the scheduled invocation.","zh":"保留原CLI入口，内部模块不改变调度调用。"},
+      {"sp":"Lukas","en":"Use small reviewable changes with passing tests. A giant final merge raises comparison risk.","zh":"小改动、可评审、测试通过，大量最终合并增加对照风险。"},
+      {"sp":"Priya","en":"One action item is defining each review boundary. Raj implements, Lukas reviews, Hannah verifies behavior.","zh":"一项任务是明确每次评审边界，Raj实现、Lukas评审、Hannah验证。"},
+      {"sp":"Hannah","en":"The second report remains optional this iteration. Its tests mustn't silently replace first-slice acceptance.","zh":"第二份报表本轮可选，其测试不能悄悄替代首个切片验收。"},
+      {"sp":"Anika","en":"Good, consumers will see a complete example. That makes feedback useful before broader extraction.","zh":"好，使用方能看到完整例子，扩大提取前反馈更有用。"}
+    ]},
+    {"id":"0202","part":7,"stage":"验收约定","title":"用行为证据验收","premise":"计划会收尾，确定第一切片的验收与未来发布保护。","listeningTask":"听出验收不只看测试绿灯，还看兼容和回退证据。","newPhrase":"p477","phrases":["p477","p010","p476:extra","p327:extra","p324:extra","p210:extra"],"lines":[
+      {"sp":"Hannah","en":"Our acceptance criteria include identical approved reports. Documented exit codes and arguments stay compatible.","zh":"验收标准包括批准报表一致，已记录退出码和参数兼容。"},
+      {"sp":"Raj","en":"We'll dry-run it first against fixed fixtures. Then compare isolated execution with the old artifact.","zh":"先用固定fixture预演，再把隔离执行与旧制品比较。"},
+      {"sp":"Lukas","en":"Keep volatile timestamps normalized in comparison. Don't mask meaningful differences such as row ordering.","zh":"对比中规范易变时间戳，但不能掩盖行顺序等有意义差异。"},
+      {"sp":"Priya","en":"Just to confirm, the vertical slice needs review, right? Passing tests alone won't approve production.","zh":"确认一下，贯通切片需评审，对吧？测试通过不单独授权生产。"},
+      {"sp":"Anika","en":"Yes, I'll sign off consumer output compatibility. Maybe weekly report fixtures need separate acceptance later.","zh":"是，我验收使用方输出兼容，周报fixture以后可能单独验收。"},
+      {"sp":"Hannah","en":"The smoke test must include missing configuration. It should fail safely without partial published reports.","zh":"冒烟测试包括配置缺失，应安全失败，不发布半份报表。"},
+      {"sp":"Lukas","en":"A mismatch is our future rollback trigger. Stop the new job before restoring old scheduling.","zh":"不一致是将来回退触发，恢复旧调度前先停新作业。"},
+      {"sp":"Raj","en":"Okay, no overlapping writers during any switch. I'll retain the old artifact and configuration.","zh":"好，切换不能重叠写入，保留旧制品和配置。"},
+      {"sp":"Priya","en":"Let's record those gates in the plan. Mid-iteration review will check evidence against them.","zh":"把关卡写入计划，中期检查按它们查看证据。"},
+      {"sp":"Anika","en":"Agreed, the plan is ready to start. We'll reconvene next Wednesday with actual progress.","zh":"同意，计划可开始执行，下周三带实际进度再开会。"}
+    ]},
+    {"id":"0203","part":8,"stage":"中期检查","title":"中期不偷加导出功能","premise":"一周后的中期检查：首个切片已提取，销售新增导出需求，异常样本仍待补齐。","listeningTask":"听出新增需求如何影响承诺以及团队选择。","newPhrase":"p478","phrases":["p478","p010","p473:extra","p477:extra","p004:extra","p008:extra"],"lines":[
+      {"sp":"Priya","en":"Would the export request change the commitment? We're halfway through the agreed two-week iteration.","zh":"导出需求会改变承诺吗？两周迭代已到中途。"},
+      {"sp":"Lukas","en":"Yes, it's a new external interface. Adding it now would be scope creep.","zh":"会，这是新的外部接口，现在加入属于范围膨胀。"},
+      {"sp":"Raj","en":"The extraction works on the approved fixtures. Just to confirm, exports aren't acceptance criteria, right?","zh":"提取在批准fixture上可用，确认一下，导出不属验收标准，对吧？"},
+      {"sp":"Anika","en":"Correct, I'll explain that to the requester. Maybe next iteration after the current review.","zh":"对，我向需求方说明，可能本轮评审后放下一轮。"},
+      {"sp":"Hannah","en":"Two malformed input fixtures are still missing. We can't call the original slice done yet.","zh":"还缺两个异常输入fixture，原切片不能算完成。"},
+      {"sp":"Priya","en":"Okay, let's park that new export request. What's the ETA for the missing samples?","zh":"好，新导出先放下，缺失样本预计何时到？"},
+      {"sp":"Lukas","en":"The consumer owner promised them tomorrow morning. Meanwhile we can review resource cleanup independently.","zh":"使用方负责人说明早给，目前可独立评审资源释放。"},
+      {"sp":"Raj","en":"I underestimated discovery, not the extraction itself. I'll update remaining work without hiding the delay.","zh":"低估的是梳理，不是提取本身，我更新剩余工作并明确延期。"},
+      {"sp":"Hannah","en":"Keep the original gates unless explicitly renegotiated. A deadline doesn't automatically waive missing evidence.","zh":"除非明确重新协商，否则保持原关卡，到期限不自动免证据。"},
+      {"sp":"Anika","en":"Agreed, I'll chase the samples this afternoon. We still protect the original consumer contract.","zh":"同意，下午催样本，仍保护原使用方契约。"}
+    ]},
+    {"id":"0204","part":9,"stage":"迭代回顾","title":"完成证据与未完成项分开说","premise":"两周迭代结束：首个日报切片已按约定样本验收，扩展异常数据测试未全部完成，尚未生产发布。","listeningTask":"听清实际完成、遗留任务及不能宣称的结果。","newPhrase":"p479","phrases":["p479","p010","p477:extra","p474:extra","p012:extra","p009:extra"],"lines":[
+      {"sp":"Priya","en":"Just to recap, the first slice passed. Additional malformed-data tests will carry over separately.","zh":"小结：首个切片通过，额外异常数据测试单独转下轮。"},
+      {"sp":"Hannah","en":"The agreed acceptance criteria are met. The extra cases extend coverage beyond those fixtures.","zh":"约定验收标准已满足，额外用例扩展此前fixture之外的覆盖。"},
+      {"sp":"Raj","en":"Full extraction was a stretch, as expected. Just to confirm, no production release yet, right?","zh":"完整提取如预期只是挑战目标，确认一下，尚未生产发布，对吧？"},
+      {"sp":"Anika","en":"Right, consumer sign-off covers isolated report comparisons. Operational release still needs its own approval.","zh":"对，使用方验收仅针对隔离报表对比，运行上线另需批准。"},
+      {"sp":"Lukas","en":"What made review easier this iteration? We should preserve the practices that actually helped.","zh":"本轮什么让评审更容易？保留真正有效的实践。"},
+      {"sp":"Raj","en":"Small changes and fixed fixtures helped most. Maybe discovery deserves an earlier owner next time.","zh":"小改动和固定fixture最有帮助，下次梳理可能应更早指定负责人。"},
+      {"sp":"Hannah","en":"Agreed, waiting for samples delayed meaningful feedback. We shouldn't blame implementation for every delay.","zh":"同意，等样本延迟了有效反馈，不能把所有延期归到实现。"},
+      {"sp":"Priya","en":"One action item is tracking sample dependencies. We'll compare waiting time in the next iteration.","zh":"一项任务是跟踪样本依赖，下轮比较等待时长。"},
+      {"sp":"Lukas","en":"Faster local tests are a useful result. They don't prove production reliability has improved yet.","zh":"本地测试更快是有用结果，但还不能证明生产可靠性提高。"},
+      {"sp":"Anika","en":"Good distinction, I'll keep that in the summary. Today's evidence supports maintainability, not outage reduction.","zh":"区分得对，总结保留，今天证据支持可维护性，不证明故障减少。"}
+    ]},
+    {"id":"0205","part":10,"stage":"下轮改进","title":"完成标准先约定再执行","premise":"回顾确认第一切片结果，下一轮优先补额外异常测试，再考虑周报与部署。","listeningTask":"识别改进责任、下轮优先级和发布仍需的审批。","newPhrase":"p480","phrases":["p480","p009","p479:extra","p471:extra","p477:extra","p310:extra"],"lines":[
+      {"sp":"Priya","en":"Let's refine our definition of done together. Evidence links should be ready before review.","zh":"共同完善完成标准，评审前准备好证据链接。"},
+      {"sp":"Lukas","en":"Include consumer sign-off and rollback rehearsal. Keep implementation completion separate from production deployment.","zh":"包含使用方验收和回退预演，实现完成与生产部署分开。"},
+      {"sp":"Raj","en":"The carry over tests get priority next sprint. Maybe we'll postpone the second report slice.","zh":"转下轮的测试优先，第二个报表切片可能延后。"},
+      {"sp":"Anika","en":"Every characterization test needs approved expected behavior. The consumer owner confirms unusual cases, right?","zh":"每个行为测试需批准预期，使用方负责人确认特殊用例，对吧？"},
+      {"sp":"Hannah","en":"Yes, and known defects stay labelled. Fixing one requires explicit updated acceptance criteria.","zh":"是，已知缺陷保留标注，修复需明确更新验收标准。"},
+      {"sp":"Priya","en":"Okay, sample ownership is our first action item. Anika will obtain examples before sprint planning.","zh":"好，样本负责人是第一项任务，Anika计划会前拿例子。"},
+      {"sp":"Lukas","en":"I'll review the release proposal after testing. Scope changes need approval, not retrospective justification.","zh":"测试后审发布申请，改范围需审批，不能事后找理由。"},
+      {"sp":"Raj","en":"I'll close the loop on boundary tests. The optional export request remains outside this plan.","zh":"我把边界测试闭环，可选导出仍不在本计划。"},
+      {"sp":"Hannah","en":"We'll inspect waiting time at next retro. One iteration won't establish a lasting trend.","zh":"下次回顾看等待时长，一个迭代不能确立长期趋势。"},
+      {"sp":"Anika","en":"Agreed, I'll share today's decisions with consumers. They know what changed and what didn't.","zh":"同意，分享今天决定，让使用方知道改变与未改变的部分。"}
+    ]}
+  ]
+}

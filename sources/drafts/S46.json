@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段连续防御应急中英草稿。无真实秘密或攻击步骤，无猜测时间轴；音色和实际音频比例待验收。",
+  "series": {"id": "sc-S46-sec-credential-leak", "title": "凭据泄漏：控制暴露、撤销与消费者恢复", "domain": "sec", "group": "incident", "service": "invoice-export storage access", "premise": "构建扫描报告导出服务凭据出现在共享构建附件中，访问范围和使用记录尚未核实。", "outcome": "限制附件访问并暂停导出，撤销泄漏凭据，使用独立受限替代凭据恢复消费者；确认一次非预期列表调用，未发现已记录的下载但日志存在空档。保留受控证据并继续影响调查。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Identity and secrets operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Export service owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE and recovery reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Security audit investigator", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p731", "en": "contain the exposure", "zh": "控制暴露范围", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p732", "en": "credential scope", "zh": "凭据的权限范围", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p733", "en": "revoke the credential", "zh": "撤销该凭据", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p734", "en": "rotate credentials", "zh": "轮换凭据", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p735", "en": "access audit", "zh": "访问审计", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p736", "en": "unaccounted access", "zh": "尚无法解释的访问", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p737", "en": "consumer validation", "zh": "消费者验证", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p738", "en": "notification threshold", "zh": "触发通报的条件", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p739", "en": "restricted evidence copy", "zh": "受限访问的证据副本", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p740", "en": "secret scanning gate", "zh": "秘密扫描门禁", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来回访候选，不计实际出现；当前旧表达仅来自既有库、S03–S07及本文件此前。", "futureIncidentReview": ["p731", "p732", "p733", "p735", "p736", "p738", "p739"], "futureRotationExercise": ["p734", "p737", "p740"]},
+  "dialogues": [
+    {"id": "0456", "part": 1, "stage": "泄漏报告", "title": "先限制附件访问", "premise": "扫描发现构建附件疑似含有效凭据，尚未确认使用范围。", "listeningTask": "区分限制传播与撤销凭据，听出立即认领的任务。", "newPhrase": "p731", "phrases": ["p731", "p003", "p010", "p014:extra", "p008:extra", "p004:extra"], "lines": [
+      {"sp": "Raj", "en": "The scanner flagged a shared build attachment. We need to contain the exposure before more downloads.", "zh": "扫描器标记了共享构建附件，需要在更多下载发生前控制暴露。"},
+      {"sp": "Hannah", "en": "Don't paste the value here. Is attachment access restricted yet?", "zh": "不要把值贴在这里。附件访问已经限制了吗？"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Restrict sharing now, right?", "zh": "好，我来协调。现在就限制分享，对吧？"},
+      {"sp": "Lukas", "en": "Yes, but that won't invalidate credentials. Consumers need coordination too.", "zh": "对，但那不会让凭据失效，还需要协调消费者。"},
+      {"sp": "Raj", "en": "I'm on it. The attachment's private now. Existing downloads remain unknown.", "zh": "我在做。附件现在已私有，之前下载情况仍未知。"},
+      {"sp": "Anika", "en": "Just to confirm, pause exports, not billing? They're separate services.", "zh": "确认一下，暂停导出而非计费？它们是独立服务。"},
+      {"sp": "Hannah", "en": "That's sensible containment. Preserve access records without copying secrets around.", "zh": "这样控制合理。保存访问记录，不要到处复制秘密。"},
+      {"sp": "Priya", "en": "What's the ETA for scope? About two minutes, maybe?", "zh": "范围确认预计多久？可能大约两分钟？"},
+      {"sp": "Lukas", "en": "First identify the credential owner from inventory. Don't restart unrelated workloads while scope is unknown.", "zh": "先从清单确认凭据所有者，范围未知时不要重启无关工作负载。"},
+      {"sp": "Anika", "en": "A full deployment? Let's park that. I'll pause export fetching without discarding queued requests.", "zh": "完整发布？先放一边。我会暂停导出拉取，不丢弃排队请求。"}
+    ]},
+    {"id": "0457", "part": 2, "stage": "确认凭据范围", "title": "权限比预期更宽", "premise": "附件访问已限制，导出暂停；通过秘密管理记录确认凭据归属。", "listeningTask": "听出已知权限与尚未核实的实际访问。", "newPhrase": "p732", "phrases": ["p732", "p010", "p106", "p335:extra", "p302:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Credential scope includes the export bucket. It also permits object listing.", "zh": "凭据权限包含导出桶，也允许列出对象。"},
+      {"sp": "Lukas", "en": "Only today's exports, or older files? That changes potential impact.", "zh": "只有今天的导出，还是也有旧文件？这影响潜在范围。"},
+      {"sp": "Anika", "en": "Older files too. That's our blast radius for potential access.", "zh": "也包括旧文件。这是潜在访问影响范围。"},
+      {"sp": "Priya", "en": "Just to confirm, that's permission, not observed access, right?", "zh": "确认一下，那是权限，不是已经观察到的访问，对吧？"},
+      {"sp": "Hannah", "en": "Correct. Permission isn't proof of use. We need request records.", "zh": "对。有权限不代表被使用，需要请求记录。"},
+      {"sp": "Raj", "en": "Our working hypothesis is debug output. I'll check build metadata.", "zh": "当前假设是调试输出泄漏。我会检查构建元数据。"},
+      {"sp": "Lukas", "en": "Could other consumers share this identity? Check scheduled jobs too.", "zh": "其他消费者会共用这个身份吗？也检查定时任务。"},
+      {"sp": "Anika", "en": "Maybe the nightly report does. I can't rule that out yet.", "zh": "夜间报表可能共用，目前不能排除。"},
+      {"sp": "Hannah", "en": "Then don't call the inventory complete. Match owners against usage.", "zh": "那就别说清单完整，需要按使用情况核对所有者。"},
+      {"sp": "Priya", "en": "I'm on it for contacts. Keep both export jobs paused.", "zh": "我来联系相关人。两个导出任务都保持暂停。"}
+    ]},
+    {"id": "0458", "part": 3, "stage": "撤销决策", "title": "不等全量审计再撤销", "premise": "两个导出消费者已暂停，泄漏凭据可读取旧导出；审计仍在进行。", "listeningTask": "理解短期业务延迟与持续泄漏风险的取舍。", "newPhrase": "p733", "phrases": ["p733", "p010", "p306", "p008:extra", "p336:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Let's revoke the credential now. Both known consumers are paused.", "zh": "现在撤销凭据，两个已知消费者都已暂停。"},
+      {"sp": "Lukas", "en": "Unknown consumers could fail. Is that risk explicitly accepted?", "zh": "未知消费者可能失败，这个风险已明确接受吗？"},
+      {"sp": "Anika", "en": "Yes, export delays are acceptable. Billing doesn't use this identity.", "zh": "是的，导出延迟可接受。计费不使用这个身份。"},
+      {"sp": "Hannah", "en": "Check revocation propagation and sessions. A control-plane success isn't enough.", "zh": "检查撤销传播和会话，控制面成功还不够。"},
+      {"sp": "Raj", "en": "Just to confirm, no overlap with the leaked credential, right?", "zh": "确认一下，不让泄漏凭据与新凭据并存，对吧？"},
+      {"sp": "Priya", "en": "Correct. Pausing exports can buy us time. Roughly ten minutes.", "zh": "对。暂停导出能争取时间，大约十分钟。"},
+      {"sp": "Lukas", "en": "Set an escalation path for unexpected failures. Don't silently ignore them.", "zh": "给意外故障设升级联系路径，不要默默忽略。"},
+      {"sp": "Raj", "en": "What's the ETA for provider confirmation? I'll request it now.", "zh": "提供方确认预计多久？我现在申请确认。"},
+      {"sp": "Hannah", "en": "I'll observe a controlled rejection check. Record the effective time.", "zh": "我来观察受控拒绝检查，记录实际生效时间。"},
+      {"sp": "Anika", "en": "Just to recap, recovery uses another identity. The exposed one stays revoked.", "zh": "小结一下，恢复用另一个身份，暴露的身份保持撤销。"}
+    ]},
+    {"id": "0459", "part": 4, "stage": "执行轮换", "title": "替代凭据不继承过宽权限", "premise": "提供方确认旧凭据及关联会话失效，受控验证已拒绝。", "listeningTask": "辨别替代身份建立、秘密分发与消费者恢复的不同步骤。", "newPhrase": "p734", "phrases": ["p734", "p010", "p330", "p327:extra", "p014:extra", "p324:extra"], "lines": [
+      {"sp": "Raj", "en": "We can rotate credentials through the vault. The leaked one now rejects requests.", "zh": "可以通过秘密库轮换凭据，泄漏凭据现在拒绝请求。"},
+      {"sp": "Hannah", "en": "Does the replacement need listing? Don't copy unnecessary permissions.", "zh": "替代凭据需要列表权限吗？不要照搬不必要权限。"},
+      {"sp": "Anika", "en": "Reads need exact object references. Listing belongs to another job.", "zh": "读取用准确对象引用，列表是另一个任务的职责。"},
+      {"sp": "Priya", "en": "Okay, separate those roles. Just to confirm, vault delivery only, right?", "zh": "好，分开这两种角色。确认一下，只通过秘密库分发，对吧？"},
+      {"sp": "Lukas", "en": "Yes. Use managed configuration, not credentials in deployment notes.", "zh": "对。使用受管配置，不把凭据放进部署记录。"},
+      {"sp": "Raj", "en": "I'm on it. New read access is limited to exports.", "zh": "我来做。新的读取权限限于导出文件。"},
+      {"sp": "Hannah", "en": "What's the rollback trigger? Recovery must never reactivate the exposed identity.", "zh": "回退触发条件是什么？恢复绝不能重新启用暴露身份。"},
+      {"sp": "Anika", "en": "Failed reads mean pause again. Maybe a missing path needs review.", "zh": "读取失败就再次暂停，可能有遗漏路径需要评审。"},
+      {"sp": "Lukas", "en": "Start with a smoke test. Use an approved synthetic export.", "zh": "先做冒烟测试，用批准的合成导出数据。"},
+      {"sp": "Priya", "en": "Agreed, one consumer first. Keep the nightly report paused meanwhile.", "zh": "同意，先一个消费者。夜间报表暂时继续暂停。"}
+    ]},
+    {"id": "0460", "part": 5, "stage": "审计访问", "title": "一条来源未匹配的记录", "premise": "替代读取凭据已部署到单个消费者，审计开始关联旧凭据请求与任务记录。", "listeningTask": "听出不能从来源异常直接认定数据外泄。", "newPhrase": "p735", "phrases": ["p735", "p010", "p335", "p302:extra", "p309:extra", "p008:extra"], "lines": [
+      {"sp": "Hannah", "en": "The access audit found a listing request. Its source isn't matched yet.", "zh": "访问审计发现一次列表请求，来源尚未匹配。"},
+      {"sp": "Raj", "en": "Could that be our report worker? Its network address changed yesterday.", "zh": "可能是报表工作进程吗？它昨天更换过网络地址。"},
+      {"sp": "Lukas", "en": "Compare identity, request time, and job history. Address alone is weak evidence.", "zh": "对比身份、请求时间和任务历史，地址本身证据不足。"},
+      {"sp": "Priya", "en": "Just to confirm, no confirmed download yet, right? Keep wording precise.", "zh": "确认一下，还没有确认下载，对吧？措辞要准确。"},
+      {"sp": "Anika", "en": "Our working hypothesis was report traffic. That job wasn't running then.", "zh": "之前假设是报表流量，但那个时候任务没在运行。"},
+      {"sp": "Hannah", "en": "That weakens the explanation. We still have a logging gap.", "zh": "这削弱了该解释，而且日志仍有空档。"},
+      {"sp": "Raj", "en": "I can't rule that out as unauthorized use. Provider logs may help.", "zh": "不能排除未经授权使用，提供方日志可能有帮助。"},
+      {"sp": "Lukas", "en": "Keep an eye on completeness too. Missing records aren't clean records.", "zh": "也关注完整性。记录缺失不代表没有异常。"},
+      {"sp": "Priya", "en": "Okay, what's the ETA for those logs? A rough range works.", "zh": "好，那些日志预计多久能拿到？大概范围就行。"},
+      {"sp": "Anika", "en": "About thirty minutes, maybe longer. I'll preserve the job timeline now.", "zh": "大约三十分钟，也可能更久。我现在保存任务时间线。"}
+    ]},
+    {"id": "0461", "part": 6, "stage": "识别影响", "title": "非预期访问与下载未知", "premise": "列表请求与已知任务记录不符，提供方补充日志仍未到齐。", "listeningTask": "区分潜在权限、已见列表调用与未知下载。", "newPhrase": "p736", "phrases": ["p736", "p010", "p106", "p011:extra", "p320:extra", "p336:extra"], "lines": [
+      {"sp": "Anika", "en": "We've got unaccounted access to object names. Downloads remain unconfirmed.", "zh": "对象名称存在无法解释的访问，下载仍未确认。"},
+      {"sp": "Hannah", "en": "The listing could expose customer labels. Names can carry sensitive data too.", "zh": "列表可能暴露客户标签，名称也可能包含敏感数据。"},
+      {"sp": "Priya", "en": "Just to confirm, that's our blast radius for known activity, right?", "zh": "确认一下，这是已知活动的影响范围，对吧？"},
+      {"sp": "Lukas", "en": "For recorded activity, yes. The logging gap prevents a complete conclusion.", "zh": "对已记录活动是这样，但日志空档阻止完整结论。"},
+      {"sp": "Raj", "en": "I said no data exposure earlier. Correction, names may be exposed.", "zh": "我之前说没有数据暴露。更正一下，名称可能暴露。"},
+      {"sp": "Anika", "en": "Let me play that back. Contents are unknown, not proven safe.", "zh": "我复述一下，内容是否暴露未知，不是已经证明安全。"},
+      {"sp": "Hannah", "en": "Exactly. Also, the root cause is still open for the leak.", "zh": "正是这样，而且泄漏根因仍未查明。"},
+      {"sp": "Priya", "en": "Use our escalation path for privacy review. About an hour for assessment?", "zh": "走隐私评审升级路径，评估大约一小时？"},
+      {"sp": "Lukas", "en": "Ask the privacy lead to confirm timing. Don't invent notification obligations.", "zh": "请隐私负责人确认时间，不要自行编造通报义务。"},
+      {"sp": "Raj", "en": "I'll send a sanitized summary. Evidence stays in the restricted case.", "zh": "我会发送脱敏摘要，证据留在受限案件记录中。"}
+    ]},
+    {"id": "0462", "part": 7, "stage": "验证消费者", "title": "配置更新不等于任务通过", "premise": "恢复单个导出消费者后，准备验证实际读取和夜间报表独立身份。", "listeningTask": "听出成功调用、失败日志与消费者清单的验证边界。", "newPhrase": "p737", "phrases": ["p737", "p010", "p327", "p309:extra", "p111:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "Consumer validation passed for the first worker. It used the replacement identity.", "zh": "第一个工作进程的消费者验证通过，使用的是替代身份。"},
+      {"sp": "Lukas", "en": "Did you check completed exports? Successful authentication isn't the whole workflow.", "zh": "检查完成的导出了吗？认证成功不是完整工作流通过。"},
+      {"sp": "Anika", "en": "Yes, the smoke test produced matching output. No duplicate delivery appeared.", "zh": "检查了，冒烟测试输出匹配，没有重复交付。"},
+      {"sp": "Priya", "en": "Just to confirm, the report uses its own role, right?", "zh": "确认一下，报表使用自己的角色，对吧？"},
+      {"sp": "Hannah", "en": "Yes, and the old identity still rejects. Keep those checks separate.", "zh": "是，而且旧身份仍拒绝请求。两类检查要分开。"},
+      {"sp": "Raj", "en": "I'm on it for report validation. Maybe its schedule needs a controlled run.", "zh": "我来验证报表，可能需要一次受控运行来覆盖定时路径。"},
+      {"sp": "Lukas", "en": "Use approved test data first. Don't trigger duplicate customer notifications.", "zh": "先用批准的测试数据，别触发重复客户通知。"},
+      {"sp": "Anika", "en": "Okay, I'll keep an eye on delivery counts. Both owners are present.", "zh": "好，我会关注交付计数，两个所有者都在。"},
+      {"sp": "Hannah", "en": "Let's keep it under observation through the scheduled run. Hidden consumers may surface.", "zh": "继续观察到定时运行完成，隐藏消费者可能出现。"},
+      {"sp": "Priya", "en": "Agreed, resume known jobs gradually. Audit investigation continues alongside recovery.", "zh": "同意，逐步恢复已知任务，恢复期间继续审计调查。"}
+    ]},
+    {"id": "0463", "part": 8, "stage": "通报进展", "title": "恢复和影响调查分开报告", "premise": "已知消费者恢复，旧凭据仍失效；隐私负责人评估通报要求。", "listeningTask": "听出业务恢复不代表影响评估结束。", "newPhrase": "p738", "phrases": ["p738", "p010", "p349", "p001:extra", "p008:extra", "p012:extra"], "lines": [
+      {"sp": "Priya", "en": "Privacy owns the notification threshold. We won't wait for perfect logs.", "zh": "隐私负责人确定通报条件，不会为了完整日志一直等待。"},
+      {"sp": "Hannah", "en": "Good. Applicable deadlines still matter. Record who makes that decision.", "zh": "好。适用期限仍然重要，记录谁负责决定。"},
+      {"sp": "Anika", "en": "Exports have recovered. The mitigation is holding for known consumers.", "zh": "导出已恢复，对已知消费者缓解持续有效。"},
+      {"sp": "Lukas", "en": "Say which consumers were checked. Don't imply complete incident closure.", "zh": "说明检查了哪些消费者，不要暗示事件完全结案。"},
+      {"sp": "Raj", "en": "Just to confirm, summaries omit identifiers and secrets, right?", "zh": "确认一下，摘要不含标识细节和秘密，对吧？"},
+      {"sp": "Priya", "en": "Yes. What's the ETA for the next assessment? Roughly thirty minutes?", "zh": "对。下次评估预计多久？大约三十分钟？"},
+      {"sp": "Hannah", "en": "That's our checkpoint, not a guaranteed conclusion. Missing records may remain.", "zh": "那是检查点，不是保证能得出结论，可能仍缺记录。"},
+      {"sp": "Anika", "en": "I'll circle back with support then. No clean-bill-of-health claim.", "zh": "那时我会回头联系支持团队，不宣称完全无风险。"},
+      {"sp": "Lukas", "en": "Include a contact for new failures. Service status can change.", "zh": "附上新故障联系人，服务状态可能变化。"},
+      {"sp": "Raj", "en": "Just to recap, revoked access stays revoked. Logs and privacy review remain open.", "zh": "小结一下，撤销保持有效，日志和隐私评审仍未结束。"}
+    ]},
+    {"id": "0464", "part": 9, "stage": "留存证据", "title": "保留证据而非传播秘密", "premise": "补充日志到达但仍存在空档，需固化证据并清理可访问泄漏副本。", "listeningTask": "理解证据留存、访问限制与源附件清理的顺序。", "newPhrase": "p739", "phrases": ["p739", "p010", "p305", "p330:extra", "p014:extra", "p320:extra"], "lines": [
+      {"sp": "Hannah", "en": "Keep a restricted evidence copy. Don't preserve it in ordinary tickets.", "zh": "保留受限证据副本，不要放在普通工单中。"},
+      {"sp": "Raj", "en": "I'm on it. Access is named and logged. The evidence custodian approved storage.", "zh": "我来做。访问实名且有记录，证据管理员已批准存储。"},
+      {"sp": "Lukas", "en": "What retention policy applies? Legal hold may override routine deletion.", "zh": "适用什么保留策略？法律保全可能优先于常规删除。"},
+      {"sp": "Priya", "en": "Just to confirm, legal reviews that first, right? No blanket deletion.", "zh": "确认一下，先由法务评审，对吧？不全面删除。"},
+      {"sp": "Anika", "en": "The source attachment can be removed afterward. Existing downloaded copies remain uncertain.", "zh": "之后可以移除源附件，既有下载副本仍不确定。"},
+      {"sp": "Hannah", "en": "Exactly. Removal limits distribution; revocation limits use. Neither erases history.", "zh": "对。移除限制传播，撤销限制使用，两者都不会抹掉历史。"},
+      {"sp": "Raj", "en": "Managed configuration now disables debug credential output. Maybe older builds need review.", "zh": "受管配置已禁用调试凭据输出，旧构建可能还需检查。"},
+      {"sp": "Lukas", "en": "Check that separately. Today's logs don't establish every historical exposure.", "zh": "单独检查，今天的日志不能证明所有历史暴露情况。"},
+      {"sp": "Priya", "en": "Okay, the root cause is still open for how debugging reached production.", "zh": "好，调试为何进入生产的流程根因仍未查明。"},
+      {"sp": "Anika", "en": "I'll preserve the release approvals. Sanitized references go into the case timeline.", "zh": "我会保留发布审批，脱敏引用进入案件时间线。"}
+    ]},
+    {"id": "0465", "part": 10, "stage": "预防任务", "title": "门禁不能替代权限和审计", "premise": "确认调试输出进入附件，发布审批缺少秘密检测；影响调查因日志空档继续。", "listeningTask": "听出预防任务的所有者、期限和验收边界。", "newPhrase": "p740", "phrases": ["p740", "p009", "p310", "p013:extra", "p012:extra", "p731:extra"], "lines": [
+      {"sp": "Raj", "en": "A secret scanning gate would block this attachment. It needs failure tests.", "zh": "秘密扫描门禁应阻止这种附件，还需要失败测试。"},
+      {"sp": "Lukas", "en": "Don't rely on scanning alone. Short-lived identities reduce exposure too.", "zh": "别只依赖扫描，短期身份也能减少暴露。"},
+      {"sp": "Priya", "en": "Okay, who's picking this up? Each action item needs an owner.", "zh": "好，谁来接？每项待办都要有负责人。"},
+      {"sp": "Hannah", "en": "I'll own audit coverage by Friday. Logging gaps need explicit alarms.", "zh": "我负责周五前审计覆盖，日志空档需要明确告警。"},
+      {"sp": "Anika", "en": "I'll own debug-output removal tomorrow. Then test export and report paths.", "zh": "我负责明天移除调试输出，然后测试导出和报表路径。"},
+      {"sp": "Raj", "en": "I'll test the gate by Thursday. It must contain the exposure on failure.", "zh": "我周四前测试门禁，失败时必须控制暴露。"},
+      {"sp": "Lukas", "en": "Review identity lifetimes separately. Don't bundle untested changes into recovery.", "zh": "单独评审身份有效期，别在恢复中混入未经测试的变更。"},
+      {"sp": "Priya", "en": "Just to recap, prevention isn't impact closure. Privacy review continues, right?", "zh": "小结一下，预防完成不等于影响结案，隐私评审继续，对吧？"},
+      {"sp": "Hannah", "en": "Yes. We'll close the loop with evidence, including unresolved coverage limits.", "zh": "对，我们会用证据完成反馈，也包括未解决的覆盖限制。"},
+      {"sp": "Anika", "en": "Maybe another review next week. I'll keep the open questions visible.", "zh": "可能下周再评审一次，我会保留可见的未决问题。"}
+    ]}
+  ]
+}

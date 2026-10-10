@@ -1,0 +1,193 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "仅完整中英草稿，未发布、未配音。英文词数为口音规划代理；实际60/40配音时长比例未验证，不填时间轴。",
+  "series": {
+    "id": "sc-S13-database-replica-lag", "title": "主从复制延迟：大事务与回放磁盘竞争",
+    "domain": "database", "group": "incident", "service": "orders read service / PostgreSQL streaming replication",
+    "premise": "订单物理流复制副本延迟上升，用户写后读看不到新状态。主库健康，先控制一致性敏感读，再对照WAL发送、接收、回放位置。",
+    "outcome": "确认已提交的大批删除产生大量WAL，副本本地校验扫描加重磁盘竞争。暂停后续批次并降低扫描负载，验证回放追平后分批恢复读路由，不提升落后副本。交接监控并安排分批清理和资源隔离。"
+  },
+  "speakers": {
+    "Priya": {"role": "Incident coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Replication on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Orders read routing owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Database SRE", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Consistency validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p401", "en": "replication lag is climbing", "zh": "复制延迟正在上升", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p402", "en": "read-after-write consistency", "zh": "写后读一致性", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p403", "en": "replay position", "zh": "日志回放位置", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p404", "en": "large transaction", "zh": "大事务", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p405", "en": "route reads to the primary", "zh": "把读请求路由到主库", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p406", "en": "replay bottleneck", "zh": "日志回放瓶颈", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p407", "en": "the replica is catching up", "zh": "副本正在追赶主库进度", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p408", "en": "restore read routing", "zh": "恢复读请求路由", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p409", "en": "lag threshold", "zh": "复制延迟阈值", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p410", "en": "batch the deletes", "zh": "把删除拆成小批次", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "后续回访为候选安排，不计实际复现；引用不依赖并行草稿。", "S24": ["p401", "p403", "p404", "p406", "p407", "p409"], "S26": ["p402", "p405", "p408"], "S39": ["p403", "p407", "p410"]},
+  "dialogues": [
+    {
+      "id": "0126", "part": 1, "stage": "告警", "title": "副本延迟不是主库宕机", "premise": "副本延迟告警触发，订单页面出现旧状态。", "listeningTask": "辨别主库健康和副本落后的不同影响。",
+      "newPhrase": "p401", "phrases": ["p401", "p003", "p010:extra", "p103:extra", "p008:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Replication lag is climbing on replica B. It's roughly ninety seconds behind now.", "zh": "B副本复制延迟正在上升，现在大约落后九十秒。"},
+        {"sp": "Hannah", "en": "What does that number measure exactly? Time lag alone can mislead us.", "zh": "这个数字具体测什么？只看时间延迟可能误导。"},
+        {"sp": "Anika", "en": "Customers see old paid order states. New writes still succeed on primary.", "zh": "客户看到已付款订单的旧状态，主库新写入仍成功。"},
+        {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, primary stays healthy, right?", "zh": "好，我来协调。确认一下，主库仍健康，对吧？"},
+        {"sp": "Lukas", "en": "Yes, from current write latency checks. Don't promote a lagging replica blindly.", "zh": "从当前写延迟检查看是的，不要盲目提升落后副本。"},
+        {"sp": "Raj", "en": "Let me tail the log now. I'll compare receive and replay positions.", "zh": "我现在盯日志，对比接收和回放位置。"},
+        {"sp": "Hannah", "en": "I'll verify a known committed order. We need a concrete freshness check.", "zh": "我核验一笔已知提交的订单，需要具体的新鲜度检查。"},
+        {"sp": "Priya", "en": "So, what's the ETA for routing options? Maybe two minutes before we decide.", "zh": "那读路由方案预计多久？也许两分钟后决策。"},
+        {"sp": "Lukas", "en": "Check spare primary capacity before shifting. A healthy writer can still overload.", "zh": "切换前检查主库余量，健康的写库也可能被压过载。"},
+        {"sp": "Anika", "en": "I'm on it for traffic classes. Payment confirmation reads need priority first.", "zh": "我负责划分流量，支付确认读取需要优先处理。"}
+      ]
+    },
+    {
+      "id": "0127", "part": 2, "stage": "一致性影响", "title": "哪些读不能容忍旧数据", "premise": "主库写入正常，副本旧状态影响订单确认，先分类读请求。", "listeningTask": "听出写后读和可延迟报表的不同要求。",
+      "newPhrase": "p402", "phrases": ["p402", "p010", "p106:extra", "p309:extra", "p004:extra", "p401:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Payment confirmation needs read-after-write consistency here. Historical reports can tolerate older results.", "zh": "支付确认这里要求写后读一致性，历史报表可以容忍较旧结果。"},
+        {"sp": "Lukas", "en": "What about customer order status pages? They also follow fresh writes frequently.", "zh": "客户订单状态页呢？它也经常紧跟新写入。"},
+        {"sp": "Anika", "en": "You're right, include those pages too. That's our blast radius for stale reads.", "zh": "你说得对，状态页也算进去，这是旧数据读取的影响范围。"},
+        {"sp": "Priya", "en": "Just to confirm, not every report, right? We shouldn't shift all reads blindly.", "zh": "确认一下，不是所有报表，对吧？不能盲目把所有读都切过去。"},
+        {"sp": "Hannah", "en": "Agreed. Mark delayed reports clearly instead. Never label old data as current.", "zh": "同意，给延迟报表明确标记，不能把旧数据标成当前数据。"},
+        {"sp": "Raj", "en": "Replication lag is climbing beyond two minutes. Maybe replay can't match incoming changes.", "zh": "复制延迟已上升超过两分钟，可能回放赶不上新变更。"},
+        {"sp": "Lukas", "en": "I'll keep an eye on primary. Limit sensitive reads if capacity tightens.", "zh": "我观察主库，容量紧张就限制敏感读的接纳量。"},
+        {"sp": "Priya", "en": "A full failover? Let's park that. We have no writer failure evidence.", "zh": "全量故障切主先放一边，没有证据证明写库故障。"},
+        {"sp": "Hannah", "en": "Also check cached status responses carefully. Routing alone won't clear stale caches.", "zh": "还要仔细检查状态响应缓存，改路由不会清掉旧缓存。"},
+        {"sp": "Raj", "en": "Okay, compare the positions next then. That should separate transport from replay.", "zh": "好，那下一步对比位置，以区分传输和回放问题。"}
+      ]
+    },
+    {
+      "id": "0128", "part": 3, "stage": "主从对比", "title": "日志收到，回放落后", "premise": "敏感读范围明确，开始对照主库发送和副本接收回放进度。", "listeningTask": "听懂收到日志不等于已能读到其数据。",
+      "newPhrase": "p403", "phrases": ["p403", "p302", "p402:extra", "p335:extra", "p008:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The replay position trails received WAL. Primary sends and B receives promptly.", "zh": "回放位置落后于已接收WAL，主库发送和B接收都及时。"},
+        {"sp": "Hannah", "en": "Then received logs aren't readable data yet. Replay must apply their changes first.", "zh": "那收到的日志还不等于可读数据，必须先回放应用变更。"},
+        {"sp": "Anika", "en": "That fits the stale order samples. Read-after-write consistency fails on B currently.", "zh": "这符合订单旧状态样本，B目前无法满足写后读一致性。"},
+        {"sp": "Priya", "en": "Okay, network failure looks unlikely, right? Can we rule that out entirely?", "zh": "好，网络故障看来不太可能，对吧？能完全排除吗？"},
+        {"sp": "Lukas", "en": "Not entirely, just this observed bottleneck. Current receive progress doesn't show transport stalls.", "zh": "不能完全排除，只能针对当前瓶颈判断，当前接收进度没显示传输卡顿。"},
+        {"sp": "Raj", "en": "Our working hypothesis is slow apply. B's disk queue rose around nine.", "zh": "当前假设是应用日志慢，B的磁盘队列在九点左右上升。"},
+        {"sp": "Hannah", "en": "Check replay conflicts and local jobs. Disk pressure could have several causes.", "zh": "查回放冲突和本地任务，磁盘压力可能有多种原因。"},
+        {"sp": "Priya", "en": "So, what's the ETA for correlation? About three minutes would be useful.", "zh": "那关联证据预计多久？三分钟左右就有帮助。"},
+        {"sp": "Lukas", "en": "I'll compare primary WAL generation rates. We need both sides of this.", "zh": "我对比主库WAL生成速率，两边证据都需要。"},
+        {"sp": "Anika", "en": "I'm on it for routing preparation. No live switch until capacity checks pass.", "zh": "我准备路由，容量检查通过之前不在线切换。"}
+      ]
+    },
+    {
+      "id": "0129", "part": 4, "stage": "大事务证据", "title": "大批删除与本地扫描重叠", "premise": "副本收到日志但回放慢，查主库WAL增长和副本磁盘任务。", "listeningTask": "分清已提交事务、后续批次与回放负载。",
+      "newPhrase": "p404", "phrases": ["p404", "p335", "p403:extra", "p103:extra", "p010:extra", "p320:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "A large transaction deleted archived rows. It generated about two gigabytes of WAL.", "zh": "一个大事务删除归档行，产生大约两GB的WAL。"},
+        {"sp": "Lukas", "en": "Has that transaction committed already now? Killing it won't undo committed work.", "zh": "这个事务现在已经提交了吗？杀掉它不能撤销已提交工作。"},
+        {"sp": "Anika", "en": "Yes, the audit shows successful commit. The scheduler has another batch queued.", "zh": "是，审计显示提交成功，调度器还有下一批待执行。"},
+        {"sp": "Priya", "en": "Just to confirm, pause future batches, right? We aren't cancelling completed transactions.", "zh": "确认一下，暂停后续批次，对吧？不是取消已完成事务。"},
+        {"sp": "Hannah", "en": "Let me tail the log too. B started a local checksum scan.", "zh": "我也盯日志，B同时启动了本地校验扫描。"},
+        {"sp": "Raj", "en": "The replay position advanced more slowly then. No replay conflict errors are logged.", "zh": "当时回放位置推进变慢，日志没有回放冲突错误。"},
+        {"sp": "Lukas", "en": "So disk competition is worth testing. Don't change replication settings without evidence.", "zh": "所以值得验证磁盘竞争，没证据别改复制设置。"},
+        {"sp": "Anika", "en": "Our working hypothesis combines both loads. Maybe the scan worsens that WAL burst.", "zh": "当前假设是两种负载叠加，扫描可能加重了WAL突增的影响。"},
+        {"sp": "Hannah", "en": "Check job timestamps against disk metrics. Correlation isn't the whole causal proof.", "zh": "把任务时间戳和磁盘指标对照，相关不等于完整因果证明。"},
+        {"sp": "Priya", "en": "Okay, the root cause is still open. Control sensitive reads before that test.", "zh": "好，根因仍未定，验证前先控制敏感读。"}
+      ]
+    },
+    {
+      "id": "0130", "part": 5, "stage": "控制读流量", "title": "只把敏感读送往主库", "premise": "已提交大删除与扫描重叠，主库容量检查通过，准备切敏感读。", "listeningTask": "抓住读流量范围、缓存策略和停止条件。",
+      "newPhrase": "p405", "phrases": ["p405", "p402", "p316:extra", "p324:extra", "p010:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Route reads to the primary selectively. Start with payment confirmation on canary.", "zh": "有选择地把读送到主库，先灰度支付确认。"},
+        {"sp": "Lukas", "en": "The capacity check passed at this rate. Keep admission limits for traffic spikes.", "zh": "这个速率的容量检查通过，仍保留流量突增时的接纳限额。"},
+        {"sp": "Anika", "en": "Read-after-write consistency also needs cache bypass. Those endpoints won't serve cached states.", "zh": "写后读一致性还需要绕过缓存，这些端点不再返回缓存状态。"},
+        {"sp": "Hannah", "en": "Validate a new committed order first. Then expand customer status reads gradually.", "zh": "先验证一笔新提交订单，再逐步扩展客户状态读取。"},
+        {"sp": "Raj", "en": "Just to confirm, B stays a replica, right? No promotion changes in this incident.", "zh": "确认一下，B仍是副本，对吧？这次不做提升切主。"},
+        {"sp": "Lukas", "en": "Correct. Writer latency is our rollback trigger. Stop expansion if it gets worse.", "zh": "对，写延迟是回退触发条件，变差就停止扩展。"},
+        {"sp": "Priya", "en": "Okay, shed load from optional reports. Maybe defer them rather than overload primary.", "zh": "好，减掉非必要报表负载，宁可延后也别压垮主库。"},
+        {"sp": "Hannah", "en": "Don't send sensitive reads back blindly. If primary overloads, restrict that feature.", "zh": "别盲目把敏感读送回副本，主库过载就限制该功能。"},
+        {"sp": "Anika", "en": "I'm on it for the canary. I'll verify freshness and useful throughput.", "zh": "我负责灰度，验证数据新鲜度和有效吞吐。"},
+        {"sp": "Raj", "en": "So, I'll pause the next deletion. That reduces fresh WAL without stopping replication.", "zh": "那我暂停下一批删除，减少新WAL但不停复制。"}
+      ]
+    },
+    {
+      "id": "0131", "part": 6, "stage": "调整复制负载", "title": "给回放让出磁盘资源", "premise": "敏感读已分批转主库，后续删除暂停，验证扫描对副本回放的影响。", "listeningTask": "理解降低竞争任务负载不等于随意调复制参数。",
+      "newPhrase": "p406", "phrases": ["p406", "p404", "p403:extra", "p309:extra", "p008:extra", "p334:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The replay bottleneck appears disk related. I'll throttle the local checksum scan.", "zh": "回放瓶颈看来与磁盘有关，我降低本地校验扫描速率。"},
+        {"sp": "Hannah", "en": "Is that scan safe to throttle? Check its owner's procedure before changing.", "zh": "扫描能安全降速吗？变更前查任务负责人的流程。"},
+        {"sp": "Anika", "en": "The owner approved its lower rate. Results stay incomplete until it finishes.", "zh": "负责人批准降低速率，扫描完成前结果仍是不完整的。"},
+        {"sp": "Priya", "en": "Okay, change that workload alone, right? We need a meaningful before-and-after comparison.", "zh": "好，只改这项负载，对吧？要有有意义的前后对比。"},
+        {"sp": "Lukas", "en": "Keep replication enabled and settings unchanged. This isn't evidence for extra apply threads.", "zh": "复制保持启用且参数不变，这不是增加回放线程的依据。"},
+        {"sp": "Raj", "en": "The large transaction still needs replay. Lower disk waits should help it progress.", "zh": "大事务日志仍需要回放，降低磁盘等待应有助于推进。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on throughput. Compare replay position with incoming WAL too.", "zh": "我观察吞吐，也把回放位置和新到WAL对照。"},
+        {"sp": "Priya", "en": "What's the ETA for a trend? Maybe five minutes before judging this.", "zh": "预计多久看到趋势？也许五分钟后再判断。"},
+        {"sp": "Lukas", "en": "That's sensible, but don't promise catch-up. Remaining WAL volume affects recovery time.", "zh": "合理，但别承诺追平，剩余WAL量会影响恢复时间。"},
+        {"sp": "Anika", "en": "So, label this a temporary workaround. The batch scheduling fix comes later.", "zh": "那把它标成临时缓解，批次调度修复后面再做。"}
+      ]
+    },
+    {
+      "id": "0132", "part": 7, "stage": "追平验证", "title": "追赶趋势与真正追平", "premise": "扫描降速后磁盘等待下降，开始核验回放速度及订单新鲜度。", "listeningTask": "区分正在追赶、达到固定标记和持续稳定。",
+      "newPhrase": "p407", "phrases": ["p407", "p403", "p401:extra", "p308:extra", "p010:extra", "p111:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The replica is catching up now. Replay runs faster than new WAL arrives.", "zh": "副本现在正在追赶，回放速度超过新WAL到达速度。"},
+        {"sp": "Lukas", "en": "Good trend, but show the remaining gap. A falling timer isn't enough proof.", "zh": "趋势不错，但要展示剩余差距，计时数下降不足以证明。"},
+        {"sp": "Anika", "en": "The byte gap is shrinking too. Our known order appears on B.", "zh": "字节差距也在缩小，已知订单已出现在B。"},
+        {"sp": "Priya", "en": "Just to confirm, newer orders too, right? One old marker doesn't prove freshness.", "zh": "确认一下，也查更新的订单，对吧？一个旧标记不能证明新鲜度。"},
+        {"sp": "Hannah", "en": "I'll compare newly committed markers repeatedly. Record primary positions with each check.", "zh": "我反复对比新提交标记，每次都记录对应主库位置。"},
+        {"sp": "Raj", "en": "The replay position reached our latest marker. About ten seconds behind current writes.", "zh": "回放位置达到最新测试标记，离当前写入大约还有十秒。"},
+        {"sp": "Lukas", "en": "Let it catch up before restoring traffic. Keep primary routing for sensitive reads.", "zh": "恢复流量前让它继续追平，敏感读仍走主库。"},
+        {"sp": "Priya", "en": "So, let's keep it under observation. Maybe five stable minutes after matching markers.", "zh": "那继续观察，标记匹配后再稳定观察五分钟左右。"},
+        {"sp": "Hannah", "en": "Include disk queues and replay errors. Fresh samples alone miss recurring pressure.", "zh": "也检查磁盘队列和回放错误，只有新鲜样本会漏掉复发压力。"},
+        {"sp": "Anika", "en": "If replication lag is climbing again, stop. I'll keep the routing change ready.", "zh": "如果复制延迟再上升就停止，我会保留路由变更准备。"}
+      ]
+    },
+    {
+      "id": "0133", "part": 8, "stage": "恢复路由", "title": "先恢复可容忍延迟的读", "premise": "多次提交标记匹配且稳定五分钟，准备分批恢复副本读流量。", "listeningTask": "听清敏感读仍走主库，恢复不是一次全切。",
+      "newPhrase": "p408", "phrases": ["p408", "p405", "p402:extra", "p324:extra", "p014:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "We can restore read routing gradually. Start with delay-tolerant historical report traffic.", "zh": "可以逐步恢复读路由，先从容忍延迟的历史报表流量开始。"},
+        {"sp": "Hannah", "en": "Payment confirmations still need stronger guarantees. Low lag isn't a consistency contract.", "zh": "支付确认仍需要更强保证，低延迟不是一致性契约。"},
+        {"sp": "Raj", "en": "Yes, read-after-write consistency keeps primary routing. B has fresh markers, not synchronous guarantees.", "zh": "是，写后读一致性仍走主库，B有新标记但没有同步保证。"},
+        {"sp": "Priya", "en": "Just to confirm, one class first, right? Maybe twenty percent of historical reads.", "zh": "确认一下，先一种请求，对吧？可先恢复百分之二十历史读。"},
+        {"sp": "Lukas", "en": "That's within the tested load range. Watch replay during each routing step.", "zh": "这在已测负载范围内，每次调整路由都观察回放。"},
+        {"sp": "Anika", "en": "I'm on it for staged routing. Sensitive endpoints still route reads to the primary.", "zh": "我负责分阶段路由，敏感端点仍把读送主库。"},
+        {"sp": "Hannah", "en": "What's the rollback trigger for B? Use byte backlog and freshness together.", "zh": "B的回退触发条件是什么？同时用字节积压和新鲜度判断。"},
+        {"sp": "Raj", "en": "Sustained lag or failed markers means stop. Reduce replica reads while we investigate.", "zh": "持续延迟或标记失败就停止，排查期间减少副本读。"},
+        {"sp": "Lukas", "en": "Keep writer protection active during fallback. Don't suddenly flood the primary either.", "zh": "回退期间继续保护写库，也别突然把流量灌满主库。"},
+        {"sp": "Priya", "en": "Okay, record each batch and result. We need that for tonight's handoff.", "zh": "好，记录每批及结果，今晚交接需要这些。"}
+      ]
+    },
+    {
+      "id": "0134", "part": 9, "stage": "交班观察", "title": "读路由恢复后的值守阈值", "premise": "历史读已分批恢复且稳定，敏感读仍走主库，删除批次继续暂停。", "listeningTask": "抓住升级条件和不可自动执行的切主操作。",
+      "newPhrase": "p409", "phrases": ["p409", "p407", "p336:extra", "p331:extra", "p309:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "The lag threshold is thirty seconds. Page us after two consecutive breaches.", "zh": "延迟阈值三十秒，连续两次超过就呼叫我们。"},
+        {"sp": "Hannah", "en": "And failed freshness checks need immediate attention. Even when that timer looks normal.", "zh": "新鲜度检查失败也要立即关注，即使计时数看起来正常。"},
+        {"sp": "Priya", "en": "Okay, hand over those checks tonight. The escalation path lists Raj first.", "zh": "好，今晚交接这些检查，升级路径第一联系人是Raj。"},
+        {"sp": "Lukas", "en": "What if primary write health changes? That needs a separate failover assessment.", "zh": "如果主库写健康变化呢？那需要单独评估故障切换。"},
+        {"sp": "Anika", "en": "Yes, no automatic promotion for lag. We retain routing controls instead, right?", "zh": "是，不因延迟自动提升副本，而是保留路由控制，对吧？"},
+        {"sp": "Raj", "en": "Correct, keep an eye on both loads. The replica is catching up under bursts.", "zh": "对，两边负载都关注，副本在突发后仍能追赶。"},
+        {"sp": "Hannah", "en": "The scan remains throttled for now. Who approves its normal rate later?", "zh": "扫描目前仍降速，之后谁批准恢复正常速率？"},
+        {"sp": "Priya", "en": "Its owner, after a load review. What's the ETA for that review?", "zh": "任务负责人，负载评审后批准，评审预计何时？"},
+        {"sp": "Lukas", "en": "Tomorrow morning, with overlapping workloads measured. Maybe isolate the scan from B.", "zh": "明早，带上重叠负载测量结果，也许把扫描和B隔离。"},
+        {"sp": "Anika", "en": "So, I'll attach current routing settings. Reports and confirmations have different destinations.", "zh": "那我附上当前路由设置，报表和确认读取目的地不同。"}
+      ]
+    },
+    {
+      "id": "0135", "part": 10, "stage": "根因复盘", "title": "拆批次，也拆开竞争负载", "premise": "夜班观察稳定，复盘WAL突增及扫描降速前后的回放证据。", "listeningTask": "辨别已支持的原因与尚需负载测试的改进。",
+      "newPhrase": "p410", "phrases": ["p410", "p404", "p406:extra", "p009:extra", "p013:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "We'll batch the deletes from now. The large transaction caused the WAL burst.", "zh": "之后把删除拆成批次，大事务造成这次WAL突增。"},
+        {"sp": "Hannah", "en": "Disk waits fell after scan throttling. Replay accelerated with the same incoming rate.", "zh": "扫描降速后磁盘等待下降，在相同日志输入速率下回放加快。"},
+        {"sp": "Anika", "en": "That supports disk competition as a contributor. It doesn't blame the scan alone.", "zh": "这支持磁盘竞争是一个促成因素，不是把责任全归扫描。"},
+        {"sp": "Priya", "en": "So, who's picking this up tomorrow? Raj owns batch sizing tests, right?", "zh": "那明天谁接？Raj负责批次大小测试，对吧？"},
+        {"sp": "Lukas", "en": "I'll own scan isolation options Friday. Moving it elsewhere has capacity costs.", "zh": "我周五负责扫描隔离方案，迁到别处也有容量成本。"},
+        {"sp": "Raj", "en": "Yes, my action item includes pacing. Maybe row count alone isn't enough.", "zh": "是，我的行动项也包括批次节奏，可能只限制行数还不够。"},
+        {"sp": "Hannah", "en": "Measure WAL volume and replay bottleneck together. Test overlaps in an isolated environment.", "zh": "同时测WAL量和回放瓶颈，在隔离环境测试负载重叠。"},
+        {"sp": "Anika", "en": "I'll test freshness-aware routing by Friday. Sensitive reads remain on primary meanwhile.", "zh": "我周五前测试感知新鲜度的路由，期间敏感读仍走主库。"},
+        {"sp": "Lukas", "en": "Keep failover policy separate from lag routing. Promotion requires durability and fencing checks.", "zh": "故障切主策略与延迟读路由分开，提升副本需要持久性和隔离旧主检查。"},
+        {"sp": "Priya", "en": "Okay, close the loop next week. Bring overlap tests and routing evidence.", "zh": "好，下周闭环，带上重叠负载测试和路由证据。"}
+      ]
+    }
+  ]
+}

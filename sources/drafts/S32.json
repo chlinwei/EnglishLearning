@@ -1,0 +1,148 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "完整文本，音频未验，不填时间轴。CPU运行时throttling不同于ResourceQuota准入拒绝，也不同于requests导致的调度等待。资源修改须核容量、租户配额与授权；不能无条件提高或移除limits。未来回访不计实绩。",
+  "series": {"id": "sc-S32-k8s-cpu-quota-latency", "title": "CPU限制与配额：运行慢和创建失败不是一回事", "domain": "k8s", "group": "incident", "service": "pricing API", "premise": "pricing延迟上升，运行副本受半核CPU限制；扩容又被命名空间CPU配额拒绝。平台须区分两条路径并做获批的小范围资源调整。", "outcome": "受控对比支持CPU限制造成延迟的判断。先按需求和容量证据批准命名空间额度，再将一副本request从四分之一核调至半核、limit从半核调至一核。核准调度、对照压测后分批修复，长期保留成本归属、需求分析和容量评审。"},
+  "speakers": {
+    "Priya": {"role": "Incident coordinator and resource change approver", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Kubernetes platform on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Pricing application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Capacity engineer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Performance validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p591", "en": "latency budget", "zh": "允许的延迟预算", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p592", "en": "CPU throttling", "zh": "CPU运行时间被限制", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p593", "en": "node saturation", "zh": "节点资源饱和", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p594", "en": "CPU limit", "zh": "容器CPU使用上限", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p595", "en": "resource quota", "zh": "命名空间资源配额", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p596", "en": "resource request", "zh": "用于调度等用途的资源请求量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p597", "en": "pending scheduling", "zh": "等待调度", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p598", "en": "throttled periods", "zh": "发生CPU限制的调度周期", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p599", "en": "capacity reservation", "zh": "容量预留", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p600", "en": "right-size the workload", "zh": "按实际需求配置工作负载资源", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "只使用既有库、S03-S07和本场此前表达；未来候选不记实绩。", "futureCandidates": {"S38": ["p591", "p592", "p593", "p594", "p595"], "S44": ["p596", "p597", "p598", "p599", "p600"]}},
+  "dialogues": [
+    {"id": "0316", "part": 1, "stage": "告警", "title": "延迟先报警，扩容也失败", "premise": "pricing延迟升至九百毫秒，自动扩容没有新增副本。", "listeningTask": "分别识别正在运行的慢请求与新增副本失败。", "newPhrase": "p591", "phrases": ["p591", "p003", "p010:extra", "p008:extra", "p335:extra", "p314:extra"], "lines": [
+      {"sp": "Anika", "en": "We're over the latency budget. Pricing requests now take about nine hundred milliseconds.", "zh": "我们超了延迟预算，pricing请求现在约九百毫秒。"},
+      {"sp": "Lukas", "en": "Which percentile and observation window? Averages could hide a different pattern.", "zh": "哪个百分位，哪个观察窗口？均值可能掩盖不同模式。"},
+      {"sp": "Anika", "en": "The ninety-fifth percentile, over five minutes. Traffic is flat against the previous window.", "zh": "五分钟的九十五百分位，流量和前一窗口持平。"},
+      {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, pricing only, right?", "zh": "好，我来协调，确认一下，目前只有pricing，对吧？"},
+      {"sp": "Hannah", "en": "That's the confirmed scope. Check dependent services before broadening the claim.", "zh": "这是已确认范围，扩大结论前先查依赖服务。"},
+      {"sp": "Raj", "en": "The scale-up attempt failed too. I'll separate creation errors from running-container symptoms.", "zh": "扩容尝试也失败，我把创建错误与运行容器症状分开。"},
+      {"sp": "Lukas", "en": "Good, those might have different causes. Don't assume one resource fix solves both.", "zh": "好，两者可能原因不同，不要假定一次资源修改解决全部。"},
+      {"sp": "Priya", "en": "So, what's the ETA for evidence? A rough first comparison is enough.", "zh": "那么，取证预计多久？先有大致对比就够。"},
+      {"sp": "Hannah", "en": "Two minutes for matched metrics. We need timestamps from the same interval.", "zh": "匹配指标需要两分钟，要用同一时段的时间戳。"},
+      {"sp": "Raj", "en": "Our working hypothesis is resource pressure. I'll check limits and admission events separately.", "zh": "当前假设是资源压力，我分别查limits和准入事件。"}
+    ]},
+    {"id": "0317", "part": 2, "stage": "关联指标", "title": "CPU限制与延迟同窗出现", "premise": "延迟与扩容失败分别取证，开始关联容器CPU指标。", "listeningTask": "理解限制周期比例不能直接当作丢失CPU时间比例。", "newPhrase": "p592", "phrases": ["p592", "p591", "p335:extra", "p010:extra", "p309:extra", "p014:extra"], "lines": [
+      {"sp": "Raj", "en": "CPU throttling increased in that window. Running containers hit their configured allowance.", "zh": "该窗口CPU限制增加，运行容器用到了配置额度。"},
+      {"sp": "Hannah", "en": "Which counter are you comparing? Throttled time differs from throttled period counts.", "zh": "比较的是哪个计数？受限时间与受限周期数不同。"},
+      {"sp": "Raj", "en": "Both, with rates over matching intervals. The period ratio isn't lost CPU percentage.", "zh": "两个都有，用同窗速率，周期比例不是损失CPU百分比。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, correlation isn't proof, right? Keep the working hypothesis qualified.", "zh": "好，确认一下，相关不等于证实，对吧？假设要保留限定。"},
+      {"sp": "Lukas", "en": "Exactly. A busy worker could also wait on other resources at times.", "zh": "正是这样，繁忙工作进程有时也可能等待其他资源。"},
+      {"sp": "Anika", "en": "We're missing the latency budget consistently. Dependency timings look stable in these samples.", "zh": "我们持续超延迟预算，这些样本里的依赖耗时稳定。"},
+      {"sp": "Hannah", "en": "I'll keep an eye on those. Match request classes before comparing performance.", "zh": "我继续关注这些，比较性能前匹配请求类型。"},
+      {"sp": "Raj", "en": "I'm on it. Maybe expensive requests contribute, but the traffic mix looks unchanged.", "zh": "我来查，可能昂贵请求有影响，但流量组成看起来没变。"},
+      {"sp": "Lukas", "en": "Check node pressure next. Runtime limits can throttle even on an idle node.", "zh": "接下来查节点压力，即使节点空闲，运行时上限也能限CPU。"},
+      {"sp": "Priya", "en": "So, don't raise anything yet. We'll test the competing explanations first.", "zh": "那么，先不提高任何值，先验证竞争解释。"}
+    ]},
+    {"id": "0318", "part": 3, "stage": "节点排查", "title": "节点有余量不代表容器无限CPU", "premise": "受限指标与延迟相关，但节点故障或竞争尚待检查。", "listeningTask": "区分节点余量与容器运行时上限。", "newPhrase": "p593", "phrases": ["p593", "p592", "p302:extra", "p010:extra", "p106:extra", "p314:extra"], "lines": [
+      {"sp": "Lukas", "en": "There's no node saturation in these samples. Node conditions and runtime health look normal.", "zh": "这些样本没显示节点饱和，节点条件和运行时健康正常。"},
+      {"sp": "Raj", "en": "Affected replicas sit on different nodes. That's our blast radius, not one failing host.", "zh": "受影响副本在不同节点，影响不是单台故障主机。"},
+      {"sp": "Hannah", "en": "Check competing workloads across those nodes. Aggregate usage can conceal short bursts.", "zh": "检查这些节点上的竞争负载，总使用量可能掩盖短突发。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, don't drain nodes, right? We haven't found node failure.", "zh": "好，确认一下，不排空节点，对吧？还没找到节点故障。"},
+      {"sp": "Anika", "en": "Traffic is flat, including request mix. CPU throttling persists across the affected replicas.", "zh": "流量包括请求组成都持平，受影响副本持续受CPU限制。"},
+      {"sp": "Lukas", "en": "That supports a container-level explanation. It doesn't eliminate every transient contention event.", "zh": "这支持容器层解释，但不能排除每次瞬时竞争。"},
+      {"sp": "Raj", "en": "We can rule that out as confirmed node failure. I'll check effective resource settings next.", "zh": "可以排除已证实节点故障这个说法，接下来查生效资源设置。"},
+      {"sp": "Hannah", "en": "Compare observed values, not repository defaults. Admission policies may inject resource settings.", "zh": "比较实际值，不是仓库默认值，准入策略可能注入资源设置。"},
+      {"sp": "Priya", "en": "So, maybe the defaults explain this. Keep that tentative until the specs match.", "zh": "那么，也许默认值能解释，配置核对前保持暂定。"},
+      {"sp": "Anika", "en": "I'll pull the application demand estimate. Free node capacity isn't automatic change approval.", "zh": "我拿应用需求估计，节点有空余不等于自动获准变更。"}
+    ]},
+    {"id": "0319", "part": 4, "stage": "检查上限", "title": "半核上限需要受控验证", "premise": "未发现节点故障，继续核对容器资源与工作负载需求。", "listeningTask": "听出上限、请求量与修改限制所需的容量核查。", "newPhrase": "p594", "phrases": ["p594", "p592", "p010:extra", "p335:extra", "p004:extra", "p008:extra"], "lines": [
+      {"sp": "Raj", "en": "The CPU limit is half a core. Its request is a quarter core.", "zh": "CPU上限是半核，请求量是四分之一核。"},
+      {"sp": "Lukas", "en": "Those settings govern different things. Requests influence scheduling; limits constrain runtime usage.", "zh": "两项作用不同，requests影响调度，limits约束运行时使用。"},
+      {"sp": "Anika", "en": "Our working hypothesis is an undersized limit. CPU throttling rises during request bursts.", "zh": "当前假设是上限太小，请求突发时CPU限制上升。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, no unlimited CPU, right? We need a bounded trial.", "zh": "好，确认一下，不改成无限CPU，对吧？需要有边界试验。"},
+      {"sp": "Hannah", "en": "Agreed. Removing limits may shift contention. It won't demonstrate a sustainable allocation.", "zh": "同意，移除上限可能转移竞争，不能证明分配可持续。"},
+      {"sp": "Raj", "en": "Maybe one core covers the bursts. I'll check both node capacity and tenant allowance.", "zh": "也许一核能覆盖突发，我核对节点容量和租户额度。"},
+      {"sp": "Lukas", "en": "Include replacement overlap in that calculation. A rollout may briefly run extra replicas.", "zh": "计算要包含替换重叠，发布可能暂时多运行副本。"},
+      {"sp": "Priya", "en": "So, what's the ETA for approval evidence? Broad resource changes, let's park that.", "zh": "那么，审批证据预计多久？大范围资源变更先搁置。"},
+      {"sp": "Hannah", "en": "I'll prepare a matched-load trial. Compare the unchanged replica with the canary.", "zh": "我准备匹配负载试验，对比未改副本和灰度副本。"},
+      {"sp": "Anika", "en": "I'll confirm the demand envelope today. We won't change requests without reviewing it.", "zh": "我今天确认需求范围，评审前不改requests。"}
+    ]},
+    {"id": "0320", "part": 5, "stage": "检查配额", "title": "配额拒绝是准入，不是运行时限制", "premise": "拟做一核上限灰度，但此前扩容拒绝原因必须先明确。", "listeningTask": "区别命名空间准入、调度和CPU throttling。", "newPhrase": "p595", "phrases": ["p595", "p594", "p010:extra", "p103:extra", "p014:extra", "p335:extra"], "lines": [
+      {"sp": "Raj", "en": "Let me tail the log. Admission rejected creation against the resource quota.", "zh": "我盯一下日志，准入因资源配额拒绝了创建。"},
+      {"sp": "Hannah", "en": "Which quota dimension was exhausted? Total requests and limits are separate counters.", "zh": "哪个配额维度耗尽？请求总量和上限总量是不同计数。"},
+      {"sp": "Raj", "en": "The namespace limits total was exhausted. A new CPU limit exceeded that allowance.", "zh": "命名空间上限总量耗尽，新的CPU上限超了额度。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, no Pod was admitted, right? This isn't pending scheduling.", "zh": "好，确认一下，没有Pod获准创建，对吧？不是等待调度。"},
+      {"sp": "Lukas", "en": "Correct. ResourceQuota doesn't throttle running containers. Runtime CPU control is a different mechanism.", "zh": "对，ResourceQuota不限制运行容器的CPU时间，运行时CPU控制是另一机制。"},
+      {"sp": "Anika", "en": "Our working hypothesis covers latency, not creation. We need separate approval for quota changes.", "zh": "当前假设解释延迟，不解释创建，要另外审批配额变更。"},
+      {"sp": "Hannah", "en": "And a larger quota doesn't supply nodes. Capacity and placement still need validation.", "zh": "配额扩大也不会提供节点，容量和放置仍需验证。"},
+      {"sp": "Raj", "en": "I'm on it. Maybe other tenants need that headroom; I'll consult their owners.", "zh": "我来查，也许其他租户需要这些余量，我问他们负责人。"},
+      {"sp": "Lukas", "en": "Calculate requests, limits, and replacement overlap. Keep each constraint explicit in approval.", "zh": "计算requests、limits和替换重叠，审批中逐项明确约束。"},
+      {"sp": "Priya", "en": "So, no quota bypass. I'll review the bounded allocation with tenant owners.", "zh": "那么，不绕过配额，我与租户负责人评审有边界分配。"}
+    ]},
+    {"id": "0321", "part": 6, "stage": "临时调资源", "title": "容量与授权齐备再改", "premise": "已确认准入拒绝来自上限总量，容量及租户额度评审完成。", "listeningTask": "抓住两类授权、精确资源修改和单副本试验范围。", "newPhrase": "p596", "phrases": ["p596", "p595", "p594:extra", "p010:extra", "p334:extra", "p324:extra"], "lines": [
+      {"sp": "Priya", "en": "Quota approval is recorded now. Capacity review includes replacement overlap and tenant commitments.", "zh": "配额审批已记录，容量评审含替换重叠和租户承诺。"},
+      {"sp": "Lukas", "en": "Eligible nodes have sufficient requested capacity. Burst usage fits our reviewed safety margin.", "zh": "符合条件节点的请求容量足够，突发使用符合评审安全余量。"},
+      {"sp": "Raj", "en": "The resource request becomes half a core. The CPU limit becomes one core.", "zh": "资源请求改为半核，CPU上限改为一核。"},
+      {"sp": "Anika", "en": "Okay, just to confirm, one canary only, right? This remains a temporary workaround.", "zh": "好，确认一下，只改一个灰度，对吧？这仍是临时缓解。"},
+      {"sp": "Hannah", "en": "What's the rollback trigger? Include tenant contention, not just pricing latency.", "zh": "回退触发条件是什么？包括租户竞争，不只pricing延迟。"},
+      {"sp": "Priya", "en": "Worse customer errors or tenant contention means stop. Any capacity violation stops expansion too.", "zh": "客户错误恶化或租户竞争就停，任何容量违规也停止扩大。"},
+      {"sp": "Lukas", "en": "Check the resource quota after adjustment. Approval and actual admission must both hold.", "zh": "调整后核查资源配额，审批和实际准入必须都成立。"},
+      {"sp": "Raj", "en": "So, I'll apply the approved revision. No unrelated resource settings will change.", "zh": "那么，我应用获批版本，不改无关资源设置。"},
+      {"sp": "Hannah", "en": "Maybe admission succeeds but placement waits. We'll inspect events before claiming execution succeeded.", "zh": "可能准入成功但放置要等，宣称执行成功前检查事件。"},
+      {"sp": "Anika", "en": "I'll track the canary's request class. We need comparable work for performance evidence.", "zh": "我跟踪灰度请求类型，要有可比工作量才能形成性能证据。"}
+    ]},
+    {"id": "0322", "part": 7, "stage": "验证调度", "title": "准入成功后仍要核调度", "premise": "获批资源与配额已应用到一灰度副本，等待确认实际放置。", "listeningTask": "区分创建、调度、启动和业务可用。", "newPhrase": "p597", "phrases": ["p597", "p596", "p595:extra", "p010:extra", "p014:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Creation passed the resource quota check. The canary was briefly pending scheduling.", "zh": "创建通过配额检查，灰度曾短暂等待调度。"},
+      {"sp": "Lukas", "en": "Why was it pending? Requests, placement rules, and taints can all matter.", "zh": "为什么等待？requests、放置规则和污点都可能有影响。"},
+      {"sp": "Raj", "en": "The resource request fits an eligible node. Scheduler events now confirm assignment there.", "zh": "资源请求符合一个可用节点，调度事件现在确认已分配。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, scheduled isn't serving yet, right? Check startup and readiness.", "zh": "好，确认一下，已调度不等于已服务，对吧？检查启动和就绪。"},
+      {"sp": "Hannah", "en": "Correct. The image started successfully now. Readiness passed, and test traffic reaches it.", "zh": "对，镜像现已成功启动，就绪通过，测试流量到达。"},
+      {"sp": "Anika", "en": "I'm on it for application checks. Maybe warm-up affects the first few samples.", "zh": "我做应用检查，预热可能影响最初几个样本。"},
+      {"sp": "Lukas", "en": "Allow the agreed warm-up window. Don't compare a cold replica with warm ones.", "zh": "留出约定预热窗口，不要拿冷副本比热副本。"},
+      {"sp": "Priya", "en": "So, I'll keep an eye on placement. No full rollout until the comparison finishes.", "zh": "那么，我关注放置，对比完成前不全面发布。"},
+      {"sp": "Hannah", "en": "Record effective requests and limits too. Defaults could otherwise confuse the test.", "zh": "也记录生效requests和limits，否则默认值可能干扰试验。"},
+      {"sp": "Raj", "en": "Both match the approved revision now. I'll retain admission and scheduler evidence separately.", "zh": "两者现在都符合获批版本，我分别保留准入和调度证据。"}
+    ]},
+    {"id": "0323", "part": 8, "stage": "延迟复测", "title": "匹配负载后才判断效果", "premise": "灰度已启动就绪且配置符合审批，预热后开始对照复测。", "listeningTask": "辨别受限周期、延迟改善和因果结论的适用范围。", "newPhrase": "p598", "phrases": ["p598", "p592", "p591:extra", "p010:extra", "p110:extra", "p111:extra"], "lines": [
+      {"sp": "Hannah", "en": "Throttled periods fell on the canary. Compare that ratio with throttled time too.", "zh": "灰度受限周期下降，也把该比例与受限时间对比。"},
+      {"sp": "Anika", "en": "It's within the latency budget now. Matched requests take about three hundred milliseconds.", "zh": "现在符合延迟预算，匹配请求约三百毫秒。"},
+      {"sp": "Lukas", "en": "And the unchanged control remains slower? Keep the observation windows identical.", "zh": "未改对照仍较慢吗？保持观察窗口一致。"},
+      {"sp": "Raj", "en": "Yes, CPU throttling remains higher there. That supports the runtime-limit explanation here.", "zh": "是的，那里CPU限制仍较高，支持这里的运行时上限解释。"},
+      {"sp": "Priya", "en": "Okay, just to confirm, not every workload benefits, right? This result is specific.", "zh": "好，确认一下，不是所有负载都受益，对吧？结果有特定范围。"},
+      {"sp": "Hannah", "en": "Right, this demand and request mix. Let's keep it under observation during expansion.", "zh": "对，是这个需求和请求组成，扩大期间继续观察。"},
+      {"sp": "Anika", "en": "So, maybe expand one replica next. Our application checks stayed clean throughout.", "zh": "那么，也许接着扩大一个副本，应用检查一直正常。"},
+      {"sp": "Lukas", "en": "Capacity approval covers that staged expansion. Check neighboring tenants after every replacement.", "zh": "容量审批覆盖这个分阶段扩大，每次替换后检查邻租户。"},
+      {"sp": "Raj", "en": "All approved replacements are complete now. We're back to baseline in aggregate too.", "zh": "获批替换现在全部完成，总体指标也回到基线。"},
+      {"sp": "Priya", "en": "Keep the monitoring window open still. Recovery doesn't settle the permanent allocation.", "zh": "继续保留监控窗口，恢复不代表永久分配已经定案。"}
+    ]},
+    {"id": "0324", "part": 9, "stage": "成本讨论", "title": "配额额度不是资源采购", "premise": "分批修复恢复延迟，开始讨论临时分配的成本与长期容量。", "listeningTask": "区分配额许可、调度容量与成本归属。", "newPhrase": "p599", "phrases": ["p599", "p595", "p596:extra", "p010:extra", "p006:extra", "p349:extra"], "lines": [
+      {"sp": "Priya", "en": "The mitigation is holding now. We still need a capacity reservation decision.", "zh": "缓解现在持续有效，仍要决定容量预留。"},
+      {"sp": "Lukas", "en": "Resource quota isn't a node reservation. Raising it grants allowance, not physical capacity.", "zh": "资源配额不是节点预留，提高它给的是许可，不是物理容量。"},
+      {"sp": "Anika", "en": "Our higher resource request affects placement. Do we need more nodes long term?", "zh": "较高资源请求影响放置，长期要增加节点吗？"},
+      {"sp": "Hannah", "en": "Not established yet. Measure peak overlap and tenant demand before buying capacity.", "zh": "还没证实，购买容量前测高峰重叠和租户需求。"},
+      {"sp": "Raj", "en": "Okay, just to confirm, no permanent quota increase by default, right? Review has an expiry.", "zh": "好，确认一下，不默认永久扩大配额，对吧？评审有到期点。"},
+      {"sp": "Lukas", "en": "Yes, Friday's review checks demand. Current settings remain until an approved replacement plan.", "zh": "对，周五评审核需求，获批替代方案前保留当前设置。"},
+      {"sp": "Anika", "en": "Maybe optimize the expensive request path too. I have bandwidth for profiling tomorrow.", "zh": "也许还要优化昂贵请求路径，我明天有精力做剖析。"},
+      {"sp": "Priya", "en": "So, charge additional demand to pricing. Don't silently take another tenant's committed headroom.", "zh": "那么，新增需求归pricing，不要悄悄占其他租户承诺余量。"},
+      {"sp": "Hannah", "en": "Compare customer latency against actual utilization. Requested capacity alone isn't the bill.", "zh": "对比客户延迟与实际利用率，请求容量本身不等于账单。"},
+      {"sp": "Raj", "en": "I'll bring placement and burst data Friday. Cost decisions need the same technical boundaries.", "zh": "我周五提供放置和突发数据，成本决定需要相同技术边界。"}
+    ]},
+    {"id": "0325", "part": 10, "stage": "长期修复", "title": "把两条故障路径分别闭环", "premise": "服务恢复，临时额度待周五复核，应用优化和容量工作需要负责人。", "listeningTask": "分别复述延迟原因和创建拒绝原因，并抓住行动期限。", "newPhrase": "p600", "phrases": ["p600", "p592", "p595:extra", "p009:extra", "p012:extra", "p310:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, just to recap, CPU throttling delayed requests. Resource quota separately rejected creation.", "zh": "好，小结一下，CPU限制拖慢请求，资源配额另行拒绝了创建。"},
+      {"sp": "Lukas", "en": "Scheduling used requests after admission succeeded. Keep those three mechanisms separate in documentation.", "zh": "准入成功后调度使用requests，文档里把三种机制分开。"},
+      {"sp": "Anika", "en": "First action item: right-size the workload. I'll profile representative requests by Thursday.", "zh": "第一项任务是按需求配置负载，我周四前剖析代表性请求。"},
+      {"sp": "Hannah", "en": "I'll rerun peak-load comparisons Friday. Include errors, latency, and effects on neighbors.", "zh": "我周五重跑高峰对比，包括错误、延迟和邻租户影响。"},
+      {"sp": "Raj", "en": "Requests and limits need approval, right? I'll add capacity checks to resource reviews.", "zh": "requests和limits要审批，对吧？我把容量检查加入资源评审。"},
+      {"sp": "Lukas", "en": "Include quota and rollout overlap too. Don't recommend removing limits as a universal fix.", "zh": "也包含配额和发布重叠，不要把移除limits推荐为通用修复。"},
+      {"sp": "Priya", "en": "So, we'll close the loop on Friday. Maybe the long-term allocation changes after profiling.", "zh": "那么，周五闭环，剖析后长期分配也许会调整。"},
+      {"sp": "Anika", "en": "Current recovery is confirmed already. We'll keep the approved resources until the next decision.", "zh": "当前恢复已确认，下一次决定前保留获批资源。"},
+      {"sp": "Hannah", "en": "The monitoring record will stay available. Alert thresholds remain unchanged during this observation window.", "zh": "监控记录会保留，本次观察窗口内告警阈值保持不变。"},
+      {"sp": "Raj", "en": "I'll document the admission failure separately. That prevents another misleading resource diagnosis.", "zh": "我单独记录准入失败，避免下次再做误导性资源诊断。"}
+    ]}
+  ]
+}

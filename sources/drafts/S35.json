@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "十段流程迭代回顾双语草稿；设计：用十二次发布记录讨论等待和返工，保留独立审批、安全验证与兼容回滚，通过小范围试点评估改进。未配音，不填时间轴。",
+  "series": {"id": "sc-S35-cicd-release-process-retro", "title": "发布流程回顾：少等待、少返工、不删门禁", "domain": "cicd", "group": "agile", "service": "release workflow", "premise": "迭代结束回顾十二次发布记录：审批等待中位数九十分钟，四次有构建返工，一次发生应用回滚。团队决定下一迭代流程试点。", "outcome": "选择审批证据包和固定制品选择试点，保留独立审批、签名与秘密检查以及schema兼容证据。按至少十次可比发布评估等待和返工；样本不足延长观察，不把未完成目标包装成成功。"},
+  "speakers": {
+    "Priya": {"role": "Iteration facilitator and release lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Pipeline automation owner", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Application release representative", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Deployment and rollback reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Independent security reviewer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p621", "en": "approval wait", "zh": "审批等待时间", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p622", "en": "approval bottleneck", "zh": "审批瓶颈", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p623", "en": "rework loop", "zh": "反复返工循环", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p624", "en": "rollback readiness", "zh": "回滚准备度", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p625", "en": "rank the pain points", "zh": "给痛点排序", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p626", "en": "evidence bundle", "zh": "审批证据包", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p627", "en": "separation of duties", "zh": "职责分离", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p628", "en": "pilot success criteria", "zh": "试点成功标准", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p629", "en": "carry over", "zh": "顺延到下一迭代", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p630", "en": "follow through", "zh": "持续落实直到完成", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {"note": "未来回访只是候选，不计已发生复现；本场仅引用既有库、S03至S07及本场此前段。", "futureCandidates": {"S39": ["p621", "p622", "p623", "p625", "p628", "p629", "p630"], "S49": ["p624", "p626", "p627"]}},
+  "dialogues": [
+    {"id": "0346", "part": 1, "stage": "迭代目标", "title": "回顾目标是减少等待，不是减少检查", "premise": "两周迭代结束，团队拿十二次发布记录做流程回顾。", "listeningTask": "听出回顾目标、样本边界和不做什么。", "newPhrase": "p621", "phrases": ["p621", "p010", "p012:extra", "p004:extra", "p006:extra", "p009:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, today's retro looks at approval wait. Twelve releases give us initial evidence.", "zh": "好，今天回顾审批等待。十二次发布提供初步证据。"},
+      {"sp": "Raj", "en": "Just to recap, our goal was less rework. We didn't quite achieve that yet.", "zh": "小结一下，目标是减少返工。我们还没完全做到。"},
+      {"sp": "Lukas", "en": "Twelve isn't a large sample though. Compare similar releases before claiming a trend.", "zh": "不过十二次样本不大。比较相似发布后再说趋势。"},
+      {"sp": "Anika", "en": "Just to confirm, we're reviewing the process. Not judging individual developers here, right?", "zh": "确认一下，评审的是流程，不是在这里评判开发个人，对吧？"},
+      {"sp": "Hannah", "en": "Agreed, keep security checks outside blame. We can improve waiting without weakening verification.", "zh": "同意，不责怪安全检查。可以改善等待，不削弱验证。"},
+      {"sp": "Priya", "en": "We have bandwidth for two experiments. Each action item needs measurable acceptance.", "zh": "我们有能力做两个试验。每个行动项需要可测验收。"},
+      {"sp": "Lukas", "en": "And distinguish meeting estimates from recorded timings. Memory often overstates the worst release.", "zh": "区分会上估计和记录时间。记忆经常夸大最糟一次发布。"},
+      {"sp": "Raj", "en": "So, let's park that platform rewrite. We'll start with the recorded approval timeline.", "zh": "那么平台重写先放一边。从记录的审批时间线开始。"},
+      {"sp": "Hannah", "en": "Use sanitized records for this discussion. Raw evidence may contain restricted customer details.", "zh": "讨论用脱敏记录。原始证据可能含受限客户细节。"},
+      {"sp": "Anika", "en": "Fair, I brought the cleaned release summary. It separates waiting from active review time.", "zh": "明白，我带了清理后的发布摘要。它区分等待和实际评审时间。"}
+    ]},
+    {"id": "0347", "part": 2, "stage": "审批等待", "title": "瓶颈是排队，还是补证据", "premise": "回顾聚焦流程，两项试验额度；先分析审批等待记录。", "listeningTask": "听出等待口径和证据缺失如何延长等待。", "newPhrase": "p622", "phrases": ["p622", "p621", "p010:extra", "p008:extra", "p335:extra", "p006:extra"], "lines": [
+      {"sp": "Anika", "en": "Median approval wait was ninety minutes. Active review took roughly fifteen minutes usually.", "zh": "审批等待中位数九十分钟。实际评审通常约十五分钟。"},
+      {"sp": "Priya", "en": "Okay, is reviewer bandwidth the approval bottleneck? Just to confirm, how's waiting measured?", "zh": "好，评审人时间是审批瓶颈吗？确认一下，等待怎么计？"},
+      {"sp": "Lukas", "en": "From submission until first substantive review. Follow-up delays are tracked separately, not hidden.", "zh": "从提交到首次实质评审。后续延迟单独跟踪，不隐藏。"},
+      {"sp": "Raj", "en": "Our working hypothesis was reviewer overload. But five submissions lacked artifact evidence itself.", "zh": "当前假设原是评审超负荷。但五份提交缺制品证据本身。"},
+      {"sp": "Hannah", "en": "I couldn't assess those requests immediately. Asking for provenance isn't discretionary extra paperwork.", "zh": "那些请求无法立即评估。要求来源证明不是可选额外文书。"},
+      {"sp": "Anika", "en": "We kept asking, what's the ETA? We should have supplied evidence first.", "zh": "我们一直在问：预计多久？应当先提供证据。"},
+      {"sp": "Lukas", "en": "Don't combine those medians into totals. They describe different distributions across twelve releases.", "zh": "不要把中位数相加成总时间。它们描述十二次发布的不同分布。"},
+      {"sp": "Priya", "en": "So, reviewer slots and preparation both matter. We need fixes for both causes.", "zh": "那么评审时段和准备都重要。两种原因都要修。"},
+      {"sp": "Hannah", "en": "A scheduled slot helps complete requests most. Incomplete requests still need a named follow-up.", "zh": "预约时段对完整请求最有用。不完整请求仍需要指定跟进。"},
+      {"sp": "Raj", "en": "Fair, I'll separate those categories in reporting. Otherwise we'd optimize the wrong queue.", "zh": "明白，我在报告区分类别。不然会优化错队列。"}
+    ]},
+    {"id": "0348", "part": 3, "stage": "构建返工", "title": "重跑不等于解决返工原因", "premise": "等待来自评审排队与证据准备不足，接着分析四次构建返工。", "listeningTask": "识别四次返工的分类及安全重试要求。", "newPhrase": "p623", "phrases": ["p623", "p622", "p010:extra", "p344:extra", "p330:extra", "p309:extra"], "lines": [
+      {"sp": "Raj", "en": "Four releases entered a rework loop. Three had inconsistent dependency configuration across runners.", "zh": "四次发布陷入返工循环。三次执行器间依赖配置不一致。"},
+      {"sp": "Priya", "en": "Okay, separate from the approval bottleneck then. Just to confirm, the fourth case?", "zh": "好，那与审批瓶颈分开。确认一下，第四次是什么？"},
+      {"sp": "Lukas", "en": "A consumer selected the wrong artifact. More retries didn't correct its selection policy.", "zh": "消费端选错制品。增加重试没有修正选择策略。"},
+      {"sp": "Anika", "en": "That one was my test consumer. The moving tag caused ambiguity itself.", "zh": "那次是我的测试消费端。可变标签本身带来歧义。"},
+      {"sp": "Hannah", "en": "Use fixed digests with verified provenance. Signature checks must remain after selection changes.", "zh": "用固定摘要和验证来源。选择变更后签名检查仍保留。"},
+      {"sp": "Raj", "en": "Managed configuration can align dependency sources. A cache hit still needs content verification.", "zh": "受管配置能对齐依赖源。缓存命中仍需内容验证。"},
+      {"sp": "Lukas", "en": "And distinguish deterministic failures from transient ones. Retries need bounds and stable operation keys.", "zh": "区分确定性与暂态失败。重试需要次数限制和稳定操作键。"},
+      {"sp": "Priya", "en": "So, keep an eye on duplicate effects. Failed status doesn't prove nothing was published.", "zh": "那么关注重复副作用。失败状态不证明什么都没发布。"},
+      {"sp": "Hannah", "en": "Unknown results need receipt reconciliation first. Never bypass secret checks to finish a rerun.", "zh": "结果未知先核对回执。绝不能为了重跑完成绕过秘密检查。"},
+      {"sp": "Anika", "en": "Fair, maybe digest selection is the smallest fix. I'll propose that alongside configuration alignment.", "zh": "明白，摘要选择可能是最小修复。我把它和配置对齐一起提议。"}
+    ]},
+    {"id": "0349", "part": 4, "stage": "回滚案例", "title": "回滚成功，但准备证据还不够集中", "premise": "四次返工原因已分类；回顾其中一次发布后的应用回滚。", "listeningTask": "听出回滚有效的兼容条件与证据检索痛点。", "newPhrase": "p624", "phrases": ["p624", "p623", "p324:extra", "p010:extra", "p327:extra", "p328:extra"], "lines": [
+      {"sp": "Lukas", "en": "One release tested rollback readiness for real. Old code recovered after the latency regression.", "zh": "一次发布真实检验回滚准备度。延迟回归后旧代码恢复了。"},
+      {"sp": "Priya", "en": "Okay, outside the earlier rework loop? Just to confirm, same release count overall?", "zh": "好，在之前返工循环之外？确认一下，整体仍同一批发布次数？"},
+      {"sp": "Hannah", "en": "Yes, categories can overlap across releases. Don't add them as separate incident counts.", "zh": "对，分类可在发布间重叠。不能相加成不同故障数量。"},
+      {"sp": "Anika", "en": "The rollback trigger fired as intended. Finding compatibility evidence took too long, right?", "zh": "回滚触发按预期生效。找兼容证据花太久，对吧？"},
+      {"sp": "Lukas", "en": "Yes, nullable expansion preserved old writes. Old readers also handled candidate-written rows correctly.", "zh": "对，可空扩展保留旧写入。旧读取也正确处理候选写出的行。"},
+      {"sp": "Raj", "en": "Our mixed-version smoke test existed already. But its link wasn't in the release ticket.", "zh": "混合版本冒烟测试早已存在。但链接不在发布工单里。"},
+      {"sp": "Hannah", "en": "Retained old artifacts had valid signatures. We didn't rebuild or copy secret values.", "zh": "保留旧制品有有效签名。没有重建或复制秘密值。"},
+      {"sp": "Priya", "en": "So, improve retrieval before the next go/no-go. Not remove compatibility checks to save time.", "zh": "那么下次继续判断前改善检索。不是为了省时删兼容检查。"},
+      {"sp": "Lukas", "en": "Schema contraction would have blocked safe rollback. Keep that as a separately approved stage.", "zh": "结构收缩会阻止安全回滚。保留它为独立审批阶段。"},
+      {"sp": "Anika", "en": "Fair, I'll link evidence near the operation. That makes the next decision less uncertain.", "zh": "明白，我把证据链接放在操作旁。下次决策更少不确定性。"}
+    ]},
+    {"id": "0350", "part": 5, "stage": "痛点排序", "title": "先看风险，再看节省的分钟", "premise": "等待、四次返工和一次回滚已回顾，需在两项试验额度内排序。", "listeningTask": "听出排序异议如何改变优先级理由。", "newPhrase": "p625", "phrases": ["p625", "p624", "p010:extra", "p006:extra", "p004:extra", "p009:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, let's rank the pain points. We have bandwidth for two experiments only.", "zh": "好，给痛点排序。我们只有做两个试验的人手。"},
+      {"sp": "Raj", "en": "Approval waiting costs the most visible time. I'd put that action item first.", "zh": "审批等待占最多可见时间。我想把那个行动项排第一。"},
+      {"sp": "Lukas", "en": "I disagree with time alone as ranking. Rollback readiness protects against larger business harm.", "zh": "我不同意只按时间排。回滚准备保护更大的业务损失。"},
+      {"sp": "Anika", "en": "Just to confirm, not another rollback project? Evidence packaging could address both concerns, right?", "zh": "确认一下，不是另起回滚项目？证据打包可以同时解决两种担忧，对吧？"},
+      {"sp": "Hannah", "en": "Yes, if it includes compatibility and identity. A faster empty ticket improves nothing useful.", "zh": "对，前提含兼容和身份。更快的空工单没有实际改善。"},
+      {"sp": "Raj", "en": "Then fixed artifact selection is second. It removes a concrete source of rework.", "zh": "那固定制品选择排第二。它移除具体返工来源。"},
+      {"sp": "Lukas", "en": "Existing configuration alignment stays mandatory maintenance. Don't make established safety work optional experiments.", "zh": "现有配置对齐仍是强制维护。别把既定安全工作变成可选试验。"},
+      {"sp": "Priya", "en": "So, let's park that dashboard redesign. Package evidence first, fix selection second.", "zh": "那么面板重设计先放一边。证据打包第一，修选择第二。"},
+      {"sp": "Hannah", "en": "Record why we chose those changes. Risk reduction matters alongside shorter elapsed time.", "zh": "记录为什么选择这些变更。降低风险和缩短时间同样重要。"},
+      {"sp": "Anika", "en": "Fair, I'm comfortable with that ordering. We still need acceptance and ownership details.", "zh": "明白，我接受这个排序。仍需要验收和职责细节。"}
+    ]},
+    {"id": "0351", "part": 6, "stage": "流程提案", "title": "自动收集证据，人工独立审批", "premise": "选择证据打包和固定制品选择两个试验，提出具体流程。", "listeningTask": "区分自动预检与审批权，听出新内容如何使旧审批失效。", "newPhrase": "p626", "phrases": ["p626", "p625", "p010:extra", "p210:extra", "p330:extra", "p310:extra"], "lines": [
+      {"sp": "Raj", "en": "The evidence bundle collects digest and provenance. Also signature results and compatibility test links.", "zh": "证据包收集摘要和来源，还含签名结果和兼容测试链接。"},
+      {"sp": "Priya", "en": "Okay, rank the pain points by missing evidence. Just to confirm, no automatic approval?", "zh": "好，按缺失证据整理痛点。确认一下，不自动审批？"},
+      {"sp": "Lukas", "en": "Correct, preflight checks completeness, not judgment. Approval remains explicit for environment and digest.", "zh": "对，预检查完整性，不做判断。审批仍明确绑定环境和摘要。"},
+      {"sp": "Anika", "en": "We can dry-run it first in staging. Changed digest invalidates old approval itself.", "zh": "可以先在预发布预演。摘要变化使旧审批本身失效。"},
+      {"sp": "Hannah", "en": "Store restricted links, not secret values. Redaction and access controls need acceptance tests.", "zh": "存受限链接，不存秘密值。脱敏和访问控制需要验收测试。"},
+      {"sp": "Raj", "en": "Managed configuration supplies the template version. I'll attach the selected artifact's source commit.", "zh": "受管配置提供模板版本。我附选中制品的源码提交。"},
+      {"sp": "Lukas", "en": "Include retained rollback digest and schema conditions. A link saying rollback exists isn't enough.", "zh": "包括保留回滚摘要和结构条件。只说有回滚的链接不够。"},
+      {"sp": "Priya", "en": "So, reviewers get complete requests at reserved slots. We'll close the loop with their findings.", "zh": "那么评审人在预约时段拿完整请求。我们用评审发现反馈闭环。"},
+      {"sp": "Hannah", "en": "Missing or invalid signatures must block submission. Suspected secret exposure follows revocation and escalation.", "zh": "缺失或无效签名必须阻止提交。疑似秘密泄漏按撤销和升级处理。"},
+      {"sp": "Anika", "en": "Fair, not just another checklist checkbox. I'll test stale evidence against changed content.", "zh": "明白，不只是另一个清单复选框。我测旧证据与变更内容的情况。"}
+    ]},
+    {"id": "0352", "part": 7, "stage": "责任争议", "title": "谁维护证据，谁有权审批", "premise": "流程提案保留独立审批，需解决开发、平台与安全的维护边界。", "listeningTask": "听出职责争议及独立审批不能自行豁免的原因。", "newPhrase": "p627", "phrases": ["p627", "p626", "p010:extra", "p013:extra", "p006:extra", "p002:extra"], "lines": [
+      {"sp": "Anika", "en": "Who's picking this up for evidence maintenance? Apps can't own every platform template change.", "zh": "证据维护谁接？应用不能负责所有平台模板变更。"},
+      {"sp": "Priya", "en": "Okay, separation of duties matters here. Just to confirm, reviewers stay independent?", "zh": "好，职责分离在这里重要。确认一下，评审人保持独立？"},
+      {"sp": "Lukas", "en": "Yes, authors can't approve their own releases. A backup approver needs formally delegated authority.", "zh": "对，作者不能审批自己的发布。后备审批人需要正式授权。"},
+      {"sp": "Raj", "en": "I'll own the evidence bundle collector. Applications own their compatibility evidence itself.", "zh": "我负责证据包收集器。应用负责兼容证据本身。"},
+      {"sp": "Hannah", "en": "Security owns policy and independent risk review. Platform authors don't grant themselves exceptions.", "zh": "安全负责政策和独立风险评审。平台作者不能自授例外。"},
+      {"sp": "Anika", "en": "That sounds fairer than shared ownership. But I need bandwidth for new tests.", "zh": "这比共同负责公平。但我需要时间写新测试。"},
+      {"sp": "Lukas", "en": "I can support compatibility fixture design. Signoff still belongs to the accountable application owner.", "zh": "我能支持兼容样例设计。签收仍属负责任的应用负责人。"},
+      {"sp": "Priya", "en": "So, let's take it offline for implementation details. Ownership decisions remain in this record.", "zh": "那么实施细节会后处理。职责决定留在这份记录里。"},
+      {"sp": "Hannah", "en": "Also name the fallback reviewer explicitly. Being reachable doesn't automatically confer approval authority.", "zh": "也明确后备评审人。联系得到不自动意味着有审批权。"},
+      {"sp": "Raj", "en": "Fair, Priya will confirm delegated coverage tomorrow. Until then we keep existing approval routing.", "zh": "明白，Priya明天确认授权覆盖。之前保持现有审批路由。"}
+    ]},
+    {"id": "0353", "part": 8, "stage": "试点指标", "title": "少等待不是唯一成功条件", "premise": "证据收集、应用验收与独立审批职责已明确，制定试点指标。", "listeningTask": "听出成功标准、样本不足条件和安全失败停止条件。", "newPhrase": "p628", "phrases": ["p628", "p621", "p010:extra", "p309:extra", "p324:extra", "p008:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, pilot success criteria need real samples. At least ten comparable production releases.", "zh": "好，试点成功标准需要真实样本。至少十次可比生产发布。"},
+      {"sp": "Raj", "en": "Median approval wait below forty-five minutes. At most one rework release in ten.", "zh": "审批等待中位数低于四十五分钟。十次中最多一次返工发布。"},
+      {"sp": "Lukas", "en": "Compare similar risk classes and working hours. Include total completion time alongside first-review waiting.", "zh": "比较相似风险类别和工作时段。首次评审等待之外也报总完成时间。"},
+      {"sp": "Anika", "en": "Just to confirm, two weeks isn't guaranteed enough? Low volume means more observation, right?", "zh": "确认一下，两周不保证够？量少就延长观察，对吧？"},
+      {"sp": "Hannah", "en": "Correct, no skipped approvals or verification gates. Zero secret exposure is a required guardrail.", "zh": "对，不能跳审批或验证门禁。零秘密泄漏是必要护栏。"},
+      {"sp": "Raj", "en": "I'll keep an eye on duplicate operations. Receipt reconciliation tests must pass before pilot launch.", "zh": "我关注重复操作。回执核对测试必须在试点开始前通过。"},
+      {"sp": "Lukas", "en": "Invalid artifact selection triggers a pilot stop. That rollback trigger restores the previous workflow.", "zh": "无效制品选择触发试点停止。这个回退条件恢复旧工作流。"},
+      {"sp": "Priya", "en": "So, what's the ETA for the first review? Day five for an interim check.", "zh": "那么首次评审预计何时？第五天做中期检查。"},
+      {"sp": "Hannah", "en": "Exposure also stops the pilot immediately. Revoke affected credentials and use the security process.", "zh": "泄漏也立即停止试点。撤销受影响凭据并走安全流程。"},
+      {"sp": "Anika", "en": "Fair, I'll report exceptions and missing samples. We won't call incomplete evidence a success.", "zh": "明白，我报告例外和缺失样本。不把不完整证据说成成功。"}
+    ]},
+    {"id": "0354", "part": 9, "stage": "迭代安排", "title": "顺延次要工作，保护试点范围", "premise": "至少十次可比发布、等待与返工目标以及停止条件已定，安排两周迭代。", "listeningTask": "听出顺延事项与不能顺延的安全验收。", "newPhrase": "p629", "phrases": ["p629", "p628", "p006:extra", "p010:extra", "p004:extra", "p009:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, carry over the dashboard redesign. Current bandwidth supports our two bounded experiments.", "zh": "好，面板重设计顺延。当前人手支持两个边界明确试验。"},
+      {"sp": "Raj", "en": "First action item is the collector. I'll have a testable version by Wednesday.", "zh": "第一个行动项是收集器。周三前我交可测版本。"},
+      {"sp": "Lukas", "en": "I'll review schema evidence templates on Thursday. No pilot release before acceptance is complete.", "zh": "周四我评审结构证据模板。验收完成前不发布试点版本。"},
+      {"sp": "Anika", "en": "Just to confirm, pilot success criteria stay fixed? We can't relax them halfway, right?", "zh": "确认一下，试点成功标准固定？不能中途放宽，对吧？"},
+      {"sp": "Hannah", "en": "Changes require a documented team decision. Mandatory security controls can't be negotiated away.", "zh": "变更需要团队记录决定。强制安全控制不能协商取消。"},
+      {"sp": "Raj", "en": "Let's park that extra cache optimization too. It would expand the pilot unnecessarily.", "zh": "额外缓存优化也先放一边。它会无必要地扩大试点。"},
+      {"sp": "Lukas", "en": "Configuration drift repair stays existing maintenance work. Don't defer required correctness fixes as optional scope.", "zh": "配置漂移修复仍是现有维护。别把必要正确性修复当可选范围延期。"},
+      {"sp": "Priya", "en": "So, launch only after acceptance by Friday. Otherwise shift launch, not the safety checks.", "zh": "那么周五验收后才开始。否则移动开始日期，不移动安全检查。"},
+      {"sp": "Hannah", "en": "I'll test evidence access and redaction Thursday. A backup independent reviewer must be confirmed beforehand.", "zh": "周四我测证据访问和脱敏。之前必须确认独立后备评审人。"},
+      {"sp": "Anika", "en": "Fair, digest selection tests are mine Wednesday. I can commit to that smaller scope.", "zh": "明白，周三摘要选择测试归我。这个较小范围我能承诺。"}
+    ]},
+    {"id": "0355", "part": 10, "stage": "回顾行动项", "title": "用证据跟进，不只写行动清单", "premise": "试点职责、验收与日期已确认，最后复述行动和后续回顾方式。", "listeningTask": "听出谁做什么、何时检查，以及何时还不能宣布成功。", "newPhrase": "p630", "phrases": ["p630", "p629", "p012:extra", "p010:extra", "p310:extra", "p001:extra"], "lines": [
+      {"sp": "Priya", "en": "Okay, we need to follow through now. Just to recap, two experiments, not five.", "zh": "好，现在需要持续落实。小结一下，两个试验，不是五个。"},
+      {"sp": "Raj", "en": "Collector Wednesday; audited retry tests before launch. We'll carry over unrelated performance ideas.", "zh": "周三收集器，开始前审计重试测试。无关性能想法顺延。"},
+      {"sp": "Lukas", "en": "Thursday I'll verify retained rollback evidence. Old readers and writers need demonstrated compatibility.", "zh": "周四我验证保留回滚证据。旧读取和写入需要证明兼容。"},
+      {"sp": "Anika", "en": "Just to confirm, selection tests are mine Wednesday. Provenance verification itself stays required alongside signatures.", "zh": "确认一下，周三选择测试归我。来源验证本身与签名一样仍为必须。"},
+      {"sp": "Hannah", "en": "I'll review access and redaction Thursday. Independent approval remains required for each target digest.", "zh": "周四我评审访问和脱敏。每个目标摘要仍需要独立审批。"},
+      {"sp": "Priya", "en": "We'll circle back on pilot day five. I'll close the loop with interim findings.", "zh": "试点第五天再确认。我用中期发现反馈闭环。"},
+      {"sp": "Lukas", "en": "Interim findings aren't proof of final success. Fewer than ten comparable releases requires extended observation.", "zh": "中期发现不是最终成功证明。少于十次可比发布就延长观察。"},
+      {"sp": "Raj", "en": "So, report waiting and rework together. Include blocked requests, not just completed approvals.", "zh": "那么一起报等待和返工。包括阻止的请求，不只完成审批。"},
+      {"sp": "Hannah", "en": "And every waived gate would invalidate success. Efficiency shouldn't conceal newly introduced security risk.", "zh": "任何门禁豁免都会使成功无效。效率不能隐藏新引入的安全风险。"},
+      {"sp": "Anika", "en": "Fair, maybe we won't hit every target. We'll keep the evidence honest and learn.", "zh": "明白，可能达不到所有目标。我们保持证据诚实并学习。"}
+    ]}
+  ]
+}

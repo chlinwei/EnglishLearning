@@ -1,0 +1,193 @@
+{
+  "version": 1, "status": "draft-awaiting-voice",
+  "note": "仅完整中英草稿，配音与发布待完成。按英文词数规划60/40，实际音频时长比例未验证，不编造时间轴。",
+  "series": {
+    "id": "sc-S14-database-online-index", "title": "在线索引变更：并发构建仍有等待与成本",
+    "domain": "database", "group": "change", "service": "orders search / PostgreSQL 16",
+    "premise": "订单检索按租户和日期筛选，申请在十月分区叶表创建非唯一复合索引。隔离副本预演后，只批准这一分区作为首批生产变更。",
+    "outcome": "低峰用CREATE INDEX CONCURRENTLY执行叶表索引构建，观察短时锁等待、资源与复制延迟。构建完成且有效，查询和写入验收通过。保留查询开关回退，失败残留及后续独立删除流程评审清楚；其他分区不自动扩展。"
+  },
+  "speakers": {
+    "Priya": {"role": "Change coordinator", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Database change operator", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Orders search owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "Database reliability reviewer", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Query and rollout validation engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p411", "en": "concurrent index build", "zh": "并发索引构建", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p412", "en": "query plan", "zh": "查询执行计划", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p413", "en": "lock wait", "zh": "等待获取锁", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p414", "en": "off-peak window", "zh": "低峰变更窗口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p415", "en": "long-running transaction", "zh": "长时间未结束的事务", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p416", "en": "build progress", "zh": "索引构建进度", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p417", "en": "WAL generation", "zh": "预写日志生成量或速率", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p418", "en": "index validity", "zh": "索引是否处于有效状态", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p419", "en": "invalid index", "zh": "无效索引", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p420", "en": "write overhead", "zh": "额外写入成本", "layer": "L1", "level": "core", "target": 5}
+  ],
+  "recycling": {"note": "未来候选回访不计实际出现；旧引用仅为p001-p350及本文件前段表达。", "S18": ["p412", "p418", "p419"], "S24": ["p411", "p413", "p414", "p415", "p416", "p417", "p420"], "S28": ["p414", "p416", "p418"]},
+  "dialogues": [
+    {
+      "id": "0136", "part": 1, "stage": "申请", "title": "限定一个叶分区", "premise": "订单检索申请增加索引，先确认数据库版本和变更范围。", "listeningTask": "听出并发构建不是跨数据库通用的无锁承诺。",
+      "newPhrase": "p411", "phrases": ["p411", "p010", "p009:extra", "p210:extra", "p006:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "We need a concurrent index build. October order searches miss their latency target.", "zh": "需要并发建索引，十月订单检索达不到延迟目标。"},
+        {"sp": "Lukas", "en": "Which database and exact table scope? Online doesn't mean identical behavior everywhere.", "zh": "哪个数据库，具体表范围是什么？在线操作不代表各数据库行为相同。"},
+        {"sp": "Raj", "en": "PostgreSQL sixteen, October leaf partition only. This isn't a parent-wide index build.", "zh": "PostgreSQL 16，只做十月叶分区，不是给整个父表建索引。"},
+        {"sp": "Priya", "en": "Just to confirm, one partition first, right? All other partitions stay outside approval.", "zh": "确认一下，先一个分区，对吧？其他分区不在批准范围。"},
+        {"sp": "Hannah", "en": "Agreed. Dry-run it first on isolation. Use production-like data without customer access.", "zh": "同意，先在隔离环境预演，使用类似生产的数据但不给客户访问。"},
+        {"sp": "Anika", "en": "I've got bandwidth for query testing. Maybe the filter needs adjustment too.", "zh": "我有精力测试查询，也许筛选条件也需调整。"},
+        {"sp": "Lukas", "en": "Then show the expected access pattern. Don't approve an index from symptoms.", "zh": "那展示预期访问模式，不能只凭症状批准索引。"},
+        {"sp": "Priya", "en": "Okay, broader indexing? Let's park that. One action item is measured benefit.", "zh": "好，更大范围建索引先放一边，一个行动项是测量收益。"},
+        {"sp": "Hannah", "en": "Include insert costs in the rehearsal. Read speed isn't our only concern.", "zh": "预演也包含插入成本，读速度不是唯一关注点。"},
+        {"sp": "Raj", "en": "So, I'll attach the exact statement. Non-unique tenant and date columns, nothing else.", "zh": "那我附上准确语句，非唯一的租户和日期列，不改其他内容。"}
+      ]
+    },
+    {
+      "id": "0137", "part": 2, "stage": "收益评审", "title": "收益要匹配真实查询", "premise": "范围限定十月叶分区，隔离预演比较索引前后执行计划。", "listeningTask": "区分小租户收益、宽范围扫描和写入代价。",
+      "newPhrase": "p412", "phrases": ["p412", "p010", "p411:extra", "p327:extra", "p008:extra", "p335:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "The query plan uses the candidate index. Small tenant searches read fewer pages.", "zh": "执行计划使用候选索引，小租户查询读取更少数据页。"},
+        {"sp": "Hannah", "en": "What about large tenants and wide dates? The planner may choose scans there.", "zh": "大租户和宽日期范围呢？优化器在那种情况下可能选择扫描。"},
+        {"sp": "Raj", "en": "It does for very broad searches. That's reasonable, not automatically a regression.", "zh": "宽范围查询确实会扫描，这是合理选择，不自动算回归。"},
+        {"sp": "Priya", "en": "Just to confirm, production-like skew, right? Uniform test rows could flatter results.", "zh": "确认一下，数据偏斜类似生产，对吧？均匀测试行可能美化结果。"},
+        {"sp": "Lukas", "en": "Yes, and inserts ran beside reads. Extra index maintenance increased their latency slightly.", "zh": "是，插入和读取同时运行，额外索引维护让插入延迟略升。"},
+        {"sp": "Anika", "en": "Our working hypothesis passed sampled queries. Maybe peak concurrency changes that balance.", "zh": "当前假设通过抽样查询验证，但峰值并发可能改变收益平衡。"},
+        {"sp": "Hannah", "en": "The smoke test includes empty results. Also test tenant isolation and pagination.", "zh": "冒烟测试包含空结果，也测试租户隔离和分页。"},
+        {"sp": "Priya", "en": "So, what's the ETA for load tests? We need them before scheduling production.", "zh": "那负载测试预计多久？排生产窗口前必须完成。"},
+        {"sp": "Lukas", "en": "This afternoon, using the approved workload. No heavy explain analysis against production.", "zh": "今天下午，使用批准负载，不在线上做重型执行分析。"},
+        {"sp": "Raj", "en": "Okay, concurrent index build remains the proposal. Next we review its locking boundaries.", "zh": "好，并发建索引仍是提案，下一步评审锁边界。"}
+      ]
+    },
+    {
+      "id": "0138", "part": 3, "stage": "锁风险", "title": "并发不等于完全无锁", "premise": "查询收益有证据，讨论PostgreSQL并发构建与其他数据库DDL差异。", "listeningTask": "听清事务等待、短时锁和不能类推的数据库行为。",
+      "newPhrase": "p413", "phrases": ["p413", "p411", "p010:extra", "p324:extra", "p004:extra", "p335:extra"],
+      "lines": [
+        {"sp": "Lukas", "en": "A concurrent index build still takes locks. It can wait for older transactions.", "zh": "并发建索引仍会获取锁，也可能等待较早开始的事务。"},
+        {"sp": "Raj", "en": "So a lock wait remains possible. Ordinary writes can continue through most phases.", "zh": "所以仍可能等锁，大多数阶段普通写入可以继续。"},
+        {"sp": "Anika", "en": "I said lock-free earlier, that's wrong. I meant reduced blocking for this engine.", "zh": "我之前说无锁，那不对，我指这个数据库能减少阻塞。"},
+        {"sp": "Priya", "en": "Just to confirm, engine-specific behavior, right? MySQL online DDL has different limits.", "zh": "确认一下，这是数据库特定行为，对吧？MySQL在线DDL限制不同。"},
+        {"sp": "Hannah", "en": "Exactly, including metadata locks and algorithms. Don't copy this approval across databases.", "zh": "对，包括元数据锁和算法选择，别把本次批准照搬到其他数据库。"},
+        {"sp": "Raj", "en": "The statement runs outside transaction blocks. We'll configure bounded waits through reviewed settings.", "zh": "语句在事务块外执行，用评审过的设置限制等待。"},
+        {"sp": "Lukas", "en": "Define a rollback trigger before execution. Cancellation may leave an unusable index.", "zh": "执行前定义回退触发条件，取消可能留下不可用索引。"},
+        {"sp": "Priya", "en": "Okay, simultaneous schema changes? Let's park that. Maybe they compete for table locks.", "zh": "好，同时做其他结构变更先放一边，它们可能争抢表锁。"},
+        {"sp": "Hannah", "en": "Our working hypothesis isn't zero impact. We expect tolerable waits with monitoring.", "zh": "当前假设不是零影响，而是监控下可接受的等待。"},
+        {"sp": "Anika", "en": "So, I'll correct the change description. It must state that risk clearly.", "zh": "那我修改变更描述，必须明确写出这个风险。"}
+      ]
+    },
+    {
+      "id": "0139", "part": 4, "stage": "窗口安排", "title": "低峰也要有停止条件", "premise": "锁风险和执行模式明确，安排低峰窗口及值守。", "listeningTask": "辨别低峰降低风险而非消除风险。",
+      "newPhrase": "p414", "phrases": ["p414", "p321", "p413:extra", "p324:extra", "p008:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Use the off-peak window at midnight. This maintenance window has staffed coverage.", "zh": "使用午夜低峰窗口，这个维护窗口有人值守。"},
+        {"sp": "Lukas", "en": "Is the batch scheduler quiet then? Low request traffic doesn't guarantee low writes.", "zh": "批处理调度那时安静吗？请求少不保证写入少。"},
+        {"sp": "Raj", "en": "The reporting batch will finish beforehand. We'll check actual workload before starting.", "zh": "报表批处理会提前结束，开始前仍检查实际负载。"},
+        {"sp": "Anika", "en": "Just to confirm, no automatic start, right? Maybe the batch runs late tonight.", "zh": "确认一下，不自动开始，对吧？今晚批处理可能延迟。"},
+        {"sp": "Hannah", "en": "Correct. Preflight failure means postponement instead. Nobody needs to force this through.", "zh": "对，预检失败就延期，没必要硬做。"},
+        {"sp": "Priya", "en": "Okay, what's the ETA from rehearsal? Include waiting and validation, not just scanning.", "zh": "好，预演估计多久？包括等待和验证，不只是扫描。"},
+        {"sp": "Lukas", "en": "Roughly twenty minutes with spare margin. Production volume can make it longer.", "zh": "大约二十分钟，另留余量，生产数据量可能让它更久。"},
+        {"sp": "Raj", "en": "The rollback trigger includes sustained write delays. A growing lock wait also means stop.", "zh": "回退触发条件包括持续写延迟，锁等待增长也应停止。"},
+        {"sp": "Hannah", "en": "Record thresholds in the approved ticket. Watch replica lag and free storage.", "zh": "阈值写进批准工单，也观察副本延迟和空闲存储。"},
+        {"sp": "Anika", "en": "So, I'll cover customer-facing metrics tonight. The query switch stays off initially.", "zh": "那今晚我盯客户指标，查询开关最初保持关闭。"}
+      ]
+    },
+    {
+      "id": "0140", "part": 5, "stage": "预检", "title": "先等旧事务结束", "premise": "午夜窗口到达，检查旧事务、磁盘余量和并发结构变更。", "listeningTask": "听出预检暂停原因和不直接杀事务的选择。",
+      "newPhrase": "p415", "phrases": ["p415", "p413", "p414:extra", "p010:extra", "p328:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "A long-running transaction remains on October. It belongs to the reporting job.", "zh": "十月分区仍有一个长事务，属于报表任务。"},
+        {"sp": "Hannah", "en": "Then preflight isn't clear just yet. Ask its owner before any cancellation.", "zh": "那预检还没通过，取消前必须问负责人。"},
+        {"sp": "Priya", "en": "Okay, pause our go/no-go decision here. The off-peak window isn't permission itself.", "zh": "好，先暂停继续与否的决策，低峰窗口本身不是执行许可。"},
+        {"sp": "Anika", "en": "I'm on it with that owner. About three minutes remain, they estimate.", "zh": "我联系负责人，他们估计还要三分钟左右。"},
+        {"sp": "Lukas", "en": "Don't kill it just for convenience. A lock wait could outlast expectations.", "zh": "别只为省事杀掉事务，锁等待也可能比预计长。"},
+        {"sp": "Raj", "en": "Storage covers index and temporary build space. No other schema changes are scheduled.", "zh": "存储余量覆盖索引和构建临时空间，没有其他结构变更安排。"},
+        {"sp": "Hannah", "en": "Verify privileges and exact leaf table. Also confirm we're outside a transaction block.", "zh": "验证权限和准确叶表，也确认不是在事务块中。"},
+        {"sp": "Priya", "en": "Just to confirm, wait for completion, right? Then rerun the transaction age check.", "zh": "确认一下，等它完成，对吧？之后再检查事务年龄。"},
+        {"sp": "Lukas", "en": "The owner now reports successful completion. Database activity confirms no old transaction.", "zh": "负责人现在报告完成成功，数据库活动也确认没有旧事务。"},
+        {"sp": "Raj", "en": "So, the repeated preflight checks pass. I'll start only the approved partition.", "zh": "那重新预检通过，我只开始批准的分区。"}
+      ]
+    },
+    {
+      "id": "0141", "part": 6, "stage": "灰度执行", "title": "构建进度不是可用状态", "premise": "预检通过，在单个叶分区开始并发构建。", "listeningTask": "区分扫描进度、验证阶段和索引真正可用。",
+      "newPhrase": "p416", "phrases": ["p416", "p411", "p415:extra", "p309:extra", "p008:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Build progress shows the first scan. The concurrent index build has started.", "zh": "构建进度显示首次扫描，并发索引构建已开始。"},
+        {"sp": "Lukas", "en": "Keep watching activity during later phases. It may wait before final validation.", "zh": "后续阶段也观察活动，最终验证前可能等待。"},
+        {"sp": "Anika", "en": "Writes continue within the approved budget. Search traffic still uses its old path.", "zh": "写入仍在批准预算内，检索流量仍用原路径。"},
+        {"sp": "Priya", "en": "Just to confirm, not usable yet, right? Don't announce success from scan progress.", "zh": "确认一下，现在还不可用，对吧？别凭扫描进度宣布成功。"},
+        {"sp": "Hannah", "en": "Exactly. I'll keep an eye on errors. We need completion and catalog checks.", "zh": "对，我观察错误，需要完成状态和系统目录检查。"},
+        {"sp": "Raj", "en": "No long-running transaction appears so far. Current lock waits remain below our threshold.", "zh": "目前没出现长事务，当前锁等待低于阈值。"},
+        {"sp": "Lukas", "en": "Don't launch another build beside it. One successful start isn't capacity evidence.", "zh": "别旁边再开一个构建，启动成功不代表容量足够。"},
+        {"sp": "Priya", "en": "Okay, what's the ETA from progress? Maybe give a range until validation.", "zh": "好，按进度预计多久？验证结束前给个范围吧。"},
+        {"sp": "Hannah", "en": "About ten to twenty minutes remaining. Waiting phases make that estimate uncertain.", "zh": "大约还要十到二十分钟，等待阶段让估计不确定。"},
+        {"sp": "Anika", "en": "So, I'll keep support informed internally. No query switch until checks pass.", "zh": "那我给内部支持团队更新，检查通过前不切查询开关。"}
+      ]
+    },
+    {
+      "id": "0142", "part": 7, "stage": "复制观察", "title": "延迟升高先停止扩大", "premise": "索引扫描推进，副本回放延迟短暂上升，需要按阈值决策。", "listeningTask": "分清停止扩展和取消当前构建的不同触发条件。",
+      "newPhrase": "p417", "phrases": ["p417", "p416", "p324:extra", "p010:extra", "p309:extra", "p004:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "WAL generation rose during the build. Replica lag reached roughly twelve seconds.", "zh": "构建期间WAL生成增加，副本延迟达到大约十二秒。"},
+        {"sp": "Hannah", "en": "Is it sustained or falling already? Our abort threshold needs sustained pressure.", "zh": "持续还是已经下降？中止阈值要求持续压力。"},
+        {"sp": "Anika", "en": "It's falling across the latest samples. Customer writes still meet their target.", "zh": "最新几次采样在下降，客户写入仍满足目标。"},
+        {"sp": "Priya", "en": "Just to confirm, expansion stays paused, right? Another partition could multiply this load.", "zh": "确认一下，不扩大，对吧？再加分区可能倍增负载。"},
+        {"sp": "Lukas", "en": "Correct. The rollback trigger isn't met. Continue this build with close observation.", "zh": "对，尚未触发回退，密切观察下继续当前构建。"},
+        {"sp": "Raj", "en": "Build progress entered the validation phase. Disk space remains above the reserve.", "zh": "构建进度进入验证阶段，磁盘空间仍高于预留线。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on replay. Byte backlog matters beside the timer.", "zh": "我观察回放，除了延迟计时也看字节积压。"},
+        {"sp": "Priya", "en": "Okay, faster rollout? Let's park that. Maybe later batches need separate windows.", "zh": "好，加快扩展先放一边，后续批次可能需要独立窗口。"},
+        {"sp": "Lukas", "en": "If write latency breaches, cancel carefully. Then inspect any remaining catalog entry.", "zh": "写延迟超阈值就谨慎取消，再检查系统目录残留。"},
+        {"sp": "Anika", "en": "So, no additional changes tonight then. We'll decide completion from all checks.", "zh": "那今晚不加其他变更，结合所有检查判断是否完成。"}
+      ]
+    },
+    {
+      "id": "0143", "part": 8, "stage": "完成验证", "title": "有效、正确、收益三个检查", "premise": "构建命令成功返回，副本延迟恢复，需要目录和业务验收。", "listeningTask": "听出索引有效不等于所有查询都应使用它。",
+      "newPhrase": "p418", "phrases": ["p418", "p412", "p417:extra", "p327:extra", "p110:extra", "p010:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Index validity is confirmed in catalog. The build returned success without errors.", "zh": "系统目录确认索引有效，构建成功返回且无错误。"},
+        {"sp": "Lukas", "en": "Verify the exact columns and predicate. A valid wrong index still disappoints.", "zh": "核验准确列和条件，有效但建错的索引仍没用。"},
+        {"sp": "Anika", "en": "They match our approved non-unique definition. The query plan improves selective searches.", "zh": "匹配批准的非唯一定义，执行计划改善了选择性高的查询。"},
+        {"sp": "Priya", "en": "Just to confirm, broad scans allowed, right? Don't force every query through it.", "zh": "确认一下，宽范围扫描仍允许，对吧？别强迫所有查询都用它。"},
+        {"sp": "Hannah", "en": "Yes, the smoke test passed correctness. Pagination and tenant boundaries still match.", "zh": "是，冒烟测试通过正确性验证，分页和租户边界仍一致。"},
+        {"sp": "Raj", "en": "WAL generation has returned near normal. We're back to baseline for replica lag.", "zh": "WAL生成接近正常，副本延迟回到基线。"},
+        {"sp": "Lukas", "en": "Now enable the query switch gradually. Measure writes alongside each read batch.", "zh": "现在逐步启用查询开关，每批读流量都同时测写入。"},
+        {"sp": "Priya", "en": "Okay, about five minutes per step. Maybe cache warmth affects the first samples.", "zh": "好，每步大约五分钟，缓存预热可能影响最初样本。"},
+        {"sp": "Hannah", "en": "Compare equivalent workloads, not mixed averages. Cold and warm tests need labels.", "zh": "对比等价负载，不混用平均值，冷暖缓存测试要标清。"},
+        {"sp": "Anika", "en": "So, I'll record both result sets. The canary's search responses remain correct.", "zh": "那我记录两组结果，灰度检索响应仍正确。"}
+      ]
+    },
+    {
+      "id": "0144", "part": 9, "stage": "回退确认", "title": "回退查询与删除索引分开", "premise": "查询开关灰度通过，回顾未来回退及失败构建残留处理。", "listeningTask": "区分功能回退、取消构建和独立删除流程。",
+      "newPhrase": "p419", "phrases": ["p419", "p418", "p324:extra", "p010:extra", "p334:extra", "p111:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "What if an invalid index remains? Cancellation doesn't always remove its entry.", "zh": "如果留下无效索引呢？取消不一定删除目录项。"},
+        {"sp": "Raj", "en": "We inspect index validity after failure. Then review cleanup as separate work.", "zh": "失败后检查索引有效性，再单独评审清理工作。"},
+        {"sp": "Anika", "en": "No invalid index exists tonight though. Our completed index passed all checks.", "zh": "不过今晚没有无效索引，已完成索引通过所有检查。"},
+        {"sp": "Priya", "en": "Just to confirm, switch rollback first, right? That's the quickest temporary workaround.", "zh": "确认一下，先回退查询开关，对吧？这是最快的临时缓解。"},
+        {"sp": "Lukas", "en": "Yes, but it doesn't remove maintenance costs. Dropping needs its own reviewed procedure.", "zh": "对，但那不会消除维护成本，删除要有单独评审流程。"},
+        {"sp": "Raj", "en": "For this leaf, concurrent drop is supported. Outside transaction blocks, with dependencies checked.", "zh": "这个叶表支持并发删除索引，在事务块外执行并检查依赖。"},
+        {"sp": "Hannah", "en": "Don't generalize that to parent indexes. Engine and object restrictions still apply.", "zh": "别类推到父表索引，数据库和对象限制仍适用。"},
+        {"sp": "Priya", "en": "Okay, let's keep it under observation. Maybe write costs emerge with tomorrow's peak.", "zh": "好，继续观察，写成本可能在明天高峰显现。"},
+        {"sp": "Lukas", "en": "The rollback trigger covers peak write delays. Removal requires approval, not automatic deletion.", "zh": "回退触发条件覆盖高峰写延迟，删除要批准，不是自动删除。"},
+        {"sp": "Anika", "en": "So, I'll keep both paths documented. Query rollback and index removal stay separate.", "zh": "那我记录两条路径，查询回退与索引删除保持分离。"}
+      ]
+    },
+    {
+      "id": "0145", "part": 10, "stage": "变更总结", "title": "收益成立，扩展仍需批准", "premise": "首个叶分区完成验收，下一工作日峰值观察通过，总结后续任务。", "listeningTask": "听出首批成功不是全分区批准。",
+      "newPhrase": "p420", "phrases": ["p420", "p411", "p412:extra", "p009:extra", "p013:extra", "p310:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Write overhead stayed within our budget. Peak observation passed on October's partition.", "zh": "额外写成本仍在预算内，十月分区高峰观察通过。"},
+        {"sp": "Hannah", "en": "Read improvements matched the rehearsal results. Broad searches still use sensible scans.", "zh": "读收益符合预演结果，宽范围检索仍合理使用扫描。"},
+        {"sp": "Anika", "en": "The query plan evidence is attached. We didn't trade correctness for speed.", "zh": "执行计划证据已附，没有为速度牺牲正确性。"},
+        {"sp": "Priya", "en": "So, who's picking this up next? Raj reviews other partitions separately, right?", "zh": "那下一步谁接？Raj单独评审其他分区，对吧？"},
+        {"sp": "Lukas", "en": "Yes, not an automatic wider rollout. Each partition has different size and traffic.", "zh": "是，不自动扩大，每个分区大小和流量不同。"},
+        {"sp": "Raj", "en": "My action item is sizing by Friday. Maybe older partitions don't need this index.", "zh": "我的行动项是周五前估算，也许旧分区不需要这个索引。"},
+        {"sp": "Hannah", "en": "I'll add cancellation cleanup to rehearsal. Concurrent index build failures need practice too.", "zh": "我把取消清理加入预演，并发构建失败也需要练习。"},
+        {"sp": "Priya", "en": "Okay, update the runbook this week. Keep database-specific lock limits clearly stated.", "zh": "好，本周更新运行手册，把数据库特定锁限制写清。"},
+        {"sp": "Lukas", "en": "I'll review that and removal dependencies. No universal online-means-lock-free statement should remain.", "zh": "我评审手册和删除依赖，不能留下在线等于无锁的通用说法。"},
+        {"sp": "Anika", "en": "We'll close the loop next review. Bring read gains and write costs together.", "zh": "下次评审闭环，一起展示读收益和写成本。"}
+      ]
+    }
+  ]
+}

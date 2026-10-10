@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "status": "draft-awaiting-voice",
+  "note": "完整中英文本草稿，尚未配音或发布；表达引用包含S03草稿定义，合并时先核对ID，无估造时间轴。",
+  "series": {
+    "id": "sc-S04-linux-oom",
+    "title": "内存持续增长与 OOM：先恢复，再追根因",
+    "domain": "linux", "group": "incident", "service": "order-enrichment workers",
+    "premise": "次日上午，一组部署在独立Linux虚拟机上的订单补充信息消费者出现延迟。worker-two进程刚被终止，systemd已自动拉起；尚不清楚是否存在内存泄漏。",
+    "outcome": "确认主机级OOM事件，发现稳定流量下内存持续增长；保留证据后限制消费并受控重启单台worker，积压清空。服务恢复，疑似新版本缓存问题仍需隔离复现与根因验证。"
+  },
+  "speakers": {
+    "Priya": {"role": "Incident lead", "accent": "en-IN", "voice": null},
+    "Raj": {"role": "Linux on-call", "accent": "en-IN", "voice": null},
+    "Anika": {"role": "Application owner", "accent": "en-IN", "voice": null},
+    "Lukas": {"role": "SRE", "accent": "German-accented English", "voice": null},
+    "Hannah": {"role": "Operations engineer", "accent": "German-accented English", "voice": null}
+  },
+  "accentTarget": {"en-IN": 0.6, "German-accented English": 0.4, "basis": "spoken audio duration excluding silence and narration", "textProxy": "English word count by speaker", "verifiedAudio": false},
+  "phraseDefinitions": [
+    {"id": "p311", "en": "memory pressure", "zh": "内存压力", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p312", "en": "got OOM-killed", "zh": "被内存不足终止机制杀掉了", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p313", "en": "RSS keeps climbing", "zh": "常驻内存占用持续上升", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p314", "en": "traffic is flat", "zh": "流量没有明显变化", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p315", "en": "heap snapshot", "zh": "堆内存快照", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p316", "en": "shed load", "zh": "减少当前承接的负载", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p317", "en": "one worker at a time", "zh": "一次只处理一个消费者进程", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p318", "en": "recovery window", "zh": "恢复后的验证观察窗口", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p319", "en": "memory headroom", "zh": "可用内存余量", "layer": "L1", "level": "core", "target": 5},
+    {"id": "p320", "en": "the root cause is still open", "zh": "根因尚未查明", "layer": "L0", "level": "core", "target": 8}
+  ],
+  "recycling": {
+    "note": "每段一个新表达，其余五个来自既有表达库或S03。未来回访须按主题嵌入，不照搬整句。",
+    "S05": ["p311", "p312", "p317", "p318", "p319"],
+    "S06": ["p311", "p312", "p313", "p314", "p315", "p316", "p317", "p318", "p319", "p320"],
+    "S11": ["p311", "p312", "p313", "p314", "p315", "p319", "p320"],
+    "S17": ["p314", "p315", "p317", "p318", "p320"],
+    "S24": ["p311", "p313", "p314", "p316", "p318", "p319"]
+  },
+  "dialogues": [
+    {
+      "id": "0036", "part": 1, "stage": "告警", "title": "内存告警：先确认谁出问题",
+      "premise": "订单补充信息延迟，worker-two主机告警，进程发生过一次退出。",
+      "listeningTask": "听清服务影响、主机范围和当前未知项。",
+      "newPhrase": "p311", "phrases": ["p311", "p003", "p010", "p014:extra", "p008:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "We've got memory pressure on enrichment-worker-two. The process exited a minute ago.", "zh": "enrichment-worker-two出现内存压力，进程一分钟前退出了。"},
+        {"sp": "Lukas", "en": "Is it still down? And are the other workers affected?", "zh": "现在还没起来吗？其他消费者也受影响了吗？"},
+        {"sp": "Raj", "en": "Systemd brought it back. It's running now. I haven't checked the exit reason.", "zh": "systemd已经拉起来了，现在在运行。我还没查退出原因。"},
+        {"sp": "Priya", "en": "Okay, I'll take point on this. Just to confirm, one host so far, right?", "zh": "好，这次我来协调。我确认一下，目前只有一台，对吧？"},
+        {"sp": "Hannah", "en": "Yes. Queue age is rising, but checkout itself looks normal.", "zh": "是的。队列里事件的等待时间在增长，不过结账服务本身看起来正常。"},
+        {"sp": "Anika", "en": "I'm on it. I'll check processing errors and recent changes.", "zh": "我来查处理错误和近期变更。"},
+        {"sp": "Lukas", "en": "Let's not call it a leak yet. An exit isn't enough evidence.", "zh": "先别认定是内存泄漏。一次进程退出不够证明。"},
+        {"sp": "Priya", "en": "Raj, what's the ETA for the kernel log? Roughly is fine.", "zh": "Raj，检查内核日志预计多久？大概时间就行。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on queue age while you check.", "zh": "你检查时，我会盯着事件等待时间。"},
+        {"sp": "Raj", "en": "About two minutes. I'll save the logs before they rotate.", "zh": "大约两分钟。我会在日志轮转前保存下来。"}
+      ]
+    },
+    {
+      "id": "0037", "part": 2, "stage": "确认退出原因", "title": "确认OOM：不是看到退出码就下结论",
+      "premise": "进程已被systemd拉起，正在核对内核日志和退出记录。",
+      "listeningTask": "辨别内核证据、退出码和关于受影响范围的判断。",
+      "newPhrase": "p312", "phrases": ["p312", "p010", "p302", "p301:extra", "p011:extra", "p014:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Kernel log confirms it. The worker got OOM-killed. The timestamp matches the exit.", "zh": "内核日志确认了，这个消费者被OOM机制终止。时间和进程退出记录一致。"},
+        {"sp": "Lukas", "en": "Host-level OOM? Or did the service hit a memory limit?", "zh": "是主机级内存耗尽，还是服务触及了内存限制？"},
+        {"sp": "Raj", "en": "Host-level. Available memory was nearly gone. No service memory cap on this host.", "zh": "主机级。可用内存几乎耗尽，这台主机没有为服务单独设置内存上限。"},
+        {"sp": "Priya", "en": "Just to confirm, the kernel names this process, right? Not just an exit code?", "zh": "我确认一下，内核明确记了这个进程，对吧？不只是一个退出码？"},
+        {"sp": "Hannah", "en": "Let me play that back. Memory ran out, and this process was the victim?", "zh": "我复述一下：内存耗尽，而这个进程被选中终止？"},
+        {"sp": "Anika", "en": "Yes. That doesn't prove it caused the pressure. Other processes could contribute.", "zh": "对，但这不能证明压力由它造成，其他进程也可能有影响。"},
+        {"sp": "Lukas", "en": "Good point. We need the host breakdown, not just this process.", "zh": "说得对。我们得看整台主机的占用，不只看这个进程。"},
+        {"sp": "Raj", "en": "No sign the disk is filling up. Plenty of space. We can rule that out.", "zh": "没有磁盘写满的迹象，空间充足，可以排除这个可能性。"},
+        {"sp": "Hannah", "en": "I'll compare host usage with process memory around the event.", "zh": "我会对比故障前后的主机占用和进程内存。"},
+        {"sp": "Anika", "en": "I'm on it for the service logs. Let's keep the two checks separate.", "zh": "服务日志我来查。这两条检查线分开进行。"}
+      ]
+    },
+    {
+      "id": "0038", "part": 3, "stage": "检查曲线", "title": "内存一直涨：像泄漏，但还不能确认",
+      "premise": "主机级OOM已确认，需要判断是哪类内存增长、是否属于正常缓存。",
+      "listeningTask": "听出趋势、相关性和仍需验证的解释。",
+      "newPhrase": "p313", "phrases": ["p313", "p010", "p302", "p008:extra", "p004:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Hannah", "en": "The worker's RSS keeps climbing. It rose steadily for about six hours.", "zh": "这个消费者的常驻内存一直在涨，持续上升了大约六小时。"},
+        {"sp": "Raj", "en": "Other processes stayed small. The worker accounts for most of that increase.", "zh": "其他进程占用一直很小，大部分增长来自这个消费者。"},
+        {"sp": "Lukas", "en": "Could that be a cache warming up? Does it normally level off?", "zh": "会不会只是缓存预热？正常情况下最终会趋于稳定吗？"},
+        {"sp": "Anika", "en": "Usually it does. This curve doesn't flatten. Maybe the cache isn't bounded.", "zh": "通常会稳定，但这条曲线没有变平。可能是缓存没有限制。"},
+        {"sp": "Priya", "en": "Just to confirm, that's a hypothesis, right? We haven't proved a leak.", "zh": "我确认一下，这只是一个假设，对吧？我们还没证明是泄漏。"},
+        {"sp": "Hannah", "en": "Correct. The older version flattened much earlier under similar load.", "zh": "对。旧版本在类似负载下更早就趋于稳定。"},
+        {"sp": "Raj", "en": "I'll keep an eye on the new process. We can't rule that out yet.", "zh": "我会盯着新进程，现在还不能排除那个假设。"},
+        {"sp": "Lukas", "en": "Let's compare request volume too. A busier worker could explain some growth.", "zh": "也对比请求量。消费者更忙，也可能解释部分增长。"},
+        {"sp": "Priya", "en": "What's the ETA for that comparison? A bigger host? Let's park that for now.", "zh": "完成对比预计多久？换更大主机的事先放一边。"},
+        {"sp": "Anika", "en": "About three minutes. I'll check the input mix as well, not just volume.", "zh": "大约三分钟。我也会看输入数据的类型，不只看数量。"}
+      ]
+    },
+    {
+      "id": "0039", "part": 4, "stage": "排除负载因素", "title": "流量没涨：版本差异值得追",
+      "premise": "消费者RSS持续增长，旧版本曲线较早稳定；正在比较流量与输入组成。",
+      "listeningTask": "理解流量稳定不等于排除所有负载因素，以及灰度版本范围。",
+      "newPhrase": "p314", "phrases": ["p314", "p010", "p302", "p001:extra", "p014:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Traffic is flat. Input sizes look normal too. No obvious surge.", "zh": "流量没有明显变化，输入大小看起来也正常，没有明显激增。"},
+        {"sp": "Lukas", "en": "Any change in the data mix? More unique keys could grow a cache.", "zh": "数据组成有没有变化？不同键值变多，也可能让缓存增长。"},
+        {"sp": "Anika", "en": "Nothing obvious in the samples. We can't rule that out completely yet.", "zh": "抽样没发现明显变化，但现在还不能完全排除。"},
+        {"sp": "Raj", "en": "Worker-two is the only canary. The other two still run the older build.", "zh": "worker-two是唯一的灰度节点，另外两台仍运行旧版本。"},
+        {"sp": "Hannah", "en": "That helps explain the difference. It doesn't prove which code change caused it.", "zh": "这有助于解释差异，但不能证明具体是哪处代码变化导致的。"},
+        {"sp": "Priya", "en": "Just to confirm, no more rollout, right? Keep this to one host.", "zh": "我确认一下，先不继续发布，对吧？把范围保持在一台主机。"},
+        {"sp": "Lukas", "en": "Agreed. Freeze the rollout while we gather evidence and plan recovery.", "zh": "同意。收集证据、准备恢复期间冻结发布。"},
+        {"sp": "Anika", "en": "I'm on it. Let's circle back to the cache change after recovery.", "zh": "我来处理。恢复后我们再回到缓存变更上。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on the healthy workers. Don't overload them while we investigate.", "zh": "我会关注健康消费者，排查期间别把它们压垮。"},
+        {"sp": "Raj", "en": "The canary is growing again already. We've probably got a short window for diagnostics.", "zh": "灰度节点的内存已经又开始涨了，留给诊断的时间可能不长。"}
+      ]
+    },
+    {
+      "id": "0040", "part": 5, "stage": "保留证据", "title": "先留证据：别把生产进程抓崩",
+      "premise": "新版本进程内存再次增长，扩大灰度已暂停；决定在恢复前保留诊断资料。",
+      "listeningTask": "听清哪些证据来自生产、哪些诊断必须在隔离环境进行。",
+      "newPhrase": "p315", "phrases": ["p315", "p010", "p306", "p008:extra", "p014:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "A heap snapshot might help. But taking one can pause this runtime.", "zh": "堆快照可能有帮助，但采集时可能暂停这个运行时。"},
+        {"sp": "Lukas", "en": "It can need extra memory too. This host has very little spare capacity.", "zh": "采集也可能需要额外内存，而这台主机余量很小。"},
+        {"sp": "Raj", "en": "Maybe start with process stats and logs. Those are much lighter.", "zh": "可以先保存进程统计和日志，开销小得多。"},
+        {"sp": "Priya", "en": "Just to confirm, no production snapshot without approval, right? Could throttling buy us time?", "zh": "我确认一下，未经批准不在生产采快照，对吧？降低消费速率能争取时间吗？"},
+        {"sp": "Hannah", "en": "Probably. First save the build identifier and the memory timeline.", "zh": "可能可以。先保存构建标识和内存变化时间线。"},
+        {"sp": "Anika", "en": "I'm on it. We'll take the snapshot in an isolated reproduction instead.", "zh": "我来做。快照改在隔离复现环境采集。"},
+        {"sp": "Lukas", "en": "Use sanitized input. A snapshot can contain customer data and credentials.", "zh": "用脱敏输入，快照里可能含客户数据和凭据。"},
+        {"sp": "Priya", "en": "What's the ETA for the lightweight evidence? We can't wait for a full reproduction.", "zh": "保存轻量证据预计多久？我们不能等完整复现做完才恢复。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on free memory. Stop collection if it makes things worse.", "zh": "我会留意空闲内存。如果采集让情况变差，就停止。"},
+        {"sp": "Raj", "en": "Two minutes. I'll save only the reviewed logs to restricted storage.", "zh": "两分钟。我只把审核过的日志保存到受限存储。"}
+      ]
+    },
+    {
+      "id": "0041", "part": 6, "stage": "减轻负载", "title": "限制消费：队列延迟要一起说清",
+      "premise": "生产轻量证据已保存，不在低内存主机采堆快照；准备降低消费速率。",
+      "listeningTask": "听出缓解作用、业务代价和恢复正常速率的条件。",
+      "newPhrase": "p316", "phrases": ["p316", "p010", "p306", "p008:extra", "p014:extra", "p308:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Evidence is saved. We can shed load by lowering the canary's fetch rate.", "zh": "证据已保存。可以降低灰度消费者拉取速率，减少负载。"},
+        {"sp": "Lukas", "en": "That may slow memory growth. It won't necessarily release what's already retained.", "zh": "这可能减慢内存增长，但不一定释放已经保留的内存。"},
+        {"sp": "Anika", "en": "Right. It'll buy us time. Incoming events stay in the durable queue.", "zh": "对，能争取时间。新事件仍保存在持久化队列里。"},
+        {"sp": "Priya", "en": "Just to confirm, no dropping events, right? What happens to customer delays?", "zh": "我确认一下，不丢弃事件，对吧？用户延迟会怎样？"},
+        {"sp": "Hannah", "en": "They'll rise temporarily. The healthy workers have room, but we should watch them.", "zh": "暂时会增加。健康消费者还有余量，但我们应该盯着它们。"},
+        {"sp": "Raj", "en": "I'm on it. I'll lower the approved setting on this host only.", "zh": "我来做。只降低这台主机上已批准调整的那个参数。"},
+        {"sp": "Lukas", "en": "Record the original value. Don't increase the other workers blindly to compensate.", "zh": "记录原值。不要为了补偿而盲目提高其他消费者的负载。"},
+        {"sp": "Priya", "en": "What's the ETA for recovery? Can the queue catch up afterward?", "zh": "恢复预计多久？之后队列能追平吗？"},
+        {"sp": "Hannah", "en": "Likely, if arrivals stay steady. We'll estimate after the worker is stable.", "zh": "如果到达速率稳定，应该可以。等消费者稳定后再估算。"},
+        {"sp": "Anika", "en": "About five minutes for a controlled restart. I'll explain the temporary delay to support.", "zh": "受控重启大约五分钟。我会向支持团队说明暂时延迟。"}
+      ]
+    },
+    {
+      "id": "0042", "part": 7, "stage": "受控重启", "title": "一次一台：先停拉取，再等在途任务",
+      "premise": "消费速率已降低，证据已保存，主机内存仍较高；批准受控重启灰度消费者。",
+      "listeningTask": "抓住重启顺序、停止条件和失败时的替代方案。",
+      "newPhrase": "p317", "phrases": ["p317", "p010", "p306", "p014:extra", "p008:extra", "p309:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Okay, one worker at a time. Just to confirm, only the canary, right?", "zh": "好，一次只处理一个消费者。我确认一下，只动灰度节点，对吧？"},
+        {"sp": "Lukas", "en": "Yes. Stop fetching first. Let active tasks finish before stopping the process.", "zh": "对。先停止拉取，让在途任务完成后再停进程。"},
+        {"sp": "Raj", "en": "I'm on it. The app has a documented drain mode. I'll use that.", "zh": "我来操作。应用有文档规定的排空模式，我会用它。"},
+        {"sp": "Hannah", "en": "What if a task hangs? We need a timeout and an escalation path.", "zh": "如果任务卡住呢？我们需要超时限制和升级处理路径。"},
+        {"sp": "Anika", "en": "Two minutes, per the runbook. Don't force-stop without checking the unacknowledged events.", "zh": "按运行手册等两分钟。没核对未确认事件之前，不要强制停止。"},
+        {"sp": "Priya", "en": "What's the ETA now? The throttle should buy us time, not become the permanent fix.", "zh": "现在预计多久？降速是为了争取时间，不是长期修复。"},
+        {"sp": "Lukas", "en": "If it won't start, leave fetching disabled. Then use the approved rollback procedure.", "zh": "如果启动失败，继续禁止拉取，然后按批准的回滚流程操作。"},
+        {"sp": "Raj", "en": "Drain is complete. No active tasks. I'll restart the same build now.", "zh": "排空完成，没有在途任务。现在重启同一个构建版本。"},
+        {"sp": "Hannah", "en": "I'll keep an eye on the other hosts during startup. They still need room.", "zh": "启动期间我会关注其他主机，它们也需要保留余量。"},
+        {"sp": "Anika", "en": "Maybe a minute to start. Then we'll verify memory before enabling normal consumption.", "zh": "启动大概一分钟。恢复正常消费前先检查内存。"}
+      ]
+    },
+    {
+      "id": "0043", "part": 8, "stage": "验证稳定", "title": "起来不等于稳定：观察窗口别省",
+      "premise": "灰度消费者已完成受控重启，继续使用原构建，当前保持较低拉取速率。",
+      "listeningTask": "分辨启动成功、短期稳定与长期根因修复。",
+      "newPhrase": "p318", "phrases": ["p318", "p010", "p308", "p110:extra", "p111:extra", "p008:extra"],
+      "lines": [
+        {"sp": "Raj", "en": "Process is healthy. Memory is much lower now. No new OOM events.", "zh": "进程健康，内存占用已经低了很多，没有新的OOM事件。"},
+        {"sp": "Hannah", "en": "That's startup, not stability. How long is the recovery window?", "zh": "这只说明启动成功，不代表稳定。恢复验证窗口是多久？"},
+        {"sp": "Anika", "en": "Ten minutes before restoring normal fetch rate. Then closer monitoring for an hour.", "zh": "观察十分钟后再恢复正常拉取速率，之后密切监控一小时。"},
+        {"sp": "Priya", "en": "Just to confirm, the old growth took hours, right? Ten minutes won't prove a fix.", "zh": "我确认一下，之前内存增长持续了几小时，对吧？十分钟证明不了已修复。"},
+        {"sp": "Lukas", "en": "Exactly. Let's keep it under observation. Compare the slope, not just the starting value.", "zh": "正是这样。继续观察，要比较增长趋势，不只看启动时的数值。"},
+        {"sp": "Raj", "en": "So far it's roughly flat. We'll restore the rate gradually after the checks.", "zh": "目前大致平稳。检查通过后我们逐步恢复速率。"},
+        {"sp": "Hannah", "en": "The queue is still behind. We need it to catch up before declaring recovery.", "zh": "队列仍有积压。宣布恢复前，得先让它追平。"},
+        {"sp": "Priya", "en": "What's the ETA for that? Don't say we're back to baseline yet.", "zh": "预计多久能追平？现在还不能说恢复到基线。"},
+        {"sp": "Lukas", "en": "About eight minutes once normal processing resumes, assuming arrivals stay steady.", "zh": "正常处理恢复后大约八分钟，前提是到达速率保持稳定。"},
+        {"sp": "Anika", "en": "Okay. I'll keep support updated. We'll call this recovery, not a resolved leak.", "zh": "好，我会继续向支持团队更新。这叫服务恢复，不叫泄漏已修复。"}
+      ]
+    },
+    {
+      "id": "0044", "part": 9, "stage": "持续观察", "title": "保留内存余量：扩容不是答案",
+      "premise": "观察通过后逐步恢复正常拉取速率，积压已清空，开始检查容量余量与告警条件。",
+      "listeningTask": "听清容量措施与根因调查的区别，以及何时停止灰度节点消费。",
+      "newPhrase": "p319", "phrases": ["p319", "p110", "p309", "p010:extra", "p004:extra", "p001:extra"],
+      "lines": [
+        {"sp": "Anika", "en": "Queue age is normal. Samples look good. We're back to baseline.", "zh": "事件等待时间正常，抽样也没问题，服务恢复到基线了。"},
+        {"sp": "Lukas", "en": "What about memory headroom? The host needs room for more than this worker.", "zh": "内存余量呢？主机不能只给这个消费者留空间。"},
+        {"sp": "Raj", "en": "We've got room now. I'll keep an eye on the growth rate.", "zh": "现在还有余量，我会留意增长速度。"},
+        {"sp": "Priya", "en": "Just to confirm, adding memory isn't the fix, right? It might only delay another OOM.", "zh": "我确认一下，加内存不是根因修复，对吧？可能只是推迟下一次OOM。"},
+        {"sp": "Hannah", "en": "Right. Forecast time to exhaustion as well. A percentage alone can hide the risk.", "zh": "对，也要估算按当前增长速度多久耗尽，单看百分比可能掩盖风险。"},
+        {"sp": "Anika", "en": "Should we discuss a bigger host? Let's park that until we have the trend.", "zh": "要不要讨论更大的主机？先放一边，等有了趋势再说。"},
+        {"sp": "Lukas", "en": "Use the existing memory alert. If growth resumes, pause the canary and escalate.", "zh": "沿用现有内存告警。如果再次持续增长，就暂停灰度消费并升级处理。"},
+        {"sp": "Priya", "en": "Let's circle back in an hour. Keep the rollback ready in case we need it.", "zh": "一小时后我们再确认。回滚准备保持就绪，以防需要。"},
+        {"sp": "Hannah", "en": "I'll put the trigger and contact in the handoff. No guessing on the next shift.", "zh": "我会把触发条件和联系人写进交接，下个班不用猜。"},
+        {"sp": "Raj", "en": "Agreed. The canary stays isolated. No further rollout until the app owner signs off.", "zh": "同意。灰度节点保持隔离，在应用负责人批准前不扩大发布。"}
+      ]
+    },
+    {
+      "id": "0045", "part": 10, "stage": "根因跟进", "title": "恢复不等于结案：把泄漏假设做实",
+      "premise": "服务已恢复，灰度不扩展，继续观察。新版本缓存实现存在疑点，但尚未证实泄漏机制。",
+      "listeningTask": "听出哪些结论已有证据，哪些任务仍需复现及验收。",
+      "newPhrase": "p320", "phrases": ["p320", "p009", "p310", "p012:extra", "p013:extra", "p002:extra"],
+      "lines": [
+        {"sp": "Priya", "en": "Just to recap, recovery is verified. But the root cause is still open.", "zh": "小结一下，服务恢复已验证，但根因仍未查明。"},
+        {"sp": "Lukas", "en": "We know the worker's memory grew. We don't know which objects were retained.", "zh": "我们知道消费者内存在增长，但不知道保留了哪些对象。"},
+        {"sp": "Anika", "en": "First action item: reproduce the growth with sanitized traffic. I'll own that by tomorrow.", "zh": "第一个行动项：用脱敏流量复现增长。我负责，明天完成。"},
+        {"sp": "Hannah", "en": "Compare both builds with the same input. Otherwise the result could be misleading.", "zh": "两个构建要用同样输入对比，否则结果可能误导。"},
+        {"sp": "Raj", "en": "I'll attach the host timeline today. We need the process and host measurements together.", "zh": "我今天补上主机时间线，要把进程和主机测量放在一起。"},
+        {"sp": "Priya", "en": "Who's picking this up for the memory alerts? We need an owner, right?", "zh": "内存告警改进谁来接？得明确负责人，对吧？"},
+        {"sp": "Lukas", "en": "I'll review them by Thursday. Include growth rate and a tested response, not just thresholds.", "zh": "我周四前评审，包含增长速率和经过验证的响应流程，不只改阈值。"},
+        {"sp": "Anika", "en": "Once the fix passes a long run, we'll close the loop with evidence.", "zh": "修复通过长时间运行验证后，我们会带着证据反馈结果，把事情闭环。"},
+        {"sp": "Hannah", "en": "Long enough to cover the old growth window. A short smoke test won't do.", "zh": "测试时间得覆盖之前的增长周期，短暂冒烟测试不够。"},
+        {"sp": "Priya", "en": "Agreed. Let's take it offline for the test design. Keep the investigation open until it's verified.", "zh": "同意。测试设计会后单独聊，在验证之前调查保持未结案。"}
+      ]
+    }
+  ]
+}
