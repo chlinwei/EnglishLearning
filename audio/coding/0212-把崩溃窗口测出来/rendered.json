@@ -1,0 +1,129 @@
+{
+ "id": "0212",
+ "part": 7,
+ "stage": "边界测试",
+ "title": "把崩溃窗口测出来",
+ "premise": "状态分类完成，候选人解释如何证明幂等与恢复逻辑。",
+ "listeningTask": "识别发送、结果落盘与消息确认之间的故障窗口。",
+ "newPhrase": "p487",
+ "phrases": [
+  "p487",
+  "p010",
+  "p327:extra",
+  "p210:extra",
+  "p302:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Describe your tests for crash recovery. Which failure windows would you deliberately exercise?",
+   "zh": "描述崩溃恢复测试，会特意覆盖哪些故障窗口？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 0.0,
+   "end": 7.872
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd use fault injection around each transition. Just to confirm, we can simulate lost responses, right?",
+   "zh": "各状态转换附近做故障注入，确认一下，可模拟响应丢失，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 7.872,
+   "end": 16.128
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, include success before local persistence. Then crash before queue acknowledgement as well.",
+   "zh": "可以，包括成功后本地落盘前，再测确认消息前崩溃。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 16.128,
+   "end": 23.567
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, each restart reads the persisted operation. Tests assert one applied effect, not one request.",
+   "zh": "好，重启读持久操作，断言副作用一次，不是请求一次。",
+   "role": "DevOps engineering candidate",
+   "start": 23.567,
+   "end": 31.847
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd dry-run it first with deterministic fakes. Maybe property tests help explore duplicate message sequences.",
+   "zh": "先用确定性假实现预演，属性测试可能有助探索重复消息序列。",
+   "role": "DevOps engineering candidate",
+   "start": 31.847,
+   "end": 40.319
+  },
+  {
+   "sp": "Hannah",
+   "en": "How do you test concurrent workers? A sequential duplicate test won't expose claim races.",
+   "zh": "如何测并发worker？顺序重复测试发现不了取任务竞态。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 40.319,
+   "end": 47.831
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd coordinate contenders with a controlled barrier. We can rule that out only after racing claims.",
+   "zh": "用受控屏障协调竞争者，实际竞争取任务后才可排除问题。",
+   "role": "DevOps engineering candidate",
+   "start": 47.831,
+   "end": 55.391
+  },
+  {
+   "sp": "Lukas",
+   "en": "Would you also test the real contract? Fake deduplication could be stronger than production behavior.",
+   "zh": "也测真实契约吗？假去重可能比生产行为更强。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 55.391,
+   "end": 62.494
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, a sandbox smoke test checks deduplication. One action item covers retention expiry and payload mismatch.",
+   "zh": "是，沙箱冒烟测试验证去重，保留期结束和负载冲突也列测试任务。",
+   "role": "DevOps engineering candidate",
+   "start": 62.494,
+   "end": 71.926
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd also test stale versions and oversized input. Those cases must avoid sending unsafe updates.",
+   "zh": "还测旧版本和超大输入，这些情况不能发送不安全更新。",
+   "role": "DevOps engineering candidate",
+   "start": 71.926,
+   "end": 80.23
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 7,
+ "scene": "状态分类完成，候选人解释如何证明幂等与恢复逻辑。",
+ "dir": "coding/0212-把崩溃窗口测出来",
+ "audio": "0212-把崩溃窗口测出来.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "边界测试"
+ ],
+ "duration": 80.23
+}

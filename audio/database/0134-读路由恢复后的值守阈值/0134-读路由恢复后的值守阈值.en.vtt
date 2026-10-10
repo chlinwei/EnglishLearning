@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.144
+Raj: The lag threshold is thirty seconds. Page us after two consecutive breaches.
+
+2
+00:00:06.144 --> 00:00:13.200
+Hannah: And failed freshness checks need immediate attention. Even when that timer looks normal.
+
+3
+00:00:13.200 --> 00:00:19.535
+Priya: Okay, hand over those checks tonight. The escalation path lists Raj first.
+
+4
+00:00:19.535 --> 00:00:25.487
+Lukas: What if primary write health changes? That needs a separate failover assessment.
+
+5
+00:00:25.487 --> 00:00:32.471
+Anika: Yes, no automatic promotion for lag. We retain routing controls instead, right?
+
+6
+00:00:32.471 --> 00:00:38.879
+Raj: Correct, keep an eye on both loads. The replica is catching up under bursts.
+
+7
+00:00:38.879 --> 00:00:45.023
+Hannah: The scan remains throttled for now. Who approves its normal rate later?
+
+8
+00:00:45.023 --> 00:00:50.494
+Priya: Its owner, after a load review. What's the ETA for that review?
+
+9
+00:00:50.494 --> 00:00:56.854
+Lukas: Tomorrow morning, with overlapping workloads measured. Maybe isolate the scan from B.
+
+10
+00:00:56.854 --> 00:01:04.030
+Anika: So, I'll attach current routing settings. Reports and confirmations have different destinations.
+

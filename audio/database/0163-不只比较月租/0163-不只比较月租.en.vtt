@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.512
+Hannah: Total cost of ownership includes engineering. The monthly bill isn't the whole comparison.
+
+2
+00:00:07.512 --> 00:00:14.256
+Raj: Vertical scaling adds eighteen hundred monthly. That's fleet cost, not just primary.
+
+3
+00:00:14.256 --> 00:00:20.809
+Anika: Shards add roughly twenty-four hundred monthly. Engineering could take eight weeks or longer.
+
+4
+00:00:20.809 --> 00:00:28.009
+Priya: Just to confirm, estimates, not quotes, right? And no guaranteed sharding savings yet.
+
+5
+00:00:28.009 --> 00:00:35.737
+Lukas: Correct, migration risk increases testing effort. On-call ownership adds ongoing staffing costs.
+
+6
+00:00:35.737 --> 00:00:43.153
+Raj: Storage expansion adds four hundred monthly separately. Both options still need that capacity.
+
+7
+00:00:43.153 --> 00:00:51.409
+Hannah: Query optimization needs about two engineer-weeks. Savings stay provisional until load tests.
+
+8
+00:00:51.409 --> 00:00:57.626
+Priya: Okay, what's the ETA for firm quotes? We have bandwidth for one pilot.
+
+9
+00:00:57.626 --> 00:01:05.114
+Lukas: Tomorrow for infrastructure estimates and lead times. Maybe procurement changes the delivery assumptions.
+
+10
+00:01:05.114 --> 00:01:11.930
+Anika: So, favor queries plus storage preparation. Keep the larger instance as contingency.
+

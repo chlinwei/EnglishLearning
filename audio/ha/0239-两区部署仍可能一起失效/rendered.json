@@ -1,0 +1,135 @@
+{
+ "id": "0239",
+ "part": 4,
+ "stage": "故障域",
+ "title": "两区部署仍可能一起失效",
+ "premise": "单点清单已包含代理、出口、DNS和控制配置，开始检查相关故障。",
+ "listeningTask": "辨别机架、可用区与同步配置错误的故障边界。",
+ "newPhrase": "p514",
+ "phrases": [
+  "p514",
+  "p513",
+  "p106",
+  "p330:extra",
+  "p010:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Each zone forms a separate failure domain.",
+   "zh": "每个可用区形成一个独立故障域。",
+   "role": "Infrastructure capacity engineer",
+   "start": 0.0,
+   "end": 3.6
+  },
+  {
+   "sp": "Lukas",
+   "en": "For power, yes. What about shared configuration pushes?",
+   "zh": "供电方面是。共享配置发布呢？",
+   "role": "Reliability architect",
+   "start": 3.6,
+   "end": 8.568
+  },
+  {
+   "sp": "Anika",
+   "en": "Managed configuration currently updates both zones together.",
+   "zh": "受管理配置目前同时更新两个区。",
+   "role": "Service and budget owner",
+   "start": 8.568,
+   "end": 13.103
+  },
+  {
+   "sp": "Hannah",
+   "en": "So a bad rule could remove both paths.",
+   "zh": "所以一条错误规则可能同时断掉两条路径。",
+   "role": "Performance engineer",
+   "start": 13.103,
+   "end": 16.607
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, staged updates required, right?",
+   "zh": "确认一下，需要分阶段更新，对吧？",
+   "role": "Architecture review chair",
+   "start": 16.607,
+   "end": 20.879
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, separate approval gates and tested last-good versions.",
+   "zh": "是的，要独立批准门槛和已验证的上一正常版本。",
+   "role": "Infrastructure capacity engineer",
+   "start": 20.879,
+   "end": 25.775
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Geography isn't independence.",
+   "zh": "我复述一下：地理分散不等于独立。",
+   "role": "Reliability architect",
+   "start": 25.775,
+   "end": 30.527
+  },
+  {
+   "sp": "Anika",
+   "en": "That's our blast radius even without hardware failure.",
+   "zh": "即使没有硬件故障，影响范围也可能如此。",
+   "role": "Service and budget owner",
+   "start": 30.527,
+   "end": 34.558
+  },
+  {
+   "sp": "Hannah",
+   "en": "The single point of failure is operational, perhaps.",
+   "zh": "这个单点故障源也许属于操作层面。",
+   "role": "Performance engineer",
+   "start": 34.558,
+   "end": 39.07
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, record correlated failures alongside physical ones.",
+   "zh": "好，把相关故障和物理故障一起记录。",
+   "role": "Architecture review chair",
+   "start": 39.07,
+   "end": 43.99
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 4,
+ "scene": "单点清单已包含代理、出口、DNS和控制配置，开始检查相关故障。",
+ "dir": "ha/0239-两区部署仍可能一起失效",
+ "audio": "0239-两区部署仍可能一起失效.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "故障域"
+ ],
+ "duration": 43.99
+}

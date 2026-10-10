@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.488
+Priya: Let's freeze changes. Split brain is the risk.
+冻结变更。风险是双主脑裂。
+
+2
+00:00:04.488 --> 00:00:08.448
+Lukas: Changing DNS won't stop local database writers.
+改DNS不会停止数据库本地写入者。
+
+3
+00:00:08.448 --> 00:00:12.480
+Raj: The network partition leaves old sessions uncertain.
+网络分区使旧会话状态不明。
+
+4
+00:00:12.480 --> 00:00:16.728
+Hannah: And network filters might miss another interface.
+网络过滤也可能漏掉另一个网卡。
+
+5
+00:00:16.728 --> 00:00:20.712
+Anika: That's our blast radius: conflicting order records.
+影响范围就是产生冲突的订单记录。
+
+6
+00:00:20.712 --> 00:00:24.528
+Priya: Just to confirm, power fencing first, right?
+确认一下，先做电源隔离，对吧？
+
+7
+00:00:24.528 --> 00:00:29.184
+Lukas: Yes, with independent confirmation and restart inhibition.
+是的，需独立确认并禁止自动重启。
+
+8
+00:00:29.184 --> 00:00:33.624
+Raj: The escalation path reaches our infrastructure operator.
+升级联系路径可联系基础设施操作员。
+
+9
+00:00:33.624 --> 00:00:37.032
+Hannah: Could automated recovery turn it back on?
+自动恢复会不会把它重新打开？
+
+10
+00:00:37.032 --> 00:00:41.760
+Priya: Possibly. We'll disable that before any promotion.
+有可能。提升前我们会先禁用它。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Anika: The pool is exhausted on orders. The error rate spiked after nine.
+
+2
+00:00:05.616 --> 00:00:11.447
+Lukas: Are requests waiting for connections? Or already running inside the database?
+
+3
+00:00:11.447 --> 00:00:17.855
+Anika: Mostly waiting before any query starts. About two hundred requests are queued.
+
+4
+00:00:17.855 --> 00:00:24.790
+Priya: Okay, I'll take point on this. Just to confirm, writes still succeed, right?
+
+5
+00:00:24.790 --> 00:00:31.966
+Hannah: Some do, but clients time out. Don't assume failed responses mean failed writes.
+
+6
+00:00:31.966 --> 00:00:37.942
+Raj: Let me tail the log first. I'll separate checkout waits from execution.
+
+7
+00:00:37.942 --> 00:00:44.349
+Lukas: Good. Keep client retries bounded too. Repeated writes could make this worse.
+
+8
+00:00:44.349 --> 00:00:50.085
+Priya: So, what's the ETA for evidence? A rough estimate will help us.
+
+9
+00:00:50.085 --> 00:00:57.572
+Hannah: I'll check duplicate order protection now. We need that before suggesting retries.
+
+10
+00:00:57.572 --> 00:01:03.740
+Raj: About two minutes for pool metrics. No database restart while we're checking.
+

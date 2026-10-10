@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.224
+Anika: DNS is timing out for payments dot internal. The error rate spiked on new checkout connections.
+
+2
+00:00:07.224 --> 00:00:12.408
+Lukas: Before the connection opens? Or after the request reaches payments?
+
+3
+00:00:12.408 --> 00:00:20.591
+Anika: Before connection setup. Existing connections still work. That's why some requests look normal.
+
+4
+00:00:20.591 --> 00:00:27.887
+Priya: Okay, I'll take point on this. Just to confirm, don't restart the app yet, right?
+
+5
+00:00:27.887 --> 00:00:34.391
+Hannah: Agreed. A restart could remove working connections and make the impact worse.
+
+6
+00:00:34.391 --> 00:00:39.887
+Raj: Let me tail the log. I'll match lookup errors to the affected hosts.
+
+7
+00:00:39.887 --> 00:00:46.871
+Lukas: Use the application hostname and query type. A random public lookup won't test this path.
+
+8
+00:00:46.871 --> 00:00:52.366
+Priya: What's the ETA for a first comparison? A rough estimate is fine.
+
+9
+00:00:52.366 --> 00:00:58.414
+Hannah: I'll check the same lookup from both zones. We need to locate the boundary.
+
+10
+00:00:58.414 --> 00:01:04.030
+Raj: About two minutes. I'll keep retries low so the tests don't add load.
+

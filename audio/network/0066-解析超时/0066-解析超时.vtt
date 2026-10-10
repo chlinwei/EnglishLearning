@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.224
+Anika: DNS is timing out for payments dot internal. The error rate spiked on new checkout connections.
+payments.internal的DNS解析正在超时，结账服务新建连接的错误率陡涨。
+
+2
+00:00:07.224 --> 00:00:12.408
+Lukas: Before the connection opens? Or after the request reaches payments?
+是在连接建立前，还是请求到达支付服务后？
+
+3
+00:00:12.408 --> 00:00:20.591
+Anika: Before connection setup. Existing connections still work. That's why some requests look normal.
+建立连接之前。已有连接仍可用，所以有些请求看起来正常。
+
+4
+00:00:20.591 --> 00:00:27.887
+Priya: Okay, I'll take point on this. Just to confirm, don't restart the app yet, right?
+好，我来协调。我确认一下，先不重启应用，对吧？
+
+5
+00:00:27.887 --> 00:00:34.391
+Hannah: Agreed. A restart could remove working connections and make the impact worse.
+同意。重启可能让正常连接消失，反而扩大影响。
+
+6
+00:00:34.391 --> 00:00:39.887
+Raj: Let me tail the log. I'll match lookup errors to the affected hosts.
+我盯一下日志，把查询错误和受影响主机对应起来。
+
+7
+00:00:39.887 --> 00:00:46.871
+Lukas: Use the application hostname and query type. A random public lookup won't test this path.
+用应用实际查询的名称和记录类型。随便查个公共名称测不到这条路径。
+
+8
+00:00:46.871 --> 00:00:52.366
+Priya: What's the ETA for a first comparison? A rough estimate is fine.
+首次对比预计多久？给个大概时间就行。
+
+9
+00:00:52.366 --> 00:00:58.414
+Hannah: I'll check the same lookup from both zones. We need to locate the boundary.
+我会从两个区域检查同一查询，需要圈定故障边界。
+
+10
+00:00:58.414 --> 00:01:04.030
+Raj: About two minutes. I'll keep retries low so the tests don't add load.
+大约两分钟。我会控制测试重试次数，避免增加负载。
+

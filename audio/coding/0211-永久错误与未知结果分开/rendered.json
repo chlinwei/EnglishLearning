@@ -1,0 +1,129 @@
+{
+ "id": "0211",
+ "part": 6,
+ "stage": "异常处理",
+ "title": "永久错误与未知结果分开",
+ "premise": "重试已有限制，面试追问不可重试错误和结果未知的状态。",
+ "listeningTask": "辨别无效输入、权限问题、版本冲突与超时。",
+ "newPhrase": "p486",
+ "phrases": [
+  "p486",
+  "p010",
+  "p009:extra",
+  "p336:extra",
+  "p103:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Which errors count as a permanent failure? Would every non-success response enter that category?",
+   "zh": "哪些算永久失败？所有非成功响应都归这类吗？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 0.0,
+   "end": 8.184
+  },
+  {
+   "sp": "Raj",
+   "en": "No, invalid inputs fail without unchanged retry. Just to confirm, authentication errors need intervention, right?",
+   "zh": "不，非法输入不原样重试，确认一下，认证错误需干预，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 8.184,
+   "end": 17.304
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, distinguish permission denial from token expiry. The provided client can refresh expired tokens.",
+   "zh": "对，区分权限拒绝和令牌过期，给定客户端可刷新过期令牌。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 17.304,
+   "end": 25.463
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, one action item documents each category. The escalation path names whoever handles authorization failures.",
+   "zh": "好，需记录各类别，升级路径说明谁处理授权失败。",
+   "role": "DevOps engineering candidate",
+   "start": 25.463,
+   "end": 34.223
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis is malformed responses are unknown. Maybe the write happened before response corruption.",
+   "zh": "我认为响应损坏应属未知，写入可能在响应损坏前发生。",
+   "role": "DevOps engineering candidate",
+   "start": 34.223,
+   "end": 42.503
+  },
+  {
+   "sp": "Hannah",
+   "en": "How do you debug without leaking credentials? An exception trace can contain request details.",
+   "zh": "如何调试又不泄凭据？异常栈可能含请求详情。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 42.503,
+   "end": 50.519
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log with sanitized fixtures. I'd retain operation identifiers, not bearer tokens.",
+   "zh": "用脱敏fixture检查日志，保留操作标识，不保留访问令牌。",
+   "role": "DevOps engineering candidate",
+   "start": 50.519,
+   "end": 58.607
+  },
+  {
+   "sp": "Lukas",
+   "en": "What happens when the worker is cancelled? You may have an active remote request.",
+   "zh": "worker被取消怎么办？可能有活动远程请求。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 58.607,
+   "end": 64.366
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd stop claiming work and close local resources. Active requests remain unknown until their outcomes reconcile.",
+   "zh": "停止取新任务，释放本地资源，活动请求核对前保留未知状态。",
+   "role": "DevOps engineering candidate",
+   "start": 64.366,
+   "end": 73.342
+  },
+  {
+   "sp": "Raj",
+   "en": "Then expired leases allow another worker to recover. It checks durable state before repeating any request.",
+   "zh": "租约过期后另一worker接管，重复请求前检查持久状态。",
+   "role": "DevOps engineering candidate",
+   "start": 73.342,
+   "end": 81.55
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 6,
+ "scene": "重试已有限制，面试追问不可重试错误和结果未知的状态。",
+ "dir": "coding/0211-永久错误与未知结果分开",
+ "audio": "0211-永久错误与未知结果分开.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "异常处理"
+ ],
+ "duration": 81.55
+}

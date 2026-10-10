@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Lukas: Migration risk includes missed and duplicate writes. Dual writing isn't automatic consistency protection.
+
+2
+00:00:07.728 --> 00:00:14.544
+Anika: Agreed, retries and ordering need explicit design. We don't have that implementation today.
+
+3
+00:00:14.544 --> 00:00:21.385
+Raj: Changing a shard key can move data. Recovery and reconciliation must cover each move.
+
+4
+00:00:21.385 --> 00:00:29.233
+Priya: Just to confirm, research stays isolated, right? No production dual-write experiment this week.
+
+5
+00:00:29.233 --> 00:00:36.577
+Hannah: Yes, a smoke test isn't sufficient. We need failure and replay scenarios.
+
+6
+00:00:36.577 --> 00:00:43.921
+Anika: The rollback trigger needs data convergence evidence. Maybe reversing routing alone loses updates.
+
+7
+00:00:43.921 --> 00:00:51.217
+Lukas: Exactly. Reversibility has to be demonstrated. It isn't just keeping the old database.
+
+8
+00:00:51.217 --> 00:00:59.234
+Priya: Okay, aggressive cutover dates? Let's park that. Storage deadlines are sooner than research.
+
+9
+00:00:59.234 --> 00:01:07.994
+Hannah: Separate immediate capacity from long-term redesign. We can fund research without choosing migration.
+
+10
+00:01:07.994 --> 00:01:16.010
+Raj: So, document unknowns and acceptance criteria. Costs come next, including this engineering work.
+

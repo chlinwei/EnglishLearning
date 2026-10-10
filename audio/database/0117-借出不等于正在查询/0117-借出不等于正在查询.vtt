@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Raj: Forty checked-out connections, none available now. The pool is exhausted across three workers.
+四十条连接全部借出，没有可用连接，三台工作实例的池都耗尽了。
+
+2
+00:00:07.248 --> 00:00:13.991
+Hannah: Does checked out mean running queries? Compare that with actual session activity.
+借出就代表在执行查询吗？和实际会话活动对照一下。
+
+3
+00:00:13.991 --> 00:00:21.239
+Anika: No, ownership stays with the application. Some borrowed connections aren't executing anything.
+不是，连接仍由应用持有，有些借出的连接没有执行任何操作。
+
+4
+00:00:21.239 --> 00:00:27.814
+Priya: Just to confirm, same workers, right? Don't mix global and local counts.
+确认一下，对照的是同一批实例，对吧？别混用全局和局部计数。
+
+5
+00:00:27.814 --> 00:00:35.182
+Lukas: Exactly. The database isn't at capacity. Raising every pool limit could overload it.
+对，数据库并未满载。把每个池上限都调高可能压垮数据库。
+
+6
+00:00:35.182 --> 00:00:40.942
+Raj: Okay, I'm on it for mapping. I'll match session IDs to workers.
+好，我来做映射，把会话ID对应到工作实例。
+
+7
+00:00:40.942 --> 00:00:46.533
+Hannah: I'll keep an eye on waits. We need ages, not just counts.
+我会观察等待情况，需要占用时长，不只是数量。
+
+8
+00:00:46.533 --> 00:00:53.037
+Anika: Our working hypothesis has two branches. Slow work or connections never returned.
+当前假设有两个方向：执行太慢，或者连接从未归还。
+
+9
+00:00:53.037 --> 00:00:59.228
+Lukas: Idle sessions alone don't prove leakage. Pools normally keep idle sessions open.
+空闲会话本身不能证明泄漏，池通常会保留空闲会话。
+
+10
+00:00:59.228 --> 00:01:05.900
+Priya: So, collect ownership and age together. Maybe both causes are contributing here.
+那就一起收集持有者和占用时长，也许两种原因都存在。
+

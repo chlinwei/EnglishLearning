@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.040
+Hannah: We use split-horizon DNS. The correct answer depends on the client's view and location.
+我们采用分视图DNS，正确答案取决于客户端视图和位置。
+
+2
+00:00:08.040 --> 00:00:15.673
+Raj: Both zones return their expected private addresses. I checked against the approved service map.
+两区都返回各自预期私有地址，我和批准的服务映射核对过。
+
+3
+00:00:15.673 --> 00:00:22.609
+Lukas: Good. Matching addresses everywhere isn't the goal. Correct routing for each client is.
+好。目标不是所有地方地址完全一致，而是各客户端路由正确。
+
+4
+00:00:22.609 --> 00:00:27.794
+Priya: Just to confirm, no private names leaked to a public resolver, right?
+我确认一下，没有把私有名称发给公共解析器，对吧？
+
+5
+00:00:27.794 --> 00:00:35.690
+Anika: Right. Only approved internal paths. Fresh checkout connections are healthy from both zones.
+对，只走批准的内部路径。两区结账的新连接都正常。
+
+6
+00:00:35.690 --> 00:00:43.082
+Hannah: We can rule that out as a view mismatch in the tested paths. Keep the coverage recorded.
+在已测路径中可以排除视图不匹配，测试覆盖范围仍要记录。
+
+7
+00:00:43.082 --> 00:00:50.427
+Raj: Just to recap, B is serving the switched clients. A is still isolated from those clients.
+小结一下，B正为已切换客户端服务，A仍与这些客户端隔离。
+
+8
+00:00:50.427 --> 00:00:56.427
+Lukas: I'll keep an eye on B's latency. The extra traffic needs ongoing monitoring.
+我会盯着B的延迟，新增流量需要持续监控。
+
+9
+00:00:56.427 --> 00:01:04.372
+Priya: Okay. Can we report we're back to baseline? Include the metrics, not just the probe results.
+好。能报告回到基线了吗？要有指标，不只看探测结果。
+
+10
+00:01:04.372 --> 00:01:12.340
+Anika: Yes, errors and latency are normal now. We can report service recovery, with A's repair still pending.
+可以，现在错误和延迟正常。可以报告服务恢复，但A的修复仍待完成。
+

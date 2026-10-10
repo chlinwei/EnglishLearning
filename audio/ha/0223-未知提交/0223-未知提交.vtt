@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.776
+Hannah: Uncertain commits need lookup by idempotency key.
+结果未知的提交需要按幂等键查询。
+
+2
+00:00:04.776 --> 00:00:08.568
+Anika: We've matched all acknowledged requests to orders.
+所有已确认请求都匹配到了订单。
+
+3
+00:00:08.568 --> 00:00:11.927
+Lukas: What about writes without a client acknowledgment?
+没有向客户端确认的写入呢？
+
+4
+00:00:11.927 --> 00:00:16.919
+Raj: Some committed before disconnect. That's expected, right?
+有些断连前已经提交，这是可能的，对吧？
+
+5
+00:00:16.919 --> 00:00:22.007
+Hannah: Yes. A timeout doesn't mean transaction failure.
+是的，超时不等于事务失败。
+
+6
+00:00:22.007 --> 00:00:26.039
+Priya: Let me play that back. Look up first.
+我复述一下：先查结果。
+
+7
+00:00:26.039 --> 00:00:30.359
+Raj: The last committed position supports acknowledged-write coverage.
+最后提交位置支持已确认写入的覆盖核验。
+
+8
+00:00:30.359 --> 00:00:33.670
+Lukas: But don't rule that out for unacknowledged gaps.
+但未确认写入中的缺口仍不能排除。
+
+9
+00:00:33.670 --> 00:00:37.582
+Anika: Just to recap, retries can catch up safely.
+小结一下，重试可以安全补齐。
+
+10
+00:00:37.582 --> 00:00:43.390
+Priya: With deduplication, yes. Perhaps manual review for exceptions.
+有去重机制才行。异常也许需要人工核查。
+

@@ -30,6 +30,10 @@ body{margin:0;background:var(--bg);color:var(--tx);
   border:none;padding:7px 6px;border-radius:8px;color:var(--tx2);font:500 .82rem/1.3 inherit;text-align:left}
 .grp-h:hover{background:var(--soft)}
 .car{color:var(--tx3);font-size:.7rem;transition:transform .15s}
+.scene-tree > summary{cursor:pointer;list-style:none}
+.scene-tree > summary::-webkit-details-marker{display:none}
+.scene-tree > summary::before{content:'\25B8';flex:0 0 auto}
+.scene-tree[open] > summary::before{content:'\25BE'}
 .grp[data-open="0"] .car{transform:rotate(-90deg)}
 .grp-h .n{margin-left:auto;color:var(--tx3);font-weight:400;font-size:.75rem}
 .grp-b{display:flex;flex-direction:column;gap:3px;padding:2px 0 4px}

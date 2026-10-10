@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.872
+Hannah: The payment provider slows down. What breaks first?
+
+2
+00:00:04.872 --> 00:00:09.792
+Raj: A dependency timeout limits waiting, not transaction execution.
+
+3
+00:00:09.792 --> 00:00:14.353
+Raj: Just to confirm, cancellation isn't payment rollback, right?
+
+4
+00:00:14.353 --> 00:00:18.913
+Lukas: Correct. How do you prevent retries multiplying load?
+
+5
+00:00:18.913 --> 00:00:22.921
+Raj: Bound attempts, add jitter, reuse payment keys.
+
+6
+00:00:22.921 --> 00:00:27.361
+Hannah: Would peak concurrency still follow your earlier estimate?
+
+7
+00:00:27.361 --> 00:00:32.737
+Raj: Probably not. Slow dependencies increase inflight requests.
+
+8
+00:00:32.737 --> 00:00:36.626
+Raj: I'd keep an eye on concurrency and queue age.
+
+9
+00:00:36.626 --> 00:00:40.730
+Lukas: Okay, a smoke test won't prove overload behavior.
+
+10
+00:00:40.730 --> 00:00:46.010
+Raj: We can't rule that out. Test sustained downstream latency.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0174",
+ "part": 9,
+ "stage": "受控重启",
+ "title": "审批后小范围恢复清理",
+ "premise": "边界测试和审查通过，申请限定租户的小规模重启。",
+ "listeningTask": "抓住删除上限、审批与重新停止的触发条件。",
+ "newPhrase": "p449",
+ "phrases": [
+  "p449",
+  "p010",
+  "p442:extra",
+  "p324:extra",
+  "p443:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Approve a deletion budget of ten objects. One tenant only, with scoped credentials restored.",
+   "zh": "批准最多删除十个对象，只一个租户，恢复限定凭据。",
+   "role": "Incident coordinator and approval owner",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep the stop switch within reach. An unexpected path is a rollback trigger.",
+   "zh": "保留可立即使用的停止开关，意外路径就是回退触发条件。",
+   "role": "SRE and process containment owner",
+   "start": 7.344,
+   "end": 13.248
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, stop means disable the scheduler, right? And terminate the active process group.",
+   "zh": "确认一下，停止包括禁用调度，对吧？还要终止活动进程组。",
+   "role": "Cleanup script maintainer",
+   "start": 13.248,
+   "end": 20.807
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, revoke cleanup access if needed too. Existing consumer reads use their separate identity.",
+   "zh": "对，必要时也撤销清理访问，读取仍用独立身份。",
+   "role": "Artifact service and recovery owner",
+   "start": 20.807,
+   "end": 28.487
+  },
+  {
+   "sp": "Hannah",
+   "en": "The deletion manifest matches approved candidates exactly. No shared artifact path appears in execution.",
+   "zh": "删除清单与批准候选完全一致，执行中没有共享制品路径。",
+   "role": "Evidence and test validation engineer",
+   "start": 28.487,
+   "end": 37.823
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, actual removals stay below the budget. Rejected candidates remain untouched in this run.",
+   "zh": "好，实际删除量未超上限，被拒绝候选本次未受影响。",
+   "role": "Cleanup script maintainer",
+   "start": 37.823,
+   "end": 45.167
+  },
+  {
+   "sp": "Lukas",
+   "en": "Reads remain healthy through the canary. Let's keep it under observation before expansion.",
+   "zh": "灰度期间读取正常，扩大前继续观察。",
+   "role": "SRE and process containment owner",
+   "start": 45.167,
+   "end": 51.599
+  },
+  {
+   "sp": "Priya",
+   "en": "Maybe we'll expand tomorrow after another review. No automatic fleet-wide catch-up run tonight.",
+   "zh": "可能明天再评审后扩大，今晚不自动全量补跑。",
+   "role": "Incident coordinator and approval owner",
+   "start": 51.599,
+   "end": 58.822
+  },
+  {
+   "sp": "Hannah",
+   "en": "Record both denied and successful operations. We need evidence that the limits actually applied.",
+   "zh": "记录拒绝和成功操作，证明限制确实生效。",
+   "role": "Evidence and test validation engineer",
+   "start": 58.822,
+   "end": 67.006
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, backups and recovery routing stay available. We'll retain the incident hold until closure.",
+   "zh": "同意，备份和恢复路由继续可用，事件关闭前保留证据。",
+   "role": "Artifact service and recovery owner",
+   "start": 67.006,
+   "end": 74.47
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 9,
+ "scene": "边界测试和审查通过，申请限定租户的小规模重启。",
+ "dir": "coding/0174-审批后小范围恢复清理",
+ "audio": "0174-审批后小范围恢复清理.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "受控重启"
+ ],
+ "duration": 74.47
+}

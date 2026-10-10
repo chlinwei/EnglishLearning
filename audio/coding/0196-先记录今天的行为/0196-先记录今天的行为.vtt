@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.968
+Raj: We need a characterization test before extraction. Last week's formatting change altered column order.
+提取代码前需要现有行为测试，上周格式修改改变了列顺序。
+
+2
+00:00:07.968 --> 00:00:16.632
+Hannah: Did a consumer depend on that order? Behavior includes interfaces, not just calculation results.
+有使用方依赖列顺序吗？行为包括接口，不只是计算结果。
+
+3
+00:00:16.632 --> 00:00:24.961
+Anika: Yes, a downstream import reads positional columns. Just to confirm, that order stays unchanged, right?
+是，下游按列位置导入，确认一下，列顺序不变，对吧？
+
+4
+00:00:24.961 --> 00:00:33.073
+Priya: Okay, our working hypothesis is tangled responsibilities. One action item is capturing current outputs.
+好，目前假设是职责混杂，一项任务是固定当前输出。
+
+5
+00:00:33.073 --> 00:00:40.609
+Lukas: Capture representative inputs and failure behavior too. Successful output snapshots aren't enough alone.
+也记录代表性输入和失败行为，只存成功输出快照不够。
+
+6
+00:00:40.609 --> 00:00:47.449
+Raj: Maybe the parser also relies on globals. We can't rule that out without inspection.
+解析器可能也依赖全局状态，不检查不能排除。
+
+7
+00:00:47.449 --> 00:00:56.737
+Hannah: Existing bugs shouldn't become invisible requirements. Label known defects separately from intentional behavior.
+不能把现有缺陷悄悄当需求，已知缺陷与预期行为分开标。
+
+8
+00:00:56.737 --> 00:01:03.266
+Priya: A report redesign can wait another iteration. Let's park that while we map behavior.
+报表重设计可以等下轮，梳理行为期间先放下。
+
+9
+00:01:03.266 --> 00:01:09.434
+Lukas: Keep this review tied to recent changes. We don't need a complete historical rewrite.
+回顾聚焦近期修改，不需要重写全部历史。
+
+10
+00:01:09.434 --> 00:01:16.730
+Anika: I'll bring sanitized examples from both consumers. That gives us evidence for scope decisions.
+我带两个使用方的脱敏样本，为范围决策提供证据。
+

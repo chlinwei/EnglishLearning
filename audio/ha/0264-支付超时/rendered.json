@@ -1,0 +1,129 @@
+{
+ "id": "0264",
+ "part": 9,
+ "stage": "深入追问",
+ "title": "支付超时：不能盲目换个节点重试",
+ "premise": "容量取舍说明完毕，面试官追问下游慢调用造成的资源积压。",
+ "listeningTask": "听出超时预算、幂等键与取消不等于事务撤销。",
+ "newPhrase": "p539",
+ "phrases": [
+  "p539",
+  "p533",
+  "p302",
+  "p010:extra",
+  "p309:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The payment provider slows down. What breaks first?",
+   "zh": "支付提供方变慢，什么会先出问题？",
+   "role": "Data systems interviewer",
+   "start": 0.0,
+   "end": 4.872
+  },
+  {
+   "sp": "Raj",
+   "en": "A dependency timeout limits waiting, not transaction execution.",
+   "zh": "依赖调用超时限制等待，不会直接终止事务执行。",
+   "role": "DevOps system design candidate",
+   "start": 4.872,
+   "end": 9.792
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, cancellation isn't payment rollback, right?",
+   "zh": "确认一下，取消等待不等于支付回滚，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 9.792,
+   "end": 14.353
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. How do you prevent retries multiplying load?",
+   "zh": "对，如何避免重试放大负载？",
+   "role": "Reliability interviewer",
+   "start": 14.353,
+   "end": 18.913
+  },
+  {
+   "sp": "Raj",
+   "en": "Bound attempts, add jitter, reuse payment keys.",
+   "zh": "限制尝试次数，加入抖动，复用支付键。",
+   "role": "DevOps system design candidate",
+   "start": 18.913,
+   "end": 22.921
+  },
+  {
+   "sp": "Hannah",
+   "en": "Would peak concurrency still follow your earlier estimate?",
+   "zh": "峰值并发还会符合你之前的估算吗？",
+   "role": "Data systems interviewer",
+   "start": 22.921,
+   "end": 27.361
+  },
+  {
+   "sp": "Raj",
+   "en": "Probably not. Slow dependencies increase inflight requests.",
+   "zh": "大概不会，慢依赖会增加进行中的请求。",
+   "role": "DevOps system design candidate",
+   "start": 27.361,
+   "end": 32.737
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd keep an eye on concurrency and queue age.",
+   "zh": "我会留意并发和队列等待时间。",
+   "role": "DevOps system design candidate",
+   "start": 32.737,
+   "end": 36.626
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, a smoke test won't prove overload behavior.",
+   "zh": "好，快速功能验证不能证明过载行为可靠。",
+   "role": "Reliability interviewer",
+   "start": 36.626,
+   "end": 40.73
+  },
+  {
+   "sp": "Raj",
+   "en": "We can't rule that out. Test sustained downstream latency.",
+   "zh": "不能排除过载风险，要测试持续的下游延迟。",
+   "role": "DevOps system design candidate",
+   "start": 40.73,
+   "end": 46.01
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 9,
+ "scene": "容量取舍说明完毕，面试官追问下游慢调用造成的资源积压。",
+ "dir": "ha/0264-支付超时",
+ "audio": "0264-支付超时.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "深入追问"
+ ],
+ "duration": 46.01
+}

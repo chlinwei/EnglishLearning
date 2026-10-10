@@ -1,0 +1,135 @@
+{
+ "id": "0105",
+ "part": 10,
+ "stage": "下一次更新",
+ "title": "接手确认和下一次更新",
+ "premise": "技术边界与联系人均确认，明确21:00更新与提前触发条件。",
+ "listeningTask": "复述接班负责内容和无新证据时也必须更新的承诺。",
+ "newPhrase": "p380",
+ "phrases": [
+  "p380",
+  "p340",
+  "p010",
+  "p012:extra",
+  "p349:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, the next update is nine. That's local time on the incident record.",
+   "zh": "小结一下，下次更新九点，按事件记录上的本地时区。",
+   "role": "Outgoing shift coordinator",
+   "start": 0.0,
+   "end": 6.504
+  },
+  {
+   "sp": "Lukas",
+   "en": "I've got it from here on coordination. Two workers remain rerouted; primary diagnosis stays open.",
+   "zh": "协调从这里我接手。两个工作进程维持绕行，主线诊断尚未结束。",
+   "role": "Incoming primary on-call",
+   "start": 6.504,
+   "end": 14.136
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, the mitigation is holding for those workers. Saved configurations and evidence references are attached.",
+   "zh": "好，这些工作进程缓解仍有效。已附保存配置和证据引用。",
+   "role": "Outgoing network on-call",
+   "start": 14.136,
+   "end": 22.607
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll request the carrier's pending diagnostic update. No reply still becomes an explicit status.",
+   "zh": "我会索取运营商尚未给出的诊断更新。未回复也会明确报状态。",
+   "role": "Incoming network responder",
+   "start": 22.607,
+   "end": 31.223
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll monitor reconciliation and both client groups. Any correctness issue gets an immediate page.",
+   "zh": "我监控核对和两类客户端。任何正确性问题立即呼叫。",
+   "role": "Inventory integration owner",
+   "start": 31.223,
+   "end": 38.399
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, threshold breaches update earlier, right? Don't wait for the scheduled nine.",
+   "zh": "我确认一下，超过门槛要提前更新，对吧？不等计划九点。",
+   "role": "Outgoing shift coordinator",
+   "start": 38.399,
+   "end": 45.839
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, and routing changes need capacity assessment. We won't automatically restore the primary path.",
+   "zh": "对，路由变化需评估容量，不自动恢复主路径。",
+   "role": "Incoming primary on-call",
+   "start": 45.839,
+   "end": 53.543
+  },
+  {
+   "sp": "Raj",
+   "en": "If asked what's the ETA, distinguish diagnosis. We still have no repair estimate.",
+   "zh": "被问预计多久时要区分诊断，目前仍没有修复时间估计。",
+   "role": "Outgoing network on-call",
+   "start": 53.543,
+   "end": 60.694
+  },
+  {
+   "sp": "Hannah",
+   "en": "Understood, ticket evidence before any recovery claim. Quiet probes alone won't close this incident.",
+   "zh": "明白，宣称恢复前需要工单证据。探测平静不能单独关闭事件。",
+   "role": "Incoming network responder",
+   "start": 60.694,
+   "end": 69.454
+  },
+  {
+   "sp": "Priya",
+   "en": "So, handoff accepted at roughly eight forty-five. Update at nine even without new findings.",
+   "zh": "因此大约八点四十五接受交接。即使没有新发现，九点也更新。",
+   "role": "Outgoing shift coordinator",
+   "start": 69.454,
+   "end": 76.75
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 10,
+ "scene": "技术边界与联系人均确认，明确21:00更新与提前触发条件。",
+ "dir": "network/0105-接手确认和下一次更新",
+ "audio": "0105-接手确认和下一次更新.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "下一次更新"
+ ],
+ "duration": 76.75
+}

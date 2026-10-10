@@ -1,0 +1,135 @@
+{
+ "id": "0220",
+ "part": 5,
+ "stage": "人工决策",
+ "title": "有条件批准：还不是开始提升",
+ "premise": "已选择独立管理平面电源隔离，讨论提升条件。",
+ "listeningTask": "听出条件批准与实际执行批准的差别。",
+ "newPhrase": "p495",
+ "phrases": [
+  "p495",
+  "p492",
+  "p328",
+  "p008:extra",
+  "p011:extra",
+  "p324:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "The promotion gate needs two verified checks.",
+   "zh": "提升门槛需要两项已验证检查。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 3.432
+  },
+  {
+   "sp": "Lukas",
+   "en": "Old primary fenced, and acknowledged data replayed.",
+   "zh": "旧主已隔离，已确认数据已回放。",
+   "role": "Cluster safety engineer",
+   "start": 3.432,
+   "end": 7.488
+  },
+  {
+   "sp": "Raj",
+   "en": "The last committed position is replayed already.",
+   "zh": "最后提交位置已经回放完成。",
+   "role": "Database on-call",
+   "start": 7.488,
+   "end": 11.112
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the rollback trigger after promotion starts?",
+   "zh": "提升开始后，什么情况触发回退？",
+   "role": "Data validation engineer",
+   "start": 11.112,
+   "end": 15.12
+  },
+  {
+   "sp": "Anika",
+   "en": "Pause new writes. Don't reactivate the old primary.",
+   "zh": "暂停新写入，不要重新启用旧主。",
+   "role": "Order application owner",
+   "start": 15.12,
+   "end": 19.992
+  },
+  {
+   "sp": "Priya",
+   "en": "Go/no-go stays pending isolation evidence itself.",
+   "zh": "继续或停止的决策仍要等隔离证据本身。",
+   "role": "Incident coordinator",
+   "start": 19.992,
+   "end": 24.072
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Approval is conditional.",
+   "zh": "我复述一下：批准是有条件的。",
+   "role": "Cluster safety engineer",
+   "start": 24.072,
+   "end": 28.344
+  },
+  {
+   "sp": "Raj",
+   "en": "What's the ETA for power confirmation? Roughly?",
+   "zh": "电源确认预计多久？大概呢？",
+   "role": "Database on-call",
+   "start": 28.344,
+   "end": 32.76
+  },
+  {
+   "sp": "Hannah",
+   "en": "About three minutes. Verify the correct host identifier.",
+   "zh": "大约三分钟，要核对正确主机标识。",
+   "role": "Data validation engineer",
+   "start": 32.76,
+   "end": 38.616
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll record both approvals before proceeding.",
+   "zh": "好，我会在继续前记录两项批准。",
+   "role": "Incident coordinator",
+   "start": 38.616,
+   "end": 42.6
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 5,
+ "scene": "已选择独立管理平面电源隔离，讨论提升条件。",
+ "dir": "ha/0220-有条件批准",
+ "audio": "0220-有条件批准.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "人工决策"
+ ],
+ "duration": 42.6
+}

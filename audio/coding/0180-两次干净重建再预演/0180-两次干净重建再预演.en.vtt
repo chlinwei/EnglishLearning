@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Lukas: Each clean rebuild used the same inputs. Normalized build timestamps keep image outputs deterministic.
+
+2
+00:00:07.728 --> 00:00:15.983
+Raj: Both images match by digest and inventory. Hash-locked requirements installed without using local caches.
+
+3
+00:00:15.983 --> 00:00:24.503
+Hannah: Matching package versions isn't sufficient by itself. Here the final artifact digests match too.
+
+4
+00:00:24.503 --> 00:00:32.230
+Priya: Okay, dry-run it first against test inventory. Just to confirm, writes stay disabled, right?
+
+5
+00:00:32.230 --> 00:00:40.702
+Anika: Yes, then isolated writes test real effects. The compatibility matrix includes duplicate request handling.
+
+6
+00:00:40.702 --> 00:00:48.358
+Raj: Maybe the cached build masked an issue before. These clean runs remove that particular uncertainty.
+
+7
+00:00:48.358 --> 00:00:54.885
+Lukas: The rehearsal must use the approved artifact. Don't rebuild a different image for deployment.
+
+8
+00:00:54.885 --> 00:01:02.037
+Priya: We'll hold the go/no-go review after rehearsal. No production access before explicit approval.
+
+9
+00:01:02.037 --> 00:01:10.988
+Hannah: Isolated writes produced the expected inventory state. Replayed requests didn't create duplicate records.
+
+10
+00:01:10.988 --> 00:01:17.900
+Anika: Good, I'll attach those results for approval. The deployment still needs its rollback checks.
+

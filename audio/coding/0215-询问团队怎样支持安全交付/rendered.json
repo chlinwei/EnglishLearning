@@ -1,0 +1,129 @@
+{
+ "id": "0215",
+ "part": 10,
+ "stage": "候选人反问",
+ "title": "询问团队怎样支持安全交付",
+ "premise": "技术讨论结束，面试者邀请候选人反问工程流程与入职支持。",
+ "listeningTask": "听出候选人的真正问题和面试者的实际回答。",
+ "newPhrase": "p490",
+ "phrases": [
+  "p490",
+  "p010",
+  "p006:extra",
+  "p009:extra",
+  "p310:extra",
+  "p481:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "We've covered the technical exercise now. What questions do you have about our team?",
+   "zh": "技术题已讨论完，你对团队有什么问题？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 0.0,
+   "end": 5.856
+  },
+  {
+   "sp": "Raj",
+   "en": "How does engineering onboarding cover unsafe operations? Just to confirm, new engineers get sandbox access, right?",
+   "zh": "入职培训如何覆盖危险操作？确认一下，新人有沙箱访问，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 5.856,
+   "end": 14.664
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, with a mentor and scoped permissions. Production changes need review and explicit approval.",
+   "zh": "有，配导师和限定权限，生产变更需评审与明确审批。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 14.664,
+   "end": 23.089
+  },
+  {
+   "sp": "Raj",
+   "en": "Mentors walk you through approvals, right? Sorry, I mean the production review process.",
+   "zh": "导师会带新人了解审批，对吧？抱歉，我具体指生产变更评审流程。",
+   "role": "DevOps engineering candidate",
+   "start": 23.089,
+   "end": 29.689
+  },
+  {
+   "sp": "Raj",
+   "en": "How much bandwidth do mentors usually reserve? Maybe pairing early prevents repeated safety mistakes.",
+   "zh": "导师通常留多少时间？早期结对可能防止反复安全失误。",
+   "role": "DevOps engineering candidate",
+   "start": 29.689,
+   "end": 37.273
+  },
+  {
+   "sp": "Lukas",
+   "en": "We reserve pairing time during initial weeks. Small changes get feedback before larger independent work.",
+   "zh": "最初几周预留结对时间，先小改动获反馈，再独立做大任务。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 37.273,
+   "end": 44.881
+  },
+  {
+   "sp": "Raj",
+   "en": "How do you close the loop on incidents? Does each action item get an owner?",
+   "zh": "事件改进如何闭环？每个行动项都有负责人吗？",
+   "role": "DevOps engineering candidate",
+   "start": 44.881,
+   "end": 50.761
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, owners provide evidence at follow-up reviews. We track completion, not just ticket creation.",
+   "zh": "有，负责人在跟进评审提供证据，跟踪完成，不只建工单。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 50.761,
+   "end": 59.714
+  },
+  {
+   "sp": "Raj",
+   "en": "That helps me understand your engineering expectations. I'd also ask how testing time gets protected.",
+   "zh": "这样更理解团队工程要求，还想问如何保障测试时间。",
+   "role": "DevOps engineering candidate",
+   "start": 59.714,
+   "end": 67.562
+  },
+  {
+   "sp": "Raj",
+   "en": "Thanks, those answers address my main concerns. I'd enjoy learning within those clear safety boundaries.",
+   "zh": "谢谢，回答了我的主要问题，希望在明确安全边界内学习。",
+   "role": "DevOps engineering candidate",
+   "start": 67.562,
+   "end": 75.89
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 10,
+ "scene": "技术讨论结束，面试者邀请候选人反问工程流程与入职支持。",
+ "dir": "coding/0215-询问团队怎样支持安全交付",
+ "audio": "0215-询问团队怎样支持安全交付.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "候选人反问"
+ ],
+ "duration": 75.89
+}

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.192
+Priya: The follow-up slot starts after this standup. We have a twenty-minute hard stop there.
+站会后开始跟进讨论，二十分钟到点结束。
+
+2
+00:00:06.192 --> 00:00:13.104
+Hannah: Raj and I will pair on it. Cancellation scheduling is the first concrete topic.
+Raj和我结对，第一个具体议题是取消调度。
+
+3
+00:00:13.104 --> 00:00:20.376
+Raj: Okay, let's take it offline as agreed. We'll need the sanitized samples there itself.
+好，按约定会后单聊，当场就需要脱敏样本。
+
+4
+00:00:20.376 --> 00:00:26.616
+Anika: I'll bring those and join the opening. Maybe ten minutes, then back to integration.
+我带样本参加开头，可能十分钟，之后回去集成。
+
+5
+00:00:26.616 --> 00:00:32.424
+Lukas: I don't need the full test discussion. Tag me if the interface design changes.
+我不必全程参加测试讨论，接口设计变化再通知我。
+
+6
+00:00:32.424 --> 00:00:39.312
+Priya: Good, each new action item gets recorded. The end-of-day checkpoint stays at five.
+好，新增任务逐项记录，日终检查仍在五点。
+
+7
+00:00:39.312 --> 00:00:47.016
+Hannah: Our output is a deterministic failing test. Not a new architecture proposal this morning.
+产出是确定性失败测试，不是今天上午提新架构。
+
+8
+00:00:47.016 --> 00:00:55.128
+Raj: Agreed, I'll bring the current minimal harness. We can demonstrate cancellation without live API access.
+同意，我带最小测试框架，不访问真实接口也能展示取消。
+
+9
+00:00:55.128 --> 00:01:01.272
+Lukas: I'll start review at eleven as promised. Keep the standup notes linked to tasks.
+按承诺十一点评审，站会记录关联任务。
+
+10
+00:01:01.272 --> 00:01:07.680
+Anika: Then I'll send the contract questions now. Everyone has today's next step and owner.
+那我现在发契约问题，大家都明确今天下一步和负责人。
+

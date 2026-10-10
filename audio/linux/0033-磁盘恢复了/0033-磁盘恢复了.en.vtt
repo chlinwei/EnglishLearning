@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Anika: The worker is processing again. About twelve thousand events are still waiting.
+
+2
+00:00:06.024 --> 00:00:11.520
+Lukas: Is processing faster than arrivals? Otherwise the queue won't catch up.
+
+3
+00:00:11.520 --> 00:00:17.784
+Anika: Yes, we've got spare capacity. Maybe five minutes to clear the backlog.
+
+4
+00:00:17.784 --> 00:00:22.872
+Priya: Just to confirm, that assumes traffic stays roughly steady, right?
+
+5
+00:00:22.872 --> 00:00:29.400
+Hannah: Retries look normal now. I'll check for duplicate notifications as well.
+
+6
+00:00:29.400 --> 00:00:36.432
+Raj: Rotation is verified on this host. The new handle stays open; the old one closes.
+
+7
+00:00:36.432 --> 00:00:42.840
+Lukas: Just to recap, disk pressure is resolved. Customer delays aren't fully cleared yet.
+
+8
+00:00:42.840 --> 00:00:48.840
+Priya: What's the ETA for the next update? Let's circle back after the queue clears.
+
+9
+00:00:48.840 --> 00:00:55.416
+Hannah: Five minutes works. We'll check oldest-event age, not just queue depth.
+
+10
+00:00:55.416 --> 00:01:02.760
+Anika: Agreed. Once those checks pass, we can say we're back to baseline. Not before.
+

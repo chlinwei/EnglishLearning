@@ -1,0 +1,135 @@
+{
+ "id": "0152",
+ "part": 7,
+ "stage": "剩余任务",
+ "title": "剩余校验逐项交责",
+ "premise": "耗时目标已超出，完整对账和应用行为测试还需接班完成。",
+ "listeningTask": "抓住未完成事项、负责人和停止条件。",
+ "newPhrase": "p427",
+ "phrases": [
+  "p427",
+  "p425",
+  "p009:extra",
+  "p013:extra",
+  "p014:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Pending validation covers three large tenants. Application retry behavior also needs testing.",
+   "zh": "待验证项包括三个大租户，还要测应用重试行为。",
+   "role": "Outgoing application validation owner",
+   "start": 0.0,
+   "end": 7.464
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll own the remaining reconciliation checks. Where are expected totals and job IDs?",
+   "zh": "我负责剩余对账，预期总额和任务ID在哪里？",
+   "role": "Incoming reconciliation engineer",
+   "start": 7.464,
+   "end": 15.001
+  },
+  {
+   "sp": "Raj",
+   "en": "In the handoff ticket, beside coverage. I'm on it for read access confirmation.",
+   "zh": "交接工单里，在覆盖记录旁边，我确认读取权限。",
+   "role": "Outgoing database on-call",
+   "start": 15.001,
+   "end": 21.265
+  },
+  {
+   "sp": "Priya",
+   "en": "Who's picking this up for retries? Lukas, the test harness is yours, right?",
+   "zh": "谁接重试测试？Lukas，测试工具由你负责，对吧？",
+   "role": "Recovery drill coordinator",
+   "start": 21.265,
+   "end": 27.65
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, using synthetic writes on a clone. I'll preserve the restored reference database.",
+   "zh": "是，在克隆上用合成写入测试，保留恢复参考库不变。",
+   "role": "Incoming database on-call",
+   "start": 27.65,
+   "end": 34.538
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, retries can change test data. About ten cases cover the known branches.",
+   "zh": "好，重试会改变测试数据，大约十个用例覆盖已知分支。",
+   "role": "Outgoing application validation owner",
+   "start": 34.538,
+   "end": 41.138
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on failed totals. A mismatch means halt, not patch rows.",
+   "zh": "我关注总额失败，不匹配就暂停，不是直接修补行。",
+   "role": "Incoming reconciliation engineer",
+   "start": 41.138,
+   "end": 47.931
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, another action item is timing analysis. I'll separate transfer from replay tomorrow.",
+   "zh": "好，另一个行动项是耗时分析，明天我拆分传输和回放。",
+   "role": "Outgoing database on-call",
+   "start": 47.931,
+   "end": 55.371
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe we need automated validation preparation. But don't weaken checks for faster numbers.",
+   "zh": "可能需要自动准备校验，但别为数字更快而削弱检查。",
+   "role": "Incoming database on-call",
+   "start": 55.371,
+   "end": 62.02
+  },
+  {
+   "sp": "Priya",
+   "en": "So, update each item with evidence. Completion needs results, not a started job.",
+   "zh": "那每项都带证据更新，完成需要结果，不是任务已经启动。",
+   "role": "Recovery drill coordinator",
+   "start": 62.02,
+   "end": 68.98
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 7,
+ "scene": "耗时目标已超出，完整对账和应用行为测试还需接班完成。",
+ "dir": "database/0152-剩余校验逐项交责",
+ "audio": "0152-剩余校验逐项交责.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "剩余任务"
+ ],
+ "duration": 68.98
+}

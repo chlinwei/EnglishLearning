@@ -1,0 +1,135 @@
+{
+ "id": "0142",
+ "part": 7,
+ "stage": "复制观察",
+ "title": "延迟升高先停止扩大",
+ "premise": "索引扫描推进，副本回放延迟短暂上升，需要按阈值决策。",
+ "listeningTask": "分清停止扩展和取消当前构建的不同触发条件。",
+ "newPhrase": "p417",
+ "phrases": [
+  "p417",
+  "p416",
+  "p324:extra",
+  "p010:extra",
+  "p309:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "WAL generation rose during the build. Replica lag reached roughly twelve seconds.",
+   "zh": "构建期间WAL生成增加，副本延迟达到大约十二秒。",
+   "role": "Database change operator",
+   "start": 0.0,
+   "end": 6.216
+  },
+  {
+   "sp": "Hannah",
+   "en": "Is it sustained or falling already? Our abort threshold needs sustained pressure.",
+   "zh": "持续还是已经下降？中止阈值要求持续压力。",
+   "role": "Query and rollout validation engineer",
+   "start": 6.216,
+   "end": 13.272
+  },
+  {
+   "sp": "Anika",
+   "en": "It's falling across the latest samples. Customer writes still meet their target.",
+   "zh": "最新几次采样在下降，客户写入仍满足目标。",
+   "role": "Orders search owner",
+   "start": 13.272,
+   "end": 19.392
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, expansion stays paused, right? Another partition could multiply this load.",
+   "zh": "确认一下，不扩大，对吧？再加分区可能倍增负载。",
+   "role": "Change coordinator",
+   "start": 19.392,
+   "end": 26.808
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. The rollback trigger isn't met. Continue this build with close observation.",
+   "zh": "对，尚未触发回退，密切观察下继续当前构建。",
+   "role": "Database reliability reviewer",
+   "start": 26.808,
+   "end": 33.648
+  },
+  {
+   "sp": "Raj",
+   "en": "Build progress entered the validation phase. Disk space remains above the reserve.",
+   "zh": "构建进度进入验证阶段，磁盘空间仍高于预留线。",
+   "role": "Database change operator",
+   "start": 33.648,
+   "end": 39.936
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on replay. Byte backlog matters beside the timer.",
+   "zh": "我观察回放，除了延迟计时也看字节积压。",
+   "role": "Query and rollout validation engineer",
+   "start": 39.936,
+   "end": 45.696
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, faster rollout? Let's park that. Maybe later batches need separate windows.",
+   "zh": "好，加快扩展先放一边，后续批次可能需要独立窗口。",
+   "role": "Change coordinator",
+   "start": 45.696,
+   "end": 53.376
+  },
+  {
+   "sp": "Lukas",
+   "en": "If write latency breaches, cancel carefully. Then inspect any remaining catalog entry.",
+   "zh": "写延迟超阈值就谨慎取消，再检查系统目录残留。",
+   "role": "Database reliability reviewer",
+   "start": 53.376,
+   "end": 60.312
+  },
+  {
+   "sp": "Anika",
+   "en": "So, no additional changes tonight then. We'll decide completion from all checks.",
+   "zh": "那今晚不加其他变更，结合所有检查判断是否完成。",
+   "role": "Orders search owner",
+   "start": 60.312,
+   "end": 67.2
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 7,
+ "scene": "索引扫描推进，副本回放延迟短暂上升，需要按阈值决策。",
+ "dir": "database/0142-延迟升高先停止扩大",
+ "audio": "0142-延迟升高先停止扩大.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "复制观察"
+ ],
+ "duration": 67.2
+}

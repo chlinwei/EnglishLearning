@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.048
+Priya: What's the rollback trigger? Let's agree before anyone starts changing hosts.
+什么情况触发回退？任何人开始改主机前先达成一致。
+
+2
+00:00:06.048 --> 00:00:11.880
+Lukas: Failure to boot, missing network or storage, or a confirmed regression in the canary.
+无法启动、网络或存储不可用，或者灰度节点出现已确认的回归问题。
+
+3
+00:00:11.880 --> 00:00:18.528
+Raj: A latency spike alone means pause first. Check the evidence before blaming the patch.
+仅延迟突增先暂停，查看证据后再判断是不是补丁的问题。
+
+4
+00:00:18.528 --> 00:00:26.424
+Hannah: Let me play that back. Pause on uncertainty, roll back when the canary fails agreed checks?
+我复述一下：不确定时暂停，灰度节点不满足约定检查时回退？
+
+5
+00:00:26.424 --> 00:00:33.576
+Priya: Exactly. Just to confirm, the recovery window includes checks after backing out, right?
+对。我确认一下，恢复窗口也包括回退后的检查，对吧？
+
+6
+00:00:33.576 --> 00:00:39.696
+Anika: Yes. The app stays off traffic until health and business checks pass again.
+包括。健康和业务检查再次通过前，应用不接回流量。
+
+7
+00:00:39.696 --> 00:00:45.984
+Lukas: And rollback may mean another reboot. Keep the old kernel and its modules available.
+回退可能还需要一次重启，所以要保留旧内核及对应模块。
+
+8
+00:00:45.984 --> 00:00:52.416
+Raj: I'm on it. I'll verify the boot entry and the console access before draining.
+我来核对。退出流量前先验证启动项和控制台访问。
+
+9
+00:00:52.416 --> 00:01:00.408
+Hannah: If console access fails, it's a no-go. We can't rely on SSH after a bad boot.
+控制台访问失败就不能开始，启动异常后不能指望SSH仍然可用。
+
+10
+00:01:00.408 --> 00:01:08.400
+Priya: A broader rollback redesign? Let's park that. Verify tonight's documented procedure first.
+更全面的回退方案重设计先放一边。先核实今晚文档规定的流程。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.488
+Priya: Let's freeze changes. Split brain is the risk.
+
+2
+00:00:04.488 --> 00:00:08.448
+Lukas: Changing DNS won't stop local database writers.
+
+3
+00:00:08.448 --> 00:00:12.480
+Raj: The network partition leaves old sessions uncertain.
+
+4
+00:00:12.480 --> 00:00:16.728
+Hannah: And network filters might miss another interface.
+
+5
+00:00:16.728 --> 00:00:20.712
+Anika: That's our blast radius: conflicting order records.
+
+6
+00:00:20.712 --> 00:00:24.528
+Priya: Just to confirm, power fencing first, right?
+
+7
+00:00:24.528 --> 00:00:29.184
+Lukas: Yes, with independent confirmation and restart inhibition.
+
+8
+00:00:29.184 --> 00:00:33.624
+Raj: The escalation path reaches our infrastructure operator.
+
+9
+00:00:33.624 --> 00:00:37.032
+Hannah: Could automated recovery turn it back on?
+
+10
+00:00:37.032 --> 00:00:41.760
+Priya: Possibly. We'll disable that before any promotion.
+

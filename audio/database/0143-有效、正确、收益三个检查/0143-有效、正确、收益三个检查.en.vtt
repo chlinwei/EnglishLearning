@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.744
+Raj: Index validity is confirmed in catalog. The build returned success without errors.
+
+2
+00:00:06.744 --> 00:00:13.296
+Lukas: Verify the exact columns and predicate. A valid wrong index still disappoints.
+
+3
+00:00:13.296 --> 00:00:20.015
+Anika: They match our approved non-unique definition. The query plan improves selective searches.
+
+4
+00:00:20.015 --> 00:00:26.639
+Priya: Just to confirm, broad scans allowed, right? Don't force every query through it.
+
+5
+00:00:26.639 --> 00:00:34.439
+Hannah: Yes, the smoke test passed correctness. Pagination and tenant boundaries still match.
+
+6
+00:00:34.439 --> 00:00:41.087
+Raj: WAL generation has returned near normal. We're back to baseline for replica lag.
+
+7
+00:00:41.087 --> 00:00:47.327
+Lukas: Now enable the query switch gradually. Measure writes alongside each read batch.
+
+8
+00:00:47.327 --> 00:00:54.046
+Priya: Okay, about five minutes per step. Maybe cache warmth affects the first samples.
+
+9
+00:00:54.046 --> 00:01:02.230
+Hannah: Compare equivalent workloads, not mixed averages. Cold and warm tests need labels.
+
+10
+00:01:02.230 --> 00:01:08.830
+Anika: So, I'll record both result sets. The canary's search responses remain correct.
+

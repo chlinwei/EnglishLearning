@@ -1,0 +1,135 @@
+{
+ "id": "0227",
+ "part": 2,
+ "stage": "业务分级",
+ "title": "关键请求不是全部免限流",
+ "premise": "回放确认数据库成本差异，需要对业务路径分级。",
+ "listeningTask": "听出关键业务预留资源与无限豁免的区别。",
+ "newPhrase": "p502",
+ "phrases": [
+  "p502",
+  "p501",
+  "p316",
+  "p010:extra",
+  "p011:extra",
+  "p106:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Our critical path includes orders and payment callbacks.",
+   "zh": "关键业务路径包括订单和支付回调。",
+   "role": "Checkout product engineer",
+   "start": 0.0,
+   "end": 4.128
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are callbacks authenticated before getting priority?",
+   "zh": "回调获得优先级前是否经过认证？",
+   "role": "Capacity reviewer",
+   "start": 4.128,
+   "end": 7.8
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, provider signatures. Headers alone aren't trusted.",
+   "zh": "是的，要校验提供方签名，不能只信请求头。",
+   "role": "Gateway engineer",
+   "start": 7.8,
+   "end": 13.223
+  },
+  {
+   "sp": "Hannah",
+   "en": "Which requests can we shed load from?",
+   "zh": "可以从哪些请求上减轻承接负载？",
+   "role": "Validation engineer",
+   "start": 13.223,
+   "end": 16.175
+  },
+  {
+   "sp": "Anika",
+   "en": "Recommendations and exports. Checkout confirmation stays protected.",
+   "zh": "推荐和导出可以降级，结账确认保持保护。",
+   "role": "Checkout product engineer",
+   "start": 16.175,
+   "end": 21.839
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, protected isn't unlimited, right?",
+   "zh": "确认一下，受保护不代表无限制，对吧？",
+   "role": "Change coordinator",
+   "start": 21.839,
+   "end": 26.183
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Separate bounded pools.",
+   "zh": "我复述一下：分开的、有上限的资源池。",
+   "role": "Validation engineer",
+   "start": 26.183,
+   "end": 30.743
+  },
+  {
+   "sp": "Raj",
+   "en": "That's our blast radius if shared storage overloads.",
+   "zh": "共享存储过载会影响到这些业务。",
+   "role": "Gateway engineer",
+   "start": 30.743,
+   "end": 34.99
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe callbacks need buffering, not immediate rejection.",
+   "zh": "也许回调需要缓冲，而不是立即拒绝。",
+   "role": "Capacity reviewer",
+   "start": 34.99,
+   "end": 39.19
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, use the peak forecast for each class.",
+   "zh": "好，按每个业务类别使用峰值预测。",
+   "role": "Change coordinator",
+   "start": 39.19,
+   "end": 43.15
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 2,
+ "scene": "回放确认数据库成本差异，需要对业务路径分级。",
+ "dir": "ha/0227-关键请求不是全部免限流",
+ "audio": "0227-关键请求不是全部免限流.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "业务分级"
+ ],
+ "duration": 43.15
+}

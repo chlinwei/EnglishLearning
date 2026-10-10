@@ -1,0 +1,135 @@
+{
+ "id": "0185",
+ "part": 10,
+ "stage": "文档",
+ "title": "记录可复现边界",
+ "premise": "升级完成且回退复核通过，整理构建与运行记录。",
+ "listeningTask": "听清哪些输入固定、哪些组合未验证和遗留任务。",
+ "newPhrase": "p460",
+ "phrases": [
+  "p460",
+  "p009",
+  "p453:extra",
+  "p454:extra",
+  "p457:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Build provenance now records all pinned inputs. That includes interpreter, mirror snapshots, and toolchain.",
+   "zh": "构建来源记录全部固定输入，包括解释器、镜像源快照和工具链。",
+   "role": "Python dependency maintainer",
+   "start": 0.0,
+   "end": 8.328
+  },
+  {
+   "sp": "Hannah",
+   "en": "Attach final digests and comparison results. The reproducibility claim covers our tested platform only.",
+   "zh": "附最终摘要与比较结果，可复现结论仅限已测平台。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 8.328,
+   "end": 17.736
+  },
+  {
+   "sp": "Anika",
+   "en": "Hash-locked requirements live beside the build recipe. The compatibility matrix links to behavior tests.",
+   "zh": "哈希锁依赖与构建步骤放一起，兼容矩阵链接行为测试。",
+   "role": "Inventory application owner",
+   "start": 17.736,
+   "end": 25.56
+  },
+  {
+   "sp": "Priya",
+   "en": "The deprecation warning has an action item. Raj owns the replacement next sprint, right?",
+   "zh": "弃用警告已设行动项，Raj下个迭代负责替换，对吧？",
+   "role": "Change coordinator and approval owner",
+   "start": 25.56,
+   "end": 32.352
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep approval and rollback records linked too. An engineer should retrieve the exact previous artifact.",
+   "zh": "也关联审批与回退记录，工程师应能取回准确旧制品。",
+   "role": "Build and release SRE",
+   "start": 32.352,
+   "end": 39.72
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, maybe one sprint for the replacement. I'll estimate after reviewing the new callback.",
+   "zh": "是，替换可能需一个迭代，审查新回调后再估算。",
+   "role": "Python dependency maintainer",
+   "start": 39.72,
+   "end": 46.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "Don't generalize success to untested interpreter versions. Those need their own locks and validation.",
+   "zh": "不能把成功推广到未测解释器版本，它们需要独立锁与验证。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 46.656,
+   "end": 55.344
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, I'll close the loop with operations. They have the stop and recovery procedures.",
+   "zh": "好，我与运维确认闭环，他们已经拿到停止和恢复流程。",
+   "role": "Inventory application owner",
+   "start": 55.344,
+   "end": 61.992
+  },
+  {
+   "sp": "Lukas",
+   "en": "The retained artifacts have a named owner. Expiry reminders prevent accidental loss before review.",
+   "zh": "留存制品有明确负责人，到期提醒避免评审前误丢。",
+   "role": "Build and release SRE",
+   "start": 61.992,
+   "end": 69.24
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, deployment is complete with follow-up tracked. Next sprint we'll review the callback replacement.",
+   "zh": "同意，部署完成，遗留改进持续跟踪，下个迭代评审回调替换。",
+   "role": "Change coordinator and approval owner",
+   "start": 69.24,
+   "end": 76.8
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 10,
+ "scene": "升级完成且回退复核通过，整理构建与运行记录。",
+ "dir": "coding/0185-记录可复现边界",
+ "audio": "0185-记录可复现边界.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "文档"
+ ],
+ "duration": 76.8
+}

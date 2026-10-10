@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Lukas: Can I challenge that estimate a little? Shared state makes extraction less mechanical here.
+
+2
+00:00:06.480 --> 00:00:14.064
+Raj: Fair, I counted functions rather than behavior. The hidden coupling probably adds integration work.
+
+3
+00:00:14.064 --> 00:00:22.632
+Hannah: The rollback trigger also needs rehearsal evidence. That's work, even without immediate production release.
+
+4
+00:00:22.632 --> 00:00:29.208
+Priya: Let me play that back for everyone. The full extraction is a stretch, not committed.
+
+5
+00:00:29.208 --> 00:00:37.296
+Anika: Just to confirm, the first slice stays useful, right? Consumers can validate one complete report.
+
+6
+00:00:37.296 --> 00:00:44.616
+Raj: Yes, I can narrow the committed output. Maybe one report path plus its failure cases.
+
+7
+00:00:44.616 --> 00:00:51.048
+Lukas: That sounds clearer than inflating every estimate. Keep optional work separate from the goal.
+
+8
+00:00:51.048 --> 00:00:58.512
+Priya: Okay, we'll record the revised commitment explicitly. Nobody needs to defend the original number.
+
+9
+00:00:58.512 --> 00:01:06.096
+Hannah: I'll check that reduced scope remains testable. Smaller doesn't mean skipping the error paths.
+
+10
+00:01:06.096 --> 00:01:13.080
+Anika: Agreed, I'll confirm it with the consumers. Their acceptance matters more than our point total.
+

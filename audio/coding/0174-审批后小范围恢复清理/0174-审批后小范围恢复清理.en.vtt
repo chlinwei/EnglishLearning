@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Approve a deletion budget of ten objects. One tenant only, with scoped credentials restored.
+
+2
+00:00:07.344 --> 00:00:13.248
+Lukas: Keep the stop switch within reach. An unexpected path is a rollback trigger.
+
+3
+00:00:13.248 --> 00:00:20.807
+Raj: Just to confirm, stop means disable the scheduler, right? And terminate the active process group.
+
+4
+00:00:20.807 --> 00:00:28.487
+Anika: Yes, revoke cleanup access if needed too. Existing consumer reads use their separate identity.
+
+5
+00:00:28.487 --> 00:00:37.823
+Hannah: The deletion manifest matches approved candidates exactly. No shared artifact path appears in execution.
+
+6
+00:00:37.823 --> 00:00:45.167
+Raj: Okay, actual removals stay below the budget. Rejected candidates remain untouched in this run.
+
+7
+00:00:45.167 --> 00:00:51.599
+Lukas: Reads remain healthy through the canary. Let's keep it under observation before expansion.
+
+8
+00:00:51.599 --> 00:00:58.822
+Priya: Maybe we'll expand tomorrow after another review. No automatic fleet-wide catch-up run tonight.
+
+9
+00:00:58.822 --> 00:01:07.006
+Hannah: Record both denied and successful operations. We need evidence that the limits actually applied.
+
+10
+00:01:07.006 --> 00:01:14.470
+Anika: Agreed, backups and recovery routing stay available. We'll retain the incident hold until closure.
+

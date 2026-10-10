@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.512
+Anika: Initial reconciliation checks passed for sampled tenants. Counts and payment totals match references.
+抽样租户初步对账通过，行数和付款总额匹配参考值。
+
+2
+00:00:07.512 --> 00:00:14.041
+Hannah: Which reference time does that represent? Current source totals would be wrong.
+参考值代表哪个时间？当前数据源总额不能直接比较。
+
+3
+00:00:14.041 --> 00:00:20.137
+Raj: The frozen drill ledger at two ten. It matches our recovery target exactly.
+两点十分的冻结演练账本，准确匹配恢复目标。
+
+4
+00:00:20.137 --> 00:00:26.858
+Priya: Just to confirm, boundary markers too, right? Counts can match with wrong rows.
+确认一下，也查边界标记，对吧？行错了也可能数量一致。
+
+5
+00:00:26.858 --> 00:00:33.218
+Lukas: Yes, show commits around that boundary. We need positive and negative evidence.
+对，展示边界前后的提交，需要存在和不存在两类证据。
+
+6
+00:00:33.218 --> 00:00:39.722
+Anika: The two-oh-nine-fifty-eight commit is present. The two-ten-oh-two commit is correctly absent.
+两点九分五十八秒提交存在，两点十分零二秒提交正确地不存在。
+
+7
+00:00:39.722 --> 00:00:48.075
+Hannah: Good, the smoke test checks references too. But full tenant reconciliation remains unfinished.
+好，冒烟测试也核对关联关系，但完整租户对账仍没完成。
+
+8
+00:00:48.075 --> 00:00:54.363
+Raj: I'm on it for query evidence links. Maybe larger tenants need longer checks.
+我提供查询证据链接，大租户检查可能更久。
+
+9
+00:00:54.363 --> 00:01:00.916
+Lukas: Full validation? We can rule that out. A sample doesn't cover every tenant.
+完整验收？这可以排除。抽样并不覆盖每个租户。
+
+10
+00:01:00.916 --> 00:01:07.300
+Priya: Okay, label the sample coverage clearly. The next shift owns remaining checks.
+好，清楚标记抽样覆盖，下个班负责剩余检查。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.704
+Lukas: The old leader disappears. Would you promote immediately?
+
+2
+00:00:04.704 --> 00:00:08.976
+Raj: No. A fencing token needs storage-side enforcement.
+
+3
+00:00:08.976 --> 00:00:13.225
+Raj: Just to confirm, stale writers get rejected, right?
+
+4
+00:00:13.225 --> 00:00:16.945
+Hannah: Where is the new epoch persisted and checked?
+
+5
+00:00:16.945 --> 00:00:21.025
+Raj: The quorum decision persists it in replicated storage.
+
+6
+00:00:21.025 --> 00:00:24.721
+Lukas: What if that rejection mechanism can't be verified?
+
+7
+00:00:24.721 --> 00:00:29.665
+Raj: Pause writes. Use verified power fencing if needed.
+
+8
+00:00:29.665 --> 00:00:34.106
+Raj: The out-of-band console can independently confirm shutdown.
+
+9
+00:00:34.106 --> 00:00:39.218
+Hannah: Okay, maybe define a rollback trigger for uncertainty.
+
+10
+00:00:39.218 --> 00:00:44.930
+Raj: Stop routing writes. A smoke test follows safe authority transfer.
+

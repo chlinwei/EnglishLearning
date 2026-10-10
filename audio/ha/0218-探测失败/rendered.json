@@ -1,0 +1,135 @@
+{
+ "id": "0218",
+ "part": 3,
+ "stage": "判断分区",
+ "title": "探测失败：不等于旧主死亡",
+ "premise": "备机提交点已核对，但旧主仍不可从集群网络访问。",
+ "listeningTask": "区分网络路径失效和主机电源状态。",
+ "newPhrase": "p493",
+ "phrases": [
+  "p493",
+  "p335",
+  "p302",
+  "p325:extra",
+  "p103:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Our working hypothesis is a network partition.",
+   "zh": "当前假设是网络分区。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 3.816
+  },
+  {
+   "sp": "Lukas",
+   "en": "What evidence separates that from host failure?",
+   "zh": "有什么证据能区分它和主机故障？",
+   "role": "Cluster safety engineer",
+   "start": 3.816,
+   "end": 7.177
+  },
+  {
+   "sp": "Priya",
+   "en": "The out-of-band console responds. That's independent connectivity.",
+   "zh": "带外控制台有响应，那是独立连接。",
+   "role": "Incident coordinator",
+   "start": 7.177,
+   "end": 12.601
+  },
+  {
+   "sp": "Hannah",
+   "en": "Console access alone doesn't prove database activity.",
+   "zh": "仅能访问控制台不能证明数据库仍在运行。",
+   "role": "Data validation engineer",
+   "start": 12.601,
+   "end": 17.306
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log. Local write attempts appear.",
+   "zh": "我盯一下日志，里面有本地写入尝试。",
+   "role": "Database on-call",
+   "start": 17.306,
+   "end": 21.962
+  },
+  {
+   "sp": "Anika",
+   "en": "Scheduled jobs, perhaps. They bypass our gateway.",
+   "zh": "也许是定时任务，它们绕过网关。",
+   "role": "Order application owner",
+   "start": 21.962,
+   "end": 26.835
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then the gateway block isn't complete fencing.",
+   "zh": "那网关阻断就不算完整的隔离。",
+   "role": "Cluster safety engineer",
+   "start": 26.835,
+   "end": 30.051
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no promotion now, right?",
+   "zh": "确认一下，现在不提升，对吧？",
+   "role": "Incident coordinator",
+   "start": 30.051,
+   "end": 33.819
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. Preserve logs before disabling the host.",
+   "zh": "对，禁用主机前先保留日志。",
+   "role": "Data validation engineer",
+   "start": 33.819,
+   "end": 38.74
+  },
+  {
+   "sp": "Raj",
+   "en": "We can rule that out as total power loss.",
+   "zh": "可以排除完全断电这一解释。",
+   "role": "Database on-call",
+   "start": 38.74,
+   "end": 42.34
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 3,
+ "scene": "备机提交点已核对，但旧主仍不可从集群网络访问。",
+ "dir": "ha/0218-探测失败",
+ "audio": "0218-探测失败.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "判断分区"
+ ],
+ "duration": 42.34
+}

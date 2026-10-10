@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.488
+Priya: Just to recap, carry forward the blocked expansion. Today's focus stays evidence and test coverage.
+
+2
+00:00:07.488 --> 00:00:15.624
+Lukas: Rotation feedback at two, approval after coverage. No production restart is authorized by this standup.
+
+3
+00:00:15.624 --> 00:00:23.304
+Raj: Okay, the rollout remains blocked on approval. I'll update that dependency around lunchtime today.
+
+4
+00:00:23.304 --> 00:00:31.320
+Hannah: And the driver image is still pending. I'll report availability without assuming test success.
+
+5
+00:00:31.320 --> 00:00:38.520
+Anika: My action item stays the limits report. Effective settings and resource impact both included.
+
+6
+00:00:38.520 --> 00:00:46.680
+Priya: Just to confirm, take it offline for details, right? Keep remaining implementation discussion outside standup.
+
+7
+00:00:46.680 --> 00:00:53.280
+Lukas: Yes, I can join the review thread. Please keep separate changes in separate requests.
+
+8
+00:00:53.280 --> 00:00:59.712
+Raj: Roughly ten minutes after this for pairing. Hannah and I will check the assertions.
+
+9
+00:00:59.712 --> 00:01:07.440
+Hannah: That fits before my next meeting starts. I'll link results rather than repeat details tomorrow.
+
+10
+00:01:07.440 --> 00:01:14.040
+Priya: So, we're done with today's standup. Next check-in tomorrow, same time and owners.
+

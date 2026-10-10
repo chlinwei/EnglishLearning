@@ -1,0 +1,129 @@
+{
+ "id": "0214",
+ "part": 9,
+ "stage": "方案取舍",
+ "title": "不声称端到端恰好一次",
+ "premise": "吞吐方案有上限，面试者追问跨系统一致性和复杂度取舍。",
+ "listeningTask": "区分投递保证、副作用幂等与不确定结果核对。",
+ "newPhrase": "p489",
+ "phrases": [
+  "p489",
+  "p010",
+  "p484:extra",
+  "p334:extra",
+  "p009:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Would you describe this as exactly-once processing? Explain the guarantee without hiding its limits.",
+   "zh": "会称为恰好一次处理吗？解释保证，不隐藏限制。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 0.0,
+   "end": 8.544
+  },
+  {
+   "sp": "Raj",
+   "en": "No, our queue provides at-least-once delivery. The idempotency key limits duplicate remote side effects.",
+   "zh": "不会，队列至少一次投递，幂等键限制重复远程副作用。",
+   "role": "DevOps engineering candidate",
+   "start": 8.544,
+   "end": 16.537
+  },
+  {
+   "sp": "Lukas",
+   "en": "But the local ledger isn't remotely atomic. What remains uncertain after a long outage?",
+   "zh": "本地记录与远端不是原子事务，长故障后还有什么不确定？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 16.537,
+   "end": 23.233
+  },
+  {
+   "sp": "Raj",
+   "en": "Unknown results may outlive the deduplication period. Just to confirm, blind resubmission is unsafe, right?",
+   "zh": "未知结果可能超过去重期限，确认一下，盲重发不安全，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 23.233,
+   "end": 31.61
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, a temporary workaround pauses those operations. One action item is authoritative result reconciliation.",
+   "zh": "好，临时措施是暂停这些操作，需核对权威结果。",
+   "role": "DevOps engineering candidate",
+   "start": 31.61,
+   "end": 40.178
+  },
+  {
+   "sp": "Hannah",
+   "en": "Would adding another database solve that gap? Or does it merely move the uncertainty?",
+   "zh": "再加数据库能解决缺口吗？还是只移动不确定性？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 40.178,
+   "end": 46.874
+  },
+  {
+   "sp": "Raj",
+   "en": "It won't create a cross-system transaction automatically. Maybe stronger service contracts are needed for guarantees.",
+   "zh": "不会自动建立跨系统事务，更强保证可能需要加强服务契约。",
+   "role": "DevOps engineering candidate",
+   "start": 46.874,
+   "end": 55.371
+  },
+  {
+   "sp": "Lukas",
+   "en": "What complexity would you defer initially? We still want a maintainable first solution.",
+   "zh": "初版推迟什么复杂度？仍希望首版可维护。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 55.371,
+   "end": 61.875
+  },
+  {
+   "sp": "Raj",
+   "en": "Let's park that custom distributed transaction coordinator. I'd prefer the provided contract and explicit reconciliation.",
+   "zh": "先放下自建分布式事务协调器，优先给定契约和显式核对。",
+   "role": "DevOps engineering candidate",
+   "start": 61.875,
+   "end": 70.78
+  },
+  {
+   "sp": "Raj",
+   "en": "The trade-off is visible operational follow-up work. I'd document that rather than promise impossible semantics.",
+   "zh": "代价是需要明确运维跟进，会记录它，不承诺不可能语义。",
+   "role": "DevOps engineering candidate",
+   "start": 70.78,
+   "end": 78.82
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 9,
+ "scene": "吞吐方案有上限，面试者追问跨系统一致性和复杂度取舍。",
+ "dir": "coding/0214-不声称端到端恰好一次",
+ "audio": "0214-不声称端到端恰好一次.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "方案取舍"
+ ],
+ "duration": 78.82
+}

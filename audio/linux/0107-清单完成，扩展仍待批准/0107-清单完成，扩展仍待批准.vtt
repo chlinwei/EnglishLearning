@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.464
+Raj: Okay, the patch inventory is generated automatically. Friday's two pilot hosts passed validation.
+好，补丁清单已自动生成，周五两台试点主机验证通过。
+
+2
+00:00:07.464 --> 00:00:15.576
+Lukas: Does the inventory show reboot requirements too? Package installation alone doesn't establish running kernel state.
+清单也显示重启需求吗？安装软件包不代表运行内核状态已更新。
+
+3
+00:00:15.576 --> 00:00:22.897
+Raj: Yes, installed and running versions appear separately. A pending reboot stays clearly flagged.
+是，安装版本和运行版本分开显示，待重启状态明确标记。
+
+4
+00:00:22.897 --> 00:00:29.977
+Hannah: Did each pilot include a smoke test? Include service readiness after the reboot.
+每台试点都做了冒烟测试吗？也要包括重启后的服务就绪。
+
+5
+00:00:29.977 --> 00:00:37.105
+Anika: Yes, both service checks passed on Friday. No remaining issue from those pilot hosts.
+是，两台服务检查周五都通过了，没有遗留问题。
+
+6
+00:00:37.105 --> 00:00:45.145
+Priya: Just to confirm, staged rollout still applies, right? Two hosts don't prove fleet-wide compatibility.
+我确认一下，仍然分阶段发布，对吧？两台不能证明全量兼容。
+
+7
+00:00:45.145 --> 00:00:52.009
+Lukas: Correct, driver variants still need coverage. Which maintenance window covers the next group?
+对，驱动差异还要覆盖。下一组安排在哪个维护窗口？
+
+8
+00:00:52.009 --> 00:00:59.114
+Raj: Wednesday evening, subject to the pending approval. What's the ETA from the application owner?
+暂定周三晚，等待批准。应用负责人预计多久回复？
+
+9
+00:00:59.114 --> 00:01:06.698
+Hannah: They haven't committed to an approval time. Show that dependency instead of assuming Wednesday.
+他们尚未承诺批准时间，应展示依赖而非假定周三执行。
+
+10
+00:01:06.698 --> 00:01:14.090
+Priya: So, prepare roughly ten candidate hosts today. Don't schedule reboots before that approval lands.
+因此今天准备约十台候选主机，批准到位前不安排重启。
+

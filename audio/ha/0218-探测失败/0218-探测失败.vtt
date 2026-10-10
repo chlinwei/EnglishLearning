@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.816
+Raj: Our working hypothesis is a network partition.
+当前假设是网络分区。
+
+2
+00:00:03.816 --> 00:00:07.177
+Lukas: What evidence separates that from host failure?
+有什么证据能区分它和主机故障？
+
+3
+00:00:07.177 --> 00:00:12.601
+Priya: The out-of-band console responds. That's independent connectivity.
+带外控制台有响应，那是独立连接。
+
+4
+00:00:12.601 --> 00:00:17.306
+Hannah: Console access alone doesn't prove database activity.
+仅能访问控制台不能证明数据库仍在运行。
+
+5
+00:00:17.306 --> 00:00:21.962
+Raj: Let me tail the log. Local write attempts appear.
+我盯一下日志，里面有本地写入尝试。
+
+6
+00:00:21.962 --> 00:00:26.835
+Anika: Scheduled jobs, perhaps. They bypass our gateway.
+也许是定时任务，它们绕过网关。
+
+7
+00:00:26.835 --> 00:00:30.051
+Lukas: Then the gateway block isn't complete fencing.
+那网关阻断就不算完整的隔离。
+
+8
+00:00:30.051 --> 00:00:33.819
+Priya: Just to confirm, no promotion now, right?
+确认一下，现在不提升，对吧？
+
+9
+00:00:33.819 --> 00:00:38.740
+Hannah: Correct. Preserve logs before disabling the host.
+对，禁用主机前先保留日志。
+
+10
+00:00:38.740 --> 00:00:42.340
+Raj: We can rule that out as total power loss.
+可以排除完全断电这一解释。
+

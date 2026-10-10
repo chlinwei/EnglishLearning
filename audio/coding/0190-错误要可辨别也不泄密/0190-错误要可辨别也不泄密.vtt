@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.392
+Raj: Each failure now returns a structured error. Normal inventory output stays clean on stdout.
+失败现在返回结构化错误，标准输出保持纯资产数据。
+
+2
+00:00:07.392 --> 00:00:14.904
+Lukas: Where do human-readable diagnostics go then? Automation must distinguish failure from empty results.
+可读诊断发到哪里？自动化要区分失败与空结果。
+
+3
+00:00:14.904 --> 00:00:23.063
+Raj: Stderr, with documented nonzero exit codes. Just to confirm, no tokens in diagnostics, right?
+标准错误输出，配非零退出码文档。确认一下，不含令牌，对吧？
+
+4
+00:00:23.063 --> 00:00:30.935
+Anika: Yes, the read-only scope still needs redaction. Request metadata can contain sensitive query values.
+是，即使只读也需脱敏，请求元数据可能含敏感查询值。
+
+5
+00:00:30.935 --> 00:00:38.711
+Hannah: Let me tail the log in testing. I'll verify redaction with deliberately sensitive fixtures.
+测试时我检查日志，用专门敏感fixture验证脱敏。
+
+6
+00:00:38.711 --> 00:00:46.511
+Priya: Okay, make exit-code documentation an action item. Maybe our shell examples need updates too.
+好，退出码文档列任务，shell示例可能也需更新。
+
+7
+00:00:46.511 --> 00:00:54.959
+Lukas: Don't catch every exception as authentication failure. Preserve distinct categories and safe diagnostic context.
+不要把所有异常都当认证失败，保留不同类别和安全诊断上下文。
+
+8
+00:00:54.959 --> 00:01:03.094
+Raj: I'm on it with explicit exception categories. Unexpected failures retain a sanitized trace identifier.
+我做显式异常分类，意外失败保留脱敏追踪标识。
+
+9
+00:01:03.094 --> 00:01:12.166
+Hannah: I'll test malformed responses and permission denial. Those should produce different actionable error categories.
+我测试异常响应和权限拒绝，它们应产生可行动的不同错误类别。
+
+10
+00:01:12.166 --> 00:01:18.430
+Anika: Good, that's enough detail for the standup. I'll bring sample failures to the follow-up.
+好，站会这些细节够了，会后我带失败样本。
+

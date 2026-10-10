@@ -1,0 +1,135 @@
+{
+ "id": "0030",
+ "part": 5,
+ "stage": "确定安全边界",
+ "title": "能删哪一批：保留策略先确认",
+ "premise": "已定位未关闭的已删除日志；应用重开日志的操作仍在核对，先审查旧归档。",
+ "listeningTask": "听出清理范围、保留要求和谁批准，不把临时清理当根因修复。",
+ "newPhrase": "p305",
+ "phrases": [
+  "p305",
+  "p010",
+  "p013",
+  "p014:extra",
+  "p008:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The archives are compressed logs. These ones are over fourteen days old.",
+   "zh": "归档是压缩日志。这一批都超过十四天了。",
+   "role": "Operations engineer",
+   "start": 0.0,
+   "end": 6.36
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the retention policy? I don't want to lose anything we need.",
+   "zh": "保留策略是什么？我不想删掉还需要的资料。",
+   "role": "Incident lead",
+   "start": 6.36,
+   "end": 11.664
+  },
+  {
+   "sp": "Anika",
+   "en": "Seven days locally. Longer retention is in central storage. I'll check the uploads.",
+   "zh": "本地保留七天，更长期的日志在集中存储里。我去检查上传情况。",
+   "role": "Application owner",
+   "start": 11.664,
+   "end": 19.081
+  },
+  {
+   "sp": "Lukas",
+   "en": "And any legal hold? Age alone doesn't make a file safe to delete.",
+   "zh": "有没有要求暂停删除的留存事项？不能只因为文件旧就认为能删。",
+   "role": "SRE",
+   "start": 19.081,
+   "end": 24.433
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, only this reviewed list? Not everything under the log directory, right?",
+   "zh": "我确认一下，只处理审过的这个清单？不是删整个日志目录，对吧？",
+   "role": "Linux on-call",
+   "start": 24.433,
+   "end": 31.201
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly. About three gigs. No active logs, and no files from this incident.",
+   "zh": "对，大约三 GB。不包含活跃日志，也不包含本次故障的日志。",
+   "role": "Operations engineer",
+   "start": 31.201,
+   "end": 39.457
+  },
+  {
+   "sp": "Priya",
+   "en": "Who's picking this up? What's the ETA once the checks are done?",
+   "zh": "谁来接这件事？核查完成后预计多久？",
+   "role": "Incident lead",
+   "start": 39.457,
+   "end": 44.569
+  },
+  {
+   "sp": "Anika",
+   "en": "Uploads are complete. No hold on this batch. I'm on it for approval.",
+   "zh": "这批上传完整，没有暂停删除要求。我来确认批准。",
+   "role": "Application owner",
+   "start": 44.569,
+   "end": 51.074
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good. That gives us some room, not a fix for the open file.",
+   "zh": "好。这能腾一点空间，但解决不了那个未关闭文件的问题。",
+   "role": "SRE",
+   "start": 51.074,
+   "end": 55.898
+  },
+  {
+   "sp": "Raj",
+   "en": "About a minute after approval. Let's circle back to the open handle once we've cleared these.",
+   "zh": "批准后大约一分钟。清理完这批，我们再回到那个未关闭的句柄上。",
+   "role": "Linux on-call",
+   "start": 55.898,
+   "end": 62.93
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 5,
+ "scene": "已定位未关闭的已删除日志；应用重开日志的操作仍在核对，先审查旧归档。",
+ "dir": "linux/0030-能删哪一批",
+ "audio": "0030-能删哪一批.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "确定安全边界"
+ ],
+ "duration": 62.93
+}

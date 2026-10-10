@@ -1,0 +1,135 @@
+{
+ "id": "0238",
+ "part": 3,
+ "stage": "单点梳理",
+ "title": "多副本后面的共享单点",
+ "premise": "吞吐与存储瓶颈待复测，先列出整条业务链的共享依赖。",
+ "listeningTask": "听出代理、出口和配置管理也是可用性依赖。",
+ "newPhrase": "p513",
+ "phrases": [
+  "p513",
+  "p106",
+  "p330",
+  "p010:extra",
+  "p339:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "One proxy host. A single point of failure.",
+   "zh": "只有一台代理主机，是单点故障源。",
+   "role": "Reliability architect",
+   "start": 0.0,
+   "end": 4.128
+  },
+  {
+   "sp": "Raj",
+   "en": "Two proxies exist, but share one host.",
+   "zh": "有两个代理，但共用一台主机。",
+   "role": "Infrastructure capacity engineer",
+   "start": 4.128,
+   "end": 7.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "And both zones use the same outbound gateway.",
+   "zh": "而且两个区都用同一个出口网关。",
+   "role": "Performance engineer",
+   "start": 7.656,
+   "end": 11.449
+  },
+  {
+   "sp": "Anika",
+   "en": "That's our blast radius: every payment callback.",
+   "zh": "影响范围就是所有支付回调。",
+   "role": "Service and budget owner",
+   "start": 11.449,
+   "end": 15.361
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, inventory includes dependencies, right?",
+   "zh": "确认一下，清单包括依赖项，对吧？",
+   "role": "Architecture review chair",
+   "start": 15.361,
+   "end": 19.993
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, managed configuration is shared too.",
+   "zh": "是的，受管理配置也是共享的。",
+   "role": "Infrastructure capacity engineer",
+   "start": 19.993,
+   "end": 23.785
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe running services survive control-plane loss, though.",
+   "zh": "不过控制平面失效时，运行中的服务也许能继续。",
+   "role": "Reliability architect",
+   "start": 23.785,
+   "end": 27.745
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis assumes cached configuration remains valid.",
+   "zh": "当前假设是缓存配置继续有效。",
+   "role": "Service and budget owner",
+   "start": 27.745,
+   "end": 32.618
+  },
+  {
+   "sp": "Hannah",
+   "en": "Test expiry and restarts, not just steady operation.",
+   "zh": "还要测试过期和重启，不只测试稳定运行。",
+   "role": "Performance engineer",
+   "start": 32.618,
+   "end": 37.85
+  },
+  {
+   "sp": "Priya",
+   "en": "Have I missed anything? DNS belongs here too.",
+   "zh": "有没有遗漏？DNS也应该列在这里。",
+   "role": "Architecture review chair",
+   "start": 37.85,
+   "end": 42.41
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 3,
+ "scene": "吞吐与存储瓶颈待复测，先列出整条业务链的共享依赖。",
+ "dir": "ha/0238-多副本后面的共享单点",
+ "audio": "0238-多副本后面的共享单点.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "单点梳理"
+ ],
+ "duration": 42.41
+}

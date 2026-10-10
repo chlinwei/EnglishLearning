@@ -1,0 +1,135 @@
+{
+ "id": "0147",
+ "part": 2,
+ "stage": "备份来源",
+ "title": "核实基础备份和来源链",
+ "premise": "隔离边界明确，接班方核对基础备份标识与文件校验。",
+ "listeningTask": "辨别备份创建时间、完成时间和恢复目标。",
+ "newPhrase": "p422",
+ "phrases": [
+  "p422",
+  "p421",
+  "p010:extra",
+  "p103:extra",
+  "p014:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The base backup started at midnight. It completed at twenty past, UTC.",
+   "zh": "基础备份午夜开始，UTC零点二十分完成。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 6.312
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which backup identifier did you restore? Filenames alone aren't enough provenance evidence.",
+   "zh": "恢复的是哪个备份标识？只看文件名不足以证明来源。",
+   "role": "Incoming database on-call",
+   "start": 6.312,
+   "end": 13.272
+  },
+  {
+   "sp": "Anika",
+   "en": "Drill backup B seventeen, recorded here. Its backup manifest matches verified file checksums.",
+   "zh": "演练备份B17，记录在这里，备份清单和已核验文件校验和一致。",
+   "role": "Outgoing application validation owner",
+   "start": 13.272,
+   "end": 20.711
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, drill source only, right? Not a convenient untracked production copy.",
+   "zh": "确认一下，只用演练数据源，对吧？不是随手拿的未追踪生产副本。",
+   "role": "Recovery drill coordinator",
+   "start": 20.711,
+   "end": 27.887
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, the dataset approval is attached. Were encryption and restore access tested?",
+   "zh": "是，数据集批准记录已附，加密和恢复权限测试了吗？",
+   "role": "Incoming reconciliation engineer",
+   "start": 27.887,
+   "end": 35.327
+  },
+  {
+   "sp": "Raj",
+   "en": "They were, through the approved key service. We recorded outcomes, not secret values.",
+   "zh": "测了，通过批准的密钥服务，记录结果而非密钥值。",
+   "role": "Outgoing database on-call",
+   "start": 35.327,
+   "end": 42.047
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me tail the log next. I want the backup identity during startup.",
+   "zh": "接下来我盯日志，看启动时确认的备份标识。",
+   "role": "Incoming database on-call",
+   "start": 42.047,
+   "end": 47.519
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, I'm on it for that link. Maybe the storage view needs refreshing.",
+   "zh": "好，我提供链接，存储视图可能需要刷新。",
+   "role": "Outgoing application validation owner",
+   "start": 47.519,
+   "end": 53.446
+  },
+  {
+   "sp": "Hannah",
+   "en": "The startup record matches B seventeen. That removes one source mismatch concern.",
+   "zh": "启动记录匹配B17，排除了一个来源不匹配疑点。",
+   "role": "Incoming reconciliation engineer",
+   "start": 53.446,
+   "end": 61.03
+  },
+  {
+   "sp": "Priya",
+   "en": "So, our working hypothesis has verified provenance. Next separate backup time from target.",
+   "zh": "那当前假设有已验证来源，下一步区分备份时间和恢复目标。",
+   "role": "Recovery drill coordinator",
+   "start": 61.03,
+   "end": 68.35
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 2,
+ "scene": "隔离边界明确，接班方核对基础备份标识与文件校验。",
+ "dir": "database/0147-核实基础备份和来源链",
+ "audio": "0147-核实基础备份和来源链.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "备份来源"
+ ],
+ "duration": 68.35
+}

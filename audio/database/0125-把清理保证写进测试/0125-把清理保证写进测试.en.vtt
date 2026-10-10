@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.976
+Anika: Every exit must return the connection. The timeout cleanup path now does.
+
+2
+00:00:05.976 --> 00:00:12.456
+Lukas: After resolving transaction state, of course. Tests must enforce that ordering too.
+
+3
+00:00:12.456 --> 00:00:19.633
+Raj: Okay, checked-out connections need age alerts. Counts alone hid abandoned ownership here.
+
+4
+00:00:19.633 --> 00:00:25.729
+Priya: Who's picking this up by Friday? Hannah, you own those alerts, right?
+
+5
+00:00:25.729 --> 00:00:33.481
+Hannah: Yes, with a bounded cancellation test. I'll compare occupancy before and after.
+
+6
+00:00:33.481 --> 00:00:39.625
+Anika: My action item is regression coverage. I'll add exception cases by tomorrow.
+
+7
+00:00:39.625 --> 00:00:45.913
+Lukas: I'll review retry limits with clients. Maybe our timeout budget needs adjustment.
+
+8
+00:00:45.913 --> 00:00:52.394
+Raj: I'll review the report plan tomorrow. Slow reports triggered waits, not every leak.
+
+9
+00:00:52.394 --> 00:00:59.618
+Hannah: Report recovery needs its own evidence. Keep that acceptance separate from cleanup.
+
+10
+00:00:59.618 --> 00:01:06.290
+Priya: So, close the loop next Friday. Bring test results, not just closed tickets.
+

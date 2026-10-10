@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Anika: The worker is processing again. About twelve thousand events are still waiting.
+工作进程又开始处理了，大约还有一万两千个事件在等待。
+
+2
+00:00:06.024 --> 00:00:11.520
+Lukas: Is processing faster than arrivals? Otherwise the queue won't catch up.
+处理速度比新事件到达速度快吗？不然积压消不掉。
+
+3
+00:00:11.520 --> 00:00:17.784
+Anika: Yes, we've got spare capacity. Maybe five minutes to clear the backlog.
+是的，现在有余量。大概五分钟能清掉积压。
+
+4
+00:00:17.784 --> 00:00:22.872
+Priya: Just to confirm, that assumes traffic stays roughly steady, right?
+我确认一下，这个估算以流量大致稳定为前提，对吧？
+
+5
+00:00:22.872 --> 00:00:29.400
+Hannah: Retries look normal now. I'll check for duplicate notifications as well.
+现在重试指标正常了。我也会检查有没有重复通知。
+
+6
+00:00:29.400 --> 00:00:36.432
+Raj: Rotation is verified on this host. The new handle stays open; the old one closes.
+这台主机的轮转已验证。新文件句柄保持打开，旧的会关闭。
+
+7
+00:00:36.432 --> 00:00:42.840
+Lukas: Just to recap, disk pressure is resolved. Customer delays aren't fully cleared yet.
+小结一下，磁盘压力已解决，但用户通知延迟还没有完全消除。
+
+8
+00:00:42.840 --> 00:00:48.840
+Priya: What's the ETA for the next update? Let's circle back after the queue clears.
+下次更新预计什么时候？队列清空后我们再回来确认。
+
+9
+00:00:48.840 --> 00:00:55.416
+Hannah: Five minutes works. We'll check oldest-event age, not just queue depth.
+五分钟可以。我们会检查最老事件等待时间，不只看队列长度。
+
+10
+00:00:55.416 --> 00:01:02.760
+Anika: Agreed. Once those checks pass, we can say we're back to baseline. Not before.
+同意。那些检查都通过后，才能说恢复到正常基线，现在还不能。
+

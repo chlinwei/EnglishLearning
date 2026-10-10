@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:09.072
+Hannah: Our test fixture covers successful rotation already. Permission failures still need an explicit case.
+测试预置环境已覆盖成功轮转，权限失败还需要明确用例。
+
+2
+00:00:09.072 --> 00:00:16.080
+Raj: Okay, I'll add a denied-write scenario today. The runner must stop without deleting logs.
+好，我今天添加禁止写入场景。执行器必须停止且不删除日志。
+
+3
+00:00:16.080 --> 00:00:22.704
+Lukas: What about deleted but still open files? Disk usage can differ from directory totals.
+已删除但仍打开的文件呢？磁盘使用可能不同于目录总量。
+
+4
+00:00:22.704 --> 00:00:29.808
+Anika: That case belongs in the diagnostics test. No cleanup of open descriptors by default.
+这个场景属于诊断测试，默认不清理仍打开的描述符。
+
+5
+00:00:29.808 --> 00:00:38.232
+Priya: Just to confirm, no production fault injection, right? Test failures stay inside isolated environments.
+我确认一下，不在生产注入故障，对吧？失败测试留在隔离环境。
+
+6
+00:00:38.232 --> 00:00:46.776
+Hannah: Right, and repeated runs should be idempotent. The second run must not restart healthy services.
+对，多次运行应幂等，第二次不能重启健康服务。
+
+7
+00:00:46.776 --> 00:00:54.216
+Raj: We'll dry-run it first for intended changes. Restart count should remain unchanged on repeats.
+先预演计划变更，重复运行时重启计数应不变。
+
+8
+00:00:54.216 --> 00:01:01.344
+Lukas: Capture both expected and actual changes. A successful exit alone won't establish safety.
+记录预期和实际变化，仅退出成功不能证明安全。
+
+9
+00:01:01.344 --> 00:01:07.296
+Anika: My action item is the descriptor case. It should take roughly an hour today.
+我的待办是描述符场景，今天大约需要一小时。
+
+10
+00:01:07.296 --> 00:01:15.360
+Priya: So, report coverage gaps alongside passing tests. We'll discuss implementation after this short standup.
+因此报告通过测试时也报告覆盖缺口。实现细节留到短站会后讨论。
+

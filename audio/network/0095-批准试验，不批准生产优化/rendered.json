@@ -1,0 +1,135 @@
+{
+ "id": "0095",
+ "part": 10,
+ "stage": "决策总结",
+ "title": "批准试验，不批准生产优化",
+ "premise": "试验与证据任务已有负责人，收尾记录决策和未决事项。",
+ "listeningTask": "复述已批准试验、未证实原因和生产不变的边界。",
+ "newPhrase": "p370",
+ "phrases": [
+  "p370",
+  "p320",
+  "p010",
+  "p011:extra",
+  "p012:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, approve the isolated trials. The decision record keeps production settings unchanged.",
+   "zh": "小结一下，批准隔离试验。决策记录明确生产设置不变。",
+   "role": "Architecture review chair",
+   "start": 0.0,
+   "end": 7.848
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back briefly. Pooling and MTU tests run separately first.",
+   "zh": "我简短复述一下：连接池和MTU测试先分别运行。",
+   "role": "SRE reviewer",
+   "start": 7.848,
+   "end": 13.872
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, pooling may reduce setup time. It doesn't remove distance or payload charges.",
+   "zh": "好，连接池可能降低建立时间，但不消除距离或载荷费用。",
+   "role": "Pricing client owner",
+   "start": 13.872,
+   "end": 20.471
+  },
+  {
+   "sp": "Hannah",
+   "en": "And the root cause is still open. Route and payload effects need further evidence.",
+   "zh": "根因仍未确定，路由和载荷影响需要更多证据。",
+   "role": "Performance engineer",
+   "start": 20.471,
+   "end": 27.383
+  },
+  {
+   "sp": "Raj",
+   "en": "The reverse path remains a specific dependency. No claim of confirmed MTU failure.",
+   "zh": "回程路径仍是明确依赖，不能声称已确认MTU故障。",
+   "role": "Network engineer",
+   "start": 27.383,
+   "end": 34.319
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, compare costs before adoption, right? Include socket and memory overhead too.",
+   "zh": "我确认一下，采用前比较成本，对吧？套接字和内存开销也要算。",
+   "role": "Architecture review chair",
+   "start": 34.319,
+   "end": 41.975
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, improvements must preserve correctness and limits. A faster failed request isn't a win.",
+   "zh": "是，改善必须保持正确性和资源限制。更快的失败请求不是收益。",
+   "role": "SRE reviewer",
+   "start": 41.975,
+   "end": 49.343
+  },
+  {
+   "sp": "Anika",
+   "en": "We'll circle back with roughly comparable samples. If counts differ, we'll explain that gap.",
+   "zh": "我们会带着大致可比的样本回访。数量不同就说明差距。",
+   "role": "Pricing client owner",
+   "start": 49.343,
+   "end": 56.734
+  },
+  {
+   "sp": "Hannah",
+   "en": "Bring raw summaries alongside the proposed conclusion. That lets us challenge the interpretation.",
+   "zh": "带上原始汇总和建议结论，让我们能质疑解释。",
+   "role": "Performance engineer",
+   "start": 56.734,
+   "end": 64.582
+  },
+  {
+   "sp": "Priya",
+   "en": "So, review tomorrow, not an automatic rollout. We're closing the meeting, not the investigation.",
+   "zh": "所以明天评审，不自动发布。结束的是会议，不是调查。",
+   "role": "Architecture review chair",
+   "start": 64.582,
+   "end": 72.19
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 10,
+ "scene": "试验与证据任务已有负责人，收尾记录决策和未决事项。",
+ "dir": "network/0095-批准试验，不批准生产优化",
+ "audio": "0095-批准试验，不批准生产优化.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "决策总结"
+ ],
+ "duration": 72.19
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0137",
+ "part": 2,
+ "stage": "收益评审",
+ "title": "收益要匹配真实查询",
+ "premise": "范围限定十月叶分区，隔离预演比较索引前后执行计划。",
+ "listeningTask": "区分小租户收益、宽范围扫描和写入代价。",
+ "newPhrase": "p412",
+ "phrases": [
+  "p412",
+  "p010",
+  "p411:extra",
+  "p327:extra",
+  "p008:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The query plan uses the candidate index. Small tenant searches read fewer pages.",
+   "zh": "执行计划使用候选索引，小租户查询读取更少数据页。",
+   "role": "Orders search owner",
+   "start": 0.0,
+   "end": 6.624
+  },
+  {
+   "sp": "Hannah",
+   "en": "What about large tenants and wide dates? The planner may choose scans there.",
+   "zh": "大租户和宽日期范围呢？优化器在那种情况下可能选择扫描。",
+   "role": "Query and rollout validation engineer",
+   "start": 6.624,
+   "end": 13.175
+  },
+  {
+   "sp": "Raj",
+   "en": "It does for very broad searches. That's reasonable, not automatically a regression.",
+   "zh": "宽范围查询确实会扫描，这是合理选择，不自动算回归。",
+   "role": "Database change operator",
+   "start": 13.175,
+   "end": 19.727
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, production-like skew, right? Uniform test rows could flatter results.",
+   "zh": "确认一下，数据偏斜类似生产，对吧？均匀测试行可能美化结果。",
+   "role": "Change coordinator",
+   "start": 19.727,
+   "end": 26.83
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, and inserts ran beside reads. Extra index maintenance increased their latency slightly.",
+   "zh": "是，插入和读取同时运行，额外索引维护让插入延迟略升。",
+   "role": "Database reliability reviewer",
+   "start": 26.83,
+   "end": 34.222
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis passed sampled queries. Maybe peak concurrency changes that balance.",
+   "zh": "当前假设通过抽样查询验证，但峰值并发可能改变收益平衡。",
+   "role": "Orders search owner",
+   "start": 34.222,
+   "end": 41.398
+  },
+  {
+   "sp": "Hannah",
+   "en": "The smoke test includes empty results. Also test tenant isolation and pagination.",
+   "zh": "冒烟测试包含空结果，也测试租户隔离和分页。",
+   "role": "Query and rollout validation engineer",
+   "start": 41.398,
+   "end": 49.533
+  },
+  {
+   "sp": "Priya",
+   "en": "So, what's the ETA for load tests? We need them before scheduling production.",
+   "zh": "那负载测试预计多久？排生产窗口前必须完成。",
+   "role": "Change coordinator",
+   "start": 49.533,
+   "end": 55.893
+  },
+  {
+   "sp": "Lukas",
+   "en": "This afternoon, using the approved workload. No heavy explain analysis against production.",
+   "zh": "今天下午，使用批准负载，不在线上做重型执行分析。",
+   "role": "Database reliability reviewer",
+   "start": 55.893,
+   "end": 63.068
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, concurrent index build remains the proposal. Next we review its locking boundaries.",
+   "zh": "好，并发建索引仍是提案，下一步评审锁边界。",
+   "role": "Database change operator",
+   "start": 63.068,
+   "end": 69.98
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 2,
+ "scene": "范围限定十月叶分区，隔离预演比较索引前后执行计划。",
+ "dir": "database/0137-收益要匹配真实查询",
+ "audio": "0137-收益要匹配真实查询.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "收益评审"
+ ],
+ "duration": 69.98
+}

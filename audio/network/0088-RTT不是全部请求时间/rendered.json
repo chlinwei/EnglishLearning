@@ -1,0 +1,135 @@
+{
+ "id": "0088",
+ "part": 3,
+ "stage": "跨区对比",
+ "title": "RTT不是全部请求时间",
+ "premise": "统一口径采样完成，比较本区与跨区的网络及应用阶段。",
+ "listeningTask": "不要将请求延迟差直接等同于网络往返时间。",
+ "newPhrase": "p363",
+ "phrases": [
+  "p363",
+  "p362",
+  "p010",
+  "p302:extra",
+  "p342:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, TCP round-trip time is about thirty milliseconds. Local connections are closer to two.",
+   "zh": "好，跨区TCP往返时间大约三十毫秒，本区连接接近两毫秒。",
+   "role": "Network engineer",
+   "start": 0.0,
+   "end": 7.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "Measured on the actual service path? ICMP probes may receive different treatment.",
+   "zh": "是在实际服务路径上测的吗？ICMP探测可能受到不同处理。",
+   "role": "Performance engineer",
+   "start": 7.656,
+   "end": 14.712
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, from sampled application TCP connections. The measurement window matches our client traces.",
+   "zh": "是，来自抽样应用TCP连接。时间窗与客户端链路记录一致。",
+   "role": "Network engineer",
+   "start": 14.712,
+   "end": 22.608
+  },
+  {
+   "sp": "Lukas",
+   "en": "That doesn't explain every extra millisecond. What happens during fresh TLS connections?",
+   "zh": "那不能解释每一毫秒额外时间。新TLS连接期间发生什么？",
+   "role": "SRE reviewer",
+   "start": 22.608,
+   "end": 29.592
+  },
+  {
+   "sp": "Anika",
+   "en": "They add several network exchanges before pricing. Warm calls avoid most setup time.",
+   "zh": "定价前会增加几次网络交换，热连接调用避免了大部分建立时间。",
+   "role": "Pricing client owner",
+   "start": 29.592,
+   "end": 36.456
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, intermittent failures aren't rising, right? We should separate failures from slow successes.",
+   "zh": "我确认一下，间歇失败没有增加，对吧？要把失败和慢成功分开。",
+   "role": "Architecture review chair",
+   "start": 36.456,
+   "end": 44.712
+  },
+  {
+   "sp": "Hannah",
+   "en": "Failure counts remain near the existing baseline. The slower successful calls dominate this comparison.",
+   "zh": "失败计数接近原有基线，较慢的成功调用是这次比较的主体。",
+   "role": "Performance engineer",
+   "start": 44.712,
+   "end": 53.28
+  },
+  {
+   "sp": "Raj",
+   "en": "Can we rule that out as congestion? Actually, not from RTT samples alone.",
+   "zh": "能据此排除拥塞吗？其实不能只靠RTT样本。",
+   "role": "Network engineer",
+   "start": 53.28,
+   "end": 59.856
+  },
+  {
+   "sp": "Lukas",
+   "en": "Right, inspect queue and retransmission evidence next. Geography explains distance, not every tail spike.",
+   "zh": "对，接下来检查排队和重传证据。地理距离不能解释每个尾延迟尖峰。",
+   "role": "SRE reviewer",
+   "start": 59.856,
+   "end": 68.688
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for server queue traces. So, we'll compare those with route evidence.",
+   "zh": "服务端队列链路记录我来查，然后与路由证据比较。",
+   "role": "Pricing client owner",
+   "start": 68.688,
+   "end": 74.88
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 3,
+ "scene": "统一口径采样完成，比较本区与跨区的网络及应用阶段。",
+ "dir": "network/0088-RTT不是全部请求时间",
+ "audio": "0088-RTT不是全部请求时间.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "跨区对比"
+ ],
+ "duration": 74.88
+}

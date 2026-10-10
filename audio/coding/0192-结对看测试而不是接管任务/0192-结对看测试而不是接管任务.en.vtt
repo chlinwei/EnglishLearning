@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Raj: Could someone pair on it before lunch? I need help checking cancellation test design.
+
+2
+00:00:06.552 --> 00:00:12.984
+Hannah: I've got bandwidth for thirty minutes. We'll focus on the test coverage gap.
+
+3
+00:00:12.984 --> 00:00:20.999
+Priya: Just to confirm, Raj keeps implementation ownership, right? Hannah helps validate the failure cases.
+
+4
+00:00:20.999 --> 00:00:28.175
+Anika: I'm on it for realistic response samples. Maybe those make cancellation timing less artificial.
+
+5
+00:00:28.175 --> 00:00:35.255
+Lukas: Use controlled scheduling in the tests. Real-time sleeps make concurrency tests unreliable.
+
+6
+00:00:35.255 --> 00:00:42.551
+Raj: Okay, I'll inject the scheduler for tests. Production behavior doesn't need a new timing policy.
+
+7
+00:00:42.551 --> 00:00:49.223
+Hannah: Let's take it offline after the standup. We can inspect the test harness together.
+
+8
+00:00:49.223 --> 00:00:56.374
+Priya: Good, today's commitment should remain small enough. Don't turn pairing into a framework rewrite.
+
+9
+00:00:56.374 --> 00:01:02.398
+Lukas: I'll review the seam for scheduler injection. Keep it narrow and internal to testing.
+
+10
+00:01:02.398 --> 00:01:08.830
+Anika: I'll join for the first sample walkthrough. Then I'll return to the contract request.
+

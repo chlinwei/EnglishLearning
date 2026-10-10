@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Raj: I'll hand over the restore drill. The backup manifest is in our ticket.
+我交接恢复演练，备份清单在工单里。
+
+2
+00:00:05.616 --> 00:00:11.497
+Lukas: Is this connected to production anywhere? I need the environment boundary first.
+它有任何地方连着生产吗？先明确环境边界。
+
+3
+00:00:11.497 --> 00:00:18.409
+Priya: No, a separate test network throughout. Just to confirm, no live cutover, right?
+没有，全程单独测试网络。确认一下，不做线上切换，对吧？
+
+4
+00:00:18.409 --> 00:00:25.418
+Anika: Correct, synthetic orders and test credentials. Outbound payment calls are blocked too.
+对，合成订单和测试凭据，对外支付调用也阻断了。
+
+5
+00:00:25.418 --> 00:00:33.338
+Hannah: Good. Is data validation finished yet? Starting the database isn't full acceptance.
+好，数据验证完成了吗？数据库启动不等于完整验收。
+
+6
+00:00:33.338 --> 00:00:39.602
+Raj: Only the initial checks have passed. Full reconciliation still needs your shift.
+只有首批检查通过，完整对账还需要你们班完成。
+
+7
+00:00:39.602 --> 00:00:45.963
+Lukas: Then show the escalation path clearly. I'll take ownership after reviewing evidence.
+那写清升级联系路径，评审证据后我再接责。
+
+8
+00:00:45.963 --> 00:00:51.939
+Priya: Okay, what's the ETA for review? About ten minutes for this handoff.
+好，评审预计多久？这次交接大约十分钟。
+
+9
+00:00:51.939 --> 00:00:58.012
+Hannah: That works if the evidence opens. Have I missed anything about access?
+证据能打开就可以，访问权限方面我漏了什么吗？
+
+10
+00:00:58.012 --> 00:01:04.780
+Anika: So, access is through approved accounts. No production secrets copied into notes.
+那访问使用批准账户，记录里没有复制生产密钥。
+

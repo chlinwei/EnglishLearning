@@ -1,0 +1,135 @@
+{
+ "id": "0153",
+ "part": 8,
+ "stage": "接班提问",
+ "title": "接班方复查隔离边界",
+ "premise": "剩余任务已分配，接班方追问恢复环境和写测试克隆的访问边界。",
+ "listeningTask": "听清测试克隆不改变恢复参考点。",
+ "newPhrase": "p428",
+ "phrases": [
+  "p428",
+  "p427",
+  "p423:extra",
+  "p010:extra",
+  "p011:extra",
+  "p339:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Show me the isolated restore environment. Can its test clone contact production services?",
+   "zh": "给我看隔离恢复环境，测试克隆能联系生产服务吗？",
+   "role": "Incoming database on-call",
+   "start": 0.0,
+   "end": 6.936
+  },
+  {
+   "sp": "Raj",
+   "en": "No, network policy blocks those routes. Both environments use drill credentials exclusively.",
+   "zh": "不能，网络策略阻断那些路由，两种环境都只用演练凭据。",
+   "role": "Outgoing database on-call",
+   "start": 6.936,
+   "end": 14.449
+  },
+  {
+   "sp": "Anika",
+   "en": "The reference stays read-only for comparisons. The clone handles synthetic retry writes.",
+   "zh": "参考库保持只读用于比较，克隆处理合成重试写入。",
+   "role": "Outgoing application validation owner",
+   "start": 14.449,
+   "end": 21.289
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, reference remains unchanged, right? New test writes aren't restored history.",
+   "zh": "确认一下，参考库不变，对吧？新的测试写入不是恢复历史。",
+   "role": "Recovery drill coordinator",
+   "start": 21.289,
+   "end": 28.85
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back carefully. Compare reference data, test behavior on clone.",
+   "zh": "我仔细复述：参考库对数据，克隆测行为。",
+   "role": "Incoming reconciliation engineer",
+   "start": 28.85,
+   "end": 35.978
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, label both connection profiles clearly. Maybe the similar names need stronger warnings.",
+   "zh": "是，两个连接配置都清楚标记，相似名字可能需要更明显提示。",
+   "role": "Outgoing database on-call",
+   "start": 35.978,
+   "end": 43.394
+  },
+  {
+   "sp": "Lukas",
+   "en": "Have I missed anything about cleanup? When will temporary drill credentials expire?",
+   "zh": "清理方面还有遗漏吗？临时演练凭据什么时候过期？",
+   "role": "Incoming database on-call",
+   "start": 43.394,
+   "end": 49.491
+  },
+  {
+   "sp": "Anika",
+   "en": "At noon, unless approved extension happens. Evidence remains in the restricted drill archive.",
+   "zh": "中午过期，除非批准延期，证据保留在受限演练归档。",
+   "role": "Outgoing application validation owner",
+   "start": 49.491,
+   "end": 56.715
+  },
+  {
+   "sp": "Hannah",
+   "en": "Pending validation may need more time. Request extension before expiry, never bypass access.",
+   "zh": "待验证可能更久，过期前申请延期，不能绕过访问控制。",
+   "role": "Incoming reconciliation engineer",
+   "start": 56.715,
+   "end": 65.62
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, the recovery target stays documented. No clone results replace reference-point checks.",
+   "zh": "好，恢复目标保持记录，克隆结果不能替代参考点检查。",
+   "role": "Recovery drill coordinator",
+   "start": 65.62,
+   "end": 72.94
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 8,
+ "scene": "剩余任务已分配，接班方追问恢复环境和写测试克隆的访问边界。",
+ "dir": "database/0153-接班方复查隔离边界",
+ "audio": "0153-接班方复查隔离边界.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "接班提问"
+ ],
+ "duration": 72.94
+}

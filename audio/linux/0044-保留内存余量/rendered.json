@@ -1,0 +1,135 @@
+{
+ "id": "0044",
+ "part": 9,
+ "stage": "持续观察",
+ "title": "保留内存余量：扩容不是答案",
+ "premise": "观察通过后逐步恢复正常拉取速率，积压已清空，开始检查容量余量与告警条件。",
+ "listeningTask": "听清容量措施与根因调查的区别，以及何时停止灰度节点消费。",
+ "newPhrase": "p319",
+ "phrases": [
+  "p319",
+  "p110",
+  "p309",
+  "p010:extra",
+  "p004:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Queue age is normal. Samples look good. We're back to baseline.",
+   "zh": "事件等待时间正常，抽样也没问题，服务恢复到基线了。",
+   "role": "Application owner",
+   "start": 0.0,
+   "end": 6.192
+  },
+  {
+   "sp": "Lukas",
+   "en": "What about memory headroom? The host needs room for more than this worker.",
+   "zh": "内存余量呢？主机不能只给这个消费者留空间。",
+   "role": "SRE",
+   "start": 6.192,
+   "end": 11.496
+  },
+  {
+   "sp": "Raj",
+   "en": "We've got room now. I'll keep an eye on the growth rate.",
+   "zh": "现在还有余量，我会留意增长速度。",
+   "role": "Linux on-call",
+   "start": 11.496,
+   "end": 16.368
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, adding memory isn't the fix, right? It might only delay another OOM.",
+   "zh": "我确认一下，加内存不是根因修复，对吧？可能只是推迟下一次OOM。",
+   "role": "Incident lead",
+   "start": 16.368,
+   "end": 23.448
+  },
+  {
+   "sp": "Hannah",
+   "en": "Right. Forecast time to exhaustion as well. A percentage alone can hide the risk.",
+   "zh": "对，也要估算按当前增长速度多久耗尽，单看百分比可能掩盖风险。",
+   "role": "Operations engineer",
+   "start": 23.448,
+   "end": 31.392
+  },
+  {
+   "sp": "Anika",
+   "en": "Should we discuss a bigger host? Let's park that until we have the trend.",
+   "zh": "要不要讨论更大的主机？先放一边，等有了趋势再说。",
+   "role": "Application owner",
+   "start": 31.392,
+   "end": 37.08
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use the existing memory alert. If growth resumes, pause the canary and escalate.",
+   "zh": "沿用现有内存告警。如果再次持续增长，就暂停灰度消费并升级处理。",
+   "role": "SRE",
+   "start": 37.08,
+   "end": 43.896
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's circle back in an hour. Keep the rollback ready in case we need it.",
+   "zh": "一小时后我们再确认。回滚准备保持就绪，以防需要。",
+   "role": "Incident lead",
+   "start": 43.896,
+   "end": 49.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll put the trigger and contact in the handoff. No guessing on the next shift.",
+   "zh": "我会把触发条件和联系人写进交接，下个班不用猜。",
+   "role": "Operations engineer",
+   "start": 49.656,
+   "end": 56.112
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed. The canary stays isolated. No further rollout until the app owner signs off.",
+   "zh": "同意。灰度节点保持隔离，在应用负责人批准前不扩大发布。",
+   "role": "Linux on-call",
+   "start": 56.112,
+   "end": 63.84
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 9,
+ "scene": "观察通过后逐步恢复正常拉取速率，积压已清空，开始检查容量余量与告警条件。",
+ "dir": "linux/0044-保留内存余量",
+ "audio": "0044-保留内存余量.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "持续观察"
+ ],
+ "duration": 63.84
+}

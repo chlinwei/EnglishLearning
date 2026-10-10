@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.968
+Anika: Graceful degradation removes recommendations, not order confirmation.
+
+2
+00:00:04.968 --> 00:00:09.169
+Hannah: What does the customer see during payment uncertainty?
+
+3
+00:00:09.169 --> 00:00:13.993
+Anika: Pending status. Never a fabricated success message.
+
+4
+00:00:13.993 --> 00:00:17.738
+Lukas: Does cached content remain tenant-safe and fresh?
+
+5
+00:00:17.738 --> 00:00:23.522
+Raj: Public recommendations only. Personalized responses aren't shared.
+
+6
+00:00:23.522 --> 00:00:27.506
+Priya: Just to confirm, critical path intact, right?
+
+7
+00:00:27.506 --> 00:00:33.387
+Hannah: Maybe. Test confirmation when recommendations are unavailable.
+
+8
+00:00:33.387 --> 00:00:37.083
+Raj: That'll buy us time without hiding payment errors.
+
+9
+00:00:37.083 --> 00:00:41.548
+Lukas: Okay, define the rollback trigger using business outcomes.
+
+10
+00:00:41.548 --> 00:00:46.180
+Priya: New recommendation designs? Let's park that today.
+

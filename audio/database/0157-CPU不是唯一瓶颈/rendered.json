@@ -1,0 +1,135 @@
+{
+ "id": "0157",
+ "part": 2,
+ "stage": "性能基线",
+ "title": "CPU不是唯一瓶颈",
+ "premise": "增长口径确定，核对峰值CPU、交易延迟和报表磁盘压力。",
+ "listeningTask": "听出不同业务指标不能混为一个平均值。",
+ "newPhrase": "p432",
+ "phrases": [
+  "p432",
+  "p431",
+  "p010:extra",
+  "p309:extra",
+  "p302:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The peak load baseline shows sixty-eight percent CPU. Transaction latency remains within target.",
+   "zh": "峰值基线显示CPU百分之六十八，交易延迟仍达标。",
+   "role": "Database capacity owner",
+   "start": 0.0,
+   "end": 7.824
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which percentile and which request class? An average could hide busy periods.",
+   "zh": "哪个百分位、哪类请求？平均值可能掩盖繁忙时段。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 7.824,
+   "end": 13.92
+  },
+  {
+   "sp": "Anika",
+   "en": "Transaction p ninety-five is one-forty milliseconds. Its target is two hundred milliseconds.",
+   "zh": "交易p95是一百四十毫秒，目标两百毫秒。",
+   "role": "Orders application architect",
+   "start": 13.92,
+   "end": 20.976
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, reports measured separately, right? They aren't meeting that same target.",
+   "zh": "确认一下，报表单独测，对吧？它不是满足同一个指标。",
+   "role": "Capacity review chair",
+   "start": 20.976,
+   "end": 28.104
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, reports reach nearly two seconds. Their scans coincide with disk queues.",
+   "zh": "对，报表接近两秒，扫描与磁盘队列上升重叠。",
+   "role": "Performance and cost analyst",
+   "start": 28.104,
+   "end": 35.928
+  },
+  {
+   "sp": "Raj",
+   "en": "We can't rule that out as contention. Maybe a larger CPU won't help enough.",
+   "zh": "不能排除资源争用，也许更多CPU帮助不够。",
+   "role": "Database capacity owner",
+   "start": 35.928,
+   "end": 42.528
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll keep an eye on I/O ceilings. Instance bandwidth and storage limits differ.",
+   "zh": "我关注I/O上限，实例带宽和存储限制是两回事。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 42.528,
+   "end": 48.648
+  },
+  {
+   "sp": "Anika",
+   "en": "The growth forecast increases both workloads. But it doesn't prove CPU saturation yet.",
+   "zh": "增长预测会增加两类负载，但还不能证明CPU将饱和。",
+   "role": "Orders application architect",
+   "start": 48.648,
+   "end": 55.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "Our working hypothesis is avoidable scan pressure. Let's inspect the query before sizing.",
+   "zh": "当前假设是可避免的扫描压力，估算规格前先查查询。",
+   "role": "Performance and cost analyst",
+   "start": 55.656,
+   "end": 63.6
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, keep that distinction in the notes. We need capacity and efficiency together.",
+   "zh": "好，记录这种区分，容量和效率一起考虑。",
+   "role": "Capacity review chair",
+   "start": 63.6,
+   "end": 70.2
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 2,
+ "scene": "增长口径确定，核对峰值CPU、交易延迟和报表磁盘压力。",
+ "dir": "database/0157-CPU不是唯一瓶颈",
+ "audio": "0157-CPU不是唯一瓶颈.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "性能基线"
+ ],
+ "duration": 70.2
+}

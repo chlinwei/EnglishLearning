@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.984
+Raj: We lacked a negative test case. Fixtures always supplied a valid tenant identifier.
+此前缺少异常输入拒绝测试，用例始终传合法租户标识。
+
+2
+00:00:06.984 --> 00:00:15.553
+Hannah: The reproduction establishes the direct path failure. Why review missed it still needs investigation.
+复现确认直接路径故障，评审为什么漏掉仍需调查。
+
+3
+00:00:15.553 --> 00:00:22.609
+Priya: Okay, just to recap, reads are restored. Cleanup remains limited to the approved tenant.
+好，小结：读取已恢复，清理仍限于批准租户。
+
+4
+00:00:22.609 --> 00:00:30.458
+Anika: The guard clause covers missing arguments, right? Path containment also covers valid but unsafe paths.
+保护分支覆盖缺失参数，对吧？路径边界保护也覆盖有值但危险的路径。
+
+5
+00:00:30.458 --> 00:00:37.826
+Lukas: Yes, plus scoped permissions and race protection. Don't collapse those layers into one checkbox.
+对，还包括限定权限和防竞态，不能把这些合并成一项勾选。
+
+6
+00:00:37.826 --> 00:00:45.482
+Raj: One action item is mutation-based safety testing. I'll prove disabled guards make tests fail.
+一个行动项是变异测试，我会验证关掉保护后测试确实失败。
+
+7
+00:00:45.482 --> 00:00:53.139
+Hannah: I'll review that evidence before closure. Passing tests need to detect broken safeguards.
+关闭事件前我审查证据，通过的测试必须能发现保护失效。
+
+8
+00:00:53.139 --> 00:00:59.547
+Priya: Maybe we should sample other cleanup tools. Let's close the loop on this one first.
+可能还该抽查其他清理工具，先把本次整改闭环。
+
+9
+00:00:59.547 --> 00:01:06.700
+Lukas: Assign a deadline for the review investigation. Recovery success doesn't explain the approval gap.
+为评审缺口调查定期限，恢复成功不等于解释了审批漏项。
+
+10
+00:01:06.700 --> 00:01:13.540
+Anika: I'll bring the evidence next Tuesday. Expansion stays blocked until the checks are signed off.
+我下周二带证据回来，检查正式验收前不扩大清理。
+

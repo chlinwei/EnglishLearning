@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Raj: Archived WAL covers the whole required chain. Segments remain available through two fifteen.
+
+2
+00:00:06.912 --> 00:00:13.273
+Lukas: Did replay stop at the requested point? Availability beyond it doesn't change scope.
+
+3
+00:00:13.273 --> 00:00:20.017
+Anika: Yes, logs show the recovery target reached. We inspected that before test access.
+
+4
+00:00:20.017 --> 00:00:27.962
+Priya: Just to confirm, isolation remained intact, right? No application production endpoint was changed.
+
+5
+00:00:27.962 --> 00:00:33.986
+Hannah: Let me tail the log myself. I see no missing segment warnings.
+
+6
+00:00:33.986 --> 00:00:40.995
+Raj: The backup manifest checks passed before replay. Timeline and target settings are attached.
+
+7
+00:00:40.995 --> 00:00:46.275
+Lukas: Was recovery left paused or ended? I need the current server state.
+
+8
+00:00:46.275 --> 00:00:52.635
+Anika: It ended under the reviewed drill procedure. Test access opened after boundary checks.
+
+9
+00:00:52.635 --> 00:00:58.252
+Hannah: So a smoke test can run. That still doesn't prove every row.
+
+10
+00:00:58.252 --> 00:01:05.500
+Priya: Okay, maybe summarize those checks next. Keep completed steps distinct from acceptance.
+

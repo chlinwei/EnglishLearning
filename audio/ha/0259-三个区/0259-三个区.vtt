@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.248
+Lukas: Sketch the storage layer. Where do replicas live?
+画一下存储层，副本放在哪里？
+
+2
+00:00:04.248 --> 00:00:09.024
+Raj: Three zones. A quorum decision authorizes leadership.
+三个区，由法定人数决策授权领导者。
+
+3
+00:00:09.024 --> 00:00:13.297
+Raj: Just to confirm, majority-durable acknowledgments, right?
+确认一下，确认写入须在多数副本持久化，对吧？
+
+4
+00:00:13.297 --> 00:00:18.625
+Hannah: Yes. Don't count an unpersisted network acknowledgment.
+是的，不能把未持久化的网络响应算进去。
+
+5
+00:00:18.625 --> 00:00:23.161
+Raj: My working hypothesis uses a proven consensus database.
+我当前的方案假设使用成熟的共识数据库。
+
+6
+00:00:23.161 --> 00:00:26.905
+Lukas: What shared infrastructure could still break all zones?
+哪些共享基础设施仍可能使所有区失效？
+
+7
+00:00:26.905 --> 00:00:32.185
+Raj: Managed configuration could. I'd stage configuration changes.
+受管理配置可能做到，我会分阶段改配置。
+
+8
+00:00:32.185 --> 00:00:36.050
+Raj: That's our blast radius for a shared bad rule.
+一条共享错误规则的影响范围会覆盖这些区。
+
+9
+00:00:36.050 --> 00:00:41.018
+Hannah: Let me play that back. Maybe separate rollout domains.
+我复述一下，也许还要分开发布故障域。
+
+10
+00:00:41.018 --> 00:00:46.730
+Raj: Exactly. API replicas and gateways stay zone-separated too.
+正是，API副本和网关也按区分开。
+

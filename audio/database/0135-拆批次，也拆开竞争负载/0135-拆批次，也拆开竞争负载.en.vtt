@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.952
+Raj: We'll batch the deletes from now. The large transaction caused the WAL burst.
+
+2
+00:00:05.952 --> 00:00:13.464
+Hannah: Disk waits fell after scan throttling. Replay accelerated with the same incoming rate.
+
+3
+00:00:13.464 --> 00:00:19.729
+Anika: That supports disk competition as a contributor. It doesn't blame the scan alone.
+
+4
+00:00:19.729 --> 00:00:25.993
+Priya: So, who's picking this up tomorrow? Raj owns batch sizing tests, right?
+
+5
+00:00:25.993 --> 00:00:32.665
+Lukas: I'll own scan isolation options Friday. Moving it elsewhere has capacity costs.
+
+6
+00:00:32.665 --> 00:00:39.385
+Raj: Yes, my action item includes pacing. Maybe row count alone isn't enough.
+
+7
+00:00:39.385 --> 00:00:48.097
+Hannah: Measure WAL volume and replay bottleneck together. Test overlaps in an isolated environment.
+
+8
+00:00:48.097 --> 00:00:54.794
+Anika: I'll test freshness-aware routing by Friday. Sensitive reads remain on primary meanwhile.
+
+9
+00:00:54.794 --> 00:01:02.162
+Lukas: Keep failover policy separate from lag routing. Promotion requires durability and fencing checks.
+
+10
+00:01:02.162 --> 00:01:08.330
+Priya: Okay, close the loop next week. Bring overlap tests and routing evidence.
+

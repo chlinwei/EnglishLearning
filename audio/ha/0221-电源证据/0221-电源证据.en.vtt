@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.960
+Raj: I'm on it. We'll fence off ledger-one.
+
+2
+00:00:03.960 --> 00:00:08.760
+Hannah: The request was accepted. Is shutdown complete?
+
+3
+00:00:08.760 --> 00:00:12.337
+Raj: Now confirmed off through the out-of-band console.
+
+4
+00:00:12.337 --> 00:00:16.201
+Lukas: I independently checked power and restart inhibition.
+
+5
+00:00:16.201 --> 00:00:19.777
+Priya: Just to confirm, lock persists, right?
+
+6
+00:00:19.777 --> 00:00:23.761
+Anika: Yes, the automation exclusion is recorded too.
+
+7
+00:00:23.761 --> 00:00:27.433
+Hannah: Okay, the promotion gate can now pass.
+
+8
+00:00:27.433 --> 00:00:31.826
+Raj: Standby promoted. A local smoke test passed.
+
+9
+00:00:31.826 --> 00:00:35.426
+Lukas: Perhaps enough for a canary, not full traffic.
+
+10
+00:00:35.426 --> 00:00:40.970
+Priya: Agreed. Keep application writers paused until routing validation.
+

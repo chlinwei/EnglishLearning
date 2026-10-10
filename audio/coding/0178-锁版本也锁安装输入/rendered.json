@@ -1,0 +1,135 @@
+{
+ "id": "0178",
+ "part": 3,
+ "stage": "锁定",
+ "title": "锁版本也锁安装输入",
+ "premise": "选择候选客户端和插件组合，解析生产平台的完整依赖。",
+ "listeningTask": "辨别直接依赖固定与完整哈希锁定。",
+ "newPhrase": "p453",
+ "phrases": [
+  "p453",
+  "p010",
+  "p452:extra",
+  "p014:extra",
+  "p330:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We've generated hash-locked requirements for production. Direct and transitive versions are both fixed.",
+   "zh": "已生成生产用带哈希锁依赖，直接与间接版本都固定了。",
+   "role": "Python dependency maintainer",
+   "start": 0.0,
+   "end": 7.608
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which interpreter and platform produced that lock? Keep those inputs under version control too.",
+   "zh": "锁文件针对什么解释器和平台？这些输入也要版本管理。",
+   "role": "Build and release SRE",
+   "start": 7.608,
+   "end": 14.401
+  },
+  {
+   "sp": "Anika",
+   "en": "Python three twelve on our Linux image. Just to confirm, other platforms need validation, right?",
+   "zh": "Linux镜像上的Python 3.12，确认一下，其他平台另需验证，对吧？",
+   "role": "Inventory application owner",
+   "start": 14.401,
+   "end": 21.937
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, the dependency resolver output is attached. No hand-edited version exceptions in this approval.",
+   "zh": "好，附上解析输出，本次审批不接受手工改版本例外。",
+   "role": "Change coordinator and approval owner",
+   "start": 21.937,
+   "end": 29.594
+  },
+  {
+   "sp": "Hannah",
+   "en": "Check every artifact's hash during installation. Hashes verify identity, not package security alone.",
+   "zh": "安装核对每个包的哈希，哈希验证身份，本身不证明包安全。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 29.594,
+   "end": 38.93
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it with the approved package mirror. Maybe we'll need to retain older wheels.",
+   "zh": "批准的镜像源我来处理，可能也需保留旧wheel。",
+   "role": "Python dependency maintainer",
+   "start": 38.93,
+   "end": 45.386
+  },
+  {
+   "sp": "Lukas",
+   "en": "Retain them for reproducible rollback builds. Pin the base image and installer version too.",
+   "zh": "保留以便重建回退版本，也固定基础镜像与安装器。",
+   "role": "Build and release SRE",
+   "start": 45.386,
+   "end": 52.035
+  },
+  {
+   "sp": "Anika",
+   "en": "The lock becomes part of managed configuration. I'll stop production installs from resolving afresh.",
+   "zh": "锁文件纳入受管配置，生产安装不能重新自由解析版本。",
+   "role": "Inventory application owner",
+   "start": 52.035,
+   "end": 59.595
+  },
+  {
+   "sp": "Hannah",
+   "en": "Build inputs also include compiler toolchains. Prefer approved wheels where the platform supports them.",
+   "zh": "构建输入还包括编译工具链，平台支持时优先批准的wheel。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 59.595,
+   "end": 68.38
+  },
+  {
+   "sp": "Priya",
+   "en": "Make retaining inputs an explicit action item. The lock alone isn't our reproducibility claim.",
+   "zh": "保留输入列为明确任务，不能只靠锁文件宣称可复现。",
+   "role": "Change coordinator and approval owner",
+   "start": 68.38,
+   "end": 75.58
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 3,
+ "scene": "选择候选客户端和插件组合，解析生产平台的完整依赖。",
+ "dir": "coding/0178-锁版本也锁安装输入",
+ "audio": "0178-锁版本也锁安装输入.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "锁定"
+ ],
+ "duration": 75.58
+}

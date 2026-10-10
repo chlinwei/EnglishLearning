@@ -1,0 +1,135 @@
+{
+ "id": "0121",
+ "part": 6,
+ "stage": "缓解执行",
+ "title": "逐台排空并重建应用池",
+ "premise": "报表暂停且单实例限流验证通过，准备回收滞留连接。",
+ "listeningTask": "区别应用实例排空与重启整个数据库。",
+ "newPhrase": "p396",
+ "phrases": [
+  "p396",
+  "p395",
+  "p334:extra",
+  "p309:extra",
+  "p008:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "I'll drain the worker marked A. New requests now go elsewhere safely.",
+   "zh": "我排空A实例，新请求现在安全地送往其他实例。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 5.016
+  },
+  {
+   "sp": "Lukas",
+   "en": "Do the remaining workers have capacity? Keep the bounded request queue enabled.",
+   "zh": "其他实例有容量吗？有上限的请求队列继续启用。",
+   "role": "SRE and traffic controller",
+   "start": 5.016,
+   "end": 10.776
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, the lower traffic fits now. About five writes remain on A.",
+   "zh": "有，降低后的流量现在能承受，A上还有大约五笔写入。",
+   "role": "Database on-call",
+   "start": 10.776,
+   "end": 16.585
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, wait for those writes, right? This is still a temporary workaround.",
+   "zh": "好，等那些写入结束，对吧？这仍是临时缓解。",
+   "role": "Incident coordinator",
+   "start": 16.585,
+   "end": 22.729
+  },
+  {
+   "sp": "Hannah",
+   "en": "Check outcomes before closing the pool. Cancellation doesn't guarantee a transaction stopped.",
+   "zh": "关闭池之前检查结果，取消请求不能保证事务已停止。",
+   "role": "Application validation engineer",
+   "start": 22.729,
+   "end": 30.433
+  },
+  {
+   "sp": "Anika",
+   "en": "The five writes have completed now. I'll restart this application worker next.",
+   "zh": "五笔写入现在都完成了，接下来重启这台应用实例。",
+   "role": "Orders application owner",
+   "start": 30.433,
+   "end": 36.673
+  },
+  {
+   "sp": "Lukas",
+   "en": "Not the database. Keep that distinction. I'll keep an eye on routing.",
+   "zh": "不是重启数据库，要区分清楚。我会观察路由。",
+   "role": "SRE and traffic controller",
+   "start": 36.673,
+   "end": 42.529
+  },
+  {
+   "sp": "Priya",
+   "en": "So, what's the ETA for checks? Maybe two minutes before another worker.",
+   "zh": "检查预计多久？也许等两分钟再处理另一台。",
+   "role": "Incident coordinator",
+   "start": 42.529,
+   "end": 48.842
+  },
+  {
+   "sp": "Hannah",
+   "en": "Two minutes after A returns healthy. Verify fresh writes and connection releases.",
+   "zh": "A恢复健康后两分钟，验证新写入和连接释放。",
+   "role": "Application validation engineer",
+   "start": 48.842,
+   "end": 56.186
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for session counts. We'll stop if database connections surge.",
+   "zh": "我负责会话数，数据库连接暴涨就停止。",
+   "role": "Database on-call",
+   "start": 56.186,
+   "end": 62.21
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 6,
+ "scene": "报表暂停且单实例限流验证通过，准备回收滞留连接。",
+ "dir": "database/0121-逐台排空并重建应用池",
+ "audio": "0121-逐台排空并重建应用池.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "缓解执行"
+ ],
+ "duration": 62.21
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.320
+Raj: An empty path component selects the parent. The offline fixture reproduces all three candidates.
+
+2
+00:00:07.320 --> 00:00:14.208
+Lukas: Does the safety check compare string prefixes? Sibling directories can share those prefixes.
+
+3
+00:00:14.208 --> 00:00:21.623
+Raj: Yes, that's the second boundary weakness. Just to confirm, both checks need replacing, right?
+
+4
+00:00:21.623 --> 00:00:28.391
+Anika: The deletion manifest matches that fixture output. No extra live run is needed now.
+
+5
+00:00:28.391 --> 00:00:37.175
+Hannah: Test resolved paths, not textual resemblance. Include sibling names and links escaping outward.
+
+6
+00:00:37.175 --> 00:00:44.639
+Priya: Okay, preserve the evidence from this reproduction. Our working hypothesis is now much stronger.
+
+7
+00:00:44.639 --> 00:00:52.031
+Lukas: Path checks alone can't prevent concurrent replacement. The deletion mechanism needs race protection too.
+
+8
+00:00:52.031 --> 00:00:58.054
+Raj: We can rule that out for this run. The captured tree had no changing links.
+
+9
+00:00:58.054 --> 00:01:05.326
+Hannah: That's evidence about this incident only. It doesn't remove the broader safety requirement.
+
+10
+00:01:05.326 --> 00:01:12.790
+Anika: Agreed, maybe the guard needs two layers. Reject bad inputs and constrain filesystem access.
+

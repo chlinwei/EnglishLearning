@@ -1,0 +1,135 @@
+{
+ "id": "0081",
+ "part": 6,
+ "stage": "对比指标",
+ "title": "相同请求，不看混合均值",
+ "premise": "百分之五灰度无新增异常，但样本有限；按相同条件比较两池指标。",
+ "listeningTask": "听出总体均值为何不足以批准放量。",
+ "newPhrase": "p356",
+ "phrases": [
+  "p356",
+  "p010",
+  "p342",
+  "p004:extra",
+  "p309:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Let's compare like for like here. Match route, region, and request size.",
+   "zh": "这里要在相同条件下对比，匹配接口、区域和请求大小。",
+   "role": "Validation engineer",
+   "start": 0.0,
+   "end": 6.816
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, the overall mean looked faster. Green received fewer large requests though.",
+   "zh": "好，总体均值看起来更快，但绿池收到的大请求更少。",
+   "role": "Network engineer",
+   "start": 6.816,
+   "end": 13.392
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then that comparison doesn't establish an improvement. What do the matched percentiles show?",
+   "zh": "那就不能据此证明改善。匹配后的分位数怎么样？",
+   "role": "SRE reviewer",
+   "start": 13.392,
+   "end": 19.944
+  },
+  {
+   "sp": "Anika",
+   "en": "The payment route stays around baseline. Its tail latency hasn't shifted much.",
+   "zh": "支付接口接近基线，尾延迟变化不大。",
+   "role": "Checkout owner",
+   "start": 19.944,
+   "end": 26.232
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no intermittent failures, right? Include callbacks and new connection errors.",
+   "zh": "我确认一下，没有间歇失败，对吧？回调和新连接错误都算。",
+   "role": "Change coordinator",
+   "start": 26.232,
+   "end": 33.768
+  },
+  {
+   "sp": "Hannah",
+   "en": "None in the observed sample so far. That's evidence, not a permanent guarantee.",
+   "zh": "当前观察样本里没有。这是证据，不是永久保证。",
+   "role": "Validation engineer",
+   "start": 33.768,
+   "end": 40.968
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for connection setup timings. Both pools use the same collection window.",
+   "zh": "连接建立耗时我来查。两个池使用相同采集时间窗。",
+   "role": "Network engineer",
+   "start": 40.968,
+   "end": 47.304
+  },
+  {
+   "sp": "Lukas",
+   "en": "Any missing metrics during that window? A blank series isn't zero errors.",
+   "zh": "这个时间窗有指标缺失吗？空序列不等于零错误。",
+   "role": "SRE reviewer",
+   "start": 47.304,
+   "end": 53.112
+  },
+  {
+   "sp": "Anika",
+   "en": "No gaps in either pool's counters. I'll keep an eye on callback totals.",
+   "zh": "两个池计数器都没有断档。我会留意回调总数。",
+   "role": "Checkout owner",
+   "start": 53.112,
+   "end": 59.088
+  },
+  {
+   "sp": "Priya",
+   "en": "Fine tuning? Let's park that for later. So, these checks support the next gate.",
+   "zh": "细调留到以后。这样，这些检查支持进入下一道门槛。",
+   "role": "Change coordinator",
+   "start": 59.088,
+   "end": 66.36
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 6,
+ "scene": "百分之五灰度无新增异常，但样本有限；按相同条件比较两池指标。",
+ "dir": "network/0081-相同请求，不看混合均值",
+ "audio": "0081-相同请求，不看混合均值.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "对比指标"
+ ],
+ "duration": 66.36
+}

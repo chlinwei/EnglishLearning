@@ -1,0 +1,135 @@
+{
+ "id": "0187",
+ "part": 2,
+ "stage": "开发进度",
+ "title": "昨天完成了什么",
+ "premise": "只读范围明确，Raj报告实现进度与今日安排。",
+ "listeningTask": "区分已完成实现、待评审代码和未验收集成。",
+ "newPhrase": "p462",
+ "phrases": [
+  "p462",
+  "p010",
+  "p005:extra",
+  "p014:extra",
+  "p008:extra",
+  "p461:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The parser is up for review now. Yesterday I finished cursor parsing and filtering.",
+   "zh": "解析器现在待评审，昨天完成游标解析与筛选。",
+   "role": "CLI implementation engineer",
+   "start": 0.0,
+   "end": 6.576
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does it run against the real endpoint? Or does that progress describe fixtures only?",
+   "zh": "是用真实接口跑过，还是仅指fixture进度？",
+   "role": "Code reviewer and platform engineer",
+   "start": 6.576,
+   "end": 12.671
+  },
+  {
+   "sp": "Raj",
+   "en": "Fixtures only until the contract is confirmed. Just to confirm, that's clearly labelled, right?",
+   "zh": "契约确认前只用fixture，确认一下，已明确标注，对吧？",
+   "role": "CLI implementation engineer",
+   "start": 12.671,
+   "end": 20.111
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, my integration note states that limitation. The read-only scope hasn't changed since yesterday.",
+   "zh": "是，我的集成说明写了这个限制，只读范围没有变化。",
+   "role": "API integration engineer",
+   "start": 20.111,
+   "end": 27.79
+  },
+  {
+   "sp": "Hannah",
+   "en": "Parser tests pass for valid cursors. Malformed cursor coverage still needs additional cases.",
+   "zh": "合法游标测试通过，异常游标还需要补用例。",
+   "role": "Test and acceptance engineer",
+   "start": 27.79,
+   "end": 36.19
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA for those cases? A rough estimate is enough right now.",
+   "zh": "好，补用例预计多久？现在给大概估算即可。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 36.19,
+   "end": 42.718
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review the existing parser this morning. Additional tests can land in that change.",
+   "zh": "今天上午评审现有解析器，新增测试可放同一变更。",
+   "role": "Code reviewer and platform engineer",
+   "start": 42.718,
+   "end": 48.957
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it before lunch, roughly two hours. Then I'll be heads-down on error handling.",
+   "zh": "我午饭前做，大约两小时，之后专注错误处理。",
+   "role": "CLI implementation engineer",
+   "start": 48.957,
+   "end": 55.893
+  },
+  {
+   "sp": "Hannah",
+   "en": "Please include the exact rejected input shapes. We need reproducible cases, not just descriptions.",
+   "zh": "请附具体拒绝输入结构，需要可复现用例，不只是描述。",
+   "role": "Test and acceptance engineer",
+   "start": 55.893,
+   "end": 65.036
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll share the sanitized API samples too. That should keep our fixtures closer to reality.",
+   "zh": "我也分享脱敏接口样本，让fixture更接近实际。",
+   "role": "API integration engineer",
+   "start": 65.036,
+   "end": 72.14
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 2,
+ "scene": "只读范围明确，Raj报告实现进度与今日安排。",
+ "dir": "coding/0187-昨天完成了什么",
+ "audio": "0187-昨天完成了什么.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "开发进度"
+ ],
+ "duration": 72.14
+}

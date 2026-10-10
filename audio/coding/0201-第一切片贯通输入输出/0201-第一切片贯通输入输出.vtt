@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.160
+Raj: The first vertical slice covers daily reporting. Input parsing, transformation, and output work together.
+首个贯通切片覆盖日报，输入解析、转换、输出连起来。
+
+2
+00:00:08.160 --> 00:00:15.097
+Lukas: That's better than extracting every helper first. We can validate an actual consumer workflow.
+比先提取所有辅助函数好，可以验证真实使用流程。
+
+3
+00:00:15.097 --> 00:00:22.849
+Priya: Just to confirm, baseline tests come first, right? Then Raj can be heads-down on extraction.
+确认一下，基线测试先做，对吧？之后Raj专注提取。
+
+4
+00:00:22.849 --> 00:00:29.353
+Anika: I'm on it with the sanitized fixtures. Maybe the failure samples need an extra day.
+脱敏fixture我来做，失败样本可能额外需要一天。
+
+5
+00:00:29.353 --> 00:00:38.042
+Hannah: A characterization test runs before each extraction. Afterward it compares the same input outputs.
+每次提取前跑行为测试，之后对比同一输入输出。
+
+6
+00:00:38.042 --> 00:00:45.578
+Raj: I'll keep the existing CLI entry point. Internal modules won't change the scheduled invocation.
+保留原CLI入口，内部模块不改变调度调用。
+
+7
+00:00:45.578 --> 00:00:52.827
+Lukas: Use small reviewable changes with passing tests. A giant final merge raises comparison risk.
+小改动、可评审、测试通过，大量最终合并增加对照风险。
+
+8
+00:00:52.827 --> 00:01:01.371
+Priya: One action item is defining each review boundary. Raj implements, Lukas reviews, Hannah verifies behavior.
+一项任务是明确每次评审边界，Raj实现、Lukas评审、Hannah验证。
+
+9
+00:01:01.371 --> 00:01:10.756
+Hannah: The second report remains optional this iteration. Its tests mustn't silently replace first-slice acceptance.
+第二份报表本轮可选，其测试不能悄悄替代首个切片验收。
+
+10
+00:01:10.756 --> 00:01:18.460
+Anika: Good, consumers will see a complete example. That makes feedback useful before broader extraction.
+好，使用方能看到完整例子，扩大提取前反馈更有用。
+

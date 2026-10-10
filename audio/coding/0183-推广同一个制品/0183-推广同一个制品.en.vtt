@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.528
+Priya: We'll promote the same artifact through batches. The review approves two more partitions first.
+
+2
+00:00:06.528 --> 00:00:13.945
+Lukas: Verify its digest before each deployment. A matching tag doesn't guarantee identical bytes.
+
+3
+00:00:13.945 --> 00:00:22.129
+Raj: Just to confirm, no dependency resolution during deployment, right? We deploy the already-tested image only.
+
+4
+00:00:22.129 --> 00:00:29.714
+Anika: The canary cohort remains our comparison group. Maybe regional latency needs separate thresholds here.
+
+5
+00:00:29.714 --> 00:00:37.370
+Hannah: Yes, compare each partition with its baseline. Don't average a regional problem away.
+
+6
+00:00:37.370 --> 00:00:45.434
+Raj: Okay, the staged rollout retains exclusive leases. Each old worker drains before ownership moves.
+
+7
+00:00:45.434 --> 00:00:53.187
+Lukas: Let's keep it under observation between batches. Stop expansion if reconciliation results diverge.
+
+8
+00:00:53.187 --> 00:00:59.379
+Priya: Run the smoke test for each batch. Anika signs off before the next one.
+
+9
+00:00:59.379 --> 00:01:08.068
+Hannah: Both additional partitions match expected output. Their latency and token refresh remain healthy.
+
+10
+00:01:08.068 --> 00:01:14.500
+Anika: I'll approve the remaining batches under those gates. No changes to the approved image.
+

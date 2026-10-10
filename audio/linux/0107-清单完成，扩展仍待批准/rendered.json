@@ -1,0 +1,135 @@
+{
+ "id": "0107",
+ "part": 2,
+ "stage": "补丁进度",
+ "title": "清单完成，扩展仍待批准",
+ "premise": "本周以证据和审批为先，Raj报告补丁自动化进度。",
+ "listeningTask": "分辨清单生成、试点成功和生产扩展批准。",
+ "newPhrase": "p382",
+ "phrases": [
+  "p382",
+  "p323",
+  "p010",
+  "p321:extra",
+  "p327:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, the patch inventory is generated automatically. Friday's two pilot hosts passed validation.",
+   "zh": "好，补丁清单已自动生成，周五两台试点主机验证通过。",
+   "role": "Linux automation engineer",
+   "start": 0.0,
+   "end": 7.464
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does the inventory show reboot requirements too? Package installation alone doesn't establish running kernel state.",
+   "zh": "清单也显示重启需求吗？安装软件包不代表运行内核状态已更新。",
+   "role": "Code reviewer",
+   "start": 7.464,
+   "end": 15.576
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, installed and running versions appear separately. A pending reboot stays clearly flagged.",
+   "zh": "是，安装版本和运行版本分开显示，待重启状态明确标记。",
+   "role": "Linux automation engineer",
+   "start": 15.576,
+   "end": 22.897
+  },
+  {
+   "sp": "Hannah",
+   "en": "Did each pilot include a smoke test? Include service readiness after the reboot.",
+   "zh": "每台试点都做了冒烟测试吗？也要包括重启后的服务就绪。",
+   "role": "Automation test engineer",
+   "start": 22.897,
+   "end": 29.977
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, both service checks passed on Friday. No remaining issue from those pilot hosts.",
+   "zh": "是，两台服务检查周五都通过了，没有遗留问题。",
+   "role": "Service configuration owner",
+   "start": 29.977,
+   "end": 37.105
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, staged rollout still applies, right? Two hosts don't prove fleet-wide compatibility.",
+   "zh": "我确认一下，仍然分阶段发布，对吧？两台不能证明全量兼容。",
+   "role": "Standup facilitator",
+   "start": 37.105,
+   "end": 45.145
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, driver variants still need coverage. Which maintenance window covers the next group?",
+   "zh": "对，驱动差异还要覆盖。下一组安排在哪个维护窗口？",
+   "role": "Code reviewer",
+   "start": 45.145,
+   "end": 52.009
+  },
+  {
+   "sp": "Raj",
+   "en": "Wednesday evening, subject to the pending approval. What's the ETA from the application owner?",
+   "zh": "暂定周三晚，等待批准。应用负责人预计多久回复？",
+   "role": "Linux automation engineer",
+   "start": 52.009,
+   "end": 59.114
+  },
+  {
+   "sp": "Hannah",
+   "en": "They haven't committed to an approval time. Show that dependency instead of assuming Wednesday.",
+   "zh": "他们尚未承诺批准时间，应展示依赖而非假定周三执行。",
+   "role": "Automation test engineer",
+   "start": 59.114,
+   "end": 66.698
+  },
+  {
+   "sp": "Priya",
+   "en": "So, prepare roughly ten candidate hosts today. Don't schedule reboots before that approval lands.",
+   "zh": "因此今天准备约十台候选主机，批准到位前不安排重启。",
+   "role": "Standup facilitator",
+   "start": 66.698,
+   "end": 74.09
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 2,
+ "scene": "本周以证据和审批为先，Raj报告补丁自动化进度。",
+ "dir": "linux/0107-清单完成，扩展仍待批准",
+ "audio": "0107-清单完成，扩展仍待批准.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "补丁进度"
+ ],
+ "duration": 74.09
+}

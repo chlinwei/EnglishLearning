@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.336
+Anika: A connection leak looks possible here. Timed-out requests don't record a return.
+
+2
+00:00:06.336 --> 00:00:12.624
+Hannah: Could that be missing logging instead? We need a controlled cancellation test.
+
+3
+00:00:12.624 --> 00:00:19.321
+Raj: Yes, it's a working hypothesis now. Query execution time alone can't prove it.
+
+4
+00:00:19.321 --> 00:00:26.713
+Priya: Just to confirm, isolated testing, right? Don't inject cancellations into live orders.
+
+5
+00:00:26.713 --> 00:00:33.961
+Lukas: Agreed. Save current metrics before mitigation. We can recover without proving everything.
+
+6
+00:00:33.961 --> 00:00:40.753
+Anika: Okay, I'm on it for reproduction. Same client version, synthetic orders only.
+
+7
+00:00:40.753 --> 00:00:48.361
+Hannah: I'll compare successful and cancelled requests. Both must release their borrowed resources.
+
+8
+00:00:48.361 --> 00:00:54.458
+Raj: The root cause is still open. Maybe report delays expose this branch.
+
+9
+00:00:54.458 --> 00:01:00.626
+Lukas: That's plausible, but not confirmed yet. We need separate evidence for each link.
+
+10
+00:01:00.626 --> 00:01:06.890
+Priya: So, first contain the request backlog. Then test that link without pressure.
+

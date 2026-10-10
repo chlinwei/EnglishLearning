@@ -1,0 +1,135 @@
+{
+ "id": "0122",
+ "part": 7,
+ "stage": "连接恢复",
+ "title": "连接能借到，但修复尚未完成",
+ "premise": "逐台排空重启结束，限流和报表暂停仍保持。",
+ "listeningTask": "理解指标恢复不能证明泄漏修好了。",
+ "newPhrase": "p397",
+ "phrases": [
+  "p397",
+  "p391",
+  "p392:extra",
+  "p110:extra",
+  "p111:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Connection checkout time is normal again. Each worker has available connections now.",
+   "zh": "借连接等待恢复正常，每台实例现在都有可用连接。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 6.576
+  },
+  {
+   "sp": "Hannah",
+   "en": "What about checked-out connections over time? A fresh pool can hide leakage.",
+   "zh": "借出连接随时间怎么变化？新建池可能掩盖泄漏。",
+   "role": "Application validation engineer",
+   "start": 6.576,
+   "end": 13.007
+  },
+  {
+   "sp": "Anika",
+   "en": "They're stable under the reduced traffic. That doesn't prove cancellation is fixed.",
+   "zh": "在降低流量后计数稳定，但不代表取消分支修好了。",
+   "role": "Orders application owner",
+   "start": 13.007,
+   "end": 19.151
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, reports stay paused, right? Don't remove both safeguards together.",
+   "zh": "确认一下，报表仍暂停，对吧？别同时撤掉两种保护。",
+   "role": "Incident coordinator",
+   "start": 19.151,
+   "end": 26.182
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. We're back to baseline now. State the limits with that update.",
+   "zh": "同意，现在回到基线，更新时要一并说明限流仍在。",
+   "role": "SRE and traffic controller",
+   "start": 26.182,
+   "end": 31.99
+  },
+  {
+   "sp": "Raj",
+   "en": "If the pool is exhausted again, stop. Maybe another path holds connections too.",
+   "zh": "如果池再耗尽就停止，也许还有其他分支持有连接。",
+   "role": "Database on-call",
+   "start": 31.99,
+   "end": 38.518
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let's keep it under observation tonight. Track connection age beside checkout waits.",
+   "zh": "今晚继续观察，连接占用时长和借连接等待一起跟踪。",
+   "role": "Application validation engineer",
+   "start": 38.518,
+   "end": 45.333
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, isolated testing is running now. The first cancelled request retained ownership.",
+   "zh": "好，隔离测试在进行，首个被取消请求仍持有连接。",
+   "role": "Orders application owner",
+   "start": 45.333,
+   "end": 52.245
+  },
+  {
+   "sp": "Lukas",
+   "en": "Repeat it against the current release. One sample isn't the complete diagnosis.",
+   "zh": "针对当前发布版本重复测试，一份样本不是完整诊断。",
+   "role": "SRE and traffic controller",
+   "start": 52.245,
+   "end": 58.484
+  },
+  {
+   "sp": "Priya",
+   "en": "So, keep recovery and repair separate. We'll review that test evidence next.",
+   "zh": "那就把恢复和修复分开，下一步评审测试证据。",
+   "role": "Incident coordinator",
+   "start": 58.484,
+   "end": 64.82
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 7,
+ "scene": "逐台排空重启结束，限流和报表暂停仍保持。",
+ "dir": "database/0122-连接能借到，但修复尚未完成",
+ "audio": "0122-连接能借到，但修复尚未完成.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "连接恢复"
+ ],
+ "duration": 64.82
+}

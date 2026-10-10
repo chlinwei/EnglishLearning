@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.536
+Anika: The API contract still needs owner confirmation. We're waiting on empty-page continuation behavior.
+
+2
+00:00:07.536 --> 00:00:14.736
+Lukas: Can the integration work continue with fixtures? Mark assumptions explicitly so they aren't forgotten.
+
+3
+00:00:14.736 --> 00:00:22.921
+Anika: Yes, but real endpoint acceptance stays blocked. Just to confirm, that's not demo completion, right?
+
+4
+00:00:22.921 --> 00:00:30.097
+Priya: Okay, what's the ETA from their owner? Use our escalation path if today's reply slips.
+
+5
+00:00:30.097 --> 00:00:38.569
+Hannah: Keep the test coverage gap visible separately. External waiting doesn't prevent local boundary tests.
+
+6
+00:00:38.569 --> 00:00:45.553
+Raj: Maybe the cursor is opaque by design. I'll avoid parsing or modifying its contents.
+
+7
+00:00:45.553 --> 00:00:52.753
+Lukas: Good, pass it back exactly as received. Only validate the documented envelope and limits.
+
+8
+00:00:52.753 --> 00:00:59.282
+Priya: We'll circle back with the API lead. Anika, send the two concrete questions now.
+
+9
+00:00:59.282 --> 00:01:07.466
+Hannah: I can attach failing contract examples. That's more useful than a general compatibility question.
+
+10
+00:01:07.466 --> 00:01:14.330
+Anika: I'll send them immediately after this standup. The owner suggested roughly three this afternoon.
+

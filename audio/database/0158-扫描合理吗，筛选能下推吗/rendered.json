@@ -1,0 +1,135 @@
+{
+ "id": "0158",
+ "part": 3,
+ "stage": "慢查询",
+ "title": "扫描合理吗，筛选能下推吗",
+ "premise": "交易达标但报表I/O压力高，查看查询计划及筛选行为。",
+ "listeningTask": "区分合理全扫和可避免的应用侧筛选。",
+ "newPhrase": "p433",
+ "phrases": [
+  "p433",
+  "p432",
+  "p335:extra",
+  "p327:extra",
+  "p004:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The report does a full table scan. It filters dates in application code.",
+   "zh": "报表全表扫描，在应用代码里筛日期。",
+   "role": "Orders application architect",
+   "start": 0.0,
+   "end": 6.024
+  },
+  {
+   "sp": "Hannah",
+   "en": "Could that filter move into SQL? Keep date boundaries and timezone semantics identical.",
+   "zh": "筛选能移到SQL里吗？日期边界和时区语义要相同。",
+   "role": "Performance and cost analyst",
+   "start": 6.024,
+   "end": 13.921
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, existing date indexes may help. Our working hypothesis needs representative query tests.",
+   "zh": "可以，现有日期索引可能有用，当前假设需要代表性查询测试。",
+   "role": "Database capacity owner",
+   "start": 13.921,
+   "end": 21.865
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, test broad ranges too, right? A full scan isn't always wrong.",
+   "zh": "好，也测宽范围，对吧？全扫不总是错的。",
+   "role": "Capacity review chair",
+   "start": 21.865,
+   "end": 28.25
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly, selectivity changes the right plan. Don't force indexes for every tenant.",
+   "zh": "对，选择性会改变合理计划，别强制每个租户用索引。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 28.25,
+   "end": 35.042
+  },
+  {
+   "sp": "Anika",
+   "en": "The smoke test checks output totals. Maybe date truncation needs special boundary cases.",
+   "zh": "冒烟测试核对输出总额，日期截断可能需要特殊边界用例。",
+   "role": "Orders application architect",
+   "start": 35.042,
+   "end": 42.146
+  },
+  {
+   "sp": "Hannah",
+   "en": "Compare with the peak load baseline. A quiet test can exaggerate gains.",
+   "zh": "与峰值基线对比，安静环境测试会夸大收益。",
+   "role": "Performance and cost analyst",
+   "start": 42.146,
+   "end": 48.747
+  },
+  {
+   "sp": "Priya",
+   "en": "Sharding immediately? Let's park that for now. What's the ETA for query evidence?",
+   "zh": "立即分片先放一边，查询证据预计什么时候有？",
+   "role": "Capacity review chair",
+   "start": 48.747,
+   "end": 55.947
+  },
+  {
+   "sp": "Lukas",
+   "en": "Two days for isolated load comparisons. Include large tenants and concurrent writes.",
+   "zh": "两天完成隔离负载对比，包括大租户和并发写入。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 55.947,
+   "end": 62.572
+  },
+  {
+   "sp": "Raj",
+   "en": "So, optimize before claiming hardware savings. Growth still needs its own storage plan.",
+   "zh": "那先优化再谈省硬件，增长仍需要独立存储计划。",
+   "role": "Database capacity owner",
+   "start": 62.572,
+   "end": 70.06
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 3,
+ "scene": "交易达标但报表I/O压力高，查看查询计划及筛选行为。",
+ "dir": "database/0158-扫描合理吗，筛选能下推吗",
+ "audio": "0158-扫描合理吗，筛选能下推吗.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "慢查询"
+ ],
+ "duration": 70.06
+}

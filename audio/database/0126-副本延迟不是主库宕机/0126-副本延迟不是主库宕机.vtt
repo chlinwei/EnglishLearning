@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Raj: Replication lag is climbing on replica B. It's roughly ninety seconds behind now.
+B副本复制延迟正在上升，现在大约落后九十秒。
+
+2
+00:00:06.552 --> 00:00:12.960
+Hannah: What does that number measure exactly? Time lag alone can mislead us.
+这个数字具体测什么？只看时间延迟可能误导。
+
+3
+00:00:12.960 --> 00:00:19.105
+Anika: Customers see old paid order states. New writes still succeed on primary.
+客户看到已付款订单的旧状态，主库新写入仍成功。
+
+4
+00:00:19.105 --> 00:00:26.017
+Priya: Okay, I'll take point on this. Just to confirm, primary stays healthy, right?
+好，我来协调。确认一下，主库仍健康，对吧？
+
+5
+00:00:26.017 --> 00:00:32.521
+Lukas: Yes, from current write latency checks. Don't promote a lagging replica blindly.
+从当前写延迟检查看是的，不要盲目提升落后副本。
+
+6
+00:00:32.521 --> 00:00:38.185
+Raj: Let me tail the log now. I'll compare receive and replay positions.
+我现在盯日志，对比接收和回放位置。
+
+7
+00:00:38.185 --> 00:00:44.521
+Hannah: I'll verify a known committed order. We need a concrete freshness check.
+我核验一笔已知提交的订单，需要具体的新鲜度检查。
+
+8
+00:00:44.521 --> 00:00:50.834
+Priya: So, what's the ETA for routing options? Maybe two minutes before we decide.
+那读路由方案预计多久？也许两分钟后决策。
+
+9
+00:00:50.834 --> 00:00:57.074
+Lukas: Check spare primary capacity before shifting. A healthy writer can still overload.
+切换前检查主库余量，健康的写库也可能被压过载。
+
+10
+00:00:57.074 --> 00:01:03.170
+Anika: I'm on it for traffic classes. Payment confirmation reads need priority first.
+我负责划分流量，支付确认读取需要优先处理。
+

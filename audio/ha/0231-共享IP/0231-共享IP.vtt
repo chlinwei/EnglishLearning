@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.896
+Hannah: Shadow mode suggests false rejections for office shoppers.
+影子模式提示办公室购物者可能被误拒。
+
+2
+00:00:04.896 --> 00:00:09.023
+Raj: The working hypothesis is shared-IP bucket collisions.
+当前假设是共享IP导致令牌桶冲突。
+
+3
+00:00:09.023 --> 00:00:13.247
+Lukas: Can you identify legitimate authenticated requests there?
+能识别其中合法的已认证请求吗？
+
+4
+00:00:13.247 --> 00:00:18.766
+Anika: Yes, separate customers. Their combined traffic hits quotas.
+能，是不同客户，合计流量碰到配额了。
+
+5
+00:00:18.766 --> 00:00:22.750
+Priya: Just to confirm, expansion pauses, right?
+确认一下，暂停扩大范围，对吧？
+
+6
+00:00:22.750 --> 00:00:27.670
+Raj: Yes. The error rate spiked on recommendation canaries.
+是的，推荐灰度的错误率陡涨了。
+
+7
+00:00:27.670 --> 00:00:32.901
+Hannah: Separate deliberate throttling from unexpected server failures.
+要区分有意限流与意外服务器故障。
+
+8
+00:00:32.901 --> 00:00:37.413
+Anika: Checkout's stable. We can't rule that out later.
+结账目前稳定，但不能排除后续受到影响。
+
+9
+00:00:37.413 --> 00:00:41.780
+Lukas: Maybe identity-based quotas would reduce collateral damage.
+也许按身份设置配额能减少误伤。
+
+10
+00:00:41.780 --> 00:00:45.500
+Priya: Okay, test that before touching the global ceiling.
+好，调整全局上限前先测试这个方案。
+

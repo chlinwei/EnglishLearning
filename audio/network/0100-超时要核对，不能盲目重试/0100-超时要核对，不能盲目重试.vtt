@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Anika: Okay, affected sessions show slower inventory checks. The error rate spiked before the workaround.
+好，受影响会话的库存检查较慢，绕行前错误率曾陡涨。
+
+2
+00:00:07.728 --> 00:00:14.352
+Lukas: Did any orders reserve inventory twice? Timeouts don't always mean the request failed.
+有订单重复预留库存吗？超时不一定意味着请求失败。
+
+3
+00:00:14.352 --> 00:00:22.607
+Anika: No duplicates found in sampled reservations. We reconcile uncertain results using operation identifiers.
+抽样预留里未发现重复。通过操作标识核对不确定结果。
+
+4
+00:00:22.607 --> 00:00:30.575
+Hannah: Keep an eye on that reconciliation queue. Growing backlog could hide continuing business impact.
+留意核对队列，积压增长可能掩盖持续业务影响。
+
+5
+00:00:30.575 --> 00:00:38.423
+Raj: Two workers route differently; that's our blast radius for this change. Other clients still use primary.
+本次变更的影响范围是两个改路由的工作进程，其他客户端仍走主线。
+
+6
+00:00:38.423 --> 00:00:46.271
+Priya: Just to confirm, not total incident scope, right? We separate change scope from affected customers.
+我确认一下，这不是整个事件影响范围，对吧？变更范围和客户影响分开描述。
+
+7
+00:00:46.271 --> 00:00:54.239
+Lukas: Exactly, report those populations separately overnight. Are retries restricted for reservation writes?
+对，夜间分开报告这些群体。库存预留写入的重试受限制吗？
+
+8
+00:00:54.239 --> 00:01:02.662
+Anika: Yes, approved idempotency safeguards remain in place. No blanket retry changes during this handoff.
+是，批准的幂等保护仍在，交接期间不统一修改重试。
+
+9
+00:01:02.662 --> 00:01:10.870
+Hannah: And the mitigation is holding for routed workers? Compare them with primary-path workers separately.
+绕行工作进程缓解持续有效吗？要与主路径进程分开比较。
+
+10
+00:01:10.870 --> 00:01:17.830
+Priya: Yes, their timeouts are roughly near baseline. So, preserve both views in the update.
+是，超时大致接近基线。因此更新中保留这两种视图。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0047",
+ "part": 2,
+ "stage": "风险评审",
+ "title": "评审补丁：发行版补丁也要验证",
+ "premise": "已确认只维护四台catalog-api主机，旧内存事件节点被排除。",
+ "listeningTask": "分辨已有测试证据、尚未覆盖的风险和批准所需材料。",
+ "newPhrase": "p322",
+ "phrases": [
+  "p322",
+  "p010",
+  "p302",
+  "p311:extra",
+  "p312:extra",
+  "p319:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "What's our evidence against a kernel regression? Which tests ran in staging?",
+   "zh": "有哪些证据能降低内核回归风险？预发布跑过哪些测试？",
+   "role": "SRE reviewer",
+   "start": 0.0,
+   "end": 5.952
+  },
+  {
+   "sp": "Raj",
+   "en": "Boot, network, and storage checks passed. Same image family, same Secure Boot setting.",
+   "zh": "启动、网络和存储检查通过。同一镜像系列，Secure Boot设置也一致。",
+   "role": "Linux operator",
+   "start": 5.952,
+   "end": 13.295
+  },
+  {
+   "sp": "Hannah",
+   "en": "Same driver versions too? A matching image name doesn't guarantee matching modules.",
+   "zh": "驱动版本也一致吗？镜像名字一致不代表模块一致。",
+   "role": "Validation engineer",
+   "start": 13.295,
+   "end": 20.423
+  },
+  {
+   "sp": "Anika",
+   "en": "App tests passed under load. Memory headroom stayed healthy throughout the run.",
+   "zh": "应用通过了带负载测试，运行期间内存余量一直正常。",
+   "role": "API owner",
+   "start": 20.423,
+   "end": 26.35
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no memory pressure in that run, right? Attach the graphs.",
+   "zh": "我确认一下，那次测试没有内存压力，对吧？把曲线附上。",
+   "role": "Change coordinator",
+   "start": 26.35,
+   "end": 32.83
+  },
+  {
+   "sp": "Lukas",
+   "en": "If anything got OOM-killed, we'd need to separate capacity from kernel behavior.",
+   "zh": "如果有进程被OOM机制终止，我们得区分容量问题和内核行为。",
+   "role": "SRE reviewer",
+   "start": 32.83,
+   "end": 38.278
+  },
+  {
+   "sp": "Raj",
+   "en": "Nothing did. I checked the kernel log too. We can rule that out for this test.",
+   "zh": "没有。我也查了内核日志，可以排除这次测试中发生过OOM。",
+   "role": "Linux operator",
+   "start": 38.278,
+   "end": 45.261
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll compare the driver manifests next. That's the remaining gap in the evidence.",
+   "zh": "接下来我会对比驱动清单，那是当前证据还缺的一块。",
+   "role": "Validation engineer",
+   "start": 45.261,
+   "end": 52.077
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe add a longer soak later. The current test doesn't cover every production pattern.",
+   "zh": "以后可以增加长时间测试，现在的测试覆盖不了所有生产模式。",
+   "role": "API owner",
+   "start": 52.077,
+   "end": 58.844
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Record the limitation. We still need a small first batch tonight.",
+   "zh": "同意，把限制记下来。今晚仍然要从小批次开始。",
+   "role": "Change coordinator",
+   "start": 58.844,
+   "end": 65.66
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 2,
+ "scene": "已确认只维护四台catalog-api主机，旧内存事件节点被排除。",
+ "dir": "linux/0047-评审补丁",
+ "audio": "0047-评审补丁.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "风险评审"
+ ],
+ "duration": 65.66
+}

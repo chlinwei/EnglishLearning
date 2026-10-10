@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.312
+Priya: Go/no-go is green for the staged rollout.
+
+2
+00:00:03.312 --> 00:00:07.368
+Lukas: Is reserved capacity enforced across all replicas?
+
+3
+00:00:07.368 --> 00:00:11.593
+Raj: Yes, allocations sum below the global safe ceiling.
+
+4
+00:00:11.593 --> 00:00:16.249
+Hannah: Okay, watch critical completion and callback delay.
+
+5
+00:00:16.249 --> 00:00:20.281
+Anika: Just to recap, recommendations can degrade first.
+
+6
+00:00:20.281 --> 00:00:24.385
+Priya: Raj owns stopping expansion itself if checks fail.
+
+7
+00:00:24.385 --> 00:00:28.273
+Lukas: What's the escalation path if Raj's unavailable?
+
+8
+00:00:28.273 --> 00:00:31.993
+Raj: The gateway backup has tested rollback access.
+
+9
+00:00:31.993 --> 00:00:37.298
+Hannah: An action item: review fairness tomorrow, perhaps.
+
+10
+00:00:37.298 --> 00:00:43.010
+Priya: Tomorrow morning, yes. Keep emergency limits active tonight.
+

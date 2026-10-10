@@ -1,0 +1,135 @@
+{
+ "id": "0170",
+ "part": 5,
+ "stage": "路径条件",
+ "title": "空值为什么落到父目录",
+ "premise": "已保存实际参数与版本，在无生产访问的环境复现。",
+ "listeningTask": "理解字符串前缀检查不足以建立目录边界。",
+ "newPhrase": "p445",
+ "phrases": [
+  "p445",
+  "p335",
+  "p010:extra",
+  "p302:extra",
+  "p444:extra",
+  "p443:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "An empty path component selects the parent. The offline fixture reproduces all three candidates.",
+   "zh": "空路径组成项使路径退到父目录，离线用例复现了三条越界候选。",
+   "role": "Cleanup script maintainer",
+   "start": 0.0,
+   "end": 7.32
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does the safety check compare string prefixes? Sibling directories can share those prefixes.",
+   "zh": "安全检查比较的是字符串前缀吗？兄弟目录可能有相同前缀。",
+   "role": "SRE and process containment owner",
+   "start": 7.32,
+   "end": 14.208
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, that's the second boundary weakness. Just to confirm, both checks need replacing, right?",
+   "zh": "是，这是第二个边界缺陷。确认一下，两处检查都要替换，对吧？",
+   "role": "Cleanup script maintainer",
+   "start": 14.208,
+   "end": 21.623
+  },
+  {
+   "sp": "Anika",
+   "en": "The deletion manifest matches that fixture output. No extra live run is needed now.",
+   "zh": "删除清单与用例输出一致，现在无需再跑生产。",
+   "role": "Artifact service and recovery owner",
+   "start": 21.623,
+   "end": 28.391
+  },
+  {
+   "sp": "Hannah",
+   "en": "Test resolved paths, not textual resemblance. Include sibling names and links escaping outward.",
+   "zh": "测解析后的路径，不看文本相似性，覆盖兄弟目录和向外的链接。",
+   "role": "Evidence and test validation engineer",
+   "start": 28.391,
+   "end": 37.175
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, preserve the evidence from this reproduction. Our working hypothesis is now much stronger.",
+   "zh": "好，保留这次复现证据，当前假设更有依据了。",
+   "role": "Incident coordinator and approval owner",
+   "start": 37.175,
+   "end": 44.639
+  },
+  {
+   "sp": "Lukas",
+   "en": "Path checks alone can't prevent concurrent replacement. The deletion mechanism needs race protection too.",
+   "zh": "路径检查不能单独防止并发替换，删除机制也需要防竞态。",
+   "role": "SRE and process containment owner",
+   "start": 44.639,
+   "end": 52.031
+  },
+  {
+   "sp": "Raj",
+   "en": "We can rule that out for this run. The captured tree had no changing links.",
+   "zh": "本次执行可以排除这种竞态，保存的目录树没有变化的链接。",
+   "role": "Cleanup script maintainer",
+   "start": 52.031,
+   "end": 58.054
+  },
+  {
+   "sp": "Hannah",
+   "en": "That's evidence about this incident only. It doesn't remove the broader safety requirement.",
+   "zh": "这只是本次事件的证据，不能取消更广泛的安全要求。",
+   "role": "Evidence and test validation engineer",
+   "start": 58.054,
+   "end": 65.326
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, maybe the guard needs two layers. Reject bad inputs and constrain filesystem access.",
+   "zh": "同意，保护可能需要两层：拒绝错误输入并限制文件系统访问。",
+   "role": "Artifact service and recovery owner",
+   "start": 65.326,
+   "end": 72.79
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 5,
+ "scene": "已保存实际参数与版本，在无生产访问的环境复现。",
+ "dir": "coding/0170-空值为什么落到父目录",
+ "audio": "0170-空值为什么落到父目录.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "路径条件"
+ ],
+ "duration": 72.79
+}

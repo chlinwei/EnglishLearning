@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.600
+Raj: Each zone forms a separate failure domain.
+
+2
+00:00:03.600 --> 00:00:08.568
+Lukas: For power, yes. What about shared configuration pushes?
+
+3
+00:00:08.568 --> 00:00:13.103
+Anika: Managed configuration currently updates both zones together.
+
+4
+00:00:13.103 --> 00:00:16.607
+Hannah: So a bad rule could remove both paths.
+
+5
+00:00:16.607 --> 00:00:20.879
+Priya: Just to confirm, staged updates required, right?
+
+6
+00:00:20.879 --> 00:00:25.775
+Raj: Yes, separate approval gates and tested last-good versions.
+
+7
+00:00:25.775 --> 00:00:30.527
+Lukas: Let me play that back. Geography isn't independence.
+
+8
+00:00:30.527 --> 00:00:34.558
+Anika: That's our blast radius even without hardware failure.
+
+9
+00:00:34.558 --> 00:00:39.070
+Hannah: The single point of failure is operational, perhaps.
+
+10
+00:00:39.070 --> 00:00:43.990
+Priya: Okay, record correlated failures alongside physical ones.
+

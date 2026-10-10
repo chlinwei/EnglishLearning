@@ -1,0 +1,135 @@
+{
+ "id": "0198",
+ "part": 3,
+ "stage": "范围",
+ "title": "本轮不添加新报表",
+ "premise": "痛点集中于全局状态与职责混杂，确定两周重构范围。",
+ "listeningTask": "听出纳入范围、明确排除和需要单独审批的事项。",
+ "newPhrase": "p473",
+ "phrases": [
+  "p473",
+  "p010",
+  "p004:extra",
+  "p472:extra",
+  "p330:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Let's avoid scope creep in this iteration. Preserve CLI arguments, report format, and scheduling.",
+   "zh": "本迭代避免范围膨胀，保留命令行参数、报表格式和调度。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 0.0,
+   "end": 7.728
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does the scope include replacing HTTP libraries? That would introduce unrelated compatibility risk.",
+   "zh": "范围含换HTTP库吗？那会增加无关兼容风险。",
+   "role": "Architecture and implementation reviewer",
+   "start": 7.728,
+   "end": 15.648
+  },
+  {
+   "sp": "Raj",
+   "en": "No, just separate pure transformations from fetching. Just to confirm, dependency upgrades stay out, right?",
+   "zh": "不，只拆纯转换与取数，确认一下，依赖升级不做，对吧？",
+   "role": "Refactoring implementation engineer",
+   "start": 15.648,
+   "end": 24.385
+  },
+  {
+   "sp": "Anika",
+   "en": "The managed configuration also keeps its schema. Maybe we can document it without changing fields.",
+   "zh": "受管配置也保留结构，可能补文档但不改字段。",
+   "role": "Reporting service and consumer owner",
+   "start": 24.385,
+   "end": 31.777
+  },
+  {
+   "sp": "Hannah",
+   "en": "Removing hidden coupling still needs interface tests. Existing invocations should retain their exit behavior.",
+   "zh": "移除隐藏耦合仍需接口测试，现有调用退出行为应保持。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 31.777,
+   "end": 40.873
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, one action item records excluded features. New JSON export belongs in another proposal.",
+   "zh": "好，记录排除功能，新JSON导出另提需求。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 40.873,
+   "end": 48.769
+  },
+  {
+   "sp": "Lukas",
+   "en": "Production rollout needs a separate change approval. This planning agreement doesn't authorize replacing jobs.",
+   "zh": "生产上线另需变更审批，计划达成一致不授权替换作业。",
+   "role": "Architecture and implementation reviewer",
+   "start": 48.769,
+   "end": 56.233
+  },
+  {
+   "sp": "Raj",
+   "en": "Let's park that release date until tests exist. We can estimate implementation before scheduling deployment.",
+   "zh": "有测试再谈发布日期，可以先估实现，再安排部署。",
+   "role": "Refactoring implementation engineer",
+   "start": 56.233,
+   "end": 64.49
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the original runnable artifact available. Comparison and rollback both depend on preserving it.",
+   "zh": "保留原来可运行制品，对照与回退都依赖它。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 64.49,
+   "end": 72.986
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll record consumer compatibility requirements today. They become our boundary for accepting changes.",
+   "zh": "同意，今天记录使用方兼容要求，作为接受变更的边界。",
+   "role": "Reporting service and consumer owner",
+   "start": 72.986,
+   "end": 81.05
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 3,
+ "scene": "痛点集中于全局状态与职责混杂，确定两周重构范围。",
+ "dir": "coding/0198-本轮不添加新报表",
+ "audio": "0198-本轮不添加新报表.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "范围"
+ ],
+ "duration": 81.05
+}

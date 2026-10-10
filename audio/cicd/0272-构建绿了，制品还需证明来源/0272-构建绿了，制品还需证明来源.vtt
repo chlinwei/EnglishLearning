@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.072
+Raj: The controlled build passed its tests. Build provenance names the expected commit.
+受控构建测试通过。构建来源证明指向预期提交。
+
+2
+00:00:06.072 --> 00:00:13.009
+Priya: Okay, we can bypass the cache safely. Just to confirm, signature verified too?
+好，可以安全绕过缓存。确认一下，签名也验证了？
+
+3
+00:00:13.009 --> 00:00:20.017
+Lukas: Against the approved signer identity, yes. A signature alone doesn't prove release approval.
+对，核对了批准的签名者身份。但签名本身不证明发布审批。
+
+4
+00:00:20.017 --> 00:00:26.329
+Anika: The smoke test passes in staging. Production promotion stays separate, right?
+预发布冒烟测试通过。生产晋级仍然单独审批，对吧？
+
+5
+00:00:26.329 --> 00:00:35.642
+Hannah: Correct, record immutable digest and attestations. Secret scanning found no embedded credentials.
+对，记录不可变摘要和证明。秘密扫描未发现嵌入凭据。
+
+6
+00:00:35.642 --> 00:00:43.178
+Raj: Diagnostic credentials are revoked after testing. Logs remain restricted and properly redacted.
+测试后诊断凭据已撤销。日志继续受限并已脱敏。
+
+7
+00:00:43.178 --> 00:00:49.611
+Lukas: Let's keep it under observation now. Mirror latency rose slightly during cold fetches.
+现在继续观察。冷下载时镜像源延迟略升。
+
+8
+00:00:49.611 --> 00:00:55.611
+Priya: So, go/no-go for limited queue recovery? I'd keep concurrency at two.
+那么，有限恢复队列是继续还是停止？我建议并发保持两个。
+
+9
+00:00:55.611 --> 00:01:03.316
+Hannah: Two is within the tested capacity. Stop dispatch if latency exceeds that limit.
+两个在已测容量内。延迟超出那个限制就停止派发。
+
+10
+00:01:03.316 --> 00:01:10.420
+Anika: Agreed, the tested limit is two seconds. We'll check retry eligibility before dispatch.
+同意，测试限制是两秒。派发前先检查重试资格。
+

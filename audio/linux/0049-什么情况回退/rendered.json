@@ -1,0 +1,135 @@
+{
+ "id": "0049",
+ "part": 4,
+ "stage": "回退准备",
+ "title": "什么情况回退：先把条件说清",
+ "premise": "确定A主机先做灰度，其余逐台推进，批准前明确回退与停止条件。",
+ "listeningTask": "区分暂停发布、诊断及真正回退，记住明确触发条件。",
+ "newPhrase": "p324",
+ "phrases": [
+  "p324",
+  "p010",
+  "p318",
+  "p011:extra",
+  "p004:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "What's the rollback trigger? Let's agree before anyone starts changing hosts.",
+   "zh": "什么情况触发回退？任何人开始改主机前先达成一致。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.048
+  },
+  {
+   "sp": "Lukas",
+   "en": "Failure to boot, missing network or storage, or a confirmed regression in the canary.",
+   "zh": "无法启动、网络或存储不可用，或者灰度节点出现已确认的回归问题。",
+   "role": "SRE reviewer",
+   "start": 6.048,
+   "end": 11.88
+  },
+  {
+   "sp": "Raj",
+   "en": "A latency spike alone means pause first. Check the evidence before blaming the patch.",
+   "zh": "仅延迟突增先暂停，查看证据后再判断是不是补丁的问题。",
+   "role": "Linux operator",
+   "start": 11.88,
+   "end": 18.528
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Pause on uncertainty, roll back when the canary fails agreed checks?",
+   "zh": "我复述一下：不确定时暂停，灰度节点不满足约定检查时回退？",
+   "role": "Validation engineer",
+   "start": 18.528,
+   "end": 26.424
+  },
+  {
+   "sp": "Priya",
+   "en": "Exactly. Just to confirm, the recovery window includes checks after backing out, right?",
+   "zh": "对。我确认一下，恢复窗口也包括回退后的检查，对吧？",
+   "role": "Change coordinator",
+   "start": 26.424,
+   "end": 33.576
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. The app stays off traffic until health and business checks pass again.",
+   "zh": "包括。健康和业务检查再次通过前，应用不接回流量。",
+   "role": "API owner",
+   "start": 33.576,
+   "end": 39.696
+  },
+  {
+   "sp": "Lukas",
+   "en": "And rollback may mean another reboot. Keep the old kernel and its modules available.",
+   "zh": "回退可能还需要一次重启，所以要保留旧内核及对应模块。",
+   "role": "SRE reviewer",
+   "start": 39.696,
+   "end": 45.984
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. I'll verify the boot entry and the console access before draining.",
+   "zh": "我来核对。退出流量前先验证启动项和控制台访问。",
+   "role": "Linux operator",
+   "start": 45.984,
+   "end": 52.416
+  },
+  {
+   "sp": "Hannah",
+   "en": "If console access fails, it's a no-go. We can't rely on SSH after a bad boot.",
+   "zh": "控制台访问失败就不能开始，启动异常后不能指望SSH仍然可用。",
+   "role": "Validation engineer",
+   "start": 52.416,
+   "end": 60.408
+  },
+  {
+   "sp": "Priya",
+   "en": "A broader rollback redesign? Let's park that. Verify tonight's documented procedure first.",
+   "zh": "更全面的回退方案重设计先放一边。先核实今晚文档规定的流程。",
+   "role": "Change coordinator",
+   "start": 60.408,
+   "end": 68.4
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 4,
+ "scene": "确定A主机先做灰度，其余逐台推进，批准前明确回退与停止条件。",
+ "dir": "linux/0049-什么情况回退",
+ "audio": "0049-什么情况回退.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "回退准备"
+ ],
+ "duration": 68.4
+}

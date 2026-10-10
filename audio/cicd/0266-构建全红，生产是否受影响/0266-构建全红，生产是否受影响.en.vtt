@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.808
+Priya: Okay, the pipeline's red across projects. I'll take point on this.
+
+2
+00:00:05.808 --> 00:00:11.256
+Raj: Failures started around nine this morning. Let me tail the log.
+
+3
+00:00:11.256 --> 00:00:16.751
+Lukas: Which step failed on those runs? Don't retry everything before we know.
+
+4
+00:00:16.751 --> 00:00:24.791
+Anika: Dependency fetch, before any artifact upload. Production still serves yesterday's version, right?
+
+5
+00:00:24.791 --> 00:00:32.903
+Hannah: Yes, production's deployment digest hasn't changed. Build failures aren't proof of exposure.
+
+6
+00:00:32.903 --> 00:00:39.815
+Raj: Our working hypothesis is shared infrastructure. Three unrelated commits fail alike.
+
+7
+00:00:39.815 --> 00:00:47.327
+Lukas: Shared infrastructure... maybe, but compare timestamps. A common dependency could explain it.
+
+8
+00:00:47.327 --> 00:00:53.134
+Priya: Just to confirm, preserve failed runs. What's the ETA for scope?
+
+9
+00:00:53.134 --> 00:01:00.694
+Hannah: I'll preserve access-controlled logs and metadata. No secret values in this channel.
+
+10
+00:01:00.694 --> 00:01:06.910
+Anika: About two minutes for affected projects. I'll tell developers retries are paused.
+

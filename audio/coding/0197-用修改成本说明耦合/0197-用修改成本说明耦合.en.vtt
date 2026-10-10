@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.440
+Raj: There's hidden coupling through the global client. Testing formatting currently requires a network connection.
+
+2
+00:00:07.440 --> 00:00:14.304
+Lukas: That's a concrete reason to separate boundaries. Which changes have the highest recurring cost?
+
+3
+00:00:14.304 --> 00:00:21.935
+Anika: Filtering changes touch fetching and rendering together. Just to confirm, separating those helps, right?
+
+4
+00:00:21.935 --> 00:00:29.159
+Priya: Okay, our bandwidth covers two engineers this sprint. Maybe three days go to test discovery.
+
+5
+00:00:29.159 --> 00:00:38.159
+Hannah: A characterization test will expose those dependencies. Use injected test clients instead of real calls.
+
+6
+00:00:38.159 --> 00:00:45.479
+Raj: One action item is removing import-time requests. Importing the module shouldn't start a job.
+
+7
+00:00:45.479 --> 00:00:54.167
+Lukas: Good, but keep credential handling unchanged externally. Internal separation doesn't authorize a security redesign.
+
+8
+00:00:54.167 --> 00:01:01.486
+Priya: Let's take it offline for framework comparisons. First agree on the behavior we must preserve.
+
+9
+00:01:01.486 --> 00:01:10.102
+Hannah: We'll measure isolated test runtime as evidence. Faster tests are useful, not the sole goal.
+
+10
+00:01:10.102 --> 00:01:18.190
+Anika: Agreed, unchanged reports matter more to consumers. I'll collect the command-line invocation examples today.
+

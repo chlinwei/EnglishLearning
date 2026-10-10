@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.488
+Raj: We've got an unexpected deletion alert. The candidate list includes another tenant's directory.
+
+2
+00:00:07.488 --> 00:00:13.079
+Lukas: Is that a preview or actual execution? We need to stop further writes.
+
+3
+00:00:13.079 --> 00:00:20.543
+Anika: Three artifact reads return missing files. That suggests actual impact, not just preview.
+
+4
+00:00:20.543 --> 00:00:27.094
+Priya: Okay, I'll take point on this. Just to confirm, cleanup is running, right?
+
+5
+00:00:27.094 --> 00:00:34.078
+Hannah: The dashboard lags behind process state. Check the host, not just the panel.
+
+6
+00:00:34.078 --> 00:00:39.766
+Raj: Let me tail the log safely. I'll copy it before changing anything.
+
+7
+00:00:39.766 --> 00:00:45.477
+Lukas: Don't rerun the script for diagnosis. That could remove additional files.
+
+8
+00:00:45.477 --> 00:00:52.509
+Anika: Our working hypothesis is a boundary failure. Maybe an empty tenant argument explains it.
+
+9
+00:00:52.509 --> 00:01:00.596
+Hannah: That's plausible, but not established yet. Preserve the invocation and effective environment.
+
+10
+00:01:00.596 --> 00:01:06.860
+Priya: Those reported paths define the initial scope. That's our blast radius so far.
+

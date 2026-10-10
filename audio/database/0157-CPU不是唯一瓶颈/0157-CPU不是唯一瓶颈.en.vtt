@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.824
+Raj: The peak load baseline shows sixty-eight percent CPU. Transaction latency remains within target.
+
+2
+00:00:07.824 --> 00:00:13.920
+Lukas: Which percentile and which request class? An average could hide busy periods.
+
+3
+00:00:13.920 --> 00:00:20.976
+Anika: Transaction p ninety-five is one-forty milliseconds. Its target is two hundred milliseconds.
+
+4
+00:00:20.976 --> 00:00:28.104
+Priya: Just to confirm, reports measured separately, right? They aren't meeting that same target.
+
+5
+00:00:28.104 --> 00:00:35.928
+Hannah: Correct, reports reach nearly two seconds. Their scans coincide with disk queues.
+
+6
+00:00:35.928 --> 00:00:42.528
+Raj: We can't rule that out as contention. Maybe a larger CPU won't help enough.
+
+7
+00:00:42.528 --> 00:00:48.648
+Lukas: I'll keep an eye on I/O ceilings. Instance bandwidth and storage limits differ.
+
+8
+00:00:48.648 --> 00:00:55.656
+Anika: The growth forecast increases both workloads. But it doesn't prove CPU saturation yet.
+
+9
+00:00:55.656 --> 00:01:03.600
+Hannah: Our working hypothesis is avoidable scan pressure. Let's inspect the query before sizing.
+
+10
+00:01:03.600 --> 00:01:10.200
+Priya: Okay, keep that distinction in the notes. We need capacity and efficiency together.
+

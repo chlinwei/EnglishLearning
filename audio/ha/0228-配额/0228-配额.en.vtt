@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.408
+Raj: The rate limit uses weighted token buckets.
+
+2
+00:00:03.408 --> 00:00:07.129
+Lukas: Weighted by measured database cost, or guesswork?
+
+3
+00:00:07.129 --> 00:00:12.841
+Raj: Measured samples. Our working hypothesis still needs validation.
+
+4
+00:00:12.841 --> 00:00:16.586
+Hannah: How much burst allowance can memory absorb?
+
+5
+00:00:16.586 --> 00:00:20.282
+Anika: Memory headroom supports two seconds of callbacks.
+
+6
+00:00:20.282 --> 00:00:24.098
+Priya: Just to confirm, queues stay bounded, right?
+
+7
+00:00:24.098 --> 00:00:28.539
+Lukas: Yes. Bound concurrency on the critical path too.
+
+8
+00:00:28.539 --> 00:00:32.523
+Raj: A global ceiling protects shared database capacity.
+
+9
+00:00:32.523 --> 00:00:36.868
+Hannah: Okay, a smoke test won't establish that ceiling.
+
+10
+00:00:36.868 --> 00:00:42.100
+Priya: Agreed. Roughly twenty percent spare, pending load tests.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.952
+Raj: Evidence is saved. We can shed load by lowering the canary's fetch rate.
+
+2
+00:00:05.952 --> 00:00:12.071
+Lukas: That may slow memory growth. It won't necessarily release what's already retained.
+
+3
+00:00:12.071 --> 00:00:18.599
+Anika: Right. It'll buy us time. Incoming events stay in the durable queue.
+
+4
+00:00:18.599 --> 00:00:25.006
+Priya: Just to confirm, no dropping events, right? What happens to customer delays?
+
+5
+00:00:25.006 --> 00:00:31.846
+Hannah: They'll rise temporarily. The healthy workers have room, but we should watch them.
+
+6
+00:00:31.846 --> 00:00:37.126
+Raj: I'm on it. I'll lower the approved setting on this host only.
+
+7
+00:00:37.126 --> 00:00:43.365
+Lukas: Record the original value. Don't increase the other workers blindly to compensate.
+
+8
+00:00:43.365 --> 00:00:48.405
+Priya: What's the ETA for recovery? Can the queue catch up afterward?
+
+9
+00:00:48.405 --> 00:00:55.220
+Hannah: Likely, if arrivals stay steady. We'll estimate after the worker is stable.
+
+10
+00:00:55.220 --> 00:01:01.820
+Anika: About five minutes for a controlled restart. I'll explain the temporary delay to support.
+

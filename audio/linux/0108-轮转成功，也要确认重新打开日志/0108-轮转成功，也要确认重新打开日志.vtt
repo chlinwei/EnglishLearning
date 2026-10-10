@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.960
+Anika: Okay, Friday's rotation test passed in staging. The service kept writing after rotation.
+好，周五预生产轮转测试通过，服务轮转后继续写入。
+
+2
+00:00:06.960 --> 00:00:13.873
+Hannah: Did it reopen the log correctly? A renamed file can remain open indefinitely.
+它正确重新打开日志了吗？重命名的文件可能一直保持打开。
+
+3
+00:00:13.873 --> 00:00:21.073
+Anika: Yes, the documented reload reopens its descriptor. We confirmed writes reached the new file.
+是，文档中的重载会重新打开描述符，已确认写入新文件。
+
+4
+00:00:21.073 --> 00:00:28.058
+Lukas: Is that behavior specific to this service? Don't assume every daemon handles reload identically.
+这种行为是这个服务特有的吗？不能假定所有守护进程重载行为相同。
+
+5
+00:00:28.058 --> 00:00:35.618
+Raj: Yes, the automation selects a service-specific handler. Unknown services stop for manual review.
+是，自动化选择服务专属处理器，未知服务停止并人工评审。
+
+6
+00:00:35.618 --> 00:00:43.946
+Priya: Just to confirm, retention policy stays unchanged, right? This task doesn't authorize extra deletion.
+我确认一下，保留策略不变，对吧？这项任务不授权额外删除。
+
+7
+00:00:43.946 --> 00:00:52.587
+Hannah: Correct, test files only in staging. I'll compare the configured retention with actual outputs.
+对，预生产只用测试文件。我会比较配置保留策略和实际输出。
+
+8
+00:00:52.587 --> 00:00:59.043
+Anika: Let me tail the log after standup. That will supply today's verification evidence.
+站会后我会盯日志，补上今天验证证据。
+
+9
+00:00:59.043 --> 00:01:05.548
+Lukas: And before you rotate the log again, save the test state. Keep results reproducible.
+再次轮转前保存测试状态，让结果可复现。
+
+10
+00:01:05.548 --> 00:01:12.340
+Priya: So, roughly one hour for evidence cleanup. We can review without changing production today.
+因此大约一小时整理证据。今天不改生产也能评审。
+

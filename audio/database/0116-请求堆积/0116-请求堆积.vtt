@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Anika: The pool is exhausted on orders. The error rate spiked after nine.
+订单服务连接池耗尽，九点后错误率猛涨。
+
+2
+00:00:05.616 --> 00:00:11.447
+Lukas: Are requests waiting for connections? Or already running inside the database?
+请求在等连接，还是已在数据库里执行？
+
+3
+00:00:11.447 --> 00:00:17.855
+Anika: Mostly waiting before any query starts. About two hundred requests are queued.
+大部分还没开始查询就卡住了，大约两百个请求在排队。
+
+4
+00:00:17.855 --> 00:00:24.790
+Priya: Okay, I'll take point on this. Just to confirm, writes still succeed, right?
+好，我来协调。确认一下，写入仍有成功的，对吧？
+
+5
+00:00:24.790 --> 00:00:31.966
+Hannah: Some do, but clients time out. Don't assume failed responses mean failed writes.
+有些成功，但客户端超时。不能把响应失败等同于写入失败。
+
+6
+00:00:31.966 --> 00:00:37.942
+Raj: Let me tail the log first. I'll separate checkout waits from execution.
+我先盯日志，把借连接等待和执行耗时分开。
+
+7
+00:00:37.942 --> 00:00:44.349
+Lukas: Good. Keep client retries bounded too. Repeated writes could make this worse.
+好，也限制客户端重试。重复写入可能让问题更严重。
+
+8
+00:00:44.349 --> 00:00:50.085
+Priya: So, what's the ETA for evidence? A rough estimate will help us.
+那预计多久有证据？给个大概时间便于安排。
+
+9
+00:00:50.085 --> 00:00:57.572
+Hannah: I'll check duplicate order protection now. We need that before suggesting retries.
+我现在检查订单去重保护，建议重试前必须确认。
+
+10
+00:00:57.572 --> 00:01:03.740
+Raj: About two minutes for pool metrics. No database restart while we're checking.
+连接池指标大约两分钟拿到，检查期间不重启数据库。
+

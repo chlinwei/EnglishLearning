@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.984
+Priya: Acceptance criteria cover single-zone peak targets.
+
+2
+00:00:03.984 --> 00:00:08.712
+Hannah: And zero missing acknowledged orders after failover.
+
+3
+00:00:08.712 --> 00:00:13.489
+Raj: I'll own load evidence. What's the ETA constraint?
+
+4
+00:00:13.489 --> 00:00:16.969
+Lukas: Friday for tests, Monday for the review.
+
+5
+00:00:16.969 --> 00:00:20.737
+Priya: The proxy action item: who's picking this up?
+
+6
+00:00:20.737 --> 00:00:25.393
+Anika: I'll name its owner today itself. Before lunch.
+
+7
+00:00:25.393 --> 00:00:29.233
+Hannah: Perhaps add a test-access backup owner.
+
+8
+00:00:29.233 --> 00:00:32.978
+Raj: I'll close the loop with reports and exceptions.
+
+9
+00:00:32.978 --> 00:00:37.274
+Lukas: Just to recap, no launch without acceptance evidence.
+
+10
+00:00:37.274 --> 00:00:42.050
+Priya: Agreed. Book the follow-up, not an incident bridge.
+

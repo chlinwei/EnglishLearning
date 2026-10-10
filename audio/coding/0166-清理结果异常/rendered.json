@@ -1,0 +1,135 @@
+{
+ "id": "0166",
+ "part": 1,
+ "stage": "告警",
+ "title": "清理结果异常",
+ "premise": "任务报告越界候选，同时出现制品缺失请求。",
+ "listeningTask": "区分删除告警、实际缺失与尚未确认的范围。",
+ "newPhrase": "p441",
+ "phrases": [
+  "p441",
+  "p003",
+  "p010:extra",
+  "p103:extra",
+  "p335:extra",
+  "p106:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We've got an unexpected deletion alert. The candidate list includes another tenant's directory.",
+   "zh": "出现非预期删除告警，候选清单包含另一租户目录。",
+   "role": "Cleanup script maintainer",
+   "start": 0.0,
+   "end": 7.488
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is that a preview or actual execution? We need to stop further writes.",
+   "zh": "这是预览还是实际执行？必须阻止继续写入。",
+   "role": "SRE and process containment owner",
+   "start": 7.488,
+   "end": 13.079
+  },
+  {
+   "sp": "Anika",
+   "en": "Three artifact reads return missing files. That suggests actual impact, not just preview.",
+   "zh": "三个制品读取报告文件缺失，说明可能有实际影响，不只是预览。",
+   "role": "Artifact service and recovery owner",
+   "start": 13.079,
+   "end": 20.543
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Just to confirm, cleanup is running, right?",
+   "zh": "好，我来协调。确认一下，清理任务还在运行，对吧？",
+   "role": "Incident coordinator and approval owner",
+   "start": 20.543,
+   "end": 27.094
+  },
+  {
+   "sp": "Hannah",
+   "en": "The dashboard lags behind process state. Check the host, not just the panel.",
+   "zh": "面板滞后于进程状态，查主机，不只看面板。",
+   "role": "Evidence and test validation engineer",
+   "start": 27.094,
+   "end": 34.078
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log safely. I'll copy it before changing anything.",
+   "zh": "我先安全查看日志，做任何修改前复制日志。",
+   "role": "Cleanup script maintainer",
+   "start": 34.078,
+   "end": 39.766
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't rerun the script for diagnosis. That could remove additional files.",
+   "zh": "不要为诊断重跑脚本，可能继续删除文件。",
+   "role": "SRE and process containment owner",
+   "start": 39.766,
+   "end": 45.477
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis is a boundary failure. Maybe an empty tenant argument explains it.",
+   "zh": "目前假设是目录边界失守，可能与空租户参数有关。",
+   "role": "Artifact service and recovery owner",
+   "start": 45.477,
+   "end": 52.509
+  },
+  {
+   "sp": "Hannah",
+   "en": "That's plausible, but not established yet. Preserve the invocation and effective environment.",
+   "zh": "有可能，但尚未证实。保留调用参数与实际环境。",
+   "role": "Evidence and test validation engineer",
+   "start": 52.509,
+   "end": 60.596
+  },
+  {
+   "sp": "Priya",
+   "en": "Those reported paths define the initial scope. That's our blast radius so far.",
+   "zh": "先按报告路径圈定范围，目前影响范围就是这些路径。",
+   "role": "Incident coordinator and approval owner",
+   "start": 60.596,
+   "end": 66.86
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 1,
+ "scene": "任务报告越界候选，同时出现制品缺失请求。",
+ "dir": "coding/0166-清理结果异常",
+ "audio": "0166-清理结果异常.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "告警"
+ ],
+ "duration": 66.86
+}

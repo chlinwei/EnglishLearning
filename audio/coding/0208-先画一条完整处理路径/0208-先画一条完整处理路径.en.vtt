@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Lukas: Show the worker's processing flow now. Where do you place durable state and acknowledgements?
+
+2
+00:00:06.552 --> 00:00:16.055
+Raj: I'd start with a small worker pool. Each task validates bounded input first. Then it acquires work through a lease.
+
+3
+00:00:16.055 --> 00:00:23.759
+Hannah: What do you persist before sending? Memory-only bookkeeping disappears when the worker crashes.
+
+4
+00:00:23.759 --> 00:00:32.734
+Raj: The operation identifier and payload hash persist first. Just to confirm, identifiers survive redelivery, right?
+
+5
+00:00:32.734 --> 00:00:40.102
+Raj: Okay, then lease work and send it. Terminal results persist before acknowledging the queue message.
+
+6
+00:00:40.102 --> 00:00:47.470
+Lukas: What if acknowledgement fails after success? That creates the duplicate processing window we're discussing.
+
+7
+00:00:47.470 --> 00:00:55.389
+Raj: I'm on it by checking persisted terminal state. Maybe redelivery only needs another acknowledgement then.
+
+8
+00:00:55.389 --> 00:01:02.829
+Hannah: Can you demonstrate the flow safely? We don't want real infrastructure changes in interviews.
+
+9
+00:01:02.829 --> 00:01:10.629
+Raj: I'd dry-run it first with a fake client. Then run isolated integration tests against a sandbox.
+
+10
+00:01:10.629 --> 00:01:20.780
+Raj: One action item covers durable state. I'd define each transition explicitly. The lease alone doesn't guarantee unique effects.
+

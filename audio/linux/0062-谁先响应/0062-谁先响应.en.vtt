@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Priya: Hannah is primary on-call tonight. Lukas is backup. The duty app owner is in the rota.
+
+2
+00:00:07.872 --> 00:00:15.744
+Hannah: I'll acknowledge alerts and coordinate the first response. Who approves application changes?
+
+3
+00:00:15.744 --> 00:00:23.327
+Anika: The duty app owner, not me by default. Use the live rota, not this meeting's attendee list.
+
+4
+00:00:23.327 --> 00:00:28.607
+Raj: Just to confirm, my pager rotates away after we hand over, right?
+
+5
+00:00:28.607 --> 00:00:35.927
+Lukas: Yes. Check the routing state before leaving. Don't assume the calendar changes it automatically.
+
+6
+00:00:35.927 --> 00:00:41.831
+Priya: That's an action item for me. I'll confirm the rota and alert routing now.
+
+7
+00:00:41.831 --> 00:00:49.751
+Hannah: I have bandwidth for monitoring. If we open an incident, I'll ask Lukas to track the timeline.
+
+8
+00:00:49.751 --> 00:00:55.894
+Raj: I'm on it for the evidence links. They won't depend on my personal access.
+
+9
+00:00:55.894 --> 00:01:02.110
+Lukas: Good. I'll verify access from my account too, not just watch Raj open the links.
+
+10
+00:01:02.110 --> 00:01:08.470
+Anika: And I'll check the app owner's contact. One stale number could cost us time tonight.
+

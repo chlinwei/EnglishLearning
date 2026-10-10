@@ -1,0 +1,135 @@
+{
+ "id": "0251",
+ "part": 6,
+ "stage": "职责争议",
+ "title": "谁批准提升：责任不能靠猜",
+ "premise": "权限流程可改善，但业务与基础设施双方对提升审批职责有不同理解。",
+ "listeningTask": "听出执行者、安全见证者与业务风险批准者的区别。",
+ "newPhrase": "p526",
+ "phrases": [
+  "p526",
+  "p525",
+  "p331",
+  "p011:extra",
+  "p010:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The decision owner wasn't clear during promotion.",
+   "zh": "提升时决策负责人不明确。",
+   "role": "Order service exercise owner",
+   "start": 0.0,
+   "end": 3.6
+  },
+  {
+   "sp": "Lukas",
+   "en": "Was that a runbook gap or conflicting instructions?",
+   "zh": "是手册缺口，还是指令冲突？",
+   "role": "Exercise safety observer",
+   "start": 3.6,
+   "end": 7.393
+  },
+  {
+   "sp": "Raj",
+   "en": "Both teams expected the other to approve.",
+   "zh": "两支团队都以为另一方会批准。",
+   "role": "DR exercise operator",
+   "start": 7.393,
+   "end": 10.729
+  },
+  {
+   "sp": "Hannah",
+   "en": "Execution ownership isn't approval for potential data loss.",
+   "zh": "执行责任不等于批准潜在数据损失。",
+   "role": "Recovery measurement analyst",
+   "start": 10.729,
+   "end": 15.721
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, business sign-off needed, right?",
+   "zh": "确认一下，需要业务批准，对吧？",
+   "role": "Retrospective facilitator",
+   "start": 15.721,
+   "end": 19.826
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, within agreed loss limits. Safety still gates promotion.",
+   "zh": "是的，必须在约定损失范围内，提升仍受安全门槛约束。",
+   "role": "Order service exercise owner",
+   "start": 19.826,
+   "end": 25.418
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Approval cannot bypass fencing.",
+   "zh": "我复述一下：批准不能绕过隔离。",
+   "role": "Exercise safety observer",
+   "start": 25.418,
+   "end": 30.075
+  },
+  {
+   "sp": "Raj",
+   "en": "We should hand over authority explicitly between shifts.",
+   "zh": "班次之间应明确交接决策权。",
+   "role": "DR exercise operator",
+   "start": 30.075,
+   "end": 34.203
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe include a delegate when the owner disappears.",
+   "zh": "也许应安排负责人不在时的代理人。",
+   "role": "Recovery measurement analyst",
+   "start": 34.203,
+   "end": 38.26
+  },
+  {
+   "sp": "Priya",
+   "en": "Staffing changes? Let's park that; define roles first.",
+   "zh": "人员调整？先暂存，先定义职责。",
+   "role": "Retrospective facilitator",
+   "start": 38.26,
+   "end": 43.66
+  }
+ ],
+ "group": "agile",
+ "domain": "ha",
+ "series": "sc-S25-ha-dr-retro",
+ "parts": 10,
+ "seq": 6,
+ "scene": "权限流程可改善，但业务与基础设施双方对提升审批职责有不同理解。",
+ "dir": "ha/0251-谁批准提升",
+ "audio": "0251-谁批准提升.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Retrospective facilitator）",
+  "Raj（DR exercise operator）",
+  "Anika（Order service exercise owner）",
+  "Lukas（Exercise safety observer）",
+  "Hannah（Recovery measurement analyst）"
+ ],
+ "tags": [
+  "ha",
+  "职责争议"
+ ],
+ "duration": 43.66
+}

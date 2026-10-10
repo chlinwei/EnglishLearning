@@ -1,0 +1,135 @@
+{
+ "id": "0172",
+ "part": 7,
+ "stage": "保护",
+ "title": "拒绝空输入并限制权限",
+ "premise": "制品读取恢复，清理仍停用，开始修复危险输入与访问边界。",
+ "listeningTask": "理解输入检查、目录范围和最小权限各自的作用。",
+ "newPhrase": "p447",
+ "phrases": [
+  "p447",
+  "p010",
+  "p445:extra",
+  "p444:extra",
+  "p014:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The guard clause rejects missing tenant values. An empty path component now fails closed.",
+   "zh": "保护分支拒绝缺失的租户值，空路径项现在会直接拒绝执行。",
+   "role": "Cleanup script maintainer",
+   "start": 0.0,
+   "end": 7.032
+  },
+  {
+   "sp": "Lukas",
+   "en": "That protects inputs, not every filesystem race. Use constrained directory handles for deletion too.",
+   "zh": "这保护输入，不解决所有文件系统竞态；删除还要用受约束的目录句柄。",
+   "role": "SRE and process containment owner",
+   "start": 7.032,
+   "end": 15.048
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll narrow the identity to tenant storage. Shared artifact directories won't grant deletion rights.",
+   "zh": "我把身份权限收敛到租户存储，共享制品目录不授予删除权限。",
+   "role": "Artifact service and recovery owner",
+   "start": 15.048,
+   "end": 22.585
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, links are rejected, right? We're not silently following external targets.",
+   "zh": "确认一下，链接会被拒绝，对吧？不能悄悄跟随外部目标。",
+   "role": "Incident coordinator and approval owner",
+   "start": 22.585,
+   "end": 29.809
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, and replacement races need explicit tests. A static path check isn't enough.",
+   "zh": "是，并发替换竞态要专门测试，静态路径检查不够。",
+   "role": "Evidence and test validation engineer",
+   "start": 29.809,
+   "end": 37.681
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it with the handle-based implementation. Maybe we'll need a platform-specific helper.",
+   "zh": "目录句柄实现我来做，可能需要平台专用辅助函数。",
+   "role": "Cleanup script maintainer",
+   "start": 37.681,
+   "end": 44.521
+  },
+  {
+   "sp": "Lukas",
+   "en": "Review that helper before production use. Unsupported platforms must refuse deletion rather than fallback.",
+   "zh": "生产使用前审查辅助函数，不支持的平台拒绝删除，不能降级到不安全实现。",
+   "role": "SRE and process containment owner",
+   "start": 44.521,
+   "end": 52.225
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, make that an explicit action item. Hannah owns verification, Raj owns the implementation.",
+   "zh": "好，列成明确行动项，Hannah负责验证，Raj负责实现。",
+   "role": "Incident coordinator and approval owner",
+   "start": 52.225,
+   "end": 60.41
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll preserve the evidence alongside test results. Reviewers can trace each protection to failure.",
+   "zh": "我会把证据与测试结果一起保留，让评审能对应保护与故障。",
+   "role": "Evidence and test validation engineer",
+   "start": 60.41,
+   "end": 68.714
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, cleanup permissions stay suspended for now. Code approval alone won't unlock production access.",
+   "zh": "好，清理权限暂时继续停用，代码通过不代表生产权限自动恢复。",
+   "role": "Artifact service and recovery owner",
+   "start": 68.714,
+   "end": 76.25
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 7,
+ "scene": "制品读取恢复，清理仍停用，开始修复危险输入与访问边界。",
+ "dir": "coding/0172-拒绝空输入并限制权限",
+ "audio": "0172-拒绝空输入并限制权限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "保护"
+ ],
+ "duration": 76.25
+}

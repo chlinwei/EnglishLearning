@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.880
+Hannah: One replica loses contact. It still serves local clients.
+
+2
+00:00:05.880 --> 00:00:09.912
+Raj: The minority partition must reject authoritative writes.
+
+3
+00:00:09.912 --> 00:00:14.521
+Raj: Just to confirm, availability yields to consistency, right?
+
+4
+00:00:14.521 --> 00:00:18.265
+Lukas: What if its old process continues issuing writes?
+
+5
+00:00:18.265 --> 00:00:22.081
+Raj: The fencing token blocks stale storage operations.
+
+6
+00:00:22.081 --> 00:00:27.601
+Hannah: Could local uncommitted records later overwrite majority decisions?
+
+7
+00:00:27.601 --> 00:00:33.601
+Raj: No. Consensus recovery discards conflicting uncommitted log entries.
+
+8
+00:00:33.601 --> 00:00:38.378
+Raj: That's our blast radius: minority-side write unavailability.
+
+9
+00:00:38.378 --> 00:00:42.458
+Lukas: Let me play that back. Perhaps stale reads too?
+
+10
+00:00:42.458 --> 00:00:47.330
+Raj: We can't rule that out. Block authoritative reads there.
+

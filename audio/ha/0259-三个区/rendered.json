@@ -1,0 +1,129 @@
+{
+ "id": "0259",
+ "part": 4,
+ "stage": "架构草图",
+ "title": "三个区：法定人数不是三份备份",
+ "premise": "并发与负载保护初步估算完成，候选人提出可用区架构。",
+ "listeningTask": "辨别副本数量、法定人数和持久化确认语义。",
+ "newPhrase": "p534",
+ "phrases": [
+  "p534",
+  "p106",
+  "p330",
+  "p010:extra",
+  "p335:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Sketch the storage layer. Where do replicas live?",
+   "zh": "画一下存储层，副本放在哪里？",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 4.248
+  },
+  {
+   "sp": "Raj",
+   "en": "Three zones. A quorum decision authorizes leadership.",
+   "zh": "三个区，由法定人数决策授权领导者。",
+   "role": "DevOps system design candidate",
+   "start": 4.248,
+   "end": 9.024
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, majority-durable acknowledgments, right?",
+   "zh": "确认一下，确认写入须在多数副本持久化，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 9.024,
+   "end": 13.297
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. Don't count an unpersisted network acknowledgment.",
+   "zh": "是的，不能把未持久化的网络响应算进去。",
+   "role": "Data systems interviewer",
+   "start": 13.297,
+   "end": 18.625
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis uses a proven consensus database.",
+   "zh": "我当前的方案假设使用成熟的共识数据库。",
+   "role": "DevOps system design candidate",
+   "start": 18.625,
+   "end": 23.161
+  },
+  {
+   "sp": "Lukas",
+   "en": "What shared infrastructure could still break all zones?",
+   "zh": "哪些共享基础设施仍可能使所有区失效？",
+   "role": "Reliability interviewer",
+   "start": 23.161,
+   "end": 26.905
+  },
+  {
+   "sp": "Raj",
+   "en": "Managed configuration could. I'd stage configuration changes.",
+   "zh": "受管理配置可能做到，我会分阶段改配置。",
+   "role": "DevOps system design candidate",
+   "start": 26.905,
+   "end": 32.185
+  },
+  {
+   "sp": "Raj",
+   "en": "That's our blast radius for a shared bad rule.",
+   "zh": "一条共享错误规则的影响范围会覆盖这些区。",
+   "role": "DevOps system design candidate",
+   "start": 32.185,
+   "end": 36.05
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Maybe separate rollout domains.",
+   "zh": "我复述一下，也许还要分开发布故障域。",
+   "role": "Data systems interviewer",
+   "start": 36.05,
+   "end": 41.018
+  },
+  {
+   "sp": "Raj",
+   "en": "Exactly. API replicas and gateways stay zone-separated too.",
+   "zh": "正是，API副本和网关也按区分开。",
+   "role": "DevOps system design candidate",
+   "start": 41.018,
+   "end": 46.73
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 4,
+ "scene": "并发与负载保护初步估算完成，候选人提出可用区架构。",
+ "dir": "ha/0259-三个区",
+ "audio": "0259-三个区.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "架构草图"
+ ],
+ "duration": 46.73
+}

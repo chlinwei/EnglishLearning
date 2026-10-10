@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.936
+Lukas: Show me the isolated restore environment. Can its test clone contact production services?
+
+2
+00:00:06.936 --> 00:00:14.449
+Raj: No, network policy blocks those routes. Both environments use drill credentials exclusively.
+
+3
+00:00:14.449 --> 00:00:21.289
+Anika: The reference stays read-only for comparisons. The clone handles synthetic retry writes.
+
+4
+00:00:21.289 --> 00:00:28.850
+Priya: Just to confirm, reference remains unchanged, right? New test writes aren't restored history.
+
+5
+00:00:28.850 --> 00:00:35.978
+Hannah: Let me play that back carefully. Compare reference data, test behavior on clone.
+
+6
+00:00:35.978 --> 00:00:43.394
+Raj: Yes, label both connection profiles clearly. Maybe the similar names need stronger warnings.
+
+7
+00:00:43.394 --> 00:00:49.491
+Lukas: Have I missed anything about cleanup? When will temporary drill credentials expire?
+
+8
+00:00:49.491 --> 00:00:56.715
+Anika: At noon, unless approved extension happens. Evidence remains in the restricted drill archive.
+
+9
+00:00:56.715 --> 00:01:05.620
+Hannah: Pending validation may need more time. Request extension before expiry, never bypass access.
+
+10
+00:01:05.620 --> 00:01:12.940
+Priya: Okay, the recovery target stays documented. No clone results replace reference-point checks.
+

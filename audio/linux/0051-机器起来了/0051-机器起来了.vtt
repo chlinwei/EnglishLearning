@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Raj: Host A is back. Running kernel matches the patch. Network and storage are visible.
+A主机启动了，运行中的内核符合补丁版本，网络和存储都可见。
+
+2
+00:00:07.344 --> 00:00:14.495
+Hannah: Loaded drivers too? An unsigned module could be rejected with Secure Boot enabled.
+驱动也加载了吗？开启Secure Boot时，未签名模块可能被拒绝。
+
+3
+00:00:14.495 --> 00:00:20.927
+Anika: Just to confirm, we check the loaded module, right? Not just the package files?
+我确认一下，要检查实际加载的模块，对吧？不是只看软件包文件？
+
+4
+00:00:20.927 --> 00:00:26.782
+Lukas: Exactly. Check the loaded version and kernel messages for signature failures.
+对。检查已加载版本，并看内核日志是否有签名验证失败。
+
+5
+00:00:26.782 --> 00:00:34.006
+Raj: I'm on it. Both drivers loaded. Signatures match the trusted vendor packages.
+我在查。两个驱动都加载了，签名来自受信任的供应商包。
+
+6
+00:00:34.006 --> 00:00:39.958
+Priya: Okay, we can rule that out here. What's the ETA for the service checks?
+好，这里可以排除签名问题。服务检查预计多久？
+
+7
+00:00:39.958 --> 00:00:45.213
+Hannah: About two minutes. I'll keep an eye on link errors while they run.
+大约两分钟。检查期间我会留意链路错误。
+
+8
+00:00:45.213 --> 00:00:51.837
+Anika: If a driver fails elsewhere, we stop. No turning off Secure Boot as a shortcut.
+其他主机如果驱动失败就停止，不把关闭Secure Boot当作捷径。
+
+9
+00:00:51.837 --> 00:00:57.620
+Lukas: Agreed. Keep that host off traffic, then follow the approved recovery path.
+同意。让那台保持不接流量，然后走批准的恢复流程。
+
+10
+00:00:57.620 --> 00:01:04.220
+Raj: So far, no new errors. I'll attach the versions and log checks to the change.
+目前没有新错误。我会把版本和日志检查附到变更记录。
+

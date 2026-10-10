@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.968
+Raj: We need a characterization test before extraction. Last week's formatting change altered column order.
+
+2
+00:00:07.968 --> 00:00:16.632
+Hannah: Did a consumer depend on that order? Behavior includes interfaces, not just calculation results.
+
+3
+00:00:16.632 --> 00:00:24.961
+Anika: Yes, a downstream import reads positional columns. Just to confirm, that order stays unchanged, right?
+
+4
+00:00:24.961 --> 00:00:33.073
+Priya: Okay, our working hypothesis is tangled responsibilities. One action item is capturing current outputs.
+
+5
+00:00:33.073 --> 00:00:40.609
+Lukas: Capture representative inputs and failure behavior too. Successful output snapshots aren't enough alone.
+
+6
+00:00:40.609 --> 00:00:47.449
+Raj: Maybe the parser also relies on globals. We can't rule that out without inspection.
+
+7
+00:00:47.449 --> 00:00:56.737
+Hannah: Existing bugs shouldn't become invisible requirements. Label known defects separately from intentional behavior.
+
+8
+00:00:56.737 --> 00:01:03.266
+Priya: A report redesign can wait another iteration. Let's park that while we map behavior.
+
+9
+00:01:03.266 --> 00:01:09.434
+Lukas: Keep this review tied to recent changes. We don't need a complete historical rewrite.
+
+10
+00:01:09.434 --> 00:01:16.730
+Anika: I'll bring sanitized examples from both consumers. That gives us evidence for scope decisions.
+

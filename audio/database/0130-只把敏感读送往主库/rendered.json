@@ -1,0 +1,135 @@
+{
+ "id": "0130",
+ "part": 5,
+ "stage": "控制读流量",
+ "title": "只把敏感读送往主库",
+ "premise": "已提交大删除与扫描重叠，主库容量检查通过，准备切敏感读。",
+ "listeningTask": "抓住读流量范围、缓存策略和停止条件。",
+ "newPhrase": "p405",
+ "phrases": [
+  "p405",
+  "p402",
+  "p316:extra",
+  "p324:extra",
+  "p010:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Route reads to the primary selectively. Start with payment confirmation on canary.",
+   "zh": "有选择地把读送到主库，先灰度支付确认。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 6.48
+  },
+  {
+   "sp": "Lukas",
+   "en": "The capacity check passed at this rate. Keep admission limits for traffic spikes.",
+   "zh": "这个速率的容量检查通过，仍保留流量突增时的接纳限额。",
+   "role": "Database SRE",
+   "start": 6.48,
+   "end": 12.36
+  },
+  {
+   "sp": "Anika",
+   "en": "Read-after-write consistency also needs cache bypass. Those endpoints won't serve cached states.",
+   "zh": "写后读一致性还需要绕过缓存，这些端点不再返回缓存状态。",
+   "role": "Orders read routing owner",
+   "start": 12.36,
+   "end": 19.943
+  },
+  {
+   "sp": "Hannah",
+   "en": "Validate a new committed order first. Then expand customer status reads gradually.",
+   "zh": "先验证一笔新提交订单，再逐步扩展客户状态读取。",
+   "role": "Consistency validation engineer",
+   "start": 19.943,
+   "end": 27.359
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, B stays a replica, right? No promotion changes in this incident.",
+   "zh": "确认一下，B仍是副本，对吧？这次不做提升切主。",
+   "role": "Replication on-call",
+   "start": 27.359,
+   "end": 34.175
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. Writer latency is our rollback trigger. Stop expansion if it gets worse.",
+   "zh": "对，写延迟是回退触发条件，变差就停止扩展。",
+   "role": "Database SRE",
+   "start": 34.175,
+   "end": 41.351
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, shed load from optional reports. Maybe defer them rather than overload primary.",
+   "zh": "好，减掉非必要报表负载，宁可延后也别压垮主库。",
+   "role": "Incident coordinator",
+   "start": 41.351,
+   "end": 48.263
+  },
+  {
+   "sp": "Hannah",
+   "en": "Don't send sensitive reads back blindly. If primary overloads, restrict that feature.",
+   "zh": "别盲目把敏感读送回副本，主库过载就限制该功能。",
+   "role": "Consistency validation engineer",
+   "start": 48.263,
+   "end": 56.254
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for the canary. I'll verify freshness and useful throughput.",
+   "zh": "我负责灰度，验证数据新鲜度和有效吞吐。",
+   "role": "Orders read routing owner",
+   "start": 56.254,
+   "end": 61.846
+  },
+  {
+   "sp": "Raj",
+   "en": "So, I'll pause the next deletion. That reduces fresh WAL without stopping replication.",
+   "zh": "那我暂停下一批删除，减少新WAL但不停复制。",
+   "role": "Replication on-call",
+   "start": 61.846,
+   "end": 68.71
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 5,
+ "scene": "已提交大删除与扫描重叠，主库容量检查通过，准备切敏感读。",
+ "dir": "database/0130-只把敏感读送往主库",
+ "audio": "0130-只把敏感读送往主库.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "控制读流量"
+ ],
+ "duration": 68.71
+}

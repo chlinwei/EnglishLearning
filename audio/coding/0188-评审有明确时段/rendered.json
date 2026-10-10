@@ -1,0 +1,135 @@
+{
+ "id": "0188",
+ "part": 3,
+ "stage": "评审等待",
+ "title": "评审有明确时段",
+ "premise": "解析器待评审，Lukas尚有平台工作，站会协调排期。",
+ "listeningTask": "听出评审承诺与不能提前视为完成的事项。",
+ "newPhrase": "p463",
+ "phrases": [
+  "p463",
+  "p006",
+  "p462:extra",
+  "p010:extra",
+  "p008:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The review queue is my main blocker. The change is up for review already.",
+   "zh": "主要阻塞是评审队列，变更已经提交评审。",
+   "role": "CLI implementation engineer",
+   "start": 0.0,
+   "end": 5.688
+  },
+  {
+   "sp": "Lukas",
+   "en": "I've got bandwidth at eleven this morning. I can't promise approval before reading it.",
+   "zh": "上午十一点我有时间，但读之前不能承诺通过。",
+   "role": "Code reviewer and platform engineer",
+   "start": 5.688,
+   "end": 11.641
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, eleven is review start, right? What's the ETA for initial feedback?",
+   "zh": "确认一下，十一点开始评审，对吧？初次反馈预计什么时候？",
+   "role": "Standup facilitator and delivery owner",
+   "start": 11.641,
+   "end": 18.745
+  },
+  {
+   "sp": "Anika",
+   "en": "My integration branch depends on its output shape. I can still prepare the adapter tests.",
+   "zh": "集成分支依赖输出结构，我仍能先准备适配器测试。",
+   "role": "API integration engineer",
+   "start": 18.745,
+   "end": 25.705
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the interface description beside the change. Reviewers shouldn't reverse-engineer the expected output.",
+   "zh": "变更旁放接口说明，不该让评审者反推预期输出。",
+   "role": "Test and acceptance engineer",
+   "start": 25.705,
+   "end": 34.226
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, I'll add that description before eleven. Maybe ten minutes for the example outputs.",
+   "zh": "好，十一点前补说明，示例输出可能需十分钟。",
+   "role": "CLI implementation engineer",
+   "start": 34.226,
+   "end": 41.426
+  },
+  {
+   "sp": "Lukas",
+   "en": "Initial feedback should arrive before lunch. Larger design questions may need a separate discussion.",
+   "zh": "午饭前给初次反馈，大的设计问题可能另需讨论。",
+   "role": "Code reviewer and platform engineer",
+   "start": 41.426,
+   "end": 48.411
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll circle back at the afternoon checkpoint. Don't mark the review complete before feedback.",
+   "zh": "下午检查点再跟进，反馈前不标成评审完成。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 48.411,
+   "end": 55.419
+  },
+  {
+   "sp": "Hannah",
+   "en": "I can review test clarity in parallel. That doesn't replace Lukas's implementation review.",
+   "zh": "我可并行审查测试清晰度，不能替代Lukas审实现。",
+   "role": "Test and acceptance engineer",
+   "start": 55.419,
+   "end": 63.268
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, I'll prepare integration fixtures meanwhile. That keeps progress moving without assuming interface approval.",
+   "zh": "好，我同时准备集成fixture，不假设接口已获批准。",
+   "role": "API integration engineer",
+   "start": 63.268,
+   "end": 71.5
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 3,
+ "scene": "解析器待评审，Lukas尚有平台工作，站会协调排期。",
+ "dir": "coding/0188-评审有明确时段",
+ "audio": "0188-评审有明确时段.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "评审等待"
+ ],
+ "duration": 71.5
+}

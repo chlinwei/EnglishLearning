@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.720
+Raj: Okay, the backup circuit serves two workers. It's a temporary workaround, not a repair.
+
+2
+00:00:06.720 --> 00:00:13.728
+Hannah: How much spare capacity remains there? Does it share the carrier's affected segment?
+
+3
+00:00:13.728 --> 00:00:22.320
+Raj: Utilization is roughly forty percent right now. Documented routing differs, but physical diversity isn't confirmed.
+
+4
+00:00:22.320 --> 00:00:28.224
+Lukas: Then don't call it fully independent. What's the rollback trigger for this workaround?
+
+5
+00:00:28.224 --> 00:00:37.008
+Anika: Sustained utilization above seventy percent means stop expansion. New correctness errors require immediate incident review.
+
+6
+00:00:37.008 --> 00:00:43.872
+Priya: Just to confirm, no automatic return, right? The primary path may still be worse.
+
+7
+00:00:43.872 --> 00:00:52.536
+Hannah: Correct, assess both paths before any reversal. Saved settings alone don't make returning safe.
+
+8
+00:00:52.536 --> 00:00:59.016
+Raj: The mitigation is holding on these workers. Keep an eye on backup queue depth too.
+
+9
+00:00:59.016 --> 00:01:05.736
+Lukas: Record any routing change with its scope. Don't move unrelated services during this shift.
+
+10
+00:01:05.736 --> 00:01:13.440
+Priya: Agreed, expansion needs the incident coordinator's approval. So, leave current routing unchanged for now.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.032
+Raj: Let me tail the log. The failed queries point to one upstream forwarder with no reply.
+
+2
+00:00:07.032 --> 00:00:13.392
+Hannah: Does A have more than one target? That could explain the intermittent failures.
+
+3
+00:00:13.392 --> 00:00:20.544
+Raj: Two targets. One replies, one doesn't. B's configured targets are different.
+
+4
+00:00:20.544 --> 00:00:27.384
+Priya: Just to confirm, we know the failing endpoint, right? We don't know why it's there yet.
+
+5
+00:00:27.384 --> 00:00:34.248
+Lukas: Check the inventory and recent changes. Don't remove an endpoint based only on one timeout.
+
+6
+00:00:34.248 --> 00:00:41.304
+Anika: Our working hypothesis is a stale forwarding target. The retirement record needs confirmation.
+
+7
+00:00:41.304 --> 00:00:48.624
+Hannah: I'll check the approved configuration. We also need to know B preserves the private view.
+
+8
+00:00:48.624 --> 00:00:54.504
+Priya: What's the ETA? Can we prepare B without changing any clients yet?
+
+9
+00:00:54.504 --> 00:01:01.824
+Lukas: Yes. Check capacity, reachability, and the required private names before proposing a switch.
+
+10
+00:01:01.824 --> 00:01:08.640
+Raj: I'm on it. About three minutes for the checklist. No public resolver shortcut.
+

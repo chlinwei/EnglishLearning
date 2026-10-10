@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.528
+Raj: We've got memory pressure on enrichment-worker-two. The process exited a minute ago.
+
+2
+00:00:06.528 --> 00:00:10.752
+Lukas: Is it still down? And are the other workers affected?
+
+3
+00:00:10.752 --> 00:00:17.327
+Raj: Systemd brought it back. It's running now. I haven't checked the exit reason.
+
+4
+00:00:17.327 --> 00:00:24.023
+Priya: Okay, I'll take point on this. Just to confirm, one host so far, right?
+
+5
+00:00:24.023 --> 00:00:29.759
+Hannah: Yes. Queue age is rising, but checkout itself looks normal.
+
+6
+00:00:29.759 --> 00:00:34.823
+Anika: I'm on it. I'll check processing errors and recent changes.
+
+7
+00:00:34.823 --> 00:00:39.911
+Lukas: Let's not call it a leak yet. An exit isn't enough evidence.
+
+8
+00:00:39.911 --> 00:00:45.454
+Priya: Raj, what's the ETA for the kernel log? Roughly is fine.
+
+9
+00:00:45.454 --> 00:00:48.694
+Hannah: I'll keep an eye on queue age while you check.
+
+10
+00:00:48.694 --> 00:00:53.470
+Raj: About two minutes. I'll save the logs before they rotate.
+

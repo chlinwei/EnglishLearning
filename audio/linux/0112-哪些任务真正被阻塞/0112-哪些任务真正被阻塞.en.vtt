@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.560
+Anika: Okay, production expansion is blocked on approval. The application team hasn't confirmed its window.
+
+2
+00:00:07.560 --> 00:00:15.384
+Hannah: My driver coverage needs another test image. The current image lacks that hardware variant.
+
+3
+00:00:15.384 --> 00:00:22.224
+Raj: Those are two different dependencies, then. Existing rotation tests can still run today.
+
+4
+00:00:22.224 --> 00:00:27.576
+Lukas: What's the ETA for the image? Is there a named owner for delivery?
+
+5
+00:00:27.576 --> 00:00:34.608
+Anika: The platform owner expects it tomorrow morning. That's an estimate, not an approved commitment.
+
+6
+00:00:34.608 --> 00:00:41.952
+Priya: Just to confirm, no bypassing approval, right? The escalation path is a scheduling request.
+
+7
+00:00:41.952 --> 00:00:49.704
+Hannah: Correct, no borrowed production host for tests. I'll use the approved image when available.
+
+8
+00:00:49.704 --> 00:00:55.704
+Raj: I'm on it for the owner follow-up. Roughly noon today for a clearer update.
+
+9
+00:00:55.704 --> 00:01:02.568
+Lukas: Then keep blocked work visibly separate. Don't mark the entire automation project as blocked.
+
+10
+00:01:02.568 --> 00:01:09.600
+Priya: So, broad rollout? Let's park that. We can reorder the remaining work now.
+

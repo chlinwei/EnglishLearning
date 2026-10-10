@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Hannah: Describe your tests for crash recovery. Which failure windows would you deliberately exercise?
+
+2
+00:00:07.872 --> 00:00:16.128
+Raj: I'd use fault injection around each transition. Just to confirm, we can simulate lost responses, right?
+
+3
+00:00:16.128 --> 00:00:23.567
+Lukas: Yes, include success before local persistence. Then crash before queue acknowledgement as well.
+
+4
+00:00:23.567 --> 00:00:31.847
+Raj: Okay, each restart reads the persisted operation. Tests assert one applied effect, not one request.
+
+5
+00:00:31.847 --> 00:00:40.319
+Raj: I'd dry-run it first with deterministic fakes. Maybe property tests help explore duplicate message sequences.
+
+6
+00:00:40.319 --> 00:00:47.831
+Hannah: How do you test concurrent workers? A sequential duplicate test won't expose claim races.
+
+7
+00:00:47.831 --> 00:00:55.391
+Raj: I'd coordinate contenders with a controlled barrier. We can rule that out only after racing claims.
+
+8
+00:00:55.391 --> 00:01:02.494
+Lukas: Would you also test the real contract? Fake deduplication could be stronger than production behavior.
+
+9
+00:01:02.494 --> 00:01:11.926
+Raj: Yes, a sandbox smoke test checks deduplication. One action item covers retention expiry and payload mismatch.
+
+10
+00:01:11.926 --> 00:01:20.230
+Raj: I'd also test stale versions and oversized input. Those cases must avoid sending unsafe updates.
+

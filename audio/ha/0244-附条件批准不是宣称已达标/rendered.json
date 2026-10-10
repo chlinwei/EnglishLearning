@@ -1,0 +1,135 @@
+{
+ "id": "0244",
+ "part": 9,
+ "stage": "方案确认",
+ "title": "附条件批准不是宣称已达标",
+ "premise": "测试计划已评审，但尚未执行完整故障负载验收。",
+ "listeningTask": "区分预算批准、架构方向和生产上线许可。",
+ "newPhrase": "p519",
+ "phrases": [
+  "p519",
+  "p515",
+  "p328",
+  "p011:extra",
+  "p010:extra",
+  "p324:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Conditional approval covers procurement, not production readiness.",
+   "zh": "附条件批准仅涵盖采购，不代表生产已就绪。",
+   "role": "Architecture review chair",
+   "start": 0.0,
+   "end": 4.776
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Tests still gate deployment.",
+   "zh": "我复述一下：部署仍要通过测试门槛。",
+   "role": "Reliability architect",
+   "start": 4.776,
+   "end": 9.193
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, the redundancy plan needs measured failover evidence.",
+   "zh": "是的，冗余方案需要实测切换证据。",
+   "role": "Infrastructure capacity engineer",
+   "start": 9.193,
+   "end": 13.825
+  },
+  {
+   "sp": "Hannah",
+   "en": "And a rollback trigger for every infrastructure change.",
+   "zh": "每项基础设施变更还要有回退触发条件。",
+   "role": "Performance engineer",
+   "start": 13.825,
+   "end": 18.122
+  },
+  {
+   "sp": "Anika",
+   "en": "Budget is approved within the revised scope.",
+   "zh": "预算在调整后的范围内获批。",
+   "role": "Service and budget owner",
+   "start": 18.122,
+   "end": 21.386
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, multi-active writes excluded, right?",
+   "zh": "确认一下，不包括多活写入，对吧？",
+   "role": "Architecture review chair",
+   "start": 21.386,
+   "end": 25.922
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. Conflict resolution isn't specified or tested.",
+   "zh": "对，冲突处理既未定义也未测试。",
+   "role": "Reliability architect",
+   "start": 25.922,
+   "end": 30.915
+  },
+  {
+   "sp": "Raj",
+   "en": "Go/no-go remains pending full degraded-load results.",
+   "zh": "继续或停止的决策仍待完整降级负载结果。",
+   "role": "Infrastructure capacity engineer",
+   "start": 30.915,
+   "end": 34.875
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe one redesign follows testing. Keep that possibility.",
+   "zh": "测试后也许还需要一次重设计，要留出这种可能。",
+   "role": "Performance engineer",
+   "start": 34.875,
+   "end": 40.492
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, publish the decision with its explicit limits.",
+   "zh": "好，公布决策时写明限制。",
+   "role": "Architecture review chair",
+   "start": 40.492,
+   "end": 44.62
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 9,
+ "scene": "测试计划已评审，但尚未执行完整故障负载验收。",
+ "dir": "ha/0244-附条件批准不是宣称已达标",
+ "audio": "0244-附条件批准不是宣称已达标.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "方案确认"
+ ],
+ "duration": 44.62
+}

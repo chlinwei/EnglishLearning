@@ -1,0 +1,135 @@
+{
+ "id": "0117",
+ "part": 2,
+ "stage": "池状态",
+ "title": "借出不等于正在查询",
+ "premise": "排队发生在获取连接前，开始对照池状态与数据库会话。",
+ "listeningTask": "听出池借出计数与活跃查询数不是同一指标。",
+ "newPhrase": "p392",
+ "phrases": [
+  "p392",
+  "p010",
+  "p014:extra",
+  "p309:extra",
+  "p335:extra",
+  "p391:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Forty checked-out connections, none available now. The pool is exhausted across three workers.",
+   "zh": "四十条连接全部借出，没有可用连接，三台工作实例的池都耗尽了。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 7.248
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does checked out mean running queries? Compare that with actual session activity.",
+   "zh": "借出就代表在执行查询吗？和实际会话活动对照一下。",
+   "role": "Application validation engineer",
+   "start": 7.248,
+   "end": 13.991
+  },
+  {
+   "sp": "Anika",
+   "en": "No, ownership stays with the application. Some borrowed connections aren't executing anything.",
+   "zh": "不是，连接仍由应用持有，有些借出的连接没有执行任何操作。",
+   "role": "Orders application owner",
+   "start": 13.991,
+   "end": 21.239
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, same workers, right? Don't mix global and local counts.",
+   "zh": "确认一下，对照的是同一批实例，对吧？别混用全局和局部计数。",
+   "role": "Incident coordinator",
+   "start": 21.239,
+   "end": 27.814
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. The database isn't at capacity. Raising every pool limit could overload it.",
+   "zh": "对，数据库并未满载。把每个池上限都调高可能压垮数据库。",
+   "role": "SRE and traffic controller",
+   "start": 27.814,
+   "end": 35.182
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, I'm on it for mapping. I'll match session IDs to workers.",
+   "zh": "好，我来做映射，把会话ID对应到工作实例。",
+   "role": "Database on-call",
+   "start": 35.182,
+   "end": 40.942
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on waits. We need ages, not just counts.",
+   "zh": "我会观察等待情况，需要占用时长，不只是数量。",
+   "role": "Application validation engineer",
+   "start": 40.942,
+   "end": 46.533
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis has two branches. Slow work or connections never returned.",
+   "zh": "当前假设有两个方向：执行太慢，或者连接从未归还。",
+   "role": "Orders application owner",
+   "start": 46.533,
+   "end": 53.037
+  },
+  {
+   "sp": "Lukas",
+   "en": "Idle sessions alone don't prove leakage. Pools normally keep idle sessions open.",
+   "zh": "空闲会话本身不能证明泄漏，池通常会保留空闲会话。",
+   "role": "SRE and traffic controller",
+   "start": 53.037,
+   "end": 59.228
+  },
+  {
+   "sp": "Priya",
+   "en": "So, collect ownership and age together. Maybe both causes are contributing here.",
+   "zh": "那就一起收集持有者和占用时长，也许两种原因都存在。",
+   "role": "Incident coordinator",
+   "start": 59.228,
+   "end": 65.9
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 2,
+ "scene": "排队发生在获取连接前，开始对照池状态与数据库会话。",
+ "dir": "database/0117-借出不等于正在查询",
+ "audio": "0117-借出不等于正在查询.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "池状态"
+ ],
+ "duration": 65.9
+}

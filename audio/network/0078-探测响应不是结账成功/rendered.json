@@ -1,0 +1,135 @@
+{
+ "id": "0078",
+ "part": 3,
+ "stage": "健康检查评审",
+ "title": "探测响应不是结账成功",
+ "premise": "依赖检查通过，生产回调保留灰度验证；审查新池健康检查。",
+ "listeningTask": "区分探测误判、服务故障和端到端验证。",
+ "newPhrase": "p353",
+ "phrases": [
+  "p353",
+  "p108",
+  "p010",
+  "p302:extra",
+  "p004:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The health check is failing in staging. It receives an unexpected redirect response.",
+   "zh": "预生产的健康检查失败了，收到了非预期的重定向响应。",
+   "role": "Validation engineer",
+   "start": 0.0,
+   "end": 7.368
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, the probe used the wrong hostname. The service itself accepts valid requests.",
+   "zh": "好，探测用了错误主机名，服务本身能处理有效请求。",
+   "role": "Network engineer",
+   "start": 7.368,
+   "end": 14.136
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can we rule that out in production? Staging behavior alone isn't enough evidence.",
+   "zh": "生产也能排除这个问题吗？只看预生产行为还不够。",
+   "role": "SRE reviewer",
+   "start": 14.136,
+   "end": 20.377
+  },
+  {
+   "sp": "Anika",
+   "en": "The new production pool has zero traffic. An approved direct test succeeds there.",
+   "zh": "新生产池目前没有业务流量，批准的直连测试在那里成功。",
+   "role": "Checkout owner",
+   "start": 20.377,
+   "end": 26.809
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, correct hostname first, right? Don't simply accept redirects as healthy.",
+   "zh": "我确认一下，先纠正主机名，对吧？不能简单把重定向当健康。",
+   "role": "Change coordinator",
+   "start": 26.809,
+   "end": 34.369
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly, require the expected status and body. Also check the probe interval.",
+   "zh": "对，要检查预期状态码和响应内容，还要检查探测间隔。",
+   "role": "Validation engineer",
+   "start": 34.369,
+   "end": 42.073
+  },
+  {
+   "sp": "Raj",
+   "en": "Five seconds, with three failures before removal. Recovery also needs three consecutive passes.",
+   "zh": "每五秒一次，连续三次失败才移除；恢复也需要连续三次通过。",
+   "role": "Network engineer",
+   "start": 42.073,
+   "end": 49.681
+  },
+  {
+   "sp": "Lukas",
+   "en": "Roughly fifteen seconds before removal, then. How will you test actual checkout behavior?",
+   "zh": "那么大约十五秒才移除。实际结账行为怎么测？",
+   "role": "SRE reviewer",
+   "start": 49.681,
+   "end": 56.354
+  },
+  {
+   "sp": "Anika",
+   "en": "The smoke test covers sandbox payments separately. A green probe isn't that test.",
+   "zh": "冒烟测试单独覆盖沙箱支付。探测变绿不等于做了那项测试。",
+   "role": "Checkout owner",
+   "start": 56.354,
+   "end": 62.978
+  },
+  {
+   "sp": "Priya",
+   "en": "Deeper dependency checks? Let's park that. First, validate these agreed probe settings.",
+   "zh": "更深入的依赖探测先记下来。先验证已商定的探测设置。",
+   "role": "Change coordinator",
+   "start": 62.978,
+   "end": 70.85
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 3,
+ "scene": "依赖检查通过，生产回调保留灰度验证；审查新池健康检查。",
+ "dir": "network/0078-探测响应不是结账成功",
+ "audio": "0078-探测响应不是结账成功.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "健康检查评审"
+ ],
+ "duration": 70.85
+}

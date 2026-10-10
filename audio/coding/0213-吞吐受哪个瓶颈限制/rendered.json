@@ -1,0 +1,129 @@
+{
+ "id": "0213",
+ "part": 8,
+ "stage": "性能追问",
+ "title": "吞吐受哪个瓶颈限制",
+ "premise": "正确性测试方案已说明，面试者提高吞吐需求。",
+ "listeningTask": "听出并发上限、队列背压与测量先于优化。",
+ "newPhrase": "p488",
+ "phrases": [
+  "p488",
+  "p010",
+  "p483:extra",
+  "p319:extra",
+  "p309:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Now assume ten thousand queued updates. How would you increase throughput without overloading dependencies?",
+   "zh": "现在有一万条待更新，如何提高吞吐又不压垮依赖？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 0.0,
+   "end": 7.32
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd use bounded concurrency in the worker pool. Just to confirm, the API publishes limits, right?",
+   "zh": "worker池采用有限并发，确认一下，API公布限额，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 7.32,
+   "end": 15.072
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, requests and active connections are limited. Does your queue also stay in memory?",
+   "zh": "是，请求和活动连接均有限，队列也全放内存吗？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 15.072,
+   "end": 22.776
+  },
+  {
+   "sp": "Raj",
+   "en": "No, I'd fetch a limited batch size. That preserves memory headroom and avoids unbounded buffering.",
+   "zh": "不，每次取有限批量，保留内存余量，避免无限缓冲。",
+   "role": "DevOps engineering candidate",
+   "start": 22.776,
+   "end": 30.816
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, my working hypothesis is network waiting dominates. Maybe profiling shows serialization matters more instead.",
+   "zh": "好，初步假设网络等待占主导，也可能剖析后发现序列化更重要。",
+   "role": "DevOps engineering candidate",
+   "start": 30.816,
+   "end": 39.984
+  },
+  {
+   "sp": "Lukas",
+   "en": "What would you measure before choosing async? Concurrency isn't always the same as throughput.",
+   "zh": "选异步前测什么？并发不总等于吞吐。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 39.984,
+   "end": 46.68
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd measure queue age and request latency. Keep an eye on throttling and retry amplification.",
+   "zh": "测排队年龄和请求延迟，关注限流与重试放大。",
+   "role": "DevOps engineering candidate",
+   "start": 46.68,
+   "end": 54.144
+  },
+  {
+   "sp": "Hannah",
+   "en": "How would you keep retries fair? New work could starve older unresolved operations.",
+   "zh": "如何让重试公平？新任务可能让旧未决操作饥饿。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 54.144,
+   "end": 61.344
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd schedule due retries with bounded shares. They shouldn't monopolize workers or disappear behind newcomers.",
+   "zh": "到期重试分配有限份额，不独占worker，也不被新任务淹没。",
+   "role": "DevOps engineering candidate",
+   "start": 61.344,
+   "end": 69.792
+  },
+  {
+   "sp": "Raj",
+   "en": "Then benchmark representative payloads under sandbox limits. I'd tune from evidence, not thread-count guesses.",
+   "zh": "在沙箱限额下用代表性负载压测，按证据调，不猜线程数。",
+   "role": "DevOps engineering candidate",
+   "start": 69.792,
+   "end": 78.24
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 8,
+ "scene": "正确性测试方案已说明，面试者提高吞吐需求。",
+ "dir": "coding/0213-吞吐受哪个瓶颈限制",
+ "audio": "0213-吞吐受哪个瓶颈限制.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "性能追问"
+ ],
+ "duration": 78.24
+}

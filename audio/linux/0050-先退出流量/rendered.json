@@ -1,0 +1,135 @@
+{
+ "id": "0050",
+ "part": 5,
+ "stage": "灰度重启",
+ "title": "先退出流量：控制台就绪再重启",
+ "premise": "维护批准，回退条件明确，开始A主机灰度并准备带外访问。",
+ "listeningTask": "听清请求排空、旧内核保留和重启开始条件。",
+ "newPhrase": "p325",
+ "phrases": [
+  "p325",
+  "p010",
+  "p309",
+  "p014:extra",
+  "p008:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The out-of-band console works. Old kernel entry is present. Host A is ready to drain.",
+   "zh": "带外控制台可用，旧内核启动项存在。A主机可以退出流量了。",
+   "role": "Linux operator",
+   "start": 0.0,
+   "end": 7.8
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does your account have reboot access there? A visible console isn't the whole check.",
+   "zh": "你的账号在那里有重启权限吗？能看到控制台不代表检查完整。",
+   "role": "SRE reviewer",
+   "start": 7.8,
+   "end": 13.824
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, permissions are verified. I won't test a reboot outside the approved sequence.",
+   "zh": "有，权限已核实。我不会脱离批准顺序去试重启。",
+   "role": "Linux operator",
+   "start": 13.824,
+   "end": 20.951
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, active requests must finish first, right? No abrupt service stop.",
+   "zh": "我确认一下，先让在途请求结束，对吧？不直接停服务。",
+   "role": "Change coordinator",
+   "start": 20.951,
+   "end": 27.959
+  },
+  {
+   "sp": "Hannah",
+   "en": "Traffic is removed. I'm watching active connections and the other hosts' latency.",
+   "zh": "已摘除流量。我正在看活跃连接和其他主机的延迟。",
+   "role": "Validation engineer",
+   "start": 27.959,
+   "end": 34.895
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on background jobs too. They don't show up as incoming connections.",
+   "zh": "我也会盯着后台任务，它们不会显示为入站连接。",
+   "role": "API owner",
+   "start": 34.895,
+   "end": 41.231
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good. Confirm those are idle before stopping the app and rebooting.",
+   "zh": "好。确认后台任务空闲后，再停应用并重启。",
+   "role": "SRE reviewer",
+   "start": 41.231,
+   "end": 46.247
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. Jobs are idle now. What's the ETA for the final connection check?",
+   "zh": "我来确认。后台任务现在空闲了，最后的连接检查预计多久？",
+   "role": "Linux operator",
+   "start": 46.247,
+   "end": 53.374
+  },
+  {
+   "sp": "Hannah",
+   "en": "Done. No active requests. Let's keep it under observation when it comes back.",
+   "zh": "完成，没有活跃请求。启动回来后继续观察。",
+   "role": "Validation engineer",
+   "start": 53.374,
+   "end": 60.766
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, proceed with A only. Call out the boot result before restoring traffic.",
+   "zh": "好，只操作A主机。恢复流量前先报告启动结果。",
+   "role": "Change coordinator",
+   "start": 60.766,
+   "end": 67.27
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 5,
+ "scene": "维护批准，回退条件明确，开始A主机灰度并准备带外访问。",
+ "dir": "linux/0050-先退出流量",
+ "audio": "0050-先退出流量.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "灰度重启"
+ ],
+ "duration": 67.27
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0164",
+ "part": 9,
+ "stage": "选定试点",
+ "title": "试点要有真实验收门槛",
+ "premise": "选择查询优化与存储准备，定义小范围只读报表试点及回退。",
+ "listeningTask": "抓住正确性、交易影响和磁盘压力的验收条件。",
+ "newPhrase": "p439",
+ "phrases": [
+  "p439",
+  "p433",
+  "p432:extra",
+  "p324:extra",
+  "p010:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Approve a capacity pilot for reports. Isolated tests first, one region afterward.",
+   "zh": "批准报表容量试点，先隔离测试，之后一个区域。",
+   "role": "Capacity review chair",
+   "start": 0.0,
+   "end": 7.032
+  },
+  {
+   "sp": "Hannah",
+   "en": "Which tenants represent the actual skew? A tiny tenant isn't a useful pilot.",
+   "zh": "哪些租户代表实际偏斜？一个小租户不是有效试点。",
+   "role": "Performance and cost analyst",
+   "start": 7.032,
+   "end": 14.015
+  },
+  {
+   "sp": "Anika",
+   "en": "One large and two smaller tenants. I'm on it with the feature switch.",
+   "zh": "一个大租户和两个小租户，我负责功能开关。",
+   "role": "Orders application architect",
+   "start": 14.015,
+   "end": 19.463
+  },
+  {
+   "sp": "Raj",
+   "en": "The full table scan should shrink selectively. Broad reports may still scan reasonably.",
+   "zh": "选择性高的查询应减少全扫，宽范围报表仍可能合理扫描。",
+   "role": "Database capacity owner",
+   "start": 19.463,
+   "end": 25.847
+  },
+  {
+   "sp": "Lukas",
+   "en": "Compare against the peak load baseline. Include transaction latency beside report improvements.",
+   "zh": "与峰值基线对比，报表收益旁边也列交易延迟。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 25.847,
+   "end": 32.926
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, identical totals required, right? Faster wrong reports fail the pilot.",
+   "zh": "确认一下，总额必须相同，对吧？更快但错误的报表算失败。",
+   "role": "Capacity review chair",
+   "start": 32.926,
+   "end": 40.39
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. Lower disk reads are another gate. Keep transaction latency below two hundred.",
+   "zh": "是，磁盘读取下降也是门槛，交易延迟保持低于两百毫秒。",
+   "role": "Performance and cost analyst",
+   "start": 40.39,
+   "end": 48.477
+  },
+  {
+   "sp": "Anika",
+   "en": "Incorrect totals are the immediate rollback trigger. Maybe scan savings vary by date range.",
+   "zh": "总额错误立即触发回退，扫描收益可能随日期范围变化。",
+   "role": "Orders application architect",
+   "start": 48.477,
+   "end": 55.389
+  },
+  {
+   "sp": "Lukas",
+   "en": "And sustained write regression halts expansion. Revert the query switch, preserve evidence.",
+   "zh": "持续写回归也停止扩展，回退查询开关并保留证据。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 55.389,
+   "end": 62.276
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, order storage for all nodes now. Pilot success won't postpone that preparation.",
+   "zh": "好，现在为所有节点申请存储，试点成功也不推迟准备。",
+   "role": "Database capacity owner",
+   "start": 62.276,
+   "end": 69.14
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 9,
+ "scene": "选择查询优化与存储准备，定义小范围只读报表试点及回退。",
+ "dir": "database/0164-试点要有真实验收门槛",
+ "audio": "0164-试点要有真实验收门槛.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "选定试点"
+ ],
+ "duration": 69.14
+}

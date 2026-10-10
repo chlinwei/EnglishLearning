@@ -1,0 +1,135 @@
+{
+ "id": "0146",
+ "part": 1,
+ "stage": "交班背景",
+ "title": "交的是演练，不是生产切换",
+ "premise": "夜班交接恢复演练，先明确数据、环境和验收状态。",
+ "listeningTask": "听清接班责任不代表批准生产使用。",
+ "newPhrase": "p421",
+ "phrases": [
+  "p421",
+  "p331",
+  "p010:extra",
+  "p336:extra",
+  "p339:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "I'll hand over the restore drill. The backup manifest is in our ticket.",
+   "zh": "我交接恢复演练，备份清单在工单里。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 5.616
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is this connected to production anywhere? I need the environment boundary first.",
+   "zh": "它有任何地方连着生产吗？先明确环境边界。",
+   "role": "Incoming database on-call",
+   "start": 5.616,
+   "end": 11.497
+  },
+  {
+   "sp": "Priya",
+   "en": "No, a separate test network throughout. Just to confirm, no live cutover, right?",
+   "zh": "没有，全程单独测试网络。确认一下，不做线上切换，对吧？",
+   "role": "Recovery drill coordinator",
+   "start": 11.497,
+   "end": 18.409
+  },
+  {
+   "sp": "Anika",
+   "en": "Correct, synthetic orders and test credentials. Outbound payment calls are blocked too.",
+   "zh": "对，合成订单和测试凭据，对外支付调用也阻断了。",
+   "role": "Outgoing application validation owner",
+   "start": 18.409,
+   "end": 25.418
+  },
+  {
+   "sp": "Hannah",
+   "en": "Good. Is data validation finished yet? Starting the database isn't full acceptance.",
+   "zh": "好，数据验证完成了吗？数据库启动不等于完整验收。",
+   "role": "Incoming reconciliation engineer",
+   "start": 25.418,
+   "end": 33.338
+  },
+  {
+   "sp": "Raj",
+   "en": "Only the initial checks have passed. Full reconciliation still needs your shift.",
+   "zh": "只有首批检查通过，完整对账还需要你们班完成。",
+   "role": "Outgoing database on-call",
+   "start": 33.338,
+   "end": 39.602
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then show the escalation path clearly. I'll take ownership after reviewing evidence.",
+   "zh": "那写清升级联系路径，评审证据后我再接责。",
+   "role": "Incoming database on-call",
+   "start": 39.602,
+   "end": 45.963
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA for review? About ten minutes for this handoff.",
+   "zh": "好，评审预计多久？这次交接大约十分钟。",
+   "role": "Recovery drill coordinator",
+   "start": 45.963,
+   "end": 51.939
+  },
+  {
+   "sp": "Hannah",
+   "en": "That works if the evidence opens. Have I missed anything about access?",
+   "zh": "证据能打开就可以，访问权限方面我漏了什么吗？",
+   "role": "Incoming reconciliation engineer",
+   "start": 51.939,
+   "end": 58.012
+  },
+  {
+   "sp": "Anika",
+   "en": "So, access is through approved accounts. No production secrets copied into notes.",
+   "zh": "那访问使用批准账户，记录里没有复制生产密钥。",
+   "role": "Outgoing application validation owner",
+   "start": 58.012,
+   "end": 64.78
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 1,
+ "scene": "夜班交接恢复演练，先明确数据、环境和验收状态。",
+ "dir": "database/0146-交的是演练，不是生产切换",
+ "audio": "0146-交的是演练，不是生产切换.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "交班背景"
+ ],
+ "duration": 64.78
+}

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.248
+Lukas: Use ninety-nine point nine percent monthly availability.
+使用每月百分之九十九点九的可用性目标。
+
+2
+00:00:04.248 --> 00:00:08.016
+Raj: The error budget follows eligible checkout attempts.
+错误预算以符合统计口径的结账尝试为基础。
+
+3
+00:00:08.016 --> 00:00:12.121
+Raj: Just to confirm, correctness failures count too, right?
+确认一下，正确性失败也计入，对吧？
+
+4
+00:00:12.121 --> 00:00:17.281
+Hannah: Yes. A fast incorrect response isn't success.
+是的，快速但错误的响应不算成功。
+
+5
+00:00:17.281 --> 00:00:20.761
+Raj: I'll keep an eye on user-visible completion.
+我会关注用户可见的业务完成。
+
+6
+00:00:20.761 --> 00:00:25.033
+Lukas: Does your availability target cover payment-provider failures?
+可用性目标包括支付提供方故障吗？
+
+7
+00:00:25.033 --> 00:00:30.457
+Raj: Probably yes for customer outcomes. Attribute causes separately.
+客户结果大概应该计入，原因另行归属。
+
+8
+00:00:30.457 --> 00:00:34.946
+Raj: My working hypothesis needs agreed exclusions first.
+我当前的假设需要先约定排除口径。
+
+9
+00:00:34.946 --> 00:00:40.514
+Hannah: Okay, avoid hiding failures behind convenient exclusions.
+好，不要用方便的排除条件掩盖失败。
+
+10
+00:00:40.514 --> 00:00:44.330
+Raj: Just to recap, measure the whole checkout journey.
+小结一下，要测量完整的结账过程。
+

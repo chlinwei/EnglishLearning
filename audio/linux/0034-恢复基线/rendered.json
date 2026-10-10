@@ -1,0 +1,135 @@
+{
+ "id": "0034",
+ "part": 9,
+ "stage": "观察与交接",
+ "title": "恢复基线：值班继续盯什么",
+ "premise": "五分钟后积压已清空，最老事件等待时间与通知抽查正常；准备交代观察条件。",
+ "listeningTask": "抓住观察指标、触发条件和负责人，而不是只听到恢复就结束。",
+ "newPhrase": "p309",
+ "phrases": [
+  "p309",
+  "p110",
+  "p010",
+  "p111:extra",
+  "p011:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Queue is clear. Oldest-event age is normal. We're back to baseline.",
+   "zh": "积压清空了，最老事件等待时间也正常，恢复到基线了。",
+   "role": "Application owner",
+   "start": 0.0,
+   "end": 6.504
+  },
+  {
+   "sp": "Hannah",
+   "en": "Notification samples look good too. No duplicate spike in the delivery metrics.",
+   "zh": "通知抽样也正常，投递指标没有出现重复发送的尖峰。",
+   "role": "Operations engineer",
+   "start": 6.504,
+   "end": 13.873
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, let's keep it under observation. Raj, keep an eye on disk growth.",
+   "zh": "好，继续观察。Raj，留意磁盘占用增长。",
+   "role": "Incident lead",
+   "start": 13.873,
+   "end": 20.137
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Disk growth, write failures, and queue age?",
+   "zh": "我复述一下：磁盘增长、写入失败，以及队列中事件的等待时间？",
+   "role": "SRE",
+   "start": 20.137,
+   "end": 25.466
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. I'm on it. Maybe an hour of closer monitoring first.",
+   "zh": "对，我来盯。先更密切地观察大约一小时。",
+   "role": "Linux on-call",
+   "start": 25.466,
+   "end": 31.442
+  },
+  {
+   "sp": "Hannah",
+   "en": "What should trigger another call? We need something more specific than looks bad.",
+   "zh": "什么情况需要重新拉会？不能只说看起来不对。",
+   "role": "Operations engineer",
+   "start": 31.442,
+   "end": 37.442
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, page on new write failures immediately. Don't wait for disk alerts, right?",
+   "zh": "我确认一下，出现新的写入失败就立即呼叫值班，不能等磁盘告警，对吧？",
+   "role": "Incident lead",
+   "start": 37.442,
+   "end": 44.907
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. And use the existing disk threshold. Record any sustained queue-age increase.",
+   "zh": "同意。磁盘沿用现有阈值，事件等待时间持续增长也要记录。",
+   "role": "SRE",
+   "start": 44.907,
+   "end": 52.227
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll update support. Delays are cleared, but we're still watching for recurrence.",
+   "zh": "我会通知支持团队：延迟已消除，但我们仍在观察是否复发。",
+   "role": "Application owner",
+   "start": 52.227,
+   "end": 58.084
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll include that in the handoff. The retention policy stays unchanged for now.",
+   "zh": "我会把这些写进交接。保留策略暂时不变。",
+   "role": "Linux on-call",
+   "start": 58.084,
+   "end": 64.3
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 9,
+ "scene": "五分钟后积压已清空，最老事件等待时间与通知抽查正常；准备交代观察条件。",
+ "dir": "linux/0034-恢复基线",
+ "audio": "0034-恢复基线.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "观察与交接"
+ ],
+ "duration": 64.3
+}

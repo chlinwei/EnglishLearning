@@ -1,0 +1,135 @@
+{
+ "id": "0168",
+ "part": 3,
+ "stage": "范围",
+ "title": "按记录确认缺失",
+ "premise": "进程和重试均停止，清理凭据暂停，开始核对删除记录。",
+ "listeningTask": "辨别候选路径与实际删除，理解清单可能不完整。",
+ "newPhrase": "p443",
+ "phrases": [
+  "p443",
+  "p106",
+  "p010:extra",
+  "p302:extra",
+  "p008:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The deletion manifest lists twelve attempted removals. Only three paths belong outside the tenant.",
+   "zh": "删除清单记录十二次尝试，其中三条路径属于租户范围之外。",
+   "role": "Cleanup script maintainer",
+   "start": 0.0,
+   "end": 7.368
+  },
+  {
+   "sp": "Hannah",
+   "en": "Attempted doesn't mean successfully removed. Match return codes with storage audit records.",
+   "zh": "尝试不等于删除成功，要把返回码与存储审计核对。",
+   "role": "Evidence and test validation engineer",
+   "start": 7.368,
+   "end": 15.169
+  },
+  {
+   "sp": "Anika",
+   "en": "Three shared artifacts are actually missing. That's our blast radius based on reconciliation.",
+   "zh": "核对确认三个共享制品确实缺失，这是当前已证实的影响范围。",
+   "role": "Artifact service and recovery owner",
+   "start": 15.169,
+   "end": 22.201
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, inventories agree, right? Could buffered logs hide another deletion?",
+   "zh": "确认一下，清单核对一致，对吧？缓冲日志会不会漏掉删除？",
+   "role": "Incident coordinator and approval owner",
+   "start": 22.201,
+   "end": 29.162
+  },
+  {
+   "sp": "Lukas",
+   "en": "They could, so check authoritative object inventory. Don't rely on the script log alone.",
+   "zh": "可能，所以查权威对象清单，不能只依赖脚本日志。",
+   "role": "SRE and process containment owner",
+   "start": 29.162,
+   "end": 35.93
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it with the inventory comparison. What's the ETA for customer mapping?",
+   "zh": "清单对比我来做，关联到用户预计多久？",
+   "role": "Cleanup script maintainer",
+   "start": 35.93,
+   "end": 42.026
+  },
+  {
+   "sp": "Hannah",
+   "en": "The inventory confirms those three missing objects. Other tenant inventories match their prior snapshots.",
+   "zh": "清单确认这三个缺失对象，其他租户与此前快照一致。",
+   "role": "Evidence and test validation engineer",
+   "start": 42.026,
+   "end": 50.907
+  },
+  {
+   "sp": "Anika",
+   "en": "About two minutes for consumer mapping. We can rule that out as fleet-wide deletion.",
+   "zh": "关联使用方大约两分钟，可以排除全体制品被删除。",
+   "role": "Artifact service and recovery owner",
+   "start": 50.907,
+   "end": 57.171
+  },
+  {
+   "sp": "Lukas",
+   "en": "Within the inspected storage scope, yes. Keep that qualification in the incident update.",
+   "zh": "在已检查的存储范围内可以，事件更新保留这个限定。",
+   "role": "SRE and process containment owner",
+   "start": 57.171,
+   "end": 63.964
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, publish the confirmed scope only. We'll list unverified areas separately for follow-up.",
+   "zh": "好，只公布确认范围，未验证区域单独列出跟进。",
+   "role": "Incident coordinator and approval owner",
+   "start": 63.964,
+   "end": 71.38
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 3,
+ "scene": "进程和重试均停止，清理凭据暂停，开始核对删除记录。",
+ "dir": "coding/0168-按记录确认缺失",
+ "audio": "0168-按记录确认缺失.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "范围"
+ ],
+ "duration": 71.38
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0270",
+ "part": 5,
+ "stage": "缓存证据",
+ "title": "缓存覆盖配置，不急着称为攻击",
+ "premise": "旧地址在缓存恢复后出现；批准源授权下载与内容校验正常。",
+ "listeningTask": "区分陈旧缓存和恶意污染的证据门槛。",
+ "newPhrase": "p545",
+ "phrases": [
+  "p545",
+  "p544",
+  "p344:extra",
+  "p010:extra",
+  "p320:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "A cache hit restores local configuration. That file contains the retired address.",
+   "zh": "一次缓存命中恢复了本地配置。文件里包含退役地址。",
+   "role": "Build runner on-call",
+   "start": 0.0,
+   "end": 6.456
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, is this cache poisoning then? Or just stale configuration carried forward?",
+   "zh": "好，这就是缓存污染吗？还是旧配置被带了过来？",
+   "role": "Incident coordinator",
+   "start": 6.456,
+   "end": 13.056
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't label it malicious without evidence. Compare cache creation records and access logs.",
+   "zh": "没有证据别定性为恶意。对比缓存创建记录和访问日志。",
+   "role": "Pipeline reliability engineer",
+   "start": 13.056,
+   "end": 19.968
+  },
+  {
+   "sp": "Anika",
+   "en": "The dependency mirror changed last Tuesday. This cache predates that change, right?",
+   "zh": "依赖镜像源上周二改过。这份缓存早于变更，对吧？",
+   "role": "Application release owner",
+   "start": 19.968,
+   "end": 26.472
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, its writer was an approved runner. No unauthorized writes found so far.",
+   "zh": "对，写入者是批准的执行器。目前没有发现未授权写入。",
+   "role": "Artifact security engineer",
+   "start": 26.472,
+   "end": 33.72
+  },
+  {
+   "sp": "Raj",
+   "en": "Cold runs pass; restored runs fail. I've preserved the cache object digest.",
+   "zh": "冷构建通过，恢复缓存的失败。我保留了缓存对象摘要。",
+   "role": "Build runner on-call",
+   "start": 33.72,
+   "end": 40.296
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's useful paired evidence, not certainty. Why configuration was cached still needs investigation.",
+   "zh": "这组证据有用，但还不是定论。为什么缓存配置仍需调查。",
+   "role": "Pipeline reliability engineer",
+   "start": 40.296,
+   "end": 47.928
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, quarantine that object. The root cause is still open.",
+   "zh": "确认一下，隔离那个对象。根因仍未完全查清。",
+   "role": "Incident coordinator",
+   "start": 47.928,
+   "end": 53.976
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on access. Cache inspection mustn't reveal embedded credentials.",
+   "zh": "我关注访问情况。检查缓存不能暴露嵌入的凭据。",
+   "role": "Artifact security engineer",
+   "start": 53.976,
+   "end": 60.888
+  },
+  {
+   "sp": "Anika",
+   "en": "Understood, restricted inspection rather than downloads. Maybe cache scope was too broad.",
+   "zh": "明白，受限检查，不随意下载。可能缓存范围太宽了。",
+   "role": "Application release owner",
+   "start": 60.888,
+   "end": 67.8
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 5,
+ "scene": "旧地址在缓存恢复后出现；批准源授权下载与内容校验正常。",
+ "dir": "cicd/0270-缓存覆盖配置，不急着称为攻击",
+ "audio": "0270-缓存覆盖配置，不急着称为攻击.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "缓存证据"
+ ],
+ "duration": 67.8
+}

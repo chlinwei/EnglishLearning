@@ -1,0 +1,135 @@
+{
+ "id": "0223",
+ "part": 8,
+ "stage": "验证数据",
+ "title": "未知提交：先查订单再重试",
+ "premise": "灰度写入正常，部分超时请求的最终结果仍未知。",
+ "listeningTask": "区分已确认、未确认和可安全重试的提交。",
+ "newPhrase": "p498",
+ "phrases": [
+  "p498",
+  "p492",
+  "p308",
+  "p011:extra",
+  "p302:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Uncertain commits need lookup by idempotency key.",
+   "zh": "结果未知的提交需要按幂等键查询。",
+   "role": "Data validation engineer",
+   "start": 0.0,
+   "end": 4.776
+  },
+  {
+   "sp": "Anika",
+   "en": "We've matched all acknowledged requests to orders.",
+   "zh": "所有已确认请求都匹配到了订单。",
+   "role": "Order application owner",
+   "start": 4.776,
+   "end": 8.568
+  },
+  {
+   "sp": "Lukas",
+   "en": "What about writes without a client acknowledgment?",
+   "zh": "没有向客户端确认的写入呢？",
+   "role": "Cluster safety engineer",
+   "start": 8.568,
+   "end": 11.927
+  },
+  {
+   "sp": "Raj",
+   "en": "Some committed before disconnect. That's expected, right?",
+   "zh": "有些断连前已经提交，这是可能的，对吧？",
+   "role": "Database on-call",
+   "start": 11.927,
+   "end": 16.919
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. A timeout doesn't mean transaction failure.",
+   "zh": "是的，超时不等于事务失败。",
+   "role": "Data validation engineer",
+   "start": 16.919,
+   "end": 22.007
+  },
+  {
+   "sp": "Priya",
+   "en": "Let me play that back. Look up first.",
+   "zh": "我复述一下：先查结果。",
+   "role": "Incident coordinator",
+   "start": 22.007,
+   "end": 26.039
+  },
+  {
+   "sp": "Raj",
+   "en": "The last committed position supports acknowledged-write coverage.",
+   "zh": "最后提交位置支持已确认写入的覆盖核验。",
+   "role": "Database on-call",
+   "start": 26.039,
+   "end": 30.359
+  },
+  {
+   "sp": "Lukas",
+   "en": "But don't rule that out for unacknowledged gaps.",
+   "zh": "但未确认写入中的缺口仍不能排除。",
+   "role": "Cluster safety engineer",
+   "start": 30.359,
+   "end": 33.67
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to recap, retries can catch up safely.",
+   "zh": "小结一下，重试可以安全补齐。",
+   "role": "Order application owner",
+   "start": 33.67,
+   "end": 37.582
+  },
+  {
+   "sp": "Priya",
+   "en": "With deduplication, yes. Perhaps manual review for exceptions.",
+   "zh": "有去重机制才行。异常也许需要人工核查。",
+   "role": "Incident coordinator",
+   "start": 37.582,
+   "end": 43.39
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 8,
+ "scene": "灰度写入正常，部分超时请求的最终结果仍未知。",
+ "dir": "ha/0223-未知提交",
+ "audio": "0223-未知提交.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "验证数据"
+ ],
+ "duration": 43.39
+}

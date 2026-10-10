@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Okay, the escalation threshold is written here. Packet loss above two percent needs attention.
+好，升级门槛写在这里。丢包超过百分之二需要关注。
+
+2
+00:00:07.344 --> 00:00:13.201
+Lukas: Over what window, and how many times? A single probe failure isn't enough.
+哪个时间窗，连续几次？单次探测失败还不够。
+
+3
+00:00:13.201 --> 00:00:21.649
+Raj: Two consecutive five-minute windows on approved probes. Corroborating application timeouts trigger a coordinated review.
+批准探测连续两个五分钟窗超标，并有应用超时印证，就触发协调评估。
+
+4
+00:00:21.649 --> 00:00:28.850
+Hannah: What bypasses that wait for urgent impact? Complete loss shouldn't wait ten minutes.
+哪些紧急影响不等观察窗？完全中断不能等十分钟。
+
+5
+00:00:28.850 --> 00:00:36.434
+Anika: Complete reachability loss or any correctness failure. Page the coordinator immediately in either case.
+完全不可达或任何正确性问题。这两种都立即呼叫协调人。
+
+6
+00:00:36.434 --> 00:00:43.922
+Priya: Just to confirm, no automatic reroute, right? The escalation path starts a human decision.
+我确认一下，不自动改路由，对吧？升级路径启动的是人工决策。
+
+7
+00:00:43.922 --> 00:00:51.579
+Lukas: Agreed, I'll assess capacity before proposing expansion. What's the ETA if nobody responds?
+同意，提出扩大前我先评估容量。没人回应时等多久？
+
+8
+00:00:51.579 --> 00:00:58.635
+Raj: After five minutes, page the backup. The roster includes a separate coordinator contact.
+五分钟后呼叫备班，轮值表还有单独的协调人联系方式。
+
+9
+00:00:58.635 --> 00:01:06.292
+Hannah: Keep the current safe scope while escalating. Silence doesn't authorize a wider reroute.
+升级过程中保持当前安全范围，沉默不授权扩大绕行。
+
+10
+00:01:06.292 --> 00:01:14.020
+Priya: So, that's roughly the response ladder. For correctness risks, escalate immediately without waiting.
+这就是大致响应层级。正确性风险立即升级，不等待。
+

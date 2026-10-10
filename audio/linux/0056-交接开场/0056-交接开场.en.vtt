@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.608
+Raj: Before I hand over, one service needs attention. Invoice-export has restarted three times.
+
+2
+00:00:07.608 --> 00:00:11.280
+Hannah: Is it down now, or does it keep coming back?
+
+3
+00:00:11.280 --> 00:00:18.599
+Raj: It kept coming back. It's flapping, or it was. It's stayed up since we paused fetching.
+
+4
+00:00:18.599 --> 00:00:25.679
+Priya: Just to confirm, exports are delayed, right? The billing API itself is still working.
+
+5
+00:00:25.679 --> 00:00:31.679
+Lukas: What's still open? We shouldn't inherit a resolved ticket if the cause isn't known.
+
+6
+00:00:31.679 --> 00:00:38.327
+Anika: The root cause is still open. Pausing fetches stopped the symptom, not the investigation.
+
+7
+00:00:38.327 --> 00:00:44.111
+Hannah: Okay. I'll need the exact pause setting and the affected requests.
+
+8
+00:00:44.111 --> 00:00:51.430
+Priya: Let's keep it under observation. Any bigger redesign? Let's park that until tomorrow.
+
+9
+00:00:51.430 --> 00:00:56.878
+Lukas: First walk us through the timeline. Then we'll agree what needs a call tonight.
+
+10
+00:00:56.878 --> 00:01:02.710
+Raj: Sure. I'll separate what we've checked from what we're only assuming.
+

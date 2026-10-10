@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Raj: Okay, the backend pool matches production. Both zones have the intended targets.
+好，后端池与生产配置对应，两个区都有预期目标。
+
+2
+00:00:06.408 --> 00:00:13.944
+Hannah: Does split-horizon DNS return private addresses? Test from the new balancer subnet.
+分视图DNS返回私有地址吗？要从新负载均衡器子网测试。
+
+3
+00:00:13.944 --> 00:00:20.520
+Raj: Yes, from that subnet itself. Certificate names and trust chains pass too.
+是，从该子网本身测试的。证书名称和信任链也通过了。
+
+4
+00:00:20.520 --> 00:00:26.688
+Lukas: What about source addresses at the application? Allow lists might reject the new pool.
+应用看到的源地址呢？允许列表可能拒绝新池。
+
+5
+00:00:26.688 --> 00:00:33.168
+Anika: Good catch, the proxy ranges differ. We've added only the approved ranges.
+提醒得好，代理网段确实不同。我们只添加了批准的网段。
+
+6
+00:00:33.168 --> 00:00:40.800
+Priya: Just to confirm, callbacks tested too, right? Include payment redirects in the smoke test.
+我确认一下，回调也测了，对吧？冒烟测试要包括支付跳转。
+
+7
+00:00:40.800 --> 00:00:48.624
+Hannah: Sandbox redirects pass through the new path. Production callbacks need the canary check.
+沙箱跳转通过了新路径，生产回调还要在灰度时检查。
+
+8
+00:00:48.624 --> 00:00:54.696
+Raj: I'm on it for firewall evidence. No broad subnet allowance as a shortcut.
+防火墙证据我来补，不用放开整个子网来走捷径。
+
+9
+00:00:54.696 --> 00:01:01.488
+Lukas: What's the ETA for that evidence? Record the effective rules, not just requests.
+那些证据预计多久？记录实际生效规则，不只记录申请。
+
+10
+00:01:01.488 --> 00:01:08.280
+Anika: About ten minutes, alongside callback evidence. Then we can review probe behavior.
+大约十分钟，与回调证据一起补齐。然后可以评审探测行为。
+

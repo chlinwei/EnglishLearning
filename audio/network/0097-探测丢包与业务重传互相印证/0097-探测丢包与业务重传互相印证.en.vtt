@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Raj: Okay, packet loss reaches roughly two percent. That's from the five-minute probe window.
+
+2
+00:00:06.480 --> 00:00:15.791
+Hannah: Are those probes ICMP or application traffic? Diagnostic responses can be rate-limited separately.
+
+3
+00:00:15.791 --> 00:00:23.687
+Raj: ICMP, plus actual TCP retransmission samples. Jitter rises in the same recorded periods.
+
+4
+00:00:23.687 --> 00:00:29.662
+Lukas: Does that prove where the loss occurs? We still need both endpoint observations.
+
+5
+00:00:29.662 --> 00:00:37.270
+Anika: No, the working hypothesis is path degradation. Client timeout bursts align with those periods.
+
+6
+00:00:37.270 --> 00:00:44.926
+Priya: Just to confirm, not a location claim, right? Evidence links timing, not the faulty device.
+
+7
+00:00:44.926 --> 00:00:52.581
+Hannah: Right, we can't rule that out yet. Congestion and physical errors need separate checks.
+
+8
+00:00:52.581 --> 00:00:59.325
+Raj: I'll keep an eye on interface counters. They've stayed clean at our local endpoint.
+
+9
+00:00:59.325 --> 00:01:05.708
+Lukas: Save counters with the same timestamps. Clean local counters don't clear the remote side.
+
+10
+00:01:05.708 --> 00:01:12.740
+Priya: So, keep the conclusion narrow for now. Next, review what the carrier actually promised.
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.056
+Raj: We've got one deprecation warning per startup. It references our legacy token callback.
+每次启动有一个弃用警告，指向旧令牌回调。
+
+2
+00:00:07.056 --> 00:00:14.903
+Hannah: Does it precede an actual authentication failure? Compare events across a full refresh cycle.
+之后有实际认证失败吗？跨完整刷新周期比较事件。
+
+3
+00:00:14.903 --> 00:00:23.183
+Anika: The canary cohort refreshed tokens successfully twice. Our working hypothesis is future compatibility risk.
+灰度组已成功刷新两次，当前假设是未来兼容风险。
+
+4
+00:00:23.183 --> 00:00:30.022
+Priya: Just to confirm, no failed writes, right? Keep the warning separate from error counts.
+确认一下，没有写入失败，对吧？警告与错误计数分开。
+
+5
+00:00:30.022 --> 00:00:35.782
+Lukas: Check when the callback will be removed. A warning still deserves an owned task.
+查回调何时被移除，警告仍需有人负责处理。
+
+6
+00:00:35.782 --> 00:00:43.318
+Raj: Okay, that becomes my next action item. Maybe the replacement needs its own compatibility review.
+好，列为我的下一项任务，替代接口可能另需兼容评审。
+
+7
+00:00:43.318 --> 00:00:53.205
+Hannah: Current documentation confirms support in this release. Tests show successful refresh, not future guarantees.
+当前文档确认本版本仍支持，测试说明目前刷新成功，不保证未来。
+
+8
+00:00:53.205 --> 00:01:00.093
+Anika: I'll keep an eye on latency too. The steady-state comparison matches our previous baseline.
+我也关注延迟，稳定运行对比与旧基线一致。
+
+9
+00:01:00.093 --> 00:01:07.244
+Lukas: Record the observation period and sample size. Avoid claiming every workload is fully covered.
+记录观察时段和样本量，不宣称覆盖所有负载。
+
+10
+00:01:07.244 --> 00:01:14.300
+Priya: Agreed, expansion waits for the review decision. The warning gets a deadline, not silence.
+同意，扩大要等评审决定，警告设期限，不直接静音。
+

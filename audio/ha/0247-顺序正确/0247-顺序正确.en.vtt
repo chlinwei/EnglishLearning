@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.576
+Raj: Let me tail the log from yesterday's archive.
+
+2
+00:00:03.576 --> 00:00:08.568
+Hannah: The recovery point trails cutoff by thirty-seven seconds.
+
+3
+00:00:08.568 --> 00:00:13.585
+Anika: Those test writes weren't replicated. We recorded them.
+
+4
+00:00:13.585 --> 00:00:17.017
+Lukas: When did fencing complete relative to promotion?
+
+5
+00:00:17.017 --> 00:00:22.729
+Raj: Minute eleven. Promotion started after independent power confirmation.
+
+6
+00:00:22.729 --> 00:00:27.073
+Priya: Just to confirm, out-of-band console evidence, right?
+
+7
+00:00:27.073 --> 00:00:31.705
+Hannah: Yes, with restart inhibition captured in logs.
+
+8
+00:00:31.705 --> 00:00:36.122
+Anika: Let me play that back. Data loss remains.
+
+9
+00:00:36.122 --> 00:00:41.690
+Lukas: Correct. Safe promotion doesn't undo asynchronous replication loss.
+
+10
+00:00:41.690 --> 00:00:46.250
+Priya: Recovery time includes validation, roughly three more minutes.
+

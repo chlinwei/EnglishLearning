@@ -1,0 +1,135 @@
+{
+ "id": "0042",
+ "part": 7,
+ "stage": "受控重启",
+ "title": "一次一台：先停拉取，再等在途任务",
+ "premise": "消费速率已降低，证据已保存，主机内存仍较高；批准受控重启灰度消费者。",
+ "listeningTask": "抓住重启顺序、停止条件和失败时的替代方案。",
+ "newPhrase": "p317",
+ "phrases": [
+  "p317",
+  "p010",
+  "p306",
+  "p014:extra",
+  "p008:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, one worker at a time. Just to confirm, only the canary, right?",
+   "zh": "好，一次只处理一个消费者。我确认一下，只动灰度节点，对吧？",
+   "role": "Incident lead",
+   "start": 0.0,
+   "end": 6.36
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Stop fetching first. Let active tasks finish before stopping the process.",
+   "zh": "对。先停止拉取，让在途任务完成后再停进程。",
+   "role": "SRE",
+   "start": 6.36,
+   "end": 13.343
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. The app has a documented drain mode. I'll use that.",
+   "zh": "我来操作。应用有文档规定的排空模式，我会用它。",
+   "role": "Linux on-call",
+   "start": 13.343,
+   "end": 19.655
+  },
+  {
+   "sp": "Hannah",
+   "en": "What if a task hangs? We need a timeout and an escalation path.",
+   "zh": "如果任务卡住呢？我们需要超时限制和升级处理路径。",
+   "role": "Operations engineer",
+   "start": 19.655,
+   "end": 25.534
+  },
+  {
+   "sp": "Anika",
+   "en": "Two minutes, per the runbook. Don't force-stop without checking the unacknowledged events.",
+   "zh": "按运行手册等两分钟。没核对未确认事件之前，不要强制停止。",
+   "role": "Application owner",
+   "start": 25.534,
+   "end": 32.158
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA now? The throttle should buy us time, not become the permanent fix.",
+   "zh": "现在预计多久？降速是为了争取时间，不是长期修复。",
+   "role": "Incident lead",
+   "start": 32.158,
+   "end": 38.638
+  },
+  {
+   "sp": "Lukas",
+   "en": "If it won't start, leave fetching disabled. Then use the approved rollback procedure.",
+   "zh": "如果启动失败，继续禁止拉取，然后按批准的回滚流程操作。",
+   "role": "SRE",
+   "start": 38.638,
+   "end": 44.973
+  },
+  {
+   "sp": "Raj",
+   "en": "Drain is complete. No active tasks. I'll restart the same build now.",
+   "zh": "排空完成，没有在途任务。现在重启同一个构建版本。",
+   "role": "Linux on-call",
+   "start": 44.973,
+   "end": 51.597
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on the other hosts during startup. They still need room.",
+   "zh": "启动期间我会关注其他主机，它们也需要保留余量。",
+   "role": "Operations engineer",
+   "start": 51.597,
+   "end": 57.164
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe a minute to start. Then we'll verify memory before enabling normal consumption.",
+   "zh": "启动大概一分钟。恢复正常消费前先检查内存。",
+   "role": "Application owner",
+   "start": 57.164,
+   "end": 63.86
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 7,
+ "scene": "消费速率已降低，证据已保存，主机内存仍较高；批准受控重启灰度消费者。",
+ "dir": "linux/0042-一次一台",
+ "audio": "0042-一次一台.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "受控重启"
+ ],
+ "duration": 63.86
+}

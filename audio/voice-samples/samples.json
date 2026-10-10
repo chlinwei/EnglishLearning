@@ -1,0 +1,36 @@
+{
+  "purpose": "voice audition, not a published dialogue",
+  "english": "Okay, just to confirm, the disk is filling up, right? We've paused the noisy job. That should buy us time. Please keep an eye on the queue. We'll check the logs before restarting anything.",
+  "chinese": "好，我确认一下，磁盘快被占满了，对吧？我们暂停了产生大量日志的任务，这应该能争取时间。请留意队列。我们会先检查日志，不直接重启。",
+  "germanEnglishAccentApproved": false,
+  "samples": [
+    {
+      "voice": "en-IN-PrabhatNeural",
+      "label": "印度英语 · 男声",
+      "status": "印度音色试听",
+      "file": "en-IN-PrabhatNeural.mp3",
+      "bytes": 98496
+    },
+    {
+      "voice": "en-IN-NeerjaNeural",
+      "label": "印度英语 · 女声",
+      "status": "印度音色试听",
+      "file": "en-IN-NeerjaNeural.mp3",
+      "bytes": 97056
+    },
+    {
+      "voice": "de-DE-FlorianMultilingualNeural",
+      "label": "德国多语言候选 · 男声",
+      "status": "英语口音待试听确认",
+      "file": "de-DE-FlorianMultilingualNeural.mp3",
+      "bytes": 70560
+    },
+    {
+      "voice": "de-DE-SeraphinaMultilingualNeural",
+      "label": "德国多语言候选 · 女声",
+      "status": "英语口音待试听确认",
+      "file": "de-DE-SeraphinaMultilingualNeural.mp3",
+      "bytes": 80352
+    }
+  ]
+}

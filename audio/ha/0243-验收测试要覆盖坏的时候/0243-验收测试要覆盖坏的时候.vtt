@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.584
+Hannah: A representative workload includes callbacks. Include realistic reads and writes too.
+有代表性的负载包括回调，也要包含真实的读写。
+
+2
+00:00:07.584 --> 00:00:11.208
+Raj: We'll dry-run it first without fault injection.
+先不注入故障，试运行一遍。
+
+3
+00:00:11.208 --> 00:00:17.281
+Lukas: Then remove one zone. Use isolated production-equivalent infrastructure.
+然后移除一个区，使用隔离的生产等效基础设施。
+
+4
+00:00:17.281 --> 00:00:21.865
+Anika: Our working hypothesis needs cold-cache and retry coverage.
+当前假设需要冷缓存和重试场景的覆盖。
+
+5
+00:00:21.865 --> 00:00:25.705
+Priya: Just to confirm, no customer traffic, right?
+确认一下，没有客户流量，对吧？
+
+6
+00:00:25.705 --> 00:00:30.433
+Raj: Yes, sanitized data and simulated payment providers.
+是的，使用脱敏数据和模拟支付提供方。
+
+7
+00:00:30.433 --> 00:00:34.225
+Hannah: A smoke test precedes each load stage.
+每个负载阶段前都做关键功能快速验证。
+
+8
+00:00:34.225 --> 00:00:39.002
+Anika: Okay, measure order completion, not only response speed.
+好，要测订单完成，不只测响应速度。
+
+9
+00:00:39.002 --> 00:00:43.322
+Lukas: Perhaps record whether the capacity envelope actually holds.
+也许还应记录容量工作范围是否真正成立。
+
+10
+00:00:43.322 --> 00:00:47.330
+Priya: Yes, with abort thresholds agreed before testing.
+是的，测试前先约定中止阈值。
+

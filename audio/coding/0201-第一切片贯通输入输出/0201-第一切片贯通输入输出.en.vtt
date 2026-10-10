@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.160
+Raj: The first vertical slice covers daily reporting. Input parsing, transformation, and output work together.
+
+2
+00:00:08.160 --> 00:00:15.097
+Lukas: That's better than extracting every helper first. We can validate an actual consumer workflow.
+
+3
+00:00:15.097 --> 00:00:22.849
+Priya: Just to confirm, baseline tests come first, right? Then Raj can be heads-down on extraction.
+
+4
+00:00:22.849 --> 00:00:29.353
+Anika: I'm on it with the sanitized fixtures. Maybe the failure samples need an extra day.
+
+5
+00:00:29.353 --> 00:00:38.042
+Hannah: A characterization test runs before each extraction. Afterward it compares the same input outputs.
+
+6
+00:00:38.042 --> 00:00:45.578
+Raj: I'll keep the existing CLI entry point. Internal modules won't change the scheduled invocation.
+
+7
+00:00:45.578 --> 00:00:52.827
+Lukas: Use small reviewable changes with passing tests. A giant final merge raises comparison risk.
+
+8
+00:00:52.827 --> 00:01:01.371
+Priya: One action item is defining each review boundary. Raj implements, Lukas reviews, Hannah verifies behavior.
+
+9
+00:01:01.371 --> 00:01:10.756
+Hannah: The second report remains optional this iteration. Its tests mustn't silently replace first-slice acceptance.
+
+10
+00:01:10.756 --> 00:01:18.460
+Anika: Good, consumers will see a complete example. That makes feedback useful before broader extraction.
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.984
+Priya: Acceptance criteria cover single-zone peak targets.
+验收标准涵盖单区峰值目标。
+
+2
+00:00:03.984 --> 00:00:08.712
+Hannah: And zero missing acknowledged orders after failover.
+还包括切换后零丢失已确认订单。
+
+3
+00:00:08.712 --> 00:00:13.489
+Raj: I'll own load evidence. What's the ETA constraint?
+我负责负载证据，完成时间要求是什么？
+
+4
+00:00:13.489 --> 00:00:16.969
+Lukas: Friday for tests, Monday for the review.
+周五完成测试，周一评审。
+
+5
+00:00:16.969 --> 00:00:20.737
+Priya: The proxy action item: who's picking this up?
+代理这个待办项由谁来接？
+
+6
+00:00:20.737 --> 00:00:25.393
+Anika: I'll name its owner today itself. Before lunch.
+今天我就确定负责人，午饭前完成。
+
+7
+00:00:25.393 --> 00:00:29.233
+Hannah: Perhaps add a test-access backup owner.
+也许还应为测试权限安排后备负责人。
+
+8
+00:00:29.233 --> 00:00:32.978
+Raj: I'll close the loop with reports and exceptions.
+我会用报告和异常记录完成反馈。
+
+9
+00:00:32.978 --> 00:00:37.274
+Lukas: Just to recap, no launch without acceptance evidence.
+小结一下，没有验收证据就不上线。
+
+10
+00:00:37.274 --> 00:00:42.050
+Priya: Agreed. Book the follow-up, not an incident bridge.
+同意，安排后续评审，不是故障战情会。
+

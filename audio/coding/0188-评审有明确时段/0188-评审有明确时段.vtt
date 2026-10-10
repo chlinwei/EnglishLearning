@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.688
+Raj: The review queue is my main blocker. The change is up for review already.
+主要阻塞是评审队列，变更已经提交评审。
+
+2
+00:00:05.688 --> 00:00:11.641
+Lukas: I've got bandwidth at eleven this morning. I can't promise approval before reading it.
+上午十一点我有时间，但读之前不能承诺通过。
+
+3
+00:00:11.641 --> 00:00:18.745
+Priya: Just to confirm, eleven is review start, right? What's the ETA for initial feedback?
+确认一下，十一点开始评审，对吧？初次反馈预计什么时候？
+
+4
+00:00:18.745 --> 00:00:25.705
+Anika: My integration branch depends on its output shape. I can still prepare the adapter tests.
+集成分支依赖输出结构，我仍能先准备适配器测试。
+
+5
+00:00:25.705 --> 00:00:34.226
+Hannah: Keep the interface description beside the change. Reviewers shouldn't reverse-engineer the expected output.
+变更旁放接口说明，不该让评审者反推预期输出。
+
+6
+00:00:34.226 --> 00:00:41.426
+Raj: Okay, I'll add that description before eleven. Maybe ten minutes for the example outputs.
+好，十一点前补说明，示例输出可能需十分钟。
+
+7
+00:00:41.426 --> 00:00:48.411
+Lukas: Initial feedback should arrive before lunch. Larger design questions may need a separate discussion.
+午饭前给初次反馈，大的设计问题可能另需讨论。
+
+8
+00:00:48.411 --> 00:00:55.419
+Priya: We'll circle back at the afternoon checkpoint. Don't mark the review complete before feedback.
+下午检查点再跟进，反馈前不标成评审完成。
+
+9
+00:00:55.419 --> 00:01:03.268
+Hannah: I can review test clarity in parallel. That doesn't replace Lukas's implementation review.
+我可并行审查测试清晰度，不能替代Lukas审实现。
+
+10
+00:01:03.268 --> 00:01:11.500
+Anika: Good, I'll prepare integration fixtures meanwhile. That keeps progress moving without assuming interface approval.
+好，我同时准备集成fixture，不假设接口已获批准。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0192",
+ "part": 7,
+ "stage": "帮助请求",
+ "title": "结对看测试而不是接管任务",
+ "premise": "接口问题明确，Raj请求协助检查游标与取消测试。",
+ "listeningTask": "辨别结对协助的范围和任务责任归属。",
+ "newPhrase": "p467",
+ "phrases": [
+  "p467",
+  "p006",
+  "p010:extra",
+  "p014:extra",
+  "p464:extra",
+  "p002:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Could someone pair on it before lunch? I need help checking cancellation test design.",
+   "zh": "午饭前能有人结对吗？需要帮忙检查取消测试设计。",
+   "role": "CLI implementation engineer",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Hannah",
+   "en": "I've got bandwidth for thirty minutes. We'll focus on the test coverage gap.",
+   "zh": "我有半小时，聚焦测试覆盖缺口。",
+   "role": "Test and acceptance engineer",
+   "start": 6.552,
+   "end": 12.984
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, Raj keeps implementation ownership, right? Hannah helps validate the failure cases.",
+   "zh": "确认一下，实现仍归Raj，对吧？Hannah协助验证失败用例。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 12.984,
+   "end": 20.999
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for realistic response samples. Maybe those make cancellation timing less artificial.",
+   "zh": "真实响应样本我来准备，能让取消时机不那么人为。",
+   "role": "API integration engineer",
+   "start": 20.999,
+   "end": 28.175
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use controlled scheduling in the tests. Real-time sleeps make concurrency tests unreliable.",
+   "zh": "测试用可控调度，实际睡眠会让并发测试不稳定。",
+   "role": "Code reviewer and platform engineer",
+   "start": 28.175,
+   "end": 35.255
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, I'll inject the scheduler for tests. Production behavior doesn't need a new timing policy.",
+   "zh": "好，测试注入调度器，生产不必引入新时间策略。",
+   "role": "CLI implementation engineer",
+   "start": 35.255,
+   "end": 42.551
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let's take it offline after the standup. We can inspect the test harness together.",
+   "zh": "站会后单独聊，一起检查测试框架。",
+   "role": "Test and acceptance engineer",
+   "start": 42.551,
+   "end": 49.223
+  },
+  {
+   "sp": "Priya",
+   "en": "Good, today's commitment should remain small enough. Don't turn pairing into a framework rewrite.",
+   "zh": "好，今天承诺规模别太大，结对不变成重写框架。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 49.223,
+   "end": 56.374
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review the seam for scheduler injection. Keep it narrow and internal to testing.",
+   "zh": "我审查调度器注入点，保持小范围测试用途。",
+   "role": "Code reviewer and platform engineer",
+   "start": 56.374,
+   "end": 62.398
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll join for the first sample walkthrough. Then I'll return to the contract request.",
+   "zh": "我参加首个样例讲解，之后回去处理契约请求。",
+   "role": "API integration engineer",
+   "start": 62.398,
+   "end": 68.83
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 7,
+ "scene": "接口问题明确，Raj请求协助检查游标与取消测试。",
+ "dir": "coding/0192-结对看测试而不是接管任务",
+ "audio": "0192-结对看测试而不是接管任务.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "帮助请求"
+ ],
+ "duration": 68.83
+}

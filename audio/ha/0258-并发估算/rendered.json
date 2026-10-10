@@ -1,0 +1,129 @@
+{
+ "id": "0258",
+ "part": 3,
+ "stage": "流量估算",
+ "title": "并发估算：先声明假设",
+ "premise": "用户指标已明确，候选人估算峰值并发与请求成本。",
+ "listeningTask": "听出吞吐乘耗时只是并发估算而非容量证明。",
+ "newPhrase": "p533",
+ "phrases": [
+  "p533",
+  "p335",
+  "p319",
+  "p010:extra",
+  "p314:extra",
+  "p316:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Assume two thousand requests per second at peak.",
+   "zh": "假设峰值每秒两千个请求。",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 3.6
+  },
+  {
+   "sp": "Raj",
+   "en": "Peak concurrency also depends on request latency.",
+   "zh": "峰值并发还取决于请求延迟。",
+   "role": "DevOps system design candidate",
+   "start": 3.6,
+   "end": 7.728
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, half-second average latency, right?",
+   "zh": "确认一下，假定平均延迟半秒，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 7.728,
+   "end": 12.096
+  },
+  {
+   "sp": "Hannah",
+   "en": "For estimation, yes. Tail latency needs separate treatment.",
+   "zh": "估算时可以，但尾延迟需要另行处理。",
+   "role": "Data systems interviewer",
+   "start": 12.096,
+   "end": 18.408
+  },
+  {
+   "sp": "Raj",
+   "en": "Roughly a thousand inflight requests. Under that assumption, I mean.",
+   "zh": "大约一千个进行中的请求。我的意思是，在那个假设下。",
+   "role": "DevOps system design candidate",
+   "start": 18.408,
+   "end": 24.168
+  },
+  {
+   "sp": "Lukas",
+   "en": "Traffic is flat in testing. Is that enough?",
+   "zh": "测试流量平稳，这样够吗？",
+   "role": "Reliability interviewer",
+   "start": 24.168,
+   "end": 28.08
+  },
+  {
+   "sp": "Raj",
+   "en": "No. My working hypothesis needs bursts and retries.",
+   "zh": "不够，我当前的假设还需要突发和重试测试。",
+   "role": "DevOps system design candidate",
+   "start": 28.08,
+   "end": 33.288
+  },
+  {
+   "sp": "Raj",
+   "en": "Memory headroom matters when slow requests accumulate.",
+   "zh": "慢请求积累时，内存余量很重要。",
+   "role": "DevOps system design candidate",
+   "start": 33.288,
+   "end": 37.416
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, how would you protect orders during overload?",
+   "zh": "好，过载时你会怎么保护订单？",
+   "role": "Data systems interviewer",
+   "start": 37.416,
+   "end": 41.664
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd shed load from optional work first.",
+   "zh": "我会先减少可选工作的承接负载。",
+   "role": "DevOps system design candidate",
+   "start": 41.664,
+   "end": 45.12
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 3,
+ "scene": "用户指标已明确，候选人估算峰值并发与请求成本。",
+ "dir": "ha/0258-并发估算",
+ "audio": "0258-并发估算.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "流量估算"
+ ],
+ "duration": 45.12
+}

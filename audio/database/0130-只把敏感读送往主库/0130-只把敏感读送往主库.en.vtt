@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Priya: Route reads to the primary selectively. Start with payment confirmation on canary.
+
+2
+00:00:06.480 --> 00:00:12.360
+Lukas: The capacity check passed at this rate. Keep admission limits for traffic spikes.
+
+3
+00:00:12.360 --> 00:00:19.943
+Anika: Read-after-write consistency also needs cache bypass. Those endpoints won't serve cached states.
+
+4
+00:00:19.943 --> 00:00:27.359
+Hannah: Validate a new committed order first. Then expand customer status reads gradually.
+
+5
+00:00:27.359 --> 00:00:34.175
+Raj: Just to confirm, B stays a replica, right? No promotion changes in this incident.
+
+6
+00:00:34.175 --> 00:00:41.351
+Lukas: Correct. Writer latency is our rollback trigger. Stop expansion if it gets worse.
+
+7
+00:00:41.351 --> 00:00:48.263
+Priya: Okay, shed load from optional reports. Maybe defer them rather than overload primary.
+
+8
+00:00:48.263 --> 00:00:56.254
+Hannah: Don't send sensitive reads back blindly. If primary overloads, restrict that feature.
+
+9
+00:00:56.254 --> 00:01:01.846
+Anika: I'm on it for the canary. I'll verify freshness and useful throughput.
+
+10
+00:01:01.846 --> 00:01:08.710
+Raj: So, I'll pause the next deletion. That reduces fresh WAL without stopping replication.
+

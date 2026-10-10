@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Raj: Runner health looks normal across pools. CPU and disk have enough room.
+
+2
+00:00:06.408 --> 00:00:12.481
+Priya: Okay, queued builds remain held safely. What's the ETA for a control?
+
+3
+00:00:12.481 --> 00:00:18.817
+Lukas: Use one isolated runner for comparison. Match its image and network policy.
+
+4
+00:00:18.817 --> 00:00:25.418
+Anika: Same commit on both runners, right? Otherwise we'd change two variables together.
+
+5
+00:00:25.418 --> 00:00:34.058
+Hannah: Use approved short-lived test credentials there. Don't copy production secrets into diagnostics.
+
+6
+00:00:34.058 --> 00:00:40.514
+Raj: Both runners fail the same fetch. Managed configuration matches the approved image.
+
+7
+00:00:40.514 --> 00:00:47.067
+Lukas: That weakens a single-host failure theory. It doesn't clear shared image configuration.
+
+8
+00:00:47.067 --> 00:00:53.595
+Priya: Just to confirm, don't recycle pools. We can't rule that out completely.
+
+9
+00:00:53.595 --> 00:00:59.908
+Hannah: The fetch error names an endpoint. Compare that with the approved source.
+
+10
+00:00:59.908 --> 00:01:06.580
+Anika: Actually, that endpoint looks rather old. Let's check dependency settings next.
+

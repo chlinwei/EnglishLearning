@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Raj: Finishing every extraction is a stretch here. I'd estimate the first slice at five points.
+
+2
+00:00:07.128 --> 00:00:13.320
+Lukas: What uncertainty does that estimate include? Points aren't a promise of five days.
+
+3
+00:00:13.320 --> 00:00:21.719
+Anika: Consumer fixtures still need clarification from owners. Just to confirm, discovery is included, right?
+
+4
+00:00:21.719 --> 00:00:28.775
+Priya: Yes, available bandwidth is lower than usual. What's the ETA for the first fixture set?
+
+5
+00:00:28.775 --> 00:00:37.463
+Hannah: About two days if consumer samples arrive. The characterization test needs expected failures too.
+
+6
+00:00:37.463 --> 00:00:45.455
+Raj: Maybe five points understates those error paths. I'll separate discovery from mechanical function extraction.
+
+7
+00:00:45.455 --> 00:00:53.111
+Lukas: Make unknowns explicit before committing capacity. Otherwise estimates hide risk rather than communicate it.
+
+8
+00:00:53.111 --> 00:01:01.006
+Priya: Okay, don't solve scope creep by overtime. Optional logging cleanup can remain uncommitted this sprint.
+
+9
+00:01:01.006 --> 00:01:10.030
+Hannah: The committed goal should be demonstrable behavior. Count test evidence, not just extracted functions.
+
+10
+00:01:10.030 --> 00:01:16.990
+Anika: Agreed, I'll bring samples by tomorrow morning. Then we can revisit the uncertain estimate.
+

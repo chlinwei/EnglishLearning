@@ -1,0 +1,135 @@
+{
+ "id": "0079",
+ "part": 4,
+ "stage": "回退准备",
+ "title": "恢复权重，也保留已有连接",
+ "premise": "正确探测配置已验证，尚未放入业务流量；核对回退操作和门槛。",
+ "listeningTask": "听出权重回退作用于新连接，以及旧池必须持续健康。",
+ "newPhrase": "p354",
+ "phrases": [
+  "p354",
+  "p324",
+  "p010",
+  "p107:extra",
+  "p328:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, define the rollback trigger clearly. What's our threshold for stopping expansion?",
+   "zh": "好，明确回退触发条件。达到什么门槛停止放量？",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.72
+  },
+  {
+   "sp": "Lukas",
+   "en": "Any confirmed payment correctness failure means stop. Sustained extra errors also block expansion.",
+   "zh": "任何确认的支付正确性问题都要停止。错误持续增加也不能放量。",
+   "role": "SRE reviewer",
+   "start": 6.72,
+   "end": 14.039
+  },
+  {
+   "sp": "Raj",
+   "en": "Above baseline by half a percentage point. Two consecutive minutes trigger a rollback review.",
+   "zh": "比基线高半个百分点，连续两分钟就触发回退评估。",
+   "role": "Network engineer",
+   "start": 14.039,
+   "end": 20.927
+  },
+  {
+   "sp": "Hannah",
+   "en": "Who can restore the previous weights? Test access before we start the canary.",
+   "zh": "谁能恢复原权重？开始灰度前要验证权限。",
+   "role": "Validation engineer",
+   "start": 20.927,
+   "end": 27.526
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it, using the approved console. The saved configuration passes validation.",
+   "zh": "我来做，使用批准的控制台。已保存配置通过了校验。",
+   "role": "Network engineer",
+   "start": 27.526,
+   "end": 34.054
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, new connections return first, right? Existing connections aren't forcibly closed.",
+   "zh": "我确认一下，先让新连接回去，对吧？不强制关闭已有连接。",
+   "role": "Change coordinator",
+   "start": 34.054,
+   "end": 41.878
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, unless their behavior risks data correctness. That needs an explicit incident decision.",
+   "zh": "对，除非这些连接的行为威胁数据正确性，那需要明确的故障处置决策。",
+   "role": "SRE reviewer",
+   "start": 41.878,
+   "end": 49.077
+  },
+  {
+   "sp": "Anika",
+   "en": "So, if tests fail, let's roll back the config. Keep the old pool healthy.",
+   "zh": "所以测试失败就回滚配置，保持旧池健康。",
+   "role": "Checkout owner",
+   "start": 49.077,
+   "end": 55.557
+  },
+  {
+   "sp": "Hannah",
+   "en": "The old pool passes current checks. We have roughly twice the canary capacity.",
+   "zh": "旧池当前检查通过，其容量约为灰度所需的两倍。",
+   "role": "Validation engineer",
+   "start": 55.557,
+   "end": 62.516
+  },
+  {
+   "sp": "Priya",
+   "en": "That supports a go/no-go decision now. Approved for five percent, not beyond.",
+   "zh": "现在可以作出是否执行的决定了。批准百分之五，不批准更多。",
+   "role": "Change coordinator",
+   "start": 62.516,
+   "end": 68.9
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 4,
+ "scene": "正确探测配置已验证，尚未放入业务流量；核对回退操作和门槛。",
+ "dir": "network/0079-恢复权重，也保留已有连接",
+ "audio": "0079-恢复权重，也保留已有连接.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "回退准备"
+ ],
+ "duration": 68.9
+}

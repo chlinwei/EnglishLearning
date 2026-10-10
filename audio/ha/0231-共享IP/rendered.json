@@ -1,0 +1,135 @@
+{
+ "id": "0231",
+ "part": 6,
+ "stage": "观察误伤",
+ "title": "共享IP：正常用户撞上同一个桶",
+ "premise": "影子模式显示办公室共享IP命中异常，灰度需暂停扩大。",
+ "listeningTask": "听出误拒证据来自正常业务样本而非所有429。",
+ "newPhrase": "p506",
+ "phrases": [
+  "p506",
+  "p505",
+  "p335",
+  "p302:extra",
+  "p010:extra",
+  "p101:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Shadow mode suggests false rejections for office shoppers.",
+   "zh": "影子模式提示办公室购物者可能被误拒。",
+   "role": "Validation engineer",
+   "start": 0.0,
+   "end": 4.896
+  },
+  {
+   "sp": "Raj",
+   "en": "The working hypothesis is shared-IP bucket collisions.",
+   "zh": "当前假设是共享IP导致令牌桶冲突。",
+   "role": "Gateway engineer",
+   "start": 4.896,
+   "end": 9.023
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can you identify legitimate authenticated requests there?",
+   "zh": "能识别其中合法的已认证请求吗？",
+   "role": "Capacity reviewer",
+   "start": 9.023,
+   "end": 13.247
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, separate customers. Their combined traffic hits quotas.",
+   "zh": "能，是不同客户，合计流量碰到配额了。",
+   "role": "Checkout product engineer",
+   "start": 13.247,
+   "end": 18.766
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, expansion pauses, right?",
+   "zh": "确认一下，暂停扩大范围，对吧？",
+   "role": "Change coordinator",
+   "start": 18.766,
+   "end": 22.75
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. The error rate spiked on recommendation canaries.",
+   "zh": "是的，推荐灰度的错误率陡涨了。",
+   "role": "Gateway engineer",
+   "start": 22.75,
+   "end": 27.67
+  },
+  {
+   "sp": "Hannah",
+   "en": "Separate deliberate throttling from unexpected server failures.",
+   "zh": "要区分有意限流与意外服务器故障。",
+   "role": "Validation engineer",
+   "start": 27.67,
+   "end": 32.901
+  },
+  {
+   "sp": "Anika",
+   "en": "Checkout's stable. We can't rule that out later.",
+   "zh": "结账目前稳定，但不能排除后续受到影响。",
+   "role": "Checkout product engineer",
+   "start": 32.901,
+   "end": 37.413
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe identity-based quotas would reduce collateral damage.",
+   "zh": "也许按身份设置配额能减少误伤。",
+   "role": "Capacity reviewer",
+   "start": 37.413,
+   "end": 41.78
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, test that before touching the global ceiling.",
+   "zh": "好，调整全局上限前先测试这个方案。",
+   "role": "Change coordinator",
+   "start": 41.78,
+   "end": 45.5
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 6,
+ "scene": "影子模式显示办公室共享IP命中异常，灰度需暂停扩大。",
+ "dir": "ha/0231-共享IP",
+ "audio": "0231-共享IP.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "观察误伤"
+ ],
+ "duration": 45.5
+}

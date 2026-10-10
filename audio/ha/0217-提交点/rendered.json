@@ -1,0 +1,135 @@
+{
+ "id": "0217",
+ "part": 2,
+ "stage": "确认主备",
+ "title": "提交点：已确认写入在哪里",
+ "premise": "写入口已冻结，需要检查备机角色和持久化状态。",
+ "listeningTask": "听懂同步确认语义，而非仅看复制延迟。",
+ "newPhrase": "p492",
+ "phrases": [
+  "p492",
+  "p010",
+  "p302",
+  "p011:extra",
+  "p335:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The last committed position matches our witness.",
+   "zh": "最后提交位置与见证记录一致。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 3.648
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does that include every acknowledged client write?",
+   "zh": "这包括所有已向客户端确认的写入吗？",
+   "role": "Data validation engineer",
+   "start": 3.648,
+   "end": 7.559
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, acknowledgments require durable synchronous replication here.",
+   "zh": "是的，这里确认写入要求同步复制持久化。",
+   "role": "Order application owner",
+   "start": 7.559,
+   "end": 12.743
+  },
+  {
+   "sp": "Lukas",
+   "en": "Was synchronous mode enabled throughout this incident?",
+   "zh": "整个故障期间都启用了同步模式吗？",
+   "role": "Cluster safety engineer",
+   "start": 12.743,
+   "end": 16.391
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, no asynchronous fallback, right?",
+   "zh": "确认一下，没有退到异步模式，对吧？",
+   "role": "Database on-call",
+   "start": 16.391,
+   "end": 20.302
+  },
+  {
+   "sp": "Priya",
+   "en": "That's our working hypothesis. The audit looks reassuring.",
+   "zh": "这是当前假设。审计结果看起来令人放心。",
+   "role": "Incident coordinator",
+   "start": 20.302,
+   "end": 25.27
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Verify replay too.",
+   "zh": "我复述一下。还要验证日志回放。",
+   "role": "Data validation engineer",
+   "start": 25.27,
+   "end": 29.757
+  },
+  {
+   "sp": "Raj",
+   "en": "Replay reached that position. We'll keep an eye on later records.",
+   "zh": "回放已到该位置。我们会留意后续记录。",
+   "role": "Database on-call",
+   "start": 29.757,
+   "end": 35.397
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good, but divergence remains possible until isolation.",
+   "zh": "好，但隔离前仍有分叉可能。",
+   "role": "Cluster safety engineer",
+   "start": 35.397,
+   "end": 39.932
+  },
+  {
+   "sp": "Priya",
+   "en": "We can't rule that out yet. Isolation next.",
+   "zh": "还不能排除。接下来检查隔离。",
+   "role": "Incident coordinator",
+   "start": 39.932,
+   "end": 44.42
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 2,
+ "scene": "写入口已冻结，需要检查备机角色和持久化状态。",
+ "dir": "ha/0217-提交点",
+ "audio": "0217-提交点.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "确认主备"
+ ],
+ "duration": 44.42
+}

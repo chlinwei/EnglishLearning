@@ -1,0 +1,135 @@
+{
+ "id": "0232",
+ "part": 7,
+ "stage": "调整阈值",
+ "title": "调轻误伤，保留总保护",
+ "premise": "确认共享IP误伤，调整配额身份与突发容忍，不放开数据库上限。",
+ "listeningTask": "听清调回哪一层，而不是一律关闭限流。",
+ "newPhrase": "p507",
+ "phrases": [
+  "p507",
+  "p506",
+  "p503",
+  "p330:extra",
+  "p010:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Let's dial it back for authenticated tenants. I mean, reduce false rejections.",
+   "zh": "对已认证租户调轻干预强度。我的意思是，减少误拒。",
+   "role": "Gateway engineer",
+   "start": 0.0,
+   "end": 6.599
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which setting changes? The global rate limit?",
+   "zh": "改哪个设置？全局速率限制吗？",
+   "role": "Capacity reviewer",
+   "start": 6.599,
+   "end": 10.583
+  },
+  {
+   "sp": "Raj",
+   "en": "No, bucket identity and per-tenant burst allowance.",
+   "zh": "不是，改桶身份和单租户突发余量。",
+   "role": "Gateway engineer",
+   "start": 10.583,
+   "end": 14.855
+  },
+  {
+   "sp": "Hannah",
+   "en": "How are anonymous requests treated without identity?",
+   "zh": "匿名请求没有身份时怎么处理？",
+   "role": "Validation engineer",
+   "start": 14.855,
+   "end": 19.342
+  },
+  {
+   "sp": "Anika",
+   "en": "Conservative anonymous quotas. Authentication doesn't bypass safety ceilings.",
+   "zh": "匿名配额保持保守，认证不绕过安全上限。",
+   "role": "Checkout product engineer",
+   "start": 19.342,
+   "end": 25.822
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, trusted identity only, right?",
+   "zh": "确认一下，只用可信身份，对吧？",
+   "role": "Change coordinator",
+   "start": 25.822,
+   "end": 30.093
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, not a client-supplied tenant header.",
+   "zh": "是的，不能用客户端自行提供的租户头。",
+   "role": "Capacity reviewer",
+   "start": 30.093,
+   "end": 33.645
+  },
+  {
+   "sp": "Raj",
+   "en": "Managed configuration holds the reviewed policy version.",
+   "zh": "受管理配置保存已评审的策略版本。",
+   "role": "Gateway engineer",
+   "start": 33.645,
+   "end": 37.629
+  },
+  {
+   "sp": "Hannah",
+   "en": "False rejections should fall, perhaps not disappear.",
+   "zh": "误拒应该下降，但也许不会完全消失。",
+   "role": "Validation engineer",
+   "start": 37.629,
+   "end": 42.38
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll keep an eye on legitimate completion rates.",
+   "zh": "我们会留意合法请求的业务完成率。",
+   "role": "Change coordinator",
+   "start": 42.38,
+   "end": 46.1
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 7,
+ "scene": "确认共享IP误伤，调整配额身份与突发容忍，不放开数据库上限。",
+ "dir": "ha/0232-调轻误伤，保留总保护",
+ "audio": "0232-调轻误伤，保留总保护.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "调整阈值"
+ ],
+ "duration": 46.1
+}

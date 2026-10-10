@@ -1,0 +1,135 @@
+{
+ "id": "0074",
+ "part": 9,
+ "stage": "业务更新",
+ "title": "告诉业务方：恢复了，原解析器还没修好",
+ "premise": "两区验证通过，服务指标恢复；A的原始配置问题和重新接入仍未完成。",
+ "listeningTask": "听清服务恢复、缓解持续有效与根因修复的不同状态。",
+ "newPhrase": "p349",
+ "phrases": [
+  "p349",
+  "p010",
+  "p334",
+  "p001:extra",
+  "p008:extra",
+  "p336:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Support needs an update. Can I say checkout is recovered and the mitigation is holding?",
+   "zh": "支持团队需要更新。我能说结账已恢复、缓解持续有效吗？",
+   "role": "Checkout application owner",
+   "start": 0.0,
+   "end": 6.432
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, with the monitoring period stated. Don't say both resolvers are repaired.",
+   "zh": "可以，但要写清观察时段。不要说两台解析器都修好了。",
+   "role": "SRE",
+   "start": 6.432,
+   "end": 12.696
+  },
+  {
+   "sp": "Raj",
+   "en": "This is still a temporary workaround. A remains out of the affected clients' configuration.",
+   "zh": "这仍是临时缓解。受影响客户端配置里仍不使用A。",
+   "role": "Network on-call",
+   "start": 12.696,
+   "end": 19.368
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, next update in thirty minutes, right? Earlier if the error rate rises.",
+   "zh": "我确认一下，三十分钟后再更新，对吧？错误率上升就提前。",
+   "role": "Incident coordinator",
+   "start": 19.368,
+   "end": 26.448
+  },
+  {
+   "sp": "Hannah",
+   "en": "Include the escalation path. The next shift needs to know who handles B if it slows down.",
+   "zh": "也写上升级联系路径。下个班需要知道B变慢时找谁。",
+   "role": "DNS validation engineer",
+   "start": 26.448,
+   "end": 34.32
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll add it. What's the ETA for A's repair? Maybe give a range, not a promise.",
+   "zh": "我会补上。A修复预计多久？可以给个范围，不要作保证。",
+   "role": "Checkout application owner",
+   "start": 34.32,
+   "end": 41.76
+  },
+  {
+   "sp": "Lukas",
+   "en": "We need the approved target list first. Then offline validation before any client moves back.",
+   "zh": "先要拿到批准的目标清单，客户端切回前还需要离线验证。",
+   "role": "SRE",
+   "start": 41.76,
+   "end": 48.768
+  },
+  {
+   "sp": "Raj",
+   "en": "About an hour for repair and checks, if the change review is clean. No automatic switch-back.",
+   "zh": "变更评审顺利的话，修复和检查大约一小时，不自动切回。",
+   "role": "Network on-call",
+   "start": 48.768,
+   "end": 56.04
+  },
+  {
+   "sp": "Hannah",
+   "en": "And don't publish endpoint details in the customer update. Keep that in the internal record.",
+   "zh": "客户更新里不要发布端点细节，那些留在内部记录中。",
+   "role": "DNS validation engineer",
+   "start": 56.04,
+   "end": 63.744
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Let's circle back after the next check. Recovery is confirmed; permanent repair is separate.",
+   "zh": "同意。下次检查后再确认。服务恢复已确认，永久修复是另一件事。",
+   "role": "Incident coordinator",
+   "start": 63.744,
+   "end": 72.24
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 9,
+ "scene": "两区验证通过，服务指标恢复；A的原始配置问题和重新接入仍未完成。",
+ "dir": "network/0074-告诉业务方",
+ "audio": "0074-告诉业务方.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "业务更新"
+ ],
+ "duration": 72.24
+}

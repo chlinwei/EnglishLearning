@@ -1,0 +1,135 @@
+{
+ "id": "0118",
+ "part": 3,
+ "stage": "慢查询证据",
+ "title": "慢报表是真问题，但不是全部",
+ "premise": "池已借满，数据库并非满载；先定位长时间运行的查询。",
+ "listeningTask": "辨别慢查询能解释多少连接占用。",
+ "newPhrase": "p393",
+ "phrases": [
+  "p393",
+  "p302",
+  "p392:extra",
+  "p008:extra",
+  "p004:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Query execution time reached thirty seconds. Six report queries are still running.",
+   "zh": "查询耗时达到三十秒，还有六条报表查询在执行。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 6.768
+  },
+  {
+   "sp": "Lukas",
+   "en": "That explains six occupied connections today. What explains the other borrowed ones?",
+   "zh": "这能解释六条连接被占用，其他借出的连接怎么解释？",
+   "role": "SRE and traffic controller",
+   "start": 6.768,
+   "end": 13.2
+  },
+  {
+   "sp": "Anika",
+   "en": "Not those reports, from this sample. Several checked-out connections have no owner.",
+   "zh": "从这份样本看不是报表，有几条借出的连接已找不到请求持有者。",
+   "role": "Orders application owner",
+   "start": 13.2,
+   "end": 19.681
+  },
+  {
+   "sp": "Priya",
+   "en": "So, don't rule that out yet. Reports still make timeouts more likely, right?",
+   "zh": "所以别排除报表因素，它仍会增加超时概率，对吧？",
+   "role": "Incident coordinator",
+   "start": 19.681,
+   "end": 26.209
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. Match each timeout to ownership. A slow query isn't a leak.",
+   "zh": "对，把每次超时和连接持有关系对应起来。慢查询不等于泄漏。",
+   "role": "Application validation engineer",
+   "start": 26.209,
+   "end": 33.193
+  },
+  {
+   "sp": "Raj",
+   "en": "The report scans old order rows. Maybe its missing filter explains that.",
+   "zh": "报表扫描旧订单行，可能是漏掉筛选条件导致的。",
+   "role": "Database on-call",
+   "start": 33.193,
+   "end": 39.481
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check the plan before adding indexes. Today's incident isn't an indexing window.",
+   "zh": "加索引前先查执行计划，今天的故障处理不是建索引窗口。",
+   "role": "SRE and traffic controller",
+   "start": 39.481,
+   "end": 45.769
+  },
+  {
+   "sp": "Priya",
+   "en": "A rushed index? Let's park that. What's the ETA for timeout traces?",
+   "zh": "临时赶建索引先放一边，超时链路预计多久拿到？",
+   "role": "Incident coordinator",
+   "start": 45.769,
+   "end": 52.514
+  },
+  {
+   "sp": "Hannah",
+   "en": "Two minutes with sampled request IDs. I'll avoid collecting customer payloads here.",
+   "zh": "用采样请求ID，两分钟。我会避免收集客户业务内容。",
+   "role": "Application validation engineer",
+   "start": 52.514,
+   "end": 59.978
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, the working hypothesis stays split. We'll inspect the cancellation branch next.",
+   "zh": "好，继续保留两个假设方向，下一步检查取消请求的分支。",
+   "role": "Orders application owner",
+   "start": 59.978,
+   "end": 66.89
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 3,
+ "scene": "池已借满，数据库并非满载；先定位长时间运行的查询。",
+ "dir": "database/0118-慢报表是真问题，但不是全部",
+ "audio": "0118-慢报表是真问题，但不是全部.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "慢查询证据"
+ ],
+ "duration": 66.89
+}

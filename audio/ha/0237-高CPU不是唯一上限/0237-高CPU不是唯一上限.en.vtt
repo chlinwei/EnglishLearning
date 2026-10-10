@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.480
+Raj: The database was at capacity during replay.
+
+2
+00:00:03.480 --> 00:00:07.295
+Hannah: Based on CPU, or a throughput plateau?
+
+3
+00:00:07.295 --> 00:00:11.207
+Raj: Throughput flattened while tail latency kept rising.
+
+4
+00:00:11.207 --> 00:00:14.614
+Lukas: Traffic is flat now, but replay wasn't.
+
+5
+00:00:14.614 --> 00:00:18.766
+Anika: The campaign probably adds more expensive order writes.
+
+6
+00:00:18.766 --> 00:00:22.654
+Priya: Just to confirm, mix changes too, right?
+
+7
+00:00:22.654 --> 00:00:27.477
+Hannah: Let me play that back. RPS alone misleads.
+
+8
+00:00:27.477 --> 00:00:31.389
+Raj: The capacity envelope must include that write mix.
+
+9
+00:00:31.389 --> 00:00:34.556
+Lukas: Don't rule that out as a storage bottleneck.
+
+10
+00:00:34.556 --> 00:00:38.780
+Priya: Okay, bring disk latency into the next comparison.
+

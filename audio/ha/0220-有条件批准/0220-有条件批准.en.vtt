@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.432
+Priya: The promotion gate needs two verified checks.
+
+2
+00:00:03.432 --> 00:00:07.488
+Lukas: Old primary fenced, and acknowledged data replayed.
+
+3
+00:00:07.488 --> 00:00:11.112
+Raj: The last committed position is replayed already.
+
+4
+00:00:11.112 --> 00:00:15.120
+Hannah: What's the rollback trigger after promotion starts?
+
+5
+00:00:15.120 --> 00:00:19.992
+Anika: Pause new writes. Don't reactivate the old primary.
+
+6
+00:00:19.992 --> 00:00:24.072
+Priya: Go/no-go stays pending isolation evidence itself.
+
+7
+00:00:24.072 --> 00:00:28.344
+Lukas: Let me play that back. Approval is conditional.
+
+8
+00:00:28.344 --> 00:00:32.760
+Raj: What's the ETA for power confirmation? Roughly?
+
+9
+00:00:32.760 --> 00:00:38.616
+Hannah: About three minutes. Verify the correct host identifier.
+
+10
+00:00:38.616 --> 00:00:42.600
+Priya: Okay, I'll record both approvals before proceeding.
+

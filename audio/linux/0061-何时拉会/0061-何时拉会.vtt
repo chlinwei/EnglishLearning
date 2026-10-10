@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.088
+Hannah: What's the escalation path if it restarts while fetching is paused?
+如果暂停拉取期间又重启，升级处理怎么联系？
+
+2
+00:00:05.088 --> 00:00:11.712
+Priya: Page the duty app owner immediately. Keep an eye on new exits, not just uptime.
+立即呼叫当值应用负责人。要关注新的退出，不只看运行时间。
+
+3
+00:00:11.712 --> 00:00:18.144
+Raj: I'll leave the journal filter and alert link. New exits should reach your pager.
+我会留下journal筛选方式和告警链接，新的退出应该能送达你的呼叫设备。
+
+4
+00:00:18.144 --> 00:00:24.288
+Lukas: And delayed exports? They're already waiting. When does that become urgent?
+导出延迟呢？现在已经在等待，什么时候算紧急？
+
+5
+00:00:24.288 --> 00:00:30.984
+Anika: Check the oldest request at twenty hundred. Escalate if it exceeds the agreed two-hour limit.
+20:00检查最老请求，等待超过约定的两小时限制就升级处理。
+
+6
+00:00:30.984 --> 00:00:37.488
+Priya: Just to confirm, that's request age, right? Not two hours since this handoff?
+我确认一下，指请求已经等了多久，对吧？不是交班后再等两小时？
+
+7
+00:00:37.488 --> 00:00:45.984
+Hannah: Let me play that back. New restart means immediate call; request age gets the scheduled check.
+我复述一下：新的重启立即呼叫，请求等待时间按计划检查。
+
+8
+00:00:45.984 --> 00:00:53.184
+Raj: Correct. I'm on it for the reminder. What's the ETA for your first status update?
+对，提醒我来设置。你的首次状态更新预计什么时候？
+
+9
+00:00:53.184 --> 00:00:59.688
+Lukas: At twenty hundred, or earlier if a trigger fires. Don't wait for the scheduled update then.
+20:00，触发条件出现就提前。那时不能等到例行更新时间。
+
+10
+00:00:59.688 --> 00:01:06.480
+Anika: Agreed. Maybe no change until then, but record both service state and customer delay.
+同意。也许到时状态没变，但服务状态和用户延迟都要记录。
+

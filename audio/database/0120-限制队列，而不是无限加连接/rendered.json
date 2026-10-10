@@ -1,0 +1,135 @@
+{
+ "id": "0120",
+ "part": 5,
+ "stage": "限流决策",
+ "title": "限制队列，而不是无限加连接",
+ "premise": "慢报表和泄漏假设并存，先决定有边界的缓解措施。",
+ "listeningTask": "抓住限流对象、重试约束和不能恢复泄漏连接的原因。",
+ "newPhrase": "p395",
+ "phrases": [
+  "p395",
+  "p316",
+  "p394:extra",
+  "p306:extra",
+  "p324:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Use a bounded request queue here. Reject excess work before borrowing connections.",
+   "zh": "这里使用有上限的请求队列，借连接之前拒绝超额工作。",
+   "role": "SRE and traffic controller",
+   "start": 0.0,
+   "end": 6.24
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, shed load from reports first. Keep order writes within safe limits.",
+   "zh": "好，先减掉报表负载，让订单写入维持安全限额。",
+   "role": "Incident coordinator",
+   "start": 6.24,
+   "end": 12.288
+  },
+  {
+   "sp": "Anika",
+   "en": "That should buy us time today. But it won't reclaim a connection leak.",
+   "zh": "这能为今天争取时间，但不能收回泄漏的连接。",
+   "role": "Orders application owner",
+   "start": 12.288,
+   "end": 17.688
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. Tell clients to back off. A rejection shouldn't trigger endless retries.",
+   "zh": "对，告诉客户端退避，被拒绝不应触发无限重试。",
+   "role": "Application validation engineer",
+   "start": 17.688,
+   "end": 25.872
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, reports pause, right? Existing writes get time to finish.",
+   "zh": "确认一下，报表暂停，对吧？给已有写入完成的时间。",
+   "role": "Database on-call",
+   "start": 25.872,
+   "end": 32.04
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, through the approved feature control. Don't kill every database session instead.",
+   "zh": "是，通过批准的功能控制暂停，不是杀掉所有数据库会话。",
+   "role": "SRE and traffic controller",
+   "start": 32.04,
+   "end": 38.448
+  },
+  {
+   "sp": "Priya",
+   "en": "What's our rollback trigger for limits? Maybe legitimate orders start failing faster.",
+   "zh": "限流的回退触发条件是什么？正常订单可能反而更快失败。",
+   "role": "Incident coordinator",
+   "start": 38.448,
+   "end": 44.88
+  },
+  {
+   "sp": "Hannah",
+   "en": "Compare accepted writes and rejection counts. Stop tightening if useful throughput drops.",
+   "zh": "对比成功接纳的写入和拒绝数，有效吞吐下降就别继续收紧。",
+   "role": "Application validation engineer",
+   "start": 44.88,
+   "end": 52.488
+  },
+  {
+   "sp": "Anika",
+   "en": "So, apply the limit on one worker. I'll verify idempotent retries with support.",
+   "zh": "那先在一台实例施加限额，我和支持团队确认幂等重试。",
+   "role": "Orders application owner",
+   "start": 52.488,
+   "end": 59.16
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll watch database load during that. Then we can safely rotate workers.",
+   "zh": "我在此期间观察数据库负载，之后才能安全滚动处理实例。",
+   "role": "Database on-call",
+   "start": 59.16,
+   "end": 65.4
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 5,
+ "scene": "慢报表和泄漏假设并存，先决定有边界的缓解措施。",
+ "dir": "database/0120-限制队列，而不是无限加连接",
+ "audio": "0120-限制队列，而不是无限加连接.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "限流决策"
+ ],
+ "duration": 65.4
+}

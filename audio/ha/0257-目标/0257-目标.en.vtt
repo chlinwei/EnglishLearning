@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.248
+Lukas: Use ninety-nine point nine percent monthly availability.
+
+2
+00:00:04.248 --> 00:00:08.016
+Raj: The error budget follows eligible checkout attempts.
+
+3
+00:00:08.016 --> 00:00:12.121
+Raj: Just to confirm, correctness failures count too, right?
+
+4
+00:00:12.121 --> 00:00:17.281
+Hannah: Yes. A fast incorrect response isn't success.
+
+5
+00:00:17.281 --> 00:00:20.761
+Raj: I'll keep an eye on user-visible completion.
+
+6
+00:00:20.761 --> 00:00:25.033
+Lukas: Does your availability target cover payment-provider failures?
+
+7
+00:00:25.033 --> 00:00:30.457
+Raj: Probably yes for customer outcomes. Attribute causes separately.
+
+8
+00:00:30.457 --> 00:00:34.946
+Raj: My working hypothesis needs agreed exclusions first.
+
+9
+00:00:34.946 --> 00:00:40.514
+Hannah: Okay, avoid hiding failures behind convenient exclusions.
+
+10
+00:00:40.514 --> 00:00:44.330
+Raj: Just to recap, measure the whole checkout journey.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0230",
+ "part": 5,
+ "stage": "灰度限流",
+ "title": "影子数据先行，灰度范围有限",
+ "premise": "降级行为通过功能验证，先记录拟拦截再选择灰度。",
+ "listeningTask": "区分影子命中率和真实业务影响。",
+ "newPhrase": "p505",
+ "phrases": [
+  "p505",
+  "p323",
+  "p503",
+  "p309:extra",
+  "p010:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Shadow mode records decisions without rejecting requests.",
+   "zh": "影子模式记录决策，但不拒绝请求。",
+   "role": "Gateway engineer",
+   "start": 0.0,
+   "end": 4.296
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does that show actual client retry behavior?",
+   "zh": "这能显示真实客户端重试行为吗？",
+   "role": "Validation engineer",
+   "start": 4.296,
+   "end": 8.304
+  },
+  {
+   "sp": "Anika",
+   "en": "No, only predicted rejections. Enforcement tests come next.",
+   "zh": "不能，只能显示预计拦截，执行测试在后面。",
+   "role": "Checkout product engineer",
+   "start": 8.304,
+   "end": 13.993
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, compare eligible requests by business class.",
+   "zh": "好，按业务类别对比符合条件的请求。",
+   "role": "Capacity reviewer",
+   "start": 13.993,
+   "end": 18.385
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, staged rollout follows review, right?",
+   "zh": "确认一下，评审后才分阶段发布，对吧？",
+   "role": "Change coordinator",
+   "start": 18.385,
+   "end": 22.825
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. The rate limit initially covers recommendations.",
+   "zh": "是的，速率限制最初只覆盖推荐。",
+   "role": "Gateway engineer",
+   "start": 22.825,
+   "end": 27.481
+  },
+  {
+   "sp": "Hannah",
+   "en": "A smoke test passed for fallback content.",
+   "zh": "回退内容的关键功能快速验证通过了。",
+   "role": "Validation engineer",
+   "start": 27.481,
+   "end": 31.273
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on checkout completion too.",
+   "zh": "我也会留意结账完成率。",
+   "role": "Checkout product engineer",
+   "start": 31.273,
+   "end": 34.658
+  },
+  {
+   "sp": "Lukas",
+   "en": "Perhaps shared-IP shoppers need closer inspection first.",
+   "zh": "也许得先仔细检查共享IP的购物者。",
+   "role": "Capacity reviewer",
+   "start": 34.658,
+   "end": 38.81
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Review that cohort before enabling rejection.",
+   "zh": "同意，启用拒绝前先评审这类用户。",
+   "role": "Change coordinator",
+   "start": 38.81,
+   "end": 43.73
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 5,
+ "scene": "降级行为通过功能验证，先记录拟拦截再选择灰度。",
+ "dir": "ha/0230-影子数据先行，灰度范围有限",
+ "audio": "0230-影子数据先行，灰度范围有限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "灰度限流"
+ ],
+ "duration": 43.73
+}

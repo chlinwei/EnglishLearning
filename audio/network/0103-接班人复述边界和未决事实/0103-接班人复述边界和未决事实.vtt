@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Lukas: Let me play that back now. The handoff checklist leaves primary routing mostly unchanged.
+我现在复述一下，交接清单要求主路由大体不变。
+
+2
+00:00:06.552 --> 00:00:13.439
+Raj: Okay, exactly two workers use the workaround. The others remain on the primary circuit.
+好，准确说只有两个工作进程绕行，其他仍用主专线。
+
+3
+00:00:13.439 --> 00:00:20.855
+Hannah: And the root cause is still open. Carrier diagnosis hasn't confirmed a failed segment.
+根因仍未确定，运营商诊断尚未确认故障链路。
+
+4
+00:00:20.855 --> 00:00:28.678
+Anika: Correct, and reservation reconciliation stays active. Don't add blanket retries for write operations.
+对，预留核对继续运行，不给写操作增加统一重试。
+
+5
+00:00:28.678 --> 00:00:35.710
+Priya: Just to confirm, two windows for loss, right? Correctness failures skip that waiting period.
+我确认一下，丢包看两个时间窗，对吧？正确性问题不等观察期。
+
+6
+00:00:35.710 --> 00:00:42.862
+Lukas: Yes, assess both paths before changing routing. Have I missed anything about backup capacity?
+是，改路由前评估两条路径。备用容量方面我漏了什么吗？
+
+7
+00:00:42.862 --> 00:00:51.093
+Raj: Stop expansion above seventy percent sustained utilization. That doesn't mean automatically return to primary.
+利用率持续超过百分之七十就停止扩大，但不自动回主线。
+
+8
+00:00:51.093 --> 00:01:00.573
+Hannah: Understood, a temporary workaround with limited scope. I'll collect bounded captures and reviewed summaries.
+明白，是有限范围临时缓解。我负责受限抓包和审核后的汇总。
+
+9
+00:01:00.573 --> 00:01:07.892
+Anika: And watch both worker populations separately. Roughly normal routed workers don't clear the incident.
+还要分开看两类工作进程。绕行进程大致正常不代表事件结束。
+
+10
+00:01:07.892 --> 00:01:15.620
+Priya: So, that covers the technical handoff. Let's verify actual contact access before acceptance.
+这样技术交接完整了。确认实际联系人可达后再接受交接。
+

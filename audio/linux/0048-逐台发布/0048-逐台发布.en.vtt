@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Priya: We'll use a staged rollout. Host A first. Then one node at a time.
+
+2
+00:00:06.552 --> 00:00:10.632
+Lukas: Can three hosts handle tonight's traffic with room for a spike?
+
+3
+00:00:10.632 --> 00:00:17.089
+Anika: The load test says yes. Three hosts covered the recent peak with spare capacity.
+
+4
+00:00:17.089 --> 00:00:23.569
+Raj: Just to confirm, no two hosts draining together, right? Even in different zones?
+
+5
+00:00:23.569 --> 00:00:30.049
+Hannah: Right. We should also confirm the remaining hosts span both failure zones.
+
+6
+00:00:30.049 --> 00:00:36.121
+Priya: I'm on it for the schedule. What's the ETA per host, including validation?
+
+7
+00:00:36.121 --> 00:00:41.881
+Lukas: Allow ten minutes. If one takes longer, stop and reassess the window.
+
+8
+00:00:41.881 --> 00:00:47.882
+Anika: I'll keep an eye on latency. We shouldn't use the whole margin on maintenance.
+
+9
+00:00:47.882 --> 00:00:55.154
+Hannah: I'll record the before-and-after checks. No next host until the current one passes.
+
+10
+00:00:55.154 --> 00:01:01.970
+Raj: Okay. Probably forty minutes of work, with fifteen left for delays or rollback.
+

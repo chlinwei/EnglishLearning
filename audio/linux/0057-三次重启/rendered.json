@@ -1,0 +1,135 @@
+{
+ "id": "0057",
+ "part": 2,
+ "stage": "重启时间线",
+ "title": "三次重启：时间和计数一起核对",
+ "premise": "确认服务尚未结案，接班方要求核对重启与暂停操作的时间线。",
+ "listeningTask": "区分本次记录的重启次数与计数器可能重置的问题。",
+ "newPhrase": "p332",
+ "phrases": [
+  "p332",
+  "p010",
+  "p302",
+  "p011:extra",
+  "p309:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The restart count rose three times. Eighteen forty, eighteen forty-four, then eighteen forty-eight.",
+   "zh": "重启计数增加了三次，分别是18:40、18:44和18:48。",
+   "role": "Outgoing Linux on-call",
+   "start": 0.0,
+   "end": 7.56
+  },
+  {
+   "sp": "Hannah",
+   "en": "Since the last boot? Or since someone reset the service state?",
+   "zh": "是从上次开机开始算，还是从有人重置服务状态开始算？",
+   "role": "Incoming primary on-call",
+   "start": 7.56,
+   "end": 13.009
+  },
+  {
+   "sp": "Raj",
+   "en": "I matched the increments to journal entries. The timestamps are in the ticket.",
+   "zh": "我把计数变化和journal日志对应上了，时间戳写在工单里。",
+   "role": "Outgoing Linux on-call",
+   "start": 13.009,
+   "end": 18.961
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no manual restart in that period, right?",
+   "zh": "我确认一下，那段时间没有手动重启，对吧？",
+   "role": "Shift coordinator",
+   "start": 18.961,
+   "end": 23.545
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Three automatic restarts, then fetching paused at eighteen fifty-two?",
+   "zh": "我复述一下：三次自动重启，然后18:52暂停拉取？",
+   "role": "Incoming backup SRE",
+   "start": 23.545,
+   "end": 30.626
+  },
+  {
+   "sp": "Anika",
+   "en": "Exactly. No deploy or manual stop. We can rule that out from the change log.",
+   "zh": "正是这样。没有部署或手动停止，可以根据变更记录排除。",
+   "role": "Outgoing application owner",
+   "start": 30.626,
+   "end": 37.994
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on new increments. Don't rely on the counter without the journal.",
+   "zh": "我会关注新增次数。不能离开journal记录只看计数器。",
+   "role": "Incoming primary on-call",
+   "start": 37.994,
+   "end": 44.307
+  },
+  {
+   "sp": "Priya",
+   "en": "Raj, attach the matching entries. We need evidence the next shift can follow.",
+   "zh": "Raj，把对应记录附上，下个班需要能追溯的证据。",
+   "role": "Shift coordinator",
+   "start": 44.307,
+   "end": 50.739
+  },
+  {
+   "sp": "Lukas",
+   "en": "And include the pause timestamp. That gives us a useful before-and-after boundary.",
+   "zh": "也加上暂停时间，那能作为对比操作前后的边界。",
+   "role": "Incoming backup SRE",
+   "start": 50.739,
+   "end": 56.572
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. They're saved already. I'll link the exact section before I leave.",
+   "zh": "我来处理。记录已经保存，我离开前会链接到具体位置。",
+   "role": "Outgoing Linux on-call",
+   "start": 56.572,
+   "end": 63.46
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 2,
+ "scene": "确认服务尚未结案，接班方要求核对重启与暂停操作的时间线。",
+ "dir": "linux/0057-三次重启",
+ "audio": "0057-三次重启.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "重启时间线"
+ ],
+ "duration": 63.46
+}

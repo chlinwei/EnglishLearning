@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.576
+Priya: Okay, we'll hand over the private circuit. Packet loss started around six this evening.
+
+2
+00:00:06.576 --> 00:00:13.032
+Lukas: Which applications use the affected path? I'm the incoming primary on-call tonight.
+
+3
+00:00:13.032 --> 00:00:19.775
+Anika: Checkout inventory queries cross that circuit. Payments use another path and look normal.
+
+4
+00:00:19.775 --> 00:00:26.471
+Hannah: Have you confirmed a carrier fault? Similar symptoms could come from our equipment.
+
+5
+00:00:26.471 --> 00:00:33.479
+Raj: No, the root cause is still open. Local interface checks found no obvious errors.
+
+6
+00:00:33.479 --> 00:00:41.159
+Priya: Just to confirm, no repair claim, right? A temporary workaround is active for selected clients.
+
+7
+00:00:41.159 --> 00:00:46.727
+Lukas: How broad is that workaround currently? I need the exact client scope.
+
+8
+00:00:46.727 --> 00:00:54.238
+Anika: Two inventory workers, roughly ten percent of calls. Their configuration versions are in the record.
+
+9
+00:00:54.238 --> 00:01:01.990
+Hannah: Good, don't expand during the handoff itself. Show us the evidence before changing scope.
+
+10
+00:01:01.990 --> 00:01:09.070
+Raj: Agreed, scope stays fixed during this call. So, let's review the measured loss first.
+

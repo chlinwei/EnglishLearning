@@ -12,11 +12,20 @@ foreach ($phrase in $bank.phrases) {
     $phrases[$phrase.id] = $phrase
 }
 $drafts = @{}
+$draftPhraseIds = @{}
 foreach ($file in Get-ChildItem (Join-Path $repo 'sources/drafts') -Filter 'S*.json' | Sort-Object Name) {
     $draft = Get-Content $file.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     $drafts[$file.BaseName] = $draft
     foreach ($phrase in $draft.phraseDefinitions) {
-        if ($phrases.ContainsKey($phrase.id)) { throw "Duplicate phrase: $($phrase.id)" }
+        if ($draftPhraseIds.ContainsKey($phrase.id)) { throw "Duplicate draft phrase: $($phrase.id)" }
+        $draftPhraseIds[$phrase.id] = $true
+        if ($phrases.ContainsKey($phrase.id)) {
+            foreach ($property in $phrase.PSObject.Properties) {
+                if ($phrases[$phrase.id].($property.Name) -cne $property.Value) {
+                    throw "Conflicting published phrase: $($phrase.id)"
+                }
+            }
+        }
         $phrases[$phrase.id] = $phrase
     }
 }
@@ -42,7 +51,9 @@ foreach ($name in $names) {
     $turns = 0
     $minimumShort = 1.0
     $known = @{}
-    foreach ($phrase in $bank.phrases) { $known[$phrase.id] = $true }
+    foreach ($phrase in $bank.phrases) {
+        if (-not $draftPhraseIds.ContainsKey($phrase.id)) { $known[$phrase.id] = $true }
+    }
     foreach ($previous in $drafts.Keys) {
         if ([int]$previous.Substring(1) -lt $number) {
             foreach ($phrase in $drafts[$previous].phraseDefinitions) { $known[$phrase.id] = $true }

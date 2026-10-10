@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Anika: Payment confirmation needs read-after-write consistency here. Historical reports can tolerate older results.
+
+2
+00:00:07.872 --> 00:00:14.040
+Lukas: What about customer order status pages? They also follow fresh writes frequently.
+
+3
+00:00:14.040 --> 00:00:20.353
+Anika: You're right, include those pages too. That's our blast radius for stale reads.
+
+4
+00:00:20.353 --> 00:00:27.097
+Priya: Just to confirm, not every report, right? We shouldn't shift all reads blindly.
+
+5
+00:00:27.097 --> 00:00:35.065
+Hannah: Agreed. Mark delayed reports clearly instead. Never label old data as current.
+
+6
+00:00:35.065 --> 00:00:42.097
+Raj: Replication lag is climbing beyond two minutes. Maybe replay can't match incoming changes.
+
+7
+00:00:42.097 --> 00:00:48.025
+Lukas: I'll keep an eye on primary. Limit sensitive reads if capacity tightens.
+
+8
+00:00:48.025 --> 00:00:54.578
+Priya: A full failover? Let's park that. We have no writer failure evidence.
+
+9
+00:00:54.578 --> 00:01:02.186
+Hannah: Also check cached status responses carefully. Routing alone won't clear stale caches.
+
+10
+00:01:02.186 --> 00:01:08.810
+Raj: Okay, compare the positions next then. That should separate transport from replay.
+

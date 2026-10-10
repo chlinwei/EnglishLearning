@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.040
+Hannah: We use split-horizon DNS. The correct answer depends on the client's view and location.
+
+2
+00:00:08.040 --> 00:00:15.673
+Raj: Both zones return their expected private addresses. I checked against the approved service map.
+
+3
+00:00:15.673 --> 00:00:22.609
+Lukas: Good. Matching addresses everywhere isn't the goal. Correct routing for each client is.
+
+4
+00:00:22.609 --> 00:00:27.794
+Priya: Just to confirm, no private names leaked to a public resolver, right?
+
+5
+00:00:27.794 --> 00:00:35.690
+Anika: Right. Only approved internal paths. Fresh checkout connections are healthy from both zones.
+
+6
+00:00:35.690 --> 00:00:43.082
+Hannah: We can rule that out as a view mismatch in the tested paths. Keep the coverage recorded.
+
+7
+00:00:43.082 --> 00:00:50.427
+Raj: Just to recap, B is serving the switched clients. A is still isolated from those clients.
+
+8
+00:00:50.427 --> 00:00:56.427
+Lukas: I'll keep an eye on B's latency. The extra traffic needs ongoing monitoring.
+
+9
+00:00:56.427 --> 00:01:04.372
+Priya: Okay. Can we report we're back to baseline? Include the metrics, not just the probe results.
+
+10
+00:01:04.372 --> 00:01:12.340
+Anika: Yes, errors and latency are normal now. We can report service recovery, with A's repair still pending.
+

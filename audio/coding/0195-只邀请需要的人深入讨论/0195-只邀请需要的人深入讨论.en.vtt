@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.192
+Priya: The follow-up slot starts after this standup. We have a twenty-minute hard stop there.
+
+2
+00:00:06.192 --> 00:00:13.104
+Hannah: Raj and I will pair on it. Cancellation scheduling is the first concrete topic.
+
+3
+00:00:13.104 --> 00:00:20.376
+Raj: Okay, let's take it offline as agreed. We'll need the sanitized samples there itself.
+
+4
+00:00:20.376 --> 00:00:26.616
+Anika: I'll bring those and join the opening. Maybe ten minutes, then back to integration.
+
+5
+00:00:26.616 --> 00:00:32.424
+Lukas: I don't need the full test discussion. Tag me if the interface design changes.
+
+6
+00:00:32.424 --> 00:00:39.312
+Priya: Good, each new action item gets recorded. The end-of-day checkpoint stays at five.
+
+7
+00:00:39.312 --> 00:00:47.016
+Hannah: Our output is a deterministic failing test. Not a new architecture proposal this morning.
+
+8
+00:00:47.016 --> 00:00:55.128
+Raj: Agreed, I'll bring the current minimal harness. We can demonstrate cancellation without live API access.
+
+9
+00:00:55.128 --> 00:01:01.272
+Lukas: I'll start review at eleven as promised. Keep the standup notes linked to tasks.
+
+10
+00:01:01.272 --> 00:01:07.680
+Anika: Then I'll send the contract questions now. Everyone has today's next step and owner.
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.648
+Raj: The recovery target is two ten UTC. Simulated failure happens five minutes later.
+恢复目标是UTC两点十分，模拟故障发生在五分钟后。
+
+2
+00:00:06.648 --> 00:00:13.464
+Hannah: So transactions after that point aren't expected? Even if their logs are available?
+所以不期望包含目标点后的事务，即使日志可用？
+
+3
+00:00:13.464 --> 00:00:19.609
+Anika: Correct, this drill tests a chosen point. We expect commits through two ten.
+对，这次测试选定时间点，期望包含截至两点十分的提交。
+
+4
+00:00:19.609 --> 00:00:26.545
+Priya: Just to confirm, all timestamps UTC, right? We can rule that out as ambiguity.
+确认一下，全是UTC，对吧？可以排除时区歧义。
+
+5
+00:00:26.545 --> 00:00:33.169
+Lukas: And the target setting is inclusive? Transactions commit, not start, at that boundary.
+目标设置包含边界吗？看的是事务提交时间，不是开始时间。
+
+6
+00:00:33.169 --> 00:00:39.961
+Raj: Yes, inclusive and the timeline checked. The base backup precedes that target safely.
+是，包含边界且时间线已检查，基础备份早于目标。
+
+7
+00:00:39.961 --> 00:00:49.177
+Hannah: Just to recap, five minutes intentionally excluded. That's recovery-point scope, not restore duration.
+小结一下，有意排除五分钟，这是恢复点范围，不是恢复耗时。
+
+8
+00:00:49.177 --> 00:00:56.330
+Anika: Exactly, about five minutes of simulated changes. We mustn't call that zero loss.
+对，大约五分钟模拟变更，不能称零损失。
+
+9
+00:00:56.330 --> 00:01:02.714
+Lukas: Have I missed anything about target selection? Was that loss window approved beforehand?
+恢复点选择方面还有遗漏吗？这个损失窗口提前批准了吗？
+
+10
+00:01:02.714 --> 00:01:10.010
+Priya: Okay, yes, the drill sponsor approved it. Final success still requires data checks.
+好，是，演练负责人批准了，但最终成功仍要数据校验。
+

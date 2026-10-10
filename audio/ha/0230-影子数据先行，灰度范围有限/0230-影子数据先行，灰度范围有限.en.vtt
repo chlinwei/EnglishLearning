@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.296
+Raj: Shadow mode records decisions without rejecting requests.
+
+2
+00:00:04.296 --> 00:00:08.304
+Hannah: Does that show actual client retry behavior?
+
+3
+00:00:08.304 --> 00:00:13.993
+Anika: No, only predicted rejections. Enforcement tests come next.
+
+4
+00:00:13.993 --> 00:00:18.385
+Lukas: Okay, compare eligible requests by business class.
+
+5
+00:00:18.385 --> 00:00:22.825
+Priya: Just to confirm, staged rollout follows review, right?
+
+6
+00:00:22.825 --> 00:00:27.481
+Raj: Yes. The rate limit initially covers recommendations.
+
+7
+00:00:27.481 --> 00:00:31.273
+Hannah: A smoke test passed for fallback content.
+
+8
+00:00:31.273 --> 00:00:34.658
+Anika: I'll keep an eye on checkout completion too.
+
+9
+00:00:34.658 --> 00:00:38.810
+Lukas: Perhaps shared-IP shoppers need closer inspection first.
+
+10
+00:00:38.810 --> 00:00:43.730
+Priya: Agreed. Review that cohort before enabling rejection.
+

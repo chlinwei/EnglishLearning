@@ -1,0 +1,135 @@
+{
+ "id": "0067",
+ "part": 2,
+ "stage": "范围确认",
+ "title": "间歇失败：不是每次成功都代表健康",
+ "premise": "已知超时发生在DNS阶段，已有连接正常；开始按区域和客户端统计。",
+ "listeningTask": "辨别失败集中位置和不能从一次成功查询得出的结论。",
+ "newPhrase": "p342",
+ "phrases": [
+  "p342",
+  "p010",
+  "p106",
+  "p309:extra",
+  "p014:extra",
+  "p302:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We're seeing intermittent failures in zone A. Zone B's samples are clean so far.",
+   "zh": "A区出现间歇性失败，B区目前抽样正常。",
+   "role": "Network on-call",
+   "start": 0.0,
+   "end": 6.6
+  },
+  {
+   "sp": "Hannah",
+   "en": "Are all A hosts using the same resolver? Check the effective client settings.",
+   "zh": "A区主机都使用同一解析器吗？检查客户端实际生效的设置。",
+   "role": "DNS validation engineer",
+   "start": 6.6,
+   "end": 13.08
+  },
+  {
+   "sp": "Anika",
+   "en": "Affected clients point to resolver A. That's our blast radius so far, not the whole region.",
+   "zh": "受影响客户端指向解析器A。目前影响范围是这些客户端，不是整个区域。",
+   "role": "Checkout application owner",
+   "start": 13.08,
+   "end": 19.44
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, one successful lookup doesn't clear A, right? We need repeated samples.",
+   "zh": "我确认一下，查成功一次不能证明A正常，对吧？需要多次抽样。",
+   "role": "Incident coordinator",
+   "start": 19.44,
+   "end": 26.976
+  },
+  {
+   "sp": "Lukas",
+   "en": "Right. A cached result could succeed while fresh requests still fail.",
+   "zh": "对。缓存结果可能成功，但新的查询仍会失败。",
+   "role": "SRE",
+   "start": 26.976,
+   "end": 32.28
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. I'll record failures and timings, not just the final answer.",
+   "zh": "我来记录失败次数和耗时，不只记录最终答案。",
+   "role": "Network on-call",
+   "start": 32.28,
+   "end": 38.712
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on B too. A few clean samples aren't a complete health check.",
+   "zh": "我也会关注B。少量成功样本不是完整健康检查。",
+   "role": "DNS validation engineer",
+   "start": 38.712,
+   "end": 45.12
+  },
+  {
+   "sp": "Anika",
+   "en": "Payments itself responds over established connections. We can rule that out as a total outage.",
+   "zh": "支付服务通过已有连接可以响应，可以排除整个支付服务完全宕机。",
+   "role": "Checkout application owner",
+   "start": 45.12,
+   "end": 52.272
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good distinction. That doesn't rule out every payment issue, just a complete outage.",
+   "zh": "这个区分很重要。不是排除所有支付问题，只是排除完全宕机。",
+   "role": "SRE",
+   "start": 52.272,
+   "end": 58.488
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay. Keep the scope precise. Let's compare A and B from the same client next.",
+   "zh": "好，准确描述范围。接下来从同一客户端对比A和B。",
+   "role": "Incident coordinator",
+   "start": 58.488,
+   "end": 65.88
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 2,
+ "scene": "已知超时发生在DNS阶段，已有连接正常；开始按区域和客户端统计。",
+ "dir": "network/0067-间歇失败",
+ "audio": "0067-间歇失败.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "范围确认"
+ ],
+ "duration": 65.88
+}

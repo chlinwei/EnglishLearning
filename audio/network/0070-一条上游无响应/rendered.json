@@ -1,0 +1,135 @@
+{
+ "id": "0070",
+ "part": 5,
+ "stage": "检查上游",
+ "title": "一条上游无响应：先定位，再解释",
+ "premise": "A的缓存命中正常，部分未缓存查询失败，准备核对转发目标和请求轨迹。",
+ "listeningTask": "听清已定位的坏路径与尚待核实的端点退役信息。",
+ "newPhrase": "p345",
+ "phrases": [
+  "p345",
+  "p010",
+  "p335",
+  "p103:extra",
+  "p008:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log. The failed queries point to one upstream forwarder with no reply.",
+   "zh": "我盯一下日志。失败查询指向一个上游转发端点，它没有响应。",
+   "role": "Network on-call",
+   "start": 0.0,
+   "end": 7.032
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does A have more than one target? That could explain the intermittent failures.",
+   "zh": "A有不止一个目标吗？那可能解释间歇失败。",
+   "role": "DNS validation engineer",
+   "start": 7.032,
+   "end": 13.392
+  },
+  {
+   "sp": "Raj",
+   "en": "Two targets. One replies, one doesn't. B's configured targets are different.",
+   "zh": "两个目标，一个响应，一个不响应。B配置的目标不同。",
+   "role": "Network on-call",
+   "start": 13.392,
+   "end": 20.544
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, we know the failing endpoint, right? We don't know why it's there yet.",
+   "zh": "我确认一下，已经知道失败端点，对吧？还不知道它为什么仍在配置里。",
+   "role": "Incident coordinator",
+   "start": 20.544,
+   "end": 27.384
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check the inventory and recent changes. Don't remove an endpoint based only on one timeout.",
+   "zh": "核对资产清单和近期变更，不能只因一次超时就删端点。",
+   "role": "SRE",
+   "start": 27.384,
+   "end": 34.248
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis is a stale forwarding target. The retirement record needs confirmation.",
+   "zh": "当前假设是转发目标过期，但还需要确认退役记录。",
+   "role": "Checkout application owner",
+   "start": 34.248,
+   "end": 41.304
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll check the approved configuration. We also need to know B preserves the private view.",
+   "zh": "我会查批准配置，也要确认B保留同样的私有解析视图。",
+   "role": "DNS validation engineer",
+   "start": 41.304,
+   "end": 48.624
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA? Can we prepare B without changing any clients yet?",
+   "zh": "预计多久？能不能先准备B，但暂时不改客户端？",
+   "role": "Incident coordinator",
+   "start": 48.624,
+   "end": 54.504
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Check capacity, reachability, and the required private names before proposing a switch.",
+   "zh": "可以。提出切换前，检查容量、可达性和必需的私有名称。",
+   "role": "SRE",
+   "start": 54.504,
+   "end": 61.824
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. About three minutes for the checklist. No public resolver shortcut.",
+   "zh": "我来做，完成清单大约三分钟。不用公共解析器走捷径。",
+   "role": "Network on-call",
+   "start": 61.824,
+   "end": 68.64
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 5,
+ "scene": "A的缓存命中正常，部分未缓存查询失败，准备核对转发目标和请求轨迹。",
+ "dir": "network/0070-一条上游无响应",
+ "audio": "0070-一条上游无响应.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "检查上游"
+ ],
+ "duration": 68.64
+}

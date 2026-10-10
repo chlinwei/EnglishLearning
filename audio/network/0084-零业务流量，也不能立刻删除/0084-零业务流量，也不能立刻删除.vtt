@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Priya: Okay, keep the old endpoint for tomorrow. We agreed on twenty-four hours of coverage.
+好，旧入口保留到明天。已商定保留二十四小时回退保障。
+
+2
+00:00:06.912 --> 00:00:15.288
+Hannah: Does that include certificates and backend access? An idle endpoint can still lose readiness.
+也包括证书和后端访问吗？闲置入口仍可能失去就绪状态。
+
+3
+00:00:15.288 --> 00:00:22.680
+Raj: Yes, those dependencies stay active too. Synthetic checks continue without customer traffic.
+是，这些依赖也保持有效。继续合成检查，但不走客户流量。
+
+4
+00:00:22.680 --> 00:00:29.496
+Lukas: Who checks the saved rollback route overnight? Don't rely on yesterday's successful validation.
+夜间谁检查保存的回退路由？不能只依赖昨天验证成功。
+
+5
+00:00:29.496 --> 00:00:35.544
+Anika: I'll keep an eye on business checks. Raj owns both pools' network readiness.
+我关注业务检查，Raj负责两个池的网络就绪状态。
+
+6
+00:00:35.544 --> 00:00:42.840
+Priya: Just to confirm, no automatic deletion, right? Removing it needs a separate action item.
+我确认一下，不自动删除，对吧？移除要作为单独待办项。
+
+7
+00:00:42.840 --> 00:00:50.112
+Hannah: Correct, and record the escalation path. Who can authorize a return overnight?
+对，还要记录升级路径。夜间谁能批准切回？
+
+8
+00:00:50.112 --> 00:00:55.872
+Raj: The change on-call can authorize that. I can restore the previous weights.
+变更值班负责人可以批准，我能恢复原权重。
+
+9
+00:00:55.872 --> 00:01:02.016
+Lukas: Only after checking the old pool's health. Returning to an unhealthy pool adds risk.
+要先检查旧池健康。切回不健康的池会增加风险。
+
+10
+00:01:02.016 --> 00:01:09.000
+Priya: Agreed, that's roughly our overnight safety net. So, document it before the handoff.
+同意，这就是夜间的大致保障。因此交接前把它写清。
+

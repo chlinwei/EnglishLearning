@@ -1,0 +1,135 @@
+{
+ "id": "0197",
+ "part": 2,
+ "stage": "痛点",
+ "title": "用修改成本说明耦合",
+ "premise": "现有行为边界已明确，团队收集维护痛点，不先选框架。",
+ "listeningTask": "识别真正的耦合证据和不属于本轮的问题。",
+ "newPhrase": "p472",
+ "phrases": [
+  "p472",
+  "p010",
+  "p006:extra",
+  "p471:extra",
+  "p009:extra",
+  "p002:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "There's hidden coupling through the global client. Testing formatting currently requires a network connection.",
+   "zh": "全局客户端造成隐藏耦合，测格式化目前还需要联网。",
+   "role": "Refactoring implementation engineer",
+   "start": 0.0,
+   "end": 7.44
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's a concrete reason to separate boundaries. Which changes have the highest recurring cost?",
+   "zh": "这是拆边界的具体理由，哪些修改反复成本最高？",
+   "role": "Architecture and implementation reviewer",
+   "start": 7.44,
+   "end": 14.304
+  },
+  {
+   "sp": "Anika",
+   "en": "Filtering changes touch fetching and rendering together. Just to confirm, separating those helps, right?",
+   "zh": "筛选修改会同时碰取数和渲染，确认一下，拆开会有帮助，对吧？",
+   "role": "Reporting service and consumer owner",
+   "start": 14.304,
+   "end": 21.935
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, our bandwidth covers two engineers this sprint. Maybe three days go to test discovery.",
+   "zh": "好，本迭代只有两名工程师投入，测试梳理可能花三天。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 21.935,
+   "end": 29.159
+  },
+  {
+   "sp": "Hannah",
+   "en": "A characterization test will expose those dependencies. Use injected test clients instead of real calls.",
+   "zh": "现有行为测试能暴露这些依赖，用注入测试客户端，不发真实请求。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 29.159,
+   "end": 38.159
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item is removing import-time requests. Importing the module shouldn't start a job.",
+   "zh": "一项任务是移除导入时请求，导入模块不应启动作业。",
+   "role": "Refactoring implementation engineer",
+   "start": 38.159,
+   "end": 45.479
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good, but keep credential handling unchanged externally. Internal separation doesn't authorize a security redesign.",
+   "zh": "好，但外部凭据处理保持不变，内部拆分不代表授权安全重设计。",
+   "role": "Architecture and implementation reviewer",
+   "start": 45.479,
+   "end": 54.167
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's take it offline for framework comparisons. First agree on the behavior we must preserve.",
+   "zh": "框架对比会后聊，先同意必须保留的行为。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 54.167,
+   "end": 61.486
+  },
+  {
+   "sp": "Hannah",
+   "en": "We'll measure isolated test runtime as evidence. Faster tests are useful, not the sole goal.",
+   "zh": "记录隔离测试耗时，测试更快有用但不是唯一目标。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 61.486,
+   "end": 70.102
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, unchanged reports matter more to consumers. I'll collect the command-line invocation examples today.",
+   "zh": "同意，使用方更重视报表不变，今天收集命令行调用样例。",
+   "role": "Reporting service and consumer owner",
+   "start": 70.102,
+   "end": 78.19
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 2,
+ "scene": "现有行为边界已明确，团队收集维护痛点，不先选框架。",
+ "dir": "coding/0197-用修改成本说明耦合",
+ "audio": "0197-用修改成本说明耦合.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "痛点"
+ ],
+ "duration": 78.19
+}

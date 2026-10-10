@@ -1,0 +1,135 @@
+{
+ "id": "0226",
+ "part": 1,
+ "stage": "峰值预测",
+ "title": "预测不是已测容量",
+ "premise": "促销今晚开始，需先核对预计流量与数据库承载能力。",
+ "listeningTask": "区分预测值、压测值和安全工作点。",
+ "newPhrase": "p501",
+ "phrases": [
+  "p501",
+  "p335",
+  "p316",
+  "p010:extra",
+  "p006:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Our peak forecast is six thousand requests.",
+   "zh": "预测峰值是每秒六千个请求。",
+   "role": "Checkout product engineer",
+   "start": 0.0,
+   "end": 3.504
+  },
+  {
+   "sp": "Lukas",
+   "en": "Per second? What's the expected request mix?",
+   "zh": "每秒吗？预计的请求构成是什么？",
+   "role": "Capacity reviewer",
+   "start": 3.504,
+   "end": 7.609
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. Browsing dominates, but checkout bursts matter.",
+   "zh": "是的，浏览居多，但结账突发也重要。",
+   "role": "Checkout product engineer",
+   "start": 7.609,
+   "end": 12.697
+  },
+  {
+   "sp": "Hannah",
+   "en": "Our database test used a different mix.",
+   "zh": "数据库测试用的是另一种请求构成。",
+   "role": "Validation engineer",
+   "start": 12.697,
+   "end": 16.346
+  },
+  {
+   "sp": "Raj",
+   "en": "We may need to shed load early.",
+   "zh": "可能要提前减轻承接负载。",
+   "role": "Gateway engineer",
+   "start": 16.346,
+   "end": 19.226
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no enforcement yet, right?",
+   "zh": "确认一下，还没执行拦截，对吧？",
+   "role": "Change coordinator",
+   "start": 19.226,
+   "end": 23.186
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. The working hypothesis needs representative testing.",
+   "zh": "对，当前假设需要有代表性的测试。",
+   "role": "Capacity reviewer",
+   "start": 23.186,
+   "end": 28.227
+  },
+  {
+   "sp": "Raj",
+   "en": "I've got bandwidth for replay analysis today.",
+   "zh": "今天我有精力做流量回放分析。",
+   "role": "Gateway engineer",
+   "start": 28.227,
+   "end": 31.803
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, include expensive writes and callback bursts.",
+   "zh": "好，要包含高成本写入和回调突发。",
+   "role": "Validation engineer",
+   "start": 31.803,
+   "end": 36.796
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA? Roughly before lunch?",
+   "zh": "预计多久？大概午饭前能完成吗？",
+   "role": "Change coordinator",
+   "start": 36.796,
+   "end": 41.02
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 1,
+ "scene": "促销今晚开始，需先核对预计流量与数据库承载能力。",
+ "dir": "ha/0226-预测不是已测容量",
+ "audio": "0226-预测不是已测容量.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "峰值预测"
+ ],
+ "duration": 41.02
+}

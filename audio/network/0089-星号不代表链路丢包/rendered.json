@@ -1,0 +1,135 @@
+{
+ "id": "0089",
+ "part": 4,
+ "stage": "路由证据",
+ "title": "星号不代表链路丢包",
+ "premise": "跨区RTT较高且冷连接更慢，继续检查实际路径与服务器排队。",
+ "listeningTask": "听清traceroute的局限和去回程证据边界。",
+ "newPhrase": "p364",
+ "phrases": [
+  "p364",
+  "p335",
+  "p010",
+  "p302:extra",
+  "p004:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, traces suggest a longer transit route. Three hops don't answer diagnostic probes.",
+   "zh": "好，路径记录提示经过更长的中转路由。有三跳不响应诊断探测。",
+   "role": "Network engineer",
+   "start": 0.0,
+   "end": 7.104
+  },
+  {
+   "sp": "Lukas",
+   "en": "Those missing answers aren't proof of loss. Routers often limit diagnostic responses deliberately.",
+   "zh": "缺少响应不能证明丢包，路由器常会主动限制诊断响应。",
+   "role": "SRE reviewer",
+   "start": 7.104,
+   "end": 14.376
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed, route asymmetry is another possibility. We only traced the forward direction.",
+   "zh": "同意，去回程路由不对称也是一种可能。目前只追踪了去程。",
+   "role": "Network engineer",
+   "start": 14.376,
+   "end": 21.385
+  },
+  {
+   "sp": "Hannah",
+   "en": "Can the regional team inspect reverse paths? Include routing tables at the same time.",
+   "zh": "区域团队能检查回程吗？也要同时查看路由表。",
+   "role": "Performance engineer",
+   "start": 21.385,
+   "end": 28.801
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis includes setup overhead too. Server queues look similar between matched calls.",
+   "zh": "当前假设也包含连接建立开销。匹配调用的服务端排队看起来类似。",
+   "role": "Pricing client owner",
+   "start": 28.801,
+   "end": 36.313
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no route switch yet, right? A shorter path isn't automatically safer.",
+   "zh": "我确认一下，还不切路由，对吧？更短路径不一定更安全。",
+   "role": "Architecture review chair",
+   "start": 36.313,
+   "end": 43.393
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, policy and redundancy still matter. We can't rule that out without carrier evidence.",
+   "zh": "对，策略和冗余仍重要，没有运营商证据无法排除路径相关问题。",
+   "role": "SRE reviewer",
+   "start": 43.393,
+   "end": 50.449
+  },
+  {
+   "sp": "Raj",
+   "en": "What's the ETA for the reverse trace? The regional engineer estimates about one day.",
+   "zh": "回程追踪预计多久？区域工程师估计大约一天。",
+   "role": "Network engineer",
+   "start": 50.449,
+   "end": 57.05
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the current path during collection. Save route snapshots with their collection timestamps.",
+   "zh": "采集期间保持当前路径，保存路由快照和采集时间戳。",
+   "role": "Performance engineer",
+   "start": 57.05,
+   "end": 64.586
+  },
+  {
+   "sp": "Priya",
+   "en": "So, forced routing? Let's park that. Next, examine the large-payload timing pattern.",
+   "zh": "因此强制改路由先搁置，接下来检查大载荷耗时模式。",
+   "role": "Architecture review chair",
+   "start": 64.586,
+   "end": 72.53
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 4,
+ "scene": "跨区RTT较高且冷连接更慢，继续检查实际路径与服务器排队。",
+ "dir": "network/0089-星号不代表链路丢包",
+ "audio": "0089-星号不代表链路丢包.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "路由证据"
+ ],
+ "duration": 72.53
+}

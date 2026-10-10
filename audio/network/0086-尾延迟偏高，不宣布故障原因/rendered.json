@@ -1,0 +1,135 @@
+{
+ "id": "0086",
+ "part": 1,
+ "stage": "延迟现状",
+ "title": "尾延迟偏高，不宣布故障原因",
+ "premise": "跨区pricing请求较慢，评审先明确问题和服务目标。",
+ "listeningTask": "区分观察到的尾延迟与未经证实的网络根因。",
+ "newPhrase": "p361",
+ "phrases": [
+  "p361",
+  "p010",
+  "p335",
+  "p341:extra",
+  "p004:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Okay, cross-region pricing takes roughly eighty milliseconds. That's the ninety-fifth percentile this week.",
+   "zh": "好，本周跨区定价请求的第九十五百分位大约八十毫秒。",
+   "role": "Pricing client owner",
+   "start": 0.0,
+   "end": 7.872
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the same percentile for local requests? And does that include connection setup?",
+   "zh": "本区请求同一分位数是多少？包括连接建立吗？",
+   "role": "Performance engineer",
+   "start": 7.872,
+   "end": 14.808
+  },
+  {
+   "sp": "Anika",
+   "en": "Local requests take about twenty milliseconds. Both figures include the whole client call.",
+   "zh": "本区请求大约二十毫秒，两组数字都包括完整客户端调用。",
+   "role": "Pricing client owner",
+   "start": 14.808,
+   "end": 21.72
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then network delay isn't the only possibility. Server queues could contribute as well.",
+   "zh": "那么网络延迟不是唯一可能，服务端排队也可能有影响。",
+   "role": "SRE reviewer",
+   "start": 21.72,
+   "end": 28.344
+  },
+  {
+   "sp": "Raj",
+   "en": "Right, our working hypothesis isn't confirmed. We haven't isolated the network share yet.",
+   "zh": "对，当前假设未经证实，尚未单独测出网络占比。",
+   "role": "Network engineer",
+   "start": 28.344,
+   "end": 35.616
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no new outage, right? We're reviewing the pricing latency budget.",
+   "zh": "我确认一下，没有新故障，对吧？我们是在评审定价延迟预算。",
+   "role": "Architecture review chair",
+   "start": 35.616,
+   "end": 42.144
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, the service still meets its SLO. But growth could reduce our remaining margin.",
+   "zh": "对，服务仍满足SLO，但增长可能压缩剩余余量。",
+   "role": "Performance engineer",
+   "start": 42.144,
+   "end": 49.872
+  },
+  {
+   "sp": "Raj",
+   "en": "Someone asked whether DNS is timing out. Current lookup samples don't show that.",
+   "zh": "有人问是否DNS正在超时，目前查询样本没有显示这个情况。",
+   "role": "Network engineer",
+   "start": 49.872,
+   "end": 56.568
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for a measurement breakdown? We need evidence before choosing a fix.",
+   "zh": "测量分解预计多久能有？选择修复方案前要有证据。",
+   "role": "SRE reviewer",
+   "start": 56.568,
+   "end": 63.0
+  },
+  {
+   "sp": "Priya",
+   "en": "Today we'll agree the measurement method. Routing changes? Let's park that until evidence.",
+   "zh": "今天先商定测量方法。路由变更等有证据再说。",
+   "role": "Architecture review chair",
+   "start": 63.0,
+   "end": 70.56
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 1,
+ "scene": "跨区pricing请求较慢，评审先明确问题和服务目标。",
+ "dir": "network/0086-尾延迟偏高，不宣布故障原因",
+ "audio": "0086-尾延迟偏高，不宣布故障原因.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "延迟现状"
+ ],
+ "duration": 70.56
+}

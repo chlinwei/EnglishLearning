@@ -1,0 +1,135 @@
+{
+ "id": "0099",
+ "part": 4,
+ "stage": "临时绕行",
+ "title": "备用线容量有限，不能盲目全切",
+ "premise": "供应商尚无修复时间，说明两个工作进程的备用线绕行及容量保护。",
+ "listeningTask": "听清绕行范围、备用容量和恢复旧配置的风险。",
+ "newPhrase": "p374",
+ "phrases": [
+  "p374",
+  "p334",
+  "p010",
+  "p324:extra",
+  "p349:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, the backup circuit serves two workers. It's a temporary workaround, not a repair.",
+   "zh": "好，备用专线承接两个工作进程。这是临时缓解，不是修复。",
+   "role": "Outgoing network on-call",
+   "start": 0.0,
+   "end": 6.72
+  },
+  {
+   "sp": "Hannah",
+   "en": "How much spare capacity remains there? Does it share the carrier's affected segment?",
+   "zh": "那里还剩多少容量？与运营商受影响链路共用吗？",
+   "role": "Incoming network responder",
+   "start": 6.72,
+   "end": 13.728
+  },
+  {
+   "sp": "Raj",
+   "en": "Utilization is roughly forty percent right now. Documented routing differs, but physical diversity isn't confirmed.",
+   "zh": "当前利用率大约百分之四十。文档路由不同，但物理独立性未确认。",
+   "role": "Outgoing network on-call",
+   "start": 13.728,
+   "end": 22.32
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then don't call it fully independent. What's the rollback trigger for this workaround?",
+   "zh": "那就不要称它完全独立。这项绕行的回退条件是什么？",
+   "role": "Incoming primary on-call",
+   "start": 22.32,
+   "end": 28.224
+  },
+  {
+   "sp": "Anika",
+   "en": "Sustained utilization above seventy percent means stop expansion. New correctness errors require immediate incident review.",
+   "zh": "利用率持续超过百分之七十就停止扩大；新的正确性错误立即进入故障评估。",
+   "role": "Inventory integration owner",
+   "start": 28.224,
+   "end": 37.008
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no automatic return, right? The primary path may still be worse.",
+   "zh": "我确认一下，不自动切回，对吧？主路径可能仍更差。",
+   "role": "Outgoing shift coordinator",
+   "start": 37.008,
+   "end": 43.872
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, assess both paths before any reversal. Saved settings alone don't make returning safe.",
+   "zh": "对，切回前评估两条路径。保存配置不代表回去就安全。",
+   "role": "Incoming network responder",
+   "start": 43.872,
+   "end": 52.536
+  },
+  {
+   "sp": "Raj",
+   "en": "The mitigation is holding on these workers. Keep an eye on backup queue depth too.",
+   "zh": "这两个工作进程上的缓解仍有效，也要关注备用线队列深度。",
+   "role": "Outgoing network on-call",
+   "start": 52.536,
+   "end": 59.016
+  },
+  {
+   "sp": "Lukas",
+   "en": "Record any routing change with its scope. Don't move unrelated services during this shift.",
+   "zh": "任何路由变化都记录范围，这个班次不要迁移无关服务。",
+   "role": "Incoming primary on-call",
+   "start": 59.016,
+   "end": 65.736
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, expansion needs the incident coordinator's approval. So, leave current routing unchanged for now.",
+   "zh": "同意，扩大需要故障协调人批准。所以目前路由不变。",
+   "role": "Outgoing shift coordinator",
+   "start": 65.736,
+   "end": 73.44
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 4,
+ "scene": "供应商尚无修复时间，说明两个工作进程的备用线绕行及容量保护。",
+ "dir": "network/0099-备用线容量有限，不能盲目全切",
+ "audio": "0099-备用线容量有限，不能盲目全切.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "临时绕行"
+ ],
+ "duration": 73.44
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0159",
+ "part": 4,
+ "stage": "存储余量",
+ "title": "两TB空闲不等于都能消耗",
+ "premise": "查询优化可降低I/O，但净数据增长仍占存储，需要明确预留空间。",
+ "listeningTask": "算清空闲、受保护预留和可用于增长的空间。",
+ "newPhrase": "p434",
+ "phrases": [
+  "p434",
+  "p431",
+  "p305:extra",
+  "p010:extra",
+  "p009:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Storage headroom is two terabytes physically. Six used, eight available, same decimal units.",
+   "zh": "物理空闲两TB，已用六TB、可用八TB，都是十进制单位。",
+   "role": "Database capacity owner",
+   "start": 0.0,
+   "end": 7.128
+  },
+  {
+   "sp": "Hannah",
+   "en": "How much of that is protected reserve? Temporary operations need space as well.",
+   "zh": "其中多少是受保护预留？临时操作也需要空间。",
+   "role": "Performance and cost analyst",
+   "start": 7.128,
+   "end": 14.712
+  },
+  {
+   "sp": "Raj",
+   "en": "Twenty percent reserved, one-point-six terabytes today. That leaves four hundred gigabytes spendable.",
+   "zh": "预留百分之二十，现在是一点六TB，可消耗空间剩四百GB。",
+   "role": "Database capacity owner",
+   "start": 14.712,
+   "end": 22.104
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, about two months, right? At the measured net growth rate.",
+   "zh": "确认一下，大约两个月，对吧？按测得的净增长率。",
+   "role": "Capacity review chair",
+   "start": 22.104,
+   "end": 28.296
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, before touching that protected reserve. Campaign growth could shorten it considerably.",
+   "zh": "是，指触及受保护预留前，活动增长可能明显缩短时间。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 28.296,
+   "end": 35.088
+  },
+  {
+   "sp": "Anika",
+   "en": "Our retention policy already informs growth forecast. We can't count unapproved deletion savings.",
+   "zh": "保留规则已经计入预测，不能算未经批准的删除收益。",
+   "role": "Orders application architect",
+   "start": 35.088,
+   "end": 42.792
+  },
+  {
+   "sp": "Hannah",
+   "en": "Replica storage needs the same review. A bigger primary with undersized replicas fails.",
+   "zh": "副本存储也要同样评审，主库变大而副本不足会失败。",
+   "role": "Performance and cost analyst",
+   "start": 42.792,
+   "end": 50.712
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, storage ordering is an action item. What's the ETA for delivery confirmation?",
+   "zh": "好，申请存储是一个行动项，预计什么时候确认交付？",
+   "role": "Capacity review chair",
+   "start": 50.712,
+   "end": 57.432
+  },
+  {
+   "sp": "Lukas",
+   "en": "Tomorrow for the supplier's delivery estimate. Actual provisioning may take three weeks.",
+   "zh": "明天拿供应方交付估计，实际开通可能要三周。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 57.432,
+   "end": 63.864
+  },
+  {
+   "sp": "Anika",
+   "en": "So, approve preparation without waiting for queries. Efficiency won't erase retained order growth.",
+   "zh": "那批准准备，不必等查询优化，效率改善不会消除保留订单增长。",
+   "role": "Orders application architect",
+   "start": 63.864,
+   "end": 71.28
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 4,
+ "scene": "查询优化可降低I/O，但净数据增长仍占存储，需要明确预留空间。",
+ "dir": "database/0159-两TB空闲不等于都能消耗",
+ "audio": "0159-两TB空闲不等于都能消耗.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "存储余量"
+ ],
+ "duration": 71.28
+}

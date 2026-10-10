@@ -1,0 +1,129 @@
+{
+ "id": "0209",
+ "part": 4,
+ "stage": "幂等",
+ "title": "键要稳定且对应同一负载",
+ "premise": "流程包含发送前持久记录，面试追问重复请求副作用。",
+ "listeningTask": "听清API幂等契约的边界与相同键不同负载的处理。",
+ "newPhrase": "p484",
+ "phrases": [
+  "p484",
+  "p010",
+  "p335:extra",
+  "p302:extra",
+  "p009:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Suppose the request succeeds but response disappears. How do you avoid applying it twice?",
+   "zh": "请求成功但响应丢失，如何避免应用两次？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 0.0,
+   "end": 7.872
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd reuse the persisted idempotency key exactly. Just to confirm, the server deduplicates atomically, right?",
+   "zh": "原样复用持久化幂等键，确认一下，服务端原子去重，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 7.872,
+   "end": 16.511
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, for the same key and payload. Its retention period is twenty-four hours.",
+   "zh": "是，限相同键和负载，保留期二十四小时。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 16.511,
+   "end": 22.919
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, let me play that back clearly. Deduplication is guaranteed only inside that retention period.",
+   "zh": "好，清楚复述，去重只在保留期内保证。",
+   "role": "DevOps engineering candidate",
+   "start": 22.919,
+   "end": 30.886
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis is retries stay inside it. One action item sets a shorter retry deadline.",
+   "zh": "我假设重试在该期限内，需设更短重试截止时间。",
+   "role": "DevOps engineering candidate",
+   "start": 30.886,
+   "end": 38.95
+  },
+  {
+   "sp": "Hannah",
+   "en": "What if a duplicate identifier changes payload? Would you reuse the same key anyway?",
+   "zh": "同标识重投但负载变化呢？还用同一个键吗？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 38.95,
+   "end": 46.222
+  },
+  {
+   "sp": "Raj",
+   "en": "No, I'd reject the mismatched payload hash. That indicates invalid input or a producer bug.",
+   "zh": "不，拒绝负载哈希不符，说明输入错误或生产者缺陷。",
+   "role": "DevOps engineering candidate",
+   "start": 46.222,
+   "end": 53.925
+  },
+  {
+   "sp": "Lukas",
+   "en": "And if two workers acquire overlapping leases? Don't claim the lease makes this impossible.",
+   "zh": "两个worker取得重叠租约呢？不能说租约让它不可能。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 53.925,
+   "end": 60.309
+  },
+  {
+   "sp": "Raj",
+   "en": "Server deduplication handles overlapping identical requests here. We can rule that out as repeated effects.",
+   "zh": "此处服务端去重处理重叠相同请求，能排除重复副作用。",
+   "role": "DevOps engineering candidate",
+   "start": 60.309,
+   "end": 68.636
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe both workers still consume resources briefly. I'd also use atomic claims to reduce overlap.",
+   "zh": "两个worker仍可能短暂消耗资源，也用原子取任务减少重叠。",
+   "role": "DevOps engineering candidate",
+   "start": 68.636,
+   "end": 76.7
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 4,
+ "scene": "流程包含发送前持久记录，面试追问重复请求副作用。",
+ "dir": "coding/0209-键要稳定且对应同一负载",
+ "audio": "0209-键要稳定且对应同一负载.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "幂等"
+ ],
+ "duration": 76.7
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.184
+Hannah: Which errors count as a permanent failure? Would every non-success response enter that category?
+
+2
+00:00:08.184 --> 00:00:17.304
+Raj: No, invalid inputs fail without unchanged retry. Just to confirm, authentication errors need intervention, right?
+
+3
+00:00:17.304 --> 00:00:25.463
+Lukas: Yes, distinguish permission denial from token expiry. The provided client can refresh expired tokens.
+
+4
+00:00:25.463 --> 00:00:34.223
+Raj: Okay, one action item documents each category. The escalation path names whoever handles authorization failures.
+
+5
+00:00:34.223 --> 00:00:42.503
+Raj: My working hypothesis is malformed responses are unknown. Maybe the write happened before response corruption.
+
+6
+00:00:42.503 --> 00:00:50.519
+Hannah: How do you debug without leaking credentials? An exception trace can contain request details.
+
+7
+00:00:50.519 --> 00:00:58.607
+Raj: Let me tail the log with sanitized fixtures. I'd retain operation identifiers, not bearer tokens.
+
+8
+00:00:58.607 --> 00:01:04.366
+Lukas: What happens when the worker is cancelled? You may have an active remote request.
+
+9
+00:01:04.366 --> 00:01:13.342
+Raj: I'd stop claiming work and close local resources. Active requests remain unknown until their outcomes reconcile.
+
+10
+00:01:13.342 --> 00:01:21.550
+Raj: Then expired leases allow another worker to recover. It checks durable state before repeating any request.
+

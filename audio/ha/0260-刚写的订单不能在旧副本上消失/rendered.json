@@ -1,0 +1,129 @@
+{
+ "id": "0260",
+ "part": 5,
+ "stage": "数据一致性",
+ "title": "刚写的订单不能在旧副本上消失",
+ "premise": "选择法定人数复制，面试官继续追问订单读取与支付副作用。",
+ "listeningTask": "区分账本一致性和外部支付幂等性。",
+ "newPhrase": "p535",
+ "phrases": [
+  "p535",
+  "p534",
+  "p302",
+  "p010:extra",
+  "p327:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Could a customer read stale data after checkout?",
+   "zh": "客户结账后可能读到旧数据吗？",
+   "role": "Data systems interviewer",
+   "start": 0.0,
+   "end": 3.984
+  },
+  {
+   "sp": "Raj",
+   "en": "Read-your-writes matters for confirmation itself.",
+   "zh": "确认本身需要能读到已提交写入。",
+   "role": "DevOps system design candidate",
+   "start": 3.984,
+   "end": 7.727
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd use linearizable reads for confirmation.",
+   "zh": "确认时我会使用线性一致读取。",
+   "role": "DevOps system design candidate",
+   "start": 7.727,
+   "end": 11.423
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does a quorum decision make payments exactly once?",
+   "zh": "法定人数决策能保证支付恰好一次吗？",
+   "role": "Reliability interviewer",
+   "start": 11.423,
+   "end": 15.167
+  },
+  {
+   "sp": "Raj",
+   "en": "No. We can't rule that out. Duplicate attempts remain possible.",
+   "zh": "不能，不能排除这种情况，重复尝试仍有可能。",
+   "role": "DevOps system design candidate",
+   "start": 15.167,
+   "end": 21.286
+  },
+  {
+   "sp": "Hannah",
+   "en": "Then explain protection at that boundary.",
+   "zh": "那么解释这个边界上的保护措施。",
+   "role": "Data systems interviewer",
+   "start": 21.286,
+   "end": 24.91
+  },
+  {
+   "sp": "Raj",
+   "en": "Stable payment keys and provider deduplication. Plus durable reconciliation.",
+   "zh": "稳定支付键和提供方去重，再加上持久化核对。",
+   "role": "DevOps system design candidate",
+   "start": 24.91,
+   "end": 31.173
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis requires provider idempotency.",
+   "zh": "我当前的假设要求提供方支持幂等性。",
+   "role": "DevOps system design candidate",
+   "start": 31.173,
+   "end": 35.637
+  },
+  {
+   "sp": "Lukas",
+   "en": "Perhaps a smoke test isn't enough. Test ambiguous responses too.",
+   "zh": "也许快速功能验证还不够，也要测试含糊响应。",
+   "role": "Reliability interviewer",
+   "start": 35.637,
+   "end": 41.204
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, timeouts don't prove failure.",
+   "zh": "确认一下，超时不能证明事务失败。",
+   "role": "DevOps system design candidate",
+   "start": 41.204,
+   "end": 45.02
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 5,
+ "scene": "选择法定人数复制，面试官继续追问订单读取与支付副作用。",
+ "dir": "ha/0260-刚写的订单不能在旧副本上消失",
+ "audio": "0260-刚写的订单不能在旧副本上消失.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "数据一致性"
+ ],
+ "duration": 45.02
+}

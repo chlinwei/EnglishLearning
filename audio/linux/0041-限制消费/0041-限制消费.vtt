@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.952
+Raj: Evidence is saved. We can shed load by lowering the canary's fetch rate.
+证据已保存。可以降低灰度消费者拉取速率，减少负载。
+
+2
+00:00:05.952 --> 00:00:12.071
+Lukas: That may slow memory growth. It won't necessarily release what's already retained.
+这可能减慢内存增长，但不一定释放已经保留的内存。
+
+3
+00:00:12.071 --> 00:00:18.599
+Anika: Right. It'll buy us time. Incoming events stay in the durable queue.
+对，能争取时间。新事件仍保存在持久化队列里。
+
+4
+00:00:18.599 --> 00:00:25.006
+Priya: Just to confirm, no dropping events, right? What happens to customer delays?
+我确认一下，不丢弃事件，对吧？用户延迟会怎样？
+
+5
+00:00:25.006 --> 00:00:31.846
+Hannah: They'll rise temporarily. The healthy workers have room, but we should watch them.
+暂时会增加。健康消费者还有余量，但我们应该盯着它们。
+
+6
+00:00:31.846 --> 00:00:37.126
+Raj: I'm on it. I'll lower the approved setting on this host only.
+我来做。只降低这台主机上已批准调整的那个参数。
+
+7
+00:00:37.126 --> 00:00:43.365
+Lukas: Record the original value. Don't increase the other workers blindly to compensate.
+记录原值。不要为了补偿而盲目提高其他消费者的负载。
+
+8
+00:00:43.365 --> 00:00:48.405
+Priya: What's the ETA for recovery? Can the queue catch up afterward?
+恢复预计多久？之后队列能追平吗？
+
+9
+00:00:48.405 --> 00:00:55.220
+Hannah: Likely, if arrivals stay steady. We'll estimate after the worker is stable.
+如果到达速率稳定，应该可以。等消费者稳定后再估算。
+
+10
+00:00:55.220 --> 00:01:01.820
+Anika: About five minutes for a controlled restart. I'll explain the temporary delay to support.
+受控重启大约五分钟。我会向支持团队说明暂时延迟。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0243",
+ "part": 8,
+ "stage": "压测计划",
+ "title": "验收测试要覆盖坏的时候",
+ "premise": "预算方案暂保关键保障，准备以真实业务构成验证单区能力。",
+ "listeningTask": "听出压测阶段、隔离范围和不能混淆的观测结果。",
+ "newPhrase": "p518",
+ "phrases": [
+  "p518",
+  "p511",
+  "p327",
+  "p210:extra",
+  "p335:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "A representative workload includes callbacks. Include realistic reads and writes too.",
+   "zh": "有代表性的负载包括回调，也要包含真实的读写。",
+   "role": "Performance engineer",
+   "start": 0.0,
+   "end": 7.584
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll dry-run it first without fault injection.",
+   "zh": "先不注入故障，试运行一遍。",
+   "role": "Infrastructure capacity engineer",
+   "start": 7.584,
+   "end": 11.208
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then remove one zone. Use isolated production-equivalent infrastructure.",
+   "zh": "然后移除一个区，使用隔离的生产等效基础设施。",
+   "role": "Reliability architect",
+   "start": 11.208,
+   "end": 17.281
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis needs cold-cache and retry coverage.",
+   "zh": "当前假设需要冷缓存和重试场景的覆盖。",
+   "role": "Service and budget owner",
+   "start": 17.281,
+   "end": 21.865
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no customer traffic, right?",
+   "zh": "确认一下，没有客户流量，对吧？",
+   "role": "Architecture review chair",
+   "start": 21.865,
+   "end": 25.705
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, sanitized data and simulated payment providers.",
+   "zh": "是的，使用脱敏数据和模拟支付提供方。",
+   "role": "Infrastructure capacity engineer",
+   "start": 25.705,
+   "end": 30.433
+  },
+  {
+   "sp": "Hannah",
+   "en": "A smoke test precedes each load stage.",
+   "zh": "每个负载阶段前都做关键功能快速验证。",
+   "role": "Performance engineer",
+   "start": 30.433,
+   "end": 34.225
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, measure order completion, not only response speed.",
+   "zh": "好，要测订单完成，不只测响应速度。",
+   "role": "Service and budget owner",
+   "start": 34.225,
+   "end": 39.002
+  },
+  {
+   "sp": "Lukas",
+   "en": "Perhaps record whether the capacity envelope actually holds.",
+   "zh": "也许还应记录容量工作范围是否真正成立。",
+   "role": "Reliability architect",
+   "start": 39.002,
+   "end": 43.322
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes, with abort thresholds agreed before testing.",
+   "zh": "是的，测试前先约定中止阈值。",
+   "role": "Architecture review chair",
+   "start": 43.322,
+   "end": 47.33
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 8,
+ "scene": "预算方案暂保关键保障，准备以真实业务构成验证单区能力。",
+ "dir": "ha/0243-验收测试要覆盖坏的时候",
+ "audio": "0243-验收测试要覆盖坏的时候.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "压测计划"
+ ],
+ "duration": 47.33
+}

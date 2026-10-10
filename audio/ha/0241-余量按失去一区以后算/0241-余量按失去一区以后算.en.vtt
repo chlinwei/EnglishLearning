@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.576
+Raj: We need headroom after losing either zone.
+
+2
+00:00:03.576 --> 00:00:08.016
+Hannah: Not thirty percent idle across both zones combined.
+
+3
+00:00:08.016 --> 00:00:14.495
+Anika: Right, survivors could be at capacity. Sorry, at peak, not now.
+
+4
+00:00:14.495 --> 00:00:17.831
+Lukas: What about memory headroom during cache warming?
+
+5
+00:00:17.831 --> 00:00:21.599
+Raj: We'll measure cold caches and connection recovery.
+
+6
+00:00:21.599 --> 00:00:25.703
+Priya: Just to confirm, scale-out isn't instant, right?
+
+7
+00:00:25.703 --> 00:00:31.727
+Hannah: Exactly. Provisioning might take several minutes, perhaps longer.
+
+8
+00:00:31.727 --> 00:00:35.278
+Anika: We can shed load from exports temporarily.
+
+9
+00:00:35.278 --> 00:00:38.566
+Lukas: Okay, keep an eye on queue age too.
+
+10
+00:00:38.566 --> 00:00:42.430
+Priya: Critical writes must fit without waiting for scaling.
+

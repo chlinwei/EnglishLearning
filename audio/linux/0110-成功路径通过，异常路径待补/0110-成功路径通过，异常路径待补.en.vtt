@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:09.072
+Hannah: Our test fixture covers successful rotation already. Permission failures still need an explicit case.
+
+2
+00:00:09.072 --> 00:00:16.080
+Raj: Okay, I'll add a denied-write scenario today. The runner must stop without deleting logs.
+
+3
+00:00:16.080 --> 00:00:22.704
+Lukas: What about deleted but still open files? Disk usage can differ from directory totals.
+
+4
+00:00:22.704 --> 00:00:29.808
+Anika: That case belongs in the diagnostics test. No cleanup of open descriptors by default.
+
+5
+00:00:29.808 --> 00:00:38.232
+Priya: Just to confirm, no production fault injection, right? Test failures stay inside isolated environments.
+
+6
+00:00:38.232 --> 00:00:46.776
+Hannah: Right, and repeated runs should be idempotent. The second run must not restart healthy services.
+
+7
+00:00:46.776 --> 00:00:54.216
+Raj: We'll dry-run it first for intended changes. Restart count should remain unchanged on repeats.
+
+8
+00:00:54.216 --> 00:01:01.344
+Lukas: Capture both expected and actual changes. A successful exit alone won't establish safety.
+
+9
+00:01:01.344 --> 00:01:07.296
+Anika: My action item is the descriptor case. It should take roughly an hour today.
+
+10
+00:01:07.296 --> 00:01:15.360
+Priya: So, report coverage gaps alongside passing tests. We'll discuss implementation after this short standup.
+

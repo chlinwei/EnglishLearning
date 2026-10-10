@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.312
+Raj: The replay position trails received WAL. Primary sends and B receives promptly.
+回放位置落后于已接收WAL，主库发送和B接收都及时。
+
+2
+00:00:06.312 --> 00:00:13.367
+Hannah: Then received logs aren't readable data yet. Replay must apply their changes first.
+那收到的日志还不等于可读数据，必须先回放应用变更。
+
+3
+00:00:13.367 --> 00:00:20.279
+Anika: That fits the stale order samples. Read-after-write consistency fails on B currently.
+这符合订单旧状态样本，B目前无法满足写后读一致性。
+
+4
+00:00:20.279 --> 00:00:26.806
+Priya: Okay, network failure looks unlikely, right? Can we rule that out entirely?
+好，网络故障看来不太可能，对吧？能完全排除吗？
+
+5
+00:00:26.806 --> 00:00:34.270
+Lukas: Not entirely, just this observed bottleneck. Current receive progress doesn't show transport stalls.
+不能完全排除，只能针对当前瓶颈判断，当前接收进度没显示传输卡顿。
+
+6
+00:00:34.270 --> 00:00:40.510
+Raj: Our working hypothesis is slow apply. B's disk queue rose around nine.
+当前假设是应用日志慢，B的磁盘队列在九点左右上升。
+
+7
+00:00:40.510 --> 00:00:47.613
+Hannah: Check replay conflicts and local jobs. Disk pressure could have several causes.
+查回放冲突和本地任务，磁盘压力可能有多种原因。
+
+8
+00:00:47.613 --> 00:00:53.733
+Priya: So, what's the ETA for correlation? About three minutes would be useful.
+那关联证据预计多久？三分钟左右就有帮助。
+
+9
+00:00:53.733 --> 00:00:59.948
+Lukas: I'll compare primary WAL generation rates. We need both sides of this.
+我对比主库WAL生成速率，两边证据都需要。
+
+10
+00:00:59.948 --> 00:01:06.020
+Anika: I'm on it for routing preparation. No live switch until capacity checks pass.
+我准备路由，容量检查通过之前不在线切换。
+

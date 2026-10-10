@@ -1,0 +1,135 @@
+{
+ "id": "0240",
+ "part": 5,
+ "stage": "冗余方案",
+ "title": "冗余不自动解决双主",
+ "premise": "需要分离物理与发布故障域，评审API、出口和数据库冗余。",
+ "listeningTask": "听懂数据库同步主备与多活写入的取舍。",
+ "newPhrase": "p515",
+ "phrases": [
+  "p515",
+  "p514",
+  "p335",
+  "p010:extra",
+  "p325:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Our redundancy plan separates proxies and outbound gateways.",
+   "zh": "冗余方案把代理和出口网关分开部署。",
+   "role": "Infrastructure capacity engineer",
+   "start": 0.0,
+   "end": 4.896
+  },
+  {
+   "sp": "Lukas",
+   "en": "And the database? Active-active writes aren't free redundancy.",
+   "zh": "数据库呢？多活写入不是无代价的冗余。",
+   "role": "Reliability architect",
+   "start": 4.896,
+   "end": 9.816
+  },
+  {
+   "sp": "Anika",
+   "en": "Synchronous primary-standby, with a third-domain quorum witness.",
+   "zh": "采用同步主备，法定人数见证位于第三个故障域。",
+   "role": "Service and budget owner",
+   "start": 9.816,
+   "end": 14.447
+  },
+  {
+   "sp": "Hannah",
+   "en": "Quorum must authorize fencing before promoting any standby.",
+   "zh": "法定人数决策必须在提升任何备机前授权隔离旧主。",
+   "role": "Performance engineer",
+   "start": 14.447,
+   "end": 19.631
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, independent fencing access, right?",
+   "zh": "确认一下，要有独立隔离访问路径，对吧？",
+   "role": "Architecture review chair",
+   "start": 19.631,
+   "end": 24.047
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, the out-of-band console remains separately reachable.",
+   "zh": "是的，带外控制台保持独立可达。",
+   "role": "Infrastructure capacity engineer",
+   "start": 24.047,
+   "end": 28.535
+  },
+  {
+   "sp": "Lukas",
+   "en": "A failure domain shouldn't contain every voting member.",
+   "zh": "不能把所有投票成员放在一个故障域。",
+   "role": "Reliability architect",
+   "start": 28.535,
+   "end": 32.423
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis accepts added synchronous write latency.",
+   "zh": "当前方案假设业务能接受同步写入增加的延迟。",
+   "role": "Service and budget owner",
+   "start": 32.423,
+   "end": 37.222
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe acceptable, but test it across zones.",
+   "zh": "也许可以接受，但需要跨区测试。",
+   "role": "Performance engineer",
+   "start": 37.222,
+   "end": 41.422
+  },
+  {
+   "sp": "Priya",
+   "en": "Multi-region writers? Let's park that pending consistency requirements.",
+   "zh": "多地域写入？先暂存，等一致性要求明确后再讨论。",
+   "role": "Architecture review chair",
+   "start": 41.422,
+   "end": 47.35
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 5,
+ "scene": "需要分离物理与发布故障域，评审API、出口和数据库冗余。",
+ "dir": "ha/0240-冗余不自动解决双主",
+ "audio": "0240-冗余不自动解决双主.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "冗余方案"
+ ],
+ "duration": 47.35
+}

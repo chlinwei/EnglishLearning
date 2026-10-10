@@ -1,0 +1,135 @@
+{
+ "id": "0191",
+ "part": 6,
+ "stage": "外部依赖",
+ "title": "接口契约由谁确认",
+ "premise": "本地实现可推进，真实集成仍等资产API团队确认游标行为。",
+ "listeningTask": "听清外部依赖、负责人和fixture演示的限制。",
+ "newPhrase": "p466",
+ "phrases": [
+  "p466",
+  "p010",
+  "p008:extra",
+  "p336:extra",
+  "p464:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The API contract still needs owner confirmation. We're waiting on empty-page continuation behavior.",
+   "zh": "接口契约仍需负责人确认，在等空页续页行为说明。",
+   "role": "API integration engineer",
+   "start": 0.0,
+   "end": 7.536
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can the integration work continue with fixtures? Mark assumptions explicitly so they aren't forgotten.",
+   "zh": "能用fixture继续集成吗？明确假设，避免遗忘。",
+   "role": "Code reviewer and platform engineer",
+   "start": 7.536,
+   "end": 14.736
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, but real endpoint acceptance stays blocked. Just to confirm, that's not demo completion, right?",
+   "zh": "可以，但真实接口验收仍阻塞，确认一下，这不算演示完成，对吧？",
+   "role": "API integration engineer",
+   "start": 14.736,
+   "end": 22.921
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA from their owner? Use our escalation path if today's reply slips.",
+   "zh": "好，对方负责人预计什么时候回复？今天没回就按升级路径联系。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 22.921,
+   "end": 30.097
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the test coverage gap visible separately. External waiting doesn't prevent local boundary tests.",
+   "zh": "本地测试缺口单独保留，等外部回复不影响本地边界测试。",
+   "role": "Test and acceptance engineer",
+   "start": 30.097,
+   "end": 38.569
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe the cursor is opaque by design. I'll avoid parsing or modifying its contents.",
+   "zh": "游标可能设计为不透明，我不会解析或修改内部内容。",
+   "role": "CLI implementation engineer",
+   "start": 38.569,
+   "end": 45.553
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good, pass it back exactly as received. Only validate the documented envelope and limits.",
+   "zh": "好，原样传回，只验证文档规定的外层结构与限制。",
+   "role": "Code reviewer and platform engineer",
+   "start": 45.553,
+   "end": 52.753
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll circle back with the API lead. Anika, send the two concrete questions now.",
+   "zh": "与接口负责人再跟进，Anika现在发两个具体问题。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 52.753,
+   "end": 59.282
+  },
+  {
+   "sp": "Hannah",
+   "en": "I can attach failing contract examples. That's more useful than a general compatibility question.",
+   "zh": "我附失败契约样例，比笼统兼容问题更有用。",
+   "role": "Test and acceptance engineer",
+   "start": 59.282,
+   "end": 67.466
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll send them immediately after this standup. The owner suggested roughly three this afternoon.",
+   "zh": "站会后立即发，对方说今天下午大约三点回复。",
+   "role": "API integration engineer",
+   "start": 67.466,
+   "end": 74.33
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 6,
+ "scene": "本地实现可推进，真实集成仍等资产API团队确认游标行为。",
+ "dir": "coding/0191-接口契约由谁确认",
+ "audio": "0191-接口契约由谁确认.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "外部依赖"
+ ],
+ "duration": 74.33
+}

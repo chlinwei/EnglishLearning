@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Okay, disable the scheduler under emergency approval. Stop this run and queued retries too.
+
+2
+00:00:07.344 --> 00:00:14.400
+Lukas: Disabling scheduling won't stop existing child processes. I'll check their process group directly.
+
+3
+00:00:14.400 --> 00:00:20.879
+Raj: I'm on it for queued retries. Just to confirm, no automatic restart, right?
+
+4
+00:00:20.879 --> 00:00:27.647
+Hannah: Record the stop command and timestamp. We'll compare them with deletion events.
+
+5
+00:00:27.647 --> 00:00:34.871
+Anika: I'll suspend cleanup's scoped storage credentials. Reads use a separate identity and continue.
+
+6
+00:00:34.871 --> 00:00:40.727
+Raj: That should buy us time safely. What's the ETA for process confirmation?
+
+7
+00:00:40.727 --> 00:00:46.559
+Lukas: The parent and children have exited. No delete requests remain in flight.
+
+8
+00:00:46.559 --> 00:00:52.870
+Priya: Good, keep an eye on audit events. About five minutes of observation first.
+
+9
+00:00:52.870 --> 00:01:00.886
+Hannah: No new deletion events since the stop. That supports containment, not complete recovery.
+
+10
+00:01:00.886 --> 00:01:07.510
+Anika: Right, affected reads are still missing data. We'll scope those before any restore.
+

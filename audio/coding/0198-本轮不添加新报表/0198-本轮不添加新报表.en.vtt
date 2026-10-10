@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Priya: Let's avoid scope creep in this iteration. Preserve CLI arguments, report format, and scheduling.
+
+2
+00:00:07.728 --> 00:00:15.648
+Lukas: Does the scope include replacing HTTP libraries? That would introduce unrelated compatibility risk.
+
+3
+00:00:15.648 --> 00:00:24.385
+Raj: No, just separate pure transformations from fetching. Just to confirm, dependency upgrades stay out, right?
+
+4
+00:00:24.385 --> 00:00:31.777
+Anika: The managed configuration also keeps its schema. Maybe we can document it without changing fields.
+
+5
+00:00:31.777 --> 00:00:40.873
+Hannah: Removing hidden coupling still needs interface tests. Existing invocations should retain their exit behavior.
+
+6
+00:00:40.873 --> 00:00:48.769
+Priya: Okay, one action item records excluded features. New JSON export belongs in another proposal.
+
+7
+00:00:48.769 --> 00:00:56.233
+Lukas: Production rollout needs a separate change approval. This planning agreement doesn't authorize replacing jobs.
+
+8
+00:00:56.233 --> 00:01:04.490
+Raj: Let's park that release date until tests exist. We can estimate implementation before scheduling deployment.
+
+9
+00:01:04.490 --> 00:01:12.986
+Hannah: Keep the original runnable artifact available. Comparison and rollback both depend on preserving it.
+
+10
+00:01:12.986 --> 00:01:21.050
+Anika: Agreed, I'll record consumer compatibility requirements today. They become our boundary for accepting changes.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0097",
+ "part": 2,
+ "stage": "丢包证据",
+ "title": "探测丢包与业务重传互相印证",
+ "premise": "已确定库存查询路径和绕行范围，展示有时间戳的测量证据。",
+ "listeningTask": "区分ICMP探测结果与实际业务连接证据。",
+ "newPhrase": "p372",
+ "phrases": [
+  "p372",
+  "p371",
+  "p010",
+  "p335:extra",
+  "p302:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, packet loss reaches roughly two percent. That's from the five-minute probe window.",
+   "zh": "好，五分钟探测窗内丢包大约达到百分之二。",
+   "role": "Outgoing network on-call",
+   "start": 0.0,
+   "end": 6.48
+  },
+  {
+   "sp": "Hannah",
+   "en": "Are those probes ICMP or application traffic? Diagnostic responses can be rate-limited separately.",
+   "zh": "是ICMP探测还是应用流量？诊断响应可能单独被限速。",
+   "role": "Incoming network responder",
+   "start": 6.48,
+   "end": 15.791
+  },
+  {
+   "sp": "Raj",
+   "en": "ICMP, plus actual TCP retransmission samples. Jitter rises in the same recorded periods.",
+   "zh": "有ICMP，也有实际TCP重传样本。同期记录的时延抖动升高。",
+   "role": "Outgoing network on-call",
+   "start": 15.791,
+   "end": 23.687
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does that prove where the loss occurs? We still need both endpoint observations.",
+   "zh": "这能证明丢包发生在哪里吗？仍需要两端的观察。",
+   "role": "Incoming primary on-call",
+   "start": 23.687,
+   "end": 29.662
+  },
+  {
+   "sp": "Anika",
+   "en": "No, the working hypothesis is path degradation. Client timeout bursts align with those periods.",
+   "zh": "不能，当前假设是路径劣化。客户端超时突发与这些时段吻合。",
+   "role": "Inventory integration owner",
+   "start": 29.662,
+   "end": 37.27
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not a location claim, right? Evidence links timing, not the faulty device.",
+   "zh": "我确认一下，不是在定位故障设备，对吧？证据关联时序，不确认坏设备。",
+   "role": "Outgoing shift coordinator",
+   "start": 37.27,
+   "end": 44.926
+  },
+  {
+   "sp": "Hannah",
+   "en": "Right, we can't rule that out yet. Congestion and physical errors need separate checks.",
+   "zh": "对，尚不能排除其他可能，拥塞与物理错误需要分别检查。",
+   "role": "Incoming network responder",
+   "start": 44.926,
+   "end": 52.581
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll keep an eye on interface counters. They've stayed clean at our local endpoint.",
+   "zh": "我会留意接口计数器。本地端点目前没有错误。",
+   "role": "Outgoing network on-call",
+   "start": 52.581,
+   "end": 59.325
+  },
+  {
+   "sp": "Lukas",
+   "en": "Save counters with the same timestamps. Clean local counters don't clear the remote side.",
+   "zh": "用相同时间戳保存计数器。本地正常不代表远端正常。",
+   "role": "Incoming primary on-call",
+   "start": 59.325,
+   "end": 65.708
+  },
+  {
+   "sp": "Priya",
+   "en": "So, keep the conclusion narrow for now. Next, review what the carrier actually promised.",
+   "zh": "因此当前结论保持谨慎。接下来核对运营商实际承诺。",
+   "role": "Outgoing shift coordinator",
+   "start": 65.708,
+   "end": 72.74
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 2,
+ "scene": "已确定库存查询路径和绕行范围，展示有时间戳的测量证据。",
+ "dir": "network/0097-探测丢包与业务重传互相印证",
+ "audio": "0097-探测丢包与业务重传互相印证.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "丢包证据"
+ ],
+ "duration": 72.74
+}

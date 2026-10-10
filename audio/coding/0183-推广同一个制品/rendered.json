@@ -1,0 +1,135 @@
+{
+ "id": "0183",
+ "part": 8,
+ "stage": "扩大",
+ "title": "推广同一个制品",
+ "premise": "观察无业务回归，弃用警告已定责任与期限，批准逐批扩大。",
+ "listeningTask": "抓住同制品、逐分区切换和每批检查。",
+ "newPhrase": "p458",
+ "phrases": [
+  "p458",
+  "p010",
+  "p323:extra",
+  "p456:extra",
+  "p327:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "We'll promote the same artifact through batches. The review approves two more partitions first.",
+   "zh": "各批推广同一个制品，评审先批准再扩大两个分区。",
+   "role": "Change coordinator and approval owner",
+   "start": 0.0,
+   "end": 6.528
+  },
+  {
+   "sp": "Lukas",
+   "en": "Verify its digest before each deployment. A matching tag doesn't guarantee identical bytes.",
+   "zh": "每次部署前验证摘要，同标签不保证字节相同。",
+   "role": "Build and release SRE",
+   "start": 6.528,
+   "end": 13.945
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, no dependency resolution during deployment, right? We deploy the already-tested image only.",
+   "zh": "确认一下，部署时不重新解析依赖，对吧？只部署已测镜像。",
+   "role": "Python dependency maintainer",
+   "start": 13.945,
+   "end": 22.129
+  },
+  {
+   "sp": "Anika",
+   "en": "The canary cohort remains our comparison group. Maybe regional latency needs separate thresholds here.",
+   "zh": "灰度组保留作对照，区域延迟可能需要单独阈值。",
+   "role": "Inventory application owner",
+   "start": 22.129,
+   "end": 29.714
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, compare each partition with its baseline. Don't average a regional problem away.",
+   "zh": "对，各分区与自身基线比，不能用平均值掩盖区域问题。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 29.714,
+   "end": 37.37
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, the staged rollout retains exclusive leases. Each old worker drains before ownership moves.",
+   "zh": "好，分阶段发布保持独占租约，转移所有权前旧worker排空。",
+   "role": "Python dependency maintainer",
+   "start": 37.37,
+   "end": 45.434
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let's keep it under observation between batches. Stop expansion if reconciliation results diverge.",
+   "zh": "各批之间观察，对账结果偏离就停止扩大。",
+   "role": "Build and release SRE",
+   "start": 45.434,
+   "end": 53.187
+  },
+  {
+   "sp": "Priya",
+   "en": "Run the smoke test for each batch. Anika signs off before the next one.",
+   "zh": "每批做冒烟测试，Anika验收后才进入下一批。",
+   "role": "Change coordinator and approval owner",
+   "start": 53.187,
+   "end": 59.379
+  },
+  {
+   "sp": "Hannah",
+   "en": "Both additional partitions match expected output. Their latency and token refresh remain healthy.",
+   "zh": "新增两个分区输出符合预期，延迟和令牌刷新正常。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 59.379,
+   "end": 68.068
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll approve the remaining batches under those gates. No changes to the approved image.",
+   "zh": "按这些关卡批准剩余批次，批准镜像不能改变。",
+   "role": "Inventory application owner",
+   "start": 68.068,
+   "end": 74.5
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 8,
+ "scene": "观察无业务回归，弃用警告已定责任与期限，批准逐批扩大。",
+ "dir": "coding/0183-推广同一个制品",
+ "audio": "0183-推广同一个制品.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "扩大"
+ ],
+ "duration": 74.5
+}

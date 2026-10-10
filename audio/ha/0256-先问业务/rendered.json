@@ -1,0 +1,129 @@
+{
+ "id": "0256",
+ "part": 1,
+ "stage": "业务需求",
+ "title": "先问业务：什么必须正确",
+ "premise": "面试官提出高可用订单系统题目，候选人先澄清业务要求。",
+ "listeningTask": "听出候选人为何不立即画多活架构。",
+ "newPhrase": "p531",
+ "phrases": [
+  "p531",
+  "p010",
+  "p335",
+  "p004:extra",
+  "p106:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Design checkout for us. Start with your questions.",
+   "zh": "请设计结账系统，先说你要问什么。",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 4.272
+  },
+  {
+   "sp": "Raj",
+   "en": "What's the availability target for completed orders?",
+   "zh": "已完成订单的可用性目标是什么？",
+   "role": "DevOps system design candidate",
+   "start": 4.272,
+   "end": 8.136
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, no lost acknowledged orders, right?",
+   "zh": "确认一下，不能丢已确认订单，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 8.136,
+   "end": 12.457
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. Duplicate charges are unacceptable as well.",
+   "zh": "对，重复扣款也不能接受。",
+   "role": "Data systems interviewer",
+   "start": 12.457,
+   "end": 17.713
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis separates orders from recommendations.",
+   "zh": "我当前的假设是把订单与推荐分开。",
+   "role": "DevOps system design candidate",
+   "start": 17.713,
+   "end": 22.441
+  },
+  {
+   "sp": "Lukas",
+   "en": "Why separate them? Explain the customer impact.",
+   "zh": "为什么分开？说明对客户的影响。",
+   "role": "Reliability interviewer",
+   "start": 22.441,
+   "end": 26.761
+  },
+  {
+   "sp": "Raj",
+   "en": "That's our blast radius if shared resources overload.",
+   "zh": "如果共享资源过载，这就是影响范围。",
+   "role": "DevOps system design candidate",
+   "start": 26.761,
+   "end": 31.129
+  },
+  {
+   "sp": "Raj",
+   "en": "Recommendations can degrade. Orders probably need stronger guarantees.",
+   "zh": "推荐可以降级，订单大概需要更强保证。",
+   "role": "DevOps system design candidate",
+   "start": 31.129,
+   "end": 36.698
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, let me play that back. Different service classes.",
+   "zh": "好，我复述一下：不同业务类别。",
+   "role": "Data systems interviewer",
+   "start": 36.698,
+   "end": 41.57
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. Global multi-active writes? Let's park that initially.",
+   "zh": "是的，全球多活写入？先暂存这个方案。",
+   "role": "DevOps system design candidate",
+   "start": 41.57,
+   "end": 47.45
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 1,
+ "scene": "面试官提出高可用订单系统题目，候选人先澄清业务要求。",
+ "dir": "ha/0256-先问业务",
+ "audio": "0256-先问业务.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "业务需求"
+ ],
+ "duration": 47.45
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0045",
+ "part": 10,
+ "stage": "根因跟进",
+ "title": "恢复不等于结案：把泄漏假设做实",
+ "premise": "服务已恢复，灰度不扩展，继续观察。新版本缓存实现存在疑点，但尚未证实泄漏机制。",
+ "listeningTask": "听出哪些结论已有证据，哪些任务仍需复现及验收。",
+ "newPhrase": "p320",
+ "phrases": [
+  "p320",
+  "p009",
+  "p310",
+  "p012:extra",
+  "p013:extra",
+  "p002:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, recovery is verified. But the root cause is still open.",
+   "zh": "小结一下，服务恢复已验证，但根因仍未查明。",
+   "role": "Incident lead",
+   "start": 0.0,
+   "end": 6.12
+  },
+  {
+   "sp": "Lukas",
+   "en": "We know the worker's memory grew. We don't know which objects were retained.",
+   "zh": "我们知道消费者内存在增长，但不知道保留了哪些对象。",
+   "role": "SRE",
+   "start": 6.12,
+   "end": 11.568
+  },
+  {
+   "sp": "Anika",
+   "en": "First action item: reproduce the growth with sanitized traffic. I'll own that by tomorrow.",
+   "zh": "第一个行动项：用脱敏流量复现增长。我负责，明天完成。",
+   "role": "Application owner",
+   "start": 11.568,
+   "end": 18.816
+  },
+  {
+   "sp": "Hannah",
+   "en": "Compare both builds with the same input. Otherwise the result could be misleading.",
+   "zh": "两个构建要用同样输入对比，否则结果可能误导。",
+   "role": "Operations engineer",
+   "start": 18.816,
+   "end": 25.488
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll attach the host timeline today. We need the process and host measurements together.",
+   "zh": "我今天补上主机时间线，要把进程和主机测量放在一起。",
+   "role": "Linux on-call",
+   "start": 25.488,
+   "end": 32.208
+  },
+  {
+   "sp": "Priya",
+   "en": "Who's picking this up for the memory alerts? We need an owner, right?",
+   "zh": "内存告警改进谁来接？得明确负责人，对吧？",
+   "role": "Incident lead",
+   "start": 32.208,
+   "end": 37.824
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review them by Thursday. Include growth rate and a tested response, not just thresholds.",
+   "zh": "我周四前评审，包含增长速率和经过验证的响应流程，不只改阈值。",
+   "role": "SRE",
+   "start": 37.824,
+   "end": 44.904
+  },
+  {
+   "sp": "Anika",
+   "en": "Once the fix passes a long run, we'll close the loop with evidence.",
+   "zh": "修复通过长时间运行验证后，我们会带着证据反馈结果，把事情闭环。",
+   "role": "Application owner",
+   "start": 44.904,
+   "end": 49.8
+  },
+  {
+   "sp": "Hannah",
+   "en": "Long enough to cover the old growth window. A short smoke test won't do.",
+   "zh": "测试时间得覆盖之前的增长周期，短暂冒烟测试不够。",
+   "role": "Operations engineer",
+   "start": 49.8,
+   "end": 55.92
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Let's take it offline for the test design. Keep the investigation open until it's verified.",
+   "zh": "同意。测试设计会后单独聊，在验证之前调查保持未结案。",
+   "role": "Incident lead",
+   "start": 55.92,
+   "end": 64.08
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 10,
+ "scene": "服务已恢复，灰度不扩展，继续观察。新版本缓存实现存在疑点，但尚未证实泄漏机制。",
+ "dir": "linux/0045-恢复不等于结案",
+ "audio": "0045-恢复不等于结案.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "根因跟进"
+ ],
+ "duration": 64.08
+}

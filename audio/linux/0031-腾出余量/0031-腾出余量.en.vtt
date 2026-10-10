@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.656
+Raj: Reviewed archives are gone. We're at ninety-two percent. Writes are getting through again.
+
+2
+00:00:07.656 --> 00:00:12.576
+Hannah: That's still tight. How quickly is the space being used?
+
+3
+00:00:12.576 --> 00:00:18.239
+Raj: Roughly two hundred megs a minute. This will buy us time, not much.
+
+4
+00:00:18.239 --> 00:00:24.551
+Priya: Just to confirm, the open handle is still there? We haven't fixed that, right?
+
+5
+00:00:24.551 --> 00:00:29.279
+Lukas: Right. We should watch free space while we prepare the next step.
+
+6
+00:00:29.279 --> 00:00:35.087
+Anika: Version check is done. This build supports the documented reopen signal.
+
+7
+00:00:35.087 --> 00:00:39.791
+Hannah: Does it only reopen the log, or reload other settings too?
+
+8
+00:00:39.791 --> 00:00:44.614
+Anika: Only the log in this build. I'm on it for the change record.
+
+9
+00:00:44.614 --> 00:00:50.110
+Lukas: If it fails, stop there. We can drain this worker before a restart.
+
+10
+00:00:50.110 --> 00:00:57.430
+Priya: What's the ETA to reopen the log? A restart? Let's park that unless we need it.
+

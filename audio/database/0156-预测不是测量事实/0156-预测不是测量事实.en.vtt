@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Raj: Our growth forecast assumes current retention. Net storage grows two hundred gigabytes monthly.
+
+2
+00:00:07.128 --> 00:00:13.440
+Hannah: Is that measured growth or projection? Include how many months you sampled.
+
+3
+00:00:13.440 --> 00:00:19.800
+Raj: Measured across the last six months. Campaign demand is a separate assumption.
+
+4
+00:00:19.800 --> 00:00:26.664
+Priya: Just to confirm, net after retention, right? Don't subtract those deletions twice.
+
+5
+00:00:26.664 --> 00:00:33.216
+Lukas: Exactly. A campaign could change the slope. Show a high-growth case as well.
+
+6
+00:00:33.216 --> 00:00:40.104
+Anika: Our working hypothesis allows a larger burst. Maybe three times normal campaign writes.
+
+7
+00:00:40.104 --> 00:00:47.784
+Hannah: That's not three times monthly storage automatically. Burst duration matters for that estimate.
+
+8
+00:00:47.784 --> 00:00:54.816
+Priya: Okay, what's the ETA for campaign inputs? One action item is verified duration.
+
+9
+00:00:54.816 --> 00:01:01.008
+Lukas: I'll ask business owners this afternoon. We shouldn't invent an exact demand curve.
+
+10
+00:01:01.008 --> 00:01:08.160
+Anika: So, I've got bandwidth for scenarios. First compare today's actual performance baseline.
+

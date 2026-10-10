@@ -1,0 +1,135 @@
+{
+ "id": "0196",
+ "part": 1,
+ "stage": "旧脚本回顾",
+ "title": "先记录今天的行为",
+ "premise": "迭代计划会开场，团队查看旧脚本与最近修改记录。",
+ "listeningTask": "听出为何重构前需要测试旧行为。",
+ "newPhrase": "p471",
+ "phrases": [
+  "p471",
+  "p010",
+  "p009:extra",
+  "p335:extra",
+  "p302:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We need a characterization test before extraction. Last week's formatting change altered column order.",
+   "zh": "提取代码前需要现有行为测试，上周格式修改改变了列顺序。",
+   "role": "Refactoring implementation engineer",
+   "start": 0.0,
+   "end": 7.968
+  },
+  {
+   "sp": "Hannah",
+   "en": "Did a consumer depend on that order? Behavior includes interfaces, not just calculation results.",
+   "zh": "有使用方依赖列顺序吗？行为包括接口，不只是计算结果。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 7.968,
+   "end": 16.632
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, a downstream import reads positional columns. Just to confirm, that order stays unchanged, right?",
+   "zh": "是，下游按列位置导入，确认一下，列顺序不变，对吧？",
+   "role": "Reporting service and consumer owner",
+   "start": 16.632,
+   "end": 24.961
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, our working hypothesis is tangled responsibilities. One action item is capturing current outputs.",
+   "zh": "好，目前假设是职责混杂，一项任务是固定当前输出。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 24.961,
+   "end": 33.073
+  },
+  {
+   "sp": "Lukas",
+   "en": "Capture representative inputs and failure behavior too. Successful output snapshots aren't enough alone.",
+   "zh": "也记录代表性输入和失败行为，只存成功输出快照不够。",
+   "role": "Architecture and implementation reviewer",
+   "start": 33.073,
+   "end": 40.609
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe the parser also relies on globals. We can't rule that out without inspection.",
+   "zh": "解析器可能也依赖全局状态，不检查不能排除。",
+   "role": "Refactoring implementation engineer",
+   "start": 40.609,
+   "end": 47.449
+  },
+  {
+   "sp": "Hannah",
+   "en": "Existing bugs shouldn't become invisible requirements. Label known defects separately from intentional behavior.",
+   "zh": "不能把现有缺陷悄悄当需求，已知缺陷与预期行为分开标。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 47.449,
+   "end": 56.737
+  },
+  {
+   "sp": "Priya",
+   "en": "A report redesign can wait another iteration. Let's park that while we map behavior.",
+   "zh": "报表重设计可以等下轮，梳理行为期间先放下。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 56.737,
+   "end": 63.266
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep this review tied to recent changes. We don't need a complete historical rewrite.",
+   "zh": "回顾聚焦近期修改，不需要重写全部历史。",
+   "role": "Architecture and implementation reviewer",
+   "start": 63.266,
+   "end": 69.434
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll bring sanitized examples from both consumers. That gives us evidence for scope decisions.",
+   "zh": "我带两个使用方的脱敏样本，为范围决策提供证据。",
+   "role": "Reporting service and consumer owner",
+   "start": 69.434,
+   "end": 76.73
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 1,
+ "scene": "迭代计划会开场，团队查看旧脚本与最近修改记录。",
+ "dir": "coding/0196-先记录今天的行为",
+ "audio": "0196-先记录今天的行为.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "旧脚本回顾"
+ ],
+ "duration": 76.73
+}

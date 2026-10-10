@@ -1,0 +1,135 @@
+{
+ "id": "0235",
+ "part": 10,
+ "stage": "确认上线",
+ "title": "批准分批上线：盯业务完成率",
+ "premise": "灰度、高峰测试与回退演练通过，安排上线值守。",
+ "listeningTask": "抓住上线条件、关键资源预留和停止负责人。",
+ "newPhrase": "p510",
+ "phrases": [
+  "p510",
+  "p328",
+  "p323",
+  "p009:extra",
+  "p336:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Go/no-go is green for the staged rollout.",
+   "zh": "继续决策已通过，可以分阶段发布。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 3.312
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is reserved capacity enforced across all replicas?",
+   "zh": "预留容量在所有副本上都能落实吗？",
+   "role": "Capacity reviewer",
+   "start": 3.312,
+   "end": 7.368
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, allocations sum below the global safe ceiling.",
+   "zh": "是的，分配总额低于全局安全上限。",
+   "role": "Gateway engineer",
+   "start": 7.368,
+   "end": 11.593
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, watch critical completion and callback delay.",
+   "zh": "好，要观察关键业务完成率和回调延迟。",
+   "role": "Validation engineer",
+   "start": 11.593,
+   "end": 16.249
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to recap, recommendations can degrade first.",
+   "zh": "小结一下，推荐可以优先降级。",
+   "role": "Checkout product engineer",
+   "start": 16.249,
+   "end": 20.281
+  },
+  {
+   "sp": "Priya",
+   "en": "Raj owns stopping expansion itself if checks fail.",
+   "zh": "检查失败时，停止扩大的操作由Raj负责。",
+   "role": "Change coordinator",
+   "start": 20.281,
+   "end": 24.385
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the escalation path if Raj's unavailable?",
+   "zh": "Raj无法响应时，升级联系路径是什么？",
+   "role": "Capacity reviewer",
+   "start": 24.385,
+   "end": 28.273
+  },
+  {
+   "sp": "Raj",
+   "en": "The gateway backup has tested rollback access.",
+   "zh": "网关后备人员已测试过回退权限。",
+   "role": "Gateway engineer",
+   "start": 28.273,
+   "end": 31.993
+  },
+  {
+   "sp": "Hannah",
+   "en": "An action item: review fairness tomorrow, perhaps.",
+   "zh": "一个待办项：明天也许应复查公平性。",
+   "role": "Validation engineer",
+   "start": 31.993,
+   "end": 37.298
+  },
+  {
+   "sp": "Priya",
+   "en": "Tomorrow morning, yes. Keep emergency limits active tonight.",
+   "zh": "是的，明天上午复查。今晚保持应急限制有效。",
+   "role": "Change coordinator",
+   "start": 37.298,
+   "end": 43.01
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 10,
+ "scene": "灰度、高峰测试与回退演练通过，安排上线值守。",
+ "dir": "ha/0235-批准分批上线",
+ "audio": "0235-批准分批上线.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "确认上线"
+ ],
+ "duration": 43.01
+}

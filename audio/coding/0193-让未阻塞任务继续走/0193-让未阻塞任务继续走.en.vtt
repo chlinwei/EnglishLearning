@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Priya: Make cancellation tests an independent work item. The API contract remains a separate dependency.
+
+2
+00:00:07.728 --> 00:00:14.712
+Lukas: Does the parser change require that contract? Avoid merging behavior based on guessed semantics.
+
+3
+00:00:14.712 --> 00:00:23.040
+Raj: Only the integration adapter needs confirmed semantics. Just to confirm, parser review can proceed, right?
+
+4
+00:00:23.040 --> 00:00:30.984
+Anika: Yes, I'll isolate adapter assumptions in fixtures. Maybe the final response changes one test.
+
+5
+00:00:30.984 --> 00:00:40.416
+Hannah: Keep contract tests unapproved until confirmation. Passing local fixtures doesn't certify the real endpoint.
+
+6
+00:00:40.416 --> 00:00:47.928
+Raj: The parser stays up for review today. Its task includes malformed inputs and resource cleanup.
+
+7
+00:00:47.928 --> 00:00:54.936
+Lukas: The performance benchmark is another separate item. It shouldn't delay functional feedback on parsing.
+
+8
+00:00:54.936 --> 00:01:02.544
+Priya: Okay, give each action item one owner. Let's park that optional export benchmark for later.
+
+9
+00:01:02.544 --> 00:01:11.376
+Hannah: I'll attach acceptance evidence to each task. That makes partial completion visible without exaggeration.
+
+10
+00:01:11.376 --> 00:01:18.240
+Anika: Good, the board will show integration waiting. We can finish local work without hiding it.
+

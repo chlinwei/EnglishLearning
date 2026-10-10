@@ -1,0 +1,135 @@
+{
+ "id": "0195",
+ "part": 10,
+ "stage": "会后安排",
+ "title": "只邀请需要的人深入讨论",
+ "premise": "今日承诺确定，安排取消测试与契约问题的短讨论。",
+ "listeningTask": "听清会后参与者、议题和结束条件。",
+ "newPhrase": "p470",
+ "phrases": [
+  "p470",
+  "p002",
+  "p007:extra",
+  "p467:extra",
+  "p469:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "The follow-up slot starts after this standup. We have a twenty-minute hard stop there.",
+   "zh": "站会后开始跟进讨论，二十分钟到点结束。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 0.0,
+   "end": 6.192
+  },
+  {
+   "sp": "Hannah",
+   "en": "Raj and I will pair on it. Cancellation scheduling is the first concrete topic.",
+   "zh": "Raj和我结对，第一个具体议题是取消调度。",
+   "role": "Test and acceptance engineer",
+   "start": 6.192,
+   "end": 13.104
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, let's take it offline as agreed. We'll need the sanitized samples there itself.",
+   "zh": "好，按约定会后单聊，当场就需要脱敏样本。",
+   "role": "CLI implementation engineer",
+   "start": 13.104,
+   "end": 20.376
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll bring those and join the opening. Maybe ten minutes, then back to integration.",
+   "zh": "我带样本参加开头，可能十分钟，之后回去集成。",
+   "role": "API integration engineer",
+   "start": 20.376,
+   "end": 26.616
+  },
+  {
+   "sp": "Lukas",
+   "en": "I don't need the full test discussion. Tag me if the interface design changes.",
+   "zh": "我不必全程参加测试讨论，接口设计变化再通知我。",
+   "role": "Code reviewer and platform engineer",
+   "start": 26.616,
+   "end": 32.424
+  },
+  {
+   "sp": "Priya",
+   "en": "Good, each new action item gets recorded. The end-of-day checkpoint stays at five.",
+   "zh": "好，新增任务逐项记录，日终检查仍在五点。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 32.424,
+   "end": 39.312
+  },
+  {
+   "sp": "Hannah",
+   "en": "Our output is a deterministic failing test. Not a new architecture proposal this morning.",
+   "zh": "产出是确定性失败测试，不是今天上午提新架构。",
+   "role": "Test and acceptance engineer",
+   "start": 39.312,
+   "end": 47.016
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed, I'll bring the current minimal harness. We can demonstrate cancellation without live API access.",
+   "zh": "同意，我带最小测试框架，不访问真实接口也能展示取消。",
+   "role": "CLI implementation engineer",
+   "start": 47.016,
+   "end": 55.128
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll start review at eleven as promised. Keep the standup notes linked to tasks.",
+   "zh": "按承诺十一点评审，站会记录关联任务。",
+   "role": "Code reviewer and platform engineer",
+   "start": 55.128,
+   "end": 61.272
+  },
+  {
+   "sp": "Anika",
+   "en": "Then I'll send the contract questions now. Everyone has today's next step and owner.",
+   "zh": "那我现在发契约问题，大家都明确今天下一步和负责人。",
+   "role": "API integration engineer",
+   "start": 61.272,
+   "end": 67.68
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 10,
+ "scene": "今日承诺确定，安排取消测试与契约问题的短讨论。",
+ "dir": "coding/0195-只邀请需要的人深入讨论",
+ "audio": "0195-只邀请需要的人深入讨论.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "会后安排"
+ ],
+ "duration": 67.68
+}

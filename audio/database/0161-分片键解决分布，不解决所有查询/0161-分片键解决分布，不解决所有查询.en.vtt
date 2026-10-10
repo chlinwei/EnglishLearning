@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Anika: Tenant ID is our proposed shard key. Most order operations stay within tenants.
+
+2
+00:00:06.480 --> 00:00:12.192
+Lukas: What happens to the largest tenant? One hot shard could remain the bottleneck.
+
+3
+00:00:12.192 --> 00:00:20.233
+Raj: Yes, tenant sizes are very uneven. Our working hypothesis needs distribution simulation first.
+
+4
+00:00:20.233 --> 00:00:27.577
+Priya: Just to confirm, cross-tenant reports exist, right? Those won't become magically cheaper.
+
+5
+00:00:27.577 --> 00:00:36.481
+Hannah: Correct, fan-out adds coordination and latency. Global totals need a separate aggregation design.
+
+6
+00:00:36.481 --> 00:00:44.401
+Anika: Maybe tenant routing covers normal writes. Cross-tenant adjustments still need explicit transaction rules.
+
+7
+00:00:44.401 --> 00:00:51.961
+Lukas: And rebalancing needs operational ownership too. More databases mean more recovery procedures.
+
+8
+00:00:51.961 --> 00:00:58.994
+Priya: Okay, immediate sharding? Let's park that. Do we have bandwidth for research?
+
+9
+00:00:58.994 --> 00:01:07.298
+Hannah: Limited bandwidth, not an eight-week commitment. Compare vertical scaling with realistic staffing.
+
+10
+00:01:07.298 --> 00:01:14.570
+Raj: So, prototype distribution on synthetic data. We shouldn't promise savings before that.
+

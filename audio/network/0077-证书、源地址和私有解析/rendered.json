@@ -1,0 +1,135 @@
+{
+ "id": "0077",
+ "part": 2,
+ "stage": "依赖确认",
+ "title": "证书、源地址和私有解析",
+ "premise": "公共入口不变，迁移仅影响内部池；开始核对端到端依赖。",
+ "listeningTask": "听清私有解析正常不等于证书、源地址和回调都正常。",
+ "newPhrase": "p352",
+ "phrases": [
+  "p352",
+  "p348",
+  "p010",
+  "p327:extra",
+  "p014:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, the backend pool matches production. Both zones have the intended targets.",
+   "zh": "好，后端池与生产配置对应，两个区都有预期目标。",
+   "role": "Network engineer",
+   "start": 0.0,
+   "end": 6.408
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does split-horizon DNS return private addresses? Test from the new balancer subnet.",
+   "zh": "分视图DNS返回私有地址吗？要从新负载均衡器子网测试。",
+   "role": "Validation engineer",
+   "start": 6.408,
+   "end": 13.944
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, from that subnet itself. Certificate names and trust chains pass too.",
+   "zh": "是，从该子网本身测试的。证书名称和信任链也通过了。",
+   "role": "Network engineer",
+   "start": 13.944,
+   "end": 20.52
+  },
+  {
+   "sp": "Lukas",
+   "en": "What about source addresses at the application? Allow lists might reject the new pool.",
+   "zh": "应用看到的源地址呢？允许列表可能拒绝新池。",
+   "role": "SRE reviewer",
+   "start": 20.52,
+   "end": 26.688
+  },
+  {
+   "sp": "Anika",
+   "en": "Good catch, the proxy ranges differ. We've added only the approved ranges.",
+   "zh": "提醒得好，代理网段确实不同。我们只添加了批准的网段。",
+   "role": "Checkout owner",
+   "start": 26.688,
+   "end": 33.168
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, callbacks tested too, right? Include payment redirects in the smoke test.",
+   "zh": "我确认一下，回调也测了，对吧？冒烟测试要包括支付跳转。",
+   "role": "Change coordinator",
+   "start": 33.168,
+   "end": 40.8
+  },
+  {
+   "sp": "Hannah",
+   "en": "Sandbox redirects pass through the new path. Production callbacks need the canary check.",
+   "zh": "沙箱跳转通过了新路径，生产回调还要在灰度时检查。",
+   "role": "Validation engineer",
+   "start": 40.8,
+   "end": 48.624
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for firewall evidence. No broad subnet allowance as a shortcut.",
+   "zh": "防火墙证据我来补，不用放开整个子网来走捷径。",
+   "role": "Network engineer",
+   "start": 48.624,
+   "end": 54.696
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for that evidence? Record the effective rules, not just requests.",
+   "zh": "那些证据预计多久？记录实际生效规则，不只记录申请。",
+   "role": "SRE reviewer",
+   "start": 54.696,
+   "end": 61.488
+  },
+  {
+   "sp": "Anika",
+   "en": "About ten minutes, alongside callback evidence. Then we can review probe behavior.",
+   "zh": "大约十分钟，与回调证据一起补齐。然后可以评审探测行为。",
+   "role": "Checkout owner",
+   "start": 61.488,
+   "end": 68.28
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 2,
+ "scene": "公共入口不变，迁移仅影响内部池；开始核对端到端依赖。",
+ "dir": "network/0077-证书、源地址和私有解析",
+ "audio": "0077-证书、源地址和私有解析.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "依赖确认"
+ ],
+ "duration": 68.28
+}

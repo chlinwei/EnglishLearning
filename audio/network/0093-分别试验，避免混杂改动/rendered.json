@@ -1,0 +1,135 @@
+{
+ "id": "0093",
+ "part": 8,
+ "stage": "试验设计",
+ "title": "分别试验，避免混杂改动",
+ "premise": "决定先评估复用，MTU假设独立验证；设计有对照的隔离环境试验。",
+ "listeningTask": "识别变量分离、停止条件和试验对照。",
+ "newPhrase": "p368",
+ "phrases": [
+  "p368",
+  "p365",
+  "p010",
+  "p324:extra",
+  "p210:extra",
+  "p356:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Keep a control group with current settings. Change pooling in the treatment group only.",
+   "zh": "保留使用当前设置的对照组，只在试验组改变连接池。",
+   "role": "Performance engineer",
+   "start": 0.0,
+   "end": 6.84
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, same version and sandbox request mix. We can compare like for like.",
+   "zh": "好，相同版本和沙箱请求组合，可以同条件对比。",
+   "role": "Pricing client owner",
+   "start": 6.84,
+   "end": 13.632
+  },
+  {
+   "sp": "Lukas",
+   "en": "Where does the path MTU test fit? Don't change both variables in one run.",
+   "zh": "路径MTU测试放在哪里？一次测试不能同时改变两个变量。",
+   "role": "SRE reviewer",
+   "start": 13.632,
+   "end": 19.703
+  },
+  {
+   "sp": "Raj",
+   "en": "Separate isolated runs, with saved network settings. We'll dry-run it first without shared traffic.",
+   "zh": "独立隔离运行，保存网络设置。先在没有共享流量的环境预演。",
+   "role": "Network engineer",
+   "start": 19.703,
+   "end": 27.623
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, production stays unchanged, right? Both trials start in approved test environments.",
+   "zh": "我确认一下，生产保持不变，对吧？两项试验都从批准测试环境开始。",
+   "role": "Architecture review chair",
+   "start": 27.623,
+   "end": 35.663
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, report errors and latency together. Include cold starts, idle expiry, and reconnect bursts.",
+   "zh": "是，错误和延迟一起报告，包括冷启动、空闲过期和重连突发。",
+   "role": "Performance engineer",
+   "start": 35.663,
+   "end": 45.263
+  },
+  {
+   "sp": "Anika",
+   "en": "The rollback trigger is any correctness failure. Resource pressure also stops the pooling trial.",
+   "zh": "任何正确性失败都触发回退，资源压力也会停止连接池试验。",
+   "role": "Pricing client owner",
+   "start": 45.263,
+   "end": 52.439
+  },
+  {
+   "sp": "Lukas",
+   "en": "Restore the baseline configuration after each run. That keeps the next comparison independent.",
+   "zh": "每次运行后恢复基线配置，让下一次比较独立。",
+   "role": "SRE reviewer",
+   "start": 52.439,
+   "end": 59.662
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll collect roughly an hour per condition. Low sample counts mean extend, not declare success.",
+   "zh": "每种条件采集大约一小时。样本少就延长，不能宣布成功。",
+   "role": "Network engineer",
+   "start": 59.662,
+   "end": 67.198
+  },
+  {
+   "sp": "Priya",
+   "en": "So, document those limits before execution. That makes the proposal ready for ownership.",
+   "zh": "因此执行前写明这些限制，然后就可以明确负责人。",
+   "role": "Architecture review chair",
+   "start": 67.198,
+   "end": 74.35
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 8,
+ "scene": "决定先评估复用，MTU假设独立验证；设计有对照的隔离环境试验。",
+ "dir": "network/0093-分别试验，避免混杂改动",
+ "audio": "0093-分别试验，避免混杂改动.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "试验设计"
+ ],
+ "duration": 74.35
+}

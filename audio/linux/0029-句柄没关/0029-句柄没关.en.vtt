@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.928
+Raj: Found it. Worker process, twenty-four gigs, deleted but still open.
+
+2
+00:00:05.928 --> 00:00:11.664
+Lukas: That explains the gap. Removing another filename won't release this file.
+
+3
+00:00:11.664 --> 00:00:16.968
+Anika: The app can reopen the log. There's a documented signal for that.
+
+4
+00:00:16.968 --> 00:00:23.232
+Priya: Just to confirm, for this exact version? We shouldn't guess the signal, right?
+
+5
+00:00:23.232 --> 00:00:29.232
+Hannah: Yes. A signal can terminate a process if the handler isn't there.
+
+6
+00:00:29.232 --> 00:00:34.224
+Anika: I'm on it. I'll check the deployed version against the runbook.
+
+7
+00:00:34.224 --> 00:00:40.368
+Lukas: Save the file details first. We need to verify the handle closes afterward.
+
+8
+00:00:40.368 --> 00:00:47.064
+Priya: What's the ETA? A restart? Let's park that until the check is done.
+
+9
+00:00:47.064 --> 00:00:54.144
+Hannah: There's also a small set of old archives. I'll check whether they're safe to remove.
+
+10
+00:00:54.144 --> 00:01:01.800
+Raj: Okay, maybe two minutes. I'll keep the evidence. No truncating file descriptors on the fly.
+

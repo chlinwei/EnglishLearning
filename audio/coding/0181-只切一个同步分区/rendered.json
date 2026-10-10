@@ -1,0 +1,135 @@
+{
+ "id": "0181",
+ "part": 6,
+ "stage": "灰度",
+ "title": "只切一个同步分区",
+ "premise": "预演通过，审批批准一个分区切换，旧制品已保留。",
+ "listeningTask": "识别防止新旧worker重复写入的切换顺序。",
+ "newPhrase": "p456",
+ "phrases": [
+  "p456",
+  "p010",
+  "p323:extra",
+  "p324:extra",
+  "p327:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Approve one canary cohort for this window. The staged rollout starts with one partition.",
+   "zh": "本窗口批准一组灰度，分阶段发布从一个分区开始。",
+   "role": "Change coordinator and approval owner",
+   "start": 0.0,
+   "end": 6.696
+  },
+  {
+   "sp": "Lukas",
+   "en": "Drain the old worker before assigning ownership. Two workers mustn't process the same partition.",
+   "zh": "先排空旧worker再转移所有权，不能两个worker同时处理该分区。",
+   "role": "Build and release SRE",
+   "start": 6.696,
+   "end": 13.44
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, the lease transfers once, right? I'll verify no overlapping writer remains.",
+   "zh": "确认一下，租约只转移一次，对吧？我验证没有重叠写入者。",
+   "role": "Python dependency maintainer",
+   "start": 13.44,
+   "end": 20.903
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, keep an eye on reconciliation lag. Maybe the first batch warms connections slowly.",
+   "zh": "好，关注对账延迟，首批连接预热可能较慢。",
+   "role": "Inventory application owner",
+   "start": 20.903,
+   "end": 28.271
+  },
+  {
+   "sp": "Hannah",
+   "en": "The smoke test uses this production partition. Compare output counts with its expected inventory.",
+   "zh": "冒烟测试针对这个生产分区，把输出计数与预期库存比较。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 28.271,
+   "end": 36.575
+  },
+  {
+   "sp": "Raj",
+   "en": "The new worker holds the sole lease. Token refresh and the initial batch pass.",
+   "zh": "新worker独占租约，令牌刷新和首批处理通过。",
+   "role": "Python dependency maintainer",
+   "start": 36.575,
+   "end": 42.647
+  },
+  {
+   "sp": "Lukas",
+   "en": "State the rollback trigger before further batches. Duplicates or reconciliation mismatches mean immediate pause.",
+   "zh": "继续批次前明确回退条件，重复记录或对账不符立即暂停。",
+   "role": "Build and release SRE",
+   "start": 42.647,
+   "end": 50.687
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, pause and evaluate before reverting ownership. Don't start old workers beside new ones.",
+   "zh": "同意，暂停评估后才恢复旧所有权，不能新旧worker并跑。",
+   "role": "Change coordinator and approval owner",
+   "start": 50.687,
+   "end": 58.222
+  },
+  {
+   "sp": "Hannah",
+   "en": "First-batch counts and signatures match expectations. We'll inspect another full token-refresh cycle.",
+   "zh": "首批计数与签名符合预期，再检查一个完整令牌刷新周期。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 58.222,
+   "end": 67.462
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll own that observation before expansion approval. Healthy startup alone doesn't cover steady-state behavior.",
+   "zh": "扩大审批前由我负责观察，仅启动健康不能覆盖稳定运行。",
+   "role": "Inventory application owner",
+   "start": 67.462,
+   "end": 75.19
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 6,
+ "scene": "预演通过，审批批准一个分区切换，旧制品已保留。",
+ "dir": "coding/0181-只切一个同步分区",
+ "audio": "0181-只切一个同步分区.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "灰度"
+ ],
+ "duration": 75.19
+}

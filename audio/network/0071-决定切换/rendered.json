@@ -1,0 +1,135 @@
+{
+ "id": "0071",
+ "part": 6,
+ "stage": "缓解决策",
+ "title": "决定切换：私有解析和容量都要过关",
+ "premise": "发现A存在无响应转发目标，正在核实退役记录；B通过准备检查，可考虑小范围切换。",
+ "listeningTask": "抓住切换范围、回退条件和客户端是否真正采用新设置。",
+ "newPhrase": "p346",
+ "phrases": [
+  "p346",
+  "p010",
+  "p324",
+  "p334:extra",
+  "p306:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Can we switch resolvers for one affected host first? I want a reversible step.",
+   "zh": "可以先让一台受影响主机切换解析器吗？我要可回退的步骤。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 6.312
+  },
+  {
+   "sp": "Lukas",
+   "en": "B has capacity and the same private zones. But verify all critical service names, not just payments.",
+   "zh": "B有容量，也有相同私有区域，但必须验证所有关键服务名称，不只支付。",
+   "role": "SRE",
+   "start": 6.312,
+   "end": 14.136
+  },
+  {
+   "sp": "Anika",
+   "en": "The checklist passed. This is a temporary workaround to buy us time for A's repair.",
+   "zh": "清单检查通过。这是临时缓解，为修复A争取时间。",
+   "role": "Checkout application owner",
+   "start": 14.136,
+   "end": 20.449
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, one host first, right? Save its current settings before the change.",
+   "zh": "我确认一下，先一台主机，对吧？变更前保存它当前设置。",
+   "role": "Network on-call",
+   "start": 20.449,
+   "end": 27.313
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the rollback trigger? Wrong answers, higher error rate, or unexpected resolver load?",
+   "zh": "回退触发条件是什么？错误答案、错误率增加，或解析器负载异常？",
+   "role": "DNS validation engineer",
+   "start": 27.313,
+   "end": 35.041
+  },
+  {
+   "sp": "Priya",
+   "en": "All three mean stop and assess. Restore the saved settings if the canary fails validation.",
+   "zh": "这三种都先停止并评估。灰度验证失败，就恢复保存的设置。",
+   "role": "Incident coordinator",
+   "start": 35.041,
+   "end": 41.689
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check which layer owns DNS settings. Hand-editing a generated file could be overwritten.",
+   "zh": "检查哪一层管理DNS设置。手改生成文件可能马上被覆盖。",
+   "role": "SRE",
+   "start": 41.689,
+   "end": 48.481
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. The approved network manager owns it. I'll use its change procedure.",
+   "zh": "我来确认。由批准的网络管理器管理，我会按它的变更流程操作。",
+   "role": "Network on-call",
+   "start": 48.481,
+   "end": 55.778
+  },
+  {
+   "sp": "Hannah",
+   "en": "And confirm the app actually uses B. A direct probe alone won't prove that.",
+   "zh": "还要确认应用实际使用B，单独直接探测不能证明这一点。",
+   "role": "DNS validation engineer",
+   "start": 55.778,
+   "end": 62.522
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. We'll observe fresh connections. No full app restart just to force a lookup.",
+   "zh": "同意，观察新建连接，不为了强制查询而重启整个应用。",
+   "role": "Checkout application owner",
+   "start": 62.522,
+   "end": 69.89
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 6,
+ "scene": "发现A存在无响应转发目标，正在核实退役记录；B通过准备检查，可考虑小范围切换。",
+ "dir": "network/0071-决定切换",
+ "audio": "0071-决定切换.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "缓解决策"
+ ],
+ "duration": 69.89
+}

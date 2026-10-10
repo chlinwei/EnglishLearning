@@ -1,0 +1,135 @@
+{
+ "id": "0060",
+ "part": 5,
+ "stage": "未决疑点",
+ "title": "猜测怎么传：别让接班人把假设当结论",
+ "premise": "已交代暂停拉取的临时措施；继续说明慢调用与心跳阻塞的调查线索。",
+ "listeningTask": "听出下一步需要的证据，以及今晚不应该执行的诊断。",
+ "newPhrase": "p335",
+ "phrases": [
+  "p335",
+  "p010",
+  "p320",
+  "p315:extra",
+  "p002:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis is a blocked heartbeat during slow export calls. It's not proven.",
+   "zh": "当前假设是慢导出调用阻塞了心跳，但没有证实。",
+   "role": "Outgoing application owner",
+   "start": 0.0,
+   "end": 6.912
+  },
+  {
+   "sp": "Lukas",
+   "en": "What evidence would separate that from a CPU stall or another blocked thread?",
+   "zh": "什么证据能把它和CPU停顿或其他线程阻塞区分开？",
+   "role": "Incoming backup SRE",
+   "start": 6.912,
+   "end": 11.905
+  },
+  {
+   "sp": "Anika",
+   "en": "Timing traces from a controlled reproduction. The current logs aren't detailed enough.",
+   "zh": "需要受控复现中的时序跟踪，现有日志细节不够。",
+   "role": "Outgoing application owner",
+   "start": 11.905,
+   "end": 18.409
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the root cause is still open, right? That's explicit in the ticket.",
+   "zh": "我确认一下，根因仍未查明，对吧？工单里要明确写着。",
+   "role": "Shift coordinator",
+   "start": 18.409,
+   "end": 25.226
+  },
+  {
+   "sp": "Hannah",
+   "en": "Should I collect a heap snapshot if it happens again? Or is that unrelated?",
+   "zh": "如果复发，我要采集堆快照吗？还是和这次问题无关？",
+   "role": "Incoming primary on-call",
+   "start": 25.226,
+   "end": 31.754
+  },
+  {
+   "sp": "Raj",
+   "en": "Not by default. No memory evidence points there. Follow the lightweight evidence checklist first.",
+   "zh": "不要默认采集。没有内存证据指向那里，先按轻量证据清单做。",
+   "role": "Outgoing Linux on-call",
+   "start": 31.754,
+   "end": 39.602
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. Heavy diagnostics could cause another pause. Don't add them without approval.",
+   "zh": "同意。重型诊断可能再造成暂停，未经批准不要增加。",
+   "role": "Incoming backup SRE",
+   "start": 39.602,
+   "end": 46.491
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll reproduce it tomorrow. Then we'll close the loop with traces, not guesses.",
+   "zh": "我明天复现，再带着跟踪证据反馈结果，而不是猜测。",
+   "role": "Outgoing application owner",
+   "start": 46.491,
+   "end": 52.539
+  },
+  {
+   "sp": "Hannah",
+   "en": "Please link the checklist. I need to know what to save before contacting you.",
+   "zh": "把清单链接给我，我需要知道联系你们前要保存什么。",
+   "role": "Incoming primary on-call",
+   "start": 52.539,
+   "end": 58.612
+  },
+  {
+   "sp": "Priya",
+   "en": "Done. Let's take it offline for the reproduction design. Tonight is monitoring and escalation.",
+   "zh": "已附上。复现设计会后单独聊，今晚的工作是监控和升级处理。",
+   "role": "Shift coordinator",
+   "start": 58.612,
+   "end": 66.34
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 5,
+ "scene": "已交代暂停拉取的临时措施；继续说明慢调用与心跳阻塞的调查线索。",
+ "dir": "linux/0060-猜测怎么传",
+ "audio": "0060-猜测怎么传.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "未决疑点"
+ ],
+ "duration": 66.34
+}

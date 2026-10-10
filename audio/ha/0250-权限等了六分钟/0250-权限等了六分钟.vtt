@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.080
+Raj: The access bottleneck came from missing shutdown permission.
+权限卡点来自缺少关闭主机权限。
+
+2
+00:00:04.080 --> 00:00:08.592
+Hannah: Not hesitation? What do the audit records show?
+不是犹豫吗？审计记录显示什么？
+
+3
+00:00:08.592 --> 00:00:13.367
+Raj: Two denied requests. The escalation path then worked.
+两次请求被拒，随后升级联系路径起效。
+
+4
+00:00:13.367 --> 00:00:16.991
+Lukas: Who was the decision owner for emergency access?
+应急权限的决策负责人是谁？
+
+5
+00:00:16.991 --> 00:00:21.695
+Anika: The infrastructure duty manager, not our primary on-call.
+是基础设施值班经理，不是我们的第一响应值班人。
+
+6
+00:00:21.695 --> 00:00:25.943
+Priya: Just to confirm, preapproved scoped access, right?
+确认一下，改用预批准的限定权限，对吧？
+
+7
+00:00:25.943 --> 00:00:30.911
+Hannah: Maybe, with expiry and auditable two-person approval.
+也许可以，但要有有效期和可审计的双人批准。
+
+8
+00:00:30.911 --> 00:00:34.438
+Raj: We'll page the backup if access checks fail.
+权限检查失败时，我们会呼叫后备人员。
+
+9
+00:00:34.438 --> 00:00:39.166
+Lukas: Okay, test permissions without touching production power controls.
+好，测试权限时不能触碰生产电源控制。
+
+10
+00:00:39.166 --> 00:00:43.510
+Priya: Agreed. Make that a preflight check next time.
+同意，下次将它列为演练前检查。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0046",
+ "part": 1,
+ "stage": "申请",
+ "title": "申请维护：哪四台，什么时候动",
+ "premise": "catalog-api四台虚拟机需要安全内核补丁，先确认窗口和变更范围。",
+ "listeningTask": "听清维护对象、预计耗时和不属于本次变更的节点。",
+ "newPhrase": "p321",
+ "phrases": [
+  "p321",
+  "p010",
+  "p317",
+  "p008:extra",
+  "p004:extra",
+  "p320:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "I'd like a maintenance window for the catalog hosts. Four machines, kernel patch only.",
+   "zh": "我想申请catalog主机的维护窗口。四台机器，只做内核补丁。",
+   "role": "Linux operator",
+   "start": 0.0,
+   "end": 7.032
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are the enrichment workers included? That memory investigation isn't finished.",
+   "zh": "包含订单补充信息消费者吗？那项内存调查还没有结束。",
+   "role": "SRE reviewer",
+   "start": 7.032,
+   "end": 13.128
+  },
+  {
+   "sp": "Priya",
+   "en": "No, the root cause is still open there. Those hosts are out of scope.",
+   "zh": "不包含，那边根因仍未查明。那些主机不在本次范围内。",
+   "role": "Change coordinator",
+   "start": 13.128,
+   "end": 18.888
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to confirm, no app release alongside this, right? Keep the change isolated.",
+   "zh": "我确认一下，不同时发布应用，对吧？保持变更单一。",
+   "role": "API owner",
+   "start": 18.888,
+   "end": 25.824
+  },
+  {
+   "sp": "Hannah",
+   "en": "Good. Mixing changes would make any new error harder to explain.",
+   "zh": "好。混合变更会让新错误更难定位。",
+   "role": "Validation engineer",
+   "start": 25.824,
+   "end": 31.656
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed. What's the ETA for approval? I'm proposing fifty-five minutes tonight.",
+   "zh": "同意。审批预计什么时候完成？我建议今晚留五十五分钟。",
+   "role": "Linux operator",
+   "start": 31.656,
+   "end": 38.64
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does that include checks and time to back out? Not just reboot time?",
+   "zh": "包括检查和回退时间吗？不是只算重启吧？",
+   "role": "SRE reviewer",
+   "start": 38.64,
+   "end": 43.896
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes. Like one worker at a time, but these are API hosts. One host only.",
+   "zh": "包括。类似一次只处理一个消费者，不过这里是API主机，一次只动一台。",
+   "role": "Change coordinator",
+   "start": 43.896,
+   "end": 51.576
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let's review capacity before approving. Three hosts need to carry the live traffic.",
+   "zh": "批准前先评审容量，其余三台需要承担线上流量。",
+   "role": "Validation engineer",
+   "start": 51.576,
+   "end": 58.56
+  },
+  {
+   "sp": "Anika",
+   "en": "A full fleet refresh? Let's park that. This request is just the patch.",
+   "zh": "整组机器更新的事先放一边。这次申请只涉及补丁。",
+   "role": "API owner",
+   "start": 58.56,
+   "end": 65.4
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 1,
+ "scene": "catalog-api四台虚拟机需要安全内核补丁，先确认窗口和变更范围。",
+ "dir": "linux/0046-申请维护",
+ "audio": "0046-申请维护.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "申请"
+ ],
+ "duration": 65.4
+}

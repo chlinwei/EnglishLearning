@@ -1,0 +1,129 @@
+{
+ "id": "0208",
+ "part": 3,
+ "stage": "初步方案",
+ "title": "先画一条完整处理路径",
+ "premise": "输入有上限，服务端支持版本检查，候选人提出初始流程。",
+ "listeningTask": "理解持久状态、租约和消息确认的先后。",
+ "newPhrase": "p483",
+ "phrases": [
+  "p483",
+  "p010",
+  "p014:extra",
+  "p210:extra",
+  "p009:extra",
+  "p482:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Show the worker's processing flow now. Where do you place durable state and acknowledgements?",
+   "zh": "现在展示处理流程，持久状态与消息确认放哪里？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd start with a small worker pool. Each task validates bounded input first. Then it acquires work through a lease.",
+   "zh": "先用小worker池，每项任务先验有限输入，再通过租约取得处理权。",
+   "role": "DevOps engineering candidate",
+   "start": 6.552,
+   "end": 16.055
+  },
+  {
+   "sp": "Hannah",
+   "en": "What do you persist before sending? Memory-only bookkeeping disappears when the worker crashes.",
+   "zh": "发送前持久化什么？只在内存记账会随崩溃丢失。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 16.055,
+   "end": 23.759
+  },
+  {
+   "sp": "Raj",
+   "en": "The operation identifier and payload hash persist first. Just to confirm, identifiers survive redelivery, right?",
+   "zh": "先持久化操作标识和负载哈希，确认一下，重投标识不变，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 23.759,
+   "end": 32.734
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, then lease work and send it. Terminal results persist before acknowledging the queue message.",
+   "zh": "好，之后租约取任务并发送，确认消息前持久化终态结果。",
+   "role": "DevOps engineering candidate",
+   "start": 32.734,
+   "end": 40.102
+  },
+  {
+   "sp": "Lukas",
+   "en": "What if acknowledgement fails after success? That creates the duplicate processing window we're discussing.",
+   "zh": "成功后消息确认失败呢？这就是正在讨论的重复处理窗口。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 40.102,
+   "end": 47.47
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it by checking persisted terminal state. Maybe redelivery only needs another acknowledgement then.",
+   "zh": "我通过查持久终态处理，重投时可能只需重新确认消息。",
+   "role": "DevOps engineering candidate",
+   "start": 47.47,
+   "end": 55.389
+  },
+  {
+   "sp": "Hannah",
+   "en": "Can you demonstrate the flow safely? We don't want real infrastructure changes in interviews.",
+   "zh": "能安全演示流程吗？面试不希望改真实基础设施。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 55.389,
+   "end": 62.829
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd dry-run it first with a fake client. Then run isolated integration tests against a sandbox.",
+   "zh": "先用假客户端预演，再对沙箱做隔离集成测试。",
+   "role": "DevOps engineering candidate",
+   "start": 62.829,
+   "end": 70.629
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item covers durable state. I'd define each transition explicitly. The lease alone doesn't guarantee unique effects.",
+   "zh": "需定义持久状态及每个显式转换，租约本身不保证副作用唯一。",
+   "role": "DevOps engineering candidate",
+   "start": 70.629,
+   "end": 80.78
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 3,
+ "scene": "输入有上限，服务端支持版本检查，候选人提出初始流程。",
+ "dir": "coding/0208-先画一条完整处理路径",
+ "audio": "0208-先画一条完整处理路径.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "初步方案"
+ ],
+ "duration": 80.78
+}

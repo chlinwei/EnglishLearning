@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Hannah: Use the same measurement window for both. Let's compare like for like throughout.
+两组使用相同测量时间窗，全程在相同条件下对比。
+
+2
+00:00:06.408 --> 00:00:13.848
+Raj: Okay, match payload size and client version. Separate warm connections from fresh connections.
+好，匹配载荷大小和客户端版本，分开热连接与新连接。
+
+3
+00:00:13.848 --> 00:00:19.273
+Lukas: Does a cache hit skip pricing work? That would skew our local comparison.
+缓存命中会跳过定价计算吗？那会使本区比较偏斜。
+
+4
+00:00:19.273 --> 00:00:26.401
+Anika: Yes, so match cache state as well. I'll label misses without clearing production caches.
+会，所以也匹配缓存状态。我会标记未命中，不清理生产缓存。
+
+5
+00:00:26.401 --> 00:00:33.697
+Priya: Just to confirm, no mixed percentiles, right? Average latency can't stand in for tails.
+我确认一下，不混用分位数，对吧？平均延迟不能代替尾延迟。
+
+6
+00:00:33.697 --> 00:00:42.265
+Hannah: Exactly, report sample counts beside each percentile. Low counts need an uncertainty note.
+对，每个分位数旁注明样本数，样本少要说明不确定性。
+
+7
+00:00:42.265 --> 00:00:48.481
+Raj: I'm on it for clock checks too. One-way timing needs reliable clock alignment.
+时钟检查我也来做，单程计时需要可靠的时钟对齐。
+
+8
+00:00:48.481 --> 00:00:55.682
+Lukas: Prefer client elapsed time for this comparison. It avoids subtracting unrelated host timestamps.
+这次对比优先用客户端经过时间，避免相减无关联的主机时间戳。
+
+9
+00:00:55.682 --> 00:01:01.994
+Anika: What's the ETA for synchronized sampling? About an hour should cover enough calls.
+同步采样预计什么时候开始？大约一小时应能覆盖足够调用。
+
+10
+00:01:01.994 --> 00:01:09.170
+Priya: So, start after the scheduled deploy ends. That keeps version changes outside our window.
+因此计划部署结束后开始，避免版本变化落在时间窗内。
+

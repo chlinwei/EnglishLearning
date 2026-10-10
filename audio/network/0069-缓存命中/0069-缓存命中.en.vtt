@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Raj: A cache hit comes back fast on A. Some uncached lookups take several seconds, then fail.
+
+2
+00:00:07.344 --> 00:00:13.632
+Lukas: Are you using approved test records? Random names might only test negative caching.
+
+3
+00:00:13.632 --> 00:00:20.808
+Raj: Yes, existing test records with short lifetimes. Small sample, no query flood.
+
+4
+00:00:20.808 --> 00:00:27.672
+Priya: Just to confirm, no fleet-wide cache flush, right? That could increase upstream load.
+
+5
+00:00:27.672 --> 00:00:34.536
+Hannah: Agreed. I'll keep an eye on cache statistics and upstream timeout counts together.
+
+6
+00:00:34.536 --> 00:00:41.712
+Anika: The app's cached answers still work. We can't rule that out as the reason some requests succeed.
+
+7
+00:00:41.712 --> 00:00:47.592
+Lukas: Exactly. The next question is which upstream path the failed lookups used.
+
+8
+00:00:47.592 --> 00:00:54.864
+Priya: A full cache reset? Let's park that. What's the ETA for the upstream comparison?
+
+9
+00:00:54.864 --> 00:01:02.448
+Hannah: Two minutes. I'll keep successful and failed samples separate so we don't average away the issue.
+
+10
+00:01:02.448 --> 00:01:09.000
+Raj: Okay. I'll save the current configuration before anyone changes the forwarding targets.
+

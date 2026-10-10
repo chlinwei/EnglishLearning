@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.552
+Priya: Our improvement backlog won't fit one sprint.
+改进待办清单一个迭代做不完。
+
+2
+00:00:03.552 --> 00:00:09.480
+Hannah: Prioritize unsafe ambiguity before shaving recovery seconds.
+先解决危险的职责不明，再考虑节省恢复秒数。
+
+3
+00:00:09.480 --> 00:00:13.153
+Raj: Permission checks and fencing evidence come first.
+权限检查和隔离证据排第一。
+
+4
+00:00:13.153 --> 00:00:16.801
+Lukas: What rehearsal scope can validate those improvements?
+什么演练范围能验证这些改进？
+
+5
+00:00:16.801 --> 00:00:22.225
+Anika: The same isolated cluster. No broader production experiment.
+用同一隔离集群，不扩大生产实验。
+
+6
+00:00:22.225 --> 00:00:25.825
+Priya: Just to confirm, no shortcuts, right?
+确认一下，不走捷径，对吧？
+
+7
+00:00:25.825 --> 00:00:30.457
+Hannah: Correct. Better access could buy us time safely.
+对，更好的权限准备能安全争取时间。
+
+8
+00:00:30.457 --> 00:00:33.650
+Raj: I've got bandwidth for the preflight work.
+我有精力做演练前检查的改进。
+
+9
+00:00:33.650 --> 00:00:39.218
+Lukas: Dashboard redesign? Let's park that, perhaps until next sprint.
+仪表盘重设计？先暂存，也许放到下个迭代。
+
+10
+00:00:39.218 --> 00:00:44.090
+Priya: Agreed. Limit commitments to work we can verify.
+同意，只承诺我们能验证完成的工作。
+

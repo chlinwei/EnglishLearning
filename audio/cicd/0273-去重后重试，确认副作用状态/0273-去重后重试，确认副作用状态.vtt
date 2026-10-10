@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.416
+Raj: Each idempotent retry keeps its job key. Attempt identifiers remain separate for auditing.
+每次幂等重试保留任务键。尝试标识单独保留以便审计。
+
+2
+00:00:07.416 --> 00:00:14.352
+Priya: Okay, queued builds need state checks. Just to confirm, duplicates won't deploy?
+好，排队构建需要查状态。确认一下，重复任务不会部署？
+
+3
+00:00:14.352 --> 00:00:21.504
+Lukas: Deployment uses its own idempotency ledger. Unknown outcomes stay held for reconciliation.
+部署使用独立幂等账本。结果未知的任务挂起核对。
+
+4
+00:00:21.504 --> 00:00:28.632
+Anika: Completed jobs won't rebuild unnecessarily, right? We can reuse their verified digest.
+已完成任务不必重新构建，对吧？可以复用验证过的摘要。
+
+5
+00:00:28.632 --> 00:00:37.056
+Hannah: Only if build provenance still matches. Check signature, retention, and approval separately.
+只有构建来源仍匹配才行。签名、保留状态和审批分别检查。
+
+6
+00:00:37.056 --> 00:00:44.280
+Raj: The twelve failures have no deployment effects. Duplicate requests resolve to original jobs.
+十二个失败任务没有部署副作用。重复请求归到原任务。
+
+7
+00:00:44.280 --> 00:00:52.032
+Lukas: Use bounded retries with backoff now. Authentication failures need repair, not repeated attempts.
+现在用有界退避重试。认证失败要修复，不能反复尝试。
+
+8
+00:00:52.032 --> 00:00:57.696
+Priya: So, let the queue catch up slowly. Keep an eye on mirror latency.
+那么让队列慢慢追上。关注镜像源延迟。
+
+9
+00:00:57.696 --> 00:01:05.328
+Hannah: Partial uploads have been quarantined too. A retry mustn't promote an incomplete object.
+部分上传对象也已隔离。重试不能晋级不完整对象。
+
+10
+00:01:05.328 --> 00:01:12.240
+Anika: Fair, I'll report pending work accurately. Held jobs aren't failures we can ignore.
+明白，我准确报告待办。挂起任务不是可以忽略的失败。
+

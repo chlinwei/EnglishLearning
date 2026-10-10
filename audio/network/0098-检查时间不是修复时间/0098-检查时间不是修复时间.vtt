@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Priya: Okay, carrier ticket C-four-eighty-two remains open. They acknowledged the evidence at seven thirty.
+好，运营商工单C-482仍开放。他们七点半确认收到证据。
+
+2
+00:00:07.248 --> 00:00:12.673
+Lukas: What's the ETA for a repair? Did they commit to a restoration time?
+修复预计多久？他们承诺恢复时间了吗？
+
+3
+00:00:12.673 --> 00:00:19.849
+Raj: No restoration estimate, only a diagnostic update. That's due at nine this evening.
+没有恢复时间估计，只承诺今晚九点给诊断更新。
+
+4
+00:00:19.849 --> 00:00:27.554
+Hannah: Which checks have they completed already? An acknowledgment isn't evidence of technical progress.
+他们已经完成了什么检查？受理确认不代表技术进展。
+
+5
+00:00:27.554 --> 00:00:34.730
+Raj: They report clean optics at their local handoff. Remote segment counters are still pending.
+他们报告本地交接端光指标正常，远端链路计数器还未提供。
+
+6
+00:00:34.730 --> 00:00:42.122
+Priya: Just to confirm, the root cause is still open, right? We haven't verified their remote segment.
+我确认一下，根因仍未定，对吧？还没核实他们的远端链路。
+
+7
+00:00:42.122 --> 00:00:47.931
+Lukas: Please record that wording in the ticket. Who owns the carrier escalation path?
+把这个措辞写进工单。谁负责运营商升级路径？
+
+8
+00:00:47.931 --> 00:00:54.267
+Anika: Raj owns it until this handoff closes. Then Hannah takes the carrier follow-up.
+交接完成前由Raj负责，之后Hannah跟进运营商。
+
+9
+00:00:54.267 --> 00:01:02.812
+Hannah: Accepted, with ticket access verified first. I'll request the missing remote counter evidence.
+接受，但要先确认工单访问权限。我会索取缺失的远端计数器证据。
+
+10
+00:01:02.812 --> 00:01:11.140
+Priya: Compensation discussion? Let's park that for later. So, technical follow-up continues around nine.
+赔偿讨论先留到以后。技术跟进继续在九点左右进行。
+

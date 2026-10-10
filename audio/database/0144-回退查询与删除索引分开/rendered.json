@@ -1,0 +1,135 @@
+{
+ "id": "0144",
+ "part": 9,
+ "stage": "回退确认",
+ "title": "回退查询与删除索引分开",
+ "premise": "查询开关灰度通过，回顾未来回退及失败构建残留处理。",
+ "listeningTask": "区分功能回退、取消构建和独立删除流程。",
+ "newPhrase": "p419",
+ "phrases": [
+  "p419",
+  "p418",
+  "p324:extra",
+  "p010:extra",
+  "p334:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "What if an invalid index remains? Cancellation doesn't always remove its entry.",
+   "zh": "如果留下无效索引呢？取消不一定删除目录项。",
+   "role": "Query and rollout validation engineer",
+   "start": 0.0,
+   "end": 7.44
+  },
+  {
+   "sp": "Raj",
+   "en": "We inspect index validity after failure. Then review cleanup as separate work.",
+   "zh": "失败后检查索引有效性，再单独评审清理工作。",
+   "role": "Database change operator",
+   "start": 7.44,
+   "end": 14.137
+  },
+  {
+   "sp": "Anika",
+   "en": "No invalid index exists tonight though. Our completed index passed all checks.",
+   "zh": "不过今晚没有无效索引，已完成索引通过所有检查。",
+   "role": "Orders search owner",
+   "start": 14.137,
+   "end": 20.905
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, switch rollback first, right? That's the quickest temporary workaround.",
+   "zh": "确认一下，先回退查询开关，对吧？这是最快的临时缓解。",
+   "role": "Change coordinator",
+   "start": 20.905,
+   "end": 27.89
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, but it doesn't remove maintenance costs. Dropping needs its own reviewed procedure.",
+   "zh": "对，但那不会消除维护成本，删除要有单独评审流程。",
+   "role": "Database reliability reviewer",
+   "start": 27.89,
+   "end": 34.61
+  },
+  {
+   "sp": "Raj",
+   "en": "For this leaf, concurrent drop is supported. Outside transaction blocks, with dependencies checked.",
+   "zh": "这个叶表支持并发删除索引，在事务块外执行并检查依赖。",
+   "role": "Database change operator",
+   "start": 34.61,
+   "end": 42.53
+  },
+  {
+   "sp": "Hannah",
+   "en": "Don't generalize that to parent indexes. Engine and object restrictions still apply.",
+   "zh": "别类推到父表索引，数据库和对象限制仍适用。",
+   "role": "Query and rollout validation engineer",
+   "start": 42.53,
+   "end": 50.043
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, let's keep it under observation. Maybe write costs emerge with tomorrow's peak.",
+   "zh": "好，继续观察，写成本可能在明天高峰显现。",
+   "role": "Change coordinator",
+   "start": 50.043,
+   "end": 56.883
+  },
+  {
+   "sp": "Lukas",
+   "en": "The rollback trigger covers peak write delays. Removal requires approval, not automatic deletion.",
+   "zh": "回退触发条件覆盖高峰写延迟，删除要批准，不是自动删除。",
+   "role": "Database reliability reviewer",
+   "start": 56.883,
+   "end": 64.348
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I'll keep both paths documented. Query rollback and index removal stay separate.",
+   "zh": "那我记录两条路径，查询回退与索引删除保持分离。",
+   "role": "Orders search owner",
+   "start": 64.348,
+   "end": 71.26
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 9,
+ "scene": "查询开关灰度通过，回顾未来回退及失败构建残留处理。",
+ "dir": "database/0144-回退查询与删除索引分开",
+ "audio": "0144-回退查询与删除索引分开.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "回退确认"
+ ],
+ "duration": 71.26
+}

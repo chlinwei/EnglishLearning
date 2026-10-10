@@ -1,0 +1,135 @@
+{
+ "id": "0272",
+ "part": 7,
+ "stage": "恢复构建",
+ "title": "构建绿了，制品还需证明来源",
+ "premise": "批准一次绕过缓存的隔离构建，保留所有内容与安全校验。",
+ "listeningTask": "区分构建成功、制品可信和发布获批。",
+ "newPhrase": "p547",
+ "phrases": [
+  "p547",
+  "p546",
+  "p327:extra",
+  "p010:extra",
+  "p328:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The controlled build passed its tests. Build provenance names the expected commit.",
+   "zh": "受控构建测试通过。构建来源证明指向预期提交。",
+   "role": "Build runner on-call",
+   "start": 0.0,
+   "end": 6.072
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, we can bypass the cache safely. Just to confirm, signature verified too?",
+   "zh": "好，可以安全绕过缓存。确认一下，签名也验证了？",
+   "role": "Incident coordinator",
+   "start": 6.072,
+   "end": 13.009
+  },
+  {
+   "sp": "Lukas",
+   "en": "Against the approved signer identity, yes. A signature alone doesn't prove release approval.",
+   "zh": "对，核对了批准的签名者身份。但签名本身不证明发布审批。",
+   "role": "Pipeline reliability engineer",
+   "start": 13.009,
+   "end": 20.017
+  },
+  {
+   "sp": "Anika",
+   "en": "The smoke test passes in staging. Production promotion stays separate, right?",
+   "zh": "预发布冒烟测试通过。生产晋级仍然单独审批，对吧？",
+   "role": "Application release owner",
+   "start": 20.017,
+   "end": 26.329
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, record immutable digest and attestations. Secret scanning found no embedded credentials.",
+   "zh": "对，记录不可变摘要和证明。秘密扫描未发现嵌入凭据。",
+   "role": "Artifact security engineer",
+   "start": 26.329,
+   "end": 35.642
+  },
+  {
+   "sp": "Raj",
+   "en": "Diagnostic credentials are revoked after testing. Logs remain restricted and properly redacted.",
+   "zh": "测试后诊断凭据已撤销。日志继续受限并已脱敏。",
+   "role": "Build runner on-call",
+   "start": 35.642,
+   "end": 43.178
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let's keep it under observation now. Mirror latency rose slightly during cold fetches.",
+   "zh": "现在继续观察。冷下载时镜像源延迟略升。",
+   "role": "Pipeline reliability engineer",
+   "start": 43.178,
+   "end": 49.611
+  },
+  {
+   "sp": "Priya",
+   "en": "So, go/no-go for limited queue recovery? I'd keep concurrency at two.",
+   "zh": "那么，有限恢复队列是继续还是停止？我建议并发保持两个。",
+   "role": "Incident coordinator",
+   "start": 49.611,
+   "end": 55.611
+  },
+  {
+   "sp": "Hannah",
+   "en": "Two is within the tested capacity. Stop dispatch if latency exceeds that limit.",
+   "zh": "两个在已测容量内。延迟超出那个限制就停止派发。",
+   "role": "Artifact security engineer",
+   "start": 55.611,
+   "end": 63.316
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, the tested limit is two seconds. We'll check retry eligibility before dispatch.",
+   "zh": "同意，测试限制是两秒。派发前先检查重试资格。",
+   "role": "Application release owner",
+   "start": 63.316,
+   "end": 70.42
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 7,
+ "scene": "批准一次绕过缓存的隔离构建，保留所有内容与安全校验。",
+ "dir": "cicd/0272-构建绿了，制品还需证明来源",
+ "audio": "0272-构建绿了，制品还需证明来源.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "恢复构建"
+ ],
+ "duration": 70.42
+}

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.624
+Anika: The query plan uses the candidate index. Small tenant searches read fewer pages.
+执行计划使用候选索引，小租户查询读取更少数据页。
+
+2
+00:00:06.624 --> 00:00:13.175
+Hannah: What about large tenants and wide dates? The planner may choose scans there.
+大租户和宽日期范围呢？优化器在那种情况下可能选择扫描。
+
+3
+00:00:13.175 --> 00:00:19.727
+Raj: It does for very broad searches. That's reasonable, not automatically a regression.
+宽范围查询确实会扫描，这是合理选择，不自动算回归。
+
+4
+00:00:19.727 --> 00:00:26.830
+Priya: Just to confirm, production-like skew, right? Uniform test rows could flatter results.
+确认一下，数据偏斜类似生产，对吧？均匀测试行可能美化结果。
+
+5
+00:00:26.830 --> 00:00:34.222
+Lukas: Yes, and inserts ran beside reads. Extra index maintenance increased their latency slightly.
+是，插入和读取同时运行，额外索引维护让插入延迟略升。
+
+6
+00:00:34.222 --> 00:00:41.398
+Anika: Our working hypothesis passed sampled queries. Maybe peak concurrency changes that balance.
+当前假设通过抽样查询验证，但峰值并发可能改变收益平衡。
+
+7
+00:00:41.398 --> 00:00:49.533
+Hannah: The smoke test includes empty results. Also test tenant isolation and pagination.
+冒烟测试包含空结果，也测试租户隔离和分页。
+
+8
+00:00:49.533 --> 00:00:55.893
+Priya: So, what's the ETA for load tests? We need them before scheduling production.
+那负载测试预计多久？排生产窗口前必须完成。
+
+9
+00:00:55.893 --> 00:01:03.068
+Lukas: This afternoon, using the approved workload. No heavy explain analysis against production.
+今天下午，使用批准负载，不在线上做重型执行分析。
+
+10
+00:01:03.068 --> 00:01:09.980
+Raj: Okay, concurrent index build remains the proposal. Next we review its locking boundaries.
+好，并发建索引仍是提案，下一步评审锁边界。
+

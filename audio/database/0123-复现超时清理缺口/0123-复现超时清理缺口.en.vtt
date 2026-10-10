@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Anika: The timeout cleanup path misses release. Ten cancellations retained ten borrowed connections.
+
+2
+00:00:06.912 --> 00:00:13.584
+Hannah: Did normal requests release them correctly? We need the successful control too.
+
+3
+00:00:13.584 --> 00:00:20.665
+Raj: Yes, normal requests return them consistently. That confirms this connection leak now.
+
+4
+00:00:20.665 --> 00:00:28.057
+Priya: Okay, test exceptions as well, right? Maybe cancellation isn't the sole broken branch.
+
+5
+00:00:28.057 --> 00:00:34.417
+Lukas: And check open transaction cleanup separately. Returning a dirty connection isn't safe.
+
+6
+00:00:34.417 --> 00:00:40.849
+Anika: I'm on it with structured cleanup. Release follows transaction outcome handling now.
+
+7
+00:00:40.849 --> 00:00:47.833
+Hannah: The smoke test must include timeouts. Healthy requests alone won't cover this.
+
+8
+00:00:47.833 --> 00:00:54.866
+Raj: Query execution time remains a separate issue. Reports still need their filter reviewed.
+
+9
+00:00:54.866 --> 00:01:01.226
+Lukas: Keep that action item after mitigation. Don't bundle an untested query rewrite.
+
+10
+00:01:01.226 --> 00:01:07.970
+Priya: So, stage the cleanup fix first. Reports resume only after separate validation.
+

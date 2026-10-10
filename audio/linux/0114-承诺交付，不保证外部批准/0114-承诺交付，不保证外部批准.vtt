@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.152
+Raj: Okay, no blockers for evidence cleanup now. Tomorrow I'll bring the annotated rotation results.
+好，证据整理现在没有阻塞。明天带来标注好的轮转结果。
+
+2
+00:00:07.152 --> 00:00:13.416
+Lukas: What if review finds a safety issue? Don't promise deployment before we see results.
+评审发现安全问题怎么办？看到结果前不能承诺部署。
+
+3
+00:00:13.416 --> 00:00:20.231
+Raj: Right, I'm committing to evidence, not deployment. Any review issue stays in the report.
+对，我承诺交证据，不承诺部署。评审问题保留在报告里。
+
+4
+00:00:20.231 --> 00:00:28.751
+Hannah: I'll bring completed permission tests tomorrow. Driver coverage remains conditional on image delivery.
+明天我交完成的权限测试，驱动覆盖仍以镜像到位为前提。
+
+5
+00:00:28.751 --> 00:00:34.631
+Anika: I'm on it for the limits report. I'll close the loop on effective process settings.
+上限报告我来做，确认实际进程设置并闭环。
+
+6
+00:00:34.631 --> 00:00:42.143
+Priya: Just to confirm, report blocked items too, right? Silence doesn't mean they've been completed.
+我确认一下，也报告阻塞事项，对吧？不说不代表完成。
+
+7
+00:00:42.143 --> 00:00:49.367
+Lukas: Yes, what's the ETA from the approver? If unknown, say unknown rather than inventing one.
+对，审批方预计什么时候回复？未知就说未知，不能编时间。
+
+8
+00:00:49.367 --> 00:00:57.142
+Raj: Still unknown, I'll ask again around noon. That's a follow-up commitment, not an approval estimate.
+仍未知，我中午左右再问。这是跟进承诺，不是批准时间估计。
+
+9
+00:00:57.142 --> 00:01:05.110
+Hannah: Have I missed anything for tomorrow's check-in? I have tests, image status, and review feedback.
+明天进度检查我漏了什么吗？我记下测试、镜像状态和评审反馈。
+
+10
+00:01:05.110 --> 00:01:12.430
+Priya: So, add Anika's service limit evidence too. Roughly the same short format tomorrow morning.
+再加Anika的服务上限证据，明早仍保持类似简短形式。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0119",
+ "part": 4,
+ "stage": "泄漏假设",
+ "title": "超时后谁归还连接",
+ "premise": "六条慢报表不能解释全部占用；检查请求超时后的连接持有记录。",
+ "listeningTask": "听出泄漏的证据强度和待复现条件。",
+ "newPhrase": "p394",
+ "phrases": [
+  "p394",
+  "p335",
+  "p393:extra",
+  "p010:extra",
+  "p320:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "A connection leak looks possible here. Timed-out requests don't record a return.",
+   "zh": "这里可能存在连接泄漏，超时请求没有记录连接归还。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 6.336
+  },
+  {
+   "sp": "Hannah",
+   "en": "Could that be missing logging instead? We need a controlled cancellation test.",
+   "zh": "会不会只是漏记日志？需要受控的取消测试。",
+   "role": "Application validation engineer",
+   "start": 6.336,
+   "end": 12.624
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, it's a working hypothesis now. Query execution time alone can't prove it.",
+   "zh": "对，现在只是工作假设，查询耗时本身不能证明泄漏。",
+   "role": "Database on-call",
+   "start": 12.624,
+   "end": 19.321
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, isolated testing, right? Don't inject cancellations into live orders.",
+   "zh": "确认一下，在隔离环境测，对吧？别对线上订单注入取消操作。",
+   "role": "Incident coordinator",
+   "start": 19.321,
+   "end": 26.713
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. Save current metrics before mitigation. We can recover without proving everything.",
+   "zh": "同意，缓解前保存指标，不必查清所有问题才恢复服务。",
+   "role": "SRE and traffic controller",
+   "start": 26.713,
+   "end": 33.961
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, I'm on it for reproduction. Same client version, synthetic orders only.",
+   "zh": "好，我负责复现，使用同版本客户端和合成订单。",
+   "role": "Orders application owner",
+   "start": 33.961,
+   "end": 40.753
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll compare successful and cancelled requests. Both must release their borrowed resources.",
+   "zh": "我会对比成功和取消请求，两种都必须释放借用资源。",
+   "role": "Application validation engineer",
+   "start": 40.753,
+   "end": 48.361
+  },
+  {
+   "sp": "Raj",
+   "en": "The root cause is still open. Maybe report delays expose this branch.",
+   "zh": "根因仍未定，可能报表延迟让这个分支更容易被触发。",
+   "role": "Database on-call",
+   "start": 48.361,
+   "end": 54.458
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's plausible, but not confirmed yet. We need separate evidence for each link.",
+   "zh": "合理，但还没确认，因果链的每一环都需要各自证据。",
+   "role": "SRE and traffic controller",
+   "start": 54.458,
+   "end": 60.626
+  },
+  {
+   "sp": "Priya",
+   "en": "So, first contain the request backlog. Then test that link without pressure.",
+   "zh": "那先控制请求积压，再在没有线上压力的条件下验证因果联系。",
+   "role": "Incident coordinator",
+   "start": 60.626,
+   "end": 66.89
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 4,
+ "scene": "六条慢报表不能解释全部占用；检查请求超时后的连接持有记录。",
+ "dir": "database/0119-超时后谁归还连接",
+ "audio": "0119-超时后谁归还连接.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "泄漏假设"
+ ],
+ "duration": 66.89
+}

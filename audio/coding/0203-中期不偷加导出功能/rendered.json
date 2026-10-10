@@ -1,0 +1,135 @@
+{
+ "id": "0203",
+ "part": 8,
+ "stage": "中期检查",
+ "title": "中期不偷加导出功能",
+ "premise": "一周后的中期检查：首个切片已提取，销售新增导出需求，异常样本仍待补齐。",
+ "listeningTask": "听出新增需求如何影响承诺以及团队选择。",
+ "newPhrase": "p478",
+ "phrases": [
+  "p478",
+  "p010",
+  "p473:extra",
+  "p477:extra",
+  "p004:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Would the export request change the commitment? We're halfway through the agreed two-week iteration.",
+   "zh": "导出需求会改变承诺吗？两周迭代已到中途。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 0.0,
+   "end": 6.672
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, it's a new external interface. Adding it now would be scope creep.",
+   "zh": "会，这是新的外部接口，现在加入属于范围膨胀。",
+   "role": "Architecture and implementation reviewer",
+   "start": 6.672,
+   "end": 12.432
+  },
+  {
+   "sp": "Raj",
+   "en": "The extraction works on the approved fixtures. Just to confirm, exports aren't acceptance criteria, right?",
+   "zh": "提取在批准fixture上可用，确认一下，导出不属验收标准，对吧？",
+   "role": "Refactoring implementation engineer",
+   "start": 12.432,
+   "end": 20.688
+  },
+  {
+   "sp": "Anika",
+   "en": "Correct, I'll explain that to the requester. Maybe next iteration after the current review.",
+   "zh": "对，我向需求方说明，可能本轮评审后放下一轮。",
+   "role": "Reporting service and consumer owner",
+   "start": 20.688,
+   "end": 27.48
+  },
+  {
+   "sp": "Hannah",
+   "en": "Two malformed input fixtures are still missing. We can't call the original slice done yet.",
+   "zh": "还缺两个异常输入fixture，原切片不能算完成。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 27.48,
+   "end": 35.016
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, let's park that new export request. What's the ETA for the missing samples?",
+   "zh": "好，新导出先放下，缺失样本预计何时到？",
+   "role": "Iteration facilitator and scope owner",
+   "start": 35.016,
+   "end": 41.856
+  },
+  {
+   "sp": "Lukas",
+   "en": "The consumer owner promised them tomorrow morning. Meanwhile we can review resource cleanup independently.",
+   "zh": "使用方负责人说明早给，目前可独立评审资源释放。",
+   "role": "Architecture and implementation reviewer",
+   "start": 41.856,
+   "end": 49.176
+  },
+  {
+   "sp": "Raj",
+   "en": "I underestimated discovery, not the extraction itself. I'll update remaining work without hiding the delay.",
+   "zh": "低估的是梳理，不是提取本身，我更新剩余工作并明确延期。",
+   "role": "Refactoring implementation engineer",
+   "start": 49.176,
+   "end": 57.264
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the original gates unless explicitly renegotiated. A deadline doesn't automatically waive missing evidence.",
+   "zh": "除非明确重新协商，否则保持原关卡，到期限不自动免证据。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 57.264,
+   "end": 66.624
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll chase the samples this afternoon. We still protect the original consumer contract.",
+   "zh": "同意，下午催样本，仍保护原使用方契约。",
+   "role": "Reporting service and consumer owner",
+   "start": 66.624,
+   "end": 74.04
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 8,
+ "scene": "一周后的中期检查：首个切片已提取，销售新增导出需求，异常样本仍待补齐。",
+ "dir": "coding/0203-中期不偷加导出功能",
+ "audio": "0203-中期不偷加导出功能.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "中期检查"
+ ],
+ "duration": 74.04
+}

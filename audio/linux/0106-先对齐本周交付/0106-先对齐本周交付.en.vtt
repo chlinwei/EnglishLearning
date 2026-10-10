@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.208
+Priya: Okay, our weekly priority is safer automation. Patch evidence, rotation checks, and service limits.
+
+2
+00:00:08.208 --> 00:00:14.952
+Lukas: Does safer mean broader rollout this week? I'd separate review readiness from production expansion.
+
+3
+00:00:14.952 --> 00:00:22.272
+Raj: Agreed, evidence first, then approved pilot expansion. We aren't promising the whole fleet yet.
+
+4
+00:00:22.272 --> 00:00:29.736
+Hannah: I have a hard stop at nine fifteen. Please keep detailed debugging outside this standup.
+
+5
+00:00:29.736 --> 00:00:36.144
+Anika: I've got bandwidth for service validation today. Roughly half my morning is available.
+
+6
+00:00:36.144 --> 00:00:43.872
+Priya: Just to confirm, progress and dependencies first, right? Each action item needs a clear owner.
+
+7
+00:00:43.872 --> 00:00:49.944
+Lukas: Yes, and name anything needing my review. I can reserve an afternoon slot.
+
+8
+00:00:49.944 --> 00:00:56.832
+Raj: I have Friday's pilot evidence ready. The larger rollout still needs application approval.
+
+9
+00:00:56.832 --> 00:01:04.320
+Hannah: I'll report tests already completed on Friday. We won't run experiments during this call.
+
+10
+00:01:04.320 --> 00:01:11.760
+Priya: Dashboard redesign? Let's park that for now. So, start with the patch progress.
+

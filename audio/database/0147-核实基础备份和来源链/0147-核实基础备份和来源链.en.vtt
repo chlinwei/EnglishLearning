@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.312
+Raj: The base backup started at midnight. It completed at twenty past, UTC.
+
+2
+00:00:06.312 --> 00:00:13.272
+Lukas: Which backup identifier did you restore? Filenames alone aren't enough provenance evidence.
+
+3
+00:00:13.272 --> 00:00:20.711
+Anika: Drill backup B seventeen, recorded here. Its backup manifest matches verified file checksums.
+
+4
+00:00:20.711 --> 00:00:27.887
+Priya: Just to confirm, drill source only, right? Not a convenient untracked production copy.
+
+5
+00:00:27.887 --> 00:00:35.327
+Hannah: Yes, the dataset approval is attached. Were encryption and restore access tested?
+
+6
+00:00:35.327 --> 00:00:42.047
+Raj: They were, through the approved key service. We recorded outcomes, not secret values.
+
+7
+00:00:42.047 --> 00:00:47.519
+Lukas: Let me tail the log next. I want the backup identity during startup.
+
+8
+00:00:47.519 --> 00:00:53.446
+Anika: Okay, I'm on it for that link. Maybe the storage view needs refreshing.
+
+9
+00:00:53.446 --> 00:01:01.030
+Hannah: The startup record matches B seventeen. That removes one source mismatch concern.
+
+10
+00:01:01.030 --> 00:01:08.350
+Priya: So, our working hypothesis has verified provenance. Next separate backup time from target.
+

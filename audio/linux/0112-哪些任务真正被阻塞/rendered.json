@@ -1,0 +1,135 @@
+{
+ "id": "0112",
+ "part": 7,
+ "stage": "阻塞依赖",
+ "title": "哪些任务真正被阻塞",
+ "premise": "下午评审已安排，区分生产批准与新测试环境这两项外部依赖。",
+ "listeningTask": "听清被阻塞任务和仍可推进任务的边界。",
+ "newPhrase": "p387",
+ "phrases": [
+  "p387",
+  "p008",
+  "p010",
+  "p336:extra",
+  "p004:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Okay, production expansion is blocked on approval. The application team hasn't confirmed its window.",
+   "zh": "好，生产扩展被审批阻塞，应用团队尚未确认窗口。",
+   "role": "Service configuration owner",
+   "start": 0.0,
+   "end": 7.56
+  },
+  {
+   "sp": "Hannah",
+   "en": "My driver coverage needs another test image. The current image lacks that hardware variant.",
+   "zh": "我的驱动覆盖需要另一个测试镜像，当前镜像没有那种硬件配置。",
+   "role": "Automation test engineer",
+   "start": 7.56,
+   "end": 15.384
+  },
+  {
+   "sp": "Raj",
+   "en": "Those are two different dependencies, then. Existing rotation tests can still run today.",
+   "zh": "那么这是两个不同依赖，已有轮转测试今天仍能运行。",
+   "role": "Linux automation engineer",
+   "start": 15.384,
+   "end": 22.224
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for the image? Is there a named owner for delivery?",
+   "zh": "镜像预计多久到？有没有明确的交付负责人？",
+   "role": "Code reviewer",
+   "start": 22.224,
+   "end": 27.576
+  },
+  {
+   "sp": "Anika",
+   "en": "The platform owner expects it tomorrow morning. That's an estimate, not an approved commitment.",
+   "zh": "平台负责人预计明早提供，这只是估计，不是已批准承诺。",
+   "role": "Service configuration owner",
+   "start": 27.576,
+   "end": 34.608
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no bypassing approval, right? The escalation path is a scheduling request.",
+   "zh": "我确认一下，不绕过审批，对吧？升级路径是请求协调排期。",
+   "role": "Standup facilitator",
+   "start": 34.608,
+   "end": 41.952
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, no borrowed production host for tests. I'll use the approved image when available.",
+   "zh": "对，不借生产主机做测试，获准镜像到位后再用。",
+   "role": "Automation test engineer",
+   "start": 41.952,
+   "end": 49.704
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for the owner follow-up. Roughly noon today for a clearer update.",
+   "zh": "负责人跟进我来做，今天中午左右给更明确更新。",
+   "role": "Linux automation engineer",
+   "start": 49.704,
+   "end": 55.704
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then keep blocked work visibly separate. Don't mark the entire automation project as blocked.",
+   "zh": "那就明确分开受阻工作，不能把整个自动化项目都标为阻塞。",
+   "role": "Code reviewer",
+   "start": 55.704,
+   "end": 62.568
+  },
+  {
+   "sp": "Priya",
+   "en": "So, broad rollout? Let's park that. We can reorder the remaining work now.",
+   "zh": "因此大范围上线先搁置，现在可以重排其余工作。",
+   "role": "Standup facilitator",
+   "start": 62.568,
+   "end": 69.6
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 7,
+ "scene": "下午评审已安排，区分生产批准与新测试环境这两项外部依赖。",
+ "dir": "linux/0112-哪些任务真正被阻塞",
+ "audio": "0112-哪些任务真正被阻塞.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "阻塞依赖"
+ ],
+ "duration": 69.6
+}

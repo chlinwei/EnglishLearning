@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.624
+Priya: Let's refine our definition of done together. Evidence links should be ready before review.
+
+2
+00:00:06.624 --> 00:00:14.855
+Lukas: Include consumer sign-off and rollback rehearsal. Keep implementation completion separate from production deployment.
+
+3
+00:00:14.855 --> 00:00:22.151
+Raj: The carry over tests get priority next sprint. Maybe we'll postpone the second report slice.
+
+4
+00:00:22.151 --> 00:00:30.934
+Anika: Every characterization test needs approved expected behavior. The consumer owner confirms unusual cases, right?
+
+5
+00:00:30.934 --> 00:00:39.646
+Hannah: Yes, and known defects stay labelled. Fixing one requires explicit updated acceptance criteria.
+
+6
+00:00:39.646 --> 00:00:47.614
+Priya: Okay, sample ownership is our first action item. Anika will obtain examples before sprint planning.
+
+7
+00:00:47.614 --> 00:00:55.677
+Lukas: I'll review the release proposal after testing. Scope changes need approval, not retrospective justification.
+
+8
+00:00:55.677 --> 00:01:03.045
+Raj: I'll close the loop on boundary tests. The optional export request remains outside this plan.
+
+9
+00:01:03.045 --> 00:01:11.252
+Hannah: We'll inspect waiting time at next retro. One iteration won't establish a lasting trend.
+
+10
+00:01:11.252 --> 00:01:18.140
+Anika: Agreed, I'll share today's decisions with consumers. They know what changed and what didn't.
+

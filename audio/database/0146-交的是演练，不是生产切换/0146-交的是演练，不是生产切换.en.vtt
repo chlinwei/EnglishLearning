@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Raj: I'll hand over the restore drill. The backup manifest is in our ticket.
+
+2
+00:00:05.616 --> 00:00:11.497
+Lukas: Is this connected to production anywhere? I need the environment boundary first.
+
+3
+00:00:11.497 --> 00:00:18.409
+Priya: No, a separate test network throughout. Just to confirm, no live cutover, right?
+
+4
+00:00:18.409 --> 00:00:25.418
+Anika: Correct, synthetic orders and test credentials. Outbound payment calls are blocked too.
+
+5
+00:00:25.418 --> 00:00:33.338
+Hannah: Good. Is data validation finished yet? Starting the database isn't full acceptance.
+
+6
+00:00:33.338 --> 00:00:39.602
+Raj: Only the initial checks have passed. Full reconciliation still needs your shift.
+
+7
+00:00:39.602 --> 00:00:45.963
+Lukas: Then show the escalation path clearly. I'll take ownership after reviewing evidence.
+
+8
+00:00:45.963 --> 00:00:51.939
+Priya: Okay, what's the ETA for review? About ten minutes for this handoff.
+
+9
+00:00:51.939 --> 00:00:58.012
+Hannah: That works if the evidence opens. Have I missed anything about access?
+
+10
+00:00:58.012 --> 00:01:04.780
+Anika: So, access is through approved accounts. No production secrets copied into notes.
+

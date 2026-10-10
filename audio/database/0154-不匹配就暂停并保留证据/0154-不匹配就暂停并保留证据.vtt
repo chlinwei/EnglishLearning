@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Raj: Recovery escalation starts with me tonight. Page the backup if I'm unreachable.
+今晚恢复异常先找我，联系不上就呼叫后备。
+
+2
+00:00:06.480 --> 00:00:13.272
+Lukas: What should halt the validation work? Data mismatch, missing logs, or unsafe access?
+什么情况暂停验证？数据不匹配、缺日志还是不安全访问？
+
+3
+00:00:13.272 --> 00:00:19.633
+Anika: Any of those means stop and preserve evidence. No manual row corrections to pass.
+任何一种都停止并保留证据，不能手工改行让检查通过。
+
+4
+00:00:19.633 --> 00:00:26.905
+Priya: Just to confirm, no production promotion, right? A failed drill stays isolated throughout.
+确认一下，不提升成生产，对吧？失败演练全程保持隔离。
+
+5
+00:00:26.905 --> 00:00:34.561
+Hannah: And archived WAL gaps need source review. Don't invent a newer target instead.
+归档日志缺口需要复查来源，不能擅自换成更新恢复点。
+
+6
+00:00:34.561 --> 00:00:42.049
+Raj: The escalation path includes backup storage owner. I'll attach their approved contact entry.
+升级路径也包括备份存储负责人，我附上批准联系人记录。
+
+7
+00:00:42.049 --> 00:00:48.649
+Lukas: What's the ETA if reconciliation stalls? We need a reporting deadline as well.
+对账卡住时预计何时更新？还需要报告期限。
+
+8
+00:00:48.649 --> 00:00:54.938
+Priya: Update at four ten even if unfinished. Maybe sooner for any data mismatch.
+即使未完成也四点十分更新，数据不匹配则更早。
+
+9
+00:00:54.938 --> 00:01:01.922
+Hannah: The time target is already missed. That needs review, not unsafe shortcuts.
+耗时目标已未达标，需要评审，不是走不安全捷径。
+
+10
+00:01:01.922 --> 00:01:09.170
+Anika: So, preserve logs and exact job outputs. We'll investigate before restarting the drill.
+那保留日志和准确任务输出，重做演练前先调查。
+

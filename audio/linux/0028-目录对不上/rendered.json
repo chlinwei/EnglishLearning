@@ -1,0 +1,135 @@
+{
+ "id": "0028",
+ "part": 3,
+ "stage": "定位",
+ "title": "目录对不上：空间去了哪里",
+ "premise": "单台 worker 报空间不足，inode 正常，队列持续积压；开始核对磁盘占用。",
+ "listeningTask": "听出 df 与 du 的差额只是线索，不是已经确认的根因。",
+ "newPhrase": "p303",
+ "phrases": [
+  "p303",
+  "p010",
+  "p014",
+  "p011:extra",
+  "p008:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The directory totals don't match. D-f shows much more than d-u.",
+   "zh": "目录统计对不上。df 显示的已用空间明显比 du 多。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 5.664
+  },
+  {
+   "sp": "Lukas",
+   "en": "Same filesystem? Otherwise that comparison could send us the wrong way.",
+   "zh": "统计的是同一个文件系统吗？否则这个对比可能会误导我们。",
+   "role": "SRE",
+   "start": 5.664,
+   "end": 11.16
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, slash var only. Same mount. I stayed on that filesystem.",
+   "zh": "对，只查 /var，是同一个挂载点。我没有跨文件系统统计。",
+   "role": "Linux on-call",
+   "start": 11.16,
+   "end": 17.903
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, this could be deleted but still open? Not proven yet, right?",
+   "zh": "我确认一下，可能是文件已删除，但句柄还开着？现在还没证实，对吧？",
+   "role": "Incident lead",
+   "start": 17.903,
+   "end": 24.479
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. The filenames are gone, but a process might still hold the space?",
+   "zh": "我复述一下：文件名已经没了，但某个进程可能仍占着空间？",
+   "role": "Operations engineer",
+   "start": 24.479,
+   "end": 31.415
+  },
+  {
+   "sp": "Anika",
+   "en": "That fits yesterday's cleanup. Someone removed a large log. I'll check the ticket.",
+   "zh": "这和昨天的清理操作有点吻合。有人删过一个大日志，我去查工单。",
+   "role": "Application owner",
+   "start": 31.415,
+   "end": 38.591
+  },
+  {
+   "sp": "Lukas",
+   "en": "Could be. Let's look at the open files before blaming that cleanup.",
+   "zh": "有可能。先查打开的文件，别急着认定是昨天清理造成的。",
+   "role": "SRE",
+   "start": 38.591,
+   "end": 43.559
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. What's the ETA on the ticket, Anika?",
+   "zh": "我在查。Anika，工单预计多久能找到？",
+   "role": "Linux on-call",
+   "start": 43.559,
+   "end": 48.19
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll record both measurements. We'll need them when we review this.",
+   "zh": "我会把两组测量结果记下来，复盘时需要。",
+   "role": "Operations engineer",
+   "start": 48.19,
+   "end": 53.638
+  },
+  {
+   "sp": "Anika",
+   "en": "A minute, probably. Who's to blame? Let's park that. We need the process and the file first.",
+   "zh": "大概一分钟。谁的责任？先不讨论这个，得先找出具体进程和文件。",
+   "role": "Application owner",
+   "start": 53.638,
+   "end": 62.35
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 3,
+ "scene": "单台 worker 报空间不足，inode 正常，队列持续积压；开始核对磁盘占用。",
+ "dir": "linux/0028-目录对不上",
+ "audio": "0028-目录对不上.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "定位"
+ ],
+ "duration": 62.35
+}

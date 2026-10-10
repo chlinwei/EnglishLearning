@@ -1,0 +1,135 @@
+{
+ "id": "0224",
+ "part": 9,
+ "stage": "稳定观察",
+ "title": "旧主不能直接回来",
+ "premise": "业务恢复基线，旧主仍关机锁定；准备观察与后续重建。",
+ "listeningTask": "听懂新写入后不能把旧主直接作为回退目标。",
+ "newPhrase": "p499",
+ "phrases": [
+  "p499",
+  "p110",
+  "p111:extra",
+  "p498:extra",
+  "p331:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "We're back to baseline. Queue age recovered.",
+   "zh": "恢复基线了，队列等待时间也正常了。",
+   "role": "Order application owner",
+   "start": 0.0,
+   "end": 4.296
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can the old host rejoin as a replica?",
+   "zh": "旧主机可以作为副本重新加入吗？",
+   "role": "Cluster safety engineer",
+   "start": 4.296,
+   "end": 7.439
+  },
+  {
+   "sp": "Raj",
+   "en": "After rebuilding from the authoritative primary only.",
+   "zh": "只能在从权威新主重建之后加入。",
+   "role": "Database on-call",
+   "start": 7.439,
+   "end": 11.207
+  },
+  {
+   "sp": "Hannah",
+   "en": "Preserve its divergent records before rebuilding anything.",
+   "zh": "重建任何内容前，先保留它的分叉记录。",
+   "role": "Data validation engineer",
+   "start": 11.207,
+   "end": 16.055
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no immediate failback, right?",
+   "zh": "确认一下，不立即切回，对吧？",
+   "role": "Incident coordinator",
+   "start": 16.055,
+   "end": 20.062
+  },
+  {
+   "sp": "Raj",
+   "en": "Correct. New writes make that unsafe now.",
+   "zh": "对，新写入使直接切回已不安全。",
+   "role": "Database on-call",
+   "start": 20.062,
+   "end": 24.166
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let's keep it under observation. Include reconciliation failures.",
+   "zh": "继续观察，也要看核对失败。",
+   "role": "Data validation engineer",
+   "start": 24.166,
+   "end": 30.429
+  },
+  {
+   "sp": "Anika",
+   "en": "Uncertain commits are resolved, except two disputed requests.",
+   "zh": "未知提交已处理完，只剩两条有争议的请求。",
+   "role": "Order application owner",
+   "start": 30.429,
+   "end": 35.085
+  },
+  {
+   "sp": "Lukas",
+   "en": "Those need business review, probably not automatic replay.",
+   "zh": "那些需要业务核查，大概不适合自动重放。",
+   "role": "Cluster safety engineer",
+   "start": 35.085,
+   "end": 39.572
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll hand over those cases with named owners.",
+   "zh": "我们会把这些案例交给明确的负责人。",
+   "role": "Incident coordinator",
+   "start": 39.572,
+   "end": 42.98
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 9,
+ "scene": "业务恢复基线，旧主仍关机锁定；准备观察与后续重建。",
+ "dir": "ha/0224-旧主不能直接回来",
+ "audio": "0224-旧主不能直接回来.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "稳定观察"
+ ],
+ "duration": 42.98
+}

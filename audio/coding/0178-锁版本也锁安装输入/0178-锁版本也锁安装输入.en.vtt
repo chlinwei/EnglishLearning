@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.608
+Raj: We've generated hash-locked requirements for production. Direct and transitive versions are both fixed.
+
+2
+00:00:07.608 --> 00:00:14.401
+Lukas: Which interpreter and platform produced that lock? Keep those inputs under version control too.
+
+3
+00:00:14.401 --> 00:00:21.937
+Anika: Python three twelve on our Linux image. Just to confirm, other platforms need validation, right?
+
+4
+00:00:21.937 --> 00:00:29.594
+Priya: Okay, the dependency resolver output is attached. No hand-edited version exceptions in this approval.
+
+5
+00:00:29.594 --> 00:00:38.930
+Hannah: Check every artifact's hash during installation. Hashes verify identity, not package security alone.
+
+6
+00:00:38.930 --> 00:00:45.386
+Raj: I'm on it with the approved package mirror. Maybe we'll need to retain older wheels.
+
+7
+00:00:45.386 --> 00:00:52.035
+Lukas: Retain them for reproducible rollback builds. Pin the base image and installer version too.
+
+8
+00:00:52.035 --> 00:00:59.595
+Anika: The lock becomes part of managed configuration. I'll stop production installs from resolving afresh.
+
+9
+00:00:59.595 --> 00:01:08.380
+Hannah: Build inputs also include compiler toolchains. Prefer approved wheels where the platform supports them.
+
+10
+00:01:08.380 --> 00:01:15.580
+Priya: Make retaining inputs an explicit action item. The lock alone isn't our reproducibility claim.
+

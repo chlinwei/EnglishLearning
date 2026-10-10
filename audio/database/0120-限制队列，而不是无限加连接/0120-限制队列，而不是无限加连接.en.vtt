@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.240
+Lukas: Use a bounded request queue here. Reject excess work before borrowing connections.
+
+2
+00:00:06.240 --> 00:00:12.288
+Priya: Okay, shed load from reports first. Keep order writes within safe limits.
+
+3
+00:00:12.288 --> 00:00:17.688
+Anika: That should buy us time today. But it won't reclaim a connection leak.
+
+4
+00:00:17.688 --> 00:00:25.872
+Hannah: Correct. Tell clients to back off. A rejection shouldn't trigger endless retries.
+
+5
+00:00:25.872 --> 00:00:32.040
+Raj: Just to confirm, reports pause, right? Existing writes get time to finish.
+
+6
+00:00:32.040 --> 00:00:38.448
+Lukas: Yes, through the approved feature control. Don't kill every database session instead.
+
+7
+00:00:38.448 --> 00:00:44.880
+Priya: What's our rollback trigger for limits? Maybe legitimate orders start failing faster.
+
+8
+00:00:44.880 --> 00:00:52.488
+Hannah: Compare accepted writes and rejection counts. Stop tightening if useful throughput drops.
+
+9
+00:00:52.488 --> 00:00:59.160
+Anika: So, apply the limit on one worker. I'll verify idempotent retries with support.
+
+10
+00:00:59.160 --> 00:01:05.400
+Raj: I'll watch database load during that. Then we can safely rotate workers.
+

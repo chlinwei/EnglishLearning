@@ -1,0 +1,135 @@
+{
+ "id": "0155",
+ "part": 10,
+ "stage": "交接确认",
+ "title": "接收责任，不提前签验收",
+ "premise": "来源、恢复点、校验覆盖及升级条件明确，接班方复述并接责。",
+ "listeningTask": "区分交接接收和恢复演练最终验收。",
+ "newPhrase": "p430",
+ "phrases": [
+  "p430",
+  "p427",
+  "p425:extra",
+  "p340:extra",
+  "p012:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Handoff acceptance means I own next steps. It doesn't mean the drill passed.",
+   "zh": "接收交接代表我负责下一步，不代表演练通过。",
+   "role": "Incoming database on-call",
+   "start": 0.0,
+   "end": 5.712
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to recap, source and point verified. Pending validation still blocks final acceptance.",
+   "zh": "小结一下，来源和恢复点已核验，待验证仍阻止最终验收。",
+   "role": "Recovery drill coordinator",
+   "start": 5.712,
+   "end": 13.008
+  },
+  {
+   "sp": "Raj",
+   "en": "Correct, sampled reconciliation checks passed already. Three large tenants remain with Hannah.",
+   "zh": "对，抽样对账已通过，三个大租户由Hannah继续。",
+   "role": "Outgoing database on-call",
+   "start": 13.008,
+   "end": 20.256
+  },
+  {
+   "sp": "Anika",
+   "en": "And Lukas owns clone retry testing, right? The unchanged reference keeps its target.",
+   "zh": "Lukas负责克隆重试测试，对吧？不变的参考库保持目标点。",
+   "role": "Outgoing application validation owner",
+   "start": 20.256,
+   "end": 27.048
+  },
+  {
+   "sp": "Hannah",
+   "en": "I've got it from here for reconciliation. I'll report failures without editing results.",
+   "zh": "对账我接下了，失败会如实报告，不修改结果。",
+   "role": "Incoming reconciliation engineer",
+   "start": 27.048,
+   "end": 34.392
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, I'm available through four thirty. About twenty minutes remains our estimate.",
+   "zh": "好，我四点半前都可联系，估计仍需二十分钟左右。",
+   "role": "Outgoing database on-call",
+   "start": 34.392,
+   "end": 41.04
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll report at four ten either way. Final elapsed time stays open until acceptance.",
+   "zh": "无论结果我四点十分更新，最终耗时到验收才确定。",
+   "role": "Incoming database on-call",
+   "start": 41.04,
+   "end": 47.592
+  },
+  {
+   "sp": "Priya",
+   "en": "So, no claim of thirty-minute recovery. We'll review the timing gap tomorrow.",
+   "zh": "那不宣称三十分钟恢复达标，明天评审时间差距。",
+   "role": "Recovery drill coordinator",
+   "start": 47.592,
+   "end": 53.664
+  },
+  {
+   "sp": "Hannah",
+   "en": "Evidence links and access work now. I accept the remaining validation responsibility.",
+   "zh": "证据链接和权限现在都可用，我接收剩余验证责任。",
+   "role": "Incoming reconciliation engineer",
+   "start": 53.664,
+   "end": 61.2
+  },
+  {
+   "sp": "Anika",
+   "en": "We'll close the loop after your results. Keep the drill separate from production.",
+   "zh": "你们结果出来后闭环，演练继续与生产分开。",
+   "role": "Outgoing application validation owner",
+   "start": 61.2,
+   "end": 67.08
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 10,
+ "scene": "来源、恢复点、校验覆盖及升级条件明确，接班方复述并接责。",
+ "dir": "database/0155-接收责任，不提前签验收",
+ "audio": "0155-接收责任，不提前签验收.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "交接确认"
+ ],
+ "duration": 67.08
+}

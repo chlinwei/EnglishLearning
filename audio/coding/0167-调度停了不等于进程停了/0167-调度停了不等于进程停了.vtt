@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Okay, disable the scheduler under emergency approval. Stop this run and queued retries too.
+好，按应急授权停调度，也停止当前执行和排队重试。
+
+2
+00:00:07.344 --> 00:00:14.400
+Lukas: Disabling scheduling won't stop existing child processes. I'll check their process group directly.
+停调度不会停已有子进程，我直接检查进程组。
+
+3
+00:00:14.400 --> 00:00:20.879
+Raj: I'm on it for queued retries. Just to confirm, no automatic restart, right?
+排队重试我来停。确认一下，不自动重启，对吧？
+
+4
+00:00:20.879 --> 00:00:27.647
+Hannah: Record the stop command and timestamp. We'll compare them with deletion events.
+记录停止命令和时间，之后与删除事件对照。
+
+5
+00:00:27.647 --> 00:00:34.871
+Anika: I'll suspend cleanup's scoped storage credentials. Reads use a separate identity and continue.
+我暂停清理任务专用存储凭据；读取用独立身份，继续提供服务。
+
+6
+00:00:34.871 --> 00:00:40.727
+Raj: That should buy us time safely. What's the ETA for process confirmation?
+这样能安全争取时间，确认进程停止预计多久？
+
+7
+00:00:40.727 --> 00:00:46.559
+Lukas: The parent and children have exited. No delete requests remain in flight.
+父子进程均已退出，没有仍在执行的删除请求。
+
+8
+00:00:46.559 --> 00:00:52.870
+Priya: Good, keep an eye on audit events. About five minutes of observation first.
+好，继续关注审计事件，先观察大约五分钟。
+
+9
+00:00:52.870 --> 00:01:00.886
+Hannah: No new deletion events since the stop. That supports containment, not complete recovery.
+停止后没有新增删除事件，这支持已控制扩散，不代表恢复完成。
+
+10
+00:01:00.886 --> 00:01:07.510
+Anika: Right, affected reads are still missing data. We'll scope those before any restore.
+是，受影响读取仍缺数据，恢复前先圈定它们。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Raj: Okay, the rotation change is up for review. I've attached Friday's logs and test results.
+好，轮转变更等待评审，已附周五日志和测试结果。
+
+2
+00:00:07.248 --> 00:00:13.800
+Lukas: Do you need approval or initial feedback? Missing permission tests may block final approval.
+你需要批准还是初步反馈？缺权限测试可能阻止最终批准。
+
+3
+00:00:13.800 --> 00:00:20.568
+Raj: Initial feedback first, then approval after tests. Do you have bandwidth this afternoon?
+先初步反馈，测试后再批准。你今天下午有精力吗？
+
+4
+00:00:20.568 --> 00:00:27.888
+Hannah: I'll link new tests when they finish. Don't describe pending coverage as already passing.
+新测试完成后我会附链接，不能把待补覆盖说成已通过。
+
+5
+00:00:27.888 --> 00:00:35.208
+Anika: My service limit change stays separate. Different rollback paths deserve separate review requests.
+我的服务上限变更单独保留，不同回退路径应分开提评审。
+
+6
+00:00:35.208 --> 00:00:41.928
+Priya: Just to confirm, not one combined approval, right? Who's picking this up for review?
+我确认一下，不合并批准，对吧？谁来接评审？
+
+7
+00:00:41.928 --> 00:00:47.784
+Lukas: I'm on it at about two today. I'll start with rotation and its safety checks.
+我今天大约两点来做，先看轮转及安全检查。
+
+8
+00:00:47.784 --> 00:00:55.440
+Raj: Great, expected changes are listed explicitly. The live service rollout is outside this request.
+好，已明确列出预期变化，真实服务上线不在这次请求内。
+
+9
+00:00:55.440 --> 00:01:02.280
+Hannah: Can we take it offline for code details? We still need the dependency updates here.
+代码细节会后单独聊好吗？这里还要更新依赖。
+
+10
+00:01:02.280 --> 00:01:09.360
+Priya: So, yes, pair after the standup. For now, review ownership and scope are clear.
+可以，站会后结对讨论。目前评审负责人和范围已经明确。
+

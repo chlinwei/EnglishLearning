@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.296
+Anika: We're back to baseline. Queue age recovered.
+
+2
+00:00:04.296 --> 00:00:07.439
+Lukas: Can the old host rejoin as a replica?
+
+3
+00:00:07.439 --> 00:00:11.207
+Raj: After rebuilding from the authoritative primary only.
+
+4
+00:00:11.207 --> 00:00:16.055
+Hannah: Preserve its divergent records before rebuilding anything.
+
+5
+00:00:16.055 --> 00:00:20.062
+Priya: Just to confirm, no immediate failback, right?
+
+6
+00:00:20.062 --> 00:00:24.166
+Raj: Correct. New writes make that unsafe now.
+
+7
+00:00:24.166 --> 00:00:30.429
+Hannah: Let's keep it under observation. Include reconciliation failures.
+
+8
+00:00:30.429 --> 00:00:35.085
+Anika: Uncertain commits are resolved, except two disputed requests.
+
+9
+00:00:35.085 --> 00:00:39.572
+Lukas: Those need business review, probably not automatic replay.
+
+10
+00:00:39.572 --> 00:00:42.980
+Priya: We'll hand over those cases with named owners.
+

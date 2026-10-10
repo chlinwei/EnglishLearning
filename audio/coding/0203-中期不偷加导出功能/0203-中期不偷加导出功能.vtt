@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.672
+Priya: Would the export request change the commitment? We're halfway through the agreed two-week iteration.
+导出需求会改变承诺吗？两周迭代已到中途。
+
+2
+00:00:06.672 --> 00:00:12.432
+Lukas: Yes, it's a new external interface. Adding it now would be scope creep.
+会，这是新的外部接口，现在加入属于范围膨胀。
+
+3
+00:00:12.432 --> 00:00:20.688
+Raj: The extraction works on the approved fixtures. Just to confirm, exports aren't acceptance criteria, right?
+提取在批准fixture上可用，确认一下，导出不属验收标准，对吧？
+
+4
+00:00:20.688 --> 00:00:27.480
+Anika: Correct, I'll explain that to the requester. Maybe next iteration after the current review.
+对，我向需求方说明，可能本轮评审后放下一轮。
+
+5
+00:00:27.480 --> 00:00:35.016
+Hannah: Two malformed input fixtures are still missing. We can't call the original slice done yet.
+还缺两个异常输入fixture，原切片不能算完成。
+
+6
+00:00:35.016 --> 00:00:41.856
+Priya: Okay, let's park that new export request. What's the ETA for the missing samples?
+好，新导出先放下，缺失样本预计何时到？
+
+7
+00:00:41.856 --> 00:00:49.176
+Lukas: The consumer owner promised them tomorrow morning. Meanwhile we can review resource cleanup independently.
+使用方负责人说明早给，目前可独立评审资源释放。
+
+8
+00:00:49.176 --> 00:00:57.264
+Raj: I underestimated discovery, not the extraction itself. I'll update remaining work without hiding the delay.
+低估的是梳理，不是提取本身，我更新剩余工作并明确延期。
+
+9
+00:00:57.264 --> 00:01:06.624
+Hannah: Keep the original gates unless explicitly renegotiated. A deadline doesn't automatically waive missing evidence.
+除非明确重新协商，否则保持原关卡，到期限不自动免证据。
+
+10
+00:01:06.624 --> 00:01:14.040
+Anika: Agreed, I'll chase the samples this afternoon. We still protect the original consumer contract.
+同意，下午催样本，仍保护原使用方契约。
+

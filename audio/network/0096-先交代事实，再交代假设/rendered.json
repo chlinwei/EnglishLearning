@@ -1,0 +1,135 @@
+{
+ "id": "0096",
+ "part": 1,
+ "stage": "抖动背景",
+ "title": "先交代事实，再交代假设",
+ "premise": "20:30日夜班交接开始，主专线异常仍未确认原因。",
+ "listeningTask": "听清受影响路径、当前措施和不能宣称已经修复的原因。",
+ "newPhrase": "p371",
+ "phrases": [
+  "p371",
+  "p331",
+  "p010",
+  "p320:extra",
+  "p334:extra",
+  "p337:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, we'll hand over the private circuit. Packet loss started around six this evening.",
+   "zh": "好，现在交接这条专线。丢包大约今晚六点开始。",
+   "role": "Outgoing shift coordinator",
+   "start": 0.0,
+   "end": 6.576
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which applications use the affected path? I'm the incoming primary on-call tonight.",
+   "zh": "哪些应用使用受影响路径？今晚我接任主值班。",
+   "role": "Incoming primary on-call",
+   "start": 6.576,
+   "end": 13.032
+  },
+  {
+   "sp": "Anika",
+   "en": "Checkout inventory queries cross that circuit. Payments use another path and look normal.",
+   "zh": "结账的库存查询走这条专线，支付走另一条路径，看起来正常。",
+   "role": "Inventory integration owner",
+   "start": 13.032,
+   "end": 19.775
+  },
+  {
+   "sp": "Hannah",
+   "en": "Have you confirmed a carrier fault? Similar symptoms could come from our equipment.",
+   "zh": "确认是运营商故障了吗？我们的设备也可能出现类似症状。",
+   "role": "Incoming network responder",
+   "start": 19.775,
+   "end": 26.471
+  },
+  {
+   "sp": "Raj",
+   "en": "No, the root cause is still open. Local interface checks found no obvious errors.",
+   "zh": "没有，根因仍未确定。本地接口检查没有发现明显错误。",
+   "role": "Outgoing network on-call",
+   "start": 26.471,
+   "end": 33.479
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no repair claim, right? A temporary workaround is active for selected clients.",
+   "zh": "我确认一下，不声称已经修复，对吧？目前对选定客户端启用临时绕行。",
+   "role": "Outgoing shift coordinator",
+   "start": 33.479,
+   "end": 41.159
+  },
+  {
+   "sp": "Lukas",
+   "en": "How broad is that workaround currently? I need the exact client scope.",
+   "zh": "目前绕行范围多大？我需要准确的客户端范围。",
+   "role": "Incoming primary on-call",
+   "start": 41.159,
+   "end": 46.727
+  },
+  {
+   "sp": "Anika",
+   "en": "Two inventory workers, roughly ten percent of calls. Their configuration versions are in the record.",
+   "zh": "两个库存工作进程，大约百分之十调用。记录里有它们的配置版本。",
+   "role": "Inventory integration owner",
+   "start": 46.727,
+   "end": 54.238
+  },
+  {
+   "sp": "Hannah",
+   "en": "Good, don't expand during the handoff itself. Show us the evidence before changing scope.",
+   "zh": "好，交接过程中先不扩大范围。改变范围前先看证据。",
+   "role": "Incoming network responder",
+   "start": 54.238,
+   "end": 61.99
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed, scope stays fixed during this call. So, let's review the measured loss first.",
+   "zh": "同意，这次会议期间范围不变。先看实测丢包。",
+   "role": "Outgoing network on-call",
+   "start": 61.99,
+   "end": 69.07
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 1,
+ "scene": "20:30日夜班交接开始，主专线异常仍未确认原因。",
+ "dir": "network/0096-先交代事实，再交代假设",
+ "audio": "0096-先交代事实，再交代假设.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "抖动背景"
+ ],
+ "duration": 69.07
+}

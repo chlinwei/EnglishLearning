@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.984
+Anika: Okay, the file descriptor limit pilot passed. Two staging workers now have higher limits.
+好，文件描述符上限试点通过，两台预生产工作进程上限已提高。
+
+2
+00:00:06.984 --> 00:00:13.920
+Lukas: Did you change the shell ulimit only? Systemd services inherit their own configured limits.
+只修改了Shell的ulimit吗？systemd服务使用自己的配置上限。
+
+3
+00:00:13.920 --> 00:00:21.383
+Anika: No, managed configuration sets the service limit. We checked the running process after restart.
+不是，受管配置设置服务上限，重启后检查了运行进程。
+
+4
+00:00:21.383 --> 00:00:28.871
+Hannah: Was the kernel-wide file table checked too? A higher per-process cap isn't free capacity.
+也检查了内核级文件表吗？提高单进程限制不意味着新增免费容量。
+
+5
+00:00:28.871 --> 00:00:35.927
+Raj: Yes, and memory headroom stayed healthy. The test also bounded connection counts explicitly.
+是，内存余量正常，测试也明确限制连接数量。
+
+6
+00:00:35.927 --> 00:00:43.343
+Priya: Just to confirm, production unchanged, right? Increasing limits doesn't fix a descriptor leak.
+我确认一下，生产没变，对吧？提高上限不能修复描述符泄漏。
+
+7
+00:00:43.343 --> 00:00:51.071
+Lukas: Correct, document the rollback trigger separately. Restore the saved service configuration if checks fail.
+对，单独写明回退条件，检查失败就恢复保存的服务配置。
+
+8
+00:00:51.071 --> 00:00:57.430
+Anika: And a restart needs its approved window. Roughly five minutes per worker in staging.
+重启还要有批准的窗口，预生产每个工作进程大约五分钟。
+
+9
+00:00:57.430 --> 00:01:05.158
+Hannah: Don't copy that timing straight into production. Workload and draining behavior may differ there.
+不要直接把这个时间用于生产，负载和排空行为可能不同。
+
+10
+00:01:05.158 --> 00:01:12.790
+Priya: So, production sizing? Let's park that. Today we finish the pilot evidence first.
+因此生产规模配置先搁置，今天先完成试点证据。
+

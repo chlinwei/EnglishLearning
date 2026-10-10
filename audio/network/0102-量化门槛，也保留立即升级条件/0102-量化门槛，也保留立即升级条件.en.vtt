@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Okay, the escalation threshold is written here. Packet loss above two percent needs attention.
+
+2
+00:00:07.344 --> 00:00:13.201
+Lukas: Over what window, and how many times? A single probe failure isn't enough.
+
+3
+00:00:13.201 --> 00:00:21.649
+Raj: Two consecutive five-minute windows on approved probes. Corroborating application timeouts trigger a coordinated review.
+
+4
+00:00:21.649 --> 00:00:28.850
+Hannah: What bypasses that wait for urgent impact? Complete loss shouldn't wait ten minutes.
+
+5
+00:00:28.850 --> 00:00:36.434
+Anika: Complete reachability loss or any correctness failure. Page the coordinator immediately in either case.
+
+6
+00:00:36.434 --> 00:00:43.922
+Priya: Just to confirm, no automatic reroute, right? The escalation path starts a human decision.
+
+7
+00:00:43.922 --> 00:00:51.579
+Lukas: Agreed, I'll assess capacity before proposing expansion. What's the ETA if nobody responds?
+
+8
+00:00:51.579 --> 00:00:58.635
+Raj: After five minutes, page the backup. The roster includes a separate coordinator contact.
+
+9
+00:00:58.635 --> 00:01:06.292
+Hannah: Keep the current safe scope while escalating. Silence doesn't authorize a wider reroute.
+
+10
+00:01:06.292 --> 00:01:14.020
+Priya: So, that's roughly the response ladder. For correctness risks, escalate immediately without waiting.
+

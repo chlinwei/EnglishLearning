@@ -1,0 +1,135 @@
+{
+ "id": "0234",
+ "part": 9,
+ "stage": "回退演练",
+ "title": "撤新策略，不撤保护",
+ "premise": "高峰测试通过，需要验证策略回退和限流组件故障行为。",
+ "listeningTask": "听懂回退不等于全量放行。",
+ "newPhrase": "p509",
+ "phrases": [
+  "p509",
+  "p324",
+  "p107",
+  "p334:extra",
+  "p010:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The fallback policy retains emergency admission control.",
+   "zh": "回退策略保留应急准入控制。",
+   "role": "Gateway engineer",
+   "start": 0.0,
+   "end": 4.2
+  },
+  {
+   "sp": "Lukas",
+   "en": "What happens if the shared limiter disappears?",
+   "zh": "共享限流组件不可用时怎么办？",
+   "role": "Capacity reviewer",
+   "start": 4.2,
+   "end": 7.609
+  },
+  {
+   "sp": "Raj",
+   "en": "Local bounded limits apply. No unlimited fail-open.",
+   "zh": "启用本地有界限制，不无限制放行。",
+   "role": "Gateway engineer",
+   "start": 7.609,
+   "end": 12.361
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the rollback trigger for legitimate checkout failures?",
+   "zh": "合法结账请求失败的回退触发条件是什么？",
+   "role": "Validation engineer",
+   "start": 12.361,
+   "end": 16.778
+  },
+  {
+   "sp": "Anika",
+   "en": "A one-point completion drop against matched controls.",
+   "zh": "与匹配对照相比，完成率下降一个百分点。",
+   "role": "Checkout product engineer",
+   "start": 16.778,
+   "end": 20.762
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, sustained five minutes, right?",
+   "zh": "确认一下，持续五分钟，对吧？",
+   "role": "Change coordinator",
+   "start": 20.762,
+   "end": 24.698
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, but correctness failures stop enforcement immediately.",
+   "zh": "是的，但正确性失败要立即停止新策略执行。",
+   "role": "Validation engineer",
+   "start": 24.698,
+   "end": 30.051
+  },
+  {
+   "sp": "Raj",
+   "en": "Let's roll back the config. Rehearsal completed.",
+   "zh": "回退配置。演练完成了。",
+   "role": "Gateway engineer",
+   "start": 30.051,
+   "end": 34.491
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe this temporary workaround needs a time limit.",
+   "zh": "这个临时缓解也许需要设定有效期限。",
+   "role": "Capacity reviewer",
+   "start": 34.491,
+   "end": 38.284
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. The smoke test confirms old protection remains.",
+   "zh": "同意。关键功能快速验证确认旧保护仍在。",
+   "role": "Change coordinator",
+   "start": 38.284,
+   "end": 43.3
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 9,
+ "scene": "高峰测试通过，需要验证策略回退和限流组件故障行为。",
+ "dir": "ha/0234-撤新策略，不撤保护",
+ "audio": "0234-撤新策略，不撤保护.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "回退演练"
+ ],
+ "duration": 43.3
+}

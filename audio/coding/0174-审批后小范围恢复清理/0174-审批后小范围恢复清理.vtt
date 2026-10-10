@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Priya: Approve a deletion budget of ten objects. One tenant only, with scoped credentials restored.
+批准最多删除十个对象，只一个租户，恢复限定凭据。
+
+2
+00:00:07.344 --> 00:00:13.248
+Lukas: Keep the stop switch within reach. An unexpected path is a rollback trigger.
+保留可立即使用的停止开关，意外路径就是回退触发条件。
+
+3
+00:00:13.248 --> 00:00:20.807
+Raj: Just to confirm, stop means disable the scheduler, right? And terminate the active process group.
+确认一下，停止包括禁用调度，对吧？还要终止活动进程组。
+
+4
+00:00:20.807 --> 00:00:28.487
+Anika: Yes, revoke cleanup access if needed too. Existing consumer reads use their separate identity.
+对，必要时也撤销清理访问，读取仍用独立身份。
+
+5
+00:00:28.487 --> 00:00:37.823
+Hannah: The deletion manifest matches approved candidates exactly. No shared artifact path appears in execution.
+删除清单与批准候选完全一致，执行中没有共享制品路径。
+
+6
+00:00:37.823 --> 00:00:45.167
+Raj: Okay, actual removals stay below the budget. Rejected candidates remain untouched in this run.
+好，实际删除量未超上限，被拒绝候选本次未受影响。
+
+7
+00:00:45.167 --> 00:00:51.599
+Lukas: Reads remain healthy through the canary. Let's keep it under observation before expansion.
+灰度期间读取正常，扩大前继续观察。
+
+8
+00:00:51.599 --> 00:00:58.822
+Priya: Maybe we'll expand tomorrow after another review. No automatic fleet-wide catch-up run tonight.
+可能明天再评审后扩大，今晚不自动全量补跑。
+
+9
+00:00:58.822 --> 00:01:07.006
+Hannah: Record both denied and successful operations. We need evidence that the limits actually applied.
+记录拒绝和成功操作，证明限制确实生效。
+
+10
+00:01:07.006 --> 00:01:14.470
+Anika: Agreed, backups and recovery routing stay available. We'll retain the incident hold until closure.
+同意，备份和恢复路由继续可用，事件关闭前保留证据。
+

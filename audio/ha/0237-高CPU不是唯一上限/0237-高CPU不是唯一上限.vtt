@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.480
+Raj: The database was at capacity during replay.
+回放时数据库达到容量上限了。
+
+2
+00:00:03.480 --> 00:00:07.295
+Hannah: Based on CPU, or a throughput plateau?
+依据CPU，还是吞吐不再增长？
+
+3
+00:00:07.295 --> 00:00:11.207
+Raj: Throughput flattened while tail latency kept rising.
+吞吐趋平，尾延迟却继续上升。
+
+4
+00:00:11.207 --> 00:00:14.614
+Lukas: Traffic is flat now, but replay wasn't.
+现在流量平稳，但回放并不是。
+
+5
+00:00:14.614 --> 00:00:18.766
+Anika: The campaign probably adds more expensive order writes.
+促销大概会增加更多高成本订单写入。
+
+6
+00:00:18.766 --> 00:00:22.654
+Priya: Just to confirm, mix changes too, right?
+确认一下，请求构成也会变，对吧？
+
+7
+00:00:22.654 --> 00:00:27.477
+Hannah: Let me play that back. RPS alone misleads.
+我复述一下：只看每秒请求数会误导。
+
+8
+00:00:27.477 --> 00:00:31.389
+Raj: The capacity envelope must include that write mix.
+容量工作范围必须包含这种写入构成。
+
+9
+00:00:31.389 --> 00:00:34.556
+Lukas: Don't rule that out as a storage bottleneck.
+不能排除存储瓶颈这一可能性。
+
+10
+00:00:34.556 --> 00:00:38.780
+Priya: Okay, bring disk latency into the next comparison.
+好，下次对比加入磁盘延迟。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0190",
+ "part": 5,
+ "stage": "错误处理",
+ "title": "错误要可辨别也不泄密",
+ "premise": "测试任务已分配，Raj汇报错误处理实现边界。",
+ "listeningTask": "理解标准错误输出、退出码与敏感信息过滤。",
+ "newPhrase": "p465",
+ "phrases": [
+  "p465",
+  "p010",
+  "p103:extra",
+  "p461:extra",
+  "p009:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Each failure now returns a structured error. Normal inventory output stays clean on stdout.",
+   "zh": "失败现在返回结构化错误，标准输出保持纯资产数据。",
+   "role": "CLI implementation engineer",
+   "start": 0.0,
+   "end": 7.392
+  },
+  {
+   "sp": "Lukas",
+   "en": "Where do human-readable diagnostics go then? Automation must distinguish failure from empty results.",
+   "zh": "可读诊断发到哪里？自动化要区分失败与空结果。",
+   "role": "Code reviewer and platform engineer",
+   "start": 7.392,
+   "end": 14.904
+  },
+  {
+   "sp": "Raj",
+   "en": "Stderr, with documented nonzero exit codes. Just to confirm, no tokens in diagnostics, right?",
+   "zh": "标准错误输出，配非零退出码文档。确认一下，不含令牌，对吧？",
+   "role": "CLI implementation engineer",
+   "start": 14.904,
+   "end": 23.063
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the read-only scope still needs redaction. Request metadata can contain sensitive query values.",
+   "zh": "是，即使只读也需脱敏，请求元数据可能含敏感查询值。",
+   "role": "API integration engineer",
+   "start": 23.063,
+   "end": 30.935
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me tail the log in testing. I'll verify redaction with deliberately sensitive fixtures.",
+   "zh": "测试时我检查日志，用专门敏感fixture验证脱敏。",
+   "role": "Test and acceptance engineer",
+   "start": 30.935,
+   "end": 38.711
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, make exit-code documentation an action item. Maybe our shell examples need updates too.",
+   "zh": "好，退出码文档列任务，shell示例可能也需更新。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 38.711,
+   "end": 46.511
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't catch every exception as authentication failure. Preserve distinct categories and safe diagnostic context.",
+   "zh": "不要把所有异常都当认证失败，保留不同类别和安全诊断上下文。",
+   "role": "Code reviewer and platform engineer",
+   "start": 46.511,
+   "end": 54.959
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it with explicit exception categories. Unexpected failures retain a sanitized trace identifier.",
+   "zh": "我做显式异常分类，意外失败保留脱敏追踪标识。",
+   "role": "CLI implementation engineer",
+   "start": 54.959,
+   "end": 63.094
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll test malformed responses and permission denial. Those should produce different actionable error categories.",
+   "zh": "我测试异常响应和权限拒绝，它们应产生可行动的不同错误类别。",
+   "role": "Test and acceptance engineer",
+   "start": 63.094,
+   "end": 72.166
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, that's enough detail for the standup. I'll bring sample failures to the follow-up.",
+   "zh": "好，站会这些细节够了，会后我带失败样本。",
+   "role": "API integration engineer",
+   "start": 72.166,
+   "end": 78.43
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 5,
+ "scene": "测试任务已分配，Raj汇报错误处理实现边界。",
+ "dir": "coding/0190-错误要可辨别也不泄密",
+ "audio": "0190-错误要可辨别也不泄密.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "错误处理"
+ ],
+ "duration": 78.43
+}

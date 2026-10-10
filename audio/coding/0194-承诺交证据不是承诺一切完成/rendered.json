@@ -1,0 +1,135 @@
+{
+ "id": "0194",
+ "part": 9,
+ "stage": "今日承诺",
+ "title": "承诺交证据不是承诺一切完成",
+ "premise": "任务已拆开，逐人确认今日可交付成果。",
+ "listeningTask": "辨别具体承诺、估计时间和依赖条件。",
+ "newPhrase": "p469",
+ "phrases": [
+  "p469",
+  "p010",
+  "p008:extra",
+  "p014:extra",
+  "p463:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "We'll use an end-of-day checkpoint today. Just to recap, local testing can proceed independently.",
+   "zh": "今天设日终检查点，小结一下，本地测试能独立推进。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 0.0,
+   "end": 7.368
+  },
+  {
+   "sp": "Lukas",
+   "en": "My commitment is initial review feedback. The review queue won't imply automatic approval.",
+   "zh": "我承诺给初次评审反馈，排队评审不意味着自动通过。",
+   "role": "Code reviewer and platform engineer",
+   "start": 7.368,
+   "end": 14.088
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for cancellation and cursor tests. Just to confirm, evidence by five, right?",
+   "zh": "我负责取消与游标测试，确认一下，五点前交证据，对吧？",
+   "role": "CLI implementation engineer",
+   "start": 14.088,
+   "end": 21.289
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll obtain the owner's contract response today. If it slips, I'll report the dependency.",
+   "zh": "今天争取拿到契约回复，若延期就报告依赖。",
+   "role": "API integration engineer",
+   "start": 21.289,
+   "end": 28.153
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll provide the boundary-test review results. A failing case stays visible until repaired.",
+   "zh": "我交边界测试评审结果，失败用例修好前持续可见。",
+   "role": "Test and acceptance engineer",
+   "start": 28.153,
+   "end": 36.025
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA for the demo fixture? Maybe we need a fallback presentation.",
+   "zh": "好，演示fixture预计什么时候好？可能需备用演示方案。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 36.025,
+   "end": 42.889
+  },
+  {
+   "sp": "Lukas",
+   "en": "A fixture demo is fine if labelled. Don't present it as completed live integration.",
+   "zh": "明确标注的话fixture演示可以，不能冒充真实集成完成。",
+   "role": "Code reviewer and platform engineer",
+   "start": 42.889,
+   "end": 49.369
+  },
+  {
+   "sp": "Raj",
+   "en": "The fixture demo will be ready by four. I'll include the visible integration limitation.",
+   "zh": "fixture演示四点前就绪，会显示集成限制。",
+   "role": "CLI implementation engineer",
+   "start": 49.369,
+   "end": 56.042
+  },
+  {
+   "sp": "Hannah",
+   "en": "We'll review the acceptance checklist at five. Missing evidence means incomplete, not presumed success.",
+   "zh": "五点审验收清单，缺证据就未完成，不能假定成功。",
+   "role": "Test and acceptance engineer",
+   "start": 56.042,
+   "end": 65.426
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll update the board before then. No deployment decision belongs in today's standup.",
+   "zh": "同意，之前更新看板，今天站会不做部署决策。",
+   "role": "API integration engineer",
+   "start": 65.426,
+   "end": 72.53
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 9,
+ "scene": "任务已拆开，逐人确认今日可交付成果。",
+ "dir": "coding/0194-承诺交证据不是承诺一切完成",
+ "audio": "0194-承诺交证据不是承诺一切完成.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "今日承诺"
+ ],
+ "duration": 72.53
+}

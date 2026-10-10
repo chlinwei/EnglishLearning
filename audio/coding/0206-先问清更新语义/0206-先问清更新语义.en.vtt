@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.360
+Lukas: Design a Python worker for tag updates. What would you clarify before writing code?
+
+2
+00:00:06.360 --> 00:00:13.152
+Raj: I'll walk you through my questions first. Just to confirm, updates replace tags, right?
+
+3
+00:00:13.152 --> 00:00:21.841
+Hannah: Yes, the message contains the desired set. Assume a durable queue and authenticated API.
+
+4
+00:00:21.841 --> 00:00:29.521
+Raj: Okay, let me play that back carefully. We apply desired state, not append repeated changes.
+
+5
+00:00:29.521 --> 00:00:37.201
+Raj: My working hypothesis is duplicate delivery matters. Maybe requests can time out after succeeding.
+
+6
+00:00:37.201 --> 00:00:43.969
+Lukas: Both happen in this exercise regularly. What would you exclude from the first implementation?
+
+7
+00:00:43.969 --> 00:00:51.673
+Raj: I'd exclude scheduling and authentication system design. Those are provided, so let's park that.
+
+8
+00:00:51.673 --> 00:00:58.922
+Hannah: And what needs an explicit contract? Don't rely on unstated service behavior here.
+
+9
+00:00:58.922 --> 00:01:07.634
+Raj: I'd check update ordering and deduplication support. One action item is understanding acknowledgement semantics.
+
+10
+00:01:07.634 --> 00:01:14.330
+Raj: Then I'd sketch the simplest safe flow. Code comes after those constraints are clear.
+

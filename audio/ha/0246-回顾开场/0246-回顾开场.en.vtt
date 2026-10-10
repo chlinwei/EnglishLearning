@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.528
+Priya: Our recovery time target was fifteen minutes.
+
+2
+00:00:03.528 --> 00:00:08.785
+Hannah: Actual completion took eighteen. That's a missed target.
+
+3
+00:00:08.785 --> 00:00:15.385
+Raj: The maintenance window was forty minutes overall. Sorry, that's not recovery time.
+
+4
+00:00:15.385 --> 00:00:19.058
+Lukas: Okay, window length isn't the recovery measure.
+
+5
+00:00:19.058 --> 00:00:23.306
+Anika: Just to confirm, business validation counts, right?
+
+6
+00:00:23.306 --> 00:00:27.410
+Priya: Yes, not merely a promoted database process.
+
+7
+00:00:27.410 --> 00:00:32.523
+Hannah: Our working hypothesis blamed access delays initially.
+
+8
+00:00:32.523 --> 00:00:37.899
+Raj: Maybe several stages contributed. Let's inspect the timeline.
+
+9
+00:00:37.899 --> 00:00:40.420
+Lukas: I've got a hard stop at eleven.
+
+10
+00:00:40.420 --> 00:00:44.740
+Priya: New regional topology? Let's park that today.
+

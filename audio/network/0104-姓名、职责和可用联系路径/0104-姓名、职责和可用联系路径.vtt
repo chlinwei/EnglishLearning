@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.056
+Priya: Okay, the duty contact list is current. Lukas is primary on-call from this point.
+好，值班联系人表已更新，从现在起Lukas是主值班。
+
+2
+00:00:07.056 --> 00:00:13.201
+Lukas: I can open the roster and incident record. Who approves any wider routing change?
+我能打开轮值表和事件记录。谁批准更大范围路由变化？
+
+3
+00:00:13.201 --> 00:00:20.809
+Raj: The rostered incident coordinator owns that decision. Their paging alias is tested and recorded.
+轮值故障协调人负责该决策，呼叫别名已验证并记录。
+
+4
+00:00:20.809 --> 00:00:29.426
+Hannah: I'm on it for carrier communications. Ticket access works, but phone escalation needs verification.
+运营商沟通我来负责。工单访问可用，电话升级还要验证。
+
+5
+00:00:29.426 --> 00:00:37.106
+Anika: Raj verified the contracted support number earlier. Use the authenticated account reference in storage.
+Raj之前验证了合同支持号码，使用受控存储里的认证账号参考信息。
+
+6
+00:00:37.106 --> 00:00:45.122
+Priya: Just to confirm, secrets stay out of chat, right? Contact references don't need copied credentials.
+我确认一下，秘密信息不进聊天，对吧？联系记录不需要复制凭据。
+
+7
+00:00:45.122 --> 00:00:51.219
+Lukas: Agreed, and if I don't respond promptly? Who receives the backup page tonight?
+同意。如果我没及时回应，今晚备班呼叫发给谁？
+
+8
+00:00:51.219 --> 00:00:57.507
+Raj: The roster routes it to the backup SRE. Page the backup after about five minutes.
+轮值表会路由到备班SRE，大约五分钟后呼叫备班。
+
+9
+00:00:57.507 --> 00:01:04.828
+Hannah: The escalation path opens from my account too. We won't depend on an outgoing engineer.
+我的账号也能打开升级路径，不依赖已经下班的工程师。
+
+10
+00:01:04.828 --> 00:01:12.460
+Priya: So, contact access is now confirmed. Raj remains available until final acceptance only.
+因此联系权限现在已确认。Raj只在最终接受前继续待命。
+

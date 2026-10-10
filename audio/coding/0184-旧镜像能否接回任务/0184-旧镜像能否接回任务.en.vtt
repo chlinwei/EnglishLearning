@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.056
+Lukas: The previous image digest is retained locally. Its signature and retrieval path are verified.
+
+2
+00:00:07.056 --> 00:00:14.400
+Raj: The clean rebuild record covers that image. But rollback uses retained bytes, not rebuilding.
+
+3
+00:00:14.400 --> 00:00:22.919
+Hannah: Can the old worker read current checkpoints? Image availability alone doesn't prove operational rollback.
+
+4
+00:00:22.919 --> 00:00:30.503
+Anika: Yes, checkpoint format stayed unchanged this time. Just to confirm, we tested that, right?
+
+5
+00:00:30.503 --> 00:00:38.231
+Priya: Okay, the smoke test passed after simulated rollback. No live production reversal is needed now.
+
+6
+00:00:38.231 --> 00:00:45.239
+Raj: Maybe the callback replacement will change compatibility. We'll review it as a separate change.
+
+7
+00:00:45.239 --> 00:00:52.487
+Lukas: Document draining before restoring the old lease. The rollback trigger must include duplicate writes.
+
+8
+00:00:52.487 --> 00:00:59.518
+Anika: A temporary workaround would pause the partition. We'd preserve its checkpoint before any reversal.
+
+9
+00:00:59.518 --> 00:01:09.190
+Hannah: The isolated rollback preserved all processed records. Unprocessed records resumed without duplicate side effects.
+
+10
+00:01:09.190 --> 00:01:17.110
+Priya: Good, keep the old artifact through retention. We can close deployment, not erase recovery options.
+

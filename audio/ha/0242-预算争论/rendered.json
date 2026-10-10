@@ -1,0 +1,135 @@
+{
+ "id": "0242",
+ "part": 7,
+ "stage": "成本争议",
+ "title": "预算争论：先保不可妥协的业务",
+ "premise": "单区失效后余量会增加预算，业务与架构方讨论削减范围。",
+ "listeningTask": "听出削减非关键服务与削减一致性保障的区别。",
+ "newPhrase": "p517",
+ "phrases": [
+  "p517",
+  "p515",
+  "p306",
+  "p006:extra",
+  "p004:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "This redundancy plan exceeds our cost ceiling.",
+   "zh": "这个冗余方案超出成本上限了。",
+   "role": "Service and budget owner",
+   "start": 0.0,
+   "end": 3.768
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which guarantee are we willing to relax?",
+   "zh": "我们愿意放宽哪项保证？",
+   "role": "Reliability architect",
+   "start": 3.768,
+   "end": 6.984
+  },
+  {
+   "sp": "Anika",
+   "en": "Exports can wait. Orders can't lose acknowledged writes.",
+   "zh": "导出可以等待，订单不能丢已确认写入。",
+   "role": "Service and budget owner",
+   "start": 6.984,
+   "end": 12.143
+  },
+  {
+   "sp": "Hannah",
+   "en": "Then don't reduce database protection to fund browsing.",
+   "zh": "那就不能削减数据库保护来给浏览业务省预算。",
+   "role": "Performance engineer",
+   "start": 12.143,
+   "end": 16.775
+  },
+  {
+   "sp": "Raj",
+   "en": "Smaller recommendation pools could buy us time.",
+   "zh": "更小的推荐资源池能暂时争取时间。",
+   "role": "Infrastructure capacity engineer",
+   "start": 16.775,
+   "end": 20.231
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, fencing stays funded, right?",
+   "zh": "确认一下，隔离机制预算保留，对吧？",
+   "role": "Architecture review chair",
+   "start": 20.231,
+   "end": 24.167
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Maybe defer analytics capacity, not safety.",
+   "zh": "是的，也许可以推迟分析容量，不能推迟安全保障。",
+   "role": "Reliability architect",
+   "start": 24.167,
+   "end": 29.207
+  },
+  {
+   "sp": "Anika",
+   "en": "I've got bandwidth to price that alternative.",
+   "zh": "我有精力核算这个替代方案。",
+   "role": "Service and budget owner",
+   "start": 29.207,
+   "end": 32.638
+  },
+  {
+   "sp": "Hannah",
+   "en": "Include support effort and cross-zone transfer charges.",
+   "zh": "要计入支持工作量和跨区传输费用。",
+   "role": "Performance engineer",
+   "start": 32.638,
+   "end": 37.246
+  },
+  {
+   "sp": "Priya",
+   "en": "New discounts? Let's park that until scope settles.",
+   "zh": "新折扣？等范围确定后再讨论。",
+   "role": "Architecture review chair",
+   "start": 37.246,
+   "end": 42.07
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 7,
+ "scene": "单区失效后余量会增加预算，业务与架构方讨论削减范围。",
+ "dir": "ha/0242-预算争论",
+ "audio": "0242-预算争论.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "成本争议"
+ ],
+ "duration": 42.07
+}

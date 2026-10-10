@@ -1,0 +1,135 @@
+{
+ "id": "0233",
+ "part": 8,
+ "stage": "模拟高峰",
+ "title": "重试也占容量",
+ "premise": "身份调整通过小范围测试，开始生产等效混合负载测试。",
+ "listeningTask": "听出重试放大、退避抖动和幂等保护。",
+ "newPhrase": "p508",
+ "phrases": [
+  "p508",
+  "p504",
+  "p316",
+  "p210:extra",
+  "p319:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The retry budget caps attempts and elapsed time.",
+   "zh": "重试预算限制尝试次数和总耗时。",
+   "role": "Validation engineer",
+   "start": 0.0,
+   "end": 4.32
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll dry-run it first in isolated infrastructure.",
+   "zh": "我们先在隔离基础设施里试运行。",
+   "role": "Gateway engineer",
+   "start": 4.32,
+   "end": 8.328
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does the replay include clients ignoring retry hints?",
+   "zh": "回放包括不遵守重试提示的客户端吗？",
+   "role": "Capacity reviewer",
+   "start": 8.328,
+   "end": 12.384
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. Gateway limits still shed load safely.",
+   "zh": "包括，网关限制仍能安全减轻负载。",
+   "role": "Checkout product engineer",
+   "start": 12.384,
+   "end": 17.088
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no live payment calls, right?",
+   "zh": "确认一下，不调用真实支付，对吧？",
+   "role": "Change coordinator",
+   "start": 17.088,
+   "end": 21.096
+  },
+  {
+   "sp": "Raj",
+   "en": "Correct. Provider simulators preserve realistic callback bursts.",
+   "zh": "对，提供方模拟器保留真实的回调突发模式。",
+   "role": "Gateway engineer",
+   "start": 21.096,
+   "end": 26.4
+  },
+  {
+   "sp": "Hannah",
+   "en": "Graceful degradation works under twice the forecast.",
+   "zh": "在预测两倍负载下，有控制的降级有效。",
+   "role": "Validation engineer",
+   "start": 26.4,
+   "end": 30.864
+  },
+  {
+   "sp": "Anika",
+   "en": "Retries use backoff, jitter, and idempotency keys.",
+   "zh": "重试使用退避、抖动和幂等键。",
+   "role": "Checkout product engineer",
+   "start": 30.864,
+   "end": 35.352
+  },
+  {
+   "sp": "Lukas",
+   "en": "Memory headroom stayed healthy. Database queues stayed bounded.",
+   "zh": "内存余量保持正常，数据库队列没有失控。",
+   "role": "Capacity reviewer",
+   "start": 35.352,
+   "end": 40.416
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, probably ready to rehearse policy rollback.",
+   "zh": "好，大概可以开始演练策略回退了。",
+   "role": "Change coordinator",
+   "start": 40.416,
+   "end": 44.4
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 8,
+ "scene": "身份调整通过小范围测试，开始生产等效混合负载测试。",
+ "dir": "ha/0233-重试也占容量",
+ "audio": "0233-重试也占容量.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "模拟高峰"
+ ],
+ "duration": 44.4
+}

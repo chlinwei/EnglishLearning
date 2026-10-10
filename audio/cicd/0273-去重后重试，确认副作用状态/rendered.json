@@ -1,0 +1,135 @@
+{
+ "id": "0273",
+ "part": 8,
+ "stage": "清理积压",
+ "title": "去重后重试，确认副作用状态",
+ "premise": "受控制品通过来源、签名和扫描检查；允许并发两个恢复构建队列。",
+ "listeningTask": "听懂幂等键、已完成任务跳过及未知状态挂起。",
+ "newPhrase": "p548",
+ "phrases": [
+  "p548",
+  "p547",
+  "p542:extra",
+  "p010:extra",
+  "p308:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Each idempotent retry keeps its job key. Attempt identifiers remain separate for auditing.",
+   "zh": "每次幂等重试保留任务键。尝试标识单独保留以便审计。",
+   "role": "Build runner on-call",
+   "start": 0.0,
+   "end": 7.416
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, queued builds need state checks. Just to confirm, duplicates won't deploy?",
+   "zh": "好，排队构建需要查状态。确认一下，重复任务不会部署？",
+   "role": "Incident coordinator",
+   "start": 7.416,
+   "end": 14.352
+  },
+  {
+   "sp": "Lukas",
+   "en": "Deployment uses its own idempotency ledger. Unknown outcomes stay held for reconciliation.",
+   "zh": "部署使用独立幂等账本。结果未知的任务挂起核对。",
+   "role": "Pipeline reliability engineer",
+   "start": 14.352,
+   "end": 21.504
+  },
+  {
+   "sp": "Anika",
+   "en": "Completed jobs won't rebuild unnecessarily, right? We can reuse their verified digest.",
+   "zh": "已完成任务不必重新构建，对吧？可以复用验证过的摘要。",
+   "role": "Application release owner",
+   "start": 21.504,
+   "end": 28.632
+  },
+  {
+   "sp": "Hannah",
+   "en": "Only if build provenance still matches. Check signature, retention, and approval separately.",
+   "zh": "只有构建来源仍匹配才行。签名、保留状态和审批分别检查。",
+   "role": "Artifact security engineer",
+   "start": 28.632,
+   "end": 37.056
+  },
+  {
+   "sp": "Raj",
+   "en": "The twelve failures have no deployment effects. Duplicate requests resolve to original jobs.",
+   "zh": "十二个失败任务没有部署副作用。重复请求归到原任务。",
+   "role": "Build runner on-call",
+   "start": 37.056,
+   "end": 44.28
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use bounded retries with backoff now. Authentication failures need repair, not repeated attempts.",
+   "zh": "现在用有界退避重试。认证失败要修复，不能反复尝试。",
+   "role": "Pipeline reliability engineer",
+   "start": 44.28,
+   "end": 52.032
+  },
+  {
+   "sp": "Priya",
+   "en": "So, let the queue catch up slowly. Keep an eye on mirror latency.",
+   "zh": "那么让队列慢慢追上。关注镜像源延迟。",
+   "role": "Incident coordinator",
+   "start": 52.032,
+   "end": 57.696
+  },
+  {
+   "sp": "Hannah",
+   "en": "Partial uploads have been quarantined too. A retry mustn't promote an incomplete object.",
+   "zh": "部分上传对象也已隔离。重试不能晋级不完整对象。",
+   "role": "Artifact security engineer",
+   "start": 57.696,
+   "end": 65.328
+  },
+  {
+   "sp": "Anika",
+   "en": "Fair, I'll report pending work accurately. Held jobs aren't failures we can ignore.",
+   "zh": "明白，我准确报告待办。挂起任务不是可以忽略的失败。",
+   "role": "Application release owner",
+   "start": 65.328,
+   "end": 72.24
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 8,
+ "scene": "受控制品通过来源、签名和扫描检查；允许并发两个恢复构建队列。",
+ "dir": "cicd/0273-去重后重试，确认副作用状态",
+ "audio": "0273-去重后重试，确认副作用状态.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "清理积压"
+ ],
+ "duration": 72.24
+}

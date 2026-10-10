@@ -1,0 +1,135 @@
+{
+ "id": "0056",
+ "part": 1,
+ "stage": "交班背景",
+ "title": "交接开场：稳定了，但还没修好",
+ "premise": "19:00开始交接，invoice-export在暂停拉取后暂时稳定，导出延迟仍在。",
+ "listeningTask": "听清当前影响和服务状态，区分缓解与结案。",
+ "newPhrase": "p331",
+ "phrases": [
+  "p331",
+  "p109",
+  "p320",
+  "p010:extra",
+  "p004:extra",
+  "p111:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Before I hand over, one service needs attention. Invoice-export has restarted three times.",
+   "zh": "交班前有一个服务需要重点关注。invoice-export已经重启了三次。",
+   "role": "Outgoing Linux on-call",
+   "start": 0.0,
+   "end": 7.608
+  },
+  {
+   "sp": "Hannah",
+   "en": "Is it down now, or does it keep coming back?",
+   "zh": "现在是停着，还是会反复恢复？",
+   "role": "Incoming primary on-call",
+   "start": 7.608,
+   "end": 11.28
+  },
+  {
+   "sp": "Raj",
+   "en": "It kept coming back. It's flapping, or it was. It's stayed up since we paused fetching.",
+   "zh": "之前不断恢复又退出。状态反复抖动——准确说之前是。暂停拉取后一直运行。",
+   "role": "Outgoing Linux on-call",
+   "start": 11.28,
+   "end": 18.599
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, exports are delayed, right? The billing API itself is still working.",
+   "zh": "我确认一下，是导出延迟，对吧？计费API本身仍在工作。",
+   "role": "Shift coordinator",
+   "start": 18.599,
+   "end": 25.679
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's still open? We shouldn't inherit a resolved ticket if the cause isn't known.",
+   "zh": "还有哪些问题未解决？原因未知的话，我们不该接手一个被标为已解决的工单。",
+   "role": "Incoming backup SRE",
+   "start": 25.679,
+   "end": 31.679
+  },
+  {
+   "sp": "Anika",
+   "en": "The root cause is still open. Pausing fetches stopped the symptom, not the investigation.",
+   "zh": "根因仍未查明。暂停拉取只是让症状停止，不代表调查结束。",
+   "role": "Outgoing application owner",
+   "start": 31.679,
+   "end": 38.327
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay. I'll need the exact pause setting and the affected requests.",
+   "zh": "好。我需要知道具体暂停了哪个设置、影响哪些请求。",
+   "role": "Incoming primary on-call",
+   "start": 38.327,
+   "end": 44.111
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's keep it under observation. Any bigger redesign? Let's park that until tomorrow.",
+   "zh": "继续观察。大规模重设计的事先放一边，明天再讨论。",
+   "role": "Shift coordinator",
+   "start": 44.111,
+   "end": 51.43
+  },
+  {
+   "sp": "Lukas",
+   "en": "First walk us through the timeline. Then we'll agree what needs a call tonight.",
+   "zh": "先讲一遍时间线，再约定今晚哪些情况需要呼叫。",
+   "role": "Incoming backup SRE",
+   "start": 51.43,
+   "end": 56.878
+  },
+  {
+   "sp": "Raj",
+   "en": "Sure. I'll separate what we've checked from what we're only assuming.",
+   "zh": "可以。我会把已经检查的事实和目前的假设分开说。",
+   "role": "Outgoing Linux on-call",
+   "start": 56.878,
+   "end": 62.71
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 1,
+ "scene": "19:00开始交接，invoice-export在暂停拉取后暂时稳定，导出延迟仍在。",
+ "dir": "linux/0056-交接开场",
+ "audio": "0056-交接开场.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "交班背景"
+ ],
+ "duration": 62.71
+}

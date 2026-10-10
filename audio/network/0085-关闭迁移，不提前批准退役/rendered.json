@@ -1,0 +1,135 @@
+{
+ "id": "0085",
+ "part": 10,
+ "stage": "验收收尾",
+ "title": "关闭迁移，不提前批准退役",
+ "premise": "全量新池通过观察和业务检查，旧入口保留到次日；完成迁移验收。",
+ "listeningTask": "听清迁移验收与旧池退役审批是两件事。",
+ "newPhrase": "p360",
+ "phrases": [
+  "p360",
+  "p310",
+  "p010",
+  "p012:extra",
+  "p009:extra",
+  "p331:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, business acceptance is complete. The old pool remains available overnight.",
+   "zh": "小结一下，业务验收完成，旧池夜间仍可用。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 7.248
+  },
+  {
+   "sp": "Hannah",
+   "en": "Matched latency and payment checks pass. Both zones have complete monitoring coverage.",
+   "zh": "匹配后的延迟和支付检查通过，两个区监控覆盖完整。",
+   "role": "Validation engineer",
+   "start": 7.248,
+   "end": 14.736
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, no unresolved checkout defects found. That's based on roughly thirty minutes' observation.",
+   "zh": "好，未发现未解决的结账缺陷。依据是大约三十分钟观察。",
+   "role": "Checkout owner",
+   "start": 14.736,
+   "end": 22.2
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can we close the loop on access? The overnight operator must have working permissions.",
+   "zh": "权限方面能闭环吗？夜间操作人员必须有可用权限。",
+   "role": "SRE reviewer",
+   "start": 22.2,
+   "end": 28.344
+  },
+  {
+   "sp": "Raj",
+   "en": "Access is tested, with the saved configuration. I'll hand over both readiness checks.",
+   "zh": "权限已验证，保存配置也可用。我会交接两个池的就绪检查。",
+   "role": "Network engineer",
+   "start": 28.344,
+   "end": 35.04
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, decommission approval comes later, right? Tonight's acceptance doesn't authorize deletion.",
+   "zh": "我确认一下，退役审批以后再做，对吧？今晚验收不授权删除。",
+   "role": "Change coordinator",
+   "start": 35.04,
+   "end": 43.008
+  },
+  {
+   "sp": "Hannah",
+   "en": "Right, tomorrow's review checks residual dependencies. Include private monitoring clients and firewall references.",
+   "zh": "对，明天评审检查残余依赖，包括私有监控客户端和防火墙引用。",
+   "role": "Validation engineer",
+   "start": 43.008,
+   "end": 52.56
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll take the business confirmation action item. No new application work is required tonight.",
+   "zh": "业务确认待办我来负责。今晚不需要新增应用操作。",
+   "role": "Checkout owner",
+   "start": 52.56,
+   "end": 59.544
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then close migration execution, not asset retirement. Keep the rollback evidence with the record.",
+   "zh": "那么关闭迁移执行，不关闭资产退役。把回退证据留在记录中。",
+   "role": "SRE reviewer",
+   "start": 59.544,
+   "end": 66.936
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, tomorrow we review before removing anything. So, this change is accepted with retention.",
+   "zh": "同意，明天先评审再移除任何内容。这次变更验收通过，并保留旧入口。",
+   "role": "Change coordinator",
+   "start": 66.936,
+   "end": 74.4
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 10,
+ "scene": "全量新池通过观察和业务检查，旧入口保留到次日；完成迁移验收。",
+ "dir": "network/0085-关闭迁移，不提前批准退役",
+ "audio": "0085-关闭迁移，不提前批准退役.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "验收收尾"
+ ],
+ "duration": 74.4
+}

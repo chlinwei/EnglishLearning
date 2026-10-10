@@ -1,0 +1,135 @@
+{
+ "id": "0087",
+ "part": 2,
+ "stage": "对齐测量口径",
+ "title": "同时间窗，同请求类型",
+ "premise": "总体延迟含多个阶段，先统一采样和比较口径。",
+ "listeningTask": "识别缓存、连接冷热和请求大小这些混杂因素。",
+ "newPhrase": "p362",
+ "phrases": [
+  "p362",
+  "p356",
+  "p010",
+  "p344:extra",
+  "p014:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Use the same measurement window for both. Let's compare like for like throughout.",
+   "zh": "两组使用相同测量时间窗，全程在相同条件下对比。",
+   "role": "Performance engineer",
+   "start": 0.0,
+   "end": 6.408
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, match payload size and client version. Separate warm connections from fresh connections.",
+   "zh": "好，匹配载荷大小和客户端版本，分开热连接与新连接。",
+   "role": "Network engineer",
+   "start": 6.408,
+   "end": 13.848
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does a cache hit skip pricing work? That would skew our local comparison.",
+   "zh": "缓存命中会跳过定价计算吗？那会使本区比较偏斜。",
+   "role": "SRE reviewer",
+   "start": 13.848,
+   "end": 19.273
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, so match cache state as well. I'll label misses without clearing production caches.",
+   "zh": "会，所以也匹配缓存状态。我会标记未命中，不清理生产缓存。",
+   "role": "Pricing client owner",
+   "start": 19.273,
+   "end": 26.401
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no mixed percentiles, right? Average latency can't stand in for tails.",
+   "zh": "我确认一下，不混用分位数，对吧？平均延迟不能代替尾延迟。",
+   "role": "Architecture review chair",
+   "start": 26.401,
+   "end": 33.697
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly, report sample counts beside each percentile. Low counts need an uncertainty note.",
+   "zh": "对，每个分位数旁注明样本数，样本少要说明不确定性。",
+   "role": "Performance engineer",
+   "start": 33.697,
+   "end": 42.265
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for clock checks too. One-way timing needs reliable clock alignment.",
+   "zh": "时钟检查我也来做，单程计时需要可靠的时钟对齐。",
+   "role": "Network engineer",
+   "start": 42.265,
+   "end": 48.481
+  },
+  {
+   "sp": "Lukas",
+   "en": "Prefer client elapsed time for this comparison. It avoids subtracting unrelated host timestamps.",
+   "zh": "这次对比优先用客户端经过时间，避免相减无关联的主机时间戳。",
+   "role": "SRE reviewer",
+   "start": 48.481,
+   "end": 55.682
+  },
+  {
+   "sp": "Anika",
+   "en": "What's the ETA for synchronized sampling? About an hour should cover enough calls.",
+   "zh": "同步采样预计什么时候开始？大约一小时应能覆盖足够调用。",
+   "role": "Pricing client owner",
+   "start": 55.682,
+   "end": 61.994
+  },
+  {
+   "sp": "Priya",
+   "en": "So, start after the scheduled deploy ends. That keeps version changes outside our window.",
+   "zh": "因此计划部署结束后开始，避免版本变化落在时间窗内。",
+   "role": "Architecture review chair",
+   "start": 61.994,
+   "end": 69.17
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 2,
+ "scene": "总体延迟含多个阶段，先统一采样和比较口径。",
+ "dir": "network/0087-同时间窗，同请求类型",
+ "audio": "0087-同时间窗，同请求类型.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "对齐测量口径"
+ ],
+ "duration": 69.17
+}

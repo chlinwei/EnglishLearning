@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.528
+Priya: Our recovery time target was fifteen minutes.
+恢复时间目标是十五分钟。
+
+2
+00:00:03.528 --> 00:00:08.785
+Hannah: Actual completion took eighteen. That's a missed target.
+实际完成花了十八分钟，没有达到目标。
+
+3
+00:00:08.785 --> 00:00:15.385
+Raj: The maintenance window was forty minutes overall. Sorry, that's not recovery time.
+整个维护窗口是四十分钟。说准确点，那不是恢复时间。
+
+4
+00:00:15.385 --> 00:00:19.058
+Lukas: Okay, window length isn't the recovery measure.
+好，窗口长度不是恢复指标。
+
+5
+00:00:19.058 --> 00:00:23.306
+Anika: Just to confirm, business validation counts, right?
+确认一下，业务验证时间也算，对吧？
+
+6
+00:00:23.306 --> 00:00:27.410
+Priya: Yes, not merely a promoted database process.
+是的，不是数据库进程提升后就算恢复。
+
+7
+00:00:27.410 --> 00:00:32.523
+Hannah: Our working hypothesis blamed access delays initially.
+起初的假设认为延迟来自权限问题。
+
+8
+00:00:32.523 --> 00:00:37.899
+Raj: Maybe several stages contributed. Let's inspect the timeline.
+也许多个阶段都有影响，我们看时间线。
+
+9
+00:00:37.899 --> 00:00:40.420
+Lukas: I've got a hard stop at eleven.
+我十一点必须离开。
+
+10
+00:00:40.420 --> 00:00:44.740
+Priya: New regional topology? Let's park that today.
+新的地域拓扑？今天先暂存这个话题。
+

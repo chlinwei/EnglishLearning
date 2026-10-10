@@ -1,0 +1,135 @@
+{
+ "id": "0062",
+ "part": 7,
+ "stage": "联系人确认",
+ "title": "谁先响应：联系人不是只有一个名字",
+ "premise": "确定重启复发立即升级、20:00检查请求等待时间，开始核对主备联系安排。",
+ "listeningTask": "听清夜间第一响应、后备及应用负责人之间的职责区别。",
+ "newPhrase": "p337",
+ "phrases": [
+  "p337",
+  "p010",
+  "p331",
+  "p006:extra",
+  "p014:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Hannah is primary on-call tonight. Lukas is backup. The duty app owner is in the rota.",
+   "zh": "今晚Hannah是第一响应值班人，Lukas后备，当值应用负责人在排班表中。",
+   "role": "Shift coordinator",
+   "start": 0.0,
+   "end": 7.872
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll acknowledge alerts and coordinate the first response. Who approves application changes?",
+   "zh": "我确认告警并协调初步响应。应用变更由谁批准？",
+   "role": "Incoming primary on-call",
+   "start": 7.872,
+   "end": 15.744
+  },
+  {
+   "sp": "Anika",
+   "en": "The duty app owner, not me by default. Use the live rota, not this meeting's attendee list.",
+   "zh": "当值应用负责人，不是默认找我。以实时排班表为准，不以参会名单为准。",
+   "role": "Outgoing application owner",
+   "start": 15.744,
+   "end": 23.327
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, my pager rotates away after we hand over, right?",
+   "zh": "我确认一下，交接完成后呼叫会转走，不再默认发给我，对吧？",
+   "role": "Outgoing Linux on-call",
+   "start": 23.327,
+   "end": 28.607
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Check the routing state before leaving. Don't assume the calendar changes it automatically.",
+   "zh": "对。离开前检查路由状态，不要以为日历到了时间就必然自动切换。",
+   "role": "Incoming backup SRE",
+   "start": 28.607,
+   "end": 35.927
+  },
+  {
+   "sp": "Priya",
+   "en": "That's an action item for me. I'll confirm the rota and alert routing now.",
+   "zh": "这项我来做，现在确认排班和告警路由。",
+   "role": "Shift coordinator",
+   "start": 35.927,
+   "end": 41.831
+  },
+  {
+   "sp": "Hannah",
+   "en": "I have bandwidth for monitoring. If we open an incident, I'll ask Lukas to track the timeline.",
+   "zh": "我有精力做监控。如果启动故障响应，我会请Lukas记录时间线。",
+   "role": "Incoming primary on-call",
+   "start": 41.831,
+   "end": 49.751
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for the evidence links. They won't depend on my personal access.",
+   "zh": "证据链接我来整理，不会依赖我的个人访问权限。",
+   "role": "Outgoing Linux on-call",
+   "start": 49.751,
+   "end": 55.894
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good. I'll verify access from my account too, not just watch Raj open the links.",
+   "zh": "好。我也会用自己的账号验证访问，不只是看Raj能打开。",
+   "role": "Incoming backup SRE",
+   "start": 55.894,
+   "end": 62.11
+  },
+  {
+   "sp": "Anika",
+   "en": "And I'll check the app owner's contact. One stale number could cost us time tonight.",
+   "zh": "我会核对应用负责人联系方式，一个过期号码就可能耽误今晚响应。",
+   "role": "Outgoing application owner",
+   "start": 62.11,
+   "end": 68.47
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 7,
+ "scene": "确定重启复发立即升级、20:00检查请求等待时间，开始核对主备联系安排。",
+ "dir": "linux/0062-谁先响应",
+ "audio": "0062-谁先响应.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "联系人确认"
+ ],
+ "duration": 68.47
+}

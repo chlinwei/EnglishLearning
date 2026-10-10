@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.440
+Hannah: What if an invalid index remains? Cancellation doesn't always remove its entry.
+
+2
+00:00:07.440 --> 00:00:14.137
+Raj: We inspect index validity after failure. Then review cleanup as separate work.
+
+3
+00:00:14.137 --> 00:00:20.905
+Anika: No invalid index exists tonight though. Our completed index passed all checks.
+
+4
+00:00:20.905 --> 00:00:27.890
+Priya: Just to confirm, switch rollback first, right? That's the quickest temporary workaround.
+
+5
+00:00:27.890 --> 00:00:34.610
+Lukas: Yes, but it doesn't remove maintenance costs. Dropping needs its own reviewed procedure.
+
+6
+00:00:34.610 --> 00:00:42.530
+Raj: For this leaf, concurrent drop is supported. Outside transaction blocks, with dependencies checked.
+
+7
+00:00:42.530 --> 00:00:50.043
+Hannah: Don't generalize that to parent indexes. Engine and object restrictions still apply.
+
+8
+00:00:50.043 --> 00:00:56.883
+Priya: Okay, let's keep it under observation. Maybe write costs emerge with tomorrow's peak.
+
+9
+00:00:56.883 --> 00:01:04.348
+Lukas: The rollback trigger covers peak write delays. Removal requires approval, not automatic deletion.
+
+10
+00:01:04.348 --> 00:01:11.260
+Anika: So, I'll keep both paths documented. Query rollback and index removal stay separate.
+

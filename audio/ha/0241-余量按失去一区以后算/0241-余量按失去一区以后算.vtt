@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.576
+Raj: We need headroom after losing either zone.
+失去任一区后，仍需要容量余量。
+
+2
+00:00:03.576 --> 00:00:08.016
+Hannah: Not thirty percent idle across both zones combined.
+不能只看两个区合计有百分之三十空闲。
+
+3
+00:00:08.016 --> 00:00:14.495
+Anika: Right, survivors could be at capacity. Sorry, at peak, not now.
+对，剩余节点可能达到容量上限。说准确点，是峰值时，不是现在。
+
+4
+00:00:14.495 --> 00:00:17.831
+Lukas: What about memory headroom during cache warming?
+缓存预热时的内存余量呢？
+
+5
+00:00:17.831 --> 00:00:21.599
+Raj: We'll measure cold caches and connection recovery.
+我们会测冷缓存和连接恢复。
+
+6
+00:00:21.599 --> 00:00:25.703
+Priya: Just to confirm, scale-out isn't instant, right?
+确认一下，扩容不是瞬间完成，对吧？
+
+7
+00:00:25.703 --> 00:00:31.727
+Hannah: Exactly. Provisioning might take several minutes, perhaps longer.
+正是，资源供应可能要几分钟，也许更久。
+
+8
+00:00:31.727 --> 00:00:35.278
+Anika: We can shed load from exports temporarily.
+可以暂时减少导出业务的承接负载。
+
+9
+00:00:35.278 --> 00:00:38.566
+Lukas: Okay, keep an eye on queue age too.
+好，也要留意队列等待时间。
+
+10
+00:00:38.566 --> 00:00:42.430
+Priya: Critical writes must fit without waiting for scaling.
+关键写入必须无需等待扩容就能承载。
+

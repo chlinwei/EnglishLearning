@@ -1,0 +1,135 @@
+{
+ "id": "0237",
+ "part": 2,
+ "stage": "峰值数据",
+ "title": "高CPU不是唯一上限",
+ "premise": "评审要求两区失一后的业务能力，开始看历史与测试数据。",
+ "listeningTask": "辨别吞吐平台期、尾延迟与CPU使用率。",
+ "newPhrase": "p512",
+ "phrases": [
+  "p512",
+  "p511",
+  "p314",
+  "p011:extra",
+  "p302:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The database was at capacity during replay.",
+   "zh": "回放时数据库达到容量上限了。",
+   "role": "Infrastructure capacity engineer",
+   "start": 0.0,
+   "end": 3.48
+  },
+  {
+   "sp": "Hannah",
+   "en": "Based on CPU, or a throughput plateau?",
+   "zh": "依据CPU，还是吞吐不再增长？",
+   "role": "Performance engineer",
+   "start": 3.48,
+   "end": 7.295
+  },
+  {
+   "sp": "Raj",
+   "en": "Throughput flattened while tail latency kept rising.",
+   "zh": "吞吐趋平，尾延迟却继续上升。",
+   "role": "Infrastructure capacity engineer",
+   "start": 7.295,
+   "end": 11.207
+  },
+  {
+   "sp": "Lukas",
+   "en": "Traffic is flat now, but replay wasn't.",
+   "zh": "现在流量平稳，但回放并不是。",
+   "role": "Reliability architect",
+   "start": 11.207,
+   "end": 14.614
+  },
+  {
+   "sp": "Anika",
+   "en": "The campaign probably adds more expensive order writes.",
+   "zh": "促销大概会增加更多高成本订单写入。",
+   "role": "Service and budget owner",
+   "start": 14.614,
+   "end": 18.766
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, mix changes too, right?",
+   "zh": "确认一下，请求构成也会变，对吧？",
+   "role": "Architecture review chair",
+   "start": 18.766,
+   "end": 22.654
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. RPS alone misleads.",
+   "zh": "我复述一下：只看每秒请求数会误导。",
+   "role": "Performance engineer",
+   "start": 22.654,
+   "end": 27.477
+  },
+  {
+   "sp": "Raj",
+   "en": "The capacity envelope must include that write mix.",
+   "zh": "容量工作范围必须包含这种写入构成。",
+   "role": "Infrastructure capacity engineer",
+   "start": 27.477,
+   "end": 31.389
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't rule that out as a storage bottleneck.",
+   "zh": "不能排除存储瓶颈这一可能性。",
+   "role": "Reliability architect",
+   "start": 31.389,
+   "end": 34.556
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, bring disk latency into the next comparison.",
+   "zh": "好，下次对比加入磁盘延迟。",
+   "role": "Architecture review chair",
+   "start": 34.556,
+   "end": 38.78
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 2,
+ "scene": "评审要求两区失一后的业务能力，开始看历史与测试数据。",
+ "dir": "ha/0237-高CPU不是唯一上限",
+ "audio": "0237-高CPU不是唯一上限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "峰值数据"
+ ],
+ "duration": 38.78
+}

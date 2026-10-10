@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.320
+Lukas: Now assume ten thousand queued updates. How would you increase throughput without overloading dependencies?
+
+2
+00:00:07.320 --> 00:00:15.072
+Raj: I'd use bounded concurrency in the worker pool. Just to confirm, the API publishes limits, right?
+
+3
+00:00:15.072 --> 00:00:22.776
+Hannah: Yes, requests and active connections are limited. Does your queue also stay in memory?
+
+4
+00:00:22.776 --> 00:00:30.816
+Raj: No, I'd fetch a limited batch size. That preserves memory headroom and avoids unbounded buffering.
+
+5
+00:00:30.816 --> 00:00:39.984
+Raj: Okay, my working hypothesis is network waiting dominates. Maybe profiling shows serialization matters more instead.
+
+6
+00:00:39.984 --> 00:00:46.680
+Lukas: What would you measure before choosing async? Concurrency isn't always the same as throughput.
+
+7
+00:00:46.680 --> 00:00:54.144
+Raj: I'd measure queue age and request latency. Keep an eye on throttling and retry amplification.
+
+8
+00:00:54.144 --> 00:01:01.344
+Hannah: How would you keep retries fair? New work could starve older unresolved operations.
+
+9
+00:01:01.344 --> 00:01:09.792
+Raj: I'd schedule due retries with bounded shares. They shouldn't monopolize workers or disappear behind newcomers.
+
+10
+00:01:09.792 --> 00:01:18.240
+Raj: Then benchmark representative payloads under sandbox limits. I'd tune from evidence, not thread-count guesses.
+

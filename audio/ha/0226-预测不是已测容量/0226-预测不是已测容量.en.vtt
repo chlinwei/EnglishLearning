@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.504
+Anika: Our peak forecast is six thousand requests.
+
+2
+00:00:03.504 --> 00:00:07.609
+Lukas: Per second? What's the expected request mix?
+
+3
+00:00:07.609 --> 00:00:12.697
+Anika: Yes. Browsing dominates, but checkout bursts matter.
+
+4
+00:00:12.697 --> 00:00:16.346
+Hannah: Our database test used a different mix.
+
+5
+00:00:16.346 --> 00:00:19.226
+Raj: We may need to shed load early.
+
+6
+00:00:19.226 --> 00:00:23.186
+Priya: Just to confirm, no enforcement yet, right?
+
+7
+00:00:23.186 --> 00:00:28.227
+Lukas: Correct. The working hypothesis needs representative testing.
+
+8
+00:00:28.227 --> 00:00:31.803
+Raj: I've got bandwidth for replay analysis today.
+
+9
+00:00:31.803 --> 00:00:36.796
+Hannah: Okay, include expensive writes and callback bursts.
+
+10
+00:00:36.796 --> 00:00:41.020
+Priya: What's the ETA? Roughly before lunch?
+

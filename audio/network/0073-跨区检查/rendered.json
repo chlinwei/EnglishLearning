@@ -1,0 +1,135 @@
+{
+ "id": "0073",
+ "part": 8,
+ "stage": "跨区验证",
+ "title": "跨区检查：回答正确不代表视图一致",
+ "premise": "受影响客户端分批切换B后错误下降，需验证两区私有解析和业务路径。",
+ "listeningTask": "理解区域相关答案可能不同，验收要求不是所有地址完全一样。",
+ "newPhrase": "p348",
+ "phrases": [
+  "p348",
+  "p010",
+  "p302",
+  "p110:extra",
+  "p012:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "We use split-horizon DNS. The correct answer depends on the client's view and location.",
+   "zh": "我们采用分视图DNS，正确答案取决于客户端视图和位置。",
+   "role": "DNS validation engineer",
+   "start": 0.0,
+   "end": 8.04
+  },
+  {
+   "sp": "Raj",
+   "en": "Both zones return their expected private addresses. I checked against the approved service map.",
+   "zh": "两区都返回各自预期私有地址，我和批准的服务映射核对过。",
+   "role": "Network on-call",
+   "start": 8.04,
+   "end": 15.673
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good. Matching addresses everywhere isn't the goal. Correct routing for each client is.",
+   "zh": "好。目标不是所有地方地址完全一致，而是各客户端路由正确。",
+   "role": "SRE",
+   "start": 15.673,
+   "end": 22.609
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no private names leaked to a public resolver, right?",
+   "zh": "我确认一下，没有把私有名称发给公共解析器，对吧？",
+   "role": "Incident coordinator",
+   "start": 22.609,
+   "end": 27.794
+  },
+  {
+   "sp": "Anika",
+   "en": "Right. Only approved internal paths. Fresh checkout connections are healthy from both zones.",
+   "zh": "对，只走批准的内部路径。两区结账的新连接都正常。",
+   "role": "Checkout application owner",
+   "start": 27.794,
+   "end": 35.69
+  },
+  {
+   "sp": "Hannah",
+   "en": "We can rule that out as a view mismatch in the tested paths. Keep the coverage recorded.",
+   "zh": "在已测路径中可以排除视图不匹配，测试覆盖范围仍要记录。",
+   "role": "DNS validation engineer",
+   "start": 35.69,
+   "end": 43.082
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to recap, B is serving the switched clients. A is still isolated from those clients.",
+   "zh": "小结一下，B正为已切换客户端服务，A仍与这些客户端隔离。",
+   "role": "Network on-call",
+   "start": 43.082,
+   "end": 50.427
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll keep an eye on B's latency. The extra traffic needs ongoing monitoring.",
+   "zh": "我会盯着B的延迟，新增流量需要持续监控。",
+   "role": "SRE",
+   "start": 50.427,
+   "end": 56.427
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay. Can we report we're back to baseline? Include the metrics, not just the probe results.",
+   "zh": "好。能报告回到基线了吗？要有指标，不只看探测结果。",
+   "role": "Incident coordinator",
+   "start": 56.427,
+   "end": 64.372
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, errors and latency are normal now. We can report service recovery, with A's repair still pending.",
+   "zh": "可以，现在错误和延迟正常。可以报告服务恢复，但A的修复仍待完成。",
+   "role": "Checkout application owner",
+   "start": 64.372,
+   "end": 72.34
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 8,
+ "scene": "受影响客户端分批切换B后错误下降，需验证两区私有解析和业务路径。",
+ "dir": "network/0073-跨区检查",
+ "audio": "0073-跨区检查.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "跨区验证"
+ ],
+ "duration": 72.34
+}

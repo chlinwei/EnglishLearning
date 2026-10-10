@@ -1,0 +1,129 @@
+{
+ "id": "0257",
+ "part": 2,
+ "stage": "可用性目标",
+ "title": "目标：不能靠组件数字相乘许愿",
+ "premise": "确认订单正确性优先，面试官要求定义用户可见的可用性指标。",
+ "listeningTask": "听懂目标、错误预算和测量口径。",
+ "newPhrase": "p532",
+ "phrases": [
+  "p532",
+  "p531",
+  "p010",
+  "p335:extra",
+  "p309:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Use ninety-nine point nine percent monthly availability.",
+   "zh": "使用每月百分之九十九点九的可用性目标。",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 4.248
+  },
+  {
+   "sp": "Raj",
+   "en": "The error budget follows eligible checkout attempts.",
+   "zh": "错误预算以符合统计口径的结账尝试为基础。",
+   "role": "DevOps system design candidate",
+   "start": 4.248,
+   "end": 8.016
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, correctness failures count too, right?",
+   "zh": "确认一下，正确性失败也计入，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 8.016,
+   "end": 12.121
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. A fast incorrect response isn't success.",
+   "zh": "是的，快速但错误的响应不算成功。",
+   "role": "Data systems interviewer",
+   "start": 12.121,
+   "end": 17.281
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll keep an eye on user-visible completion.",
+   "zh": "我会关注用户可见的业务完成。",
+   "role": "DevOps system design candidate",
+   "start": 17.281,
+   "end": 20.761
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does your availability target cover payment-provider failures?",
+   "zh": "可用性目标包括支付提供方故障吗？",
+   "role": "Reliability interviewer",
+   "start": 20.761,
+   "end": 25.033
+  },
+  {
+   "sp": "Raj",
+   "en": "Probably yes for customer outcomes. Attribute causes separately.",
+   "zh": "客户结果大概应该计入，原因另行归属。",
+   "role": "DevOps system design candidate",
+   "start": 25.033,
+   "end": 30.457
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis needs agreed exclusions first.",
+   "zh": "我当前的假设需要先约定排除口径。",
+   "role": "DevOps system design candidate",
+   "start": 30.457,
+   "end": 34.946
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, avoid hiding failures behind convenient exclusions.",
+   "zh": "好，不要用方便的排除条件掩盖失败。",
+   "role": "Data systems interviewer",
+   "start": 34.946,
+   "end": 40.514
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to recap, measure the whole checkout journey.",
+   "zh": "小结一下，要测量完整的结账过程。",
+   "role": "DevOps system design candidate",
+   "start": 40.514,
+   "end": 44.33
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 2,
+ "scene": "确认订单正确性优先，面试官要求定义用户可见的可用性指标。",
+ "dir": "ha/0257-目标",
+ "audio": "0257-目标.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "可用性目标"
+ ],
+ "duration": 44.33
+}

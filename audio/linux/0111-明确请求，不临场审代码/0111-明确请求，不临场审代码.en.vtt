@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Raj: Okay, the rotation change is up for review. I've attached Friday's logs and test results.
+
+2
+00:00:07.248 --> 00:00:13.800
+Lukas: Do you need approval or initial feedback? Missing permission tests may block final approval.
+
+3
+00:00:13.800 --> 00:00:20.568
+Raj: Initial feedback first, then approval after tests. Do you have bandwidth this afternoon?
+
+4
+00:00:20.568 --> 00:00:27.888
+Hannah: I'll link new tests when they finish. Don't describe pending coverage as already passing.
+
+5
+00:00:27.888 --> 00:00:35.208
+Anika: My service limit change stays separate. Different rollback paths deserve separate review requests.
+
+6
+00:00:35.208 --> 00:00:41.928
+Priya: Just to confirm, not one combined approval, right? Who's picking this up for review?
+
+7
+00:00:41.928 --> 00:00:47.784
+Lukas: I'm on it at about two today. I'll start with rotation and its safety checks.
+
+8
+00:00:47.784 --> 00:00:55.440
+Raj: Great, expected changes are listed explicitly. The live service rollout is outside this request.
+
+9
+00:00:55.440 --> 00:01:02.280
+Hannah: Can we take it offline for code details? We still need the dependency updates here.
+
+10
+00:01:02.280 --> 00:01:09.360
+Priya: So, yes, pair after the standup. For now, review ownership and scope are clear.
+

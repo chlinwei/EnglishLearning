@@ -1,0 +1,135 @@
+{
+ "id": "0151",
+ "part": 6,
+ "stage": "时间差距",
+ "title": "四十二分钟不是三十分钟达标",
+ "premise": "首批数据校验通过，核算恢复步骤耗时及尚未完成的最终验收。",
+ "listeningTask": "区分恢复点差距与恢复耗时目标。",
+ "newPhrase": "p426",
+ "phrases": [
+  "p426",
+  "p423",
+  "p425:extra",
+  "p008:extra",
+  "p318:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Restore elapsed time reached forty-two minutes. We started at three, UTC today.",
+   "zh": "恢复已耗时四十二分钟，今天UTC三点开始。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 6.744
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's through the initial checked access? Final application acceptance isn't done yet.",
+   "zh": "这是到首批经过检查的访问为止？最终应用验收还没完成。",
+   "role": "Incoming database on-call",
+   "start": 6.744,
+   "end": 13.057
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, thirty-three minutes restoring and replaying. Nine more minutes for initial checks.",
+   "zh": "对，恢复和回放三十三分钟，初步检查又九分钟。",
+   "role": "Outgoing application validation owner",
+   "start": 13.057,
+   "end": 19.609
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, target was thirty, right? The recovery window already exceeded that.",
+   "zh": "确认一下，目标是三十分钟，对吧？恢复时间已经超了。",
+   "role": "Recovery drill coordinator",
+   "start": 19.609,
+   "end": 26.69
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. Don't stop the clock retroactively. Remaining reconciliation checks add more elapsed time.",
+   "zh": "对，别倒推提前停表，剩余对账检查还会增加耗时。",
+   "role": "Incoming reconciliation engineer",
+   "start": 26.69,
+   "end": 35.666
+  },
+  {
+   "sp": "Raj",
+   "en": "The recovery target still excludes five minutes. That's separate from these forty-two minutes.",
+   "zh": "恢复目标仍排除五分钟数据，这与四十二分钟耗时是两回事。",
+   "role": "Outgoing database on-call",
+   "start": 35.666,
+   "end": 42.578
+  },
+  {
+   "sp": "Lukas",
+   "en": "Where did the extra time accumulate? Measure download, replay, and validation separately.",
+   "zh": "多出来的时间在哪？分别测下载、回放和验证。",
+   "role": "Incoming database on-call",
+   "start": 42.578,
+   "end": 49.635
+  },
+  {
+   "sp": "Anika",
+   "en": "Download took longer than our rehearsal. Maybe bandwidth limits explain part of it.",
+   "zh": "下载比预演久，带宽限制可能解释一部分。",
+   "role": "Outgoing application validation owner",
+   "start": 49.635,
+   "end": 56.067
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the ETA for final checks? Call it provisional until jobs finish.",
+   "zh": "最终检查预计何时完成？任务结束前只能说暂估。",
+   "role": "Incoming reconciliation engineer",
+   "start": 56.067,
+   "end": 62.812
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, roughly another twenty minutes estimated. No completed recovery-time claim before acceptance.",
+   "zh": "好，估计再二十分钟左右，验收前不宣称恢复耗时已最终确定。",
+   "role": "Recovery drill coordinator",
+   "start": 62.812,
+   "end": 70.54
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 6,
+ "scene": "首批数据校验通过，核算恢复步骤耗时及尚未完成的最终验收。",
+ "dir": "database/0151-四十二分钟不是三十分钟达标",
+ "audio": "0151-四十二分钟不是三十分钟达标.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "时间差距"
+ ],
+ "duration": 70.54
+}

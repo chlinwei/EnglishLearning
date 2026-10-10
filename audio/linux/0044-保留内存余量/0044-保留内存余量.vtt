@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.192
+Anika: Queue age is normal. Samples look good. We're back to baseline.
+事件等待时间正常，抽样也没问题，服务恢复到基线了。
+
+2
+00:00:06.192 --> 00:00:11.496
+Lukas: What about memory headroom? The host needs room for more than this worker.
+内存余量呢？主机不能只给这个消费者留空间。
+
+3
+00:00:11.496 --> 00:00:16.368
+Raj: We've got room now. I'll keep an eye on the growth rate.
+现在还有余量，我会留意增长速度。
+
+4
+00:00:16.368 --> 00:00:23.448
+Priya: Just to confirm, adding memory isn't the fix, right? It might only delay another OOM.
+我确认一下，加内存不是根因修复，对吧？可能只是推迟下一次OOM。
+
+5
+00:00:23.448 --> 00:00:31.392
+Hannah: Right. Forecast time to exhaustion as well. A percentage alone can hide the risk.
+对，也要估算按当前增长速度多久耗尽，单看百分比可能掩盖风险。
+
+6
+00:00:31.392 --> 00:00:37.080
+Anika: Should we discuss a bigger host? Let's park that until we have the trend.
+要不要讨论更大的主机？先放一边，等有了趋势再说。
+
+7
+00:00:37.080 --> 00:00:43.896
+Lukas: Use the existing memory alert. If growth resumes, pause the canary and escalate.
+沿用现有内存告警。如果再次持续增长，就暂停灰度消费并升级处理。
+
+8
+00:00:43.896 --> 00:00:49.656
+Priya: Let's circle back in an hour. Keep the rollback ready in case we need it.
+一小时后我们再确认。回滚准备保持就绪，以防需要。
+
+9
+00:00:49.656 --> 00:00:56.112
+Hannah: I'll put the trigger and contact in the handoff. No guessing on the next shift.
+我会把触发条件和联系人写进交接，下个班不用猜。
+
+10
+00:00:56.112 --> 00:01:03.840
+Raj: Agreed. The canary stays isolated. No further rollout until the app owner signs off.
+同意。灰度节点保持隔离，在应用负责人批准前不扩大发布。
+

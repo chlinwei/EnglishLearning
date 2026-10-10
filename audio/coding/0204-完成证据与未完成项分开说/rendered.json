@@ -1,0 +1,135 @@
+{
+ "id": "0204",
+ "part": 9,
+ "stage": "迭代回顾",
+ "title": "完成证据与未完成项分开说",
+ "premise": "两周迭代结束：首个日报切片已按约定样本验收，扩展异常数据测试未全部完成，尚未生产发布。",
+ "listeningTask": "听清实际完成、遗留任务及不能宣称的结果。",
+ "newPhrase": "p479",
+ "phrases": [
+  "p479",
+  "p010",
+  "p477:extra",
+  "p474:extra",
+  "p012:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, the first slice passed. Additional malformed-data tests will carry over separately.",
+   "zh": "小结：首个切片通过，额外异常数据测试单独转下轮。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 0.0,
+   "end": 7.704
+  },
+  {
+   "sp": "Hannah",
+   "en": "The agreed acceptance criteria are met. The extra cases extend coverage beyond those fixtures.",
+   "zh": "约定验收标准已满足，额外用例扩展此前fixture之外的覆盖。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 7.704,
+   "end": 16.344
+  },
+  {
+   "sp": "Raj",
+   "en": "Full extraction was a stretch, as expected. Just to confirm, no production release yet, right?",
+   "zh": "完整提取如预期只是挑战目标，确认一下，尚未生产发布，对吧？",
+   "role": "Refactoring implementation engineer",
+   "start": 16.344,
+   "end": 23.807
+  },
+  {
+   "sp": "Anika",
+   "en": "Right, consumer sign-off covers isolated report comparisons. Operational release still needs its own approval.",
+   "zh": "对，使用方验收仅针对隔离报表对比，运行上线另需批准。",
+   "role": "Reporting service and consumer owner",
+   "start": 23.807,
+   "end": 32.063
+  },
+  {
+   "sp": "Lukas",
+   "en": "What made review easier this iteration? We should preserve the practices that actually helped.",
+   "zh": "本轮什么让评审更容易？保留真正有效的实践。",
+   "role": "Architecture and implementation reviewer",
+   "start": 32.063,
+   "end": 38.759
+  },
+  {
+   "sp": "Raj",
+   "en": "Small changes and fixed fixtures helped most. Maybe discovery deserves an earlier owner next time.",
+   "zh": "小改动和固定fixture最有帮助，下次梳理可能应更早指定负责人。",
+   "role": "Refactoring implementation engineer",
+   "start": 38.759,
+   "end": 46.799
+  },
+  {
+   "sp": "Hannah",
+   "en": "Agreed, waiting for samples delayed meaningful feedback. We shouldn't blame implementation for every delay.",
+   "zh": "同意，等样本延迟了有效反馈，不能把所有延期归到实现。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 46.799,
+   "end": 55.823
+  },
+  {
+   "sp": "Priya",
+   "en": "One action item is tracking sample dependencies. We'll compare waiting time in the next iteration.",
+   "zh": "一项任务是跟踪样本依赖，下轮比较等待时长。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 55.823,
+   "end": 63.166
+  },
+  {
+   "sp": "Lukas",
+   "en": "Faster local tests are a useful result. They don't prove production reliability has improved yet.",
+   "zh": "本地测试更快是有用结果，但还不能证明生产可靠性提高。",
+   "role": "Architecture and implementation reviewer",
+   "start": 63.166,
+   "end": 70.366
+  },
+  {
+   "sp": "Anika",
+   "en": "Good distinction, I'll keep that in the summary. Today's evidence supports maintainability, not outage reduction.",
+   "zh": "区分得对，总结保留，今天证据支持可维护性，不证明故障减少。",
+   "role": "Reporting service and consumer owner",
+   "start": 70.366,
+   "end": 78.55
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 9,
+ "scene": "两周迭代结束：首个日报切片已按约定样本验收，扩展异常数据测试未全部完成，尚未生产发布。",
+ "dir": "coding/0204-完成证据与未完成项分开说",
+ "audio": "0204-完成证据与未完成项分开说.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "迭代回顾"
+ ],
+ "duration": 78.55
+}

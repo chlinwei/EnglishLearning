@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Priya: Let's preserve the evidence before restoring. Just to confirm, copies are read-only, right?
+恢复前保留证据。确认一下，副本是只读的，对吧？
+
+2
+00:00:07.128 --> 00:00:14.641
+Hannah: Yes, with hashes and restricted access. The originals stay under the incident hold.
+是，记录哈希并限制访问，原件按事件要求保留。
+
+3
+00:00:14.641 --> 00:00:20.761
+Raj: Let me tail the log copy. The invocation shows an empty tenant value.
+我看日志副本，调用参数显示租户值为空。
+
+4
+00:00:20.761 --> 00:00:27.434
+Anika: I'll preserve the object inventory as well. It captures what's missing before recovery.
+我也保留对象清单，记录恢复前缺失的内容。
+
+5
+00:00:27.434 --> 00:00:34.010
+Lukas: Keep the exact script revision and environment. Current source might differ from execution.
+保留实际执行的脚本版本和环境，当前源码可能已不同。
+
+6
+00:00:34.010 --> 00:00:41.018
+Raj: Our working hypothesis now has supporting evidence. But the root cause is still open.
+当前假设有了证据支持，但根因还没确认。
+
+7
+00:00:41.018 --> 00:00:49.779
+Hannah: The preserved revision includes its dependencies too. We can reproduce behavior without live storage.
+保存版本也包含依赖，可以不接生产存储复现行为。
+
+8
+00:00:49.779 --> 00:00:56.859
+Priya: Okay, one action item for access control. Anika owns the evidence retention decision.
+好，证据访问控制列为行动项，Anika负责保留期限决策。
+
+9
+00:00:56.859 --> 00:01:04.300
+Lukas: Exclude credentials from the shared incident notes. Store sensitive evidence in the restricted location.
+共享事件记录不包含凭据，敏感证据放受限位置。
+
+10
+00:01:04.300 --> 00:01:11.860
+Anika: Agreed, maybe legal retention also applies here. I'll check before releasing any evidence hold.
+同意，可能还涉及法务保留要求，解除保留前我会确认。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.280
+Hannah: Large responses show more retransmissions in samples. Could path MTU discovery be failing?
+抽样的大响应有更多重传，会不会是路径MTU发现失败？
+
+2
+00:00:08.280 --> 00:00:15.360
+Raj: Okay, that's a working hypothesis only. We haven't observed a consistent size boundary.
+好，这只是当前假设，尚未观察到一致的大小边界。
+
+3
+00:00:15.360 --> 00:00:22.225
+Lukas: Don't lower MTU across the production fleet. Check tunnels and ICMP handling first.
+不要全生产集群降低MTU。先检查隧道和ICMP处理。
+
+4
+00:00:22.225 --> 00:00:28.849
+Anika: Could a sandbox client reproduce the pattern? It uses the same approved network path.
+沙箱客户端能复现吗？它使用同一条批准的网络路径。
+
+5
+00:00:28.849 --> 00:00:36.385
+Priya: Just to confirm, bounded probes only, right? No bulk oversized traffic against production.
+我确认一下，只做受限探测，对吧？不向生产大量发送超大流量。
+
+6
+00:00:36.385 --> 00:00:45.241
+Hannah: Yes, small scheduled samples with packet metadata. We need acknowledgments and retransmission timing.
+是，用定时小样本和包元数据。需要确认应答和重传时序。
+
+7
+00:00:45.241 --> 00:00:52.465
+Raj: We'll dry-run it first in isolation. Then approved diagnostic probes can test reachability.
+先在隔离环境预演，再由批准的诊断探测测试可达性。
+
+8
+00:00:52.465 --> 00:01:00.050
+Lukas: Define the rollback trigger for experimental settings. Increased errors mean restore the saved configuration.
+定义试验设置的回退门槛，错误增加就恢复已保存配置。
+
+9
+00:01:00.050 --> 00:01:07.658
+Anika: I'd prefer no production settings changed yet. Roughly matching topology should test feasibility first.
+我倾向于暂不改生产设置。先用大致匹配的拓扑验证可行性。
+
+10
+00:01:07.658 --> 00:01:16.970
+Priya: Agreed, production changes? Let's park that. So, MTU remains unconfirmed pending controlled evidence.
+同意，生产变更先搁置。MTU问题继续等待受控证据，尚未确认。
+

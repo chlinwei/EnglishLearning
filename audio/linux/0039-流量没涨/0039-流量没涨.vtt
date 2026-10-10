@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Anika: Traffic is flat. Input sizes look normal too. No obvious surge.
+流量没有明显变化，输入大小看起来也正常，没有明显激增。
+
+2
+00:00:06.552 --> 00:00:11.713
+Lukas: Any change in the data mix? More unique keys could grow a cache.
+数据组成有没有变化？不同键值变多，也可能让缓存增长。
+
+3
+00:00:11.713 --> 00:00:17.449
+Anika: Nothing obvious in the samples. We can't rule that out completely yet.
+抽样没发现明显变化，但现在还不能完全排除。
+
+4
+00:00:17.449 --> 00:00:23.090
+Raj: Worker-two is the only canary. The other two still run the older build.
+worker-two是唯一的灰度节点，另外两台仍运行旧版本。
+
+5
+00:00:23.090 --> 00:00:29.354
+Hannah: That helps explain the difference. It doesn't prove which code change caused it.
+这有助于解释差异，但不能证明具体是哪处代码变化导致的。
+
+6
+00:00:29.354 --> 00:00:35.114
+Priya: Just to confirm, no more rollout, right? Keep this to one host.
+我确认一下，先不继续发布，对吧？把范围保持在一台主机。
+
+7
+00:00:35.114 --> 00:00:40.491
+Lukas: Agreed. Freeze the rollout while we gather evidence and plan recovery.
+同意。收集证据、准备恢复期间冻结发布。
+
+8
+00:00:40.491 --> 00:00:46.035
+Anika: I'm on it. Let's circle back to the cache change after recovery.
+我来处理。恢复后我们再回到缓存变更上。
+
+9
+00:00:46.035 --> 00:00:52.444
+Hannah: I'll keep an eye on the healthy workers. Don't overload them while we investigate.
+我会关注健康消费者，排查期间别把它们压垮。
+
+10
+00:00:52.444 --> 00:00:59.380
+Raj: The canary is growing again already. We've probably got a short window for diagnostics.
+灰度节点的内存已经又开始涨了，留给诊断的时间可能不长。
+

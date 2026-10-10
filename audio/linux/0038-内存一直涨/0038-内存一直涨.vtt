@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.744
+Hannah: The worker's RSS keeps climbing. It rose steadily for about six hours.
+这个消费者的常驻内存一直在涨，持续上升了大约六小时。
+
+2
+00:00:06.744 --> 00:00:12.744
+Raj: Other processes stayed small. The worker accounts for most of that increase.
+其他进程占用一直很小，大部分增长来自这个消费者。
+
+3
+00:00:12.744 --> 00:00:17.255
+Lukas: Could that be a cache warming up? Does it normally level off?
+会不会只是缓存预热？正常情况下最终会趋于稳定吗？
+
+4
+00:00:17.255 --> 00:00:24.215
+Anika: Usually it does. This curve doesn't flatten. Maybe the cache isn't bounded.
+通常会稳定，但这条曲线没有变平。可能是缓存没有限制。
+
+5
+00:00:24.215 --> 00:00:30.335
+Priya: Just to confirm, that's a hypothesis, right? We haven't proved a leak.
+我确认一下，这只是一个假设，对吧？我们还没证明是泄漏。
+
+6
+00:00:30.335 --> 00:00:36.335
+Hannah: Correct. The older version flattened much earlier under similar load.
+对。旧版本在类似负载下更早就趋于稳定。
+
+7
+00:00:36.335 --> 00:00:41.711
+Raj: I'll keep an eye on the new process. We can't rule that out yet.
+我会盯着新进程，现在还不能排除那个假设。
+
+8
+00:00:41.711 --> 00:00:47.686
+Lukas: Let's compare request volume too. A busier worker could explain some growth.
+也对比请求量。消费者更忙，也可能解释部分增长。
+
+9
+00:00:47.686 --> 00:00:54.478
+Priya: What's the ETA for that comparison? A bigger host? Let's park that for now.
+完成对比预计多久？换更大主机的事先放一边。
+
+10
+00:00:54.478 --> 00:01:00.550
+Anika: About three minutes. I'll check the input mix as well, not just volume.
+大约三分钟。我也会看输入数据的类型，不只看数量。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0036",
+ "part": 1,
+ "stage": "告警",
+ "title": "内存告警：先确认谁出问题",
+ "premise": "订单补充信息延迟，worker-two主机告警，进程发生过一次退出。",
+ "listeningTask": "听清服务影响、主机范围和当前未知项。",
+ "newPhrase": "p311",
+ "phrases": [
+  "p311",
+  "p003",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We've got memory pressure on enrichment-worker-two. The process exited a minute ago.",
+   "zh": "enrichment-worker-two出现内存压力，进程一分钟前退出了。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 6.528
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is it still down? And are the other workers affected?",
+   "zh": "现在还没起来吗？其他消费者也受影响了吗？",
+   "role": "SRE",
+   "start": 6.528,
+   "end": 10.752
+  },
+  {
+   "sp": "Raj",
+   "en": "Systemd brought it back. It's running now. I haven't checked the exit reason.",
+   "zh": "systemd已经拉起来了，现在在运行。我还没查退出原因。",
+   "role": "Linux on-call",
+   "start": 10.752,
+   "end": 17.327
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Just to confirm, one host so far, right?",
+   "zh": "好，这次我来协调。我确认一下，目前只有一台，对吧？",
+   "role": "Incident lead",
+   "start": 17.327,
+   "end": 24.023
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. Queue age is rising, but checkout itself looks normal.",
+   "zh": "是的。队列里事件的等待时间在增长，不过结账服务本身看起来正常。",
+   "role": "Operations engineer",
+   "start": 24.023,
+   "end": 29.759
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it. I'll check processing errors and recent changes.",
+   "zh": "我来查处理错误和近期变更。",
+   "role": "Application owner",
+   "start": 29.759,
+   "end": 34.823
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let's not call it a leak yet. An exit isn't enough evidence.",
+   "zh": "先别认定是内存泄漏。一次进程退出不够证明。",
+   "role": "SRE",
+   "start": 34.823,
+   "end": 39.911
+  },
+  {
+   "sp": "Priya",
+   "en": "Raj, what's the ETA for the kernel log? Roughly is fine.",
+   "zh": "Raj，检查内核日志预计多久？大概时间就行。",
+   "role": "Incident lead",
+   "start": 39.911,
+   "end": 45.454
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on queue age while you check.",
+   "zh": "你检查时，我会盯着事件等待时间。",
+   "role": "Operations engineer",
+   "start": 45.454,
+   "end": 48.694
+  },
+  {
+   "sp": "Raj",
+   "en": "About two minutes. I'll save the logs before they rotate.",
+   "zh": "大约两分钟。我会在日志轮转前保存下来。",
+   "role": "Linux on-call",
+   "start": 48.694,
+   "end": 53.47
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 1,
+ "scene": "订单补充信息延迟，worker-two主机告警，进程发生过一次退出。",
+ "dir": "linux/0036-内存告警",
+ "audio": "0036-内存告警.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "告警"
+ ],
+ "duration": 53.47
+}

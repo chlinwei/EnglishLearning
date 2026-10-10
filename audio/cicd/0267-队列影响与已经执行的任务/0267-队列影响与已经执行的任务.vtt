@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.792
+Raj: Forty queued builds are waiting now. Twelve earlier attempts failed fetching dependencies.
+现在四十个构建排队。之前十二次尝试下载依赖失败。
+
+2
+00:00:06.792 --> 00:00:13.729
+Priya: Okay, that's our blast radius currently. Just to confirm, no production deployments?
+好，这是目前影响范围。确认一下，没有生产部署？
+
+3
+00:00:13.729 --> 00:00:20.593
+Lukas: Check deployment receipts, not dashboard colors. A failed run might complete side effects.
+查部署回执，别只看面板颜色。失败运行也可能已完成副作用。
+
+4
+00:00:20.593 --> 00:00:27.194
+Anika: The pipeline's red before deployment here. Receipts show no deploy requests, right?
+这里流水线在部署前就红了。回执显示没有部署请求，对吧？
+
+5
+00:00:27.194 --> 00:00:34.202
+Hannah: Correct for these twelve failed attempts. I'll also check partial artifact uploads.
+这十二次失败确实如此。我还查部分上传的制品。
+
+6
+00:00:34.202 --> 00:00:40.418
+Raj: I'm on it for queue snapshots. Duplicate manual retries are held separately.
+队列快照我来取。重复的手动重试单独挂起。
+
+7
+00:00:40.418 --> 00:00:47.475
+Lukas: Keep original run identifiers with attempts. Otherwise we'll lose the deduplication boundary.
+各次尝试保留原运行标识，否则会丢掉去重边界。
+
+8
+00:00:47.475 --> 00:00:54.075
+Priya: So, hold new dispatch for now. Developers can still submit reviewed changes.
+那么先暂停新任务派发。开发仍可提交评审过的变更。
+
+9
+00:00:54.075 --> 00:01:00.988
+Hannah: I'll keep an eye on uploads. Any incomplete object stays outside release selection.
+我关注上传。任何不完整对象都不能进入发布选择。
+
+10
+00:01:00.988 --> 00:01:07.900
+Anika: Fair, submissions aren't deployments or retries. I'll make that distinction quite clear.
+明白，提交不等于部署或重试。我会把区别说清楚。
+

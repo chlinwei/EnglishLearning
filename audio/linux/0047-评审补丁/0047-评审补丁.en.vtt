@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.952
+Lukas: What's our evidence against a kernel regression? Which tests ran in staging?
+
+2
+00:00:05.952 --> 00:00:13.295
+Raj: Boot, network, and storage checks passed. Same image family, same Secure Boot setting.
+
+3
+00:00:13.295 --> 00:00:20.423
+Hannah: Same driver versions too? A matching image name doesn't guarantee matching modules.
+
+4
+00:00:20.423 --> 00:00:26.350
+Anika: App tests passed under load. Memory headroom stayed healthy throughout the run.
+
+5
+00:00:26.350 --> 00:00:32.830
+Priya: Just to confirm, no memory pressure in that run, right? Attach the graphs.
+
+6
+00:00:32.830 --> 00:00:38.278
+Lukas: If anything got OOM-killed, we'd need to separate capacity from kernel behavior.
+
+7
+00:00:38.278 --> 00:00:45.261
+Raj: Nothing did. I checked the kernel log too. We can rule that out for this test.
+
+8
+00:00:45.261 --> 00:00:52.077
+Hannah: I'll compare the driver manifests next. That's the remaining gap in the evidence.
+
+9
+00:00:52.077 --> 00:00:58.844
+Anika: Maybe add a longer soak later. The current test doesn't cover every production pattern.
+
+10
+00:00:58.844 --> 00:01:05.660
+Priya: Agreed. Record the limitation. We still need a small first batch tonight.
+

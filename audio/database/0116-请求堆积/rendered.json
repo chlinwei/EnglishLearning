@@ -1,0 +1,135 @@
+{
+ "id": "0116",
+ "part": 1,
+ "stage": "告警",
+ "title": "请求堆积",
+ "premise": "订单API延迟上升，先确认等待发生在哪一层。",
+ "listeningTask": "区分等待连接和查询正在执行。",
+ "newPhrase": "p391",
+ "phrases": [
+  "p391",
+  "p003",
+  "p010:extra",
+  "p008:extra",
+  "p103:extra",
+  "p101:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The pool is exhausted on orders. The error rate spiked after nine.",
+   "zh": "订单服务连接池耗尽，九点后错误率猛涨。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 5.616
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are requests waiting for connections? Or already running inside the database?",
+   "zh": "请求在等连接，还是已在数据库里执行？",
+   "role": "SRE and traffic controller",
+   "start": 5.616,
+   "end": 11.447
+  },
+  {
+   "sp": "Anika",
+   "en": "Mostly waiting before any query starts. About two hundred requests are queued.",
+   "zh": "大部分还没开始查询就卡住了，大约两百个请求在排队。",
+   "role": "Orders application owner",
+   "start": 11.447,
+   "end": 17.855
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Just to confirm, writes still succeed, right?",
+   "zh": "好，我来协调。确认一下，写入仍有成功的，对吧？",
+   "role": "Incident coordinator",
+   "start": 17.855,
+   "end": 24.79
+  },
+  {
+   "sp": "Hannah",
+   "en": "Some do, but clients time out. Don't assume failed responses mean failed writes.",
+   "zh": "有些成功，但客户端超时。不能把响应失败等同于写入失败。",
+   "role": "Application validation engineer",
+   "start": 24.79,
+   "end": 31.966
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log first. I'll separate checkout waits from execution.",
+   "zh": "我先盯日志，把借连接等待和执行耗时分开。",
+   "role": "Database on-call",
+   "start": 31.966,
+   "end": 37.942
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good. Keep client retries bounded too. Repeated writes could make this worse.",
+   "zh": "好，也限制客户端重试。重复写入可能让问题更严重。",
+   "role": "SRE and traffic controller",
+   "start": 37.942,
+   "end": 44.349
+  },
+  {
+   "sp": "Priya",
+   "en": "So, what's the ETA for evidence? A rough estimate will help us.",
+   "zh": "那预计多久有证据？给个大概时间便于安排。",
+   "role": "Incident coordinator",
+   "start": 44.349,
+   "end": 50.085
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll check duplicate order protection now. We need that before suggesting retries.",
+   "zh": "我现在检查订单去重保护，建议重试前必须确认。",
+   "role": "Application validation engineer",
+   "start": 50.085,
+   "end": 57.572
+  },
+  {
+   "sp": "Raj",
+   "en": "About two minutes for pool metrics. No database restart while we're checking.",
+   "zh": "连接池指标大约两分钟拿到，检查期间不重启数据库。",
+   "role": "Database on-call",
+   "start": 57.572,
+   "end": 63.74
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 1,
+ "scene": "订单API延迟上升，先确认等待发生在哪一层。",
+ "dir": "database/0116-请求堆积",
+ "audio": "0116-请求堆积.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "告警"
+ ],
+ "duration": 63.74
+}

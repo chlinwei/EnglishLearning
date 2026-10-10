@@ -1,0 +1,135 @@
+{
+ "id": "0140",
+ "part": 5,
+ "stage": "预检",
+ "title": "先等旧事务结束",
+ "premise": "午夜窗口到达，检查旧事务、磁盘余量和并发结构变更。",
+ "listeningTask": "听出预检暂停原因和不直接杀事务的选择。",
+ "newPhrase": "p415",
+ "phrases": [
+  "p415",
+  "p413",
+  "p414:extra",
+  "p010:extra",
+  "p328:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "A long-running transaction remains on October. It belongs to the reporting job.",
+   "zh": "十月分区仍有一个长事务，属于报表任务。",
+   "role": "Database change operator",
+   "start": 0.0,
+   "end": 6.144
+  },
+  {
+   "sp": "Hannah",
+   "en": "Then preflight isn't clear just yet. Ask its owner before any cancellation.",
+   "zh": "那预检还没通过，取消前必须问负责人。",
+   "role": "Query and rollout validation engineer",
+   "start": 6.144,
+   "end": 13.032
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, pause our go/no-go decision here. The off-peak window isn't permission itself.",
+   "zh": "好，先暂停继续与否的决策，低峰窗口本身不是执行许可。",
+   "role": "Change coordinator",
+   "start": 13.032,
+   "end": 19.632
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it with that owner. About three minutes remain, they estimate.",
+   "zh": "我联系负责人，他们估计还要三分钟左右。",
+   "role": "Orders search owner",
+   "start": 19.632,
+   "end": 25.392
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't kill it just for convenience. A lock wait could outlast expectations.",
+   "zh": "别只为省事杀掉事务，锁等待也可能比预计长。",
+   "role": "Database reliability reviewer",
+   "start": 25.392,
+   "end": 31.176
+  },
+  {
+   "sp": "Raj",
+   "en": "Storage covers index and temporary build space. No other schema changes are scheduled.",
+   "zh": "存储余量覆盖索引和构建临时空间，没有其他结构变更安排。",
+   "role": "Database change operator",
+   "start": 31.176,
+   "end": 38.16
+  },
+  {
+   "sp": "Hannah",
+   "en": "Verify privileges and exact leaf table. Also confirm we're outside a transaction block.",
+   "zh": "验证权限和准确叶表，也确认不是在事务块中。",
+   "role": "Query and rollout validation engineer",
+   "start": 38.16,
+   "end": 46.68
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, wait for completion, right? Then rerun the transaction age check.",
+   "zh": "确认一下，等它完成，对吧？之后再检查事务年龄。",
+   "role": "Change coordinator",
+   "start": 46.68,
+   "end": 53.376
+  },
+  {
+   "sp": "Lukas",
+   "en": "The owner now reports successful completion. Database activity confirms no old transaction.",
+   "zh": "负责人现在报告完成成功，数据库活动也确认没有旧事务。",
+   "role": "Database reliability reviewer",
+   "start": 53.376,
+   "end": 60.552
+  },
+  {
+   "sp": "Raj",
+   "en": "So, the repeated preflight checks pass. I'll start only the approved partition.",
+   "zh": "那重新预检通过，我只开始批准的分区。",
+   "role": "Database change operator",
+   "start": 60.552,
+   "end": 66.96
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 5,
+ "scene": "午夜窗口到达，检查旧事务、磁盘余量和并发结构变更。",
+ "dir": "database/0140-先等旧事务结束",
+ "audio": "0140-先等旧事务结束.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "预检"
+ ],
+ "duration": 66.96
+}

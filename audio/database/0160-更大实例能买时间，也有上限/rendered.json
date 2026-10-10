@@ -1,0 +1,135 @@
+{
+ "id": "0160",
+ "part": 5,
+ "stage": "垂直扩容",
+ "title": "更大实例能买时间，也有上限",
+ "premise": "存储扩容需提前准备，比较更大实例对性能的帮助及切换代价。",
+ "listeningTask": "听出CPU、I/O和切换窗口必须分别验证。",
+ "newPhrase": "p435",
+ "phrases": [
+  "p435",
+  "p434",
+  "p321:extra",
+  "p324:extra",
+  "p010:extra",
+  "p306:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Vertical scaling adds CPU and memory. It may not lift storage I/O limits.",
+   "zh": "升单实例规格增加CPU和内存，但不一定提高存储I/O上限。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 0.0,
+   "end": 6.408
+  },
+  {
+   "sp": "Raj",
+   "en": "It could buy us time for peaks. But our disk queues need measurement.",
+   "zh": "它能为高峰争取时间，但磁盘队列需要测量。",
+   "role": "Database capacity owner",
+   "start": 6.408,
+   "end": 12.023
+  },
+  {
+   "sp": "Anika",
+   "en": "I favor it as a fallback. Maybe query gains won't cover campaign load.",
+   "zh": "我倾向把它作为备用，查询收益可能不足以覆盖活动负载。",
+   "role": "Orders application architect",
+   "start": 12.023,
+   "end": 18.143
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not approved execution, right? We still need a maintenance window.",
+   "zh": "确认一下，不是批准执行，对吧？仍需要维护窗口。",
+   "role": "Capacity review chair",
+   "start": 18.143,
+   "end": 24.958
+  },
+  {
+   "sp": "Hannah",
+   "en": "And a tested rollback trigger too. Instance changes can require restart or switchover.",
+   "zh": "也需要验证过的回退触发条件，实例变更可能要求重启或切换。",
+   "role": "Performance and cost analyst",
+   "start": 24.958,
+   "end": 32.686
+  },
+  {
+   "sp": "Raj",
+   "en": "Storage headroom still needs separate expansion. More memory won't store another year's data.",
+   "zh": "存储余量仍需独立扩容，更多内存不能存下一年的数据。",
+   "role": "Database capacity owner",
+   "start": 32.686,
+   "end": 40.006
+  },
+  {
+   "sp": "Lukas",
+   "en": "The next size has a finite ceiling. We shouldn't promise unlimited runway here.",
+   "zh": "下一规格也有上限，不能承诺无限增长空间。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 40.006,
+   "end": 46.029
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, model one step and its cost. Compare it with the sharding option.",
+   "zh": "好，估算升一级及成本，与分片方案比较。",
+   "role": "Capacity review chair",
+   "start": 46.029,
+   "end": 52.173
+  },
+  {
+   "sp": "Hannah",
+   "en": "Include replica sizing and standby readiness. A writer upgrade isn't the whole fleet.",
+   "zh": "包括副本规格和备用就绪，升级写库不是整个集群。",
+   "role": "Performance and cost analyst",
+   "start": 52.173,
+   "end": 59.636
+  },
+  {
+   "sp": "Anika",
+   "en": "So, run the larger-instance load test. Keep it reversible before changing production.",
+   "zh": "那跑更大实例负载测试，改生产前确保可回退。",
+   "role": "Orders application architect",
+   "start": 59.636,
+   "end": 66.38
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 5,
+ "scene": "存储扩容需提前准备，比较更大实例对性能的帮助及切换代价。",
+ "dir": "database/0160-更大实例能买时间，也有上限",
+ "audio": "0160-更大实例能买时间，也有上限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "垂直扩容"
+ ],
+ "duration": 66.38
+}

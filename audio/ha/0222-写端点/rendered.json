@@ -1,0 +1,135 @@
+{
+ "id": "0222",
+ "part": 7,
+ "stage": "恢复请求",
+ "title": "写端点：旧连接也要检查",
+ "premise": "新主本地验证通过，准备恢复少量应用写入。",
+ "listeningTask": "听懂连接池更新与幂等重试的要求。",
+ "newPhrase": "p497",
+ "phrases": [
+  "p497",
+  "p323",
+  "p327",
+  "p309:extra",
+  "p010:extra",
+  "p306:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The writer endpoint now resolves to ledger-two.",
+   "zh": "写入端点现在解析到ledger-two。",
+   "role": "Order application owner",
+   "start": 0.0,
+   "end": 3.48
+  },
+  {
+   "sp": "Lukas",
+   "en": "Did existing connection pools refresh their targets?",
+   "zh": "现有连接池更新目标了吗？",
+   "role": "Cluster safety engineer",
+   "start": 3.48,
+   "end": 7.152
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, controlled reconnects. No blind request replay.",
+   "zh": "是的，受控重连，没有盲目重放请求。",
+   "role": "Database on-call",
+   "start": 7.152,
+   "end": 12.263
+  },
+  {
+   "sp": "Hannah",
+   "en": "Use idempotency keys for any uncertain retry.",
+   "zh": "所有结果未知的重试都要用幂等键。",
+   "role": "Data validation engineer",
+   "start": 12.263,
+   "end": 17.087
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, staged rollout, right?",
+   "zh": "确认一下，是分阶段恢复，对吧？",
+   "role": "Incident coordinator",
+   "start": 17.087,
+   "end": 20.735
+  },
+  {
+   "sp": "Anika",
+   "en": "One tenant first. The smoke test passed.",
+   "zh": "先一个租户，关键功能快速验证通过了。",
+   "role": "Order application owner",
+   "start": 20.735,
+   "end": 24.959
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, compare accepted requests against durable orders.",
+   "zh": "好，把已受理请求与持久化订单对照。",
+   "role": "Cluster safety engineer",
+   "start": 24.959,
+   "end": 29.711
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll keep an eye on queue age.",
+   "zh": "我们会留意队列等待时间。",
+   "role": "Database on-call",
+   "start": 29.711,
+   "end": 32.662
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe slower draining will buy us time.",
+   "zh": "也许慢一些处理积压能争取核对时间。",
+   "role": "Data validation engineer",
+   "start": 32.662,
+   "end": 36.07
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes, expand only while those checks remain clean.",
+   "zh": "是的，只有这些检查持续正常才扩大范围。",
+   "role": "Incident coordinator",
+   "start": 36.07,
+   "end": 40.15
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 7,
+ "scene": "新主本地验证通过，准备恢复少量应用写入。",
+ "dir": "ha/0222-写端点",
+ "audio": "0222-写端点.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "恢复请求"
+ ],
+ "duration": 40.15
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.504
+Anika: Queue is clear. Oldest-event age is normal. We're back to baseline.
+
+2
+00:00:06.504 --> 00:00:13.873
+Hannah: Notification samples look good too. No duplicate spike in the delivery metrics.
+
+3
+00:00:13.873 --> 00:00:20.137
+Priya: Okay, let's keep it under observation. Raj, keep an eye on disk growth.
+
+4
+00:00:20.137 --> 00:00:25.466
+Lukas: Let me play that back. Disk growth, write failures, and queue age?
+
+5
+00:00:25.466 --> 00:00:31.442
+Raj: Yes. I'm on it. Maybe an hour of closer monitoring first.
+
+6
+00:00:31.442 --> 00:00:37.442
+Hannah: What should trigger another call? We need something more specific than looks bad.
+
+7
+00:00:37.442 --> 00:00:44.907
+Priya: Just to confirm, page on new write failures immediately. Don't wait for disk alerts, right?
+
+8
+00:00:44.907 --> 00:00:52.227
+Lukas: Agreed. And use the existing disk threshold. Record any sustained queue-age increase.
+
+9
+00:00:52.227 --> 00:00:58.084
+Anika: I'll update support. Delays are cleared, but we're still watching for recurrence.
+
+10
+00:00:58.084 --> 00:01:04.300
+Raj: I'll include that in the handoff. The retention policy stays unchanged for now.
+

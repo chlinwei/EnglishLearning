@@ -1,0 +1,135 @@
+{
+ "id": "0114",
+ "part": 9,
+ "stage": "次日承诺",
+ "title": "承诺交付，不保证外部批准",
+ "premise": "今日任务重排完成，各人确认周二站会前可交付的内容。",
+ "listeningTask": "分辨个人交付承诺与外部依赖的估计。",
+ "newPhrase": "p389",
+ "phrases": [
+  "p389",
+  "p008",
+  "p010",
+  "p339:extra",
+  "p310:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, no blockers for evidence cleanup now. Tomorrow I'll bring the annotated rotation results.",
+   "zh": "好，证据整理现在没有阻塞。明天带来标注好的轮转结果。",
+   "role": "Linux automation engineer",
+   "start": 0.0,
+   "end": 7.152
+  },
+  {
+   "sp": "Lukas",
+   "en": "What if review finds a safety issue? Don't promise deployment before we see results.",
+   "zh": "评审发现安全问题怎么办？看到结果前不能承诺部署。",
+   "role": "Code reviewer",
+   "start": 7.152,
+   "end": 13.416
+  },
+  {
+   "sp": "Raj",
+   "en": "Right, I'm committing to evidence, not deployment. Any review issue stays in the report.",
+   "zh": "对，我承诺交证据，不承诺部署。评审问题保留在报告里。",
+   "role": "Linux automation engineer",
+   "start": 13.416,
+   "end": 20.231
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll bring completed permission tests tomorrow. Driver coverage remains conditional on image delivery.",
+   "zh": "明天我交完成的权限测试，驱动覆盖仍以镜像到位为前提。",
+   "role": "Automation test engineer",
+   "start": 20.231,
+   "end": 28.751
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for the limits report. I'll close the loop on effective process settings.",
+   "zh": "上限报告我来做，确认实际进程设置并闭环。",
+   "role": "Service configuration owner",
+   "start": 28.751,
+   "end": 34.631
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, report blocked items too, right? Silence doesn't mean they've been completed.",
+   "zh": "我确认一下，也报告阻塞事项，对吧？不说不代表完成。",
+   "role": "Standup facilitator",
+   "start": 34.631,
+   "end": 42.143
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, what's the ETA from the approver? If unknown, say unknown rather than inventing one.",
+   "zh": "对，审批方预计什么时候回复？未知就说未知，不能编时间。",
+   "role": "Code reviewer",
+   "start": 42.143,
+   "end": 49.367
+  },
+  {
+   "sp": "Raj",
+   "en": "Still unknown, I'll ask again around noon. That's a follow-up commitment, not an approval estimate.",
+   "zh": "仍未知，我中午左右再问。这是跟进承诺，不是批准时间估计。",
+   "role": "Linux automation engineer",
+   "start": 49.367,
+   "end": 57.142
+  },
+  {
+   "sp": "Hannah",
+   "en": "Have I missed anything for tomorrow's check-in? I have tests, image status, and review feedback.",
+   "zh": "明天进度检查我漏了什么吗？我记下测试、镜像状态和评审反馈。",
+   "role": "Automation test engineer",
+   "start": 57.142,
+   "end": 65.11
+  },
+  {
+   "sp": "Priya",
+   "en": "So, add Anika's service limit evidence too. Roughly the same short format tomorrow morning.",
+   "zh": "再加Anika的服务上限证据，明早仍保持类似简短形式。",
+   "role": "Standup facilitator",
+   "start": 65.11,
+   "end": 72.43
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 9,
+ "scene": "今日任务重排完成，各人确认周二站会前可交付的内容。",
+ "dir": "linux/0114-承诺交付，不保证外部批准",
+ "audio": "0114-承诺交付，不保证外部批准.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "次日承诺"
+ ],
+ "duration": 72.43
+}

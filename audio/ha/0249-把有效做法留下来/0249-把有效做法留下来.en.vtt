@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.080
+Priya: Despite the access bottleneck, let's name what worked.
+
+2
+00:00:04.080 --> 00:00:07.968
+Lukas: The team refused promotion without verified fencing.
+
+3
+00:00:07.968 --> 00:00:11.232
+Raj: We chose to dry-run it first beforehand.
+
+4
+00:00:11.232 --> 00:00:14.952
+Hannah: That caught the wrong target host identifier.
+
+5
+00:00:14.952 --> 00:00:18.576
+Anika: Our smoke test checked actual order retrieval.
+
+6
+00:00:18.576 --> 00:00:22.464
+Priya: Just to confirm, safety checks stay, right?
+
+7
+00:00:22.464 --> 00:00:26.880
+Lukas: Let me play that back. Faster isn't always better.
+
+8
+00:00:26.880 --> 00:00:31.968
+Raj: Exactly. We can shorten approval waits, not fencing.
+
+9
+00:00:31.968 --> 00:00:37.728
+Hannah: Maybe automate evidence collection without removing independent checks.
+
+10
+00:00:37.728 --> 00:00:42.480
+Priya: Good distinction. Keep the successful steps visible.
+

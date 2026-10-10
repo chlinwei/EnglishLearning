@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.968
+Anika: Okay, connection reuse could avoid repeated handshakes. Our client currently opens many short connections.
+
+2
+00:00:07.968 --> 00:00:15.048
+Lukas: What closes them, client policy or server? Reuse won't help if the server closes first.
+
+3
+00:00:15.048 --> 00:00:22.103
+Anika: Client pooling is disabled for this integration. The server supports bounded persistent connections.
+
+4
+00:00:22.103 --> 00:00:29.567
+Hannah: So round-trip time remains, but setup shrinks. That isn't a shorter network route.
+
+5
+00:00:29.567 --> 00:00:37.007
+Priya: Just to confirm, test stale connections too, right? Idle timeouts could change the outcome.
+
+6
+00:00:37.007 --> 00:00:44.831
+Raj: Yes, align pool expiry below server timeout. Add jitter to avoid synchronized reconnect bursts.
+
+7
+00:00:44.831 --> 00:00:51.743
+Lukas: And cap concurrency rather than growing indefinitely. Queue delay belongs in the measurements too.
+
+8
+00:00:51.743 --> 00:00:57.142
+Anika: I'm on it for those client limits. We'll keep an eye on pool waits.
+
+9
+00:00:57.142 --> 00:01:05.806
+Hannah: If we're seeing connection resets during tests, compare idle age. Avoid blind payment retries.
+
+10
+00:01:05.806 --> 00:01:13.870
+Priya: So, sandbox calls first, roughly current concurrency. Production adoption still needs a separate review.
+

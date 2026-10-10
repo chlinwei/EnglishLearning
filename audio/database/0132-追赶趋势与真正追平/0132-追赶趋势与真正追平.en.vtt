@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Raj: The replica is catching up now. Replay runs faster than new WAL arrives.
+
+2
+00:00:06.024 --> 00:00:11.928
+Lukas: Good trend, but show the remaining gap. A falling timer isn't enough proof.
+
+3
+00:00:11.928 --> 00:00:17.257
+Anika: The byte gap is shrinking too. Our known order appears on B.
+
+4
+00:00:17.257 --> 00:00:24.169
+Priya: Just to confirm, newer orders too, right? One old marker doesn't prove freshness.
+
+5
+00:00:24.169 --> 00:00:32.113
+Hannah: I'll compare newly committed markers repeatedly. Record primary positions with each check.
+
+6
+00:00:32.113 --> 00:00:38.809
+Raj: The replay position reached our latest marker. About ten seconds behind current writes.
+
+7
+00:00:38.809 --> 00:00:45.049
+Lukas: Let it catch up before restoring traffic. Keep primary routing for sensitive reads.
+
+8
+00:00:45.049 --> 00:00:51.746
+Priya: So, let's keep it under observation. Maybe five stable minutes after matching markers.
+
+9
+00:00:51.746 --> 00:00:59.234
+Hannah: Include disk queues and replay errors. Fresh samples alone miss recurring pressure.
+
+10
+00:00:59.234 --> 00:01:05.690
+Anika: If replication lag is climbing again, stop. I'll keep the routing change ready.
+

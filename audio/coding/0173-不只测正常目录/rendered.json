@@ -1,0 +1,135 @@
+{
+ "id": "0173",
+ "part": 8,
+ "stage": "边界验证",
+ "title": "不只测正常目录",
+ "premise": "保护实现完成待验收，用隔离目录验证失败路径。",
+ "listeningTask": "识别空值、兄弟目录、链接和竞态四类边界测试。",
+ "newPhrase": "p448",
+ "phrases": [
+  "p448",
+  "p010",
+  "p447:extra",
+  "p210:extra",
+  "p302:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Path containment tests reject sibling directories. Empty values and external links fail too.",
+   "zh": "路径边界测试拒绝兄弟目录，空值和外部链接也失败。",
+   "role": "Evidence and test validation engineer",
+   "start": 0.0,
+   "end": 8.304
+  },
+  {
+   "sp": "Raj",
+   "en": "The guard clause logs the rejected reason. Just to confirm, no deletion follows, right?",
+   "zh": "保护分支记录拒绝原因，确认一下，之后不会删除，对吧？",
+   "role": "Cleanup script maintainer",
+   "start": 8.304,
+   "end": 15.095
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, including during simulated directory replacement. The constrained handle doesn't escape its root.",
+   "zh": "对，模拟目录替换时也一样，受约束句柄不会逃出根目录。",
+   "role": "SRE and process containment owner",
+   "start": 15.095,
+   "end": 22.703
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, dry-run it first with realistic inventory. That checks selection without touching live objects.",
+   "zh": "好，先用真实形态清单预演，只检查选择结果，不碰生产对象。",
+   "role": "Artifact service and recovery owner",
+   "start": 22.703,
+   "end": 30.262
+  },
+  {
+   "sp": "Hannah",
+   "en": "Dry runs don't prove deletion safety alone. The isolated execution tests provide that evidence.",
+   "zh": "仅预演不能证明删除安全，需要隔离执行测试提供证据。",
+   "role": "Evidence and test validation engineer",
+   "start": 30.262,
+   "end": 38.806
+  },
+  {
+   "sp": "Raj",
+   "en": "Both modes selected the same allowed candidates. We can rule that out as preview drift.",
+   "zh": "两种模式选择相同的允许候选，可以排除预览与执行选择不一致。",
+   "role": "Cleanup script maintainer",
+   "start": 38.806,
+   "end": 45.79
+  },
+  {
+   "sp": "Priya",
+   "en": "Keep an eye on rejection counts too. Unexpected refusals could reveal another input problem.",
+   "zh": "也关注拒绝计数，意外拒绝可能揭示另一种输入问题。",
+   "role": "Incident coordinator and approval owner",
+   "start": 45.79,
+   "end": 52.845
+  },
+  {
+   "sp": "Lukas",
+   "en": "The review also checks maximum deletion count. Safety shouldn't depend on directory boundaries alone.",
+   "zh": "评审也检查最大删除数量，安全不能只依赖目录边界。",
+   "role": "SRE and process containment owner",
+   "start": 52.845,
+   "end": 60.093
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe ten candidates is enough for canary. We'll propose that limit with the evidence.",
+   "zh": "灰度可能十个候选就够，提交这个上限并附证据。",
+   "role": "Artifact service and recovery owner",
+   "start": 60.093,
+   "end": 66.428
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, no restart until that review passes. Today's successful tests aren't permission by themselves.",
+   "zh": "同意，评审通过前不重启，今天测试成功本身不是授权。",
+   "role": "Incident coordinator and approval owner",
+   "start": 66.428,
+   "end": 74.54
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 8,
+ "scene": "保护实现完成待验收，用隔离目录验证失败路径。",
+ "dir": "coding/0173-不只测正常目录",
+ "audio": "0173-不只测正常目录.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "边界验证"
+ ],
+ "duration": 74.54
+}

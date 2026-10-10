@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.608
+Lukas: Your budget's limited. Explain the capacity trade-off.
+
+2
+00:00:04.608 --> 00:00:08.904
+Raj: Surviving zones need memory headroom for peak writes.
+
+3
+00:00:08.904 --> 00:00:12.888
+Raj: Just to confirm, scaling isn't immediate, right?
+
+4
+00:00:12.888 --> 00:00:17.592
+Hannah: Correct. What's your plan while new capacity starts?
+
+5
+00:00:17.592 --> 00:00:21.432
+Raj: I'd shed load from recommendations and exports.
+
+6
+00:00:21.432 --> 00:00:25.536
+Lukas: Would asynchronous regional DR meet zero data loss?
+
+7
+00:00:25.536 --> 00:00:31.056
+Raj: No. My working hypothesis needs an agreed loss allowance.
+
+8
+00:00:31.056 --> 00:00:34.680
+Raj: Buffering could buy us time, within bounded queues.
+
+9
+00:00:34.680 --> 00:00:40.392
+Hannah: Maybe synchronous regional replication, with higher latency costs?
+
+10
+00:00:40.392 --> 00:00:44.880
+Raj: Yes, that's a business decision, not free redundancy.
+

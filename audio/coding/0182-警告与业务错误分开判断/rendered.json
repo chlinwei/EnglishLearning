@@ -1,0 +1,135 @@
+{
+ "id": "0182",
+ "part": 7,
+ "stage": "观察",
+ "title": "警告与业务错误分开判断",
+ "premise": "灰度运行稳定，日志出现弃用警告，需要判断影响。",
+ "listeningTask": "听出警告不等于故障，也不能无条件忽略。",
+ "newPhrase": "p457",
+ "phrases": [
+  "p457",
+  "p010",
+  "p456:extra",
+  "p335:extra",
+  "p309:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We've got one deprecation warning per startup. It references our legacy token callback.",
+   "zh": "每次启动有一个弃用警告，指向旧令牌回调。",
+   "role": "Python dependency maintainer",
+   "start": 0.0,
+   "end": 7.056
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does it precede an actual authentication failure? Compare events across a full refresh cycle.",
+   "zh": "之后有实际认证失败吗？跨完整刷新周期比较事件。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 7.056,
+   "end": 14.903
+  },
+  {
+   "sp": "Anika",
+   "en": "The canary cohort refreshed tokens successfully twice. Our working hypothesis is future compatibility risk.",
+   "zh": "灰度组已成功刷新两次，当前假设是未来兼容风险。",
+   "role": "Inventory application owner",
+   "start": 14.903,
+   "end": 23.183
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no failed writes, right? Keep the warning separate from error counts.",
+   "zh": "确认一下，没有写入失败，对吧？警告与错误计数分开。",
+   "role": "Change coordinator and approval owner",
+   "start": 23.183,
+   "end": 30.022
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check when the callback will be removed. A warning still deserves an owned task.",
+   "zh": "查回调何时被移除，警告仍需有人负责处理。",
+   "role": "Build and release SRE",
+   "start": 30.022,
+   "end": 35.782
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, that becomes my next action item. Maybe the replacement needs its own compatibility review.",
+   "zh": "好，列为我的下一项任务，替代接口可能另需兼容评审。",
+   "role": "Python dependency maintainer",
+   "start": 35.782,
+   "end": 43.318
+  },
+  {
+   "sp": "Hannah",
+   "en": "Current documentation confirms support in this release. Tests show successful refresh, not future guarantees.",
+   "zh": "当前文档确认本版本仍支持，测试说明目前刷新成功，不保证未来。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 43.318,
+   "end": 53.205
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on latency too. The steady-state comparison matches our previous baseline.",
+   "zh": "我也关注延迟，稳定运行对比与旧基线一致。",
+   "role": "Inventory application owner",
+   "start": 53.205,
+   "end": 60.093
+  },
+  {
+   "sp": "Lukas",
+   "en": "Record the observation period and sample size. Avoid claiming every workload is fully covered.",
+   "zh": "记录观察时段和样本量，不宣称覆盖所有负载。",
+   "role": "Build and release SRE",
+   "start": 60.093,
+   "end": 67.244
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, expansion waits for the review decision. The warning gets a deadline, not silence.",
+   "zh": "同意，扩大要等评审决定，警告设期限，不直接静音。",
+   "role": "Change coordinator and approval owner",
+   "start": 67.244,
+   "end": 74.3
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 7,
+ "scene": "灰度运行稳定，日志出现弃用警告，需要判断影响。",
+ "dir": "coding/0182-警告与业务错误分开判断",
+ "audio": "0182-警告与业务错误分开判断.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "观察"
+ ],
+ "duration": 74.3
+}

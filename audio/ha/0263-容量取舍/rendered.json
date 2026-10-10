@@ -1,0 +1,129 @@
+{
+ "id": "0263",
+ "part": 8,
+ "stage": "容量与成本",
+ "title": "容量取舍：失一区以后仍能承载",
+ "premise": "分区语义已明确，讨论故障后容量、预留和跨地域成本。",
+ "listeningTask": "听懂本地域强一致目标不能直接等同跨地域零损失。",
+ "newPhrase": "p538",
+ "phrases": [
+  "p538",
+  "p319",
+  "p316",
+  "p010:extra",
+  "p306:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Your budget's limited. Explain the capacity trade-off.",
+   "zh": "预算有限，解释一下容量方面的取舍。",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 4.608
+  },
+  {
+   "sp": "Raj",
+   "en": "Surviving zones need memory headroom for peak writes.",
+   "zh": "剩余区需要有承受峰值写入的内存余量。",
+   "role": "DevOps system design candidate",
+   "start": 4.608,
+   "end": 8.904
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, scaling isn't immediate, right?",
+   "zh": "确认一下，扩容不是立即完成，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 8.904,
+   "end": 12.888
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. What's your plan while new capacity starts?",
+   "zh": "对，新增容量启动期间怎么处理？",
+   "role": "Data systems interviewer",
+   "start": 12.888,
+   "end": 17.592
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd shed load from recommendations and exports.",
+   "zh": "我会减少推荐和导出的承接负载。",
+   "role": "DevOps system design candidate",
+   "start": 17.592,
+   "end": 21.432
+  },
+  {
+   "sp": "Lukas",
+   "en": "Would asynchronous regional DR meet zero data loss?",
+   "zh": "异步地域灾备能满足零数据损失吗？",
+   "role": "Reliability interviewer",
+   "start": 21.432,
+   "end": 25.536
+  },
+  {
+   "sp": "Raj",
+   "en": "No. My working hypothesis needs an agreed loss allowance.",
+   "zh": "不能，我当前的假设需要约定损失容忍范围。",
+   "role": "DevOps system design candidate",
+   "start": 25.536,
+   "end": 31.056
+  },
+  {
+   "sp": "Raj",
+   "en": "Buffering could buy us time, within bounded queues.",
+   "zh": "有界队列里的缓冲能争取时间。",
+   "role": "DevOps system design candidate",
+   "start": 31.056,
+   "end": 34.68
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe synchronous regional replication, with higher latency costs?",
+   "zh": "也许采用同步地域复制，但延迟成本更高？",
+   "role": "Data systems interviewer",
+   "start": 34.68,
+   "end": 40.392
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, that's a business decision, not free redundancy.",
+   "zh": "是的，这是业务决策，不是免费的冗余。",
+   "role": "DevOps system design candidate",
+   "start": 40.392,
+   "end": 44.88
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 8,
+ "scene": "分区语义已明确，讨论故障后容量、预留和跨地域成本。",
+ "dir": "ha/0263-容量取舍",
+ "audio": "0263-容量取舍.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "容量与成本"
+ ],
+ "duration": 44.88
+}

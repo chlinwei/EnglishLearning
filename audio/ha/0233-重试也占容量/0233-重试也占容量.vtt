@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.320
+Hannah: The retry budget caps attempts and elapsed time.
+重试预算限制尝试次数和总耗时。
+
+2
+00:00:04.320 --> 00:00:08.328
+Raj: We'll dry-run it first in isolated infrastructure.
+我们先在隔离基础设施里试运行。
+
+3
+00:00:08.328 --> 00:00:12.384
+Lukas: Does the replay include clients ignoring retry hints?
+回放包括不遵守重试提示的客户端吗？
+
+4
+00:00:12.384 --> 00:00:17.088
+Anika: Yes. Gateway limits still shed load safely.
+包括，网关限制仍能安全减轻负载。
+
+5
+00:00:17.088 --> 00:00:21.096
+Priya: Just to confirm, no live payment calls, right?
+确认一下，不调用真实支付，对吧？
+
+6
+00:00:21.096 --> 00:00:26.400
+Raj: Correct. Provider simulators preserve realistic callback bursts.
+对，提供方模拟器保留真实的回调突发模式。
+
+7
+00:00:26.400 --> 00:00:30.864
+Hannah: Graceful degradation works under twice the forecast.
+在预测两倍负载下，有控制的降级有效。
+
+8
+00:00:30.864 --> 00:00:35.352
+Anika: Retries use backoff, jitter, and idempotency keys.
+重试使用退避、抖动和幂等键。
+
+9
+00:00:35.352 --> 00:00:40.416
+Lukas: Memory headroom stayed healthy. Database queues stayed bounded.
+内存余量保持正常，数据库队列没有失控。
+
+10
+00:00:40.416 --> 00:00:44.400
+Priya: Okay, probably ready to rehearse policy rollback.
+好，大概可以开始演练策略回退了。
+

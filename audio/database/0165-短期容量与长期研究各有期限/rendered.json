@@ -1,0 +1,135 @@
+{
+ "id": "0165",
+ "part": 10,
+ "stage": "行动项",
+ "title": "短期容量与长期研究各有期限",
+ "premise": "试点和存储准备获批，分片研究与备用扩容保持独立，确认责任及复查。",
+ "listeningTask": "听出决定、条件批准和未选择方案的区别。",
+ "newPhrase": "p440",
+ "phrases": [
+  "p440",
+  "p434",
+  "p439:extra",
+  "p009:extra",
+  "p013:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Our capacity guardrail protects twenty percent reserve. Alerts use forecast and remaining space.",
+   "zh": "容量门槛保护百分之二十预留，告警同时用预测和剩余空间。",
+   "role": "Database capacity owner",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Lukas",
+   "en": "Storage headroom must cover delivery lead time. Escalate if arrival risks that reserve.",
+   "zh": "存储余量必须覆盖交付周期，预计交付触及预留就升级联系。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 7.344,
+   "end": 14.137
+  },
+  {
+   "sp": "Priya",
+   "en": "Who's picking this up for delivery? Raj owns confirmations by tomorrow, right?",
+   "zh": "交付谁接？Raj明天前负责确认，对吧？",
+   "role": "Capacity review chair",
+   "start": 14.137,
+   "end": 20.497
+  },
+  {
+   "sp": "Anika",
+   "en": "My action item is the capacity pilot. Evidence review is due in two weeks.",
+   "zh": "我的行动项是容量试点，两周后评审证据。",
+   "role": "Orders application architect",
+   "start": 20.497,
+   "end": 26.929
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll check correctness and comparable load. Maybe campaign inputs change the acceptance range.",
+   "zh": "我检查正确性和可比负载，活动输入可能改变验收范围。",
+   "role": "Performance and cost analyst",
+   "start": 26.929,
+   "end": 34.994
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, I'll update high-growth projections tomorrow. The protected reserve isn't emergency spending permission.",
+   "zh": "是，我明天更新高增长预测，受保护预留不是随便应急消耗的许可。",
+   "role": "Database capacity owner",
+   "start": 34.994,
+   "end": 42.938
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll test larger-instance fallback this week. Production switching still needs separate approval.",
+   "zh": "我本周测试更大实例备用，生产切换仍需单独批准。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 42.938,
+   "end": 49.635
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, sharding stays research, not a commitment. We'll review staffing after distribution results.",
+   "zh": "好，分片仍是研究，不是承诺，分布结果出来后再评审人手。",
+   "role": "Capacity review chair",
+   "start": 49.635,
+   "end": 57.243
+  },
+  {
+   "sp": "Hannah",
+   "en": "Bring both monthly costs and engineering effort. A cheap quote can hide operational expense.",
+   "zh": "带月成本和工程投入，便宜报价可能藏着运维支出。",
+   "role": "Performance and cost analyst",
+   "start": 57.243,
+   "end": 65.284
+  },
+  {
+   "sp": "Anika",
+   "en": "So, close the loop in two weeks. No growth assumption becomes fact without evidence.",
+   "zh": "那两周后闭环，没有证据就不把增长假设当事实。",
+   "role": "Orders application architect",
+   "start": 65.284,
+   "end": 71.98
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 10,
+ "scene": "试点和存储准备获批，分片研究与备用扩容保持独立，确认责任及复查。",
+ "dir": "database/0165-短期容量与长期研究各有期限",
+ "audio": "0165-短期容量与长期研究各有期限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "行动项"
+ ],
+ "duration": 71.98
+}

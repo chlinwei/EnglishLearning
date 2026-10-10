@@ -1,0 +1,135 @@
+{
+ "id": "0066",
+ "part": 1,
+ "stage": "告警",
+ "title": "解析超时：连接故障还是DNS故障",
+ "premise": "checkout新连接出现超时，应用日志报告私有支付名称解析失败。",
+ "listeningTask": "听出错误发生在建立连接前，不把所有超时归为支付服务宕机。",
+ "newPhrase": "p341",
+ "phrases": [
+  "p341",
+  "p003",
+  "p010",
+  "p103:extra",
+  "p008:extra",
+  "p101:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "DNS is timing out for payments dot internal. The error rate spiked on new checkout connections.",
+   "zh": "payments.internal的DNS解析正在超时，结账服务新建连接的错误率陡涨。",
+   "role": "Checkout application owner",
+   "start": 0.0,
+   "end": 7.224
+  },
+  {
+   "sp": "Lukas",
+   "en": "Before the connection opens? Or after the request reaches payments?",
+   "zh": "是在连接建立前，还是请求到达支付服务后？",
+   "role": "SRE",
+   "start": 7.224,
+   "end": 12.408
+  },
+  {
+   "sp": "Anika",
+   "en": "Before connection setup. Existing connections still work. That's why some requests look normal.",
+   "zh": "建立连接之前。已有连接仍可用，所以有些请求看起来正常。",
+   "role": "Checkout application owner",
+   "start": 12.408,
+   "end": 20.591
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Just to confirm, don't restart the app yet, right?",
+   "zh": "好，我来协调。我确认一下，先不重启应用，对吧？",
+   "role": "Incident coordinator",
+   "start": 20.591,
+   "end": 27.887
+  },
+  {
+   "sp": "Hannah",
+   "en": "Agreed. A restart could remove working connections and make the impact worse.",
+   "zh": "同意。重启可能让正常连接消失，反而扩大影响。",
+   "role": "DNS validation engineer",
+   "start": 27.887,
+   "end": 34.391
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log. I'll match lookup errors to the affected hosts.",
+   "zh": "我盯一下日志，把查询错误和受影响主机对应起来。",
+   "role": "Network on-call",
+   "start": 34.391,
+   "end": 39.887
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use the application hostname and query type. A random public lookup won't test this path.",
+   "zh": "用应用实际查询的名称和记录类型。随便查个公共名称测不到这条路径。",
+   "role": "SRE",
+   "start": 39.887,
+   "end": 46.871
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for a first comparison? A rough estimate is fine.",
+   "zh": "首次对比预计多久？给个大概时间就行。",
+   "role": "Incident coordinator",
+   "start": 46.871,
+   "end": 52.366
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll check the same lookup from both zones. We need to locate the boundary.",
+   "zh": "我会从两个区域检查同一查询，需要圈定故障边界。",
+   "role": "DNS validation engineer",
+   "start": 52.366,
+   "end": 58.414
+  },
+  {
+   "sp": "Raj",
+   "en": "About two minutes. I'll keep retries low so the tests don't add load.",
+   "zh": "大约两分钟。我会控制测试重试次数，避免增加负载。",
+   "role": "Network on-call",
+   "start": 58.414,
+   "end": 64.03
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 1,
+ "scene": "checkout新连接出现超时，应用日志报告私有支付名称解析失败。",
+ "dir": "network/0066-解析超时",
+ "audio": "0066-解析超时.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "告警"
+ ],
+ "duration": 64.03
+}

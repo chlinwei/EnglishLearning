@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.304
+Hannah: Path containment tests reject sibling directories. Empty values and external links fail too.
+路径边界测试拒绝兄弟目录，空值和外部链接也失败。
+
+2
+00:00:08.304 --> 00:00:15.095
+Raj: The guard clause logs the rejected reason. Just to confirm, no deletion follows, right?
+保护分支记录拒绝原因，确认一下，之后不会删除，对吧？
+
+3
+00:00:15.095 --> 00:00:22.703
+Lukas: Correct, including during simulated directory replacement. The constrained handle doesn't escape its root.
+对，模拟目录替换时也一样，受约束句柄不会逃出根目录。
+
+4
+00:00:22.703 --> 00:00:30.262
+Anika: Okay, dry-run it first with realistic inventory. That checks selection without touching live objects.
+好，先用真实形态清单预演，只检查选择结果，不碰生产对象。
+
+5
+00:00:30.262 --> 00:00:38.806
+Hannah: Dry runs don't prove deletion safety alone. The isolated execution tests provide that evidence.
+仅预演不能证明删除安全，需要隔离执行测试提供证据。
+
+6
+00:00:38.806 --> 00:00:45.790
+Raj: Both modes selected the same allowed candidates. We can rule that out as preview drift.
+两种模式选择相同的允许候选，可以排除预览与执行选择不一致。
+
+7
+00:00:45.790 --> 00:00:52.845
+Priya: Keep an eye on rejection counts too. Unexpected refusals could reveal another input problem.
+也关注拒绝计数，意外拒绝可能揭示另一种输入问题。
+
+8
+00:00:52.845 --> 00:01:00.093
+Lukas: The review also checks maximum deletion count. Safety shouldn't depend on directory boundaries alone.
+评审也检查最大删除数量，安全不能只依赖目录边界。
+
+9
+00:01:00.093 --> 00:01:06.428
+Anika: Maybe ten candidates is enough for canary. We'll propose that limit with the evidence.
+灰度可能十个候选就够，提交这个上限并附证据。
+
+10
+00:01:06.428 --> 00:01:14.540
+Priya: Agreed, no restart until that review passes. Today's successful tests aren't permission by themselves.
+同意，评审通过前不重启，今天测试成功本身不是授权。
+

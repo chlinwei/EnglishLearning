@@ -1,0 +1,135 @@
+{
+ "id": "0033",
+ "part": 8,
+ "stage": "验证恢复",
+ "title": "磁盘恢复了：队列还要追平",
+ "premise": "磁盘已降至 46%，日志写入恢复；轮转修复已在预发布验证，线上验证正在完成。",
+ "listeningTask": "听清当前积压、预计追平时间和宣布恢复所需证据。",
+ "newPhrase": "p308",
+ "phrases": [
+  "p308",
+  "p010",
+  "p110",
+  "p008:extra",
+  "p012:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The worker is processing again. About twelve thousand events are still waiting.",
+   "zh": "工作进程又开始处理了，大约还有一万两千个事件在等待。",
+   "role": "Application owner",
+   "start": 0.0,
+   "end": 6.024
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is processing faster than arrivals? Otherwise the queue won't catch up.",
+   "zh": "处理速度比新事件到达速度快吗？不然积压消不掉。",
+   "role": "SRE",
+   "start": 6.024,
+   "end": 11.52
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, we've got spare capacity. Maybe five minutes to clear the backlog.",
+   "zh": "是的，现在有余量。大概五分钟能清掉积压。",
+   "role": "Application owner",
+   "start": 11.52,
+   "end": 17.784
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, that assumes traffic stays roughly steady, right?",
+   "zh": "我确认一下，这个估算以流量大致稳定为前提，对吧？",
+   "role": "Incident lead",
+   "start": 17.784,
+   "end": 22.872
+  },
+  {
+   "sp": "Hannah",
+   "en": "Retries look normal now. I'll check for duplicate notifications as well.",
+   "zh": "现在重试指标正常了。我也会检查有没有重复通知。",
+   "role": "Operations engineer",
+   "start": 22.872,
+   "end": 29.4
+  },
+  {
+   "sp": "Raj",
+   "en": "Rotation is verified on this host. The new handle stays open; the old one closes.",
+   "zh": "这台主机的轮转已验证。新文件句柄保持打开，旧的会关闭。",
+   "role": "Linux on-call",
+   "start": 29.4,
+   "end": 36.432
+  },
+  {
+   "sp": "Lukas",
+   "en": "Just to recap, disk pressure is resolved. Customer delays aren't fully cleared yet.",
+   "zh": "小结一下，磁盘压力已解决，但用户通知延迟还没有完全消除。",
+   "role": "SRE",
+   "start": 36.432,
+   "end": 42.84
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for the next update? Let's circle back after the queue clears.",
+   "zh": "下次更新预计什么时候？队列清空后我们再回来确认。",
+   "role": "Incident lead",
+   "start": 42.84,
+   "end": 48.84
+  },
+  {
+   "sp": "Hannah",
+   "en": "Five minutes works. We'll check oldest-event age, not just queue depth.",
+   "zh": "五分钟可以。我们会检查最老事件等待时间，不只看队列长度。",
+   "role": "Operations engineer",
+   "start": 48.84,
+   "end": 55.416
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. Once those checks pass, we can say we're back to baseline. Not before.",
+   "zh": "同意。那些检查都通过后，才能说恢复到正常基线，现在还不能。",
+   "role": "Application owner",
+   "start": 55.416,
+   "end": 62.76
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 8,
+ "scene": "磁盘已降至 46%，日志写入恢复；轮转修复已在预发布验证，线上验证正在完成。",
+ "dir": "linux/0033-磁盘恢复了",
+ "audio": "0033-磁盘恢复了.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "验证恢复"
+ ],
+ "duration": 62.76
+}

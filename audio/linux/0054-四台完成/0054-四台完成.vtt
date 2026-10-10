@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.736
+Raj: All four hosts run the patched kernel. Each has passed the same checks.
+四台都运行补丁内核，每台都通过了同一套检查。
+
+2
+00:00:05.736 --> 00:00:12.144
+Hannah: Normal traffic weights too? No host left drained or stuck on the test route?
+流量权重也恢复正常了？没有主机还被摘流量或卡在测试路由上？
+
+3
+00:00:12.144 --> 00:00:19.872
+Anika: All normal. Latency and errors look healthy. We're back to baseline across the fleet.
+全部正常。延迟和错误指标健康，整个主机组回到基线了。
+
+4
+00:00:19.872 --> 00:00:26.640
+Priya: Just to confirm, we can still boot the old kernel, right? Don't clean it up tonight.
+我确认一下，现在仍然能用旧内核启动，对吧？今晚不要清掉它。
+
+5
+00:00:26.640 --> 00:00:32.616
+Lukas: Right. Keep the approved previous version and its modules for the observation period.
+对。在观察期间保留批准的前一版本及对应模块。
+
+6
+00:00:32.616 --> 00:00:38.856
+Raj: I'll keep an eye on the host logs. We didn't need rollback during this change.
+我会关注主机日志。这次变更没有实际用到回退。
+
+7
+00:00:38.856 --> 00:00:46.512
+Hannah: So record it as prepared, not exercised. We haven't tested that path in production.
+所以要记为已准备，而不是已演练。我们没有在生产走过这条路径。
+
+8
+00:00:46.512 --> 00:00:53.400
+Priya: Just to recap, service checks passed. Let's circle back after the overnight observation.
+小结一下，服务检查通过。夜间观察后我们再确认。
+
+9
+00:00:53.400 --> 00:01:00.552
+Lukas: If errors appear, preserve evidence first. Then follow the agreed pause and rollback rules.
+如果出现错误，先保留证据，再按约定的暂停和回退规则处理。
+
+10
+00:01:00.552 --> 00:01:07.080
+Anika: Agreed. I'll tell support maintenance is complete, with monitoring continuing overnight.
+同意。我会告知支持团队维护已完成，夜间监控仍继续。
+

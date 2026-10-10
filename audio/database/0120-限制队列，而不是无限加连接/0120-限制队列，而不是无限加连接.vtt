@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.240
+Lukas: Use a bounded request queue here. Reject excess work before borrowing connections.
+这里使用有上限的请求队列，借连接之前拒绝超额工作。
+
+2
+00:00:06.240 --> 00:00:12.288
+Priya: Okay, shed load from reports first. Keep order writes within safe limits.
+好，先减掉报表负载，让订单写入维持安全限额。
+
+3
+00:00:12.288 --> 00:00:17.688
+Anika: That should buy us time today. But it won't reclaim a connection leak.
+这能为今天争取时间，但不能收回泄漏的连接。
+
+4
+00:00:17.688 --> 00:00:25.872
+Hannah: Correct. Tell clients to back off. A rejection shouldn't trigger endless retries.
+对，告诉客户端退避，被拒绝不应触发无限重试。
+
+5
+00:00:25.872 --> 00:00:32.040
+Raj: Just to confirm, reports pause, right? Existing writes get time to finish.
+确认一下，报表暂停，对吧？给已有写入完成的时间。
+
+6
+00:00:32.040 --> 00:00:38.448
+Lukas: Yes, through the approved feature control. Don't kill every database session instead.
+是，通过批准的功能控制暂停，不是杀掉所有数据库会话。
+
+7
+00:00:38.448 --> 00:00:44.880
+Priya: What's our rollback trigger for limits? Maybe legitimate orders start failing faster.
+限流的回退触发条件是什么？正常订单可能反而更快失败。
+
+8
+00:00:44.880 --> 00:00:52.488
+Hannah: Compare accepted writes and rejection counts. Stop tightening if useful throughput drops.
+对比成功接纳的写入和拒绝数，有效吞吐下降就别继续收紧。
+
+9
+00:00:52.488 --> 00:00:59.160
+Anika: So, apply the limit on one worker. I'll verify idempotent retries with support.
+那先在一台实例施加限额，我和支持团队确认幂等重试。
+
+10
+00:00:59.160 --> 00:01:05.400
+Raj: I'll watch database load during that. Then we can safely rotate workers.
+我在此期间观察数据库负载，之后才能安全滚动处理实例。
+

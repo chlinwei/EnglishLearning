@@ -1,0 +1,135 @@
+{
+ "id": "0053",
+ "part": 8,
+ "stage": "扩大批次",
+ "title": "继续还是停：灰度验收后再放行",
+ "premise": "A主机在低权重真实流量下表现正常，证据已记录，决定是否逐台继续。",
+ "listeningTask": "听清继续发布的依据、负责人和下一台的前置条件。",
+ "newPhrase": "p328",
+ "phrases": [
+  "p328",
+  "p010",
+  "p211",
+  "p008:extra",
+  "p309:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Time for the go/no-go. Anika, are the business checks good enough to proceed?",
+   "zh": "该决定继续还是停止了。Anika，业务检查结果足够支持继续吗？",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 5.808
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. Error rate and latency match the other hosts. We've seen enough requests.",
+   "zh": "是的，错误率和延迟与其他主机一致，观察到的请求数量也够了。",
+   "role": "API owner",
+   "start": 5.808,
+   "end": 13.104
+  },
+  {
+   "sp": "Lukas",
+   "en": "And no driver errors? We need both app and host checks for that decision.",
+   "zh": "也没有驱动错误？这项决策需要应用和主机两方面检查。",
+   "role": "SRE reviewer",
+   "start": 13.104,
+   "end": 18.527
+  },
+  {
+   "sp": "Raj",
+   "en": "None. Just to confirm, one node at a time still, right? B next, not B and C.",
+   "zh": "没有。我确认一下，仍然一次一台，对吧？接下来B，不是B和C一起。",
+   "role": "Linux operator",
+   "start": 18.527,
+   "end": 26.447
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Restore A's normal weight, verify it, then drain B?",
+   "zh": "我复述一下：先恢复A的正常权重并验证，然后让B退出流量？",
+   "role": "Validation engineer",
+   "start": 26.447,
+   "end": 33.575
+  },
+  {
+   "sp": "Priya",
+   "en": "Exactly. What's the ETA for all remaining hosts if each check stays clean?",
+   "zh": "对。如果每次检查都正常，其余主机预计多久全部完成？",
+   "role": "Change coordinator",
+   "start": 33.575,
+   "end": 39.743
+  },
+  {
+   "sp": "Lukas",
+   "en": "About thirty minutes. Pause if a step runs long; don't shorten validation to catch up.",
+   "zh": "大约三十分钟。某一步超时就暂停，不要为了赶进度缩短验证。",
+   "role": "SRE reviewer",
+   "start": 39.743,
+   "end": 46.343
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on errors as the weights change. Call out each transition.",
+   "zh": "权重变化时我会关注错误。每次切换都要说清楚。",
+   "role": "API owner",
+   "start": 46.343,
+   "end": 52.198
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep a separate result for each host. A passing doesn't prove B will pass.",
+   "zh": "我会分别记录每台结果。A通过不代表B必然通过。",
+   "role": "Validation engineer",
+   "start": 52.198,
+   "end": 58.774
+  },
+  {
+   "sp": "Raj",
+   "en": "A is fully back now. Checks are clean. I'll start B's drain next.",
+   "zh": "A已完全恢复流量，检查正常。接下来让B退出流量。",
+   "role": "Linux operator",
+   "start": 58.774,
+   "end": 65.47
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 8,
+ "scene": "A主机在低权重真实流量下表现正常，证据已记录，决定是否逐台继续。",
+ "dir": "linux/0053-继续还是停",
+ "audio": "0053-继续还是停.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "扩大批次"
+ ],
+ "duration": 65.47
+}

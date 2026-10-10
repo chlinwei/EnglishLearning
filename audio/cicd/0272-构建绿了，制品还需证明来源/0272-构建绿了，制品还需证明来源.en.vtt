@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.072
+Raj: The controlled build passed its tests. Build provenance names the expected commit.
+
+2
+00:00:06.072 --> 00:00:13.009
+Priya: Okay, we can bypass the cache safely. Just to confirm, signature verified too?
+
+3
+00:00:13.009 --> 00:00:20.017
+Lukas: Against the approved signer identity, yes. A signature alone doesn't prove release approval.
+
+4
+00:00:20.017 --> 00:00:26.329
+Anika: The smoke test passes in staging. Production promotion stays separate, right?
+
+5
+00:00:26.329 --> 00:00:35.642
+Hannah: Correct, record immutable digest and attestations. Secret scanning found no embedded credentials.
+
+6
+00:00:35.642 --> 00:00:43.178
+Raj: Diagnostic credentials are revoked after testing. Logs remain restricted and properly redacted.
+
+7
+00:00:43.178 --> 00:00:49.611
+Lukas: Let's keep it under observation now. Mirror latency rose slightly during cold fetches.
+
+8
+00:00:49.611 --> 00:00:55.611
+Priya: So, go/no-go for limited queue recovery? I'd keep concurrency at two.
+
+9
+00:00:55.611 --> 00:01:03.316
+Hannah: Two is within the tested capacity. Stop dispatch if latency exceeds that limit.
+
+10
+00:01:03.316 --> 00:01:10.420
+Anika: Agreed, the tested limit is two seconds. We'll check retry eligibility before dispatch.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Raj: Okay, ready to shift traffic now. Five percent of new connections uses green.
+
+2
+00:00:06.408 --> 00:00:14.232
+Hannah: The observed request share isn't five percent. Long connections explain some of that difference.
+
+3
+00:00:14.232 --> 00:00:20.640
+Anika: The first sandbox checkout passed through green. The callback followed the correct path.
+
+4
+00:00:20.640 --> 00:00:26.664
+Lukas: Did you verify the pool identifier? Success alone doesn't prove the new path.
+
+5
+00:00:26.664 --> 00:00:33.144
+Anika: Yes, the request trace includes green. No customer payloads in that evidence.
+
+6
+00:00:33.144 --> 00:00:39.864
+Priya: Just to confirm, keep an eye on resets, right? Include errors from both pools.
+
+7
+00:00:39.864 --> 00:00:46.824
+Hannah: No resets above baseline so far. Keep watching; the sample is small.
+
+8
+00:00:46.824 --> 00:00:53.304
+Raj: Connection draining protects the old sessions. We'll allow their normal timeout period.
+
+9
+00:00:53.304 --> 00:01:00.144
+Lukas: What's the ETA for enough canary samples? Include another smoke test before expansion.
+
+10
+00:01:00.144 --> 00:01:06.240
+Priya: Roughly ten minutes at current load. So, hold five percent until then.
+

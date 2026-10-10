@@ -1,0 +1,129 @@
+{
+ "id": "0207",
+ "part": 2,
+ "stage": "输入约束",
+ "title": "大小、顺序和有效期",
+ "premise": "明确替换目标状态，面试者给出大小和顺序约束。",
+ "listeningTask": "听出候选人如何防止超大输入与旧状态覆盖。",
+ "newPhrase": "p482",
+ "phrases": [
+  "p482",
+  "p010",
+  "p011:extra",
+  "p335:extra",
+  "p009:extra",
+  "p302:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Messages can arrive out of order. Each includes an asset version and operation identifier.",
+   "zh": "消息可能乱序，每条含资产版本和操作标识。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 0.0,
+   "end": 7.992
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd require bounded input for tag counts. Just to confirm, the API checks versions, right?",
+   "zh": "标签数量要有输入上限，确认一下，API检查版本，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 7.992,
+   "end": 15.649
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, stale versions return a conflict. There's also a documented maximum request size.",
+   "zh": "是，旧版本返回冲突，也有最大请求大小文档。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 15.649,
+   "end": 22.921
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, let me play that back briefly. Local validation checks shape before sending a request.",
+   "zh": "好，简短复述，本地先验结构，再发请求。",
+   "role": "DevOps engineering candidate",
+   "start": 22.921,
+   "end": 30.122
+  },
+  {
+   "sp": "Raj",
+   "en": "The server remains authoritative for version checks. My working hypothesis is concurrent writers still exist.",
+   "zh": "版本检查以服务端为准，我假设仍存在并发写入者。",
+   "role": "DevOps engineering candidate",
+   "start": 30.122,
+   "end": 38.33
+  },
+  {
+   "sp": "Hannah",
+   "en": "They do, outside this worker too. How would you handle a rejected old version?",
+   "zh": "存在，worker外也有写入者，旧版本被拒如何处理？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 38.33,
+   "end": 45.122
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd record a conflict without blind retry. Maybe business logic decides whether to refresh intent.",
+   "zh": "记录冲突，不盲重试，是否刷新意图由业务逻辑决定。",
+   "role": "DevOps engineering candidate",
+   "start": 45.122,
+   "end": 52.899
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good, don't invent a new desired state. The worker shouldn't silently override another writer.",
+   "zh": "好，不能凭空造新目标状态，worker不应悄悄覆盖其他写入者。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 52.899,
+   "end": 59.955
+  },
+  {
+   "sp": "Raj",
+   "en": "We can rule that out with conditional writes. But an outdated message still needs explicit handling.",
+   "zh": "条件写可防止覆盖，但过期消息仍需显式处理。",
+   "role": "DevOps engineering candidate",
+   "start": 59.955,
+   "end": 67.588
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item is documenting that conflict policy. I'd keep validation separate from transport code.",
+   "zh": "需记录冲突策略，输入验证与传输代码分开。",
+   "role": "DevOps engineering candidate",
+   "start": 67.588,
+   "end": 75.7
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 2,
+ "scene": "明确替换目标状态，面试者给出大小和顺序约束。",
+ "dir": "coding/0207-大小、顺序和有效期",
+ "audio": "0207-大小、顺序和有效期.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "输入约束"
+ ],
+ "duration": 75.7
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Raj: We've just been paged. The disk is filling up. It's at ninety-eight percent.
+
+2
+00:00:06.912 --> 00:00:11.736
+Lukas: Which host? Is this affecting checkout, or just the worker?
+
+3
+00:00:11.736 --> 00:00:18.673
+Raj: Orders-worker-three. The alert is for slash var. I haven't checked writes yet.
+
+4
+00:00:18.673 --> 00:00:24.241
+Priya: Okay, I'll take point on this. Anika, can you check the queue?
+
+5
+00:00:24.241 --> 00:00:28.465
+Hannah: Just to confirm, we're not restarting anything yet?
+
+6
+00:00:28.465 --> 00:00:36.409
+Anika: Right, not yet. I'm on it. The queue is accepting events, but consumption looks slow.
+
+7
+00:00:36.409 --> 00:00:41.809
+Lukas: Then let's check the errors before touching files. We need evidence.
+
+8
+00:00:41.809 --> 00:00:47.258
+Priya: Raj, what's the ETA for a first look? Roughly is fine.
+
+9
+00:00:47.258 --> 00:00:51.410
+Hannah: I can check the other workers while Raj checks this one.
+
+10
+00:00:51.410 --> 00:00:59.810
+Raj: About two minutes. More disk space might help, but let's park that. We need the cause first, right?
+

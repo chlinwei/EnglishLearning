@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.304
+Hannah: Path containment tests reject sibling directories. Empty values and external links fail too.
+
+2
+00:00:08.304 --> 00:00:15.095
+Raj: The guard clause logs the rejected reason. Just to confirm, no deletion follows, right?
+
+3
+00:00:15.095 --> 00:00:22.703
+Lukas: Correct, including during simulated directory replacement. The constrained handle doesn't escape its root.
+
+4
+00:00:22.703 --> 00:00:30.262
+Anika: Okay, dry-run it first with realistic inventory. That checks selection without touching live objects.
+
+5
+00:00:30.262 --> 00:00:38.806
+Hannah: Dry runs don't prove deletion safety alone. The isolated execution tests provide that evidence.
+
+6
+00:00:38.806 --> 00:00:45.790
+Raj: Both modes selected the same allowed candidates. We can rule that out as preview drift.
+
+7
+00:00:45.790 --> 00:00:52.845
+Priya: Keep an eye on rejection counts too. Unexpected refusals could reveal another input problem.
+
+8
+00:00:52.845 --> 00:01:00.093
+Lukas: The review also checks maximum deletion count. Safety shouldn't depend on directory boundaries alone.
+
+9
+00:01:00.093 --> 00:01:06.428
+Anika: Maybe ten candidates is enough for canary. We'll propose that limit with the evidence.
+
+10
+00:01:06.428 --> 00:01:14.540
+Priya: Agreed, no restart until that review passes. Today's successful tests aren't permission by themselves.
+

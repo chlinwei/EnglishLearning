@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.768
+Anika: This redundancy plan exceeds our cost ceiling.
+这个冗余方案超出成本上限了。
+
+2
+00:00:03.768 --> 00:00:06.984
+Lukas: Which guarantee are we willing to relax?
+我们愿意放宽哪项保证？
+
+3
+00:00:06.984 --> 00:00:12.143
+Anika: Exports can wait. Orders can't lose acknowledged writes.
+导出可以等待，订单不能丢已确认写入。
+
+4
+00:00:12.143 --> 00:00:16.775
+Hannah: Then don't reduce database protection to fund browsing.
+那就不能削减数据库保护来给浏览业务省预算。
+
+5
+00:00:16.775 --> 00:00:20.231
+Raj: Smaller recommendation pools could buy us time.
+更小的推荐资源池能暂时争取时间。
+
+6
+00:00:20.231 --> 00:00:24.167
+Priya: Just to confirm, fencing stays funded, right?
+确认一下，隔离机制预算保留，对吧？
+
+7
+00:00:24.167 --> 00:00:29.207
+Lukas: Yes. Maybe defer analytics capacity, not safety.
+是的，也许可以推迟分析容量，不能推迟安全保障。
+
+8
+00:00:29.207 --> 00:00:32.638
+Anika: I've got bandwidth to price that alternative.
+我有精力核算这个替代方案。
+
+9
+00:00:32.638 --> 00:00:37.246
+Hannah: Include support effort and cross-zone transfer charges.
+要计入支持工作量和跨区传输费用。
+
+10
+00:00:37.246 --> 00:00:42.070
+Priya: New discounts? Let's park that until scope settles.
+新折扣？等范围确定后再讨论。
+

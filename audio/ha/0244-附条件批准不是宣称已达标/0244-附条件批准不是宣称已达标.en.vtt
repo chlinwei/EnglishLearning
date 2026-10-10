@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.776
+Priya: Conditional approval covers procurement, not production readiness.
+
+2
+00:00:04.776 --> 00:00:09.193
+Lukas: Let me play that back. Tests still gate deployment.
+
+3
+00:00:09.193 --> 00:00:13.825
+Raj: Yes, the redundancy plan needs measured failover evidence.
+
+4
+00:00:13.825 --> 00:00:18.122
+Hannah: And a rollback trigger for every infrastructure change.
+
+5
+00:00:18.122 --> 00:00:21.386
+Anika: Budget is approved within the revised scope.
+
+6
+00:00:21.386 --> 00:00:25.922
+Priya: Just to confirm, multi-active writes excluded, right?
+
+7
+00:00:25.922 --> 00:00:30.915
+Lukas: Correct. Conflict resolution isn't specified or tested.
+
+8
+00:00:30.915 --> 00:00:34.875
+Raj: Go/no-go remains pending full degraded-load results.
+
+9
+00:00:34.875 --> 00:00:40.492
+Hannah: Maybe one redesign follows testing. Keep that possibility.
+
+10
+00:00:40.492 --> 00:00:44.620
+Priya: Okay, publish the decision with its explicit limits.
+

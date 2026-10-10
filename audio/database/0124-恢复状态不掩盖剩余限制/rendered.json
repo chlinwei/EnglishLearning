@@ -1,0 +1,135 @@
+{
+ "id": "0124",
+ "part": 9,
+ "stage": "对外更新",
+ "title": "恢复状态不掩盖剩余限制",
+ "premise": "清理修复通过隔离测试和单实例灰度，订单指标稳定，报表仍暂停。",
+ "listeningTask": "分辨客户可见恢复、修复灰度和未恢复功能。",
+ "newPhrase": "p399",
+ "phrases": [
+  "p399",
+  "p397",
+  "p334:extra",
+  "p336:extra",
+  "p008:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Requests are draining without new buildup. Support can report order processing recovered.",
+   "zh": "请求积压正在消化，没有新增堆积，支持团队可报告订单处理恢复。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 6.672
+  },
+  {
+   "sp": "Hannah",
+   "en": "Include which functions remain restricted now. Reports are still unavailable to users.",
+   "zh": "写清哪些功能仍受限，用户目前仍不能使用报表。",
+   "role": "Application validation engineer",
+   "start": 6.672,
+   "end": 14.112
+  },
+  {
+   "sp": "Raj",
+   "en": "Connection checkout time stays near baseline. The cleanup canary passed cancellation checks.",
+   "zh": "借连接等待保持接近基线，清理修复的灰度通过取消测试。",
+   "role": "Database on-call",
+   "start": 14.112,
+   "end": 20.833
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, no full repair claim, right? The temporary workaround still includes limits.",
+   "zh": "好，别宣称全部修好，对吧？临时缓解还包括限流。",
+   "role": "Incident coordinator",
+   "start": 20.833,
+   "end": 27.841
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Expand the fix in batches. Observe each batch before relaxing limits.",
+   "zh": "对，分批扩展修复，每批观察后才放宽限额。",
+   "role": "SRE and traffic controller",
+   "start": 27.841,
+   "end": 34.897
+  },
+  {
+   "sp": "Anika",
+   "en": "What's the ETA for report recovery? Maybe tomorrow after the query review.",
+   "zh": "报表恢复预计什么时候？也许明天查询评审后。",
+   "role": "Orders application owner",
+   "start": 34.897,
+   "end": 40.873
+  },
+  {
+   "sp": "Hannah",
+   "en": "Call that an estimate, not commitment. Include the escalation path for regressions.",
+   "zh": "说明这是估计，不是承诺，也写上回归异常的升级联系路径。",
+   "role": "Application validation engineer",
+   "start": 40.873,
+   "end": 48.313
+  },
+  {
+   "sp": "Priya",
+   "en": "So, circle back in thirty minutes. Earlier if waiting requests start rising.",
+   "zh": "那三十分钟后再更新，等待请求上升就提前。",
+   "role": "Incident coordinator",
+   "start": 48.313,
+   "end": 54.818
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll watch accepted throughput during expansion. Low errors with fewer orders isn't recovery.",
+   "zh": "我在扩展时观察有效吞吐，订单少了而错误低不算恢复。",
+   "role": "SRE and traffic controller",
+   "start": 54.818,
+   "end": 61.658
+  },
+  {
+   "sp": "Raj",
+   "en": "Agreed, throughput matches the expected demand. I'll attach that evidence to support.",
+   "zh": "同意，吞吐符合预期需求，我把证据附给支持团队。",
+   "role": "Database on-call",
+   "start": 61.658,
+   "end": 68.21
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 9,
+ "scene": "清理修复通过隔离测试和单实例灰度，订单指标稳定，报表仍暂停。",
+ "dir": "database/0124-恢复状态不掩盖剩余限制",
+ "audio": "0124-恢复状态不掩盖剩余限制.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "对外更新"
+ ],
+ "duration": 68.21
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.648
+Raj: The recovery target is two ten UTC. Simulated failure happens five minutes later.
+
+2
+00:00:06.648 --> 00:00:13.464
+Hannah: So transactions after that point aren't expected? Even if their logs are available?
+
+3
+00:00:13.464 --> 00:00:19.609
+Anika: Correct, this drill tests a chosen point. We expect commits through two ten.
+
+4
+00:00:19.609 --> 00:00:26.545
+Priya: Just to confirm, all timestamps UTC, right? We can rule that out as ambiguity.
+
+5
+00:00:26.545 --> 00:00:33.169
+Lukas: And the target setting is inclusive? Transactions commit, not start, at that boundary.
+
+6
+00:00:33.169 --> 00:00:39.961
+Raj: Yes, inclusive and the timeline checked. The base backup precedes that target safely.
+
+7
+00:00:39.961 --> 00:00:49.177
+Hannah: Just to recap, five minutes intentionally excluded. That's recovery-point scope, not restore duration.
+
+8
+00:00:49.177 --> 00:00:56.330
+Anika: Exactly, about five minutes of simulated changes. We mustn't call that zero loss.
+
+9
+00:00:56.330 --> 00:01:02.714
+Lukas: Have I missed anything about target selection? Was that loss window approved beforehand?
+
+10
+00:01:02.714 --> 00:01:10.010
+Priya: Okay, yes, the drill sponsor approved it. Final success still requires data checks.
+

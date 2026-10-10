@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.056
+Lukas: Summarize your design. Then ask us something.
+
+2
+00:00:04.056 --> 00:00:08.904
+Raj: Just to recap, consistency wins during ambiguous partitions.
+
+3
+00:00:08.904 --> 00:00:12.887
+Raj: The availability target still needs fault-test evidence.
+
+4
+00:00:12.887 --> 00:00:16.655
+Hannah: Which design assumption would you validate first?
+
+5
+00:00:16.655 --> 00:00:21.791
+Raj: Storage fencing itself, then acknowledged-write recovery under partition.
+
+6
+00:00:21.791 --> 00:00:27.215
+Lukas: Maybe include operational access. Who maintains that protection?
+
+7
+00:00:27.215 --> 00:00:32.087
+Raj: That's my question. Who owns reliability across teams?
+
+8
+00:00:32.087 --> 00:00:36.598
+Raj: An action item needs owners, budget, and evidence.
+
+9
+00:00:36.598 --> 00:00:42.262
+Hannah: Yes, service owners share it with SRE. Anything else?
+
+10
+00:00:42.262 --> 00:00:47.230
+Raj: Okay, have I missed anything? How do teams close the loop?
+

@@ -1,0 +1,135 @@
+{
+ "id": "0245",
+ "part": 10,
+ "stage": "责任与期限",
+ "title": "谁交证据，什么时候复审",
+ "premise": "架构和采购有条件通过，安排容量证据、预算复核与上线复审。",
+ "listeningTask": "抓住负责人、期限与可判定的验收结果。",
+ "newPhrase": "p520",
+ "phrases": [
+  "p520",
+  "p009",
+  "p310",
+  "p008:extra",
+  "p013:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Acceptance criteria cover single-zone peak targets.",
+   "zh": "验收标准涵盖单区峰值目标。",
+   "role": "Architecture review chair",
+   "start": 0.0,
+   "end": 3.984
+  },
+  {
+   "sp": "Hannah",
+   "en": "And zero missing acknowledged orders after failover.",
+   "zh": "还包括切换后零丢失已确认订单。",
+   "role": "Performance engineer",
+   "start": 3.984,
+   "end": 8.712
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll own load evidence. What's the ETA constraint?",
+   "zh": "我负责负载证据，完成时间要求是什么？",
+   "role": "Infrastructure capacity engineer",
+   "start": 8.712,
+   "end": 13.489
+  },
+  {
+   "sp": "Lukas",
+   "en": "Friday for tests, Monday for the review.",
+   "zh": "周五完成测试，周一评审。",
+   "role": "Reliability architect",
+   "start": 13.489,
+   "end": 16.969
+  },
+  {
+   "sp": "Priya",
+   "en": "The proxy action item: who's picking this up?",
+   "zh": "代理这个待办项由谁来接？",
+   "role": "Architecture review chair",
+   "start": 16.969,
+   "end": 20.737
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll name its owner today itself. Before lunch.",
+   "zh": "今天我就确定负责人，午饭前完成。",
+   "role": "Service and budget owner",
+   "start": 20.737,
+   "end": 25.393
+  },
+  {
+   "sp": "Hannah",
+   "en": "Perhaps add a test-access backup owner.",
+   "zh": "也许还应为测试权限安排后备负责人。",
+   "role": "Performance engineer",
+   "start": 25.393,
+   "end": 29.233
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll close the loop with reports and exceptions.",
+   "zh": "我会用报告和异常记录完成反馈。",
+   "role": "Infrastructure capacity engineer",
+   "start": 29.233,
+   "end": 32.978
+  },
+  {
+   "sp": "Lukas",
+   "en": "Just to recap, no launch without acceptance evidence.",
+   "zh": "小结一下，没有验收证据就不上线。",
+   "role": "Reliability architect",
+   "start": 32.978,
+   "end": 37.274
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Book the follow-up, not an incident bridge.",
+   "zh": "同意，安排后续评审，不是故障战情会。",
+   "role": "Architecture review chair",
+   "start": 37.274,
+   "end": 42.05
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 10,
+ "scene": "架构和采购有条件通过，安排容量证据、预算复核与上线复审。",
+ "dir": "ha/0245-谁交证据，什么时候复审",
+ "audio": "0245-谁交证据，什么时候复审.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "责任与期限"
+ ],
+ "duration": 42.05
+}

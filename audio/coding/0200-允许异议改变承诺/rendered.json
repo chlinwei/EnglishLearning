@@ -1,0 +1,135 @@
+{
+ "id": "0200",
+ "part": 5,
+ "stage": "估算异议",
+ "title": "允许异议改变承诺",
+ "premise": "初估五点，Lukas指出隐藏状态与回退验证可能遗漏。",
+ "listeningTask": "听懂质疑估算的依据而不是人身否定。",
+ "newPhrase": "p475",
+ "phrases": [
+  "p475",
+  "p010",
+  "p474:extra",
+  "p472:extra",
+  "p324:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Can I challenge that estimate a little? Shared state makes extraction less mechanical here.",
+   "zh": "我能稍微质疑估算吗？共享状态让提取没那么机械。",
+   "role": "Architecture and implementation reviewer",
+   "start": 0.0,
+   "end": 6.48
+  },
+  {
+   "sp": "Raj",
+   "en": "Fair, I counted functions rather than behavior. The hidden coupling probably adds integration work.",
+   "zh": "有道理，我数了函数没看行为，隐藏耦合可能增加集成工作。",
+   "role": "Refactoring implementation engineer",
+   "start": 6.48,
+   "end": 14.064
+  },
+  {
+   "sp": "Hannah",
+   "en": "The rollback trigger also needs rehearsal evidence. That's work, even without immediate production release.",
+   "zh": "回退触发也需预演证据，即使不立刻生产发布也有工作量。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 14.064,
+   "end": 22.632
+  },
+  {
+   "sp": "Priya",
+   "en": "Let me play that back for everyone. The full extraction is a stretch, not committed.",
+   "zh": "我复述一下，完整提取是挑战目标，不是承诺。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 22.632,
+   "end": 29.208
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to confirm, the first slice stays useful, right? Consumers can validate one complete report.",
+   "zh": "确认一下，首个切片仍有价值，对吧？使用方能验证一份完整报表。",
+   "role": "Reporting service and consumer owner",
+   "start": 29.208,
+   "end": 37.296
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, I can narrow the committed output. Maybe one report path plus its failure cases.",
+   "zh": "是，可以缩小承诺产出，可能一个报表路径加失败用例。",
+   "role": "Refactoring implementation engineer",
+   "start": 37.296,
+   "end": 44.616
+  },
+  {
+   "sp": "Lukas",
+   "en": "That sounds clearer than inflating every estimate. Keep optional work separate from the goal.",
+   "zh": "比把每项估算都放大更清晰，可选工作与目标分开。",
+   "role": "Architecture and implementation reviewer",
+   "start": 44.616,
+   "end": 51.048
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, we'll record the revised commitment explicitly. Nobody needs to defend the original number.",
+   "zh": "好，明确记录修改后的承诺，不必维护原数字。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 51.048,
+   "end": 58.512
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll check that reduced scope remains testable. Smaller doesn't mean skipping the error paths.",
+   "zh": "我检查缩小后仍可测试，小范围不等于跳过错误路径。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 58.512,
+   "end": 66.096
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll confirm it with the consumers. Their acceptance matters more than our point total.",
+   "zh": "同意，我与使用方确认，验收比总点数更重要。",
+   "role": "Reporting service and consumer owner",
+   "start": 66.096,
+   "end": 73.08
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 5,
+ "scene": "初估五点，Lukas指出隐藏状态与回退验证可能遗漏。",
+ "dir": "coding/0200-允许异议改变承诺",
+ "audio": "0200-允许异议改变承诺.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "估算异议"
+ ],
+ "duration": 73.08
+}

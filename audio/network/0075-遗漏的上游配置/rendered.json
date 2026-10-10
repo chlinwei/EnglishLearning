@@ -1,0 +1,135 @@
+{
+ "id": "0075",
+ "part": 10,
+ "stage": "根因与行动",
+ "title": "遗漏的上游配置：修好端点，还要修流程",
+ "premise": "服务通过B保持恢复，核对退役记录与发布审计后确认A仍包含旧转发端点。",
+ "listeningTask": "区分技术原因已确认与配置发布流程仍待调查，并抓住验收任务。",
+ "newPhrase": "p350",
+ "phrases": [
+  "p350",
+  "p330",
+  "p310",
+  "p009:extra",
+  "p013:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The forwarder pool on A still includes a retired endpoint. The retirement record confirms it.",
+   "zh": "A的转发端点池仍包含已退役端点，退役记录已经确认。",
+   "role": "Network on-call",
+   "start": 0.0,
+   "end": 7.584
+  },
+  {
+   "sp": "Hannah",
+   "en": "Failed samples used that endpoint. That links stale config to timeouts.",
+   "zh": "失败样本使用了那个端点，这把过期配置和超时联系起来了。",
+   "role": "DNS validation engineer",
+   "start": 7.584,
+   "end": 14.137
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to recap, B got the update. A didn't. Why it missed A still needs investigation.",
+   "zh": "小结一下，B收到更新，A没有。为什么遗漏A，仍要调查。",
+   "role": "Incident coordinator",
+   "start": 14.137,
+   "end": 21.817
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use managed configuration to restore A. Don't leave a manual fix outside the source of truth.",
+   "zh": "通过统一配置管理修复A，不要把手工修复留在权威配置之外。",
+   "role": "SRE",
+   "start": 21.817,
+   "end": 29.018
+  },
+  {
+   "sp": "Raj",
+   "en": "First action item: review the corrected targets and test A offline. I'll own that today.",
+   "zh": "第一个行动项：评审正确目标并离线测试A，我今天负责完成。",
+   "role": "Network on-call",
+   "start": 29.018,
+   "end": 36.266
+  },
+  {
+   "sp": "Anika",
+   "en": "Who's picking this up for fresh-lookup monitoring? Cached health checks missed the bad path, right?",
+   "zh": "新查询监控谁来接？缓存健康检查漏掉了坏路径，对吧？",
+   "role": "Checkout application owner",
+   "start": 36.266,
+   "end": 43.034
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll add approved uncached probes by Friday. Small volume, with checks for the private views.",
+   "zh": "我周五前加上批准的未缓存探测，保持小量，并检查私有视图。",
+   "role": "DNS validation engineer",
+   "start": 43.034,
+   "end": 50.955
+  },
+  {
+   "sp": "Priya",
+   "en": "Lukas, review the partial rollout tomorrow. We need to know why success was reported too early.",
+   "zh": "Lukas，明天评审这次不完整发布。我们需要知道为何过早报告成功。",
+   "role": "Incident coordinator",
+   "start": 50.955,
+   "end": 58.203
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll do that. A rejoins only after the repair checks and a reviewed client switch plan.",
+   "zh": "我来做。A必须通过修复检查，并有评审过的客户端切换计划，才能重新接入。",
+   "role": "SRE",
+   "start": 58.203,
+   "end": 64.276
+  },
+  {
+   "sp": "Anika",
+   "en": "We'll close the loop with evidence. Keep B monitoring active until the transition is verified.",
+   "zh": "我们会带着证据反馈并闭环。切换验证完成之前，继续监控B。",
+   "role": "Checkout application owner",
+   "start": 64.276,
+   "end": 71.14
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 10,
+ "scene": "服务通过B保持恢复，核对退役记录与发布审计后确认A仍包含旧转发端点。",
+ "dir": "network/0075-遗漏的上游配置",
+ "audio": "0075-遗漏的上游配置.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "根因与行动"
+ ],
+ "duration": 71.14
+}

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.464
+Anika: Pending validation covers three large tenants. Application retry behavior also needs testing.
+待验证项包括三个大租户，还要测应用重试行为。
+
+2
+00:00:07.464 --> 00:00:15.001
+Hannah: I'll own the remaining reconciliation checks. Where are expected totals and job IDs?
+我负责剩余对账，预期总额和任务ID在哪里？
+
+3
+00:00:15.001 --> 00:00:21.265
+Raj: In the handoff ticket, beside coverage. I'm on it for read access confirmation.
+交接工单里，在覆盖记录旁边，我确认读取权限。
+
+4
+00:00:21.265 --> 00:00:27.650
+Priya: Who's picking this up for retries? Lukas, the test harness is yours, right?
+谁接重试测试？Lukas，测试工具由你负责，对吧？
+
+5
+00:00:27.650 --> 00:00:34.538
+Lukas: Yes, using synthetic writes on a clone. I'll preserve the restored reference database.
+是，在克隆上用合成写入测试，保留恢复参考库不变。
+
+6
+00:00:34.538 --> 00:00:41.138
+Anika: Good, retries can change test data. About ten cases cover the known branches.
+好，重试会改变测试数据，大约十个用例覆盖已知分支。
+
+7
+00:00:41.138 --> 00:00:47.931
+Hannah: I'll keep an eye on failed totals. A mismatch means halt, not patch rows.
+我关注总额失败，不匹配就暂停，不是直接修补行。
+
+8
+00:00:47.931 --> 00:00:55.371
+Raj: Okay, another action item is timing analysis. I'll separate transfer from replay tomorrow.
+好，另一个行动项是耗时分析，明天我拆分传输和回放。
+
+9
+00:00:55.371 --> 00:01:02.020
+Lukas: Maybe we need automated validation preparation. But don't weaken checks for faster numbers.
+可能需要自动准备校验，但别为数字更快而削弱检查。
+
+10
+00:01:02.020 --> 00:01:08.980
+Priya: So, update each item with evidence. Completion needs results, not a started job.
+那每项都带证据更新，完成需要结果，不是任务已经启动。
+

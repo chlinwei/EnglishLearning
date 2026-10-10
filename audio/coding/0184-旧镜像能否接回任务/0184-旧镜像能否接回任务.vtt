@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.056
+Lukas: The previous image digest is retained locally. Its signature and retrieval path are verified.
+旧镜像摘要对应制品已保留，签名与取回路径验证通过。
+
+2
+00:00:07.056 --> 00:00:14.400
+Raj: The clean rebuild record covers that image. But rollback uses retained bytes, not rebuilding.
+干净重建记录涵盖该镜像，但回退直接用留存制品，不临时重建。
+
+3
+00:00:14.400 --> 00:00:22.919
+Hannah: Can the old worker read current checkpoints? Image availability alone doesn't prove operational rollback.
+旧worker能读当前检查点吗？镜像可取不等于回退可用。
+
+4
+00:00:22.919 --> 00:00:30.503
+Anika: Yes, checkpoint format stayed unchanged this time. Just to confirm, we tested that, right?
+可以，这次检查点格式未变。确认一下，已经测试，对吧？
+
+5
+00:00:30.503 --> 00:00:38.231
+Priya: Okay, the smoke test passed after simulated rollback. No live production reversal is needed now.
+好，模拟回退后冒烟测试通过，现在不必反转生产。
+
+6
+00:00:38.231 --> 00:00:45.239
+Raj: Maybe the callback replacement will change compatibility. We'll review it as a separate change.
+替换回调可能改变兼容性，会作为独立变更评审。
+
+7
+00:00:45.239 --> 00:00:52.487
+Lukas: Document draining before restoring the old lease. The rollback trigger must include duplicate writes.
+记录恢复旧租约前的排空步骤，回退触发必须包含重复写入。
+
+8
+00:00:52.487 --> 00:00:59.518
+Anika: A temporary workaround would pause the partition. We'd preserve its checkpoint before any reversal.
+临时措施是暂停分区，任何反向切换前保留检查点。
+
+9
+00:00:59.518 --> 00:01:09.190
+Hannah: The isolated rollback preserved all processed records. Unprocessed records resumed without duplicate side effects.
+隔离回退保留已处理记录，未处理记录恢复时没有重复副作用。
+
+10
+00:01:09.190 --> 00:01:17.110
+Priya: Good, keep the old artifact through retention. We can close deployment, not erase recovery options.
+好，按期限保留旧制品，可关闭部署，不能删除恢复选项。
+

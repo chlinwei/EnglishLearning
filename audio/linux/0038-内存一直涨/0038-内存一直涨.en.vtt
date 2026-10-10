@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.744
+Hannah: The worker's RSS keeps climbing. It rose steadily for about six hours.
+
+2
+00:00:06.744 --> 00:00:12.744
+Raj: Other processes stayed small. The worker accounts for most of that increase.
+
+3
+00:00:12.744 --> 00:00:17.255
+Lukas: Could that be a cache warming up? Does it normally level off?
+
+4
+00:00:17.255 --> 00:00:24.215
+Anika: Usually it does. This curve doesn't flatten. Maybe the cache isn't bounded.
+
+5
+00:00:24.215 --> 00:00:30.335
+Priya: Just to confirm, that's a hypothesis, right? We haven't proved a leak.
+
+6
+00:00:30.335 --> 00:00:36.335
+Hannah: Correct. The older version flattened much earlier under similar load.
+
+7
+00:00:36.335 --> 00:00:41.711
+Raj: I'll keep an eye on the new process. We can't rule that out yet.
+
+8
+00:00:41.711 --> 00:00:47.686
+Lukas: Let's compare request volume too. A busier worker could explain some growth.
+
+9
+00:00:47.686 --> 00:00:54.478
+Priya: What's the ETA for that comparison? A bigger host? Let's park that for now.
+
+10
+00:00:54.478 --> 00:01:00.550
+Anika: About three minutes. I'll check the input mix as well, not just volume.
+

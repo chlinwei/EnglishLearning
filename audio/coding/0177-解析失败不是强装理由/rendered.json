@@ -1,0 +1,135 @@
+{
+ "id": "0177",
+ "part": 2,
+ "stage": "冲突",
+ "title": "解析失败不是强装理由",
+ "premise": "在生产匹配环境解析升级依赖，认证插件约束冲突。",
+ "listeningTask": "区分版本约束冲突与运行时问题。",
+ "newPhrase": "p452",
+ "phrases": [
+  "p452",
+  "p010",
+  "p335:extra",
+  "p302:extra",
+  "p014:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The dependency resolver rejects the proposed set. Our plugin requires the older client range.",
+   "zh": "依赖解析器拒绝这组版本，插件要求旧客户端范围。",
+   "role": "Python dependency maintainer",
+   "start": 0.0,
+   "end": 7.248
+  },
+  {
+   "sp": "Hannah",
+   "en": "Show both constraints in the review. Don't force installation by ignoring dependency checks.",
+   "zh": "评审展示两边约束，不能忽略依赖检查强行安装。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 7.248,
+   "end": 15.144
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis is outdated plugin compatibility. A newer plugin advertises the required range.",
+   "zh": "目前假设是插件兼容范围过时，新插件声明支持所需范围。",
+   "role": "Inventory application owner",
+   "start": 15.144,
+   "end": 22.945
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, advertised isn't tested, right? We'll verify behavior before accepting that pair.",
+   "zh": "确认一下，声明支持不等于已测，对吧？接受这组版本前验证行为。",
+   "role": "Change coordinator and approval owner",
+   "start": 22.945,
+   "end": 30.913
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check interpreter requirements and available platform wheels. A solvable graph can still fail installation.",
+   "zh": "检查解释器要求与平台wheel，版本图可解也可能安装失败。",
+   "role": "Build and release SRE",
+   "start": 30.913,
+   "end": 38.641
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for the candidate plugin. We can rule that out as network failure.",
+   "zh": "候选插件我来查，可以排除这次解析失败是网络故障。",
+   "role": "Python dependency maintainer",
+   "start": 38.641,
+   "end": 44.881
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, the error cites incompatible version constraints. Keep the complete resolver output as evidence.",
+   "zh": "对，错误明确指出版本约束不兼容，保留完整解析输出。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 44.881,
+   "end": 54.025
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay, the plugin itself handles token refresh. Maybe that path needs extra compatibility tests.",
+   "zh": "好，插件本身处理令牌刷新，该路径可能需要额外兼容测试。",
+   "role": "Inventory application owner",
+   "start": 54.025,
+   "end": 61.802
+  },
+  {
+   "sp": "Lukas",
+   "en": "A client replacement is another option. But it's outside this maintenance change's scope.",
+   "zh": "换客户端也是选项，但超出本次维护变更范围。",
+   "role": "Build and release SRE",
+   "start": 61.802,
+   "end": 68.018
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's park that larger replacement for now. Test the compatible pair without broadening scope.",
+   "zh": "先放下大范围替换，测试兼容组合，不扩大范围。",
+   "role": "Change coordinator and approval owner",
+   "start": 68.018,
+   "end": 75.05
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 2,
+ "scene": "在生产匹配环境解析升级依赖，认证插件约束冲突。",
+ "dir": "coding/0177-解析失败不是强装理由",
+ "audio": "0177-解析失败不是强装理由.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "冲突"
+ ],
+ "duration": 75.05
+}

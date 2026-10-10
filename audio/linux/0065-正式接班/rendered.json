@@ -1,0 +1,135 @@
+{
+ "id": "0065",
+ "part": 10,
+ "stage": "确认接管",
+ "title": "正式接班：责任交出去了，调查没关",
+ "premise": "接班方已复述并补齐恢复审批，证据可访问，准备正式确认交接。",
+ "listeningTask": "听出谁接管、下一次更新时间和哪些任务仍由白班跟进。",
+ "newPhrase": "p340",
+ "phrases": [
+  "p340",
+  "p331",
+  "p310",
+  "p009:extra",
+  "p001:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "All checks are done. Raj, you can hand over now. Hannah, ready to take ownership?",
+   "zh": "检查都完成了。Raj，现在可以交班。Hannah，准备好接管了吗？",
+   "role": "Shift coordinator",
+   "start": 0.0,
+   "end": 7.464
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, I've got it from here. I'll update at twenty hundred or sooner if anything changes.",
+   "zh": "是的，接下来我负责。20:00更新，有变化就提前。",
+   "role": "Incoming primary on-call",
+   "start": 7.464,
+   "end": 15.191
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, alert routing is yours now, right? The rota shows the new shift.",
+   "zh": "我确认一下，告警现在转到你这里，对吧？排班显示已经进入新班次。",
+   "role": "Outgoing Linux on-call",
+   "start": 15.191,
+   "end": 21.791
+  },
+  {
+   "sp": "Lukas",
+   "en": "Confirmed. Primary and backup routes are correct. I'll stay available for escalation.",
+   "zh": "确认，主备路由都正确。我会保持可联系，支持升级响应。",
+   "role": "Incoming backup SRE",
+   "start": 21.791,
+   "end": 29.062
+  },
+  {
+   "sp": "Anika",
+   "en": "Tomorrow's reproduction is still my action item. I'll close the loop with the results.",
+   "zh": "明天复现仍然是我的任务，我会反馈结果并完成跟进。",
+   "role": "Outgoing application owner",
+   "start": 29.062,
+   "end": 35.494
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's circle back tomorrow morning. Tonight's status stays mitigated, with exports delayed.",
+   "zh": "明早再回来看。今晚状态保持为已缓解，导出仍延迟。",
+   "role": "Shift coordinator",
+   "start": 35.494,
+   "end": 42.43
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll put that in the update. No resolved label and no restart experiment overnight.",
+   "zh": "我会在更新里写清。不标为已解决，夜间也不做重启试验。",
+   "role": "Incoming primary on-call",
+   "start": 42.43,
+   "end": 49.509
+  },
+  {
+   "sp": "Raj",
+   "en": "Thanks. I've recorded the handoff time and left the evidence where you can reach it.",
+   "zh": "谢谢。我已记录交接时间，证据也放在你们能访问的位置。",
+   "role": "Outgoing Linux on-call",
+   "start": 49.509,
+   "end": 56.133
+  },
+  {
+   "sp": "Lukas",
+   "en": "If the approved conditions change, we'll reopen the discussion rather than improvise a fix.",
+   "zh": "如果批准的条件发生变化，我们会重新讨论，而不是临时拼凑修复。",
+   "role": "Incoming backup SRE",
+   "start": 56.133,
+   "end": 62.18
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. Use the duty contact tonight, not my chat status. The ownership is clear now.",
+   "zh": "同意。今晚按当值联系人联系，不要看我的聊天在线状态。现在责任已经明确。",
+   "role": "Outgoing application owner",
+   "start": 62.18,
+   "end": 70.34
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 10,
+ "scene": "接班方已复述并补齐恢复审批，证据可访问，准备正式确认交接。",
+ "dir": "linux/0065-正式接班",
+ "audio": "0065-正式接班.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "确认接管"
+ ],
+ "duration": 70.34
+}

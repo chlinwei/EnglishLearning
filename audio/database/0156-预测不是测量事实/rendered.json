@@ -1,0 +1,135 @@
+{
+ "id": "0156",
+ "part": 1,
+ "stage": "增长趋势",
+ "title": "预测不是测量事实",
+ "premise": "容量评审开场，用历史净增长和未来活动假设建立预测。",
+ "listeningTask": "辨别历史数据、预测及不确定范围。",
+ "newPhrase": "p431",
+ "phrases": [
+  "p431",
+  "p010",
+  "p335:extra",
+  "p009:extra",
+  "p008:extra",
+  "p006:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Our growth forecast assumes current retention. Net storage grows two hundred gigabytes monthly.",
+   "zh": "增长预测假设当前保留规则不变，存储每月净增两百GB。",
+   "role": "Database capacity owner",
+   "start": 0.0,
+   "end": 7.128
+  },
+  {
+   "sp": "Hannah",
+   "en": "Is that measured growth or projection? Include how many months you sampled.",
+   "zh": "这是测量增长还是预测？说明抽样了几个月。",
+   "role": "Performance and cost analyst",
+   "start": 7.128,
+   "end": 13.44
+  },
+  {
+   "sp": "Raj",
+   "en": "Measured across the last six months. Campaign demand is a separate assumption.",
+   "zh": "过去六个月的测量，活动需求是单独的假设。",
+   "role": "Database capacity owner",
+   "start": 13.44,
+   "end": 19.8
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, net after retention, right? Don't subtract those deletions twice.",
+   "zh": "确认一下，是保留清理后的净值，对吧？别把删除重复扣除。",
+   "role": "Capacity review chair",
+   "start": 19.8,
+   "end": 26.664
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. A campaign could change the slope. Show a high-growth case as well.",
+   "zh": "对，活动可能改变增长斜率，也展示高增长情况。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 26.664,
+   "end": 33.216
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis allows a larger burst. Maybe three times normal campaign writes.",
+   "zh": "当前假设允许更大突发，活动写入可能为平时三倍。",
+   "role": "Orders application architect",
+   "start": 33.216,
+   "end": 40.104
+  },
+  {
+   "sp": "Hannah",
+   "en": "That's not three times monthly storage automatically. Burst duration matters for that estimate.",
+   "zh": "这不自动等于月存储三倍，突发持续时间影响估计。",
+   "role": "Performance and cost analyst",
+   "start": 40.104,
+   "end": 47.784
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA for campaign inputs? One action item is verified duration.",
+   "zh": "好，活动输入预计什么时候拿到？一个行动项是核实持续时间。",
+   "role": "Capacity review chair",
+   "start": 47.784,
+   "end": 54.816
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll ask business owners this afternoon. We shouldn't invent an exact demand curve.",
+   "zh": "今天下午我问业务负责人，不能编一个精确需求曲线。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 54.816,
+   "end": 61.008
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I've got bandwidth for scenarios. First compare today's actual performance baseline.",
+   "zh": "那我有精力做情景分析，先对比今天实际性能基线。",
+   "role": "Orders application architect",
+   "start": 61.008,
+   "end": 68.16
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 1,
+ "scene": "容量评审开场，用历史净增长和未来活动假设建立预测。",
+ "dir": "database/0156-预测不是测量事实",
+ "audio": "0156-预测不是测量事实.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "增长趋势"
+ ],
+ "duration": 68.16
+}

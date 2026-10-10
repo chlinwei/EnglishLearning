@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.200
+Raj: The fallback policy retains emergency admission control.
+
+2
+00:00:04.200 --> 00:00:07.609
+Lukas: What happens if the shared limiter disappears?
+
+3
+00:00:07.609 --> 00:00:12.361
+Raj: Local bounded limits apply. No unlimited fail-open.
+
+4
+00:00:12.361 --> 00:00:16.778
+Hannah: What's the rollback trigger for legitimate checkout failures?
+
+5
+00:00:16.778 --> 00:00:20.762
+Anika: A one-point completion drop against matched controls.
+
+6
+00:00:20.762 --> 00:00:24.698
+Priya: Just to confirm, sustained five minutes, right?
+
+7
+00:00:24.698 --> 00:00:30.051
+Hannah: Yes, but correctness failures stop enforcement immediately.
+
+8
+00:00:30.051 --> 00:00:34.491
+Raj: Let's roll back the config. Rehearsal completed.
+
+9
+00:00:34.491 --> 00:00:38.284
+Lukas: Maybe this temporary workaround needs a time limit.
+
+10
+00:00:38.284 --> 00:00:43.300
+Priya: Agreed. The smoke test confirms old protection remains.
+

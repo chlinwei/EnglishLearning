@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.368
+Hannah: The health check is failing in staging. It receives an unexpected redirect response.
+预生产的健康检查失败了，收到了非预期的重定向响应。
+
+2
+00:00:07.368 --> 00:00:14.136
+Raj: Okay, the probe used the wrong hostname. The service itself accepts valid requests.
+好，探测用了错误主机名，服务本身能处理有效请求。
+
+3
+00:00:14.136 --> 00:00:20.377
+Lukas: Can we rule that out in production? Staging behavior alone isn't enough evidence.
+生产也能排除这个问题吗？只看预生产行为还不够。
+
+4
+00:00:20.377 --> 00:00:26.809
+Anika: The new production pool has zero traffic. An approved direct test succeeds there.
+新生产池目前没有业务流量，批准的直连测试在那里成功。
+
+5
+00:00:26.809 --> 00:00:34.369
+Priya: Just to confirm, correct hostname first, right? Don't simply accept redirects as healthy.
+我确认一下，先纠正主机名，对吧？不能简单把重定向当健康。
+
+6
+00:00:34.369 --> 00:00:42.073
+Hannah: Exactly, require the expected status and body. Also check the probe interval.
+对，要检查预期状态码和响应内容，还要检查探测间隔。
+
+7
+00:00:42.073 --> 00:00:49.681
+Raj: Five seconds, with three failures before removal. Recovery also needs three consecutive passes.
+每五秒一次，连续三次失败才移除；恢复也需要连续三次通过。
+
+8
+00:00:49.681 --> 00:00:56.354
+Lukas: Roughly fifteen seconds before removal, then. How will you test actual checkout behavior?
+那么大约十五秒才移除。实际结账行为怎么测？
+
+9
+00:00:56.354 --> 00:01:02.978
+Anika: The smoke test covers sandbox payments separately. A green probe isn't that test.
+冒烟测试单独覆盖沙箱支付。探测变绿不等于做了那项测试。
+
+10
+00:01:02.978 --> 00:01:10.850
+Priya: Deeper dependency checks? Let's park that. First, validate these agreed probe settings.
+更深入的依赖探测先记下来。先验证已商定的探测设置。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0179",
+ "part": 4,
+ "stage": "兼容",
+ "title": "兼容测试覆盖真实调用",
+ "premise": "依赖和构建输入锁定，开始验证客户端调用行为。",
+ "listeningTask": "听出刷新令牌、超时与分页为什么都在验收范围。",
+ "newPhrase": "p454",
+ "phrases": [
+  "p454",
+  "p010",
+  "p327:extra",
+  "p451:extra",
+  "p453:extra",
+  "p302:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The compatibility matrix covers our production interpreter. Authentication refresh, pagination, and timeout paths pass.",
+   "zh": "兼容矩阵覆盖生产解释器，认证刷新、分页和超时路径通过。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 0.0,
+   "end": 10.848
+  },
+  {
+   "sp": "Raj",
+   "en": "The supported release changes timeout exception types. I updated our explicit handling and tests.",
+   "zh": "受支持版本改变了超时异常类型，我更新了显式处理和测试。",
+   "role": "Python dependency maintainer",
+   "start": 10.848,
+   "end": 18.408
+  },
+  {
+   "sp": "Lukas",
+   "en": "Did the tests use real response shapes? Simplified mocks can hide pagination changes.",
+   "zh": "测试使用真实响应结构吗？简化模拟可能掩盖分页变化。",
+   "role": "Build and release SRE",
+   "start": 18.408,
+   "end": 25.055
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, sanitized captured responses and contract fixtures. Just to confirm, no production tokens, right?",
+   "zh": "是，用脱敏响应和契约用例。确认一下，没有生产令牌，对吧？",
+   "role": "Inventory application owner",
+   "start": 25.055,
+   "end": 33.911
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, credentials come from the test tenant. The smoke test checks the complete sync.",
+   "zh": "对，凭据来自测试租户，冒烟测试检查完整同步。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 33.911,
+   "end": 41.327
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, install using hash-locked requirements every time. We need the tested combination, not something similar.",
+   "zh": "好，每次都按哈希锁安装，需要已测组合，不是类似组合。",
+   "role": "Change coordinator and approval owner",
+   "start": 41.327,
+   "end": 49.799
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check connection cleanup after cancelled requests too. Success paths won't expose leaked resources.",
+   "zh": "也检查取消请求后的连接释放，只测成功路径发现不了泄漏。",
+   "role": "Build and release SRE",
+   "start": 49.799,
+   "end": 57.191
+  },
+  {
+   "sp": "Raj",
+   "en": "The cancellation tests now release their connections. We can rule that out in covered cases.",
+   "zh": "取消测试现在会释放连接，可在已覆盖情况排除泄漏。",
+   "role": "Python dependency maintainer",
+   "start": 57.191,
+   "end": 64.318
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe large inventories still behave differently here. I'll add a representative multi-page dataset.",
+   "zh": "大库存可能仍有不同表现，我增加有代表性的多页数据集。",
+   "role": "Inventory application owner",
+   "start": 64.318,
+   "end": 71.422
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, keep untested combinations clearly excluded. Approval covers this interpreter and platform only.",
+   "zh": "同意，明确排除未测组合，审批仅覆盖当前解释器和平台。",
+   "role": "Change coordinator and approval owner",
+   "start": 71.422,
+   "end": 79.63
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 4,
+ "scene": "依赖和构建输入锁定，开始验证客户端调用行为。",
+ "dir": "coding/0179-兼容测试覆盖真实调用",
+ "audio": "0179-兼容测试覆盖真实调用.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "兼容"
+ ],
+ "duration": 79.63
+}

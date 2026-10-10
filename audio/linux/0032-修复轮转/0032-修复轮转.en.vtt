@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.824
+Raj: The approved reopen worked. Old handle is gone. Disk usage is down to forty-six percent.
+
+2
+00:00:07.824 --> 00:00:13.465
+Lukas: Great. Is the process writing to the new file? Check the owner too.
+
+3
+00:00:13.465 --> 00:00:20.953
+Raj: Yes, both checked. Rotation didn't reopen the log. This host was missing that hook.
+
+4
+00:00:20.953 --> 00:00:26.402
+Priya: Just to confirm, we still need to rotate the log correctly next time, right?
+
+5
+00:00:26.402 --> 00:00:33.554
+Hannah: Exactly. The other hosts have that hook. This one drifted from the template.
+
+6
+00:00:33.554 --> 00:00:39.266
+Anika: Let's dry-run it first. The app owner has confirmed the hook for this build.
+
+7
+00:00:39.266 --> 00:00:44.763
+Lukas: A dry run won't execute the hook. Test that separately in staging.
+
+8
+00:00:44.763 --> 00:00:51.483
+Raj: I'm on it. Staging first, then this host. I'll save the old config.
+
+9
+00:00:51.483 --> 00:01:00.004
+Hannah: Afterward, verify rotation and reopening together. Otherwise we've only checked half the fix.
+
+10
+00:01:00.004 --> 00:01:07.420
+Priya: What's the ETA? Maybe ten minutes? Keep the queue recovery separate from that change.
+

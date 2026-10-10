@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.040
+Raj: Okay, the capture filter limits endpoint pairs. The approved capture excludes application payload bytes.
+
+2
+00:00:08.040 --> 00:00:17.353
+Hannah: Does truncation still preserve TCP metadata? We need sequence, acknowledgment, and timing fields.
+
+3
+00:00:17.353 --> 00:00:24.961
+Raj: Yes, validated against the actual header lengths. Each bounded capture runs about sixty seconds.
+
+4
+00:00:24.961 --> 00:00:31.346
+Lukas: What prevents the capture filling local storage? Also check permissions before starting it.
+
+5
+00:00:31.346 --> 00:00:38.522
+Anika: The reserved directory has a size cap. Access is restricted to approved incident responders.
+
+6
+00:00:38.522 --> 00:00:45.506
+Priya: Just to confirm, follow the retention policy, right? No raw evidence in public chat.
+
+7
+00:00:45.506 --> 00:00:54.027
+Hannah: Right, I'll share reviewed summaries with the carrier. Raw transfers require security approval first.
+
+8
+00:00:54.027 --> 00:01:00.339
+Raj: I'm on it for clock status evidence. Let me tail the log alongside captures.
+
+9
+00:01:00.339 --> 00:01:06.892
+Lukas: Mark any clock offset in the summary. Otherwise comparing both ends could mislead us.
+
+10
+00:01:06.892 --> 00:01:13.780
+Priya: So, evidence review is an action item. Keep the originals sealed in controlled storage.
+

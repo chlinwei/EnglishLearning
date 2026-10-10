@@ -1,0 +1,135 @@
+{
+ "id": "0037",
+ "part": 2,
+ "stage": "确认退出原因",
+ "title": "确认OOM：不是看到退出码就下结论",
+ "premise": "进程已被systemd拉起，正在核对内核日志和退出记录。",
+ "listeningTask": "辨别内核证据、退出码和关于受影响范围的判断。",
+ "newPhrase": "p312",
+ "phrases": [
+  "p312",
+  "p010",
+  "p302",
+  "p301:extra",
+  "p011:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Kernel log confirms it. The worker got OOM-killed. The timestamp matches the exit.",
+   "zh": "内核日志确认了，这个消费者被OOM机制终止。时间和进程退出记录一致。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 7.008
+  },
+  {
+   "sp": "Lukas",
+   "en": "Host-level OOM? Or did the service hit a memory limit?",
+   "zh": "是主机级内存耗尽，还是服务触及了内存限制？",
+   "role": "SRE",
+   "start": 7.008,
+   "end": 11.713
+  },
+  {
+   "sp": "Raj",
+   "en": "Host-level. Available memory was nearly gone. No service memory cap on this host.",
+   "zh": "主机级。可用内存几乎耗尽，这台主机没有为服务单独设置内存上限。",
+   "role": "Linux on-call",
+   "start": 11.713,
+   "end": 19.081
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the kernel names this process, right? Not just an exit code?",
+   "zh": "我确认一下，内核明确记了这个进程，对吧？不只是一个退出码？",
+   "role": "Incident lead",
+   "start": 19.081,
+   "end": 25.61
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Memory ran out, and this process was the victim?",
+   "zh": "我复述一下：内存耗尽，而这个进程被选中终止？",
+   "role": "Operations engineer",
+   "start": 25.61,
+   "end": 31.778
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. That doesn't prove it caused the pressure. Other processes could contribute.",
+   "zh": "对，但这不能证明压力由它造成，其他进程也可能有影响。",
+   "role": "Application owner",
+   "start": 31.778,
+   "end": 38.859
+  },
+  {
+   "sp": "Lukas",
+   "en": "Good point. We need the host breakdown, not just this process.",
+   "zh": "说得对。我们得看整台主机的占用，不只看这个进程。",
+   "role": "SRE",
+   "start": 38.859,
+   "end": 43.923
+  },
+  {
+   "sp": "Raj",
+   "en": "No sign the disk is filling up. Plenty of space. We can rule that out.",
+   "zh": "没有磁盘写满的迹象，空间充足，可以排除这个可能性。",
+   "role": "Linux on-call",
+   "start": 43.923,
+   "end": 50.619
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll compare host usage with process memory around the event.",
+   "zh": "我会对比故障前后的主机占用和进程内存。",
+   "role": "Operations engineer",
+   "start": 50.619,
+   "end": 55.708
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for the service logs. Let's keep the two checks separate.",
+   "zh": "服务日志我来查。这两条检查线分开进行。",
+   "role": "Application owner",
+   "start": 55.708,
+   "end": 60.94
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 2,
+ "scene": "进程已被systemd拉起，正在核对内核日志和退出记录。",
+ "dir": "linux/0037-确认OOM",
+ "audio": "0037-确认OOM.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "确认退出原因"
+ ],
+ "duration": 60.94
+}

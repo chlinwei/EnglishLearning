@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.800
+Raj: The out-of-band console works. Old kernel entry is present. Host A is ready to drain.
+
+2
+00:00:07.800 --> 00:00:13.824
+Lukas: Does your account have reboot access there? A visible console isn't the whole check.
+
+3
+00:00:13.824 --> 00:00:20.951
+Raj: Yes, permissions are verified. I won't test a reboot outside the approved sequence.
+
+4
+00:00:20.951 --> 00:00:27.959
+Priya: Just to confirm, active requests must finish first, right? No abrupt service stop.
+
+5
+00:00:27.959 --> 00:00:34.895
+Hannah: Traffic is removed. I'm watching active connections and the other hosts' latency.
+
+6
+00:00:34.895 --> 00:00:41.231
+Anika: I'll keep an eye on background jobs too. They don't show up as incoming connections.
+
+7
+00:00:41.231 --> 00:00:46.247
+Lukas: Good. Confirm those are idle before stopping the app and rebooting.
+
+8
+00:00:46.247 --> 00:00:53.374
+Raj: I'm on it. Jobs are idle now. What's the ETA for the final connection check?
+
+9
+00:00:53.374 --> 00:01:00.766
+Hannah: Done. No active requests. Let's keep it under observation when it comes back.
+
+10
+00:01:00.766 --> 00:01:07.270
+Priya: Okay, proceed with A only. Call out the boot result before restoring traffic.
+

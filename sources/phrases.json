@@ -1,80 +1,1930 @@
 {
-  "version": 1,
-  "note": "表达库。layer: L0 跨域通用 / L1 域内核心；level: core（★必记）/ extra（○了解即可）；target 为 500 段满量时的目标复现次数，试产阶段自然低于它。",
-  "phrases": [
-    {"id": "p001", "en": "circle back", "zh": "回头再聊（不是「转圈」）", "layer": "L0", "level": "core", "target": 8,
-     "note": "会上最常用的「暂缓 + 承诺回访」。比 follow up 更口语，几乎每个会都会出现。"},
-    {"id": "p002", "en": "take it offline", "zh": "会后单独聊", "layer": "L0", "level": "core", "target": 8,
-     "note": "当讨论跑偏或只有两个人关心时用。等于「这个别占大家时间」。"},
-    {"id": "p003", "en": "I'll take point on this", "zh": "这块我来主抓", "layer": "L0", "level": "core", "target": 8,
-     "note": "认领主导权。比 I'll lead 更口语、更常用，压力下特别自然。"},
-    {"id": "p004", "en": "let's park that", "zh": "这个先记下来，回头再说", "layer": "L0", "level": "core", "target": 8,
-     "note": "park 是「暂存」不是「否决」。语气比 take it offline 更轻。"},
-    {"id": "p005", "en": "heads-down", "zh": "埋头干（不被打扰）", "layer": "L0", "level": "core", "target": 6,
-     "note": "描述专注状态：I'm heads-down on the migration。也用来拒绝打扰。"},
-    {"id": "p006", "en": "bandwidth", "zh": "精力 / 余量（不是网络带宽）", "layer": "L0", "level": "core", "target": 8,
-     "note": "Do you have bandwidth? = 你有空/有精力吗。会议里 90% 都不是指网络带宽。"},
-    {"id": "p007", "en": "hard stop", "zh": "必须结束的时间点", "layer": "L0", "level": "core", "target": 5,
-     "note": "I have a hard stop at 10:30 = 我 10 点半必须走。提前说能省掉很多尴尬。"},
-    {"id": "p008", "en": "what's the ETA", "zh": "预计什么时候完成", "layer": "L0", "level": "core", "target": 8,
-     "note": "逐字母读 E-T-A。故障会与站会里出现频率极高。"},
-    {"id": "p009", "en": "action item", "zh": "待办项（会后要做的具体事）", "layer": "L0", "level": "core", "target": 6,
-     "note": "会议收尾必出现。常配 who owns it / I'll take it。"},
-    {"id": "p010", "en": "just to confirm", "zh": "我确认一下", "layer": "L0", "level": "core", "target": 8,
-     "note": "听不懂时最安全的一句。后面接你听到的内容让对方确认。"},
-    {"id": "p011", "en": "let me play that back", "zh": "我复述一遍（确认我没听错）", "layer": "L0", "level": "extra", "target": 5,
-     "note": "比 repeat 更主动、更专业，表明你在认真听。"},
-    {"id": "p012", "en": "just to recap", "zh": "小结一下", "layer": "L0", "level": "core", "target": 6,
-     "note": "会议收尾或话题切换时的路标词，听到它就要竖起耳朵——后面是重点。"},
-    {"id": "p013", "en": "who's picking this up", "zh": "谁来接这件事", "layer": "L0", "level": "core", "target": 6,
-     "note": "比 Who will do it 自然得多。认领的人通常答 I'm on it。"},
-    {"id": "p014", "en": "I'm on it", "zh": "我来（已经开始了）", "layer": "L0", "level": "core", "target": 8,
-     "note": "三个词的万能应答。比 OK I will do it 地道十倍。"},
-
-    {"id": "p101", "en": "the error rate spiked", "zh": "错误率陡涨了一下", "layer": "L1", "level": "core", "target": 5,
-     "note": "spike 是「尖峰」：涨得快也落得快，跟 surge 的持续上涨不同。"},
-    {"id": "p102", "en": "it's upstream of us", "zh": "问题在我们上游", "layer": "L1", "level": "core", "target": 5,
-     "note": "排障时划清责任边界的高频说法。反义 downstream。"},
-    {"id": "p103", "en": "let me tail the log", "zh": "我盯一下日志（实时滚）", "layer": "L1", "level": "core", "target": 4,
-     "note": "tail 当动词：tail -f 的日常说法。读 /teɪl/。"},
-    {"id": "p104", "en": "we're seeing connection resets", "zh": "我们一直看到连接重置", "layer": "L1", "level": "core", "target": 4,
-     "note": "用现在进行时报告持续现象，不是 We see。这是故障沟通的固定时态。"},
-    {"id": "p105", "en": "the cert expired", "zh": "证书过期了", "layer": "L1", "level": "core", "target": 5,
-     "note": "cert 读 /sɜːrt/。印度同事常把 certificate 说成 cert，听到别愣。"},
-    {"id": "p106", "en": "that's our blast radius", "zh": "这是我们的影响半径", "layer": "L1", "level": "core", "target": 4,
-     "note": "故障里量化影响范围的标准说法，比 how many users 更专业。"},
-    {"id": "p107", "en": "let's roll back the config", "zh": "把配置回滚", "layer": "L1", "level": "core", "target": 5,
-     "note": "roll back 是动词，rollback 是名词。别混。"},
-    {"id": "p108", "en": "the health check is failing", "zh": "健康检查没过", "layer": "L1", "level": "core", "target": 5,
-     "note": "load balancer 与 k8s 都用这个词。听到 failing 就知道流量会被摘掉。"},
-    {"id": "p109", "en": "it's flapping", "zh": "它在好坏之间来回抖", "layer": "L1", "level": "extra", "target": 4,
-     "note": "flapping = 状态反复切换，比 unstable 精准得多，老运维爱用。"},
-    {"id": "p110", "en": "we're back to baseline", "zh": "恢复到基线了", "layer": "L1", "level": "core", "target": 5,
-     "note": "故障收尾的判定语。听到它就说明影响结束了。"},
-    {"id": "p111", "en": "let's keep it under observation", "zh": "先继续观察", "layer": "L1", "level": "extra", "target": 4,
-     "note": "「不宣布结束，但也不动手」的中间态。常配 for an hour。"},
-
-    {"id": "p201", "en": "the node went NotReady", "zh": "节点变成 NotReady 了", "layer": "L1", "level": "core", "target": 5,
-     "note": "k8s 状态词直接念，不加冠词。NotReady 读作两个词。"},
-    {"id": "p202", "en": "it's in CrashLoopBackOff", "zh": "一直起来又挂（CrashLoop）", "layer": "L1", "level": "core", "target": 4,
-     "note": "口语常缩成 CrashLoop 或「it keeps crashing」。kubectl 读 cube-control。"},
-    {"id": "p203", "en": "the readiness probe is too aggressive", "zh": "就绪探针太激进了", "layer": "L1", "level": "extra", "target": 4,
-     "note": "探针把还没起来的 Pod 判定为不健康，导致反复重启。"},
-    {"id": "p204", "en": "cordon and drain it", "zh": "把它标记不可调度并驱逐", "layer": "L1", "level": "core", "target": 5,
-     "note": "升级节点的标准动作，两个动词连用是固定搭配。cordon 读 /ˈkɔːrdn/。"},
-    {"id": "p205", "en": "the PDB is blocking the drain", "zh": "PDB 挡住了驱逐", "layer": "L1", "level": "extra", "target": 3,
-     "note": "PDB = PodDisruptionBudget，逐字母读。它会拒绝让可用副本数掉太低。"},
-    {"id": "p206", "en": "let's abort the rollout", "zh": "中止这轮发布", "layer": "L1", "level": "core", "target": 5,
-     "note": "abort 比 stop 更果断，发布语境里是固定说法。"},
-    {"id": "p207", "en": "cut a release", "zh": "切一个版本发出去", "layer": "L1", "level": "extra", "target": 4,
-     "note": "cut 不是「切掉」而是「切出版本」，很老派的说法但一直在用。"},
-    {"id": "p208", "en": "the rollout is stuck", "zh": "发布卡住了", "layer": "L1", "level": "core", "target": 4,
-     "note": "stuck 是卡住；进度不动但不报错，最难排的一类。"},
-    {"id": "p209", "en": "let's freeze changes", "zh": "冻结变更", "layer": "L1", "level": "core", "target": 4,
-     "note": "大促、故障、重要发布会前都会 freeze。听到就说明别动线上。"},
-    {"id": "p210", "en": "dry-run it first", "zh": "先试运行一遍", "layer": "L1", "level": "core", "target": 4,
-     "note": "动词化用法：dry-run the migration。不真正执行，只跑流程。"},
-    {"id": "p211", "en": "one node at a time", "zh": "一次只动一个节点", "layer": "L1", "level": "extra", "target": 4,
-     "note": "控制爆炸半径的口头约束，印度同事常说 one-one（= 一个一个来）。"}
-  ]
+ "version": 1,
+ "note": "表达库。layer: L0 跨域通用 / L1 域内核心；level: core（★必记）/ extra（○了解即可）；target 为 500 段满量时的目标复现次数，试产阶段自然低于它。",
+ "phrases": [
+  {
+   "id": "p001",
+   "en": "circle back",
+   "zh": "回头再聊（不是「转圈」）",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "会上最常用的「暂缓 + 承诺回访」。比 follow up 更口语，几乎每个会都会出现。"
+  },
+  {
+   "id": "p002",
+   "en": "take it offline",
+   "zh": "会后单独聊",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "当讨论跑偏或只有两个人关心时用。等于「这个别占大家时间」。"
+  },
+  {
+   "id": "p003",
+   "en": "I'll take point on this",
+   "zh": "这块我来主抓",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "认领主导权。比 I'll lead 更口语、更常用，压力下特别自然。"
+  },
+  {
+   "id": "p004",
+   "en": "let's park that",
+   "zh": "这个先记下来，回头再说",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "park 是「暂存」不是「否决」。语气比 take it offline 更轻。"
+  },
+  {
+   "id": "p005",
+   "en": "heads-down",
+   "zh": "埋头干（不被打扰）",
+   "layer": "L0",
+   "level": "core",
+   "target": 6,
+   "note": "描述专注状态：I'm heads-down on the migration。也用来拒绝打扰。"
+  },
+  {
+   "id": "p006",
+   "en": "bandwidth",
+   "zh": "精力 / 余量（不是网络带宽）",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "Do you have bandwidth? = 你有空/有精力吗。会议里 90% 都不是指网络带宽。"
+  },
+  {
+   "id": "p007",
+   "en": "hard stop",
+   "zh": "必须结束的时间点",
+   "layer": "L0",
+   "level": "core",
+   "target": 5,
+   "note": "I have a hard stop at 10:30 = 我 10 点半必须走。提前说能省掉很多尴尬。"
+  },
+  {
+   "id": "p008",
+   "en": "what's the ETA",
+   "zh": "预计什么时候完成",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "逐字母读 E-T-A。故障会与站会里出现频率极高。"
+  },
+  {
+   "id": "p009",
+   "en": "action item",
+   "zh": "待办项（会后要做的具体事）",
+   "layer": "L0",
+   "level": "core",
+   "target": 6,
+   "note": "会议收尾必出现。常配 who owns it / I'll take it。"
+  },
+  {
+   "id": "p010",
+   "en": "just to confirm",
+   "zh": "我确认一下",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "听不懂时最安全的一句。后面接你听到的内容让对方确认。"
+  },
+  {
+   "id": "p011",
+   "en": "let me play that back",
+   "zh": "我复述一遍（确认我没听错）",
+   "layer": "L0",
+   "level": "extra",
+   "target": 5,
+   "note": "比 repeat 更主动、更专业，表明你在认真听。"
+  },
+  {
+   "id": "p012",
+   "en": "just to recap",
+   "zh": "小结一下",
+   "layer": "L0",
+   "level": "core",
+   "target": 6,
+   "note": "会议收尾或话题切换时的路标词，听到它就要竖起耳朵——后面是重点。"
+  },
+  {
+   "id": "p013",
+   "en": "who's picking this up",
+   "zh": "谁来接这件事",
+   "layer": "L0",
+   "level": "core",
+   "target": 6,
+   "note": "比 Who will do it 自然得多。认领的人通常答 I'm on it。"
+  },
+  {
+   "id": "p014",
+   "en": "I'm on it",
+   "zh": "我来（已经开始了）",
+   "layer": "L0",
+   "level": "core",
+   "target": 8,
+   "note": "三个词的万能应答。比 OK I will do it 地道十倍。"
+  },
+  {
+   "id": "p101",
+   "en": "the error rate spiked",
+   "zh": "错误率陡涨了一下",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "spike 是「尖峰」：涨得快也落得快，跟 surge 的持续上涨不同。"
+  },
+  {
+   "id": "p102",
+   "en": "it's upstream of us",
+   "zh": "问题在我们上游",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "排障时划清责任边界的高频说法。反义 downstream。"
+  },
+  {
+   "id": "p103",
+   "en": "let me tail the log",
+   "zh": "我盯一下日志（实时滚）",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "tail 当动词：tail -f 的日常说法。读 /teɪl/。"
+  },
+  {
+   "id": "p104",
+   "en": "we're seeing connection resets",
+   "zh": "我们一直看到连接重置",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "用现在进行时报告持续现象，不是 We see。这是故障沟通的固定时态。"
+  },
+  {
+   "id": "p105",
+   "en": "the cert expired",
+   "zh": "证书过期了",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "cert 读 /sɜːrt/。印度同事常把 certificate 说成 cert，听到别愣。"
+  },
+  {
+   "id": "p106",
+   "en": "that's our blast radius",
+   "zh": "这是我们的影响半径",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "故障里量化影响范围的标准说法，比 how many users 更专业。"
+  },
+  {
+   "id": "p107",
+   "en": "let's roll back the config",
+   "zh": "把配置回滚",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "roll back 是动词，rollback 是名词。别混。"
+  },
+  {
+   "id": "p108",
+   "en": "the health check is failing",
+   "zh": "健康检查没过",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "load balancer 与 k8s 都用这个词。听到 failing 就知道流量会被摘掉。"
+  },
+  {
+   "id": "p109",
+   "en": "it's flapping",
+   "zh": "它在好坏之间来回抖",
+   "layer": "L1",
+   "level": "extra",
+   "target": 4,
+   "note": "flapping = 状态反复切换，比 unstable 精准得多，老运维爱用。"
+  },
+  {
+   "id": "p110",
+   "en": "we're back to baseline",
+   "zh": "恢复到基线了",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "故障收尾的判定语。听到它就说明影响结束了。"
+  },
+  {
+   "id": "p111",
+   "en": "let's keep it under observation",
+   "zh": "先继续观察",
+   "layer": "L1",
+   "level": "extra",
+   "target": 4,
+   "note": "「不宣布结束，但也不动手」的中间态。常配 for an hour。"
+  },
+  {
+   "id": "p201",
+   "en": "the node went NotReady",
+   "zh": "节点变成 NotReady 了",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "k8s 状态词直接念，不加冠词。NotReady 读作两个词。"
+  },
+  {
+   "id": "p202",
+   "en": "it's in CrashLoopBackOff",
+   "zh": "一直起来又挂（CrashLoop）",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "口语常缩成 CrashLoop 或「it keeps crashing」。kubectl 读 cube-control。"
+  },
+  {
+   "id": "p203",
+   "en": "the readiness probe is too aggressive",
+   "zh": "就绪探针太激进了",
+   "layer": "L1",
+   "level": "extra",
+   "target": 4,
+   "note": "探针把还没起来的 Pod 判定为不健康，导致反复重启。"
+  },
+  {
+   "id": "p204",
+   "en": "cordon and drain it",
+   "zh": "把它标记不可调度并驱逐",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "升级节点的标准动作，两个动词连用是固定搭配。cordon 读 /ˈkɔːrdn/。"
+  },
+  {
+   "id": "p205",
+   "en": "the PDB is blocking the drain",
+   "zh": "PDB 挡住了驱逐",
+   "layer": "L1",
+   "level": "extra",
+   "target": 3,
+   "note": "PDB = PodDisruptionBudget，逐字母读。它会拒绝让可用副本数掉太低。"
+  },
+  {
+   "id": "p206",
+   "en": "let's abort the rollout",
+   "zh": "中止这轮发布",
+   "layer": "L1",
+   "level": "core",
+   "target": 5,
+   "note": "abort 比 stop 更果断，发布语境里是固定说法。"
+  },
+  {
+   "id": "p207",
+   "en": "cut a release",
+   "zh": "切一个版本发出去",
+   "layer": "L1",
+   "level": "extra",
+   "target": 4,
+   "note": "cut 不是「切掉」而是「切出版本」，很老派的说法但一直在用。"
+  },
+  {
+   "id": "p208",
+   "en": "the rollout is stuck",
+   "zh": "发布卡住了",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "stuck 是卡住；进度不动但不报错，最难排的一类。"
+  },
+  {
+   "id": "p209",
+   "en": "let's freeze changes",
+   "zh": "冻结变更",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "大促、故障、重要发布会前都会 freeze。听到就说明别动线上。"
+  },
+  {
+   "id": "p210",
+   "en": "dry-run it first",
+   "zh": "先试运行一遍",
+   "layer": "L1",
+   "level": "core",
+   "target": 4,
+   "note": "动词化用法：dry-run the migration。不真正执行，只跑流程。"
+  },
+  {
+   "id": "p211",
+   "en": "one node at a time",
+   "zh": "一次只动一个节点",
+   "layer": "L1",
+   "level": "extra",
+   "target": 4,
+   "note": "控制爆炸半径的口头约束，印度同事常说 one-one（= 一个一个来）。"
+  },
+  {
+   "id": "p301",
+   "en": "the disk is filling up",
+   "zh": "磁盘空间正在被占满",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p302",
+   "en": "rule that out",
+   "zh": "排除那个可能性",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p303",
+   "en": "deleted but still open",
+   "zh": "文件已删除，但进程仍持有句柄",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p304",
+   "en": "reopen the log",
+   "zh": "重新打开日志文件",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p305",
+   "en": "retention policy",
+   "zh": "保留策略",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p306",
+   "en": "buy us time",
+   "zh": "为我们争取时间",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p307",
+   "en": "rotate the log",
+   "zh": "轮转日志文件",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p308",
+   "en": "catch up",
+   "zh": "追上进度；处理完积压",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p309",
+   "en": "keep an eye on",
+   "zh": "持续留意",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p310",
+   "en": "close the loop",
+   "zh": "完成跟进并反馈结果",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p311",
+   "en": "memory pressure",
+   "zh": "内存压力",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p312",
+   "en": "got OOM-killed",
+   "zh": "被内存不足终止机制杀掉了",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p313",
+   "en": "RSS keeps climbing",
+   "zh": "常驻内存占用持续上升",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p314",
+   "en": "traffic is flat",
+   "zh": "流量没有明显变化",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p315",
+   "en": "heap snapshot",
+   "zh": "堆内存快照",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p316",
+   "en": "shed load",
+   "zh": "减少当前承接的负载",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p317",
+   "en": "one worker at a time",
+   "zh": "一次只处理一个消费者进程",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p318",
+   "en": "recovery window",
+   "zh": "恢复后的验证观察窗口",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p319",
+   "en": "memory headroom",
+   "zh": "可用内存余量",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p320",
+   "en": "the root cause is still open",
+   "zh": "根因尚未查明",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p321",
+   "en": "maintenance window",
+   "zh": "维护时间窗口",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p322",
+   "en": "kernel regression",
+   "zh": "内核升级引入的功能退化或故障",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p323",
+   "en": "staged rollout",
+   "zh": "分阶段发布",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p324",
+   "en": "rollback trigger",
+   "zh": "触发回退的条件",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p325",
+   "en": "out-of-band console",
+   "zh": "独立于常规网络连接的管理控制台",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p326",
+   "en": "unsigned module",
+   "zh": "未经可信签名的内核模块",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p327",
+   "en": "smoke test",
+   "zh": "关键功能的快速验证",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p328",
+   "en": "go/no-go",
+   "zh": "继续或停止的决策",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p329",
+   "en": "boot the old kernel",
+   "zh": "使用旧内核启动",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p330",
+   "en": "managed configuration",
+   "zh": "由配置管理统一维护的配置",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p331",
+   "en": "hand over",
+   "zh": "交接事项或责任",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p332",
+   "en": "restart count",
+   "zh": "重启次数",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p333",
+   "en": "watchdog timeout",
+   "zh": "看门狗因未及时收到心跳而超时",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p334",
+   "en": "temporary workaround",
+   "zh": "临时绕过或缓解措施",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p335",
+   "en": "working hypothesis",
+   "zh": "当前待验证的解释",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p336",
+   "en": "escalation path",
+   "zh": "升级处理的联系与响应路径",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p337",
+   "en": "primary on-call",
+   "zh": "第一响应值班人",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p338",
+   "en": "page the backup",
+   "zh": "呼叫后备值班人",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p339",
+   "en": "have I missed anything",
+   "zh": "我有没有遗漏什么",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p340",
+   "en": "I've got it from here",
+   "zh": "接下来由我负责",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p341",
+   "en": "DNS is timing out",
+   "zh": "DNS解析正在超时",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p342",
+   "en": "intermittent failures",
+   "zh": "间歇性失败",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p343",
+   "en": "recursive resolver",
+   "zh": "递归解析器",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p344",
+   "en": "cache hit",
+   "zh": "缓存命中",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p345",
+   "en": "upstream forwarder",
+   "zh": "上游DNS转发目标",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p346",
+   "en": "switch resolvers",
+   "zh": "切换解析器",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p347",
+   "en": "resolver configuration",
+   "zh": "解析器配置",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p348",
+   "en": "split-horizon DNS",
+   "zh": "按客户端环境返回不同答案的DNS机制",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p349",
+   "en": "the mitigation is holding",
+   "zh": "缓解措施持续有效",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p350",
+   "en": "forwarder pool",
+   "zh": "上游转发端点集合",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p351",
+   "en": "shift traffic",
+   "zh": "迁移流量",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p352",
+   "en": "backend pool",
+   "zh": "后端池",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p353",
+   "en": "probe interval",
+   "zh": "探测间隔",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p354",
+   "en": "restore the previous weights",
+   "zh": "恢复原权重",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p355",
+   "en": "connection draining",
+   "zh": "连接排空",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p356",
+   "en": "compare like for like",
+   "zh": "在相同条件下对比",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p357",
+   "en": "weighted routing",
+   "zh": "加权路由",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p358",
+   "en": "session affinity",
+   "zh": "会话亲和性",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p359",
+   "en": "keep the old endpoint",
+   "zh": "保留旧入口端点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p360",
+   "en": "decommission approval",
+   "zh": "退役审批",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p361",
+   "en": "latency budget",
+   "zh": "延迟预算",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p362",
+   "en": "measurement window",
+   "zh": "测量时间窗",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p363",
+   "en": "round-trip time",
+   "zh": "往返时间",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p364",
+   "en": "route asymmetry",
+   "zh": "去回程路由不对称",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p365",
+   "en": "path MTU",
+   "zh": "路径最大传输单元",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p366",
+   "en": "connection reuse",
+   "zh": "连接复用",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p367",
+   "en": "egress cost",
+   "zh": "出站流量成本",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p368",
+   "en": "control group",
+   "zh": "对照组",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p369",
+   "en": "experiment owner",
+   "zh": "试验负责人",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p370",
+   "en": "decision record",
+   "zh": "决策记录",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p371",
+   "en": "packet loss",
+   "zh": "丢包",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p372",
+   "en": "jitter",
+   "zh": "时延抖动",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p373",
+   "en": "carrier ticket",
+   "zh": "运营商工单",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p374",
+   "en": "backup circuit",
+   "zh": "备用专线",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p375",
+   "en": "affected sessions",
+   "zh": "受影响会话",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p376",
+   "en": "capture filter",
+   "zh": "抓包过滤器",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p377",
+   "en": "escalation threshold",
+   "zh": "升级门槛",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p378",
+   "en": "handoff checklist",
+   "zh": "交接检查清单",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p379",
+   "en": "duty contact",
+   "zh": "值班联系人",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p380",
+   "en": "next update",
+   "zh": "下一次更新",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p381",
+   "en": "weekly priority",
+   "zh": "本周优先事项",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p382",
+   "en": "patch inventory",
+   "zh": "补丁清单",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p383",
+   "en": "rotation test",
+   "zh": "日志轮转测试",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p384",
+   "en": "file descriptor limit",
+   "zh": "文件描述符上限",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p385",
+   "en": "test fixture",
+   "zh": "测试预置环境或数据",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p386",
+   "en": "up for review",
+   "zh": "等待评审",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p387",
+   "en": "blocked on",
+   "zh": "受某项依赖阻塞",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p388",
+   "en": "reassign the task",
+   "zh": "重新分配任务",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p389",
+   "en": "no blockers",
+   "zh": "没有阻塞项",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p390",
+   "en": "carry forward",
+   "zh": "将未完成事项结转",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p391",
+   "en": "the pool is exhausted",
+   "zh": "连接池已耗尽",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p392",
+   "en": "checked-out connections",
+   "zh": "已借出尚未归还的连接",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p393",
+   "en": "query execution time",
+   "zh": "查询执行耗时",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p394",
+   "en": "connection leak",
+   "zh": "连接未归还造成的泄漏",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p395",
+   "en": "bounded request queue",
+   "zh": "有长度上限的请求队列",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p396",
+   "en": "drain the worker",
+   "zh": "停止向工作实例分派新请求并排空",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p397",
+   "en": "connection checkout time",
+   "zh": "等待借到连接的耗时",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p398",
+   "en": "timeout cleanup path",
+   "zh": "超时后的资源清理分支",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p399",
+   "en": "requests are draining",
+   "zh": "积压请求正在被处理完",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p400",
+   "en": "return the connection",
+   "zh": "把连接归还连接池",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p421",
+   "en": "backup manifest",
+   "zh": "备份文件及校验信息清单",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p422",
+   "en": "base backup",
+   "zh": "用于日志恢复的基础备份",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p423",
+   "en": "recovery target",
+   "zh": "目标恢复点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p424",
+   "en": "archived WAL",
+   "zh": "已归档预写日志",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p425",
+   "en": "reconciliation checks",
+   "zh": "对账一致性检查",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p426",
+   "en": "restore elapsed time",
+   "zh": "恢复流程已经耗用的时间",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p427",
+   "en": "pending validation",
+   "zh": "尚待完成的验证",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p428",
+   "en": "isolated restore environment",
+   "zh": "隔离的恢复环境",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p429",
+   "en": "recovery escalation",
+   "zh": "恢复异常的升级联系流程",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p430",
+   "en": "handoff acceptance",
+   "zh": "接班方确认接收责任",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p431",
+   "en": "growth forecast",
+   "zh": "增长预测",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p432",
+   "en": "peak load baseline",
+   "zh": "峰值负载基线",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p433",
+   "en": "full table scan",
+   "zh": "全表扫描",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p434",
+   "en": "storage headroom",
+   "zh": "存储剩余容量空间",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p435",
+   "en": "vertical scaling",
+   "zh": "提升单实例规格",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p436",
+   "en": "shard key",
+   "zh": "分片键",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p437",
+   "en": "migration risk",
+   "zh": "迁移风险",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p438",
+   "en": "total cost of ownership",
+   "zh": "包含运行维护与工程投入的总拥有成本",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p439",
+   "en": "capacity pilot",
+   "zh": "容量改善试点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p440",
+   "en": "capacity guardrail",
+   "zh": "容量安全门槛",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p461",
+   "en": "read-only scope",
+   "zh": "只读功能范围",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p462",
+   "en": "up for review",
+   "zh": "已提交等待评审",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p463",
+   "en": "review queue",
+   "zh": "评审队列",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p464",
+   "en": "test coverage gap",
+   "zh": "测试覆盖缺口",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p465",
+   "en": "structured error",
+   "zh": "结构化错误",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p466",
+   "en": "API contract",
+   "zh": "接口契约",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p467",
+   "en": "pair on it",
+   "zh": "结对处理这项任务",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p468",
+   "en": "independent work item",
+   "zh": "可独立推进的任务",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p469",
+   "en": "end-of-day checkpoint",
+   "zh": "日终检查点",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p470",
+   "en": "follow-up slot",
+   "zh": "会后跟进时段",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p471",
+   "en": "characterization test",
+   "zh": "记录现有行为的测试",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p472",
+   "en": "hidden coupling",
+   "zh": "隐藏的耦合关系",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p473",
+   "en": "scope creep",
+   "zh": "未经控制的范围膨胀",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p474",
+   "en": "a stretch",
+   "zh": "有难度且不宜保证的目标",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p475",
+   "en": "challenge that estimate",
+   "zh": "质疑这个估算",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p476",
+   "en": "vertical slice",
+   "zh": "贯通输入输出的最小功能切片",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p477",
+   "en": "acceptance criteria",
+   "zh": "验收标准",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p478",
+   "en": "change the commitment",
+   "zh": "调整迭代承诺",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p479",
+   "en": "carry over",
+   "zh": "未完成项转入下一迭代",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p480",
+   "en": "definition of done",
+   "zh": "完成的共同标准",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p481",
+   "en": "walk you through",
+   "zh": "带你逐步讲解",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p482",
+   "en": "bounded input",
+   "zh": "有明确上限的输入",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p483",
+   "en": "worker pool",
+   "zh": "工作线程或任务池",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p484",
+   "en": "idempotency key",
+   "zh": "幂等操作标识",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p485",
+   "en": "retry with backoff",
+   "zh": "按退避策略重试",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p486",
+   "en": "permanent failure",
+   "zh": "不可通过原样重试恢复的失败",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p487",
+   "en": "fault injection",
+   "zh": "故障注入",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p488",
+   "en": "bounded concurrency",
+   "zh": "受上限约束的并发",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p489",
+   "en": "at-least-once delivery",
+   "zh": "至少一次投递",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p490",
+   "en": "engineering onboarding",
+   "zh": "工程实践入职培训",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p491",
+   "en": "failover didn't kick in",
+   "zh": "故障切换没有自动启动",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p492",
+   "en": "last committed position",
+   "zh": "最后提交的位置",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p493",
+   "en": "network partition",
+   "zh": "网络分区",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p494",
+   "en": "split brain",
+   "zh": "双主脑裂",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p495",
+   "en": "promotion gate",
+   "zh": "提升为主的安全门槛",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p496",
+   "en": "fence off",
+   "zh": "可靠隔离并阻止节点写入",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p497",
+   "en": "writer endpoint",
+   "zh": "写入端点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p498",
+   "en": "uncertain commits",
+   "zh": "结果未知的提交",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p499",
+   "en": "rejoin as a replica",
+   "zh": "以副本身份重新加入",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p500",
+   "en": "fencing credentials",
+   "zh": "隔离操作所需凭据",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p501",
+   "en": "peak forecast",
+   "zh": "峰值预测",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p502",
+   "en": "critical path",
+   "zh": "关键业务路径",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p503",
+   "en": "rate limit",
+   "zh": "请求速率限制",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p504",
+   "en": "graceful degradation",
+   "zh": "有控制的功能降级",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p505",
+   "en": "shadow mode",
+   "zh": "只记录不执行拦截的影子模式",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p506",
+   "en": "false rejections",
+   "zh": "对正常请求的误拒",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p507",
+   "en": "dial it back",
+   "zh": "调低干预强度",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p508",
+   "en": "retry budget",
+   "zh": "允许的重试次数与负载预算",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p509",
+   "en": "fallback policy",
+   "zh": "回退策略",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p510",
+   "en": "reserved capacity",
+   "zh": "预留容量",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p511",
+   "en": "capacity envelope",
+   "zh": "已验证的容量工作范围",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p512",
+   "en": "at capacity",
+   "zh": "达到容量上限",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p513",
+   "en": "single point of failure",
+   "zh": "单点故障源",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p514",
+   "en": "failure domain",
+   "zh": "故障域",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p515",
+   "en": "redundancy plan",
+   "zh": "冗余方案",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p516",
+   "en": "headroom",
+   "zh": "容量余量",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p517",
+   "en": "cost ceiling",
+   "zh": "成本上限",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p518",
+   "en": "representative workload",
+   "zh": "有代表性的业务负载",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p519",
+   "en": "conditional approval",
+   "zh": "附条件批准",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p520",
+   "en": "acceptance criteria",
+   "zh": "验收标准",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p521",
+   "en": "recovery time",
+   "zh": "恢复业务所需时间",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p522",
+   "en": "recovery point",
+   "zh": "恢复到的数据时间点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p523",
+   "en": "what worked",
+   "zh": "哪些做法有效",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p524",
+   "en": "access bottleneck",
+   "zh": "访问权限卡点",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p525",
+   "en": "decision owner",
+   "zh": "决策负责人",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p526",
+   "en": "runbook gap",
+   "zh": "操作手册缺口",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p527",
+   "en": "improvement backlog",
+   "zh": "改进待办清单",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p528",
+   "en": "rehearsal scope",
+   "zh": "演练范围",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p529",
+   "en": "evidence pack",
+   "zh": "验收证据集",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p530",
+   "en": "follow-through",
+   "zh": "把承诺落实到完成",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  },
+  {
+   "id": "p531",
+   "en": "availability target",
+   "zh": "可用性目标",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p532",
+   "en": "error budget",
+   "zh": "允许的可靠性损耗预算",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p533",
+   "en": "peak concurrency",
+   "zh": "峰值并发量",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p534",
+   "en": "quorum decision",
+   "zh": "法定人数作出的决策",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p535",
+   "en": "read-your-writes",
+   "zh": "能读到自己已提交写入的一致性保证",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p536",
+   "en": "fencing token",
+   "zh": "由存储侧校验的递增写者隔离令牌",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p537",
+   "en": "minority partition",
+   "zh": "不具备法定人数的少数网络分区",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p538",
+   "en": "capacity trade-off",
+   "zh": "容量方面的取舍",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p539",
+   "en": "dependency timeout",
+   "zh": "依赖服务调用超时",
+   "layer": "L1",
+   "level": "core",
+   "target": 5
+  },
+  {
+   "id": "p540",
+   "en": "design assumption",
+   "zh": "设计假设",
+   "layer": "L0",
+   "level": "core",
+   "target": 8
+  }
+ ]
 }

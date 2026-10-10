@@ -1,0 +1,135 @@
+{
+ "id": "0201",
+ "part": 6,
+ "stage": "拆分迭代",
+ "title": "第一切片贯通输入输出",
+ "premise": "承诺缩小，拆成行为基线、一个报表切片和后续可选工作。",
+ "listeningTask": "区分贯通切片与只做某一层的横向拆分。",
+ "newPhrase": "p476",
+ "phrases": [
+  "p476",
+  "p010",
+  "p471:extra",
+  "p009:extra",
+  "p005:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The first vertical slice covers daily reporting. Input parsing, transformation, and output work together.",
+   "zh": "首个贯通切片覆盖日报，输入解析、转换、输出连起来。",
+   "role": "Refactoring implementation engineer",
+   "start": 0.0,
+   "end": 8.16
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's better than extracting every helper first. We can validate an actual consumer workflow.",
+   "zh": "比先提取所有辅助函数好，可以验证真实使用流程。",
+   "role": "Architecture and implementation reviewer",
+   "start": 8.16,
+   "end": 15.097
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, baseline tests come first, right? Then Raj can be heads-down on extraction.",
+   "zh": "确认一下，基线测试先做，对吧？之后Raj专注提取。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 15.097,
+   "end": 22.849
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it with the sanitized fixtures. Maybe the failure samples need an extra day.",
+   "zh": "脱敏fixture我来做，失败样本可能额外需要一天。",
+   "role": "Reporting service and consumer owner",
+   "start": 22.849,
+   "end": 29.353
+  },
+  {
+   "sp": "Hannah",
+   "en": "A characterization test runs before each extraction. Afterward it compares the same input outputs.",
+   "zh": "每次提取前跑行为测试，之后对比同一输入输出。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 29.353,
+   "end": 38.042
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll keep the existing CLI entry point. Internal modules won't change the scheduled invocation.",
+   "zh": "保留原CLI入口，内部模块不改变调度调用。",
+   "role": "Refactoring implementation engineer",
+   "start": 38.042,
+   "end": 45.578
+  },
+  {
+   "sp": "Lukas",
+   "en": "Use small reviewable changes with passing tests. A giant final merge raises comparison risk.",
+   "zh": "小改动、可评审、测试通过，大量最终合并增加对照风险。",
+   "role": "Architecture and implementation reviewer",
+   "start": 45.578,
+   "end": 52.827
+  },
+  {
+   "sp": "Priya",
+   "en": "One action item is defining each review boundary. Raj implements, Lukas reviews, Hannah verifies behavior.",
+   "zh": "一项任务是明确每次评审边界，Raj实现、Lukas评审、Hannah验证。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 52.827,
+   "end": 61.371
+  },
+  {
+   "sp": "Hannah",
+   "en": "The second report remains optional this iteration. Its tests mustn't silently replace first-slice acceptance.",
+   "zh": "第二份报表本轮可选，其测试不能悄悄替代首个切片验收。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 61.371,
+   "end": 70.756
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, consumers will see a complete example. That makes feedback useful before broader extraction.",
+   "zh": "好，使用方能看到完整例子，扩大提取前反馈更有用。",
+   "role": "Reporting service and consumer owner",
+   "start": 70.756,
+   "end": 78.46
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 6,
+ "scene": "承诺缩小，拆成行为基线、一个报表切片和后续可选工作。",
+ "dir": "coding/0201-第一切片贯通输入输出",
+ "audio": "0201-第一切片贯通输入输出.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "拆分迭代"
+ ],
+ "duration": 78.46
+}

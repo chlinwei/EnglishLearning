@@ -1,0 +1,135 @@
+{
+ "id": "0129",
+ "part": 4,
+ "stage": "大事务证据",
+ "title": "大批删除与本地扫描重叠",
+ "premise": "副本收到日志但回放慢，查主库WAL增长和副本磁盘任务。",
+ "listeningTask": "分清已提交事务、后续批次与回放负载。",
+ "newPhrase": "p404",
+ "phrases": [
+  "p404",
+  "p335",
+  "p403:extra",
+  "p103:extra",
+  "p010:extra",
+  "p320:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "A large transaction deleted archived rows. It generated about two gigabytes of WAL.",
+   "zh": "一个大事务删除归档行，产生大约两GB的WAL。",
+   "role": "Replication on-call",
+   "start": 0.0,
+   "end": 6.816
+  },
+  {
+   "sp": "Lukas",
+   "en": "Has that transaction committed already now? Killing it won't undo committed work.",
+   "zh": "这个事务现在已经提交了吗？杀掉它不能撤销已提交工作。",
+   "role": "Database SRE",
+   "start": 6.816,
+   "end": 12.697
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the audit shows successful commit. The scheduler has another batch queued.",
+   "zh": "是，审计显示提交成功，调度器还有下一批待执行。",
+   "role": "Orders read routing owner",
+   "start": 12.697,
+   "end": 19.033
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, pause future batches, right? We aren't cancelling completed transactions.",
+   "zh": "确认一下，暂停后续批次，对吧？不是取消已完成事务。",
+   "role": "Incident coordinator",
+   "start": 19.033,
+   "end": 26.306
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me tail the log too. B started a local checksum scan.",
+   "zh": "我也盯日志，B同时启动了本地校验扫描。",
+   "role": "Consistency validation engineer",
+   "start": 26.306,
+   "end": 31.634
+  },
+  {
+   "sp": "Raj",
+   "en": "The replay position advanced more slowly then. No replay conflict errors are logged.",
+   "zh": "当时回放位置推进变慢，日志没有回放冲突错误。",
+   "role": "Replication on-call",
+   "start": 31.634,
+   "end": 38.306
+  },
+  {
+   "sp": "Lukas",
+   "en": "So disk competition is worth testing. Don't change replication settings without evidence.",
+   "zh": "所以值得验证磁盘竞争，没证据别改复制设置。",
+   "role": "Database SRE",
+   "start": 38.306,
+   "end": 45.243
+  },
+  {
+   "sp": "Anika",
+   "en": "Our working hypothesis combines both loads. Maybe the scan worsens that WAL burst.",
+   "zh": "当前假设是两种负载叠加，扫描可能加重了WAL突增的影响。",
+   "role": "Orders read routing owner",
+   "start": 45.243,
+   "end": 51.867
+  },
+  {
+   "sp": "Hannah",
+   "en": "Check job timestamps against disk metrics. Correlation isn't the whole causal proof.",
+   "zh": "把任务时间戳和磁盘指标对照，相关不等于完整因果证明。",
+   "role": "Consistency validation engineer",
+   "start": 51.867,
+   "end": 59.38
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, the root cause is still open. Control sensitive reads before that test.",
+   "zh": "好，根因仍未定，验证前先控制敏感读。",
+   "role": "Incident coordinator",
+   "start": 59.38,
+   "end": 65.98
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 4,
+ "scene": "副本收到日志但回放慢，查主库WAL增长和副本磁盘任务。",
+ "dir": "database/0129-大批删除与本地扫描重叠",
+ "audio": "0129-大批删除与本地扫描重叠.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "大事务证据"
+ ],
+ "duration": 65.98
+}

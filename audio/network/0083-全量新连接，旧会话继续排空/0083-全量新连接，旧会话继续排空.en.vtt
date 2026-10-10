@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.696
+Raj: Okay, all new connections now select green. Some old sessions are still draining.
+
+2
+00:00:06.696 --> 00:00:12.672
+Lukas: How does session affinity behave across pools? A sticky cookie could still matter.
+
+3
+00:00:12.672 --> 00:00:19.344
+Anika: Session state lives in the shared store. Checkout doesn't depend on balancer stickiness.
+
+4
+00:00:19.344 --> 00:00:27.240
+Hannah: Was that verified with a returning session? A fresh login doesn't exercise existing state.
+
+5
+00:00:27.240 --> 00:00:34.248
+Anika: Yes, the smoke test reused sandbox state. The basket and callback both survived.
+
+6
+00:00:34.248 --> 00:00:41.880
+Priya: Just to confirm, no forced disconnects, right? Connection draining continues within the agreed limits.
+
+7
+00:00:41.880 --> 00:00:49.080
+Lukas: Yes, and remaining counts are falling. Investigate any sessions beyond the documented timeout.
+
+8
+00:00:49.080 --> 00:00:55.440
+Raj: I'm on it for remaining connection counts. They should clear in about fifteen minutes.
+
+9
+00:00:55.440 --> 00:01:02.784
+Hannah: Let's keep it under observation meanwhile. Full routing doesn't finish business acceptance.
+
+10
+00:01:02.784 --> 00:01:10.320
+Priya: So, retain the rollback route unchanged. We'll confirm empty counts before closing execution.
+

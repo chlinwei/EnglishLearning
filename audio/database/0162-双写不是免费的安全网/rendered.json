@@ -1,0 +1,135 @@
+{
+ "id": "0162",
+ "part": 7,
+ "stage": "迁移风险",
+ "title": "双写不是免费的安全网",
+ "premise": "租户分片仍需研究，比较数据迁移、双写和回退风险。",
+ "listeningTask": "辨别原型、生产迁移和可验证的回退门槛。",
+ "newPhrase": "p437",
+ "phrases": [
+  "p437",
+  "p436",
+  "p324:extra",
+  "p010:extra",
+  "p327:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Migration risk includes missed and duplicate writes. Dual writing isn't automatic consistency protection.",
+   "zh": "迁移风险包括漏写和重复写，双写不是自动一致性保护。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 0.0,
+   "end": 7.728
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, retries and ordering need explicit design. We don't have that implementation today.",
+   "zh": "同意，重试和顺序需要明确设计，目前没有实现。",
+   "role": "Orders application architect",
+   "start": 7.728,
+   "end": 14.544
+  },
+  {
+   "sp": "Raj",
+   "en": "Changing a shard key can move data. Recovery and reconciliation must cover each move.",
+   "zh": "改分片键可能搬迁数据，恢复和对账必须覆盖每次移动。",
+   "role": "Database capacity owner",
+   "start": 14.544,
+   "end": 21.385
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, research stays isolated, right? No production dual-write experiment this week.",
+   "zh": "确认一下，研究保持隔离，对吧？本周不做生产双写实验。",
+   "role": "Capacity review chair",
+   "start": 21.385,
+   "end": 29.233
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, a smoke test isn't sufficient. We need failure and replay scenarios.",
+   "zh": "是，冒烟测试不够，需要失败和回放场景。",
+   "role": "Performance and cost analyst",
+   "start": 29.233,
+   "end": 36.577
+  },
+  {
+   "sp": "Anika",
+   "en": "The rollback trigger needs data convergence evidence. Maybe reversing routing alone loses updates.",
+   "zh": "回退触发条件需要数据收敛证据，单纯反向改路由可能丢更新。",
+   "role": "Orders application architect",
+   "start": 36.577,
+   "end": 43.921
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. Reversibility has to be demonstrated. It isn't just keeping the old database.",
+   "zh": "对，必须证明可逆，不只是保留旧数据库。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 43.921,
+   "end": 51.217
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, aggressive cutover dates? Let's park that. Storage deadlines are sooner than research.",
+   "zh": "好，激进切换日期先放一边，存储期限比研究更近。",
+   "role": "Capacity review chair",
+   "start": 51.217,
+   "end": 59.234
+  },
+  {
+   "sp": "Hannah",
+   "en": "Separate immediate capacity from long-term redesign. We can fund research without choosing migration.",
+   "zh": "短期容量与长期重构分开，可以资助研究而不决定迁移。",
+   "role": "Performance and cost analyst",
+   "start": 59.234,
+   "end": 67.994
+  },
+  {
+   "sp": "Raj",
+   "en": "So, document unknowns and acceptance criteria. Costs come next, including this engineering work.",
+   "zh": "那记录未知项和验收条件，接下来算成本，包括这些工程工作。",
+   "role": "Database capacity owner",
+   "start": 67.994,
+   "end": 76.01
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 7,
+ "scene": "租户分片仍需研究，比较数据迁移、双写和回退风险。",
+ "dir": "database/0162-双写不是免费的安全网",
+ "audio": "0162-双写不是免费的安全网.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "迁移风险"
+ ],
+ "duration": 76.01
+}

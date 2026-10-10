@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Raj: Replication lag is climbing on replica B. It's roughly ninety seconds behind now.
+
+2
+00:00:06.552 --> 00:00:12.960
+Hannah: What does that number measure exactly? Time lag alone can mislead us.
+
+3
+00:00:12.960 --> 00:00:19.105
+Anika: Customers see old paid order states. New writes still succeed on primary.
+
+4
+00:00:19.105 --> 00:00:26.017
+Priya: Okay, I'll take point on this. Just to confirm, primary stays healthy, right?
+
+5
+00:00:26.017 --> 00:00:32.521
+Lukas: Yes, from current write latency checks. Don't promote a lagging replica blindly.
+
+6
+00:00:32.521 --> 00:00:38.185
+Raj: Let me tail the log now. I'll compare receive and replay positions.
+
+7
+00:00:38.185 --> 00:00:44.521
+Hannah: I'll verify a known committed order. We need a concrete freshness check.
+
+8
+00:00:44.521 --> 00:00:50.834
+Priya: So, what's the ETA for routing options? Maybe two minutes before we decide.
+
+9
+00:00:50.834 --> 00:00:57.074
+Lukas: Check spare primary capacity before shifting. A healthy writer can still overload.
+
+10
+00:00:57.074 --> 00:01:03.170
+Anika: I'm on it for traffic classes. Payment confirmation reads need priority first.
+

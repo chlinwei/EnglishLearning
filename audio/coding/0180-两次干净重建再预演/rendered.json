@@ -1,0 +1,135 @@
+{
+ "id": "0180",
+ "part": 5,
+ "stage": "预演",
+ "title": "两次干净重建再预演",
+ "premise": "兼容测试通过，验证构建可复现与非生产同步。",
+ "listeningTask": "区分依赖一致、镜像一致和业务预演成功。",
+ "newPhrase": "p455",
+ "phrases": [
+  "p455",
+  "p010",
+  "p210:extra",
+  "p453:extra",
+  "p454:extra",
+  "p328:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Each clean rebuild used the same inputs. Normalized build timestamps keep image outputs deterministic.",
+   "zh": "两次干净重建输入相同，标准化构建时间戳让镜像输出确定。",
+   "role": "Build and release SRE",
+   "start": 0.0,
+   "end": 7.728
+  },
+  {
+   "sp": "Raj",
+   "en": "Both images match by digest and inventory. Hash-locked requirements installed without using local caches.",
+   "zh": "两个镜像摘要与包清单一致，哈希锁依赖安装未用本地缓存。",
+   "role": "Python dependency maintainer",
+   "start": 7.728,
+   "end": 15.983
+  },
+  {
+   "sp": "Hannah",
+   "en": "Matching package versions isn't sufficient by itself. Here the final artifact digests match too.",
+   "zh": "仅包版本相同本身不够，这里最终制品摘要也相同。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 15.983,
+   "end": 24.503
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, dry-run it first against test inventory. Just to confirm, writes stay disabled, right?",
+   "zh": "好，先针对测试库存预演。确认一下，写入保持禁用，对吧？",
+   "role": "Change coordinator and approval owner",
+   "start": 24.503,
+   "end": 32.23
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, then isolated writes test real effects. The compatibility matrix includes duplicate request handling.",
+   "zh": "是，随后隔离写入测试实际效果，兼容矩阵含重复请求处理。",
+   "role": "Inventory application owner",
+   "start": 32.23,
+   "end": 40.702
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe the cached build masked an issue before. These clean runs remove that particular uncertainty.",
+   "zh": "之前缓存构建可能掩盖问题，这次干净重建消除了这项不确定性。",
+   "role": "Python dependency maintainer",
+   "start": 40.702,
+   "end": 48.358
+  },
+  {
+   "sp": "Lukas",
+   "en": "The rehearsal must use the approved artifact. Don't rebuild a different image for deployment.",
+   "zh": "预演必须用批准制品，部署不能另建不同镜像。",
+   "role": "Build and release SRE",
+   "start": 48.358,
+   "end": 54.885
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll hold the go/no-go review after rehearsal. No production access before explicit approval.",
+   "zh": "预演后做放行评审，明确批准前不访问生产。",
+   "role": "Change coordinator and approval owner",
+   "start": 54.885,
+   "end": 62.037
+  },
+  {
+   "sp": "Hannah",
+   "en": "Isolated writes produced the expected inventory state. Replayed requests didn't create duplicate records.",
+   "zh": "隔离写入产生预期库存状态，重放请求没有产生重复记录。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 62.037,
+   "end": 70.988
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, I'll attach those results for approval. The deployment still needs its rollback checks.",
+   "zh": "好，我提交这些结果，部署仍需要回退检查。",
+   "role": "Inventory application owner",
+   "start": 70.988,
+   "end": 77.9
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 5,
+ "scene": "兼容测试通过，验证构建可复现与非生产同步。",
+ "dir": "coding/0180-两次干净重建再预演",
+ "audio": "0180-两次干净重建再预演.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "预演"
+ ],
+ "duration": 77.9
+}

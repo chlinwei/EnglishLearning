@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.464
+Anika: Pending validation covers three large tenants. Application retry behavior also needs testing.
+
+2
+00:00:07.464 --> 00:00:15.001
+Hannah: I'll own the remaining reconciliation checks. Where are expected totals and job IDs?
+
+3
+00:00:15.001 --> 00:00:21.265
+Raj: In the handoff ticket, beside coverage. I'm on it for read access confirmation.
+
+4
+00:00:21.265 --> 00:00:27.650
+Priya: Who's picking this up for retries? Lukas, the test harness is yours, right?
+
+5
+00:00:27.650 --> 00:00:34.538
+Lukas: Yes, using synthetic writes on a clone. I'll preserve the restored reference database.
+
+6
+00:00:34.538 --> 00:00:41.138
+Anika: Good, retries can change test data. About ten cases cover the known branches.
+
+7
+00:00:41.138 --> 00:00:47.931
+Hannah: I'll keep an eye on failed totals. A mismatch means halt, not patch rows.
+
+8
+00:00:47.931 --> 00:00:55.371
+Raj: Okay, another action item is timing analysis. I'll separate transfer from replay tomorrow.
+
+9
+00:00:55.371 --> 00:01:02.020
+Lukas: Maybe we need automated validation preparation. But don't weaken checks for faster numbers.
+
+10
+00:01:02.020 --> 00:01:08.980
+Priya: So, update each item with evidence. Completion needs results, not a started job.
+

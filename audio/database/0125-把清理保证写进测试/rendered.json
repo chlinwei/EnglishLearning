@@ -1,0 +1,135 @@
+{
+ "id": "0125",
+ "part": 10,
+ "stage": "防复发",
+ "title": "把清理保证写进测试",
+ "premise": "清理修复已分批完成，限额逐步放宽且稳定，报表优化仍待验收。",
+ "listeningTask": "抓住代码、查询和监控三类任务的负责人及期限。",
+ "newPhrase": "p400",
+ "phrases": [
+  "p400",
+  "p398",
+  "p392:extra",
+  "p009:extra",
+  "p013:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Every exit must return the connection. The timeout cleanup path now does.",
+   "zh": "每个退出分支都必须归还连接，超时清理分支现在也做到了。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 5.976
+  },
+  {
+   "sp": "Lukas",
+   "en": "After resolving transaction state, of course. Tests must enforce that ordering too.",
+   "zh": "当然要先处理事务状态，测试也必须保证这个顺序。",
+   "role": "SRE and traffic controller",
+   "start": 5.976,
+   "end": 12.456
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, checked-out connections need age alerts. Counts alone hid abandoned ownership here.",
+   "zh": "好，借出连接需要占用时长告警，这次只看数量掩盖了持有关系丢失。",
+   "role": "Database on-call",
+   "start": 12.456,
+   "end": 19.633
+  },
+  {
+   "sp": "Priya",
+   "en": "Who's picking this up by Friday? Hannah, you own those alerts, right?",
+   "zh": "谁周五前接这个任务？Hannah，告警由你负责，对吧？",
+   "role": "Incident coordinator",
+   "start": 19.633,
+   "end": 25.729
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, with a bounded cancellation test. I'll compare occupancy before and after.",
+   "zh": "是，也加上有上限的取消测试，对比前后占用。",
+   "role": "Application validation engineer",
+   "start": 25.729,
+   "end": 33.481
+  },
+  {
+   "sp": "Anika",
+   "en": "My action item is regression coverage. I'll add exception cases by tomorrow.",
+   "zh": "我的行动项是回归覆盖，明天前加上异常场景。",
+   "role": "Orders application owner",
+   "start": 33.481,
+   "end": 39.625
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review retry limits with clients. Maybe our timeout budget needs adjustment.",
+   "zh": "我和客户端评审重试限额，可能超时预算也需要调整。",
+   "role": "SRE and traffic controller",
+   "start": 39.625,
+   "end": 45.913
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll review the report plan tomorrow. Slow reports triggered waits, not every leak.",
+   "zh": "我明天评审报表执行计划，慢报表引发等待，但并非所有泄漏都由它解释。",
+   "role": "Database on-call",
+   "start": 45.913,
+   "end": 52.394
+  },
+  {
+   "sp": "Hannah",
+   "en": "Report recovery needs its own evidence. Keep that acceptance separate from cleanup.",
+   "zh": "报表恢复要有自己的证据，验收与连接清理分开。",
+   "role": "Application validation engineer",
+   "start": 52.394,
+   "end": 59.618
+  },
+  {
+   "sp": "Priya",
+   "en": "So, close the loop next Friday. Bring test results, not just closed tickets.",
+   "zh": "那下周五闭环，带测试结果，不只是关闭的工单。",
+   "role": "Incident coordinator",
+   "start": 59.618,
+   "end": 66.29
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 10,
+ "scene": "清理修复已分批完成，限额逐步放宽且稳定，报表优化仍待验收。",
+ "dir": "database/0125-把清理保证写进测试",
+ "audio": "0125-把清理保证写进测试.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "防复发"
+ ],
+ "duration": 66.29
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Raj: Storage headroom is two terabytes physically. Six used, eight available, same decimal units.
+
+2
+00:00:07.128 --> 00:00:14.712
+Hannah: How much of that is protected reserve? Temporary operations need space as well.
+
+3
+00:00:14.712 --> 00:00:22.104
+Raj: Twenty percent reserved, one-point-six terabytes today. That leaves four hundred gigabytes spendable.
+
+4
+00:00:22.104 --> 00:00:28.296
+Priya: Just to confirm, about two months, right? At the measured net growth rate.
+
+5
+00:00:28.296 --> 00:00:35.088
+Lukas: Yes, before touching that protected reserve. Campaign growth could shorten it considerably.
+
+6
+00:00:35.088 --> 00:00:42.792
+Anika: Our retention policy already informs growth forecast. We can't count unapproved deletion savings.
+
+7
+00:00:42.792 --> 00:00:50.712
+Hannah: Replica storage needs the same review. A bigger primary with undersized replicas fails.
+
+8
+00:00:50.712 --> 00:00:57.432
+Priya: Okay, storage ordering is an action item. What's the ETA for delivery confirmation?
+
+9
+00:00:57.432 --> 00:01:03.864
+Lukas: Tomorrow for the supplier's delivery estimate. Actual provisioning may take three weeks.
+
+10
+00:01:03.864 --> 00:01:11.280
+Anika: So, approve preparation without waiting for queries. Efficiency won't erase retained order growth.
+

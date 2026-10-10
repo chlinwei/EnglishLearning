@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Anika: The worker is logging write failures. The queue depth is climbing now.
+
+2
+00:00:05.616 --> 00:00:10.440
+Lukas: Are events being dropped? Or are they waiting for another attempt?
+
+3
+00:00:10.440 --> 00:00:17.423
+Anika: They're still queued. A failed event stays unacknowledged. That's the retry path.
+
+4
+00:00:17.423 --> 00:00:23.999
+Priya: Just to confirm, checkout is working? Confirmation emails might be delayed, right?
+
+5
+00:00:23.999 --> 00:00:30.359
+Hannah: The other two workers look normal. Their disks are below fifty percent.
+
+6
+00:00:30.359 --> 00:00:37.295
+Raj: This one says no space left. Inodes look fine. We can rule that out.
+
+7
+00:00:37.295 --> 00:00:43.343
+Lukas: Okay. Don't call it no data loss yet. Check the retry metrics too.
+
+8
+00:00:43.343 --> 00:00:50.878
+Priya: I'm on it. What's the ETA for that check? Expansion? Let's park that.
+
+9
+00:00:50.878 --> 00:00:57.070
+Hannah: I'll compare queue arrivals with acknowledgements. That should show the gap.
+
+10
+00:00:57.070 --> 00:01:05.230
+Anika: Maybe three minutes. Let's circle back once we've checked. Raj, can you find what's taking the space?
+

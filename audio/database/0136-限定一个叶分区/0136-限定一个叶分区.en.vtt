@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.504
+Anika: We need a concurrent index build. October order searches miss their latency target.
+
+2
+00:00:06.504 --> 00:00:13.584
+Lukas: Which database and exact table scope? Online doesn't mean identical behavior everywhere.
+
+3
+00:00:13.584 --> 00:00:21.193
+Raj: PostgreSQL sixteen, October leaf partition only. This isn't a parent-wide index build.
+
+4
+00:00:21.193 --> 00:00:28.177
+Priya: Just to confirm, one partition first, right? All other partitions stay outside approval.
+
+5
+00:00:28.177 --> 00:00:36.793
+Hannah: Agreed. Dry-run it first on isolation. Use production-like data without customer access.
+
+6
+00:00:36.793 --> 00:00:42.769
+Anika: I've got bandwidth for query testing. Maybe the filter needs adjustment too.
+
+7
+00:00:42.769 --> 00:00:48.481
+Lukas: Then show the expected access pattern. Don't approve an index from symptoms.
+
+8
+00:00:48.481 --> 00:00:55.946
+Priya: Okay, broader indexing? Let's park that. One action item is measured benefit.
+
+9
+00:00:55.946 --> 00:01:02.810
+Hannah: Include insert costs in the rehearsal. Read speed isn't our only concern.
+
+10
+00:01:02.810 --> 00:01:10.250
+Raj: So, I'll attach the exact statement. Non-unique tenant and date columns, nothing else.
+

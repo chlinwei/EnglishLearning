@@ -1,0 +1,135 @@
+{
+ "id": "0123",
+ "part": 8,
+ "stage": "排查遗留",
+ "title": "复现超时清理缺口",
+ "premise": "线上指标恢复，隔离测试继续验证取消后连接未归还。",
+ "listeningTask": "听出已确认的代码缺陷和仍待完成的报表优化。",
+ "newPhrase": "p398",
+ "phrases": [
+  "p398",
+  "p394",
+  "p393:extra",
+  "p327:extra",
+  "p009:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The timeout cleanup path misses release. Ten cancellations retained ten borrowed connections.",
+   "zh": "超时清理分支漏掉释放，十次取消滞留了十条借用连接。",
+   "role": "Orders application owner",
+   "start": 0.0,
+   "end": 6.912
+  },
+  {
+   "sp": "Hannah",
+   "en": "Did normal requests release them correctly? We need the successful control too.",
+   "zh": "正常请求能正确释放吗？也需要成功请求的对照。",
+   "role": "Application validation engineer",
+   "start": 6.912,
+   "end": 13.584
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, normal requests return them consistently. That confirms this connection leak now.",
+   "zh": "能，正常请求稳定归还连接，现在确认了这一处泄漏。",
+   "role": "Database on-call",
+   "start": 13.584,
+   "end": 20.665
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, test exceptions as well, right? Maybe cancellation isn't the sole broken branch.",
+   "zh": "好，也测试异常分支，对吧？取消可能不是唯一有问题的分支。",
+   "role": "Incident coordinator",
+   "start": 20.665,
+   "end": 28.057
+  },
+  {
+   "sp": "Lukas",
+   "en": "And check open transaction cleanup separately. Returning a dirty connection isn't safe.",
+   "zh": "还要单独检查未结束事务的清理，归还带事务状态的连接不安全。",
+   "role": "SRE and traffic controller",
+   "start": 28.057,
+   "end": 34.417
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it with structured cleanup. Release follows transaction outcome handling now.",
+   "zh": "我用结构化清理修复，现在处理好事务结果后才释放连接。",
+   "role": "Orders application owner",
+   "start": 34.417,
+   "end": 40.849
+  },
+  {
+   "sp": "Hannah",
+   "en": "The smoke test must include timeouts. Healthy requests alone won't cover this.",
+   "zh": "冒烟测试必须包括超时，只有正常请求覆盖不到这里。",
+   "role": "Application validation engineer",
+   "start": 40.849,
+   "end": 47.833
+  },
+  {
+   "sp": "Raj",
+   "en": "Query execution time remains a separate issue. Reports still need their filter reviewed.",
+   "zh": "查询耗时仍是单独的问题，报表筛选条件仍需评审。",
+   "role": "Database on-call",
+   "start": 47.833,
+   "end": 54.866
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep that action item after mitigation. Don't bundle an untested query rewrite.",
+   "zh": "缓解后保留这个行动项，别捆绑未经测试的查询重写。",
+   "role": "SRE and traffic controller",
+   "start": 54.866,
+   "end": 61.226
+  },
+  {
+   "sp": "Priya",
+   "en": "So, stage the cleanup fix first. Reports resume only after separate validation.",
+   "zh": "那先灰度清理修复，报表要单独验证后才恢复。",
+   "role": "Incident coordinator",
+   "start": 61.226,
+   "end": 67.97
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S12-database-pool-exhaustion",
+ "parts": 10,
+ "seq": 8,
+ "scene": "线上指标恢复，隔离测试继续验证取消后连接未归还。",
+ "dir": "database/0123-复现超时清理缺口",
+ "audio": "0123-复现超时清理缺口.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Orders application owner）",
+  "Lukas（SRE and traffic controller）",
+  "Hannah（Application validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "排查遗留"
+ ],
+ "duration": 67.97
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.888
+Raj: Write overhead stayed within our budget. Peak observation passed on October's partition.
+
+2
+00:00:06.888 --> 00:00:14.664
+Hannah: Read improvements matched the rehearsal results. Broad searches still use sensible scans.
+
+3
+00:00:14.664 --> 00:00:20.447
+Anika: The query plan evidence is attached. We didn't trade correctness for speed.
+
+4
+00:00:20.447 --> 00:00:27.143
+Priya: So, who's picking this up next? Raj reviews other partitions separately, right?
+
+5
+00:00:27.143 --> 00:00:34.079
+Lukas: Yes, not an automatic wider rollout. Each partition has different size and traffic.
+
+6
+00:00:34.079 --> 00:00:41.375
+Raj: My action item is sizing by Friday. Maybe older partitions don't need this index.
+
+7
+00:00:41.375 --> 00:00:49.511
+Hannah: I'll add cancellation cleanup to rehearsal. Concurrent index build failures need practice too.
+
+8
+00:00:49.511 --> 00:00:56.614
+Priya: Okay, update the runbook this week. Keep database-specific lock limits clearly stated.
+
+9
+00:00:56.614 --> 00:01:04.222
+Lukas: I'll review that and removal dependencies. No universal online-means-lock-free statement should remain.
+
+10
+00:01:04.222 --> 00:01:10.030
+Anika: We'll close the loop next review. Bring read gains and write costs together.
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.696
+Priya: Approve one canary cohort for this window. The staged rollout starts with one partition.
+本窗口批准一组灰度，分阶段发布从一个分区开始。
+
+2
+00:00:06.696 --> 00:00:13.440
+Lukas: Drain the old worker before assigning ownership. Two workers mustn't process the same partition.
+先排空旧worker再转移所有权，不能两个worker同时处理该分区。
+
+3
+00:00:13.440 --> 00:00:20.903
+Raj: Just to confirm, the lease transfers once, right? I'll verify no overlapping writer remains.
+确认一下，租约只转移一次，对吧？我验证没有重叠写入者。
+
+4
+00:00:20.903 --> 00:00:28.271
+Anika: Okay, keep an eye on reconciliation lag. Maybe the first batch warms connections slowly.
+好，关注对账延迟，首批连接预热可能较慢。
+
+5
+00:00:28.271 --> 00:00:36.575
+Hannah: The smoke test uses this production partition. Compare output counts with its expected inventory.
+冒烟测试针对这个生产分区，把输出计数与预期库存比较。
+
+6
+00:00:36.575 --> 00:00:42.647
+Raj: The new worker holds the sole lease. Token refresh and the initial batch pass.
+新worker独占租约，令牌刷新和首批处理通过。
+
+7
+00:00:42.647 --> 00:00:50.687
+Lukas: State the rollback trigger before further batches. Duplicates or reconciliation mismatches mean immediate pause.
+继续批次前明确回退条件，重复记录或对账不符立即暂停。
+
+8
+00:00:50.687 --> 00:00:58.222
+Priya: Agreed, pause and evaluate before reverting ownership. Don't start old workers beside new ones.
+同意，暂停评估后才恢复旧所有权，不能新旧worker并跑。
+
+9
+00:00:58.222 --> 00:01:07.462
+Hannah: First-batch counts and signatures match expectations. We'll inspect another full token-refresh cycle.
+首批计数与签名符合预期，再检查一个完整令牌刷新周期。
+
+10
+00:01:07.462 --> 00:01:15.190
+Anika: I'll own that observation before expansion approval. Healthy startup alone doesn't cover steady-state behavior.
+扩大审批前由我负责观察，仅启动健康不能覆盖稳定运行。
+

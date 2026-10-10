@@ -1,0 +1,135 @@
+{
+ "id": "0043",
+ "part": 8,
+ "stage": "验证稳定",
+ "title": "起来不等于稳定：观察窗口别省",
+ "premise": "灰度消费者已完成受控重启，继续使用原构建，当前保持较低拉取速率。",
+ "listeningTask": "分辨启动成功、短期稳定与长期根因修复。",
+ "newPhrase": "p318",
+ "phrases": [
+  "p318",
+  "p010",
+  "p308",
+  "p110:extra",
+  "p111:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Process is healthy. Memory is much lower now. No new OOM events.",
+   "zh": "进程健康，内存占用已经低了很多，没有新的OOM事件。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 6.456
+  },
+  {
+   "sp": "Hannah",
+   "en": "That's startup, not stability. How long is the recovery window?",
+   "zh": "这只说明启动成功，不代表稳定。恢复验证窗口是多久？",
+   "role": "Operations engineer",
+   "start": 6.456,
+   "end": 12.575
+  },
+  {
+   "sp": "Anika",
+   "en": "Ten minutes before restoring normal fetch rate. Then closer monitoring for an hour.",
+   "zh": "观察十分钟后再恢复正常拉取速率，之后密切监控一小时。",
+   "role": "Application owner",
+   "start": 12.575,
+   "end": 18.767
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the old growth took hours, right? Ten minutes won't prove a fix.",
+   "zh": "我确认一下，之前内存增长持续了几小时，对吧？十分钟证明不了已修复。",
+   "role": "Incident lead",
+   "start": 18.767,
+   "end": 25.39
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. Let's keep it under observation. Compare the slope, not just the starting value.",
+   "zh": "正是这样。继续观察，要比较增长趋势，不只看启动时的数值。",
+   "role": "SRE",
+   "start": 25.39,
+   "end": 32.854
+  },
+  {
+   "sp": "Raj",
+   "en": "So far it's roughly flat. We'll restore the rate gradually after the checks.",
+   "zh": "目前大致平稳。检查通过后我们逐步恢复速率。",
+   "role": "Linux on-call",
+   "start": 32.854,
+   "end": 38.998
+  },
+  {
+   "sp": "Hannah",
+   "en": "The queue is still behind. We need it to catch up before declaring recovery.",
+   "zh": "队列仍有积压。宣布恢复前，得先让它追平。",
+   "role": "Operations engineer",
+   "start": 38.998,
+   "end": 45.525
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for that? Don't say we're back to baseline yet.",
+   "zh": "预计多久能追平？现在还不能说恢复到基线。",
+   "role": "Incident lead",
+   "start": 45.525,
+   "end": 50.901
+  },
+  {
+   "sp": "Lukas",
+   "en": "About eight minutes once normal processing resumes, assuming arrivals stay steady.",
+   "zh": "正常处理恢复后大约八分钟，前提是到达速率保持稳定。",
+   "role": "SRE",
+   "start": 50.901,
+   "end": 56.66
+  },
+  {
+   "sp": "Anika",
+   "en": "Okay. I'll keep support updated. We'll call this recovery, not a resolved leak.",
+   "zh": "好，我会继续向支持团队更新。这叫服务恢复，不叫泄漏已修复。",
+   "role": "Application owner",
+   "start": 56.66,
+   "end": 63.98
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 8,
+ "scene": "灰度消费者已完成受控重启，继续使用原构建，当前保持较低拉取速率。",
+ "dir": "linux/0043-起来不等于稳定",
+ "audio": "0043-起来不等于稳定.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "验证稳定"
+ ],
+ "duration": 63.98
+}

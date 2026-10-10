@@ -1,0 +1,135 @@
+{
+ "id": "0111",
+ "part": 6,
+ "stage": "评审请求",
+ "title": "明确请求，不临场审代码",
+ "premise": "测试缺口已列为今日任务，明确Lukas的评审对象和时间。",
+ "listeningTask": "听出评审请求包含哪些证据以及为什么拆开变更。",
+ "newPhrase": "p386",
+ "phrases": [
+  "p386",
+  "p006",
+  "p010",
+  "p002:extra",
+  "p013:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, the rotation change is up for review. I've attached Friday's logs and test results.",
+   "zh": "好，轮转变更等待评审，已附周五日志和测试结果。",
+   "role": "Linux automation engineer",
+   "start": 0.0,
+   "end": 7.248
+  },
+  {
+   "sp": "Lukas",
+   "en": "Do you need approval or initial feedback? Missing permission tests may block final approval.",
+   "zh": "你需要批准还是初步反馈？缺权限测试可能阻止最终批准。",
+   "role": "Code reviewer",
+   "start": 7.248,
+   "end": 13.8
+  },
+  {
+   "sp": "Raj",
+   "en": "Initial feedback first, then approval after tests. Do you have bandwidth this afternoon?",
+   "zh": "先初步反馈，测试后再批准。你今天下午有精力吗？",
+   "role": "Linux automation engineer",
+   "start": 13.8,
+   "end": 20.568
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll link new tests when they finish. Don't describe pending coverage as already passing.",
+   "zh": "新测试完成后我会附链接，不能把待补覆盖说成已通过。",
+   "role": "Automation test engineer",
+   "start": 20.568,
+   "end": 27.888
+  },
+  {
+   "sp": "Anika",
+   "en": "My service limit change stays separate. Different rollback paths deserve separate review requests.",
+   "zh": "我的服务上限变更单独保留，不同回退路径应分开提评审。",
+   "role": "Service configuration owner",
+   "start": 27.888,
+   "end": 35.208
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not one combined approval, right? Who's picking this up for review?",
+   "zh": "我确认一下，不合并批准，对吧？谁来接评审？",
+   "role": "Standup facilitator",
+   "start": 35.208,
+   "end": 41.928
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'm on it at about two today. I'll start with rotation and its safety checks.",
+   "zh": "我今天大约两点来做，先看轮转及安全检查。",
+   "role": "Code reviewer",
+   "start": 41.928,
+   "end": 47.784
+  },
+  {
+   "sp": "Raj",
+   "en": "Great, expected changes are listed explicitly. The live service rollout is outside this request.",
+   "zh": "好，已明确列出预期变化，真实服务上线不在这次请求内。",
+   "role": "Linux automation engineer",
+   "start": 47.784,
+   "end": 55.44
+  },
+  {
+   "sp": "Hannah",
+   "en": "Can we take it offline for code details? We still need the dependency updates here.",
+   "zh": "代码细节会后单独聊好吗？这里还要更新依赖。",
+   "role": "Automation test engineer",
+   "start": 55.44,
+   "end": 62.28
+  },
+  {
+   "sp": "Priya",
+   "en": "So, yes, pair after the standup. For now, review ownership and scope are clear.",
+   "zh": "可以，站会后结对讨论。目前评审负责人和范围已经明确。",
+   "role": "Standup facilitator",
+   "start": 62.28,
+   "end": 69.36
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 6,
+ "scene": "测试缺口已列为今日任务，明确Lukas的评审对象和时间。",
+ "dir": "linux/0111-明确请求，不临场审代码",
+ "audio": "0111-明确请求，不临场审代码.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "评审请求"
+ ],
+ "duration": 69.36
+}

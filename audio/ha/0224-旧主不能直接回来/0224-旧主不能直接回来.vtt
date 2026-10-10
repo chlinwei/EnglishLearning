@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.296
+Anika: We're back to baseline. Queue age recovered.
+恢复基线了，队列等待时间也正常了。
+
+2
+00:00:04.296 --> 00:00:07.439
+Lukas: Can the old host rejoin as a replica?
+旧主机可以作为副本重新加入吗？
+
+3
+00:00:07.439 --> 00:00:11.207
+Raj: After rebuilding from the authoritative primary only.
+只能在从权威新主重建之后加入。
+
+4
+00:00:11.207 --> 00:00:16.055
+Hannah: Preserve its divergent records before rebuilding anything.
+重建任何内容前，先保留它的分叉记录。
+
+5
+00:00:16.055 --> 00:00:20.062
+Priya: Just to confirm, no immediate failback, right?
+确认一下，不立即切回，对吧？
+
+6
+00:00:20.062 --> 00:00:24.166
+Raj: Correct. New writes make that unsafe now.
+对，新写入使直接切回已不安全。
+
+7
+00:00:24.166 --> 00:00:30.429
+Hannah: Let's keep it under observation. Include reconciliation failures.
+继续观察，也要看核对失败。
+
+8
+00:00:30.429 --> 00:00:35.085
+Anika: Uncertain commits are resolved, except two disputed requests.
+未知提交已处理完，只剩两条有争议的请求。
+
+9
+00:00:35.085 --> 00:00:39.572
+Lukas: Those need business review, probably not automatic replay.
+那些需要业务核查，大概不适合自动重放。
+
+10
+00:00:39.572 --> 00:00:42.980
+Priya: We'll hand over those cases with named owners.
+我们会把这些案例交给明确的负责人。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0059",
+ "part": 4,
+ "stage": "临时措施",
+ "title": "暂停了什么：请求仍在，不能随手恢复",
+ "premise": "看门狗超时已确认，暂停新任务拉取后暂时稳定，交代临时措施边界。",
+ "listeningTask": "听清暂停范围、业务代价和恢复审批要求。",
+ "newPhrase": "p334",
+ "phrases": [
+  "p334",
+  "p010",
+  "p306",
+  "p308:extra",
+  "p014:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The temporary workaround pauses new fetches. It doesn't delete queued export requests.",
+   "zh": "临时措施是暂停新任务拉取，不会删除队列中的导出请求。",
+   "role": "Outgoing application owner",
+   "start": 0.0,
+   "end": 6.792
+  },
+  {
+   "sp": "Hannah",
+   "en": "What about a task already running? Was anything interrupted or left half-written?",
+   "zh": "已经在运行的任务呢？有没有被中断，或留下半写入文件？",
+   "role": "Incoming primary on-call",
+   "start": 6.792,
+   "end": 13.56
+  },
+  {
+   "sp": "Raj",
+   "en": "None was active when we paused. We checked the task record and output list.",
+   "zh": "暂停时没有活跃任务，我们核对了任务记录和输出列表。",
+   "role": "Outgoing Linux on-call",
+   "start": 13.56,
+   "end": 19.873
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, fetching stays paused overnight unless approved, right?",
+   "zh": "我确认一下，未经批准，夜间继续暂停拉取，对吧？",
+   "role": "Shift coordinator",
+   "start": 19.873,
+   "end": 25.201
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Who approves resuming, and how do we confirm the setting actually changed?",
+   "zh": "对。谁批准恢复，怎样确认设置确实生效？",
+   "role": "Incoming backup SRE",
+   "start": 25.201,
+   "end": 31.177
+  },
+  {
+   "sp": "Anika",
+   "en": "The duty app owner approves. The admin status and fetch metrics must agree.",
+   "zh": "由当值应用负责人批准。管理状态和拉取指标必须一致。",
+   "role": "Outgoing application owner",
+   "start": 31.177,
+   "end": 37.321
+  },
+  {
+   "sp": "Hannah",
+   "en": "This will buy us time, but request age keeps increasing while we wait.",
+   "zh": "这能争取时间，但等待期间请求等待时间会继续增长。",
+   "role": "Incoming primary on-call",
+   "start": 37.321,
+   "end": 42.745
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for the written steps. It'll need controlled recovery to catch up later.",
+   "zh": "我来写清操作步骤，之后要受控恢复，才能处理完积压。",
+   "role": "Outgoing Linux on-call",
+   "start": 42.745,
+   "end": 48.818
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't test resuming during handoff. We'd lose the stable baseline and divide responsibility.",
+   "zh": "不要在交接时测试恢复，不然会失去稳定基线，也会让责任不清。",
+   "role": "Incoming backup SRE",
+   "start": 48.818,
+   "end": 55.706
+  },
+  {
+   "sp": "Priya",
+   "en": "Changing the watchdog timeout? Let's park that. No unreviewed tuning tonight.",
+   "zh": "修改看门狗超时的事先放一边，今晚不做未经评审的调整。",
+   "role": "Shift coordinator",
+   "start": 55.706,
+   "end": 62.69
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 4,
+ "scene": "看门狗超时已确认，暂停新任务拉取后暂时稳定，交代临时措施边界。",
+ "dir": "linux/0059-暂停了什么",
+ "audio": "0059-暂停了什么.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "临时措施"
+ ],
+ "duration": 62.69
+}

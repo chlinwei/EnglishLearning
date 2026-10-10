@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Raj: Could someone pair on it before lunch? I need help checking cancellation test design.
+午饭前能有人结对吗？需要帮忙检查取消测试设计。
+
+2
+00:00:06.552 --> 00:00:12.984
+Hannah: I've got bandwidth for thirty minutes. We'll focus on the test coverage gap.
+我有半小时，聚焦测试覆盖缺口。
+
+3
+00:00:12.984 --> 00:00:20.999
+Priya: Just to confirm, Raj keeps implementation ownership, right? Hannah helps validate the failure cases.
+确认一下，实现仍归Raj，对吧？Hannah协助验证失败用例。
+
+4
+00:00:20.999 --> 00:00:28.175
+Anika: I'm on it for realistic response samples. Maybe those make cancellation timing less artificial.
+真实响应样本我来准备，能让取消时机不那么人为。
+
+5
+00:00:28.175 --> 00:00:35.255
+Lukas: Use controlled scheduling in the tests. Real-time sleeps make concurrency tests unreliable.
+测试用可控调度，实际睡眠会让并发测试不稳定。
+
+6
+00:00:35.255 --> 00:00:42.551
+Raj: Okay, I'll inject the scheduler for tests. Production behavior doesn't need a new timing policy.
+好，测试注入调度器，生产不必引入新时间策略。
+
+7
+00:00:42.551 --> 00:00:49.223
+Hannah: Let's take it offline after the standup. We can inspect the test harness together.
+站会后单独聊，一起检查测试框架。
+
+8
+00:00:49.223 --> 00:00:56.374
+Priya: Good, today's commitment should remain small enough. Don't turn pairing into a framework rewrite.
+好，今天承诺规模别太大，结对不变成重写框架。
+
+9
+00:00:56.374 --> 00:01:02.398
+Lukas: I'll review the seam for scheduler injection. Keep it narrow and internal to testing.
+我审查调度器注入点，保持小范围测试用途。
+
+10
+00:01:02.398 --> 00:01:08.830
+Anika: I'll join for the first sample walkthrough. Then I'll return to the contract request.
+我参加首个样例讲解，之后回去处理契约请求。
+

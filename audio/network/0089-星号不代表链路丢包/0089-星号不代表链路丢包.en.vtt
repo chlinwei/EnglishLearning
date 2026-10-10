@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.104
+Raj: Okay, traces suggest a longer transit route. Three hops don't answer diagnostic probes.
+
+2
+00:00:07.104 --> 00:00:14.376
+Lukas: Those missing answers aren't proof of loss. Routers often limit diagnostic responses deliberately.
+
+3
+00:00:14.376 --> 00:00:21.385
+Raj: Agreed, route asymmetry is another possibility. We only traced the forward direction.
+
+4
+00:00:21.385 --> 00:00:28.801
+Hannah: Can the regional team inspect reverse paths? Include routing tables at the same time.
+
+5
+00:00:28.801 --> 00:00:36.313
+Anika: Our working hypothesis includes setup overhead too. Server queues look similar between matched calls.
+
+6
+00:00:36.313 --> 00:00:43.393
+Priya: Just to confirm, no route switch yet, right? A shorter path isn't automatically safer.
+
+7
+00:00:43.393 --> 00:00:50.449
+Lukas: Correct, policy and redundancy still matter. We can't rule that out without carrier evidence.
+
+8
+00:00:50.449 --> 00:00:57.050
+Raj: What's the ETA for the reverse trace? The regional engineer estimates about one day.
+
+9
+00:00:57.050 --> 00:01:04.586
+Hannah: Keep the current path during collection. Save route snapshots with their collection timestamps.
+
+10
+00:01:04.586 --> 00:01:12.530
+Priya: So, forced routing? Let's park that. Next, examine the large-payload timing pattern.
+

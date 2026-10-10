@@ -1,0 +1,135 @@
+{
+ "id": "0163",
+ "part": 8,
+ "stage": "成本比较",
+ "title": "不只比较月租",
+ "premise": "技术与迁移边界明确，对比基础设施、人力和维护成本。",
+ "listeningTask": "听出估价口径、共同存储成本和工期不确定性。",
+ "newPhrase": "p438",
+ "phrases": [
+  "p438",
+  "p435",
+  "p437:extra",
+  "p010:extra",
+  "p008:extra",
+  "p006:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Total cost of ownership includes engineering. The monthly bill isn't the whole comparison.",
+   "zh": "总拥有成本包括工程投入，月账单不是全部比较。",
+   "role": "Performance and cost analyst",
+   "start": 0.0,
+   "end": 7.512
+  },
+  {
+   "sp": "Raj",
+   "en": "Vertical scaling adds eighteen hundred monthly. That's fleet cost, not just primary.",
+   "zh": "垂直扩容每月增加一千八百，这是整个集群，不只是主库。",
+   "role": "Database capacity owner",
+   "start": 7.512,
+   "end": 14.256
+  },
+  {
+   "sp": "Anika",
+   "en": "Shards add roughly twenty-four hundred monthly. Engineering could take eight weeks or longer.",
+   "zh": "分片每月约增加两千四百，工程可能八周或更久。",
+   "role": "Orders application architect",
+   "start": 14.256,
+   "end": 20.809
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, estimates, not quotes, right? And no guaranteed sharding savings yet.",
+   "zh": "确认一下，是估计不是报价，对吧？也没有保证分片省钱。",
+   "role": "Capacity review chair",
+   "start": 20.809,
+   "end": 28.009
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, migration risk increases testing effort. On-call ownership adds ongoing staffing costs.",
+   "zh": "对，迁移风险增加测试工作，值班责任增加持续人力成本。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 28.009,
+   "end": 35.737
+  },
+  {
+   "sp": "Raj",
+   "en": "Storage expansion adds four hundred monthly separately. Both options still need that capacity.",
+   "zh": "存储扩容另每月增加四百，两种方案都仍需这些容量。",
+   "role": "Database capacity owner",
+   "start": 35.737,
+   "end": 43.153
+  },
+  {
+   "sp": "Hannah",
+   "en": "Query optimization needs about two engineer-weeks. Savings stay provisional until load tests.",
+   "zh": "查询优化约需两个人周，压测前收益仍暂估。",
+   "role": "Performance and cost analyst",
+   "start": 43.153,
+   "end": 51.409
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA for firm quotes? We have bandwidth for one pilot.",
+   "zh": "好，明确报价预计何时？我们有精力做一个试点。",
+   "role": "Capacity review chair",
+   "start": 51.409,
+   "end": 57.626
+  },
+  {
+   "sp": "Lukas",
+   "en": "Tomorrow for infrastructure estimates and lead times. Maybe procurement changes the delivery assumptions.",
+   "zh": "明天拿基础设施估价和交付周期，采购可能改变交付假设。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 57.626,
+   "end": 65.114
+  },
+  {
+   "sp": "Anika",
+   "en": "So, favor queries plus storage preparation. Keep the larger instance as contingency.",
+   "zh": "那倾向查询优化加存储准备，更大实例保留作备用。",
+   "role": "Orders application architect",
+   "start": 65.114,
+   "end": 71.93
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 8,
+ "scene": "技术与迁移边界明确，对比基础设施、人力和维护成本。",
+ "dir": "database/0163-不只比较月租",
+ "audio": "0163-不只比较月租.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "成本比较"
+ ],
+ "duration": 71.93
+}

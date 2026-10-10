@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.712
+Lukas: Handoff acceptance means I own next steps. It doesn't mean the drill passed.
+接收交接代表我负责下一步，不代表演练通过。
+
+2
+00:00:05.712 --> 00:00:13.008
+Priya: Just to recap, source and point verified. Pending validation still blocks final acceptance.
+小结一下，来源和恢复点已核验，待验证仍阻止最终验收。
+
+3
+00:00:13.008 --> 00:00:20.256
+Raj: Correct, sampled reconciliation checks passed already. Three large tenants remain with Hannah.
+对，抽样对账已通过，三个大租户由Hannah继续。
+
+4
+00:00:20.256 --> 00:00:27.048
+Anika: And Lukas owns clone retry testing, right? The unchanged reference keeps its target.
+Lukas负责克隆重试测试，对吧？不变的参考库保持目标点。
+
+5
+00:00:27.048 --> 00:00:34.392
+Hannah: I've got it from here for reconciliation. I'll report failures without editing results.
+对账我接下了，失败会如实报告，不修改结果。
+
+6
+00:00:34.392 --> 00:00:41.040
+Raj: Okay, I'm available through four thirty. About twenty minutes remains our estimate.
+好，我四点半前都可联系，估计仍需二十分钟左右。
+
+7
+00:00:41.040 --> 00:00:47.592
+Lukas: I'll report at four ten either way. Final elapsed time stays open until acceptance.
+无论结果我四点十分更新，最终耗时到验收才确定。
+
+8
+00:00:47.592 --> 00:00:53.664
+Priya: So, no claim of thirty-minute recovery. We'll review the timing gap tomorrow.
+那不宣称三十分钟恢复达标，明天评审时间差距。
+
+9
+00:00:53.664 --> 00:01:01.200
+Hannah: Evidence links and access work now. I accept the remaining validation responsibility.
+证据链接和权限现在都可用，我接收剩余验证责任。
+
+10
+00:01:01.200 --> 00:01:07.080
+Anika: We'll close the loop after your results. Keep the drill separate from production.
+你们结果出来后闭环，演练继续与生产分开。
+

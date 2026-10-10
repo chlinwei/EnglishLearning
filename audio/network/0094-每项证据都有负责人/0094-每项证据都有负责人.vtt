@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.216
+Priya: Okay, who's picking this up for pooling? Each trial needs an experiment owner.
+好，谁来接连接池试验？每项试验都需要负责人。
+
+2
+00:00:06.216 --> 00:00:11.832
+Anika: I'm on it for client changes. I'll include limits and correctness checks.
+客户端变更我来做，会包括限制和正确性检查。
+
+3
+00:00:11.832 --> 00:00:20.615
+Hannah: I'll own measurement quality, not application changes. Keep those responsibilities separate in the record.
+我负责测量质量，不负责应用变更。记录里要分清。
+
+4
+00:00:20.615 --> 00:00:27.671
+Raj: I'll own the isolated network test. Reverse-route evidence still depends on the regional team.
+我负责隔离网络试验。回程路由证据仍依赖区域团队。
+
+5
+00:00:27.671 --> 00:00:34.391
+Lukas: What's the ETA for their response? Missing evidence shouldn't silently become an assumption.
+他们预计什么时候回复？缺失证据不能悄悄变成假设。
+
+6
+00:00:34.391 --> 00:00:42.287
+Priya: Just to confirm, roughly tomorrow afternoon, right? If delayed, report the dependency explicitly.
+我确认一下，大约明天下午，对吧？延迟就明确报告依赖。
+
+7
+00:00:42.287 --> 00:00:48.959
+Raj: Yes, that's their current estimate only. I'll ask for a named regional contact.
+是，那只是他们当前估计。我会请他们指定区域联系人。
+
+8
+00:00:48.959 --> 00:00:56.710
+Hannah: Who checks the resulting cost estimate? Include transfer tariffs and client resource changes.
+谁检查成本估算结果？要包括传输费率和客户端资源变化。
+
+9
+00:00:56.710 --> 00:01:03.022
+Anika: Lukas reviews it after both inputs arrive. My resource report is due tomorrow.
+两项输入到齐后由Lukas评审，我明天交资源报告。
+
+10
+00:01:03.022 --> 00:01:10.390
+Priya: So, each action item has an owner. We'll review incomplete evidence without forcing adoption.
+因此每项待办都有负责人。证据不完整时也评审，但不强行采用。
+

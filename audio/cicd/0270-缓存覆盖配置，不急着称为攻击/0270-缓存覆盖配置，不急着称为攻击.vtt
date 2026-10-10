@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.456
+Raj: A cache hit restores local configuration. That file contains the retired address.
+一次缓存命中恢复了本地配置。文件里包含退役地址。
+
+2
+00:00:06.456 --> 00:00:13.056
+Priya: Okay, is this cache poisoning then? Or just stale configuration carried forward?
+好，这就是缓存污染吗？还是旧配置被带了过来？
+
+3
+00:00:13.056 --> 00:00:19.968
+Lukas: Don't label it malicious without evidence. Compare cache creation records and access logs.
+没有证据别定性为恶意。对比缓存创建记录和访问日志。
+
+4
+00:00:19.968 --> 00:00:26.472
+Anika: The dependency mirror changed last Tuesday. This cache predates that change, right?
+依赖镜像源上周二改过。这份缓存早于变更，对吧？
+
+5
+00:00:26.472 --> 00:00:33.720
+Hannah: Yes, its writer was an approved runner. No unauthorized writes found so far.
+对，写入者是批准的执行器。目前没有发现未授权写入。
+
+6
+00:00:33.720 --> 00:00:40.296
+Raj: Cold runs pass; restored runs fail. I've preserved the cache object digest.
+冷构建通过，恢复缓存的失败。我保留了缓存对象摘要。
+
+7
+00:00:40.296 --> 00:00:47.928
+Lukas: That's useful paired evidence, not certainty. Why configuration was cached still needs investigation.
+这组证据有用，但还不是定论。为什么缓存配置仍需调查。
+
+8
+00:00:47.928 --> 00:00:53.976
+Priya: Just to confirm, quarantine that object. The root cause is still open.
+确认一下，隔离那个对象。根因仍未完全查清。
+
+9
+00:00:53.976 --> 00:01:00.888
+Hannah: I'll keep an eye on access. Cache inspection mustn't reveal embedded credentials.
+我关注访问情况。检查缓存不能暴露嵌入的凭据。
+
+10
+00:01:00.888 --> 00:01:07.800
+Anika: Understood, restricted inspection rather than downloads. Maybe cache scope was too broad.
+明白，受限检查，不随意下载。可能缓存范围太宽了。
+

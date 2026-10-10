@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Raj: Recovery escalation starts with me tonight. Page the backup if I'm unreachable.
+
+2
+00:00:06.480 --> 00:00:13.272
+Lukas: What should halt the validation work? Data mismatch, missing logs, or unsafe access?
+
+3
+00:00:13.272 --> 00:00:19.633
+Anika: Any of those means stop and preserve evidence. No manual row corrections to pass.
+
+4
+00:00:19.633 --> 00:00:26.905
+Priya: Just to confirm, no production promotion, right? A failed drill stays isolated throughout.
+
+5
+00:00:26.905 --> 00:00:34.561
+Hannah: And archived WAL gaps need source review. Don't invent a newer target instead.
+
+6
+00:00:34.561 --> 00:00:42.049
+Raj: The escalation path includes backup storage owner. I'll attach their approved contact entry.
+
+7
+00:00:42.049 --> 00:00:48.649
+Lukas: What's the ETA if reconciliation stalls? We need a reporting deadline as well.
+
+8
+00:00:48.649 --> 00:00:54.938
+Priya: Update at four ten even if unfinished. Maybe sooner for any data mismatch.
+
+9
+00:00:54.938 --> 00:01:01.922
+Hannah: The time target is already missed. That needs review, not unsafe shortcuts.
+
+10
+00:01:01.922 --> 00:01:09.170
+Anika: So, preserve logs and exact job outputs. We'll investigate before restarting the drill.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.584
+Raj: The forwarder pool on A still includes a retired endpoint. The retirement record confirms it.
+
+2
+00:00:07.584 --> 00:00:14.137
+Hannah: Failed samples used that endpoint. That links stale config to timeouts.
+
+3
+00:00:14.137 --> 00:00:21.817
+Priya: Just to recap, B got the update. A didn't. Why it missed A still needs investigation.
+
+4
+00:00:21.817 --> 00:00:29.018
+Lukas: Use managed configuration to restore A. Don't leave a manual fix outside the source of truth.
+
+5
+00:00:29.018 --> 00:00:36.266
+Raj: First action item: review the corrected targets and test A offline. I'll own that today.
+
+6
+00:00:36.266 --> 00:00:43.034
+Anika: Who's picking this up for fresh-lookup monitoring? Cached health checks missed the bad path, right?
+
+7
+00:00:43.034 --> 00:00:50.955
+Hannah: I'll add approved uncached probes by Friday. Small volume, with checks for the private views.
+
+8
+00:00:50.955 --> 00:00:58.203
+Priya: Lukas, review the partial rollout tomorrow. We need to know why success was reported too early.
+
+9
+00:00:58.203 --> 00:01:04.276
+Lukas: I'll do that. A rejoins only after the repair checks and a reviewed client switch plan.
+
+10
+00:01:04.276 --> 00:01:11.140
+Anika: We'll close the loop with evidence. Keep B monitoring active until the transition is verified.
+

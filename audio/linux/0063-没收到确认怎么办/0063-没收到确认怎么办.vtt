@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.664
+Hannah: If the app owner doesn't acknowledge, do I page the backup or keep trying?
+应用负责人没确认响应时，是呼叫后备，还是继续联系？
+
+2
+00:00:05.664 --> 00:00:12.959
+Priya: Use the rota's escalation timer. At five minutes, page the backup and notify the coordinator.
+按排班的升级计时，五分钟没有确认，就呼叫后备并通知协调人。
+
+3
+00:00:12.959 --> 00:00:18.431
+Raj: Keep an eye on the acknowledgement, not just whether the message was delivered.
+要看有没有确认响应，不只看消息是否送达。
+
+4
+00:00:18.431 --> 00:00:25.415
+Lukas: Let me play that back. The backup helps respond, but doesn't automatically approve an app change?
+我复述一下：后备协助响应，但不会自动获得应用变更审批权？
+
+5
+00:00:25.415 --> 00:00:33.286
+Anika: Correct. Just to confirm, the designated approver still applies, right? It's in the runbook.
+对。我确认一下，仍由指定审批人批准，对吧？运行手册里写清了。
+
+6
+00:00:33.286 --> 00:00:40.966
+Priya: Yes. What's the ETA before the coordinator joins? The contact route has a second step.
+对。协调人预计多久加入？联系路径还有第二级。
+
+7
+00:00:40.966 --> 00:00:48.765
+Hannah: I'll follow that step if there's no response. Meanwhile I can preserve evidence and monitor.
+没响应时我会按第二级联系，同时保留证据并监控。
+
+8
+00:00:48.765 --> 00:00:56.349
+Raj: Exactly. If the service restarts, we can't rule that out as harmless just because it comes back.
+对。服务重启后即使自己恢复，也不能认为一定无害。
+
+9
+00:00:56.349 --> 00:01:02.132
+Lukas: And no repeated manual restarts while we wait. They could hide the evidence.
+等待期间不要反复手动重启，那可能掩盖证据。
+
+10
+00:01:02.132 --> 00:01:10.700
+Anika: Agreed. Use the approved containment steps only. Maybe we'll need an incident call, not more guessing.
+同意，只用批准的控制措施。可能需要正式故障会议，而不是继续猜测。
+

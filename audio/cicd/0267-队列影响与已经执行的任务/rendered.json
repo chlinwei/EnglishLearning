@@ -1,0 +1,135 @@
+{
+ "id": "0267",
+ "part": 2,
+ "stage": "范围",
+ "title": "队列影响与已经执行的任务",
+ "premise": "生产未变，失败集中在依赖下载；开始盘点队列和副作用。",
+ "listeningTask": "听出为何失败状态不能直接授权重试。",
+ "newPhrase": "p542",
+ "phrases": [
+  "p542",
+  "p541",
+  "p106:extra",
+  "p010:extra",
+  "p309:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Forty queued builds are waiting now. Twelve earlier attempts failed fetching dependencies.",
+   "zh": "现在四十个构建排队。之前十二次尝试下载依赖失败。",
+   "role": "Build runner on-call",
+   "start": 0.0,
+   "end": 6.792
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, that's our blast radius currently. Just to confirm, no production deployments?",
+   "zh": "好，这是目前影响范围。确认一下，没有生产部署？",
+   "role": "Incident coordinator",
+   "start": 6.792,
+   "end": 13.729
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check deployment receipts, not dashboard colors. A failed run might complete side effects.",
+   "zh": "查部署回执，别只看面板颜色。失败运行也可能已完成副作用。",
+   "role": "Pipeline reliability engineer",
+   "start": 13.729,
+   "end": 20.593
+  },
+  {
+   "sp": "Anika",
+   "en": "The pipeline's red before deployment here. Receipts show no deploy requests, right?",
+   "zh": "这里流水线在部署前就红了。回执显示没有部署请求，对吧？",
+   "role": "Application release owner",
+   "start": 20.593,
+   "end": 27.194
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct for these twelve failed attempts. I'll also check partial artifact uploads.",
+   "zh": "这十二次失败确实如此。我还查部分上传的制品。",
+   "role": "Artifact security engineer",
+   "start": 27.194,
+   "end": 34.202
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for queue snapshots. Duplicate manual retries are held separately.",
+   "zh": "队列快照我来取。重复的手动重试单独挂起。",
+   "role": "Build runner on-call",
+   "start": 34.202,
+   "end": 40.418
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep original run identifiers with attempts. Otherwise we'll lose the deduplication boundary.",
+   "zh": "各次尝试保留原运行标识，否则会丢掉去重边界。",
+   "role": "Pipeline reliability engineer",
+   "start": 40.418,
+   "end": 47.475
+  },
+  {
+   "sp": "Priya",
+   "en": "So, hold new dispatch for now. Developers can still submit reviewed changes.",
+   "zh": "那么先暂停新任务派发。开发仍可提交评审过的变更。",
+   "role": "Incident coordinator",
+   "start": 47.475,
+   "end": 54.075
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on uploads. Any incomplete object stays outside release selection.",
+   "zh": "我关注上传。任何不完整对象都不能进入发布选择。",
+   "role": "Artifact security engineer",
+   "start": 54.075,
+   "end": 60.988
+  },
+  {
+   "sp": "Anika",
+   "en": "Fair, submissions aren't deployments or retries. I'll make that distinction quite clear.",
+   "zh": "明白，提交不等于部署或重试。我会把区别说清楚。",
+   "role": "Application release owner",
+   "start": 60.988,
+   "end": 67.9
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 2,
+ "scene": "生产未变，失败集中在依赖下载；开始盘点队列和副作用。",
+ "dir": "cicd/0267-队列影响与已经执行的任务",
+ "audio": "0267-队列影响与已经执行的任务.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "范围"
+ ],
+ "duration": 67.9
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0161",
+ "part": 6,
+ "stage": "分片方案",
+ "title": "分片键解决分布，不解决所有查询",
+ "premise": "垂直扩容是有限备用，讨论按租户分片的长期可能性。",
+ "listeningTask": "听出大租户热点、跨分片查询和事务取舍。",
+ "newPhrase": "p436",
+ "phrases": [
+  "p436",
+  "p435",
+  "p335:extra",
+  "p010:extra",
+  "p004:extra",
+  "p006:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Tenant ID is our proposed shard key. Most order operations stay within tenants.",
+   "zh": "建议用租户ID作分片键，大多数订单操作在租户内。",
+   "role": "Orders application architect",
+   "start": 0.0,
+   "end": 6.48
+  },
+  {
+   "sp": "Lukas",
+   "en": "What happens to the largest tenant? One hot shard could remain the bottleneck.",
+   "zh": "最大租户怎么办？一个热点分片可能仍是瓶颈。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 6.48,
+   "end": 12.192
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, tenant sizes are very uneven. Our working hypothesis needs distribution simulation first.",
+   "zh": "是，租户规模很不均，当前假设需要先模拟分布。",
+   "role": "Database capacity owner",
+   "start": 12.192,
+   "end": 20.233
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, cross-tenant reports exist, right? Those won't become magically cheaper.",
+   "zh": "确认一下，有跨租户报表，对吧？它们不会神奇地更便宜。",
+   "role": "Capacity review chair",
+   "start": 20.233,
+   "end": 27.577
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, fan-out adds coordination and latency. Global totals need a separate aggregation design.",
+   "zh": "对，多分片查询增加协调和延迟，全局汇总需要独立聚合设计。",
+   "role": "Performance and cost analyst",
+   "start": 27.577,
+   "end": 36.481
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe tenant routing covers normal writes. Cross-tenant adjustments still need explicit transaction rules.",
+   "zh": "租户路由可能覆盖普通写入，跨租户调整仍需明确事务规则。",
+   "role": "Orders application architect",
+   "start": 36.481,
+   "end": 44.401
+  },
+  {
+   "sp": "Lukas",
+   "en": "And rebalancing needs operational ownership too. More databases mean more recovery procedures.",
+   "zh": "重平衡也需要运维负责人，数据库更多就有更多恢复流程。",
+   "role": "Infrastructure and migration reviewer",
+   "start": 44.401,
+   "end": 51.961
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, immediate sharding? Let's park that. Do we have bandwidth for research?",
+   "zh": "好，立即分片先放一边，有精力做研究吗？",
+   "role": "Capacity review chair",
+   "start": 51.961,
+   "end": 58.994
+  },
+  {
+   "sp": "Hannah",
+   "en": "Limited bandwidth, not an eight-week commitment. Compare vertical scaling with realistic staffing.",
+   "zh": "精力有限，不是承诺八周完成，与垂直扩容比较时要用实际人手。",
+   "role": "Performance and cost analyst",
+   "start": 58.994,
+   "end": 67.298
+  },
+  {
+   "sp": "Raj",
+   "en": "So, prototype distribution on synthetic data. We shouldn't promise savings before that.",
+   "zh": "那先用合成数据做分布原型，之前不承诺收益。",
+   "role": "Database capacity owner",
+   "start": 67.298,
+   "end": 74.57
+  }
+ ],
+ "group": "ops-review",
+ "domain": "database",
+ "series": "sc-S16-database-capacity-review",
+ "parts": 10,
+ "seq": 6,
+ "scene": "垂直扩容是有限备用，讨论按租户分片的长期可能性。",
+ "dir": "database/0161-分片键解决分布，不解决所有查询",
+ "audio": "0161-分片键解决分布，不解决所有查询.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Capacity review chair）",
+  "Raj（Database capacity owner）",
+  "Anika（Orders application architect）",
+  "Lukas（Infrastructure and migration reviewer）",
+  "Hannah（Performance and cost analyst）"
+ ],
+ "tags": [
+  "database",
+  "分片方案"
+ ],
+ "duration": 74.57
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0216",
+ "part": 1,
+ "stage": "告警",
+ "title": "切换停住：不要直接提升",
+ "premise": "账本写入超时，控制器没有提升备机。",
+ "listeningTask": "辨别客户端超时和主机死亡并非同一证据。",
+ "newPhrase": "p491",
+ "phrases": [
+  "p491",
+  "p003",
+  "p101",
+  "p010:extra",
+  "p103:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Failover didn't kick in. No, it started, then stopped. The error rate spiked.",
+   "zh": "故障切换没自动启动。不，准确说是启动后停住了。错误率陡涨。",
+   "role": "Order application owner",
+   "start": 0.0,
+   "end": 7.537
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is the old primary actually dead?",
+   "zh": "旧主真的已经停机了吗？",
+   "role": "Cluster safety engineer",
+   "start": 7.537,
+   "end": 10.321
+  },
+  {
+   "sp": "Priya",
+   "en": "I'll take point on this. No promotion yet.",
+   "zh": "我来主抓。暂时不提升备机。",
+   "role": "Incident coordinator",
+   "start": 10.321,
+   "end": 14.713
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log. Writes are paused.",
+   "zh": "我盯一下日志。写入已暂停。",
+   "role": "Database on-call",
+   "start": 14.713,
+   "end": 18.77
+  },
+  {
+   "sp": "Hannah",
+   "en": "Paused where? Direct clients could bypass that.",
+   "zh": "在哪层暂停？直连客户端可能绕过去。",
+   "role": "Data validation engineer",
+   "start": 18.77,
+   "end": 23.306
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, both entry paths, right?",
+   "zh": "确认一下，两条入口都暂停了，对吧？",
+   "role": "Incident coordinator",
+   "start": 23.306,
+   "end": 27.122
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, gateway and batch writers are blocked.",
+   "zh": "是的，网关和批处理写入都被阻止了。",
+   "role": "Database on-call",
+   "start": 27.122,
+   "end": 31.011
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, that doesn't prove the host's stopped.",
+   "zh": "好，但这不能证明主机已经停止。",
+   "role": "Cluster safety engineer",
+   "start": 31.011,
+   "end": 34.323
+  },
+  {
+   "sp": "Priya",
+   "en": "Our working hypothesis is lost cluster connectivity.",
+   "zh": "当前假设是集群连接丢失。",
+   "role": "Incident coordinator",
+   "start": 34.323,
+   "end": 38.5
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe. Keep host state separate from symptoms.",
+   "zh": "可能。把主机状态与故障现象分开看。",
+   "role": "Data validation engineer",
+   "start": 38.5,
+   "end": 43.54
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 1,
+ "scene": "账本写入超时，控制器没有提升备机。",
+ "dir": "ha/0216-切换停住",
+ "audio": "0216-切换停住.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "告警"
+ ],
+ "duration": 43.54
+}

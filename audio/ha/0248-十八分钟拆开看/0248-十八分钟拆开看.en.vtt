@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.840
+Hannah: Let's separate what worked from what delayed recovery.
+
+2
+00:00:03.840 --> 00:00:07.896
+Raj: Detection took two minutes. Access took six.
+
+3
+00:00:07.896 --> 00:00:12.527
+Lukas: Fencing took three. Promotion and replay took four.
+
+4
+00:00:12.527 --> 00:00:17.495
+Anika: Validation took three. Recovery time totals eighteen.
+
+5
+00:00:17.495 --> 00:00:21.647
+Priya: Just to confirm, sequential stages here, right?
+
+6
+00:00:21.647 --> 00:00:26.855
+Raj: Yes. Our working hypothesis about access fits evidence.
+
+7
+00:00:26.855 --> 00:00:30.047
+Hannah: But don't rule that out for other delays.
+
+8
+00:00:30.047 --> 00:00:33.670
+Anika: The recovery point met this run's loss allowance.
+
+9
+00:00:33.670 --> 00:00:37.390
+Lukas: Probably not a guarantee for every future outage.
+
+10
+00:00:37.390 --> 00:00:42.910
+Priya: Exactly. Record measured results, not universal claims.
+

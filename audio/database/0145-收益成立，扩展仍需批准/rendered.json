@@ -1,0 +1,135 @@
+{
+ "id": "0145",
+ "part": 10,
+ "stage": "变更总结",
+ "title": "收益成立，扩展仍需批准",
+ "premise": "首个叶分区完成验收，下一工作日峰值观察通过，总结后续任务。",
+ "listeningTask": "听出首批成功不是全分区批准。",
+ "newPhrase": "p420",
+ "phrases": [
+  "p420",
+  "p411",
+  "p412:extra",
+  "p009:extra",
+  "p013:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Write overhead stayed within our budget. Peak observation passed on October's partition.",
+   "zh": "额外写成本仍在预算内，十月分区高峰观察通过。",
+   "role": "Database change operator",
+   "start": 0.0,
+   "end": 6.888
+  },
+  {
+   "sp": "Hannah",
+   "en": "Read improvements matched the rehearsal results. Broad searches still use sensible scans.",
+   "zh": "读收益符合预演结果，宽范围检索仍合理使用扫描。",
+   "role": "Query and rollout validation engineer",
+   "start": 6.888,
+   "end": 14.664
+  },
+  {
+   "sp": "Anika",
+   "en": "The query plan evidence is attached. We didn't trade correctness for speed.",
+   "zh": "执行计划证据已附，没有为速度牺牲正确性。",
+   "role": "Orders search owner",
+   "start": 14.664,
+   "end": 20.447
+  },
+  {
+   "sp": "Priya",
+   "en": "So, who's picking this up next? Raj reviews other partitions separately, right?",
+   "zh": "那下一步谁接？Raj单独评审其他分区，对吧？",
+   "role": "Change coordinator",
+   "start": 20.447,
+   "end": 27.143
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, not an automatic wider rollout. Each partition has different size and traffic.",
+   "zh": "是，不自动扩大，每个分区大小和流量不同。",
+   "role": "Database reliability reviewer",
+   "start": 27.143,
+   "end": 34.079
+  },
+  {
+   "sp": "Raj",
+   "en": "My action item is sizing by Friday. Maybe older partitions don't need this index.",
+   "zh": "我的行动项是周五前估算，也许旧分区不需要这个索引。",
+   "role": "Database change operator",
+   "start": 34.079,
+   "end": 41.375
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll add cancellation cleanup to rehearsal. Concurrent index build failures need practice too.",
+   "zh": "我把取消清理加入预演，并发构建失败也需要练习。",
+   "role": "Query and rollout validation engineer",
+   "start": 41.375,
+   "end": 49.511
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, update the runbook this week. Keep database-specific lock limits clearly stated.",
+   "zh": "好，本周更新运行手册，把数据库特定锁限制写清。",
+   "role": "Change coordinator",
+   "start": 49.511,
+   "end": 56.614
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review that and removal dependencies. No universal online-means-lock-free statement should remain.",
+   "zh": "我评审手册和删除依赖，不能留下在线等于无锁的通用说法。",
+   "role": "Database reliability reviewer",
+   "start": 56.614,
+   "end": 64.222
+  },
+  {
+   "sp": "Anika",
+   "en": "We'll close the loop next review. Bring read gains and write costs together.",
+   "zh": "下次评审闭环，一起展示读收益和写成本。",
+   "role": "Orders search owner",
+   "start": 64.222,
+   "end": 70.03
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 10,
+ "scene": "首个叶分区完成验收，下一工作日峰值观察通过，总结后续任务。",
+ "dir": "database/0145-收益成立，扩展仍需批准",
+ "audio": "0145-收益成立，扩展仍需批准.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "变更总结"
+ ],
+ "duration": 70.03
+}

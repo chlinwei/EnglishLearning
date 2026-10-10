@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.120
+Priya: Just to recap, recovery is verified. But the root cause is still open.
+小结一下，服务恢复已验证，但根因仍未查明。
+
+2
+00:00:06.120 --> 00:00:11.568
+Lukas: We know the worker's memory grew. We don't know which objects were retained.
+我们知道消费者内存在增长，但不知道保留了哪些对象。
+
+3
+00:00:11.568 --> 00:00:18.816
+Anika: First action item: reproduce the growth with sanitized traffic. I'll own that by tomorrow.
+第一个行动项：用脱敏流量复现增长。我负责，明天完成。
+
+4
+00:00:18.816 --> 00:00:25.488
+Hannah: Compare both builds with the same input. Otherwise the result could be misleading.
+两个构建要用同样输入对比，否则结果可能误导。
+
+5
+00:00:25.488 --> 00:00:32.208
+Raj: I'll attach the host timeline today. We need the process and host measurements together.
+我今天补上主机时间线，要把进程和主机测量放在一起。
+
+6
+00:00:32.208 --> 00:00:37.824
+Priya: Who's picking this up for the memory alerts? We need an owner, right?
+内存告警改进谁来接？得明确负责人，对吧？
+
+7
+00:00:37.824 --> 00:00:44.904
+Lukas: I'll review them by Thursday. Include growth rate and a tested response, not just thresholds.
+我周四前评审，包含增长速率和经过验证的响应流程，不只改阈值。
+
+8
+00:00:44.904 --> 00:00:49.800
+Anika: Once the fix passes a long run, we'll close the loop with evidence.
+修复通过长时间运行验证后，我们会带着证据反馈结果，把事情闭环。
+
+9
+00:00:49.800 --> 00:00:55.920
+Hannah: Long enough to cover the old growth window. A short smoke test won't do.
+测试时间得覆盖之前的增长周期，短暂冒烟测试不够。
+
+10
+00:00:55.920 --> 00:01:04.080
+Priya: Agreed. Let's take it offline for the test design. Keep the investigation open until it's verified.
+同意。测试设计会后单独聊，在验证之前调查保持未结案。
+

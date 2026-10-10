@@ -1,0 +1,135 @@
+{
+ "id": "0221",
+ "part": 6,
+ "stage": "隔离旧主",
+ "title": "电源证据：隔离成功才提升",
+ "premise": "基础设施操作员按批准流程关闭旧主并锁定重启。",
+ "listeningTask": "区分API请求被接受和最终关闭已确认。",
+ "newPhrase": "p496",
+ "phrases": [
+  "p496",
+  "p495",
+  "p014",
+  "p325:extra",
+  "p010:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "I'm on it. We'll fence off ledger-one.",
+   "zh": "我来操作，可靠隔离ledger-one。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 3.96
+  },
+  {
+   "sp": "Hannah",
+   "en": "The request was accepted. Is shutdown complete?",
+   "zh": "请求已受理，关闭完成了吗？",
+   "role": "Data validation engineer",
+   "start": 3.96,
+   "end": 8.76
+  },
+  {
+   "sp": "Raj",
+   "en": "Now confirmed off through the out-of-band console.",
+   "zh": "现在带外控制台已确认关闭。",
+   "role": "Database on-call",
+   "start": 8.76,
+   "end": 12.337
+  },
+  {
+   "sp": "Lukas",
+   "en": "I independently checked power and restart inhibition.",
+   "zh": "我独立核对了电源状态和重启禁止。",
+   "role": "Cluster safety engineer",
+   "start": 12.337,
+   "end": 16.201
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, lock persists, right?",
+   "zh": "确认一下，锁定会持续生效，对吧？",
+   "role": "Incident coordinator",
+   "start": 16.201,
+   "end": 19.777
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the automation exclusion is recorded too.",
+   "zh": "是的，自动化排除配置也已记录。",
+   "role": "Order application owner",
+   "start": 19.777,
+   "end": 23.761
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, the promotion gate can now pass.",
+   "zh": "好，现在提升门槛可以通过了。",
+   "role": "Data validation engineer",
+   "start": 23.761,
+   "end": 27.433
+  },
+  {
+   "sp": "Raj",
+   "en": "Standby promoted. A local smoke test passed.",
+   "zh": "备机已提升，本地关键功能快速验证通过。",
+   "role": "Database on-call",
+   "start": 27.433,
+   "end": 31.826
+  },
+  {
+   "sp": "Lukas",
+   "en": "Perhaps enough for a canary, not full traffic.",
+   "zh": "也许足够开始灰度，但还不能全量接流量。",
+   "role": "Cluster safety engineer",
+   "start": 31.826,
+   "end": 35.426
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Keep application writers paused until routing validation.",
+   "zh": "同意。路由验证前继续暂停应用写入。",
+   "role": "Incident coordinator",
+   "start": 35.426,
+   "end": 40.97
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 6,
+ "scene": "基础设施操作员按批准流程关闭旧主并锁定重启。",
+ "dir": "ha/0221-电源证据",
+ "audio": "0221-电源证据.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "隔离旧主"
+ ],
+ "duration": 40.97
+}

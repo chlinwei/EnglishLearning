@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.720
+Priya: Okay, weighted routing goes to twenty-five percent. Fifty still needs a separate approval.
+
+2
+00:00:06.720 --> 00:00:13.056
+Lukas: Are those weights for new connections only? Existing traffic won't immediately match them.
+
+3
+00:00:13.056 --> 00:00:21.361
+Raj: Yes, new connections only, not requests. We'll measure actual distribution alongside configured weights.
+
+4
+00:00:21.361 --> 00:00:28.585
+Hannah: What's the ETA for the next gate? Check new pool capacity before raising weights.
+
+5
+00:00:28.585 --> 00:00:35.833
+Anika: Roughly ten minutes, with matched request samples. Green still has comfortable capacity now.
+
+6
+00:00:35.833 --> 00:00:43.393
+Priya: Just to confirm, the rollback trigger stays, right? Approval doesn't relax our error threshold.
+
+7
+00:00:43.393 --> 00:00:49.873
+Lukas: Correct, restore the previous weights if needed. Record each step's known good state.
+
+8
+00:00:49.873 --> 00:00:57.482
+Raj: I'm on it, snapshots before each step. Twenty-five is applied; counters are arriving normally.
+
+9
+00:00:57.482 --> 00:01:06.434
+Hannah: After the observation window, checks still pass. Payment correctness and setup errors remain stable.
+
+10
+00:01:06.434 --> 00:01:14.090
+Priya: Then fifty is approved with identical checks. So, repeat observation before proposing full traffic.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0048",
+ "part": 3,
+ "stage": "划分批次",
+ "title": "逐台发布：容量够不够不能靠感觉",
+ "premise": "补丁测试通过，驱动清单正在复核，开始确认逐台执行顺序及容量。",
+ "listeningTask": "听出单台维护的容量前提、故障域分布和并行执行限制。",
+ "newPhrase": "p323",
+ "phrases": [
+  "p323",
+  "p010",
+  "p211",
+  "p014:extra",
+  "p008:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "We'll use a staged rollout. Host A first. Then one node at a time.",
+   "zh": "我们分阶段发布，先A主机，然后一次只处理一台节点。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Lukas",
+   "en": "Can three hosts handle tonight's traffic with room for a spike?",
+   "zh": "今晚三台能承担流量，并给突增保留余量吗？",
+   "role": "SRE reviewer",
+   "start": 6.552,
+   "end": 10.632
+  },
+  {
+   "sp": "Anika",
+   "en": "The load test says yes. Three hosts covered the recent peak with spare capacity.",
+   "zh": "负载测试结果可以。三台能覆盖近期峰值，而且还有余量。",
+   "role": "API owner",
+   "start": 10.632,
+   "end": 17.089
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, no two hosts draining together, right? Even in different zones?",
+   "zh": "我确认一下，不同时让两台退出流量，对吧？不同区域也不行？",
+   "role": "Linux operator",
+   "start": 17.089,
+   "end": 23.569
+  },
+  {
+   "sp": "Hannah",
+   "en": "Right. We should also confirm the remaining hosts span both failure zones.",
+   "zh": "对，也要确认剩余主机仍分布在两个故障域。",
+   "role": "Validation engineer",
+   "start": 23.569,
+   "end": 30.049
+  },
+  {
+   "sp": "Priya",
+   "en": "I'm on it for the schedule. What's the ETA per host, including validation?",
+   "zh": "执行安排我来负责。每台包括验证预计多久？",
+   "role": "Change coordinator",
+   "start": 30.049,
+   "end": 36.121
+  },
+  {
+   "sp": "Lukas",
+   "en": "Allow ten minutes. If one takes longer, stop and reassess the window.",
+   "zh": "留十分钟。如果一台超时，就停止并重新评估窗口。",
+   "role": "SRE reviewer",
+   "start": 36.121,
+   "end": 41.881
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on latency. We shouldn't use the whole margin on maintenance.",
+   "zh": "我会留意延迟，维护不能把全部余量用光。",
+   "role": "API owner",
+   "start": 41.881,
+   "end": 47.882
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll record the before-and-after checks. No next host until the current one passes.",
+   "zh": "我会记录操作前后检查。当前这台没通过，就不能动下一台。",
+   "role": "Validation engineer",
+   "start": 47.882,
+   "end": 55.154
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay. Probably forty minutes of work, with fifteen left for delays or rollback.",
+   "zh": "好。大约四十分钟操作，剩下十五分钟用于延误或回退。",
+   "role": "Linux operator",
+   "start": 55.154,
+   "end": 61.97
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 3,
+ "scene": "补丁测试通过，驱动清单正在复核，开始确认逐台执行顺序及容量。",
+ "dir": "linux/0048-逐台发布",
+ "audio": "0048-逐台发布.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "划分批次"
+ ],
+ "duration": 61.97
+}

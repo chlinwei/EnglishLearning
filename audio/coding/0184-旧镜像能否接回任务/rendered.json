@@ -1,0 +1,135 @@
+{
+ "id": "0184",
+ "part": 9,
+ "stage": "回退确认",
+ "title": "旧镜像能否接回任务",
+ "premise": "扩大完成无回归，在隔离环境复核旧版本回退兼容性。",
+ "listeningTask": "区别保留镜像与完成回退验证。",
+ "newPhrase": "p459",
+ "phrases": [
+  "p459",
+  "p010",
+  "p324:extra",
+  "p334:extra",
+  "p455:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "The previous image digest is retained locally. Its signature and retrieval path are verified.",
+   "zh": "旧镜像摘要对应制品已保留，签名与取回路径验证通过。",
+   "role": "Build and release SRE",
+   "start": 0.0,
+   "end": 7.056
+  },
+  {
+   "sp": "Raj",
+   "en": "The clean rebuild record covers that image. But rollback uses retained bytes, not rebuilding.",
+   "zh": "干净重建记录涵盖该镜像，但回退直接用留存制品，不临时重建。",
+   "role": "Python dependency maintainer",
+   "start": 7.056,
+   "end": 14.4
+  },
+  {
+   "sp": "Hannah",
+   "en": "Can the old worker read current checkpoints? Image availability alone doesn't prove operational rollback.",
+   "zh": "旧worker能读当前检查点吗？镜像可取不等于回退可用。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 14.4,
+   "end": 22.919
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, checkpoint format stayed unchanged this time. Just to confirm, we tested that, right?",
+   "zh": "可以，这次检查点格式未变。确认一下，已经测试，对吧？",
+   "role": "Inventory application owner",
+   "start": 22.919,
+   "end": 30.503
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, the smoke test passed after simulated rollback. No live production reversal is needed now.",
+   "zh": "好，模拟回退后冒烟测试通过，现在不必反转生产。",
+   "role": "Change coordinator and approval owner",
+   "start": 30.503,
+   "end": 38.231
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe the callback replacement will change compatibility. We'll review it as a separate change.",
+   "zh": "替换回调可能改变兼容性，会作为独立变更评审。",
+   "role": "Python dependency maintainer",
+   "start": 38.231,
+   "end": 45.239
+  },
+  {
+   "sp": "Lukas",
+   "en": "Document draining before restoring the old lease. The rollback trigger must include duplicate writes.",
+   "zh": "记录恢复旧租约前的排空步骤，回退触发必须包含重复写入。",
+   "role": "Build and release SRE",
+   "start": 45.239,
+   "end": 52.487
+  },
+  {
+   "sp": "Anika",
+   "en": "A temporary workaround would pause the partition. We'd preserve its checkpoint before any reversal.",
+   "zh": "临时措施是暂停分区，任何反向切换前保留检查点。",
+   "role": "Inventory application owner",
+   "start": 52.487,
+   "end": 59.518
+  },
+  {
+   "sp": "Hannah",
+   "en": "The isolated rollback preserved all processed records. Unprocessed records resumed without duplicate side effects.",
+   "zh": "隔离回退保留已处理记录，未处理记录恢复时没有重复副作用。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 59.518,
+   "end": 69.19
+  },
+  {
+   "sp": "Priya",
+   "en": "Good, keep the old artifact through retention. We can close deployment, not erase recovery options.",
+   "zh": "好，按期限保留旧制品，可关闭部署，不能删除恢复选项。",
+   "role": "Change coordinator and approval owner",
+   "start": 69.19,
+   "end": 77.11
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 9,
+ "scene": "扩大完成无回归，在隔离环境复核旧版本回退兼容性。",
+ "dir": "coding/0184-旧镜像能否接回任务",
+ "audio": "0184-旧镜像能否接回任务.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "回退确认"
+ ],
+ "duration": 77.11
+}

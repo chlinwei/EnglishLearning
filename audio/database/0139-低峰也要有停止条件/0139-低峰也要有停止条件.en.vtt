@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.192
+Priya: Use the off-peak window at midnight. This maintenance window has staffed coverage.
+
+2
+00:00:06.192 --> 00:00:12.504
+Lukas: Is the batch scheduler quiet then? Low request traffic doesn't guarantee low writes.
+
+3
+00:00:12.504 --> 00:00:19.129
+Raj: The reporting batch will finish beforehand. We'll check actual workload before starting.
+
+4
+00:00:19.129 --> 00:00:25.921
+Anika: Just to confirm, no automatic start, right? Maybe the batch runs late tonight.
+
+5
+00:00:25.921 --> 00:00:34.081
+Hannah: Correct. Preflight failure means postponement instead. Nobody needs to force this through.
+
+6
+00:00:34.081 --> 00:00:41.377
+Priya: Okay, what's the ETA from rehearsal? Include waiting and validation, not just scanning.
+
+7
+00:00:41.377 --> 00:00:47.041
+Lukas: Roughly twenty minutes with spare margin. Production volume can make it longer.
+
+8
+00:00:47.041 --> 00:00:51.242
+Raj: The rollback trigger includes sustained write delays. A growing lock wait also means stop.
+
+9
+00:00:51.242 --> 00:00:58.106
+Hannah: Record thresholds in the approved ticket. Watch replica lag and free storage.
+
+10
+00:00:58.106 --> 00:01:04.730
+Anika: So, I'll cover customer-facing metrics tonight. The query switch stays off initially.
+

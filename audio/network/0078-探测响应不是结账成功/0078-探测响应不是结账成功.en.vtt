@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.368
+Hannah: The health check is failing in staging. It receives an unexpected redirect response.
+
+2
+00:00:07.368 --> 00:00:14.136
+Raj: Okay, the probe used the wrong hostname. The service itself accepts valid requests.
+
+3
+00:00:14.136 --> 00:00:20.377
+Lukas: Can we rule that out in production? Staging behavior alone isn't enough evidence.
+
+4
+00:00:20.377 --> 00:00:26.809
+Anika: The new production pool has zero traffic. An approved direct test succeeds there.
+
+5
+00:00:26.809 --> 00:00:34.369
+Priya: Just to confirm, correct hostname first, right? Don't simply accept redirects as healthy.
+
+6
+00:00:34.369 --> 00:00:42.073
+Hannah: Exactly, require the expected status and body. Also check the probe interval.
+
+7
+00:00:42.073 --> 00:00:49.681
+Raj: Five seconds, with three failures before removal. Recovery also needs three consecutive passes.
+
+8
+00:00:49.681 --> 00:00:56.354
+Lukas: Roughly fifteen seconds before removal, then. How will you test actual checkout behavior?
+
+9
+00:00:56.354 --> 00:01:02.978
+Anika: The smoke test covers sandbox payments separately. A green probe isn't that test.
+
+10
+00:01:02.978 --> 00:01:10.850
+Priya: Deeper dependency checks? Let's park that. First, validate these agreed probe settings.
+

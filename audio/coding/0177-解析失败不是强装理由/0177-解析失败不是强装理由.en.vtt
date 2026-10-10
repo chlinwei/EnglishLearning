@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Raj: The dependency resolver rejects the proposed set. Our plugin requires the older client range.
+
+2
+00:00:07.248 --> 00:00:15.144
+Hannah: Show both constraints in the review. Don't force installation by ignoring dependency checks.
+
+3
+00:00:15.144 --> 00:00:22.945
+Anika: Our working hypothesis is outdated plugin compatibility. A newer plugin advertises the required range.
+
+4
+00:00:22.945 --> 00:00:30.913
+Priya: Just to confirm, advertised isn't tested, right? We'll verify behavior before accepting that pair.
+
+5
+00:00:30.913 --> 00:00:38.641
+Lukas: Check interpreter requirements and available platform wheels. A solvable graph can still fail installation.
+
+6
+00:00:38.641 --> 00:00:44.881
+Raj: I'm on it for the candidate plugin. We can rule that out as network failure.
+
+7
+00:00:44.881 --> 00:00:54.025
+Hannah: Yes, the error cites incompatible version constraints. Keep the complete resolver output as evidence.
+
+8
+00:00:54.025 --> 00:01:01.802
+Anika: Okay, the plugin itself handles token refresh. Maybe that path needs extra compatibility tests.
+
+9
+00:01:01.802 --> 00:01:08.018
+Lukas: A client replacement is another option. But it's outside this maintenance change's scope.
+
+10
+00:01:08.018 --> 00:01:15.050
+Priya: Let's park that larger replacement for now. Test the compatible pair without broadening scope.
+

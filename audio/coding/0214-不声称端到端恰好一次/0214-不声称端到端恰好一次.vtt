@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.544
+Hannah: Would you describe this as exactly-once processing? Explain the guarantee without hiding its limits.
+会称为恰好一次处理吗？解释保证，不隐藏限制。
+
+2
+00:00:08.544 --> 00:00:16.537
+Raj: No, our queue provides at-least-once delivery. The idempotency key limits duplicate remote side effects.
+不会，队列至少一次投递，幂等键限制重复远程副作用。
+
+3
+00:00:16.537 --> 00:00:23.233
+Lukas: But the local ledger isn't remotely atomic. What remains uncertain after a long outage?
+本地记录与远端不是原子事务，长故障后还有什么不确定？
+
+4
+00:00:23.233 --> 00:00:31.610
+Raj: Unknown results may outlive the deduplication period. Just to confirm, blind resubmission is unsafe, right?
+未知结果可能超过去重期限，确认一下，盲重发不安全，对吧？
+
+5
+00:00:31.610 --> 00:00:40.178
+Raj: Okay, a temporary workaround pauses those operations. One action item is authoritative result reconciliation.
+好，临时措施是暂停这些操作，需核对权威结果。
+
+6
+00:00:40.178 --> 00:00:46.874
+Hannah: Would adding another database solve that gap? Or does it merely move the uncertainty?
+再加数据库能解决缺口吗？还是只移动不确定性？
+
+7
+00:00:46.874 --> 00:00:55.371
+Raj: It won't create a cross-system transaction automatically. Maybe stronger service contracts are needed for guarantees.
+不会自动建立跨系统事务，更强保证可能需要加强服务契约。
+
+8
+00:00:55.371 --> 00:01:01.875
+Lukas: What complexity would you defer initially? We still want a maintainable first solution.
+初版推迟什么复杂度？仍希望首版可维护。
+
+9
+00:01:01.875 --> 00:01:10.780
+Raj: Let's park that custom distributed transaction coordinator. I'd prefer the provided contract and explicit reconciliation.
+先放下自建分布式事务协调器，优先给定契约和显式核对。
+
+10
+00:01:10.780 --> 00:01:18.820
+Raj: The trade-off is visible operational follow-up work. I'd document that rather than promise impossible semantics.
+代价是需要明确运维跟进，会记录它，不承诺不可能语义。
+

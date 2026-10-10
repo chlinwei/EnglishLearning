@@ -1,0 +1,135 @@
+{
+ "id": "0076",
+ "part": 1,
+ "stage": "迁移申请",
+ "title": "入口不变，池逐步迁移",
+ "premise": "提交checkout负载均衡池迁移申请，先确定范围和实施窗口。",
+ "listeningTask": "辨别公共入口与内部池切换，并听清申请尚未授权执行。",
+ "newPhrase": "p351",
+ "phrases": [
+  "p351",
+  "p321",
+  "p010",
+  "p003:extra",
+  "p008:extra",
+  "p323:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. We propose to shift traffic tonight.",
+   "zh": "好，这次我来主抓。我们提议今晚迁移流量。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 5.856
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does that include a public DNS change? That would complicate our rollback timing.",
+   "zh": "包括公共DNS变更吗？那会让回退时间复杂起来。",
+   "role": "SRE reviewer",
+   "start": 5.856,
+   "end": 12.024
+  },
+  {
+   "sp": "Raj",
+   "en": "No, the public entry stays unchanged. Edge routing selects the internal pool.",
+   "zh": "不，公共入口不变，由边缘路由选择内部池。",
+   "role": "Network engineer",
+   "start": 12.024,
+   "end": 18.48
+  },
+  {
+   "sp": "Hannah",
+   "en": "So clients keep the same hostname. What problem does this migration solve?",
+   "zh": "所以客户端继续使用相同主机名。这次迁移解决什么问题？",
+   "role": "Validation engineer",
+   "start": 18.48,
+   "end": 25.008
+  },
+  {
+   "sp": "Anika",
+   "en": "The old platform loses support next month. There's no current checkout outage.",
+   "zh": "旧平台下个月停止支持，目前结账服务并无故障。",
+   "role": "Checkout owner",
+   "start": 25.008,
+   "end": 31.152
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, a staged rollout, right? Approval doesn't mean immediate full traffic.",
+   "zh": "我确认一下，是分阶段切换，对吧？批准不代表立即全量迁移。",
+   "role": "Change coordinator",
+   "start": 31.152,
+   "end": 38.136
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed, with gates between each step. We need tested rollback access first.",
+   "zh": "同意，每一步之间都要有验收门槛。先验证回退权限可用。",
+   "role": "SRE reviewer",
+   "start": 38.136,
+   "end": 44.376
+  },
+  {
+   "sp": "Raj",
+   "en": "The maintenance window starts at ten. We'll leave roughly two hours available.",
+   "zh": "维护窗口十点开始，预留大约两小时。",
+   "role": "Network engineer",
+   "start": 44.376,
+   "end": 50.376
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the ETA for the dependency checklist? I can't approve an incomplete boundary.",
+   "zh": "依赖清单预计什么时候完成？边界不完整，我无法批准。",
+   "role": "Validation engineer",
+   "start": 50.376,
+   "end": 57.672
+  },
+  {
+   "sp": "Priya",
+   "en": "By nine, before the final approval. First, let's check those dependencies together.",
+   "zh": "九点前完成，在最终批准之前。先一起检查依赖。",
+   "role": "Change coordinator",
+   "start": 57.672,
+   "end": 64.44
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 1,
+ "scene": "提交checkout负载均衡池迁移申请，先确定范围和实施窗口。",
+ "dir": "network/0076-入口不变，池逐步迁移",
+ "audio": "0076-入口不变，池逐步迁移.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "迁移申请"
+ ],
+ "duration": 64.44
+}

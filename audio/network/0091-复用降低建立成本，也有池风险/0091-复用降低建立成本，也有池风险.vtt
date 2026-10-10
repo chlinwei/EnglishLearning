@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.968
+Anika: Okay, connection reuse could avoid repeated handshakes. Our client currently opens many short connections.
+好，连接复用可以避免重复握手。目前客户端建立很多短连接。
+
+2
+00:00:07.968 --> 00:00:15.048
+Lukas: What closes them, client policy or server? Reuse won't help if the server closes first.
+是什么关闭连接，客户端策略还是服务端？服务端先关闭的话复用没用。
+
+3
+00:00:15.048 --> 00:00:22.103
+Anika: Client pooling is disabled for this integration. The server supports bounded persistent connections.
+这个集成关闭了客户端连接池，服务端支持有限度的持久连接。
+
+4
+00:00:22.103 --> 00:00:29.567
+Hannah: So round-trip time remains, but setup shrinks. That isn't a shorter network route.
+所以往返时间还在，但建立开销减少了，不代表网络路径变短。
+
+5
+00:00:29.567 --> 00:00:37.007
+Priya: Just to confirm, test stale connections too, right? Idle timeouts could change the outcome.
+我确认一下，也测试失效旧连接，对吧？空闲超时可能影响结果。
+
+6
+00:00:37.007 --> 00:00:44.831
+Raj: Yes, align pool expiry below server timeout. Add jitter to avoid synchronized reconnect bursts.
+是，把池过期时间设得低于服务端超时，加抖动避免同时重连。
+
+7
+00:00:44.831 --> 00:00:51.743
+Lukas: And cap concurrency rather than growing indefinitely. Queue delay belongs in the measurements too.
+还要限制并发，不能无限增长。排队延迟也要计入测量。
+
+8
+00:00:51.743 --> 00:00:57.142
+Anika: I'm on it for those client limits. We'll keep an eye on pool waits.
+这些客户端限制我来做，也会留意连接池等待。
+
+9
+00:00:57.142 --> 00:01:05.806
+Hannah: If we're seeing connection resets during tests, compare idle age. Avoid blind payment retries.
+如果测试发现连接重置，就比较空闲时长。不要盲目重试支付。
+
+10
+00:01:05.806 --> 00:01:13.870
+Priya: So, sandbox calls first, roughly current concurrency. Production adoption still needs a separate review.
+所以先用沙箱调用，并发接近当前水平。生产采用仍需单独评审。
+

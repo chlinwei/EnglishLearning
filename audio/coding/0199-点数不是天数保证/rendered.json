@@ -1,0 +1,135 @@
+{
+ "id": "0199",
+ "part": 4,
+ "stage": "估算",
+ "title": "点数不是天数保证",
+ "premise": "范围确定，团队按不确定性与工作量估算任务。",
+ "listeningTask": "听出估点、实际容量与可选目标的区别。",
+ "newPhrase": "p474",
+ "phrases": [
+  "p474",
+  "p010",
+  "p006:extra",
+  "p008:extra",
+  "p471:extra",
+  "p473:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Finishing every extraction is a stretch here. I'd estimate the first slice at five points.",
+   "zh": "全部提取完成有挑战，第一个切片估五点。",
+   "role": "Refactoring implementation engineer",
+   "start": 0.0,
+   "end": 7.128
+  },
+  {
+   "sp": "Lukas",
+   "en": "What uncertainty does that estimate include? Points aren't a promise of five days.",
+   "zh": "估算含什么不确定性？五点不等于承诺五天。",
+   "role": "Architecture and implementation reviewer",
+   "start": 7.128,
+   "end": 13.32
+  },
+  {
+   "sp": "Anika",
+   "en": "Consumer fixtures still need clarification from owners. Just to confirm, discovery is included, right?",
+   "zh": "使用方fixture还需负责人澄清，确认一下，包含梳理时间，对吧？",
+   "role": "Reporting service and consumer owner",
+   "start": 13.32,
+   "end": 21.719
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes, available bandwidth is lower than usual. What's the ETA for the first fixture set?",
+   "zh": "是，可用人力比平时少，首批fixture预计何时好？",
+   "role": "Iteration facilitator and scope owner",
+   "start": 21.719,
+   "end": 28.775
+  },
+  {
+   "sp": "Hannah",
+   "en": "About two days if consumer samples arrive. The characterization test needs expected failures too.",
+   "zh": "收到使用方样本的话约两天，现有行为测试也需预期失败。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 28.775,
+   "end": 37.463
+  },
+  {
+   "sp": "Raj",
+   "en": "Maybe five points understates those error paths. I'll separate discovery from mechanical function extraction.",
+   "zh": "五点可能低估异常路径，把梳理与机械提函数拆开。",
+   "role": "Refactoring implementation engineer",
+   "start": 37.463,
+   "end": 45.455
+  },
+  {
+   "sp": "Lukas",
+   "en": "Make unknowns explicit before committing capacity. Otherwise estimates hide risk rather than communicate it.",
+   "zh": "承诺前明确未知项，否则估算是在藏风险，不是说明风险。",
+   "role": "Architecture and implementation reviewer",
+   "start": 45.455,
+   "end": 53.111
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, don't solve scope creep by overtime. Optional logging cleanup can remain uncommitted this sprint.",
+   "zh": "好，不能靠加班解决范围膨胀，可选日志整理本轮不承诺。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 53.111,
+   "end": 61.006
+  },
+  {
+   "sp": "Hannah",
+   "en": "The committed goal should be demonstrable behavior. Count test evidence, not just extracted functions.",
+   "zh": "承诺目标应是可演示行为，看测试证据，不只数提取函数。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 61.006,
+   "end": 70.03
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll bring samples by tomorrow morning. Then we can revisit the uncertain estimate.",
+   "zh": "同意，明早带样本，然后重新看不确定的估算。",
+   "role": "Reporting service and consumer owner",
+   "start": 70.03,
+   "end": 76.99
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 4,
+ "scene": "范围确定，团队按不确定性与工作量估算任务。",
+ "dir": "coding/0199-点数不是天数保证",
+ "audio": "0199-点数不是天数保证.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "估算"
+ ],
+ "duration": 76.99
+}

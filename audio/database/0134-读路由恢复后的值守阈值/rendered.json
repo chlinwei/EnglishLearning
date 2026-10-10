@@ -1,0 +1,135 @@
+{
+ "id": "0134",
+ "part": 9,
+ "stage": "交班观察",
+ "title": "读路由恢复后的值守阈值",
+ "premise": "历史读已分批恢复且稳定，敏感读仍走主库，删除批次继续暂停。",
+ "listeningTask": "抓住升级条件和不可自动执行的切主操作。",
+ "newPhrase": "p409",
+ "phrases": [
+  "p409",
+  "p407",
+  "p336:extra",
+  "p331:extra",
+  "p309:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The lag threshold is thirty seconds. Page us after two consecutive breaches.",
+   "zh": "延迟阈值三十秒，连续两次超过就呼叫我们。",
+   "role": "Replication on-call",
+   "start": 0.0,
+   "end": 6.144
+  },
+  {
+   "sp": "Hannah",
+   "en": "And failed freshness checks need immediate attention. Even when that timer looks normal.",
+   "zh": "新鲜度检查失败也要立即关注，即使计时数看起来正常。",
+   "role": "Consistency validation engineer",
+   "start": 6.144,
+   "end": 13.2
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, hand over those checks tonight. The escalation path lists Raj first.",
+   "zh": "好，今晚交接这些检查，升级路径第一联系人是Raj。",
+   "role": "Incident coordinator",
+   "start": 13.2,
+   "end": 19.535
+  },
+  {
+   "sp": "Lukas",
+   "en": "What if primary write health changes? That needs a separate failover assessment.",
+   "zh": "如果主库写健康变化呢？那需要单独评估故障切换。",
+   "role": "Database SRE",
+   "start": 19.535,
+   "end": 25.487
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, no automatic promotion for lag. We retain routing controls instead, right?",
+   "zh": "是，不因延迟自动提升副本，而是保留路由控制，对吧？",
+   "role": "Orders read routing owner",
+   "start": 25.487,
+   "end": 32.471
+  },
+  {
+   "sp": "Raj",
+   "en": "Correct, keep an eye on both loads. The replica is catching up under bursts.",
+   "zh": "对，两边负载都关注，副本在突发后仍能追赶。",
+   "role": "Replication on-call",
+   "start": 32.471,
+   "end": 38.879
+  },
+  {
+   "sp": "Hannah",
+   "en": "The scan remains throttled for now. Who approves its normal rate later?",
+   "zh": "扫描目前仍降速，之后谁批准恢复正常速率？",
+   "role": "Consistency validation engineer",
+   "start": 38.879,
+   "end": 45.023
+  },
+  {
+   "sp": "Priya",
+   "en": "Its owner, after a load review. What's the ETA for that review?",
+   "zh": "任务负责人，负载评审后批准，评审预计何时？",
+   "role": "Incident coordinator",
+   "start": 45.023,
+   "end": 50.494
+  },
+  {
+   "sp": "Lukas",
+   "en": "Tomorrow morning, with overlapping workloads measured. Maybe isolate the scan from B.",
+   "zh": "明早，带上重叠负载测量结果，也许把扫描和B隔离。",
+   "role": "Database SRE",
+   "start": 50.494,
+   "end": 56.854
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I'll attach current routing settings. Reports and confirmations have different destinations.",
+   "zh": "那我附上当前路由设置，报表和确认读取目的地不同。",
+   "role": "Orders read routing owner",
+   "start": 56.854,
+   "end": 64.03
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 9,
+ "scene": "历史读已分批恢复且稳定，敏感读仍走主库，删除批次继续暂停。",
+ "dir": "database/0134-读路由恢复后的值守阈值",
+ "audio": "0134-读路由恢复后的值守阈值.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "交班观察"
+ ],
+ "duration": 64.03
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0038",
+ "part": 3,
+ "stage": "检查曲线",
+ "title": "内存一直涨：像泄漏，但还不能确认",
+ "premise": "主机级OOM已确认，需要判断是哪类内存增长、是否属于正常缓存。",
+ "listeningTask": "听出趋势、相关性和仍需验证的解释。",
+ "newPhrase": "p313",
+ "phrases": [
+  "p313",
+  "p010",
+  "p302",
+  "p008:extra",
+  "p004:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "The worker's RSS keeps climbing. It rose steadily for about six hours.",
+   "zh": "这个消费者的常驻内存一直在涨，持续上升了大约六小时。",
+   "role": "Operations engineer",
+   "start": 0.0,
+   "end": 6.744
+  },
+  {
+   "sp": "Raj",
+   "en": "Other processes stayed small. The worker accounts for most of that increase.",
+   "zh": "其他进程占用一直很小，大部分增长来自这个消费者。",
+   "role": "Linux on-call",
+   "start": 6.744,
+   "end": 12.744
+  },
+  {
+   "sp": "Lukas",
+   "en": "Could that be a cache warming up? Does it normally level off?",
+   "zh": "会不会只是缓存预热？正常情况下最终会趋于稳定吗？",
+   "role": "SRE",
+   "start": 12.744,
+   "end": 17.255
+  },
+  {
+   "sp": "Anika",
+   "en": "Usually it does. This curve doesn't flatten. Maybe the cache isn't bounded.",
+   "zh": "通常会稳定，但这条曲线没有变平。可能是缓存没有限制。",
+   "role": "Application owner",
+   "start": 17.255,
+   "end": 24.215
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, that's a hypothesis, right? We haven't proved a leak.",
+   "zh": "我确认一下，这只是一个假设，对吧？我们还没证明是泄漏。",
+   "role": "Incident lead",
+   "start": 24.215,
+   "end": 30.335
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. The older version flattened much earlier under similar load.",
+   "zh": "对。旧版本在类似负载下更早就趋于稳定。",
+   "role": "Operations engineer",
+   "start": 30.335,
+   "end": 36.335
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll keep an eye on the new process. We can't rule that out yet.",
+   "zh": "我会盯着新进程，现在还不能排除那个假设。",
+   "role": "Linux on-call",
+   "start": 36.335,
+   "end": 41.711
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let's compare request volume too. A busier worker could explain some growth.",
+   "zh": "也对比请求量。消费者更忙，也可能解释部分增长。",
+   "role": "SRE",
+   "start": 41.711,
+   "end": 47.686
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for that comparison? A bigger host? Let's park that for now.",
+   "zh": "完成对比预计多久？换更大主机的事先放一边。",
+   "role": "Incident lead",
+   "start": 47.686,
+   "end": 54.478
+  },
+  {
+   "sp": "Anika",
+   "en": "About three minutes. I'll check the input mix as well, not just volume.",
+   "zh": "大约三分钟。我也会看输入数据的类型，不只看数量。",
+   "role": "Application owner",
+   "start": 54.478,
+   "end": 60.55
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 3,
+ "scene": "主机级OOM已确认，需要判断是哪类内存增长、是否属于正常缓存。",
+ "dir": "linux/0038-内存一直涨",
+ "audio": "0038-内存一直涨.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "检查曲线"
+ ],
+ "duration": 60.55
+}

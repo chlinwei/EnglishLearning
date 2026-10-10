@@ -1,0 +1,135 @@
+{
+ "id": "0176",
+ "part": 1,
+ "stage": "申请",
+ "title": "为什么现在升级",
+ "premise": "现有客户端分支将停止维护，提出受控升级申请。",
+ "listeningTask": "抓住维护动机与不包含的功能变更。",
+ "newPhrase": "p451",
+ "phrases": [
+  "p451",
+  "p010",
+  "p009:extra",
+  "p321:extra",
+  "p008:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We need a supported release of the client. Our current branch loses maintenance next month.",
+   "zh": "客户端需要换到受支持版本，当前分支下月停止维护。",
+   "role": "Python dependency maintainer",
+   "start": 0.0,
+   "end": 7.176
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is this maintenance or a feature rollout? Keep the approval scope explicit here.",
+   "zh": "这是维护还是功能发布？明确审批范围。",
+   "role": "Build and release SRE",
+   "start": 7.176,
+   "end": 13.104
+  },
+  {
+   "sp": "Anika",
+   "en": "Maintenance only, no new inventory behavior. The authentication plugin may need upgrading too.",
+   "zh": "只做维护，不改变库存行为，认证插件可能也需升级。",
+   "role": "Inventory application owner",
+   "start": 13.104,
+   "end": 20.423
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, just to confirm, no schema migration, right? We need a reversible application change.",
+   "zh": "好，确认一下，不改数据结构，对吧？应用变更要能回退。",
+   "role": "Change coordinator and approval owner",
+   "start": 20.423,
+   "end": 28.175
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll define a smoke test for syncing. Include authentication, pagination, and duplicate write protection.",
+   "zh": "我定义同步冒烟测试，覆盖认证、分页与防重复写入。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 28.175,
+   "end": 37.391
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item is checking transitive dependencies. What's the ETA for the test environment?",
+   "zh": "一项任务是检查间接依赖，测试环境预计多久就绪？",
+   "role": "Python dependency maintainer",
+   "start": 37.391,
+   "end": 44.759
+  },
+  {
+   "sp": "Lukas",
+   "en": "The environment is ready this afternoon. Use the production interpreter and base image.",
+   "zh": "今天下午环境就绪，使用生产解释器和基础镜像。",
+   "role": "Build and release SRE",
+   "start": 44.759,
+   "end": 51.239
+  },
+  {
+   "sp": "Priya",
+   "en": "We'll request a maintenance window after testing. Maybe Thursday works for the service owner.",
+   "zh": "测试后申请维护窗口，服务负责人可能周四方便。",
+   "role": "Change coordinator and approval owner",
+   "start": 51.239,
+   "end": 57.91
+  },
+  {
+   "sp": "Hannah",
+   "en": "Don't approve the window as release permission. Evidence still needs review before production deployment.",
+   "zh": "窗口获批不等于可以发布，上生产前仍要审查证据。",
+   "role": "Compatibility and reproducibility tester",
+   "start": 57.91,
+   "end": 66.19
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll confirm the inventory workload schedule. We shouldn't overlap the nightly reconciliation job.",
+   "zh": "同意，我确认库存作业时间，不能与夜间对账重叠。",
+   "role": "Inventory application owner",
+   "start": 66.19,
+   "end": 73.99
+  }
+ ],
+ "group": "change",
+ "domain": "coding",
+ "series": "sc-S18-coding-python-dependencies",
+ "parts": 10,
+ "seq": 1,
+ "scene": "现有客户端分支将停止维护，提出受控升级申请。",
+ "dir": "coding/0176-为什么现在升级",
+ "audio": "0176-为什么现在升级.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator and approval owner）",
+  "Raj（Python dependency maintainer）",
+  "Anika（Inventory application owner）",
+  "Lukas（Build and release SRE）",
+  "Hannah（Compatibility and reproducibility tester）"
+ ],
+ "tags": [
+  "coding",
+  "申请"
+ ],
+ "duration": 73.99
+}

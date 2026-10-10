@@ -1,0 +1,135 @@
+{
+ "id": "0039",
+ "part": 4,
+ "stage": "排除负载因素",
+ "title": "流量没涨：版本差异值得追",
+ "premise": "消费者RSS持续增长，旧版本曲线较早稳定；正在比较流量与输入组成。",
+ "listeningTask": "理解流量稳定不等于排除所有负载因素，以及灰度版本范围。",
+ "newPhrase": "p314",
+ "phrases": [
+  "p314",
+  "p010",
+  "p302",
+  "p001:extra",
+  "p014:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Traffic is flat. Input sizes look normal too. No obvious surge.",
+   "zh": "流量没有明显变化，输入大小看起来也正常，没有明显激增。",
+   "role": "Application owner",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Lukas",
+   "en": "Any change in the data mix? More unique keys could grow a cache.",
+   "zh": "数据组成有没有变化？不同键值变多，也可能让缓存增长。",
+   "role": "SRE",
+   "start": 6.552,
+   "end": 11.713
+  },
+  {
+   "sp": "Anika",
+   "en": "Nothing obvious in the samples. We can't rule that out completely yet.",
+   "zh": "抽样没发现明显变化，但现在还不能完全排除。",
+   "role": "Application owner",
+   "start": 11.713,
+   "end": 17.449
+  },
+  {
+   "sp": "Raj",
+   "en": "Worker-two is the only canary. The other two still run the older build.",
+   "zh": "worker-two是唯一的灰度节点，另外两台仍运行旧版本。",
+   "role": "Linux on-call",
+   "start": 17.449,
+   "end": 23.09
+  },
+  {
+   "sp": "Hannah",
+   "en": "That helps explain the difference. It doesn't prove which code change caused it.",
+   "zh": "这有助于解释差异，但不能证明具体是哪处代码变化导致的。",
+   "role": "Operations engineer",
+   "start": 23.09,
+   "end": 29.354
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no more rollout, right? Keep this to one host.",
+   "zh": "我确认一下，先不继续发布，对吧？把范围保持在一台主机。",
+   "role": "Incident lead",
+   "start": 29.354,
+   "end": 35.114
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. Freeze the rollout while we gather evidence and plan recovery.",
+   "zh": "同意。收集证据、准备恢复期间冻结发布。",
+   "role": "SRE",
+   "start": 35.114,
+   "end": 40.491
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it. Let's circle back to the cache change after recovery.",
+   "zh": "我来处理。恢复后我们再回到缓存变更上。",
+   "role": "Application owner",
+   "start": 40.491,
+   "end": 46.035
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on the healthy workers. Don't overload them while we investigate.",
+   "zh": "我会关注健康消费者，排查期间别把它们压垮。",
+   "role": "Operations engineer",
+   "start": 46.035,
+   "end": 52.444
+  },
+  {
+   "sp": "Raj",
+   "en": "The canary is growing again already. We've probably got a short window for diagnostics.",
+   "zh": "灰度节点的内存已经又开始涨了，留给诊断的时间可能不长。",
+   "role": "Linux on-call",
+   "start": 52.444,
+   "end": 59.38
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 4,
+ "scene": "消费者RSS持续增长，旧版本曲线较早稳定；正在比较流量与输入组成。",
+ "dir": "linux/0039-流量没涨",
+ "audio": "0039-流量没涨.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "排除负载因素"
+ ],
+ "duration": 59.38
+}

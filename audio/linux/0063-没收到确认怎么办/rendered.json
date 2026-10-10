@@ -1,0 +1,135 @@
+{
+ "id": "0063",
+ "part": 8,
+ "stage": "接班追问",
+ "title": "没收到确认怎么办：后备路径要可用",
+ "premise": "主备责任、告警路由和证据访问已核对；进一步确认联系人未响应时的路径。",
+ "listeningTask": "听出呼叫、确认响应和审批是三件不同的事。",
+ "newPhrase": "p338",
+ "phrases": [
+  "p338",
+  "p010",
+  "p302",
+  "p011:extra",
+  "p008:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "If the app owner doesn't acknowledge, do I page the backup or keep trying?",
+   "zh": "应用负责人没确认响应时，是呼叫后备，还是继续联系？",
+   "role": "Incoming primary on-call",
+   "start": 0.0,
+   "end": 5.664
+  },
+  {
+   "sp": "Priya",
+   "en": "Use the rota's escalation timer. At five minutes, page the backup and notify the coordinator.",
+   "zh": "按排班的升级计时，五分钟没有确认，就呼叫后备并通知协调人。",
+   "role": "Shift coordinator",
+   "start": 5.664,
+   "end": 12.959
+  },
+  {
+   "sp": "Raj",
+   "en": "Keep an eye on the acknowledgement, not just whether the message was delivered.",
+   "zh": "要看有没有确认响应，不只看消息是否送达。",
+   "role": "Outgoing Linux on-call",
+   "start": 12.959,
+   "end": 18.431
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. The backup helps respond, but doesn't automatically approve an app change?",
+   "zh": "我复述一下：后备协助响应，但不会自动获得应用变更审批权？",
+   "role": "Incoming backup SRE",
+   "start": 18.431,
+   "end": 25.415
+  },
+  {
+   "sp": "Anika",
+   "en": "Correct. Just to confirm, the designated approver still applies, right? It's in the runbook.",
+   "zh": "对。我确认一下，仍由指定审批人批准，对吧？运行手册里写清了。",
+   "role": "Outgoing application owner",
+   "start": 25.415,
+   "end": 33.286
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes. What's the ETA before the coordinator joins? The contact route has a second step.",
+   "zh": "对。协调人预计多久加入？联系路径还有第二级。",
+   "role": "Shift coordinator",
+   "start": 33.286,
+   "end": 40.966
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll follow that step if there's no response. Meanwhile I can preserve evidence and monitor.",
+   "zh": "没响应时我会按第二级联系，同时保留证据并监控。",
+   "role": "Incoming primary on-call",
+   "start": 40.966,
+   "end": 48.765
+  },
+  {
+   "sp": "Raj",
+   "en": "Exactly. If the service restarts, we can't rule that out as harmless just because it comes back.",
+   "zh": "对。服务重启后即使自己恢复，也不能认为一定无害。",
+   "role": "Outgoing Linux on-call",
+   "start": 48.765,
+   "end": 56.349
+  },
+  {
+   "sp": "Lukas",
+   "en": "And no repeated manual restarts while we wait. They could hide the evidence.",
+   "zh": "等待期间不要反复手动重启，那可能掩盖证据。",
+   "role": "Incoming backup SRE",
+   "start": 56.349,
+   "end": 62.132
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. Use the approved containment steps only. Maybe we'll need an incident call, not more guessing.",
+   "zh": "同意，只用批准的控制措施。可能需要正式故障会议，而不是继续猜测。",
+   "role": "Outgoing application owner",
+   "start": 62.132,
+   "end": 70.7
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 8,
+ "scene": "主备责任、告警路由和证据访问已核对；进一步确认联系人未响应时的路径。",
+ "dir": "linux/0063-没收到确认怎么办",
+ "audio": "0063-没收到确认怎么办.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "接班追问"
+ ],
+ "duration": 70.7
+}

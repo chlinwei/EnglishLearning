@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Lukas: Vertical scaling adds CPU and memory. It may not lift storage I/O limits.
+升单实例规格增加CPU和内存，但不一定提高存储I/O上限。
+
+2
+00:00:06.408 --> 00:00:12.023
+Raj: It could buy us time for peaks. But our disk queues need measurement.
+它能为高峰争取时间，但磁盘队列需要测量。
+
+3
+00:00:12.023 --> 00:00:18.143
+Anika: I favor it as a fallback. Maybe query gains won't cover campaign load.
+我倾向把它作为备用，查询收益可能不足以覆盖活动负载。
+
+4
+00:00:18.143 --> 00:00:24.958
+Priya: Just to confirm, not approved execution, right? We still need a maintenance window.
+确认一下，不是批准执行，对吧？仍需要维护窗口。
+
+5
+00:00:24.958 --> 00:00:32.686
+Hannah: And a tested rollback trigger too. Instance changes can require restart or switchover.
+也需要验证过的回退触发条件，实例变更可能要求重启或切换。
+
+6
+00:00:32.686 --> 00:00:40.006
+Raj: Storage headroom still needs separate expansion. More memory won't store another year's data.
+存储余量仍需独立扩容，更多内存不能存下一年的数据。
+
+7
+00:00:40.006 --> 00:00:46.029
+Lukas: The next size has a finite ceiling. We shouldn't promise unlimited runway here.
+下一规格也有上限，不能承诺无限增长空间。
+
+8
+00:00:46.029 --> 00:00:52.173
+Priya: Okay, model one step and its cost. Compare it with the sharding option.
+好，估算升一级及成本，与分片方案比较。
+
+9
+00:00:52.173 --> 00:00:59.636
+Hannah: Include replica sizing and standby readiness. A writer upgrade isn't the whole fleet.
+包括副本规格和备用就绪，升级写库不是整个集群。
+
+10
+00:00:59.636 --> 00:01:06.380
+Anika: So, run the larger-instance load test. Keep it reversible before changing production.
+那跑更大实例负载测试，改生产前确保可回退。
+

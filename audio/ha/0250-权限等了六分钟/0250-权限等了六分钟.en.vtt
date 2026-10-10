@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.080
+Raj: The access bottleneck came from missing shutdown permission.
+
+2
+00:00:04.080 --> 00:00:08.592
+Hannah: Not hesitation? What do the audit records show?
+
+3
+00:00:08.592 --> 00:00:13.367
+Raj: Two denied requests. The escalation path then worked.
+
+4
+00:00:13.367 --> 00:00:16.991
+Lukas: Who was the decision owner for emergency access?
+
+5
+00:00:16.991 --> 00:00:21.695
+Anika: The infrastructure duty manager, not our primary on-call.
+
+6
+00:00:21.695 --> 00:00:25.943
+Priya: Just to confirm, preapproved scoped access, right?
+
+7
+00:00:25.943 --> 00:00:30.911
+Hannah: Maybe, with expiry and auditable two-person approval.
+
+8
+00:00:30.911 --> 00:00:34.438
+Raj: We'll page the backup if access checks fail.
+
+9
+00:00:34.438 --> 00:00:39.166
+Lukas: Okay, test permissions without touching production power controls.
+
+10
+00:00:39.166 --> 00:00:43.510
+Priya: Agreed. Make that a preflight check next time.
+

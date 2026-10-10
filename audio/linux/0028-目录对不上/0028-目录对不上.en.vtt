@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.664
+Raj: The directory totals don't match. D-f shows much more than d-u.
+
+2
+00:00:05.664 --> 00:00:11.160
+Lukas: Same filesystem? Otherwise that comparison could send us the wrong way.
+
+3
+00:00:11.160 --> 00:00:17.903
+Raj: Yes, slash var only. Same mount. I stayed on that filesystem.
+
+4
+00:00:17.903 --> 00:00:24.479
+Priya: Just to confirm, this could be deleted but still open? Not proven yet, right?
+
+5
+00:00:24.479 --> 00:00:31.415
+Hannah: Let me play that back. The filenames are gone, but a process might still hold the space?
+
+6
+00:00:31.415 --> 00:00:38.591
+Anika: That fits yesterday's cleanup. Someone removed a large log. I'll check the ticket.
+
+7
+00:00:38.591 --> 00:00:43.559
+Lukas: Could be. Let's look at the open files before blaming that cleanup.
+
+8
+00:00:43.559 --> 00:00:48.190
+Raj: I'm on it. What's the ETA on the ticket, Anika?
+
+9
+00:00:48.190 --> 00:00:53.638
+Hannah: I'll record both measurements. We'll need them when we review this.
+
+10
+00:00:53.638 --> 00:01:02.350
+Anika: A minute, probably. Who's to blame? Let's park that. We need the process and the file first.
+

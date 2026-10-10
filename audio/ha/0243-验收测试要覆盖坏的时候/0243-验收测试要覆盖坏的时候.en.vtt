@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.584
+Hannah: A representative workload includes callbacks. Include realistic reads and writes too.
+
+2
+00:00:07.584 --> 00:00:11.208
+Raj: We'll dry-run it first without fault injection.
+
+3
+00:00:11.208 --> 00:00:17.281
+Lukas: Then remove one zone. Use isolated production-equivalent infrastructure.
+
+4
+00:00:17.281 --> 00:00:21.865
+Anika: Our working hypothesis needs cold-cache and retry coverage.
+
+5
+00:00:21.865 --> 00:00:25.705
+Priya: Just to confirm, no customer traffic, right?
+
+6
+00:00:25.705 --> 00:00:30.433
+Raj: Yes, sanitized data and simulated payment providers.
+
+7
+00:00:30.433 --> 00:00:34.225
+Hannah: A smoke test precedes each load stage.
+
+8
+00:00:34.225 --> 00:00:39.002
+Anika: Okay, measure order completion, not only response speed.
+
+9
+00:00:39.002 --> 00:00:43.322
+Lukas: Perhaps record whether the capacity envelope actually holds.
+
+10
+00:00:43.322 --> 00:00:47.330
+Priya: Yes, with abort thresholds agreed before testing.
+

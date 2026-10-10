@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.392
+Raj: Each failure now returns a structured error. Normal inventory output stays clean on stdout.
+
+2
+00:00:07.392 --> 00:00:14.904
+Lukas: Where do human-readable diagnostics go then? Automation must distinguish failure from empty results.
+
+3
+00:00:14.904 --> 00:00:23.063
+Raj: Stderr, with documented nonzero exit codes. Just to confirm, no tokens in diagnostics, right?
+
+4
+00:00:23.063 --> 00:00:30.935
+Anika: Yes, the read-only scope still needs redaction. Request metadata can contain sensitive query values.
+
+5
+00:00:30.935 --> 00:00:38.711
+Hannah: Let me tail the log in testing. I'll verify redaction with deliberately sensitive fixtures.
+
+6
+00:00:38.711 --> 00:00:46.511
+Priya: Okay, make exit-code documentation an action item. Maybe our shell examples need updates too.
+
+7
+00:00:46.511 --> 00:00:54.959
+Lukas: Don't catch every exception as authentication failure. Preserve distinct categories and safe diagnostic context.
+
+8
+00:00:54.959 --> 00:01:03.094
+Raj: I'm on it with explicit exception categories. Unexpected failures retain a sanitized trace identifier.
+
+9
+00:01:03.094 --> 00:01:12.166
+Hannah: I'll test malformed responses and permission denial. Those should produce different actionable error categories.
+
+10
+00:01:12.166 --> 00:01:18.430
+Anika: Good, that's enough detail for the standup. I'll bring sample failures to the follow-up.
+

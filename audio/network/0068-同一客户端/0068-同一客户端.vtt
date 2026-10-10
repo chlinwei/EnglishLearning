@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.080
+Hannah: Same client, same name, same query type. Recursive resolver A times out; B answers quickly.
+同一客户端、同一名称、同一记录类型。递归解析器A超时，B很快回答。
+
+2
+00:00:10.080 --> 00:00:17.304
+Raj: I checked the responses too. B returns the expected private address, not a public endpoint.
+我也核对了响应。B返回预期私有地址，不是公共端点。
+
+3
+00:00:17.304 --> 00:00:23.377
+Lukas: Is that a direct DNS probe? It may bypass the application's local cache.
+这是直接DNS探测吗？那可能绕过应用本地缓存。
+
+4
+00:00:23.377 --> 00:00:31.153
+Anika: Yes. We'll test the app path separately. We shouldn't treat those as identical tests.
+是的，应用路径要单独测，不能把两种测试当作完全一样。
+
+5
+00:00:31.153 --> 00:00:38.449
+Priya: Just to confirm, B is reachable from the affected client, right? That's a useful control.
+我确认一下，受影响客户端能访问B，对吧？这是个有用的对照。
+
+6
+00:00:38.449 --> 00:00:45.985
+Hannah: Let me play that back. The client can reach a working resolver, but A's path still fails.
+我复述一下：客户端能访问一个正常解析器，但走A的路径仍失败。
+
+7
+00:00:45.985 --> 00:00:52.681
+Raj: We can rule that out as a blanket client-network failure. A still needs investigation.
+可以排除客户端网络整体不可用，但A仍需要排查。
+
+8
+00:00:52.681 --> 00:00:59.714
+Lukas: Compare A's response codes and upstream timings next. Don't stop at a yes-or-no result.
+接下来对比A的响应码和上游耗时，不要只看成功或失败。
+
+9
+00:00:59.714 --> 00:01:05.258
+Priya: What's the ETA for those metrics? We need a safe mitigation soon.
+拿到那些指标预计多久？我们需要尽快有安全缓解方案。
+
+10
+00:01:05.258 --> 00:01:11.330
+Anika: I'm on it for the app-side test. About three minutes if the test host is ready.
+应用侧测试我来做。如果测试主机就绪，大约三分钟。
+

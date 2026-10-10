@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.328
+Raj: Build provenance now records all pinned inputs. That includes interpreter, mirror snapshots, and toolchain.
+构建来源记录全部固定输入，包括解释器、镜像源快照和工具链。
+
+2
+00:00:08.328 --> 00:00:17.736
+Hannah: Attach final digests and comparison results. The reproducibility claim covers our tested platform only.
+附最终摘要与比较结果，可复现结论仅限已测平台。
+
+3
+00:00:17.736 --> 00:00:25.560
+Anika: Hash-locked requirements live beside the build recipe. The compatibility matrix links to behavior tests.
+哈希锁依赖与构建步骤放一起，兼容矩阵链接行为测试。
+
+4
+00:00:25.560 --> 00:00:32.352
+Priya: The deprecation warning has an action item. Raj owns the replacement next sprint, right?
+弃用警告已设行动项，Raj下个迭代负责替换，对吧？
+
+5
+00:00:32.352 --> 00:00:39.720
+Lukas: Keep approval and rollback records linked too. An engineer should retrieve the exact previous artifact.
+也关联审批与回退记录，工程师应能取回准确旧制品。
+
+6
+00:00:39.720 --> 00:00:46.656
+Raj: Yes, maybe one sprint for the replacement. I'll estimate after reviewing the new callback.
+是，替换可能需一个迭代，审查新回调后再估算。
+
+7
+00:00:46.656 --> 00:00:55.344
+Hannah: Don't generalize success to untested interpreter versions. Those need their own locks and validation.
+不能把成功推广到未测解释器版本，它们需要独立锁与验证。
+
+8
+00:00:55.344 --> 00:01:01.992
+Anika: Okay, I'll close the loop with operations. They have the stop and recovery procedures.
+好，我与运维确认闭环，他们已经拿到停止和恢复流程。
+
+9
+00:01:01.992 --> 00:01:09.240
+Lukas: The retained artifacts have a named owner. Expiry reminders prevent accidental loss before review.
+留存制品有明确负责人，到期提醒避免评审前误丢。
+
+10
+00:01:09.240 --> 00:01:16.800
+Priya: Agreed, deployment is complete with follow-up tracked. Next sprint we'll review the callback replacement.
+同意，部署完成，遗留改进持续跟踪，下个迭代评审回调替换。
+

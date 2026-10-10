@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Priya: Just to recap, business acceptance is complete. The old pool remains available overnight.
+小结一下，业务验收完成，旧池夜间仍可用。
+
+2
+00:00:07.248 --> 00:00:14.736
+Hannah: Matched latency and payment checks pass. Both zones have complete monitoring coverage.
+匹配后的延迟和支付检查通过，两个区监控覆盖完整。
+
+3
+00:00:14.736 --> 00:00:22.200
+Anika: Okay, no unresolved checkout defects found. That's based on roughly thirty minutes' observation.
+好，未发现未解决的结账缺陷。依据是大约三十分钟观察。
+
+4
+00:00:22.200 --> 00:00:28.344
+Lukas: Can we close the loop on access? The overnight operator must have working permissions.
+权限方面能闭环吗？夜间操作人员必须有可用权限。
+
+5
+00:00:28.344 --> 00:00:35.040
+Raj: Access is tested, with the saved configuration. I'll hand over both readiness checks.
+权限已验证，保存配置也可用。我会交接两个池的就绪检查。
+
+6
+00:00:35.040 --> 00:00:43.008
+Priya: Just to confirm, decommission approval comes later, right? Tonight's acceptance doesn't authorize deletion.
+我确认一下，退役审批以后再做，对吧？今晚验收不授权删除。
+
+7
+00:00:43.008 --> 00:00:52.560
+Hannah: Right, tomorrow's review checks residual dependencies. Include private monitoring clients and firewall references.
+对，明天评审检查残余依赖，包括私有监控客户端和防火墙引用。
+
+8
+00:00:52.560 --> 00:00:59.544
+Anika: I'll take the business confirmation action item. No new application work is required tonight.
+业务确认待办我来负责。今晚不需要新增应用操作。
+
+9
+00:00:59.544 --> 00:01:06.936
+Lukas: Then close migration execution, not asset retirement. Keep the rollback evidence with the record.
+那么关闭迁移执行，不关闭资产退役。把回退证据留在记录中。
+
+10
+00:01:06.936 --> 00:01:14.400
+Priya: Agreed, tomorrow we review before removing anything. So, this change is accepted with retention.
+同意，明天先评审再移除任何内容。这次变更验收通过，并保留旧入口。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Raj: A cache hit comes back fast on A. Some uncached lookups take several seconds, then fail.
+A的缓存命中会很快返回。有些未缓存查询等几秒后失败。
+
+2
+00:00:07.344 --> 00:00:13.632
+Lukas: Are you using approved test records? Random names might only test negative caching.
+用的是批准的测试记录吗？随机名称可能只测到不存在记录的负缓存。
+
+3
+00:00:13.632 --> 00:00:20.808
+Raj: Yes, existing test records with short lifetimes. Small sample, no query flood.
+是的，用已有的短有效期测试记录，小量抽样，不制造查询洪峰。
+
+4
+00:00:20.808 --> 00:00:27.672
+Priya: Just to confirm, no fleet-wide cache flush, right? That could increase upstream load.
+我确认一下，不对全体清缓存，对吧？那可能增加上游负载。
+
+5
+00:00:27.672 --> 00:00:34.536
+Hannah: Agreed. I'll keep an eye on cache statistics and upstream timeout counts together.
+同意。我会一起关注缓存统计和上游超时次数。
+
+6
+00:00:34.536 --> 00:00:41.712
+Anika: The app's cached answers still work. We can't rule that out as the reason some requests succeed.
+应用缓存答案仍可用，不能排除部分请求成功是因为缓存。
+
+7
+00:00:41.712 --> 00:00:47.592
+Lukas: Exactly. The next question is which upstream path the failed lookups used.
+正是这样。下一步要查失败查询走了哪条上游路径。
+
+8
+00:00:47.592 --> 00:00:54.864
+Priya: A full cache reset? Let's park that. What's the ETA for the upstream comparison?
+完整重置缓存先放一边。上游对比预计多久？
+
+9
+00:00:54.864 --> 00:01:02.448
+Hannah: Two minutes. I'll keep successful and failed samples separate so we don't average away the issue.
+两分钟。我会分开成功和失败样本，避免平均值掩盖问题。
+
+10
+00:01:02.448 --> 00:01:09.000
+Raj: Okay. I'll save the current configuration before anyone changes the forwarding targets.
+好。任何人修改转发目标前，我先保存当前配置。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.128
+Lukas: One proxy host. A single point of failure.
+只有一台代理主机，是单点故障源。
+
+2
+00:00:04.128 --> 00:00:07.656
+Raj: Two proxies exist, but share one host.
+有两个代理，但共用一台主机。
+
+3
+00:00:07.656 --> 00:00:11.449
+Hannah: And both zones use the same outbound gateway.
+而且两个区都用同一个出口网关。
+
+4
+00:00:11.449 --> 00:00:15.361
+Anika: That's our blast radius: every payment callback.
+影响范围就是所有支付回调。
+
+5
+00:00:15.361 --> 00:00:19.993
+Priya: Just to confirm, inventory includes dependencies, right?
+确认一下，清单包括依赖项，对吧？
+
+6
+00:00:19.993 --> 00:00:23.785
+Raj: Yes, managed configuration is shared too.
+是的，受管理配置也是共享的。
+
+7
+00:00:23.785 --> 00:00:27.745
+Lukas: Maybe running services survive control-plane loss, though.
+不过控制平面失效时，运行中的服务也许能继续。
+
+8
+00:00:27.745 --> 00:00:32.618
+Anika: Our working hypothesis assumes cached configuration remains valid.
+当前假设是缓存配置继续有效。
+
+9
+00:00:32.618 --> 00:00:37.850
+Hannah: Test expiry and restarts, not just steady operation.
+还要测试过期和重启，不只测试稳定运行。
+
+10
+00:00:37.850 --> 00:00:42.410
+Priya: Have I missed anything? DNS belongs here too.
+有没有遗漏？DNS也应该列在这里。
+

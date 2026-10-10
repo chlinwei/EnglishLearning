@@ -1,0 +1,135 @@
+{
+ "id": "0058",
+ "part": 3,
+ "stage": "已查证据",
+ "title": "看门狗超时：不是OOM，也不能直接怪网络",
+ "premise": "三次自动重启与日志时间一致，无部署或人工停止，进一步交代退出原因。",
+ "listeningTask": "区分已确认的终止机制与仍未知的心跳中断原因。",
+ "newPhrase": "p333",
+ "phrases": [
+  "p333",
+  "p010",
+  "p302",
+  "p312:extra",
+  "p311:extra",
+  "p301:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Each exit says watchdog timeout. Systemd stopped the process after missing its heartbeat.",
+   "zh": "每次退出都显示看门狗超时。systemd因为没收到心跳而终止了进程。",
+   "role": "Outgoing Linux on-call",
+   "start": 0.0,
+   "end": 7.08
+  },
+  {
+   "sp": "Lukas",
+   "en": "Do we know why the heartbeat stopped? That's different from knowing who stopped it.",
+   "zh": "知道心跳为什么停止了吗？这和知道谁终止了进程是两回事。",
+   "role": "Incoming backup SRE",
+   "start": 7.08,
+   "end": 12.384
+  },
+  {
+   "sp": "Anika",
+   "en": "Not yet. Export calls slowed around those times. We don't know if they blocked the heartbeat.",
+   "zh": "还不知道。那些时间附近导出调用变慢，但不知道是否阻塞了心跳。",
+   "role": "Outgoing application owner",
+   "start": 12.384,
+   "end": 20.472
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, nothing got OOM-killed, right? We checked more than the exit status?",
+   "zh": "我确认一下，没有进程被OOM机制终止，对吧？不是只看退出状态？",
+   "role": "Shift coordinator",
+   "start": 20.472,
+   "end": 27.048
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, the kernel log has no matching OOM event. Available memory stayed healthy.",
+   "zh": "是的，内核日志没有对应OOM事件，可用内存一直正常。",
+   "role": "Incoming primary on-call",
+   "start": 27.048,
+   "end": 34.536
+  },
+  {
+   "sp": "Raj",
+   "en": "No memory pressure in the host charts either. We can rule that out for these exits.",
+   "zh": "主机曲线也没有内存压力，可以排除这几次退出由OOM造成。",
+   "role": "Outgoing Linux on-call",
+   "start": 34.536,
+   "end": 41.184
+  },
+  {
+   "sp": "Lukas",
+   "en": "And disk writes? The last log incident makes that worth checking, not assuming.",
+   "zh": "磁盘写入呢？上次日志故障说明应该核查，但不能直接假定又是它。",
+   "role": "Incoming backup SRE",
+   "start": 41.184,
+   "end": 47.064
+  },
+  {
+   "sp": "Anika",
+   "en": "No sign the disk is filling up. Writes worked, and free space stayed normal.",
+   "zh": "没有磁盘写满迹象，写入成功，空闲空间也一直正常。",
+   "role": "Outgoing application owner",
+   "start": 47.064,
+   "end": 53.136
+  },
+  {
+   "sp": "Hannah",
+   "en": "Good. Keep the timeout as a fact, and the blocked-heartbeat idea as a hypothesis.",
+   "zh": "好。把超时记为事实，心跳被阻塞记为假设。",
+   "role": "Incoming primary on-call",
+   "start": 53.136,
+   "end": 60.168
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Don't close off other explanations until we can reproduce the behavior.",
+   "zh": "同意。能够复现之前，不要排除其他解释。",
+   "role": "Shift coordinator",
+   "start": 60.168,
+   "end": 66.6
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 3,
+ "scene": "三次自动重启与日志时间一致，无部署或人工停止，进一步交代退出原因。",
+ "dir": "linux/0058-看门狗超时",
+ "audio": "0058-看门狗超时.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "已查证据"
+ ],
+ "duration": 66.6
+}

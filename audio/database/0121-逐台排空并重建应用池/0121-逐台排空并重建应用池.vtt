@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.016
+Anika: I'll drain the worker marked A. New requests now go elsewhere safely.
+我排空A实例，新请求现在安全地送往其他实例。
+
+2
+00:00:05.016 --> 00:00:10.776
+Lukas: Do the remaining workers have capacity? Keep the bounded request queue enabled.
+其他实例有容量吗？有上限的请求队列继续启用。
+
+3
+00:00:10.776 --> 00:00:16.585
+Raj: Yes, the lower traffic fits now. About five writes remain on A.
+有，降低后的流量现在能承受，A上还有大约五笔写入。
+
+4
+00:00:16.585 --> 00:00:22.729
+Priya: Okay, wait for those writes, right? This is still a temporary workaround.
+好，等那些写入结束，对吧？这仍是临时缓解。
+
+5
+00:00:22.729 --> 00:00:30.433
+Hannah: Check outcomes before closing the pool. Cancellation doesn't guarantee a transaction stopped.
+关闭池之前检查结果，取消请求不能保证事务已停止。
+
+6
+00:00:30.433 --> 00:00:36.673
+Anika: The five writes have completed now. I'll restart this application worker next.
+五笔写入现在都完成了，接下来重启这台应用实例。
+
+7
+00:00:36.673 --> 00:00:42.529
+Lukas: Not the database. Keep that distinction. I'll keep an eye on routing.
+不是重启数据库，要区分清楚。我会观察路由。
+
+8
+00:00:42.529 --> 00:00:48.842
+Priya: So, what's the ETA for checks? Maybe two minutes before another worker.
+检查预计多久？也许等两分钟再处理另一台。
+
+9
+00:00:48.842 --> 00:00:56.186
+Hannah: Two minutes after A returns healthy. Verify fresh writes and connection releases.
+A恢复健康后两分钟，验证新写入和连接释放。
+
+10
+00:00:56.186 --> 00:01:02.210
+Raj: I'm on it for session counts. We'll stop if database connections surge.
+我负责会话数，数据库连接暴涨就停止。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0055",
+ "part": 10,
+ "stage": "运行手册改进",
+ "title": "更新手册：把验收证据写进流程",
+ "premise": "维护在批准窗口内结束，未触发回退；记录结果并安排流程改进任务。",
+ "listeningTask": "抓住后续任务的责任、期限和验收标准，不把未执行的回退写成通过。",
+ "newPhrase": "p330",
+ "phrases": [
+  "p330",
+  "p009",
+  "p310",
+  "p013:extra",
+  "p002:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Just to recap, we finished inside the window. Driver and service checks passed on every host.",
+   "zh": "小结一下，我们在窗口内完成，每台主机的驱动和服务检查都通过了。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 7.56
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep the patch settings in managed configuration. No one-off edits left behind.",
+   "zh": "补丁相关设置保持在统一配置管理中，不留下临时手工修改。",
+   "role": "SRE reviewer",
+   "start": 7.56,
+   "end": 13.776
+  },
+  {
+   "sp": "Raj",
+   "en": "First action item: compare the final state with the approved template. I'll do that tomorrow.",
+   "zh": "第一个行动项：把最终状态与批准模板对比。我明天完成。",
+   "role": "Linux operator",
+   "start": 13.776,
+   "end": 20.857
+  },
+  {
+   "sp": "Hannah",
+   "en": "Who's picking this up for the checklist? Add loaded drivers and actual kernel version.",
+   "zh": "检查清单谁来改？要加实际加载的驱动和运行中的内核版本。",
+   "role": "Validation engineer",
+   "start": 20.857,
+   "end": 27.865
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll own the business checks by Friday. They need to identify the target host.",
+   "zh": "业务检查我负责，周五前完成，必须能确认目标主机身份。",
+   "role": "API owner",
+   "start": 27.865,
+   "end": 33.985
+  },
+  {
+   "sp": "Priya",
+   "en": "Raj, can you own the host checks too? We need one clear owner, right?",
+   "zh": "Raj，主机检查也由你负责可以吗？要有明确负责人，对吧？",
+   "role": "Change coordinator",
+   "start": 33.985,
+   "end": 40.105
+  },
+  {
+   "sp": "Lukas",
+   "en": "And schedule a rollback drill in staging. Tonight's preparation isn't evidence of a successful rollback.",
+   "zh": "还要安排预发布回退演练。今晚的准备不能当作回退成功的证据。",
+   "role": "SRE reviewer",
+   "start": 40.105,
+   "end": 47.521
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, by Thursday. I'll attach the drill results so we can close the loop.",
+   "zh": "可以，周四前完成。我会附上演练结果，反馈并闭环。",
+   "role": "Linux operator",
+   "start": 47.521,
+   "end": 53.858
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll verify the evidence afterward. Keep the follow-up tasks open until those checks pass.",
+   "zh": "之后我来核验证据。检查通过前，后续任务保持未关闭。",
+   "role": "Validation engineer",
+   "start": 53.858,
+   "end": 61.61
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Let's take it offline for the drill schedule. Thanks, everyone. No more changes tonight.",
+   "zh": "同意。演练时间会后单独安排。谢谢大家，今晚不再做其他变更。",
+   "role": "Change coordinator",
+   "start": 61.61,
+   "end": 70.61
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 10,
+ "scene": "维护在批准窗口内结束，未触发回退；记录结果并安排流程改进任务。",
+ "dir": "linux/0055-更新手册",
+ "audio": "0055-更新手册.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "运行手册改进"
+ ],
+ "duration": 70.61
+}

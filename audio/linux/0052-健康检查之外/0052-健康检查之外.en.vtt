@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.048
+Anika: Health endpoint is green. I'll run the smoke test through our approved test route.
+
+2
+00:00:06.048 --> 00:00:12.312
+Lukas: Does it exercise dependencies? A healthy process can still fail real requests.
+
+3
+00:00:12.312 --> 00:00:21.767
+Anika: Yes. Catalog lookup, cache access, and database reads. Test credentials only, no production writes.
+
+4
+00:00:21.767 --> 00:00:28.751
+Priya: Just to confirm, routing reaches A specifically, right? Not one of the healthy hosts?
+
+5
+00:00:28.751 --> 00:00:36.623
+Hannah: Yes, the response identifies A. Dependency checks pass and error counts stay flat.
+
+6
+00:00:36.623 --> 00:00:43.127
+Raj: Memory headroom looks normal too. What's the ETA before we restore a little traffic?
+
+7
+00:00:43.127 --> 00:00:48.599
+Lukas: Now, if the checks are recorded. Use the approved low weight first.
+
+8
+00:00:48.599 --> 00:00:54.766
+Priya: I'm on it for approval. Let's keep it under observation before increasing that weight.
+
+9
+00:00:54.766 --> 00:01:01.702
+Hannah: We'll compare latency and errors against the untouched hosts, under the same traffic mix.
+
+10
+00:01:01.702 --> 00:01:08.110
+Anika: Maybe five minutes for this first check. If traffic is too light, we'll need longer.
+

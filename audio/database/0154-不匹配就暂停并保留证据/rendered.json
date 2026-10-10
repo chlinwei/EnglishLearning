@@ -1,0 +1,135 @@
+{
+ "id": "0154",
+ "part": 9,
+ "stage": "失败升级",
+ "title": "不匹配就暂停并保留证据",
+ "premise": "接班方确认隔离和权限边界，明确失败时联系谁及不得做什么。",
+ "listeningTask": "抓住数据不匹配、日志缺口和时间超标的不同处理。",
+ "newPhrase": "p429",
+ "phrases": [
+  "p429",
+  "p336",
+  "p424:extra",
+  "p338:extra",
+  "p010:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Recovery escalation starts with me tonight. Page the backup if I'm unreachable.",
+   "zh": "今晚恢复异常先找我，联系不上就呼叫后备。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 6.48
+  },
+  {
+   "sp": "Lukas",
+   "en": "What should halt the validation work? Data mismatch, missing logs, or unsafe access?",
+   "zh": "什么情况暂停验证？数据不匹配、缺日志还是不安全访问？",
+   "role": "Incoming database on-call",
+   "start": 6.48,
+   "end": 13.272
+  },
+  {
+   "sp": "Anika",
+   "en": "Any of those means stop and preserve evidence. No manual row corrections to pass.",
+   "zh": "任何一种都停止并保留证据，不能手工改行让检查通过。",
+   "role": "Outgoing application validation owner",
+   "start": 13.272,
+   "end": 19.633
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no production promotion, right? A failed drill stays isolated throughout.",
+   "zh": "确认一下，不提升成生产，对吧？失败演练全程保持隔离。",
+   "role": "Recovery drill coordinator",
+   "start": 19.633,
+   "end": 26.905
+  },
+  {
+   "sp": "Hannah",
+   "en": "And archived WAL gaps need source review. Don't invent a newer target instead.",
+   "zh": "归档日志缺口需要复查来源，不能擅自换成更新恢复点。",
+   "role": "Incoming reconciliation engineer",
+   "start": 26.905,
+   "end": 34.561
+  },
+  {
+   "sp": "Raj",
+   "en": "The escalation path includes backup storage owner. I'll attach their approved contact entry.",
+   "zh": "升级路径也包括备份存储负责人，我附上批准联系人记录。",
+   "role": "Outgoing database on-call",
+   "start": 34.561,
+   "end": 42.049
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA if reconciliation stalls? We need a reporting deadline as well.",
+   "zh": "对账卡住时预计何时更新？还需要报告期限。",
+   "role": "Incoming database on-call",
+   "start": 42.049,
+   "end": 48.649
+  },
+  {
+   "sp": "Priya",
+   "en": "Update at four ten even if unfinished. Maybe sooner for any data mismatch.",
+   "zh": "即使未完成也四点十分更新，数据不匹配则更早。",
+   "role": "Recovery drill coordinator",
+   "start": 48.649,
+   "end": 54.938
+  },
+  {
+   "sp": "Hannah",
+   "en": "The time target is already missed. That needs review, not unsafe shortcuts.",
+   "zh": "耗时目标已未达标，需要评审，不是走不安全捷径。",
+   "role": "Incoming reconciliation engineer",
+   "start": 54.938,
+   "end": 61.922
+  },
+  {
+   "sp": "Anika",
+   "en": "So, preserve logs and exact job outputs. We'll investigate before restarting the drill.",
+   "zh": "那保留日志和准确任务输出，重做演练前先调查。",
+   "role": "Outgoing application validation owner",
+   "start": 61.922,
+   "end": 69.17
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 9,
+ "scene": "接班方确认隔离和权限边界，明确失败时联系谁及不得做什么。",
+ "dir": "database/0154-不匹配就暂停并保留证据",
+ "audio": "0154-不匹配就暂停并保留证据.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "失败升级"
+ ],
+ "duration": 69.17
+}

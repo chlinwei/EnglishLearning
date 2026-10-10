@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.192
+Priya: Use the off-peak window at midnight. This maintenance window has staffed coverage.
+使用午夜低峰窗口，这个维护窗口有人值守。
+
+2
+00:00:06.192 --> 00:00:12.504
+Lukas: Is the batch scheduler quiet then? Low request traffic doesn't guarantee low writes.
+批处理调度那时安静吗？请求少不保证写入少。
+
+3
+00:00:12.504 --> 00:00:19.129
+Raj: The reporting batch will finish beforehand. We'll check actual workload before starting.
+报表批处理会提前结束，开始前仍检查实际负载。
+
+4
+00:00:19.129 --> 00:00:25.921
+Anika: Just to confirm, no automatic start, right? Maybe the batch runs late tonight.
+确认一下，不自动开始，对吧？今晚批处理可能延迟。
+
+5
+00:00:25.921 --> 00:00:34.081
+Hannah: Correct. Preflight failure means postponement instead. Nobody needs to force this through.
+对，预检失败就延期，没必要硬做。
+
+6
+00:00:34.081 --> 00:00:41.377
+Priya: Okay, what's the ETA from rehearsal? Include waiting and validation, not just scanning.
+好，预演估计多久？包括等待和验证，不只是扫描。
+
+7
+00:00:41.377 --> 00:00:47.041
+Lukas: Roughly twenty minutes with spare margin. Production volume can make it longer.
+大约二十分钟，另留余量，生产数据量可能让它更久。
+
+8
+00:00:47.041 --> 00:00:51.242
+Raj: The rollback trigger includes sustained write delays. A growing lock wait also means stop.
+回退触发条件包括持续写延迟，锁等待增长也应停止。
+
+9
+00:00:51.242 --> 00:00:58.106
+Hannah: Record thresholds in the approved ticket. Watch replica lag and free storage.
+阈值写进批准工单，也观察副本延迟和空闲存储。
+
+10
+00:00:58.106 --> 00:01:04.730
+Anika: So, I'll cover customer-facing metrics tonight. The query switch stays off initially.
+那今晚我盯客户指标，查询开关最初保持关闭。
+

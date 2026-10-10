@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.952
+Raj: Build progress shows the first scan. The concurrent index build has started.
+构建进度显示首次扫描，并发索引构建已开始。
+
+2
+00:00:05.952 --> 00:00:12.216
+Lukas: Keep watching activity during later phases. It may wait before final validation.
+后续阶段也观察活动，最终验证前可能等待。
+
+3
+00:00:12.216 --> 00:00:18.791
+Anika: Writes continue within the approved budget. Search traffic still uses its old path.
+写入仍在批准预算内，检索流量仍用原路径。
+
+4
+00:00:18.791 --> 00:00:25.823
+Priya: Just to confirm, not usable yet, right? Don't announce success from scan progress.
+确认一下，现在还不可用，对吧？别凭扫描进度宣布成功。
+
+5
+00:00:25.823 --> 00:00:33.191
+Hannah: Exactly. I'll keep an eye on errors. We need completion and catalog checks.
+对，我观察错误，需要完成状态和系统目录检查。
+
+6
+00:00:33.191 --> 00:00:40.247
+Raj: No long-running transaction appears so far. Current lock waits remain below our threshold.
+目前没出现长事务，当前锁等待低于阈值。
+
+7
+00:00:40.247 --> 00:00:46.583
+Lukas: Don't launch another build beside it. One successful start isn't capacity evidence.
+别旁边再开一个构建，启动成功不代表容量足够。
+
+8
+00:00:46.583 --> 00:00:53.086
+Priya: Okay, what's the ETA from progress? Maybe give a range until validation.
+好，按进度预计多久？验证结束前给个范围吧。
+
+9
+00:00:53.086 --> 00:01:00.142
+Hannah: About ten to twenty minutes remaining. Waiting phases make that estimate uncertain.
+大约还要十到二十分钟，等待阶段让估计不确定。
+
+10
+00:01:00.142 --> 00:01:06.670
+Anika: So, I'll keep support informed internally. No query switch until checks pass.
+那我给内部支持团队更新，检查通过前不切查询开关。
+

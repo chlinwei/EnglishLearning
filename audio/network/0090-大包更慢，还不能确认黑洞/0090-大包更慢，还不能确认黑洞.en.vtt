@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.280
+Hannah: Large responses show more retransmissions in samples. Could path MTU discovery be failing?
+
+2
+00:00:08.280 --> 00:00:15.360
+Raj: Okay, that's a working hypothesis only. We haven't observed a consistent size boundary.
+
+3
+00:00:15.360 --> 00:00:22.225
+Lukas: Don't lower MTU across the production fleet. Check tunnels and ICMP handling first.
+
+4
+00:00:22.225 --> 00:00:28.849
+Anika: Could a sandbox client reproduce the pattern? It uses the same approved network path.
+
+5
+00:00:28.849 --> 00:00:36.385
+Priya: Just to confirm, bounded probes only, right? No bulk oversized traffic against production.
+
+6
+00:00:36.385 --> 00:00:45.241
+Hannah: Yes, small scheduled samples with packet metadata. We need acknowledgments and retransmission timing.
+
+7
+00:00:45.241 --> 00:00:52.465
+Raj: We'll dry-run it first in isolation. Then approved diagnostic probes can test reachability.
+
+8
+00:00:52.465 --> 00:01:00.050
+Lukas: Define the rollback trigger for experimental settings. Increased errors mean restore the saved configuration.
+
+9
+00:01:00.050 --> 00:01:07.658
+Anika: I'd prefer no production settings changed yet. Roughly matching topology should test feasibility first.
+
+10
+00:01:07.658 --> 00:01:16.970
+Priya: Agreed, production changes? Let's park that. So, MTU remains unconfirmed pending controlled evidence.
+

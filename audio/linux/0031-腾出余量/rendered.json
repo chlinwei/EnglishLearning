@@ -1,0 +1,135 @@
+{
+ "id": "0031",
+ "part": 6,
+ "stage": "临时缓解",
+ "title": "腾出余量：缓解不等于解决",
+ "premise": "经确认，超过十四天的指定归档已集中保存且无保留限制，批准清理三 GB。",
+ "listeningTask": "分辨磁盘暂时可写、消费者恢复和根因解决这三个不同状态。",
+ "newPhrase": "p306",
+ "phrases": [
+  "p306",
+  "p304",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Reviewed archives are gone. We're at ninety-two percent. Writes are getting through again.",
+   "zh": "审核过的归档已清理。现在使用率百分之九十二，写入又能成功了。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 7.656
+  },
+  {
+   "sp": "Hannah",
+   "en": "That's still tight. How quickly is the space being used?",
+   "zh": "空间还是很紧张。现在占用增长有多快？",
+   "role": "Operations engineer",
+   "start": 7.656,
+   "end": 12.576
+  },
+  {
+   "sp": "Raj",
+   "en": "Roughly two hundred megs a minute. This will buy us time, not much.",
+   "zh": "大概每分钟两百 MB。这能争取一点时间，但不多。",
+   "role": "Linux on-call",
+   "start": 12.576,
+   "end": 18.239
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the open handle is still there? We haven't fixed that, right?",
+   "zh": "我确认一下，那个句柄还开着？这个问题还没解决，对吧？",
+   "role": "Incident lead",
+   "start": 18.239,
+   "end": 24.551
+  },
+  {
+   "sp": "Lukas",
+   "en": "Right. We should watch free space while we prepare the next step.",
+   "zh": "对。准备下一步时，我们得一直盯着剩余空间。",
+   "role": "SRE",
+   "start": 24.551,
+   "end": 29.279
+  },
+  {
+   "sp": "Anika",
+   "en": "Version check is done. This build supports the documented reopen signal.",
+   "zh": "版本核对完成。当前构建支持文档规定的日志重开信号。",
+   "role": "Application owner",
+   "start": 29.279,
+   "end": 35.087
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does it only reopen the log, or reload other settings too?",
+   "zh": "这个信号只重开日志，还是会同时重新加载其他配置？",
+   "role": "Operations engineer",
+   "start": 35.087,
+   "end": 39.791
+  },
+  {
+   "sp": "Anika",
+   "en": "Only the log in this build. I'm on it for the change record.",
+   "zh": "当前版本只重开日志。我来记录这次变更。",
+   "role": "Application owner",
+   "start": 39.791,
+   "end": 44.614
+  },
+  {
+   "sp": "Lukas",
+   "en": "If it fails, stop there. We can drain this worker before a restart.",
+   "zh": "如果失败，就先停下。需要重启的话，可以先让这台完成在途任务并退出消费。",
+   "role": "SRE",
+   "start": 44.614,
+   "end": 50.11
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA to reopen the log? A restart? Let's park that unless we need it.",
+   "zh": "重开日志预计多久？重启的事先放一边，除非确实需要。",
+   "role": "Incident lead",
+   "start": 50.11,
+   "end": 57.43
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 6,
+ "scene": "经确认，超过十四天的指定归档已集中保存且无保留限制，批准清理三 GB。",
+ "dir": "linux/0031-腾出余量",
+ "audio": "0031-腾出余量.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "临时缓解"
+ ],
+ "duration": 57.43
+}

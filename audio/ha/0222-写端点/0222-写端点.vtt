@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.480
+Anika: The writer endpoint now resolves to ledger-two.
+写入端点现在解析到ledger-two。
+
+2
+00:00:03.480 --> 00:00:07.152
+Lukas: Did existing connection pools refresh their targets?
+现有连接池更新目标了吗？
+
+3
+00:00:07.152 --> 00:00:12.263
+Raj: Yes, controlled reconnects. No blind request replay.
+是的，受控重连，没有盲目重放请求。
+
+4
+00:00:12.263 --> 00:00:17.087
+Hannah: Use idempotency keys for any uncertain retry.
+所有结果未知的重试都要用幂等键。
+
+5
+00:00:17.087 --> 00:00:20.735
+Priya: Just to confirm, staged rollout, right?
+确认一下，是分阶段恢复，对吧？
+
+6
+00:00:20.735 --> 00:00:24.959
+Anika: One tenant first. The smoke test passed.
+先一个租户，关键功能快速验证通过了。
+
+7
+00:00:24.959 --> 00:00:29.711
+Lukas: Okay, compare accepted requests against durable orders.
+好，把已受理请求与持久化订单对照。
+
+8
+00:00:29.711 --> 00:00:32.662
+Raj: We'll keep an eye on queue age.
+我们会留意队列等待时间。
+
+9
+00:00:32.662 --> 00:00:36.070
+Hannah: Maybe slower draining will buy us time.
+也许慢一些处理积压能争取核对时间。
+
+10
+00:00:36.070 --> 00:00:40.150
+Priya: Yes, expand only while those checks remain clean.
+是的，只有这些检查持续正常才扩大范围。
+

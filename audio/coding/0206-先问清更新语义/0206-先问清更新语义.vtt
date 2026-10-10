@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.360
+Lukas: Design a Python worker for tag updates. What would you clarify before writing code?
+设计处理标签更新的Python worker，写代码前会澄清什么？
+
+2
+00:00:06.360 --> 00:00:13.152
+Raj: I'll walk you through my questions first. Just to confirm, updates replace tags, right?
+我先逐步说我的问题，确认一下，是替换标签，对吧？
+
+3
+00:00:13.152 --> 00:00:21.841
+Hannah: Yes, the message contains the desired set. Assume a durable queue and authenticated API.
+是，消息包含目标标签集合，假定有持久队列和已认证API。
+
+4
+00:00:21.841 --> 00:00:29.521
+Raj: Okay, let me play that back carefully. We apply desired state, not append repeated changes.
+好，我认真复述，是应用目标状态，不是重复追加变更。
+
+5
+00:00:29.521 --> 00:00:37.201
+Raj: My working hypothesis is duplicate delivery matters. Maybe requests can time out after succeeding.
+我首先假设重复投递很重要，请求可能成功后才超时。
+
+6
+00:00:37.201 --> 00:00:43.969
+Lukas: Both happen in this exercise regularly. What would you exclude from the first implementation?
+本题两种情况都常发生，初版会排除什么？
+
+7
+00:00:43.969 --> 00:00:51.673
+Raj: I'd exclude scheduling and authentication system design. Those are provided, so let's park that.
+排除调度和认证系统设计，它们已给定，先放下。
+
+8
+00:00:51.673 --> 00:00:58.922
+Hannah: And what needs an explicit contract? Don't rely on unstated service behavior here.
+什么需要明确契约？不能依赖未声明服务行为。
+
+9
+00:00:58.922 --> 00:01:07.634
+Raj: I'd check update ordering and deduplication support. One action item is understanding acknowledgement semantics.
+检查更新顺序和去重支持，一个需确认事项是消息确认语义。
+
+10
+00:01:07.634 --> 00:01:14.330
+Raj: Then I'd sketch the simplest safe flow. Code comes after those constraints are clear.
+约束明确后画最简单安全流程，再写代码。
+

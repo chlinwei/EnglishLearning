@@ -1,0 +1,135 @@
+{
+ "id": "0271",
+ "part": 6,
+ "stage": "临时绕行",
+ "title": "绕过隔离缓存，不绕过安全门禁",
+ "premise": "冷构建通过，旧缓存恢复配置导致失败；缓存对象已隔离并保留。",
+ "listeningTask": "听出临时绕行的范围、凭据处置和停止条件。",
+ "newPhrase": "p546",
+ "phrases": [
+  "p546",
+  "p545",
+  "p334:extra",
+  "p010:extra",
+  "p324:extra",
+  "p306:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, bypass the cache for one run. This temporary workaround can buy us time.",
+   "zh": "好，一次运行绕过缓存。这个临时措施可以争取时间。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 6.576
+  },
+  {
+   "sp": "Raj",
+   "en": "The isolated build uses approved settings. We keep verification enabled, right?",
+   "zh": "隔离构建用批准设置。验证继续启用，对吧？",
+   "role": "Build runner on-call",
+   "start": 6.576,
+   "end": 13.2
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, no signature or checksum exceptions. Cap concurrency to protect the mirror.",
+   "zh": "对，签名和校验和不能豁免。限制并发，保护镜像源。",
+   "role": "Pipeline reliability engineer",
+   "start": 13.2,
+   "end": 19.872
+  },
+  {
+   "sp": "Anika",
+   "en": "Could disabling all caches restore speed? Sorry, restore builds, not speed.",
+   "zh": "关掉所有缓存能恢复速度吗？抱歉，是恢复构建，不是速度。",
+   "role": "Application release owner",
+   "start": 19.872,
+   "end": 26.496
+  },
+  {
+   "sp": "Hannah",
+   "en": "Only the implicated cache is isolated. Wider changes would blur our evidence.",
+   "zh": "只隔离涉事缓存。更广泛的变更会混淆证据。",
+   "role": "Artifact security engineer",
+   "start": 26.496,
+   "end": 33.552
+  },
+  {
+   "sp": "Raj",
+   "en": "Restricted inspection found no stored credentials. I'll rotate the diagnostic credential anyway.",
+   "zh": "受限检查未发现存储凭据。我仍会轮换诊断凭据。",
+   "role": "Build runner on-call",
+   "start": 33.552,
+   "end": 40.92
+  },
+  {
+   "sp": "Lukas",
+   "en": "Revoke it after the approved test. If exposure appears, involve security immediately.",
+   "zh": "批准测试后撤销它。若发现泄漏，立即找安全团队。",
+   "role": "Pipeline reliability engineer",
+   "start": 40.92,
+   "end": 47.904
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, what's our rollback trigger? Invalid content means stop, not bypass verification.",
+   "zh": "确认一下，回退触发条件是什么？内容无效就停止，不能绕过验证。",
+   "role": "Incident coordinator",
+   "start": 47.904,
+   "end": 56.04
+  },
+  {
+   "sp": "Hannah",
+   "en": "And preserve any suspected cache poisoning evidence. Don't delete quarantined objects yet.",
+   "zh": "也保留疑似缓存污染证据。暂时别删隔离对象。",
+   "role": "Artifact security engineer",
+   "start": 56.04,
+   "end": 64.032
+  },
+  {
+   "sp": "Anika",
+   "en": "Fair, roughly one build first then. No deployment permission comes with this test.",
+   "zh": "明白，那先大约一个构建。这个测试不附带部署许可。",
+   "role": "Application release owner",
+   "start": 64.032,
+   "end": 70.68
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 6,
+ "scene": "冷构建通过，旧缓存恢复配置导致失败；缓存对象已隔离并保留。",
+ "dir": "cicd/0271-绕过隔离缓存，不绕过安全门禁",
+ "audio": "0271-绕过隔离缓存，不绕过安全门禁.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "临时绕行"
+ ],
+ "duration": 70.68
+}

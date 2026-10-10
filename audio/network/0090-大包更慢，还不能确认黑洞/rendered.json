@@ -1,0 +1,135 @@
+{
+ "id": "0090",
+ "part": 5,
+ "stage": "MTU假设",
+ "title": "大包更慢，还不能确认黑洞",
+ "premise": "路由证据尚不完整，大载荷请求表现出额外尾延迟；讨论MTU假设。",
+ "listeningTask": "区分路径MTU假设与证据，并听清生产测试边界。",
+ "newPhrase": "p365",
+ "phrases": [
+  "p365",
+  "p335",
+  "p010",
+  "p210:extra",
+  "p324:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Large responses show more retransmissions in samples. Could path MTU discovery be failing?",
+   "zh": "抽样的大响应有更多重传，会不会是路径MTU发现失败？",
+   "role": "Performance engineer",
+   "start": 0.0,
+   "end": 8.28
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, that's a working hypothesis only. We haven't observed a consistent size boundary.",
+   "zh": "好，这只是当前假设，尚未观察到一致的大小边界。",
+   "role": "Network engineer",
+   "start": 8.28,
+   "end": 15.36
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't lower MTU across the production fleet. Check tunnels and ICMP handling first.",
+   "zh": "不要全生产集群降低MTU。先检查隧道和ICMP处理。",
+   "role": "SRE reviewer",
+   "start": 15.36,
+   "end": 22.225
+  },
+  {
+   "sp": "Anika",
+   "en": "Could a sandbox client reproduce the pattern? It uses the same approved network path.",
+   "zh": "沙箱客户端能复现吗？它使用同一条批准的网络路径。",
+   "role": "Pricing client owner",
+   "start": 22.225,
+   "end": 28.849
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, bounded probes only, right? No bulk oversized traffic against production.",
+   "zh": "我确认一下，只做受限探测，对吧？不向生产大量发送超大流量。",
+   "role": "Architecture review chair",
+   "start": 28.849,
+   "end": 36.385
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, small scheduled samples with packet metadata. We need acknowledgments and retransmission timing.",
+   "zh": "是，用定时小样本和包元数据。需要确认应答和重传时序。",
+   "role": "Performance engineer",
+   "start": 36.385,
+   "end": 45.241
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll dry-run it first in isolation. Then approved diagnostic probes can test reachability.",
+   "zh": "先在隔离环境预演，再由批准的诊断探测测试可达性。",
+   "role": "Network engineer",
+   "start": 45.241,
+   "end": 52.465
+  },
+  {
+   "sp": "Lukas",
+   "en": "Define the rollback trigger for experimental settings. Increased errors mean restore the saved configuration.",
+   "zh": "定义试验设置的回退门槛，错误增加就恢复已保存配置。",
+   "role": "SRE reviewer",
+   "start": 52.465,
+   "end": 60.05
+  },
+  {
+   "sp": "Anika",
+   "en": "I'd prefer no production settings changed yet. Roughly matching topology should test feasibility first.",
+   "zh": "我倾向于暂不改生产设置。先用大致匹配的拓扑验证可行性。",
+   "role": "Pricing client owner",
+   "start": 60.05,
+   "end": 67.658
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, production changes? Let's park that. So, MTU remains unconfirmed pending controlled evidence.",
+   "zh": "同意，生产变更先搁置。MTU问题继续等待受控证据，尚未确认。",
+   "role": "Architecture review chair",
+   "start": 67.658,
+   "end": 76.97
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 5,
+ "scene": "路由证据尚不完整，大载荷请求表现出额外尾延迟；讨论MTU假设。",
+ "dir": "network/0090-大包更慢，还不能确认黑洞",
+ "audio": "0090-大包更慢，还不能确认黑洞.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "MTU假设"
+ ],
+ "duration": 76.97
+}

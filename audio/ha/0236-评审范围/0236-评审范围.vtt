@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.200
+Priya: Let's define the capacity envelope before picking machines.
+选机器前先定义已验证的容量范围。
+
+2
+00:00:04.200 --> 00:00:07.896
+Lukas: Normal traffic only, or after losing a zone?
+只考虑正常流量，还是失去一个区以后？
+
+3
+00:00:07.896 --> 00:00:12.431
+Anika: Both. Checkout must survive the forecast peak.
+两者都考虑，结账必须承受预测峰值。
+
+4
+00:00:12.431 --> 00:00:16.559
+Hannah: Survive with what latency and completion rate?
+要以什么延迟和完成率维持服务？
+
+5
+00:00:16.559 --> 00:00:20.855
+Priya: Just to confirm, existing business targets, right?
+确认一下，沿用现有业务目标，对吧？
+
+6
+00:00:20.855 --> 00:00:26.279
+Raj: Yes. Our working hypothesis needs degraded-mode measurements.
+是的，当前假设需要降级状态下的测量。
+
+7
+00:00:26.279 --> 00:00:30.047
+Lukas: Okay, maybe separate read and write targets.
+好，也许应该分开读写目标。
+
+8
+00:00:30.047 --> 00:00:33.718
+Anika: I've got bandwidth to validate product priorities.
+我有精力核实产品优先级。
+
+9
+00:00:33.718 --> 00:00:36.382
+Hannah: We've got a hard stop at noon.
+我们中午必须结束。
+
+10
+00:00:36.382 --> 00:00:40.750
+Priya: New hardware vendors? Let's park that for now.
+新硬件供应商？先暂存这个话题。
+

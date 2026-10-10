@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.096
+Lukas: A concurrent index build still takes locks. It can wait for older transactions.
+并发建索引仍会获取锁，也可能等待较早开始的事务。
+
+2
+00:00:06.096 --> 00:00:12.600
+Raj: So a lock wait remains possible. Ordinary writes can continue through most phases.
+所以仍可能等锁，大多数阶段普通写入可以继续。
+
+3
+00:00:12.600 --> 00:00:18.912
+Anika: I said lock-free earlier, that's wrong. I meant reduced blocking for this engine.
+我之前说无锁，那不对，我指这个数据库能减少阻塞。
+
+4
+00:00:18.912 --> 00:00:26.904
+Priya: Just to confirm, engine-specific behavior, right? MySQL online DDL has different limits.
+确认一下，这是数据库特定行为，对吧？MySQL在线DDL限制不同。
+
+5
+00:00:26.904 --> 00:00:36.000
+Hannah: Exactly, including metadata locks and algorithms. Don't copy this approval across databases.
+对，包括元数据锁和算法选择，别把本次批准照搬到其他数据库。
+
+6
+00:00:36.000 --> 00:00:43.320
+Raj: The statement runs outside transaction blocks. We'll configure bounded waits through reviewed settings.
+语句在事务块外执行，用评审过的设置限制等待。
+
+7
+00:00:43.320 --> 00:00:50.208
+Lukas: Define a rollback trigger before execution. Cancellation may leave an unusable index.
+执行前定义回退触发条件，取消可能留下不可用索引。
+
+8
+00:00:50.208 --> 00:00:58.224
+Priya: Okay, simultaneous schema changes? Let's park that. Maybe they compete for table locks.
+好，同时做其他结构变更先放一边，它们可能争抢表锁。
+
+9
+00:00:58.224 --> 00:01:06.144
+Hannah: Our working hypothesis isn't zero impact. We expect tolerable waits with monitoring.
+当前假设不是零影响，而是监控下可接受的等待。
+
+10
+00:01:06.144 --> 00:01:12.120
+Anika: So, I'll correct the change description. It must state that risk clearly.
+那我修改变更描述，必须明确写出这个风险。
+

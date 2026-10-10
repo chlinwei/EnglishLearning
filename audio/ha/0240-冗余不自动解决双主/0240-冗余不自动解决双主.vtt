@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.896
+Raj: Our redundancy plan separates proxies and outbound gateways.
+冗余方案把代理和出口网关分开部署。
+
+2
+00:00:04.896 --> 00:00:09.816
+Lukas: And the database? Active-active writes aren't free redundancy.
+数据库呢？多活写入不是无代价的冗余。
+
+3
+00:00:09.816 --> 00:00:14.447
+Anika: Synchronous primary-standby, with a third-domain quorum witness.
+采用同步主备，法定人数见证位于第三个故障域。
+
+4
+00:00:14.447 --> 00:00:19.631
+Hannah: Quorum must authorize fencing before promoting any standby.
+法定人数决策必须在提升任何备机前授权隔离旧主。
+
+5
+00:00:19.631 --> 00:00:24.047
+Priya: Just to confirm, independent fencing access, right?
+确认一下，要有独立隔离访问路径，对吧？
+
+6
+00:00:24.047 --> 00:00:28.535
+Raj: Yes, the out-of-band console remains separately reachable.
+是的，带外控制台保持独立可达。
+
+7
+00:00:28.535 --> 00:00:32.423
+Lukas: A failure domain shouldn't contain every voting member.
+不能把所有投票成员放在一个故障域。
+
+8
+00:00:32.423 --> 00:00:37.222
+Anika: Our working hypothesis accepts added synchronous write latency.
+当前方案假设业务能接受同步写入增加的延迟。
+
+9
+00:00:37.222 --> 00:00:41.422
+Hannah: Maybe acceptable, but test it across zones.
+也许可以接受，但需要跨区测试。
+
+10
+00:00:41.422 --> 00:00:47.350
+Priya: Multi-region writers? Let's park that pending consistency requirements.
+多地域写入？先暂存，等一致性要求明确后再讨论。
+

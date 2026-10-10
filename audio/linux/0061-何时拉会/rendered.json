@@ -1,0 +1,135 @@
+{
+ "id": "0061",
+ "part": 6,
+ "stage": "值守条件",
+ "title": "何时拉会：重启复发和请求超时分开处理",
+ "premise": "调查线索已写清，根因未结案；接班方要求明确夜间升级触发条件。",
+ "listeningTask": "区分立即升级的事件和定时检查的业务等待指标。",
+ "newPhrase": "p336",
+ "phrases": [
+  "p336",
+  "p010",
+  "p309",
+  "p008:extra",
+  "p011:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "What's the escalation path if it restarts while fetching is paused?",
+   "zh": "如果暂停拉取期间又重启，升级处理怎么联系？",
+   "role": "Incoming primary on-call",
+   "start": 0.0,
+   "end": 5.088
+  },
+  {
+   "sp": "Priya",
+   "en": "Page the duty app owner immediately. Keep an eye on new exits, not just uptime.",
+   "zh": "立即呼叫当值应用负责人。要关注新的退出，不只看运行时间。",
+   "role": "Shift coordinator",
+   "start": 5.088,
+   "end": 11.712
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll leave the journal filter and alert link. New exits should reach your pager.",
+   "zh": "我会留下journal筛选方式和告警链接，新的退出应该能送达你的呼叫设备。",
+   "role": "Outgoing Linux on-call",
+   "start": 11.712,
+   "end": 18.144
+  },
+  {
+   "sp": "Lukas",
+   "en": "And delayed exports? They're already waiting. When does that become urgent?",
+   "zh": "导出延迟呢？现在已经在等待，什么时候算紧急？",
+   "role": "Incoming backup SRE",
+   "start": 18.144,
+   "end": 24.288
+  },
+  {
+   "sp": "Anika",
+   "en": "Check the oldest request at twenty hundred. Escalate if it exceeds the agreed two-hour limit.",
+   "zh": "20:00检查最老请求，等待超过约定的两小时限制就升级处理。",
+   "role": "Outgoing application owner",
+   "start": 24.288,
+   "end": 30.984
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, that's request age, right? Not two hours since this handoff?",
+   "zh": "我确认一下，指请求已经等了多久，对吧？不是交班后再等两小时？",
+   "role": "Shift coordinator",
+   "start": 30.984,
+   "end": 37.488
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. New restart means immediate call; request age gets the scheduled check.",
+   "zh": "我复述一下：新的重启立即呼叫，请求等待时间按计划检查。",
+   "role": "Incoming primary on-call",
+   "start": 37.488,
+   "end": 45.984
+  },
+  {
+   "sp": "Raj",
+   "en": "Correct. I'm on it for the reminder. What's the ETA for your first status update?",
+   "zh": "对，提醒我来设置。你的首次状态更新预计什么时候？",
+   "role": "Outgoing Linux on-call",
+   "start": 45.984,
+   "end": 53.184
+  },
+  {
+   "sp": "Lukas",
+   "en": "At twenty hundred, or earlier if a trigger fires. Don't wait for the scheduled update then.",
+   "zh": "20:00，触发条件出现就提前。那时不能等到例行更新时间。",
+   "role": "Incoming backup SRE",
+   "start": 53.184,
+   "end": 59.688
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. Maybe no change until then, but record both service state and customer delay.",
+   "zh": "同意。也许到时状态没变，但服务状态和用户延迟都要记录。",
+   "role": "Outgoing application owner",
+   "start": 59.688,
+   "end": 66.48
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 6,
+ "scene": "调查线索已写清，根因未结案；接班方要求明确夜间升级触发条件。",
+ "dir": "linux/0061-何时拉会",
+ "audio": "0061-何时拉会.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "值守条件"
+ ],
+ "duration": 66.48
+}

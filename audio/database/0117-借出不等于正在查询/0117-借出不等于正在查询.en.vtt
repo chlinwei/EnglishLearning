@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Raj: Forty checked-out connections, none available now. The pool is exhausted across three workers.
+
+2
+00:00:07.248 --> 00:00:13.991
+Hannah: Does checked out mean running queries? Compare that with actual session activity.
+
+3
+00:00:13.991 --> 00:00:21.239
+Anika: No, ownership stays with the application. Some borrowed connections aren't executing anything.
+
+4
+00:00:21.239 --> 00:00:27.814
+Priya: Just to confirm, same workers, right? Don't mix global and local counts.
+
+5
+00:00:27.814 --> 00:00:35.182
+Lukas: Exactly. The database isn't at capacity. Raising every pool limit could overload it.
+
+6
+00:00:35.182 --> 00:00:40.942
+Raj: Okay, I'm on it for mapping. I'll match session IDs to workers.
+
+7
+00:00:40.942 --> 00:00:46.533
+Hannah: I'll keep an eye on waits. We need ages, not just counts.
+
+8
+00:00:46.533 --> 00:00:53.037
+Anika: Our working hypothesis has two branches. Slow work or connections never returned.
+
+9
+00:00:53.037 --> 00:00:59.228
+Lukas: Idle sessions alone don't prove leakage. Pools normally keep idle sessions open.
+
+10
+00:00:59.228 --> 00:01:05.900
+Priya: So, collect ownership and age together. Maybe both causes are contributing here.
+

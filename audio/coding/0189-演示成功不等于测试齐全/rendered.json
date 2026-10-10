@@ -1,0 +1,135 @@
+{
+ "id": "0189",
+ "part": 4,
+ "stage": "测试缺口",
+ "title": "演示成功不等于测试齐全",
+ "premise": "评审时段确定，Hannah报告尚缺的异常路径测试。",
+ "listeningTask": "识别异常游标、空页和取消操作三项测试缺口。",
+ "newPhrase": "p464",
+ "phrases": [
+  "p464",
+  "p010",
+  "p009:extra",
+  "p302:extra",
+  "p014:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "There's a test coverage gap around pagination. Empty pages and repeated cursors aren't covered.",
+   "zh": "分页存在测试缺口，空页和重复游标未覆盖。",
+   "role": "Test and acceptance engineer",
+   "start": 0.0,
+   "end": 8.04
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it with repeated cursor detection. A repeated token must stop pagination safely.",
+   "zh": "重复游标检测我来做，重复令牌必须安全停止分页。",
+   "role": "CLI implementation engineer",
+   "start": 8.04,
+   "end": 14.832
+  },
+  {
+   "sp": "Lukas",
+   "en": "An empty page can still have continuation. Don't automatically treat it as completion.",
+   "zh": "空页仍可能带续页标识，不能自动当作结束。",
+   "role": "Code reviewer and platform engineer",
+   "start": 14.832,
+   "end": 21.311
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to confirm, the API allows that, right? I'll ask its owner for an example.",
+   "zh": "确认一下，接口允许这种情况，对吧？我找负责人要例子。",
+   "role": "API integration engineer",
+   "start": 21.311,
+   "end": 28.151
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, one action item per missing case. Maybe cancellation can pair with parser cleanup.",
+   "zh": "好，每个缺口单列任务，取消操作可能与解析器释放资源一起做。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 28.151,
+   "end": 35.303
+  },
+  {
+   "sp": "Hannah",
+   "en": "We can't rule that out without tests. A successful demo doesn't exercise cancellation behavior.",
+   "zh": "没测试就不能排除问题，演示成功没覆盖取消行为。",
+   "role": "Test and acceptance engineer",
+   "start": 35.303,
+   "end": 43.199
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll check resource ownership during review. Close the response when the user interrupts.",
+   "zh": "评审时检查资源所有权，用户中断要关闭响应。",
+   "role": "Code reviewer and platform engineer",
+   "start": 43.199,
+   "end": 49.535
+  },
+  {
+   "sp": "Raj",
+   "en": "A new paging framework would take longer. Let's park that and test our current loop.",
+   "zh": "新分页框架会耗时更多，先放下，测试当前循环。",
+   "role": "CLI implementation engineer",
+   "start": 49.535,
+   "end": 56.182
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll log the unresolved contract question separately. That shouldn't hide the known local gaps.",
+   "zh": "未决契约问题单独记录，不能遮住已知本地缺口。",
+   "role": "API integration engineer",
+   "start": 56.182,
+   "end": 63.166
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, report test evidence at day's end. No claim of complete coverage until then.",
+   "zh": "同意，日终报告测试证据，在那之前不宣称覆盖完整。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 63.166,
+   "end": 70.15
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 4,
+ "scene": "评审时段确定，Hannah报告尚缺的异常路径测试。",
+ "dir": "coding/0189-演示成功不等于测试齐全",
+ "audio": "0189-演示成功不等于测试齐全.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "测试缺口"
+ ],
+ "duration": 70.15
+}

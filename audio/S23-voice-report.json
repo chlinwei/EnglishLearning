@@ -1,0 +1,69 @@
+{
+ "scenario": "S23",
+ "voices": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rates": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "speakingSecondsByRole": {
+  "Anika": 49.312,
+  "Lukas": 64.337,
+  "Hannah": 73.291,
+  "Raj": 72.807,
+  "Priya": 57.152
+ },
+ "indianSpeakingShare": 0.5657037464586018,
+ "totalSpeakingSeconds": 316.898497,
+ "measurement": "ffmpeg silencedetect -40dB, silence >=0.12s excluded; approximate acoustic speech time",
+ "segments": [
+  {
+   "id": "0226",
+   "duration": 41.02
+  },
+  {
+   "id": "0227",
+   "duration": 43.15
+  },
+  {
+   "id": "0228",
+   "duration": 42.1
+  },
+  {
+   "id": "0229",
+   "duration": 46.18
+  },
+  {
+   "id": "0230",
+   "duration": 43.73
+  },
+  {
+   "id": "0231",
+   "duration": 45.5
+  },
+  {
+   "id": "0232",
+   "duration": 46.1
+  },
+  {
+   "id": "0233",
+   "duration": 44.4
+  },
+  {
+   "id": "0234",
+   "duration": 43.3
+  },
+  {
+   "id": "0235",
+   "duration": 43.01
+  }
+ ]
+}

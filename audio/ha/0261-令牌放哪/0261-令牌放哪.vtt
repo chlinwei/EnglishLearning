@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.704
+Lukas: The old leader disappears. Would you promote immediately?
+旧领导者失联，你会立即提升新主吗？
+
+2
+00:00:04.704 --> 00:00:08.976
+Raj: No. A fencing token needs storage-side enforcement.
+不会，隔离令牌需要存储端强制校验。
+
+3
+00:00:08.976 --> 00:00:13.225
+Raj: Just to confirm, stale writers get rejected, right?
+确认一下，过期写者会被拒绝，对吧？
+
+4
+00:00:13.225 --> 00:00:16.945
+Hannah: Where is the new epoch persisted and checked?
+新写者代次在哪里持久化和校验？
+
+5
+00:00:16.945 --> 00:00:21.025
+Raj: The quorum decision persists it in replicated storage.
+法定人数决策将它持久化在复制存储中。
+
+6
+00:00:21.025 --> 00:00:24.721
+Lukas: What if that rejection mechanism can't be verified?
+如果无法验证拒绝旧写者的机制呢？
+
+7
+00:00:24.721 --> 00:00:29.665
+Raj: Pause writes. Use verified power fencing if needed.
+暂停写入，必要时采用已验证的电源隔离。
+
+8
+00:00:29.665 --> 00:00:34.106
+Raj: The out-of-band console can independently confirm shutdown.
+带外控制台可以独立确认关闭。
+
+9
+00:00:34.106 --> 00:00:39.218
+Hannah: Okay, maybe define a rollback trigger for uncertainty.
+好，也许应为状态不明定义停止回退条件。
+
+10
+00:00:39.218 --> 00:00:44.930
+Raj: Stop routing writes. A smoke test follows safe authority transfer.
+停止路由写入。安全转移写权后再做快速验证。
+

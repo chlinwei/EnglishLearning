@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.552
+Priya: Our improvement backlog won't fit one sprint.
+
+2
+00:00:03.552 --> 00:00:09.480
+Hannah: Prioritize unsafe ambiguity before shaving recovery seconds.
+
+3
+00:00:09.480 --> 00:00:13.153
+Raj: Permission checks and fencing evidence come first.
+
+4
+00:00:13.153 --> 00:00:16.801
+Lukas: What rehearsal scope can validate those improvements?
+
+5
+00:00:16.801 --> 00:00:22.225
+Anika: The same isolated cluster. No broader production experiment.
+
+6
+00:00:22.225 --> 00:00:25.825
+Priya: Just to confirm, no shortcuts, right?
+
+7
+00:00:25.825 --> 00:00:30.457
+Hannah: Correct. Better access could buy us time safely.
+
+8
+00:00:30.457 --> 00:00:33.650
+Raj: I've got bandwidth for the preflight work.
+
+9
+00:00:33.650 --> 00:00:39.218
+Lukas: Dashboard redesign? Let's park that, perhaps until next sprint.
+
+10
+00:00:39.218 --> 00:00:44.090
+Priya: Agreed. Limit commitments to work we can verify.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0103",
+ "part": 8,
+ "stage": "接班追问",
+ "title": "接班人复述边界和未决事实",
+ "premise": "阈值与操作边界明确，接班人检查是否遗漏并复述行动。",
+ "listeningTask": "听出复述中哪些是事实、哪些是未决假设。",
+ "newPhrase": "p378",
+ "phrases": [
+  "p378",
+  "p011",
+  "p010",
+  "p339:extra",
+  "p334:extra",
+  "p320:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back now. The handoff checklist leaves primary routing mostly unchanged.",
+   "zh": "我现在复述一下，交接清单要求主路由大体不变。",
+   "role": "Incoming primary on-call",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, exactly two workers use the workaround. The others remain on the primary circuit.",
+   "zh": "好，准确说只有两个工作进程绕行，其他仍用主专线。",
+   "role": "Outgoing network on-call",
+   "start": 6.552,
+   "end": 13.439
+  },
+  {
+   "sp": "Hannah",
+   "en": "And the root cause is still open. Carrier diagnosis hasn't confirmed a failed segment.",
+   "zh": "根因仍未确定，运营商诊断尚未确认故障链路。",
+   "role": "Incoming network responder",
+   "start": 13.439,
+   "end": 20.855
+  },
+  {
+   "sp": "Anika",
+   "en": "Correct, and reservation reconciliation stays active. Don't add blanket retries for write operations.",
+   "zh": "对，预留核对继续运行，不给写操作增加统一重试。",
+   "role": "Inventory integration owner",
+   "start": 20.855,
+   "end": 28.678
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, two windows for loss, right? Correctness failures skip that waiting period.",
+   "zh": "我确认一下，丢包看两个时间窗，对吧？正确性问题不等观察期。",
+   "role": "Outgoing shift coordinator",
+   "start": 28.678,
+   "end": 35.71
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, assess both paths before changing routing. Have I missed anything about backup capacity?",
+   "zh": "是，改路由前评估两条路径。备用容量方面我漏了什么吗？",
+   "role": "Incoming primary on-call",
+   "start": 35.71,
+   "end": 42.862
+  },
+  {
+   "sp": "Raj",
+   "en": "Stop expansion above seventy percent sustained utilization. That doesn't mean automatically return to primary.",
+   "zh": "利用率持续超过百分之七十就停止扩大，但不自动回主线。",
+   "role": "Outgoing network on-call",
+   "start": 42.862,
+   "end": 51.093
+  },
+  {
+   "sp": "Hannah",
+   "en": "Understood, a temporary workaround with limited scope. I'll collect bounded captures and reviewed summaries.",
+   "zh": "明白，是有限范围临时缓解。我负责受限抓包和审核后的汇总。",
+   "role": "Incoming network responder",
+   "start": 51.093,
+   "end": 60.573
+  },
+  {
+   "sp": "Anika",
+   "en": "And watch both worker populations separately. Roughly normal routed workers don't clear the incident.",
+   "zh": "还要分开看两类工作进程。绕行进程大致正常不代表事件结束。",
+   "role": "Inventory integration owner",
+   "start": 60.573,
+   "end": 67.892
+  },
+  {
+   "sp": "Priya",
+   "en": "So, that covers the technical handoff. Let's verify actual contact access before acceptance.",
+   "zh": "这样技术交接完整了。确认实际联系人可达后再接受交接。",
+   "role": "Outgoing shift coordinator",
+   "start": 67.892,
+   "end": 75.62
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 8,
+ "scene": "阈值与操作边界明确，接班人检查是否遗漏并复述行动。",
+ "dir": "network/0103-接班人复述边界和未决事实",
+ "audio": "0103-接班人复述边界和未决事实.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "接班追问"
+ ],
+ "duration": 75.62
+}

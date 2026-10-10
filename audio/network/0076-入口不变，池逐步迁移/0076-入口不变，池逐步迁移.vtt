@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.856
+Priya: Okay, I'll take point on this. We propose to shift traffic tonight.
+好，这次我来主抓。我们提议今晚迁移流量。
+
+2
+00:00:05.856 --> 00:00:12.024
+Lukas: Does that include a public DNS change? That would complicate our rollback timing.
+包括公共DNS变更吗？那会让回退时间复杂起来。
+
+3
+00:00:12.024 --> 00:00:18.480
+Raj: No, the public entry stays unchanged. Edge routing selects the internal pool.
+不，公共入口不变，由边缘路由选择内部池。
+
+4
+00:00:18.480 --> 00:00:25.008
+Hannah: So clients keep the same hostname. What problem does this migration solve?
+所以客户端继续使用相同主机名。这次迁移解决什么问题？
+
+5
+00:00:25.008 --> 00:00:31.152
+Anika: The old platform loses support next month. There's no current checkout outage.
+旧平台下个月停止支持，目前结账服务并无故障。
+
+6
+00:00:31.152 --> 00:00:38.136
+Priya: Just to confirm, a staged rollout, right? Approval doesn't mean immediate full traffic.
+我确认一下，是分阶段切换，对吧？批准不代表立即全量迁移。
+
+7
+00:00:38.136 --> 00:00:44.376
+Lukas: Agreed, with gates between each step. We need tested rollback access first.
+同意，每一步之间都要有验收门槛。先验证回退权限可用。
+
+8
+00:00:44.376 --> 00:00:50.376
+Raj: The maintenance window starts at ten. We'll leave roughly two hours available.
+维护窗口十点开始，预留大约两小时。
+
+9
+00:00:50.376 --> 00:00:57.672
+Hannah: What's the ETA for the dependency checklist? I can't approve an incomplete boundary.
+依赖清单预计什么时候完成？边界不完整，我无法批准。
+
+10
+00:00:57.672 --> 00:01:04.440
+Priya: By nine, before the final approval. First, let's check those dependencies together.
+九点前完成，在最终批准之前。先一起检查依赖。
+

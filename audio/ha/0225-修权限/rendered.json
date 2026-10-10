@@ -1,0 +1,135 @@
+{
+ "id": "0225",
+ "part": 10,
+ "stage": "修复自动切换",
+ "title": "修权限：安全停住并不是坏事",
+ "premise": "服务稳定，调查控制器未能完成旧主隔离的原因。",
+ "listeningTask": "区分安全拒绝提升与故障切换功能修复验收。",
+ "newPhrase": "p500",
+ "phrases": [
+  "p500",
+  "p496",
+  "p320",
+  "p009:extra",
+  "p210:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Fencing credentials expired. The provider rejected shutdown.",
+   "zh": "隔离凭据过期，提供方拒绝了关闭操作。",
+   "role": "Database on-call",
+   "start": 0.0,
+   "end": 5.279
+  },
+  {
+   "sp": "Lukas",
+   "en": "So refusing promotion protected us from dual writers.",
+   "zh": "所以拒绝提升保护了我们，避免双写。",
+   "role": "Cluster safety engineer",
+   "start": 5.279,
+   "end": 9.407
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes, but the root cause is still open.",
+   "zh": "是的，但根因仍未查明。",
+   "role": "Incident coordinator",
+   "start": 9.407,
+   "end": 12.767
+  },
+  {
+   "sp": "Hannah",
+   "en": "You mean why expiry escaped monitoring?",
+   "zh": "你指为什么过期没被监控发现？",
+   "role": "Data validation engineer",
+   "start": 12.767,
+   "end": 16.318
+  },
+  {
+   "sp": "Raj",
+   "en": "Exactly. Rotation itself worked; controller refresh didn't.",
+   "zh": "正是。凭据轮换本身执行了，但控制器没有刷新凭据。",
+   "role": "Database on-call",
+   "start": 16.318,
+   "end": 21.622
+  },
+  {
+   "sp": "Anika",
+   "en": "An action item: test rejection handling too.",
+   "zh": "一个待办项：也测试隔离被拒绝的处理。",
+   "role": "Order application owner",
+   "start": 21.622,
+   "end": 25.438
+  },
+  {
+   "sp": "Lukas",
+   "en": "Dry-run it first, then isolate a test cluster.",
+   "zh": "先试运行，再隔离一套测试集群。",
+   "role": "Cluster safety engineer",
+   "start": 25.438,
+   "end": 29.397
+  },
+  {
+   "sp": "Priya",
+   "en": "Verify we can fence off before promotion.",
+   "zh": "验证提升前能够可靠隔离。",
+   "role": "Incident coordinator",
+   "start": 29.397,
+   "end": 32.853
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe include restart attempts and missing permissions.",
+   "zh": "也许还应包含重启尝试和权限缺失测试。",
+   "role": "Data validation engineer",
+   "start": 32.853,
+   "end": 37.436
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, I'll close the loop with recorded safety evidence.",
+   "zh": "好，我会带着记录的安全证据完成反馈。",
+   "role": "Database on-call",
+   "start": 37.436,
+   "end": 41.78
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 10,
+ "scene": "服务稳定，调查控制器未能完成旧主隔离的原因。",
+ "dir": "ha/0225-修权限",
+ "audio": "0225-修权限.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "修复自动切换"
+ ],
+ "duration": 41.78
+}

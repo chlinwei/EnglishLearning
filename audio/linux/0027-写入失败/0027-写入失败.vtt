@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.616
+Anika: The worker is logging write failures. The queue depth is climbing now.
+工作进程在报写入失败，队列积压现在正在增加。
+
+2
+00:00:05.616 --> 00:00:10.440
+Lukas: Are events being dropped? Or are they waiting for another attempt?
+事件被丢弃了，还是在等待重试？
+
+3
+00:00:10.440 --> 00:00:17.423
+Anika: They're still queued. A failed event stays unacknowledged. That's the retry path.
+还在队列里。失败的事件不会被确认，之后会重试。
+
+4
+00:00:17.423 --> 00:00:23.999
+Priya: Just to confirm, checkout is working? Confirmation emails might be delayed, right?
+我确认一下，结账还正常？确认邮件可能会延迟，对吧？
+
+5
+00:00:23.999 --> 00:00:30.359
+Hannah: The other two workers look normal. Their disks are below fifty percent.
+另外两台工作节点看起来正常，磁盘使用率都不到百分之五十。
+
+6
+00:00:30.359 --> 00:00:37.295
+Raj: This one says no space left. Inodes look fine. We can rule that out.
+这台报磁盘空间不足。inode 数量没问题，可以排除 inode 耗尽。
+
+7
+00:00:37.295 --> 00:00:43.343
+Lukas: Okay. Don't call it no data loss yet. Check the retry metrics too.
+好，但先别宣布没有数据丢失。还要检查重试指标。
+
+8
+00:00:43.343 --> 00:00:50.878
+Priya: I'm on it. What's the ETA for that check? Expansion? Let's park that.
+我来跟进。检查那些指标预计多久？扩容的事？先放一边。
+
+9
+00:00:50.878 --> 00:00:57.070
+Hannah: I'll compare queue arrivals with acknowledgements. That should show the gap.
+我会对比入队数量和确认数量，这样能看到差额。
+
+10
+00:00:57.070 --> 00:01:05.230
+Anika: Maybe three minutes. Let's circle back once we've checked. Raj, can you find what's taking the space?
+大概三分钟。核实后我们再回来确认。Raj，你查一下空间被什么占用了好吗？
+

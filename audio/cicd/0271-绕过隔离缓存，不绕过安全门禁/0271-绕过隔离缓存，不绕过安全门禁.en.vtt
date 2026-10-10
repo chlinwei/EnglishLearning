@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.576
+Priya: Okay, bypass the cache for one run. This temporary workaround can buy us time.
+
+2
+00:00:06.576 --> 00:00:13.200
+Raj: The isolated build uses approved settings. We keep verification enabled, right?
+
+3
+00:00:13.200 --> 00:00:19.872
+Lukas: Yes, no signature or checksum exceptions. Cap concurrency to protect the mirror.
+
+4
+00:00:19.872 --> 00:00:26.496
+Anika: Could disabling all caches restore speed? Sorry, restore builds, not speed.
+
+5
+00:00:26.496 --> 00:00:33.552
+Hannah: Only the implicated cache is isolated. Wider changes would blur our evidence.
+
+6
+00:00:33.552 --> 00:00:40.920
+Raj: Restricted inspection found no stored credentials. I'll rotate the diagnostic credential anyway.
+
+7
+00:00:40.920 --> 00:00:47.904
+Lukas: Revoke it after the approved test. If exposure appears, involve security immediately.
+
+8
+00:00:47.904 --> 00:00:56.040
+Priya: Just to confirm, what's our rollback trigger? Invalid content means stop, not bypass verification.
+
+9
+00:00:56.040 --> 00:01:04.032
+Hannah: And preserve any suspected cache poisoning evidence. Don't delete quarantined objects yet.
+
+10
+00:01:04.032 --> 00:01:10.680
+Anika: Fair, roughly one build first then. No deployment permission comes with this test.
+

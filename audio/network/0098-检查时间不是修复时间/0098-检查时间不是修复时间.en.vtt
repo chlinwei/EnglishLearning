@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.248
+Priya: Okay, carrier ticket C-four-eighty-two remains open. They acknowledged the evidence at seven thirty.
+
+2
+00:00:07.248 --> 00:00:12.673
+Lukas: What's the ETA for a repair? Did they commit to a restoration time?
+
+3
+00:00:12.673 --> 00:00:19.849
+Raj: No restoration estimate, only a diagnostic update. That's due at nine this evening.
+
+4
+00:00:19.849 --> 00:00:27.554
+Hannah: Which checks have they completed already? An acknowledgment isn't evidence of technical progress.
+
+5
+00:00:27.554 --> 00:00:34.730
+Raj: They report clean optics at their local handoff. Remote segment counters are still pending.
+
+6
+00:00:34.730 --> 00:00:42.122
+Priya: Just to confirm, the root cause is still open, right? We haven't verified their remote segment.
+
+7
+00:00:42.122 --> 00:00:47.931
+Lukas: Please record that wording in the ticket. Who owns the carrier escalation path?
+
+8
+00:00:47.931 --> 00:00:54.267
+Anika: Raj owns it until this handoff closes. Then Hannah takes the carrier follow-up.
+
+9
+00:00:54.267 --> 00:01:02.812
+Hannah: Accepted, with ticket access verified first. I'll request the missing remote counter evidence.
+
+10
+00:01:02.812 --> 00:01:11.140
+Priya: Compensation discussion? Let's park that for later. So, technical follow-up continues around nine.
+

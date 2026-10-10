@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.976
+Anika: Every exit must return the connection. The timeout cleanup path now does.
+每个退出分支都必须归还连接，超时清理分支现在也做到了。
+
+2
+00:00:05.976 --> 00:00:12.456
+Lukas: After resolving transaction state, of course. Tests must enforce that ordering too.
+当然要先处理事务状态，测试也必须保证这个顺序。
+
+3
+00:00:12.456 --> 00:00:19.633
+Raj: Okay, checked-out connections need age alerts. Counts alone hid abandoned ownership here.
+好，借出连接需要占用时长告警，这次只看数量掩盖了持有关系丢失。
+
+4
+00:00:19.633 --> 00:00:25.729
+Priya: Who's picking this up by Friday? Hannah, you own those alerts, right?
+谁周五前接这个任务？Hannah，告警由你负责，对吧？
+
+5
+00:00:25.729 --> 00:00:33.481
+Hannah: Yes, with a bounded cancellation test. I'll compare occupancy before and after.
+是，也加上有上限的取消测试，对比前后占用。
+
+6
+00:00:33.481 --> 00:00:39.625
+Anika: My action item is regression coverage. I'll add exception cases by tomorrow.
+我的行动项是回归覆盖，明天前加上异常场景。
+
+7
+00:00:39.625 --> 00:00:45.913
+Lukas: I'll review retry limits with clients. Maybe our timeout budget needs adjustment.
+我和客户端评审重试限额，可能超时预算也需要调整。
+
+8
+00:00:45.913 --> 00:00:52.394
+Raj: I'll review the report plan tomorrow. Slow reports triggered waits, not every leak.
+我明天评审报表执行计划，慢报表引发等待，但并非所有泄漏都由它解释。
+
+9
+00:00:52.394 --> 00:00:59.618
+Hannah: Report recovery needs its own evidence. Keep that acceptance separate from cleanup.
+报表恢复要有自己的证据，验收与连接清理分开。
+
+10
+00:00:59.618 --> 00:01:06.290
+Priya: So, close the loop next Friday. Bring test results, not just closed tickets.
+那下周五闭环，带测试结果，不只是关闭的工单。
+

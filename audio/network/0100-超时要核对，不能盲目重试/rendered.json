@@ -1,0 +1,135 @@
+{
+ "id": "0100",
+ "part": 5,
+ "stage": "业务影响",
+ "title": "超时要核对，不能盲目重试",
+ "premise": "绕行仅覆盖两个工作进程，主路径业务仍可能超时；交代业务监控。",
+ "listeningTask": "区分库存查询失败、订单状态和重试安全边界。",
+ "newPhrase": "p375",
+ "phrases": [
+  "p375",
+  "p010",
+  "p106",
+  "p101:extra",
+  "p349:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Okay, affected sessions show slower inventory checks. The error rate spiked before the workaround.",
+   "zh": "好，受影响会话的库存检查较慢，绕行前错误率曾陡涨。",
+   "role": "Inventory integration owner",
+   "start": 0.0,
+   "end": 7.728
+  },
+  {
+   "sp": "Lukas",
+   "en": "Did any orders reserve inventory twice? Timeouts don't always mean the request failed.",
+   "zh": "有订单重复预留库存吗？超时不一定意味着请求失败。",
+   "role": "Incoming primary on-call",
+   "start": 7.728,
+   "end": 14.352
+  },
+  {
+   "sp": "Anika",
+   "en": "No duplicates found in sampled reservations. We reconcile uncertain results using operation identifiers.",
+   "zh": "抽样预留里未发现重复。通过操作标识核对不确定结果。",
+   "role": "Inventory integration owner",
+   "start": 14.352,
+   "end": 22.607
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep an eye on that reconciliation queue. Growing backlog could hide continuing business impact.",
+   "zh": "留意核对队列，积压增长可能掩盖持续业务影响。",
+   "role": "Incoming network responder",
+   "start": 22.607,
+   "end": 30.575
+  },
+  {
+   "sp": "Raj",
+   "en": "Two workers route differently; that's our blast radius for this change. Other clients still use primary.",
+   "zh": "本次变更的影响范围是两个改路由的工作进程，其他客户端仍走主线。",
+   "role": "Outgoing network on-call",
+   "start": 30.575,
+   "end": 38.423
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not total incident scope, right? We separate change scope from affected customers.",
+   "zh": "我确认一下，这不是整个事件影响范围，对吧？变更范围和客户影响分开描述。",
+   "role": "Outgoing shift coordinator",
+   "start": 38.423,
+   "end": 46.271
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly, report those populations separately overnight. Are retries restricted for reservation writes?",
+   "zh": "对，夜间分开报告这些群体。库存预留写入的重试受限制吗？",
+   "role": "Incoming primary on-call",
+   "start": 46.271,
+   "end": 54.239
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, approved idempotency safeguards remain in place. No blanket retry changes during this handoff.",
+   "zh": "是，批准的幂等保护仍在，交接期间不统一修改重试。",
+   "role": "Inventory integration owner",
+   "start": 54.239,
+   "end": 62.662
+  },
+  {
+   "sp": "Hannah",
+   "en": "And the mitigation is holding for routed workers? Compare them with primary-path workers separately.",
+   "zh": "绕行工作进程缓解持续有效吗？要与主路径进程分开比较。",
+   "role": "Incoming network responder",
+   "start": 62.662,
+   "end": 70.87
+  },
+  {
+   "sp": "Priya",
+   "en": "Yes, their timeouts are roughly near baseline. So, preserve both views in the update.",
+   "zh": "是，超时大致接近基线。因此更新中保留这两种视图。",
+   "role": "Outgoing shift coordinator",
+   "start": 70.87,
+   "end": 77.83
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 5,
+ "scene": "绕行仅覆盖两个工作进程，主路径业务仍可能超时；交代业务监控。",
+ "dir": "network/0100-超时要核对，不能盲目重试",
+ "audio": "0100-超时要核对，不能盲目重试.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "业务影响"
+ ],
+ "duration": 77.83
+}

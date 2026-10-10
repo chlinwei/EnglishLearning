@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.272
+Lukas: Design checkout for us. Start with your questions.
+请设计结账系统，先说你要问什么。
+
+2
+00:00:04.272 --> 00:00:08.136
+Raj: What's the availability target for completed orders?
+已完成订单的可用性目标是什么？
+
+3
+00:00:08.136 --> 00:00:12.457
+Raj: Just to confirm, no lost acknowledged orders, right?
+确认一下，不能丢已确认订单，对吧？
+
+4
+00:00:12.457 --> 00:00:17.713
+Hannah: Correct. Duplicate charges are unacceptable as well.
+对，重复扣款也不能接受。
+
+5
+00:00:17.713 --> 00:00:22.441
+Raj: My working hypothesis separates orders from recommendations.
+我当前的假设是把订单与推荐分开。
+
+6
+00:00:22.441 --> 00:00:26.761
+Lukas: Why separate them? Explain the customer impact.
+为什么分开？说明对客户的影响。
+
+7
+00:00:26.761 --> 00:00:31.129
+Raj: That's our blast radius if shared resources overload.
+如果共享资源过载，这就是影响范围。
+
+8
+00:00:31.129 --> 00:00:36.698
+Raj: Recommendations can degrade. Orders probably need stronger guarantees.
+推荐可以降级，订单大概需要更强保证。
+
+9
+00:00:36.698 --> 00:00:41.570
+Hannah: Okay, let me play that back. Different service classes.
+好，我复述一下：不同业务类别。
+
+10
+00:00:41.570 --> 00:00:47.450
+Raj: Yes. Global multi-active writes? Let's park that initially.
+是的，全球多活写入？先暂存这个方案。
+

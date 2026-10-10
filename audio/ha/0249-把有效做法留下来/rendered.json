@@ -1,0 +1,135 @@
+{
+ "id": "0249",
+ "part": 4,
+ "stage": "做得好的事",
+ "title": "把有效做法留下来",
+ "premise": "已量化延迟，团队先辨认应保留的安全和协作实践。",
+ "listeningTask": "听出安全等待为何不应简单归为浪费。",
+ "newPhrase": "p524",
+ "phrases": [
+  "p524",
+  "p523",
+  "p210",
+  "p011:extra",
+  "p327:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Despite the access bottleneck, let's name what worked.",
+   "zh": "虽有权限卡点，先说哪些做法有效。",
+   "role": "Retrospective facilitator",
+   "start": 0.0,
+   "end": 4.08
+  },
+  {
+   "sp": "Lukas",
+   "en": "The team refused promotion without verified fencing.",
+   "zh": "团队拒绝在隔离未验证时提升。",
+   "role": "Exercise safety observer",
+   "start": 4.08,
+   "end": 7.968
+  },
+  {
+   "sp": "Raj",
+   "en": "We chose to dry-run it first beforehand.",
+   "zh": "事先我们选择先试运行一遍。",
+   "role": "DR exercise operator",
+   "start": 7.968,
+   "end": 11.232
+  },
+  {
+   "sp": "Hannah",
+   "en": "That caught the wrong target host identifier.",
+   "zh": "那发现了目标主机标识写错。",
+   "role": "Recovery measurement analyst",
+   "start": 11.232,
+   "end": 14.952
+  },
+  {
+   "sp": "Anika",
+   "en": "Our smoke test checked actual order retrieval.",
+   "zh": "快速验证检查了实际订单读取。",
+   "role": "Order service exercise owner",
+   "start": 14.952,
+   "end": 18.576
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, safety checks stay, right?",
+   "zh": "确认一下，安全检查保留，对吧？",
+   "role": "Retrospective facilitator",
+   "start": 18.576,
+   "end": 22.464
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Faster isn't always better.",
+   "zh": "我复述一下：更快不总是更好。",
+   "role": "Exercise safety observer",
+   "start": 22.464,
+   "end": 26.88
+  },
+  {
+   "sp": "Raj",
+   "en": "Exactly. We can shorten approval waits, not fencing.",
+   "zh": "正是，可以缩短批准等待，不能跳过隔离。",
+   "role": "DR exercise operator",
+   "start": 26.88,
+   "end": 31.968
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe automate evidence collection without removing independent checks.",
+   "zh": "也许可以自动收集证据，但不移除独立检查。",
+   "role": "Recovery measurement analyst",
+   "start": 31.968,
+   "end": 37.728
+  },
+  {
+   "sp": "Priya",
+   "en": "Good distinction. Keep the successful steps visible.",
+   "zh": "这个区分重要，保留并突出有效步骤。",
+   "role": "Retrospective facilitator",
+   "start": 37.728,
+   "end": 42.48
+  }
+ ],
+ "group": "agile",
+ "domain": "ha",
+ "series": "sc-S25-ha-dr-retro",
+ "parts": 10,
+ "seq": 4,
+ "scene": "已量化延迟，团队先辨认应保留的安全和协作实践。",
+ "dir": "ha/0249-把有效做法留下来",
+ "audio": "0249-把有效做法留下来.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Retrospective facilitator）",
+  "Raj（DR exercise operator）",
+  "Anika（Order service exercise owner）",
+  "Lukas（Exercise safety observer）",
+  "Hannah（Recovery measurement analyst）"
+ ],
+ "tags": [
+  "ha",
+  "做得好的事"
+ ],
+ "duration": 42.48
+}

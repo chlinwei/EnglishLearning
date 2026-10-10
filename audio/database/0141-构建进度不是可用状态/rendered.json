@@ -1,0 +1,135 @@
+{
+ "id": "0141",
+ "part": 6,
+ "stage": "灰度执行",
+ "title": "构建进度不是可用状态",
+ "premise": "预检通过，在单个叶分区开始并发构建。",
+ "listeningTask": "区分扫描进度、验证阶段和索引真正可用。",
+ "newPhrase": "p416",
+ "phrases": [
+  "p416",
+  "p411",
+  "p415:extra",
+  "p309:extra",
+  "p008:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Build progress shows the first scan. The concurrent index build has started.",
+   "zh": "构建进度显示首次扫描，并发索引构建已开始。",
+   "role": "Database change operator",
+   "start": 0.0,
+   "end": 5.952
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep watching activity during later phases. It may wait before final validation.",
+   "zh": "后续阶段也观察活动，最终验证前可能等待。",
+   "role": "Database reliability reviewer",
+   "start": 5.952,
+   "end": 12.216
+  },
+  {
+   "sp": "Anika",
+   "en": "Writes continue within the approved budget. Search traffic still uses its old path.",
+   "zh": "写入仍在批准预算内，检索流量仍用原路径。",
+   "role": "Orders search owner",
+   "start": 12.216,
+   "end": 18.791
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not usable yet, right? Don't announce success from scan progress.",
+   "zh": "确认一下，现在还不可用，对吧？别凭扫描进度宣布成功。",
+   "role": "Change coordinator",
+   "start": 18.791,
+   "end": 25.823
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly. I'll keep an eye on errors. We need completion and catalog checks.",
+   "zh": "对，我观察错误，需要完成状态和系统目录检查。",
+   "role": "Query and rollout validation engineer",
+   "start": 25.823,
+   "end": 33.191
+  },
+  {
+   "sp": "Raj",
+   "en": "No long-running transaction appears so far. Current lock waits remain below our threshold.",
+   "zh": "目前没出现长事务，当前锁等待低于阈值。",
+   "role": "Database change operator",
+   "start": 33.191,
+   "end": 40.247
+  },
+  {
+   "sp": "Lukas",
+   "en": "Don't launch another build beside it. One successful start isn't capacity evidence.",
+   "zh": "别旁边再开一个构建，启动成功不代表容量足够。",
+   "role": "Database reliability reviewer",
+   "start": 40.247,
+   "end": 46.583
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA from progress? Maybe give a range until validation.",
+   "zh": "好，按进度预计多久？验证结束前给个范围吧。",
+   "role": "Change coordinator",
+   "start": 46.583,
+   "end": 53.086
+  },
+  {
+   "sp": "Hannah",
+   "en": "About ten to twenty minutes remaining. Waiting phases make that estimate uncertain.",
+   "zh": "大约还要十到二十分钟，等待阶段让估计不确定。",
+   "role": "Query and rollout validation engineer",
+   "start": 53.086,
+   "end": 60.142
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I'll keep support informed internally. No query switch until checks pass.",
+   "zh": "那我给内部支持团队更新，检查通过前不切查询开关。",
+   "role": "Orders search owner",
+   "start": 60.142,
+   "end": 66.67
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 6,
+ "scene": "预检通过，在单个叶分区开始并发构建。",
+ "dir": "database/0141-构建进度不是可用状态",
+ "audio": "0141-构建进度不是可用状态.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "灰度执行"
+ ],
+ "duration": 66.67
+}

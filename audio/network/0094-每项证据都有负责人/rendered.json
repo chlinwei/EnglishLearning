@@ -1,0 +1,135 @@
+{
+ "id": "0094",
+ "part": 9,
+ "stage": "责任分配",
+ "title": "每项证据都有负责人",
+ "premise": "试验边界和对照已确定，分配客户端、网络和成本任务。",
+ "listeningTask": "听清各负责人交付内容及依赖缺失时的处理。",
+ "newPhrase": "p369",
+ "phrases": [
+  "p369",
+  "p008",
+  "p010",
+  "p013:extra",
+  "p014:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, who's picking this up for pooling? Each trial needs an experiment owner.",
+   "zh": "好，谁来接连接池试验？每项试验都需要负责人。",
+   "role": "Architecture review chair",
+   "start": 0.0,
+   "end": 6.216
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for client changes. I'll include limits and correctness checks.",
+   "zh": "客户端变更我来做，会包括限制和正确性检查。",
+   "role": "Pricing client owner",
+   "start": 6.216,
+   "end": 11.832
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll own measurement quality, not application changes. Keep those responsibilities separate in the record.",
+   "zh": "我负责测量质量，不负责应用变更。记录里要分清。",
+   "role": "Performance engineer",
+   "start": 11.832,
+   "end": 20.615
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll own the isolated network test. Reverse-route evidence still depends on the regional team.",
+   "zh": "我负责隔离网络试验。回程路由证据仍依赖区域团队。",
+   "role": "Network engineer",
+   "start": 20.615,
+   "end": 27.671
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for their response? Missing evidence shouldn't silently become an assumption.",
+   "zh": "他们预计什么时候回复？缺失证据不能悄悄变成假设。",
+   "role": "SRE reviewer",
+   "start": 27.671,
+   "end": 34.391
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, roughly tomorrow afternoon, right? If delayed, report the dependency explicitly.",
+   "zh": "我确认一下，大约明天下午，对吧？延迟就明确报告依赖。",
+   "role": "Architecture review chair",
+   "start": 34.391,
+   "end": 42.287
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, that's their current estimate only. I'll ask for a named regional contact.",
+   "zh": "是，那只是他们当前估计。我会请他们指定区域联系人。",
+   "role": "Network engineer",
+   "start": 42.287,
+   "end": 48.959
+  },
+  {
+   "sp": "Hannah",
+   "en": "Who checks the resulting cost estimate? Include transfer tariffs and client resource changes.",
+   "zh": "谁检查成本估算结果？要包括传输费率和客户端资源变化。",
+   "role": "Performance engineer",
+   "start": 48.959,
+   "end": 56.71
+  },
+  {
+   "sp": "Anika",
+   "en": "Lukas reviews it after both inputs arrive. My resource report is due tomorrow.",
+   "zh": "两项输入到齐后由Lukas评审，我明天交资源报告。",
+   "role": "Pricing client owner",
+   "start": 56.71,
+   "end": 63.022
+  },
+  {
+   "sp": "Priya",
+   "en": "So, each action item has an owner. We'll review incomplete evidence without forcing adoption.",
+   "zh": "因此每项待办都有负责人。证据不完整时也评审，但不强行采用。",
+   "role": "Architecture review chair",
+   "start": 63.022,
+   "end": 70.39
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 9,
+ "scene": "试验边界和对照已确定，分配客户端、网络和成本任务。",
+ "dir": "network/0094-每项证据都有负责人",
+ "audio": "0094-每项证据都有负责人.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "责任分配"
+ ],
+ "duration": 70.39
+}

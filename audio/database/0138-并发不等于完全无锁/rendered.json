@@ -1,0 +1,135 @@
+{
+ "id": "0138",
+ "part": 3,
+ "stage": "锁风险",
+ "title": "并发不等于完全无锁",
+ "premise": "查询收益有证据，讨论PostgreSQL并发构建与其他数据库DDL差异。",
+ "listeningTask": "听清事务等待、短时锁和不能类推的数据库行为。",
+ "newPhrase": "p413",
+ "phrases": [
+  "p413",
+  "p411",
+  "p010:extra",
+  "p324:extra",
+  "p004:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "A concurrent index build still takes locks. It can wait for older transactions.",
+   "zh": "并发建索引仍会获取锁，也可能等待较早开始的事务。",
+   "role": "Database reliability reviewer",
+   "start": 0.0,
+   "end": 6.096
+  },
+  {
+   "sp": "Raj",
+   "en": "So a lock wait remains possible. Ordinary writes can continue through most phases.",
+   "zh": "所以仍可能等锁，大多数阶段普通写入可以继续。",
+   "role": "Database change operator",
+   "start": 6.096,
+   "end": 12.6
+  },
+  {
+   "sp": "Anika",
+   "en": "I said lock-free earlier, that's wrong. I meant reduced blocking for this engine.",
+   "zh": "我之前说无锁，那不对，我指这个数据库能减少阻塞。",
+   "role": "Orders search owner",
+   "start": 12.6,
+   "end": 18.912
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, engine-specific behavior, right? MySQL online DDL has different limits.",
+   "zh": "确认一下，这是数据库特定行为，对吧？MySQL在线DDL限制不同。",
+   "role": "Change coordinator",
+   "start": 18.912,
+   "end": 26.904
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly, including metadata locks and algorithms. Don't copy this approval across databases.",
+   "zh": "对，包括元数据锁和算法选择，别把本次批准照搬到其他数据库。",
+   "role": "Query and rollout validation engineer",
+   "start": 26.904,
+   "end": 36.0
+  },
+  {
+   "sp": "Raj",
+   "en": "The statement runs outside transaction blocks. We'll configure bounded waits through reviewed settings.",
+   "zh": "语句在事务块外执行，用评审过的设置限制等待。",
+   "role": "Database change operator",
+   "start": 36.0,
+   "end": 43.32
+  },
+  {
+   "sp": "Lukas",
+   "en": "Define a rollback trigger before execution. Cancellation may leave an unusable index.",
+   "zh": "执行前定义回退触发条件，取消可能留下不可用索引。",
+   "role": "Database reliability reviewer",
+   "start": 43.32,
+   "end": 50.208
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, simultaneous schema changes? Let's park that. Maybe they compete for table locks.",
+   "zh": "好，同时做其他结构变更先放一边，它们可能争抢表锁。",
+   "role": "Change coordinator",
+   "start": 50.208,
+   "end": 58.224
+  },
+  {
+   "sp": "Hannah",
+   "en": "Our working hypothesis isn't zero impact. We expect tolerable waits with monitoring.",
+   "zh": "当前假设不是零影响，而是监控下可接受的等待。",
+   "role": "Query and rollout validation engineer",
+   "start": 58.224,
+   "end": 66.144
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I'll correct the change description. It must state that risk clearly.",
+   "zh": "那我修改变更描述，必须明确写出这个风险。",
+   "role": "Orders search owner",
+   "start": 66.144,
+   "end": 72.12
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 3,
+ "scene": "查询收益有证据，讨论PostgreSQL并发构建与其他数据库DDL差异。",
+ "dir": "database/0138-并发不等于完全无锁",
+ "audio": "0138-并发不等于完全无锁.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "锁风险"
+ ],
+ "duration": 72.12
+}

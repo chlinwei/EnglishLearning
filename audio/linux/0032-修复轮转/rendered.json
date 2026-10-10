@@ -1,0 +1,135 @@
+{
+ "id": "0032",
+ "part": 7,
+ "stage": "修复",
+ "title": "修复轮转：先释放，再防复发",
+ "premise": "临时清理已恢复写入；确认应用支持日志重开，计划受控操作并检查轮转配置。",
+ "listeningTask": "听出手动释放句柄和修复自动轮转是两个步骤。",
+ "newPhrase": "p307",
+ "phrases": [
+  "p307",
+  "p304",
+  "p010",
+  "p210:extra",
+  "p014:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The approved reopen worked. Old handle is gone. Disk usage is down to forty-six percent.",
+   "zh": "批准的日志重开操作成功了。旧句柄关闭了，磁盘使用率降到百分之四十六。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 7.824
+  },
+  {
+   "sp": "Lukas",
+   "en": "Great. Is the process writing to the new file? Check the owner too.",
+   "zh": "好。进程现在写入新文件了吗？也检查一下文件属主。",
+   "role": "SRE",
+   "start": 7.824,
+   "end": 13.465
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, both checked. Rotation didn't reopen the log. This host was missing that hook.",
+   "zh": "是的，两项都查了。轮转后没有重新打开日志，这台主机缺了对应的钩子。",
+   "role": "Linux on-call",
+   "start": 13.465,
+   "end": 20.953
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, we still need to rotate the log correctly next time, right?",
+   "zh": "我确认一下，我们还得保证下次能正确轮转日志，对吧？",
+   "role": "Incident lead",
+   "start": 20.953,
+   "end": 26.402
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly. The other hosts have that hook. This one drifted from the template.",
+   "zh": "对。其他主机都有这个钩子，这台偏离了模板配置。",
+   "role": "Operations engineer",
+   "start": 26.402,
+   "end": 33.554
+  },
+  {
+   "sp": "Anika",
+   "en": "Let's dry-run it first. The app owner has confirmed the hook for this build.",
+   "zh": "先做试运行。应用负责人已确认这个钩子适用于当前版本。",
+   "role": "Application owner",
+   "start": 33.554,
+   "end": 39.266
+  },
+  {
+   "sp": "Lukas",
+   "en": "A dry run won't execute the hook. Test that separately in staging.",
+   "zh": "试运行不会真的执行钩子。得在预发布环境单独验证。",
+   "role": "SRE",
+   "start": 39.266,
+   "end": 44.763
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. Staging first, then this host. I'll save the old config.",
+   "zh": "我来做。先预发布，再改这台主机。我会保存旧配置。",
+   "role": "Linux on-call",
+   "start": 44.763,
+   "end": 51.483
+  },
+  {
+   "sp": "Hannah",
+   "en": "Afterward, verify rotation and reopening together. Otherwise we've only checked half the fix.",
+   "zh": "之后要一起验证轮转和重新打开日志，不然只验证了一半。",
+   "role": "Operations engineer",
+   "start": 51.483,
+   "end": 60.004
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA? Maybe ten minutes? Keep the queue recovery separate from that change.",
+   "zh": "预计多久？大概十分钟？队列恢复状态要和这次配置修改分开跟踪。",
+   "role": "Incident lead",
+   "start": 60.004,
+   "end": 67.42
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 7,
+ "scene": "临时清理已恢复写入；确认应用支持日志重开，计划受控操作并检查轮转配置。",
+ "dir": "linux/0032-修复轮转",
+ "audio": "0032-修复轮转.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "修复"
+ ],
+ "duration": 67.42
+}

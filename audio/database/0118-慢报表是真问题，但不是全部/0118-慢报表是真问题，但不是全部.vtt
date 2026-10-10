@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.768
+Raj: Query execution time reached thirty seconds. Six report queries are still running.
+查询耗时达到三十秒，还有六条报表查询在执行。
+
+2
+00:00:06.768 --> 00:00:13.200
+Lukas: That explains six occupied connections today. What explains the other borrowed ones?
+这能解释六条连接被占用，其他借出的连接怎么解释？
+
+3
+00:00:13.200 --> 00:00:19.681
+Anika: Not those reports, from this sample. Several checked-out connections have no owner.
+从这份样本看不是报表，有几条借出的连接已找不到请求持有者。
+
+4
+00:00:19.681 --> 00:00:26.209
+Priya: So, don't rule that out yet. Reports still make timeouts more likely, right?
+所以别排除报表因素，它仍会增加超时概率，对吧？
+
+5
+00:00:26.209 --> 00:00:33.193
+Hannah: Yes. Match each timeout to ownership. A slow query isn't a leak.
+对，把每次超时和连接持有关系对应起来。慢查询不等于泄漏。
+
+6
+00:00:33.193 --> 00:00:39.481
+Raj: The report scans old order rows. Maybe its missing filter explains that.
+报表扫描旧订单行，可能是漏掉筛选条件导致的。
+
+7
+00:00:39.481 --> 00:00:45.769
+Lukas: Check the plan before adding indexes. Today's incident isn't an indexing window.
+加索引前先查执行计划，今天的故障处理不是建索引窗口。
+
+8
+00:00:45.769 --> 00:00:52.514
+Priya: A rushed index? Let's park that. What's the ETA for timeout traces?
+临时赶建索引先放一边，超时链路预计多久拿到？
+
+9
+00:00:52.514 --> 00:00:59.978
+Hannah: Two minutes with sampled request IDs. I'll avoid collecting customer payloads here.
+用采样请求ID，两分钟。我会避免收集客户业务内容。
+
+10
+00:00:59.978 --> 00:01:06.890
+Anika: Okay, the working hypothesis stays split. We'll inspect the cancellation branch next.
+好，继续保留两个假设方向，下一步检查取消请求的分支。
+

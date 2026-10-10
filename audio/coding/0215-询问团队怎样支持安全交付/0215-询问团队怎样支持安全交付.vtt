@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.856
+Lukas: We've covered the technical exercise now. What questions do you have about our team?
+技术题已讨论完，你对团队有什么问题？
+
+2
+00:00:05.856 --> 00:00:14.664
+Raj: How does engineering onboarding cover unsafe operations? Just to confirm, new engineers get sandbox access, right?
+入职培训如何覆盖危险操作？确认一下，新人有沙箱访问，对吧？
+
+3
+00:00:14.664 --> 00:00:23.089
+Hannah: Yes, with a mentor and scoped permissions. Production changes need review and explicit approval.
+有，配导师和限定权限，生产变更需评审与明确审批。
+
+4
+00:00:23.089 --> 00:00:29.689
+Raj: Mentors walk you through approvals, right? Sorry, I mean the production review process.
+导师会带新人了解审批，对吧？抱歉，我具体指生产变更评审流程。
+
+5
+00:00:29.689 --> 00:00:37.273
+Raj: How much bandwidth do mentors usually reserve? Maybe pairing early prevents repeated safety mistakes.
+导师通常留多少时间？早期结对可能防止反复安全失误。
+
+6
+00:00:37.273 --> 00:00:44.881
+Lukas: We reserve pairing time during initial weeks. Small changes get feedback before larger independent work.
+最初几周预留结对时间，先小改动获反馈，再独立做大任务。
+
+7
+00:00:44.881 --> 00:00:50.761
+Raj: How do you close the loop on incidents? Does each action item get an owner?
+事件改进如何闭环？每个行动项都有负责人吗？
+
+8
+00:00:50.761 --> 00:00:59.714
+Hannah: Yes, owners provide evidence at follow-up reviews. We track completion, not just ticket creation.
+有，负责人在跟进评审提供证据，跟踪完成，不只建工单。
+
+9
+00:00:59.714 --> 00:01:07.562
+Raj: That helps me understand your engineering expectations. I'd also ask how testing time gets protected.
+这样更理解团队工程要求，还想问如何保障测试时间。
+
+10
+00:01:07.562 --> 00:01:15.890
+Raj: Thanks, those answers address my main concerns. I'd enjoy learning within those clear safety boundaries.
+谢谢，回答了我的主要问题，希望在明确安全边界内学习。
+

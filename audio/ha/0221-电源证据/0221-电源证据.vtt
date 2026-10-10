@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.960
+Raj: I'm on it. We'll fence off ledger-one.
+我来操作，可靠隔离ledger-one。
+
+2
+00:00:03.960 --> 00:00:08.760
+Hannah: The request was accepted. Is shutdown complete?
+请求已受理，关闭完成了吗？
+
+3
+00:00:08.760 --> 00:00:12.337
+Raj: Now confirmed off through the out-of-band console.
+现在带外控制台已确认关闭。
+
+4
+00:00:12.337 --> 00:00:16.201
+Lukas: I independently checked power and restart inhibition.
+我独立核对了电源状态和重启禁止。
+
+5
+00:00:16.201 --> 00:00:19.777
+Priya: Just to confirm, lock persists, right?
+确认一下，锁定会持续生效，对吧？
+
+6
+00:00:19.777 --> 00:00:23.761
+Anika: Yes, the automation exclusion is recorded too.
+是的，自动化排除配置也已记录。
+
+7
+00:00:23.761 --> 00:00:27.433
+Hannah: Okay, the promotion gate can now pass.
+好，现在提升门槛可以通过了。
+
+8
+00:00:27.433 --> 00:00:31.826
+Raj: Standby promoted. A local smoke test passed.
+备机已提升，本地关键功能快速验证通过。
+
+9
+00:00:31.826 --> 00:00:35.426
+Lukas: Perhaps enough for a canary, not full traffic.
+也许足够开始灰度，但还不能全量接流量。
+
+10
+00:00:35.426 --> 00:00:40.970
+Priya: Agreed. Keep application writers paused until routing validation.
+同意。路由验证前继续暂停应用写入。
+

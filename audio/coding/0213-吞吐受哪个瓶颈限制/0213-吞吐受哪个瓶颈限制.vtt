@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.320
+Lukas: Now assume ten thousand queued updates. How would you increase throughput without overloading dependencies?
+现在有一万条待更新，如何提高吞吐又不压垮依赖？
+
+2
+00:00:07.320 --> 00:00:15.072
+Raj: I'd use bounded concurrency in the worker pool. Just to confirm, the API publishes limits, right?
+worker池采用有限并发，确认一下，API公布限额，对吧？
+
+3
+00:00:15.072 --> 00:00:22.776
+Hannah: Yes, requests and active connections are limited. Does your queue also stay in memory?
+是，请求和活动连接均有限，队列也全放内存吗？
+
+4
+00:00:22.776 --> 00:00:30.816
+Raj: No, I'd fetch a limited batch size. That preserves memory headroom and avoids unbounded buffering.
+不，每次取有限批量，保留内存余量，避免无限缓冲。
+
+5
+00:00:30.816 --> 00:00:39.984
+Raj: Okay, my working hypothesis is network waiting dominates. Maybe profiling shows serialization matters more instead.
+好，初步假设网络等待占主导，也可能剖析后发现序列化更重要。
+
+6
+00:00:39.984 --> 00:00:46.680
+Lukas: What would you measure before choosing async? Concurrency isn't always the same as throughput.
+选异步前测什么？并发不总等于吞吐。
+
+7
+00:00:46.680 --> 00:00:54.144
+Raj: I'd measure queue age and request latency. Keep an eye on throttling and retry amplification.
+测排队年龄和请求延迟，关注限流与重试放大。
+
+8
+00:00:54.144 --> 00:01:01.344
+Hannah: How would you keep retries fair? New work could starve older unresolved operations.
+如何让重试公平？新任务可能让旧未决操作饥饿。
+
+9
+00:01:01.344 --> 00:01:09.792
+Raj: I'd schedule due retries with bounded shares. They shouldn't monopolize workers or disappear behind newcomers.
+到期重试分配有限份额，不独占worker，也不被新任务淹没。
+
+10
+00:01:09.792 --> 00:01:18.240
+Raj: Then benchmark representative payloads under sandbox limits. I'd tune from evidence, not thread-count guesses.
+在沙箱限额下用代表性负载压测，按证据调，不猜线程数。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Anika: The report does a full table scan. It filters dates in application code.
+
+2
+00:00:06.024 --> 00:00:13.921
+Hannah: Could that filter move into SQL? Keep date boundaries and timezone semantics identical.
+
+3
+00:00:13.921 --> 00:00:21.865
+Raj: Yes, existing date indexes may help. Our working hypothesis needs representative query tests.
+
+4
+00:00:21.865 --> 00:00:28.250
+Priya: Okay, test broad ranges too, right? A full scan isn't always wrong.
+
+5
+00:00:28.250 --> 00:00:35.042
+Lukas: Exactly, selectivity changes the right plan. Don't force indexes for every tenant.
+
+6
+00:00:35.042 --> 00:00:42.146
+Anika: The smoke test checks output totals. Maybe date truncation needs special boundary cases.
+
+7
+00:00:42.146 --> 00:00:48.747
+Hannah: Compare with the peak load baseline. A quiet test can exaggerate gains.
+
+8
+00:00:48.747 --> 00:00:55.947
+Priya: Sharding immediately? Let's park that for now. What's the ETA for query evidence?
+
+9
+00:00:55.947 --> 00:01:02.572
+Lukas: Two days for isolated load comparisons. Include large tenants and concurrent writes.
+
+10
+00:01:02.572 --> 00:01:10.060
+Raj: So, optimize before claiming hardware savings. Growth still needs its own storage plan.
+

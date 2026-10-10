@@ -1,0 +1,135 @@
+{
+ "id": "0026",
+ "part": 1,
+ "stage": "告警",
+ "title": "磁盘告警：先说清影响",
+ "premise": "09:12，收到 /var 磁盘使用率 98% 的告警。",
+ "listeningTask": "区分已知影响和待验证原因，听出谁负责协调、谁负责排查。",
+ "newPhrase": "p301",
+ "phrases": [
+  "p301",
+  "p003",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We've just been paged. The disk is filling up. It's at ninety-eight percent.",
+   "zh": "刚收到告警。磁盘快被占满了，使用率已经到百分之九十八。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 6.912
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which host? Is this affecting checkout, or just the worker?",
+   "zh": "哪台主机？影响的是结账服务，还是只有这个工作进程？",
+   "role": "SRE",
+   "start": 6.912,
+   "end": 11.736
+  },
+  {
+   "sp": "Raj",
+   "en": "Orders-worker-three. The alert is for slash var. I haven't checked writes yet.",
+   "zh": "orders-worker-three。告警针对 /var，我还没检查写入情况。",
+   "role": "Linux on-call",
+   "start": 11.736,
+   "end": 18.673
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Anika, can you check the queue?",
+   "zh": "好，这次我来协调。Anika，你查一下队列好吗？",
+   "role": "Incident lead",
+   "start": 18.673,
+   "end": 24.241
+  },
+  {
+   "sp": "Hannah",
+   "en": "Just to confirm, we're not restarting anything yet?",
+   "zh": "我确认一下，现在还不重启任何服务，对吧？",
+   "role": "Operations engineer",
+   "start": 24.241,
+   "end": 28.465
+  },
+  {
+   "sp": "Anika",
+   "en": "Right, not yet. I'm on it. The queue is accepting events, but consumption looks slow.",
+   "zh": "对，先不重启。我在查。队列还能接收事件，但消费看起来变慢了。",
+   "role": "Application owner",
+   "start": 28.465,
+   "end": 36.409
+  },
+  {
+   "sp": "Lukas",
+   "en": "Then let's check the errors before touching files. We need evidence.",
+   "zh": "那就先检查错误，再动文件。我们需要有证据。",
+   "role": "SRE",
+   "start": 36.409,
+   "end": 41.809
+  },
+  {
+   "sp": "Priya",
+   "en": "Raj, what's the ETA for a first look? Roughly is fine.",
+   "zh": "Raj，初步检查预计多久？给个大概时间就行。",
+   "role": "Incident lead",
+   "start": 41.809,
+   "end": 47.258
+  },
+  {
+   "sp": "Hannah",
+   "en": "I can check the other workers while Raj checks this one.",
+   "zh": "Raj 查这台时，我可以检查其他工作节点。",
+   "role": "Operations engineer",
+   "start": 47.258,
+   "end": 51.41
+  },
+  {
+   "sp": "Raj",
+   "en": "About two minutes. More disk space might help, but let's park that. We need the cause first, right?",
+   "zh": "大约两分钟。扩容可能有用，但先把这个放一边。我们得先查原因，对吧？",
+   "role": "Linux on-call",
+   "start": 51.41,
+   "end": 59.81
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 1,
+ "scene": "09:12，收到 /var 磁盘使用率 98% 的告警。",
+ "dir": "linux/0026-磁盘告警",
+ "audio": "0026-磁盘告警.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "告警"
+ ],
+ "duration": 59.81
+}

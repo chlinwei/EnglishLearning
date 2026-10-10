@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.456
+Raj: A cache hit restores local configuration. That file contains the retired address.
+
+2
+00:00:06.456 --> 00:00:13.056
+Priya: Okay, is this cache poisoning then? Or just stale configuration carried forward?
+
+3
+00:00:13.056 --> 00:00:19.968
+Lukas: Don't label it malicious without evidence. Compare cache creation records and access logs.
+
+4
+00:00:19.968 --> 00:00:26.472
+Anika: The dependency mirror changed last Tuesday. This cache predates that change, right?
+
+5
+00:00:26.472 --> 00:00:33.720
+Hannah: Yes, its writer was an approved runner. No unauthorized writes found so far.
+
+6
+00:00:33.720 --> 00:00:40.296
+Raj: Cold runs pass; restored runs fail. I've preserved the cache object digest.
+
+7
+00:00:40.296 --> 00:00:47.928
+Lukas: That's useful paired evidence, not certainty. Why configuration was cached still needs investigation.
+
+8
+00:00:47.928 --> 00:00:53.976
+Priya: Just to confirm, quarantine that object. The root cause is still open.
+
+9
+00:00:53.976 --> 00:01:00.888
+Hannah: I'll keep an eye on access. Cache inspection mustn't reveal embedded credentials.
+
+10
+00:01:00.888 --> 00:01:07.800
+Anika: Understood, restricted inspection rather than downloads. Maybe cache scope was too broad.
+

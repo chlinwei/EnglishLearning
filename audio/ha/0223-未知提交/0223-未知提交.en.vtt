@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.776
+Hannah: Uncertain commits need lookup by idempotency key.
+
+2
+00:00:04.776 --> 00:00:08.568
+Anika: We've matched all acknowledged requests to orders.
+
+3
+00:00:08.568 --> 00:00:11.927
+Lukas: What about writes without a client acknowledgment?
+
+4
+00:00:11.927 --> 00:00:16.919
+Raj: Some committed before disconnect. That's expected, right?
+
+5
+00:00:16.919 --> 00:00:22.007
+Hannah: Yes. A timeout doesn't mean transaction failure.
+
+6
+00:00:22.007 --> 00:00:26.039
+Priya: Let me play that back. Look up first.
+
+7
+00:00:26.039 --> 00:00:30.359
+Raj: The last committed position supports acknowledged-write coverage.
+
+8
+00:00:30.359 --> 00:00:33.670
+Lukas: But don't rule that out for unacknowledged gaps.
+
+9
+00:00:33.670 --> 00:00:37.582
+Anika: Just to recap, retries can catch up safely.
+
+10
+00:00:37.582 --> 00:00:43.390
+Priya: With deduplication, yes. Perhaps manual review for exceptions.
+

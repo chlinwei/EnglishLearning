@@ -1,0 +1,135 @@
+{
+ "id": "0064",
+ "part": 9,
+ "stage": "复述行动项",
+ "title": "接班人复述：有没有遗漏",
+ "premise": "触发条件、联系人和未响应处理路径已明确，由接班人复述检查。",
+ "listeningTask": "找出复述中的遗漏，并听出白班补充的具体条件。",
+ "newPhrase": "p339",
+ "phrases": [
+  "p339",
+  "p012",
+  "p331",
+  "p011:extra",
+  "p009:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. Fetching stays paused. New restarts trigger an immediate app-owner page.",
+   "zh": "我复述一下：继续暂停拉取，新的重启立即呼叫应用负责人。",
+   "role": "Incoming primary on-call",
+   "start": 0.0,
+   "end": 8.76
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. Keep an eye on the journal and request age. Both links are in the ticket.",
+   "zh": "对。关注journal和请求等待时间，两项链接都在工单里。",
+   "role": "Outgoing Linux on-call",
+   "start": 8.76,
+   "end": 16.008
+  },
+  {
+   "sp": "Hannah",
+   "en": "At twenty hundred I check the oldest request. Over two hours means escalation. Have I missed anything?",
+   "zh": "20:00检查最老请求，超过两小时就升级。我有没有遗漏什么？",
+   "role": "Incoming primary on-call",
+   "start": 16.008,
+   "end": 25.392
+  },
+  {
+   "sp": "Anika",
+   "en": "The resume approval. You don't re-enable fetching just because the process has stayed up.",
+   "zh": "还有恢复审批。不能只是因为进程一直运行，就重新启用拉取。",
+   "role": "Outgoing application owner",
+   "start": 25.392,
+   "end": 31.776
+  },
+  {
+   "sp": "Priya",
+   "en": "Right. Just to recap, short-term stability isn't a fix. The investigation remains open.",
+   "zh": "对。小结一下，短期稳定不是修复，调查仍保持未结案。",
+   "role": "Shift coordinator",
+   "start": 31.776,
+   "end": 39.96
+  },
+  {
+   "sp": "Lukas",
+   "en": "I take the timeline if we open an incident. Hannah keeps coordination and primary response.",
+   "zh": "如果启动故障响应，我记录时间线，Hannah负责协调和第一响应。",
+   "role": "Incoming backup SRE",
+   "start": 39.96,
+   "end": 47.04
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item before I hand over: confirm you can open the saved evidence.",
+   "zh": "正式交班前还有一个行动项：确认你们能打开保存的证据。",
+   "role": "Outgoing Linux on-call",
+   "start": 47.04,
+   "end": 53.112
+  },
+  {
+   "sp": "Hannah",
+   "en": "I can. The links and restricted log access both work from my account.",
+   "zh": "可以。我的账号能打开链接，也有受限日志访问权限。",
+   "role": "Incoming primary on-call",
+   "start": 53.112,
+   "end": 59.544
+  },
+  {
+   "sp": "Anika",
+   "en": "Good. And no customer-facing promise of recovery yet. We haven't resumed exports.",
+   "zh": "好。也不要向客户承诺已经恢复，导出还没有恢复运行。",
+   "role": "Outgoing application owner",
+   "start": 59.544,
+   "end": 66.984
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, right? We'll report the current delay honestly and update after the scheduled check.",
+   "zh": "这一点都同意，对吧？如实报告当前延迟，在计划检查后更新。",
+   "role": "Shift coordinator",
+   "start": 66.984,
+   "end": 73.92
+  }
+ ],
+ "group": "handoff",
+ "domain": "linux",
+ "series": "sc-S06-linux-restart-handoff",
+ "parts": 10,
+ "seq": 9,
+ "scene": "触发条件、联系人和未响应处理路径已明确，由接班人复述检查。",
+ "dir": "linux/0064-接班人复述",
+ "audio": "0064-接班人复述.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Hannah": "-15%",
+  "Lukas": "-15%"
+ },
+ "roles": [
+  "Priya（Shift coordinator）",
+  "Raj（Outgoing Linux on-call）",
+  "Anika（Outgoing application owner）",
+  "Hannah（Incoming primary on-call）",
+  "Lukas（Incoming backup SRE）"
+ ],
+ "tags": [
+  "linux",
+  "复述行动项"
+ ],
+ "duration": 73.92
+}

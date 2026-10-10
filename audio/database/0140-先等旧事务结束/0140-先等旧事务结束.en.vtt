@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.144
+Raj: A long-running transaction remains on October. It belongs to the reporting job.
+
+2
+00:00:06.144 --> 00:00:13.032
+Hannah: Then preflight isn't clear just yet. Ask its owner before any cancellation.
+
+3
+00:00:13.032 --> 00:00:19.632
+Priya: Okay, pause our go/no-go decision here. The off-peak window isn't permission itself.
+
+4
+00:00:19.632 --> 00:00:25.392
+Anika: I'm on it with that owner. About three minutes remain, they estimate.
+
+5
+00:00:25.392 --> 00:00:31.176
+Lukas: Don't kill it just for convenience. A lock wait could outlast expectations.
+
+6
+00:00:31.176 --> 00:00:38.160
+Raj: Storage covers index and temporary build space. No other schema changes are scheduled.
+
+7
+00:00:38.160 --> 00:00:46.680
+Hannah: Verify privileges and exact leaf table. Also confirm we're outside a transaction block.
+
+8
+00:00:46.680 --> 00:00:53.376
+Priya: Just to confirm, wait for completion, right? Then rerun the transaction age check.
+
+9
+00:00:53.376 --> 00:01:00.552
+Lukas: The owner now reports successful completion. Database activity confirms no old transaction.
+
+10
+00:01:00.552 --> 00:01:06.960
+Raj: So, the repeated preflight checks pass. I'll start only the approved partition.
+

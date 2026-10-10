@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.600
+Lukas: Assume two thousand requests per second at peak.
+
+2
+00:00:03.600 --> 00:00:07.728
+Raj: Peak concurrency also depends on request latency.
+
+3
+00:00:07.728 --> 00:00:12.096
+Raj: Just to confirm, half-second average latency, right?
+
+4
+00:00:12.096 --> 00:00:18.408
+Hannah: For estimation, yes. Tail latency needs separate treatment.
+
+5
+00:00:18.408 --> 00:00:24.168
+Raj: Roughly a thousand inflight requests. Under that assumption, I mean.
+
+6
+00:00:24.168 --> 00:00:28.080
+Lukas: Traffic is flat in testing. Is that enough?
+
+7
+00:00:28.080 --> 00:00:33.288
+Raj: No. My working hypothesis needs bursts and retries.
+
+8
+00:00:33.288 --> 00:00:37.416
+Raj: Memory headroom matters when slow requests accumulate.
+
+9
+00:00:37.416 --> 00:00:41.664
+Hannah: Okay, how would you protect orders during overload?
+
+10
+00:00:41.664 --> 00:00:45.120
+Raj: I'd shed load from optional work first.
+

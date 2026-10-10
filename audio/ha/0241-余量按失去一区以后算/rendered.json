@@ -1,0 +1,135 @@
+{
+ "id": "0241",
+ "part": 6,
+ "stage": "容量余量",
+ "title": "余量按失去一区以后算",
+ "premise": "初选两区冗余方案，需验证剩余区能承受完整关键流量。",
+ "listeningTask": "区分当前平均空闲与故障后的容量余量。",
+ "newPhrase": "p516",
+ "phrases": [
+  "p516",
+  "p512",
+  "p319",
+  "p316:extra",
+  "p010:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We need headroom after losing either zone.",
+   "zh": "失去任一区后，仍需要容量余量。",
+   "role": "Infrastructure capacity engineer",
+   "start": 0.0,
+   "end": 3.576
+  },
+  {
+   "sp": "Hannah",
+   "en": "Not thirty percent idle across both zones combined.",
+   "zh": "不能只看两个区合计有百分之三十空闲。",
+   "role": "Performance engineer",
+   "start": 3.576,
+   "end": 8.016
+  },
+  {
+   "sp": "Anika",
+   "en": "Right, survivors could be at capacity. Sorry, at peak, not now.",
+   "zh": "对，剩余节点可能达到容量上限。说准确点，是峰值时，不是现在。",
+   "role": "Service and budget owner",
+   "start": 8.016,
+   "end": 14.495
+  },
+  {
+   "sp": "Lukas",
+   "en": "What about memory headroom during cache warming?",
+   "zh": "缓存预热时的内存余量呢？",
+   "role": "Reliability architect",
+   "start": 14.495,
+   "end": 17.831
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll measure cold caches and connection recovery.",
+   "zh": "我们会测冷缓存和连接恢复。",
+   "role": "Infrastructure capacity engineer",
+   "start": 17.831,
+   "end": 21.599
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, scale-out isn't instant, right?",
+   "zh": "确认一下，扩容不是瞬间完成，对吧？",
+   "role": "Architecture review chair",
+   "start": 21.599,
+   "end": 25.703
+  },
+  {
+   "sp": "Hannah",
+   "en": "Exactly. Provisioning might take several minutes, perhaps longer.",
+   "zh": "正是，资源供应可能要几分钟，也许更久。",
+   "role": "Performance engineer",
+   "start": 25.703,
+   "end": 31.727
+  },
+  {
+   "sp": "Anika",
+   "en": "We can shed load from exports temporarily.",
+   "zh": "可以暂时减少导出业务的承接负载。",
+   "role": "Service and budget owner",
+   "start": 31.727,
+   "end": 35.278
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, keep an eye on queue age too.",
+   "zh": "好，也要留意队列等待时间。",
+   "role": "Reliability architect",
+   "start": 35.278,
+   "end": 38.566
+  },
+  {
+   "sp": "Priya",
+   "en": "Critical writes must fit without waiting for scaling.",
+   "zh": "关键写入必须无需等待扩容就能承载。",
+   "role": "Architecture review chair",
+   "start": 38.566,
+   "end": 42.43
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 6,
+ "scene": "初选两区冗余方案，需验证剩余区能承受完整关键流量。",
+ "dir": "ha/0241-余量按失去一区以后算",
+ "audio": "0241-余量按失去一区以后算.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "容量余量"
+ ],
+ "duration": 42.43
+}

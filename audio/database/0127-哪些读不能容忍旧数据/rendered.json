@@ -1,0 +1,135 @@
+{
+ "id": "0127",
+ "part": 2,
+ "stage": "一致性影响",
+ "title": "哪些读不能容忍旧数据",
+ "premise": "主库写入正常，副本旧状态影响订单确认，先分类读请求。",
+ "listeningTask": "听出写后读和可延迟报表的不同要求。",
+ "newPhrase": "p402",
+ "phrases": [
+  "p402",
+  "p010",
+  "p106:extra",
+  "p309:extra",
+  "p004:extra",
+  "p401:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Payment confirmation needs read-after-write consistency here. Historical reports can tolerate older results.",
+   "zh": "支付确认这里要求写后读一致性，历史报表可以容忍较旧结果。",
+   "role": "Orders read routing owner",
+   "start": 0.0,
+   "end": 7.872
+  },
+  {
+   "sp": "Lukas",
+   "en": "What about customer order status pages? They also follow fresh writes frequently.",
+   "zh": "客户订单状态页呢？它也经常紧跟新写入。",
+   "role": "Database SRE",
+   "start": 7.872,
+   "end": 14.04
+  },
+  {
+   "sp": "Anika",
+   "en": "You're right, include those pages too. That's our blast radius for stale reads.",
+   "zh": "你说得对，状态页也算进去，这是旧数据读取的影响范围。",
+   "role": "Orders read routing owner",
+   "start": 14.04,
+   "end": 20.353
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, not every report, right? We shouldn't shift all reads blindly.",
+   "zh": "确认一下，不是所有报表，对吧？不能盲目把所有读都切过去。",
+   "role": "Incident coordinator",
+   "start": 20.353,
+   "end": 27.097
+  },
+  {
+   "sp": "Hannah",
+   "en": "Agreed. Mark delayed reports clearly instead. Never label old data as current.",
+   "zh": "同意，给延迟报表明确标记，不能把旧数据标成当前数据。",
+   "role": "Consistency validation engineer",
+   "start": 27.097,
+   "end": 35.065
+  },
+  {
+   "sp": "Raj",
+   "en": "Replication lag is climbing beyond two minutes. Maybe replay can't match incoming changes.",
+   "zh": "复制延迟已上升超过两分钟，可能回放赶不上新变更。",
+   "role": "Replication on-call",
+   "start": 35.065,
+   "end": 42.097
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll keep an eye on primary. Limit sensitive reads if capacity tightens.",
+   "zh": "我观察主库，容量紧张就限制敏感读的接纳量。",
+   "role": "Database SRE",
+   "start": 42.097,
+   "end": 48.025
+  },
+  {
+   "sp": "Priya",
+   "en": "A full failover? Let's park that. We have no writer failure evidence.",
+   "zh": "全量故障切主先放一边，没有证据证明写库故障。",
+   "role": "Incident coordinator",
+   "start": 48.025,
+   "end": 54.578
+  },
+  {
+   "sp": "Hannah",
+   "en": "Also check cached status responses carefully. Routing alone won't clear stale caches.",
+   "zh": "还要仔细检查状态响应缓存，改路由不会清掉旧缓存。",
+   "role": "Consistency validation engineer",
+   "start": 54.578,
+   "end": 62.186
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, compare the positions next then. That should separate transport from replay.",
+   "zh": "好，那下一步对比位置，以区分传输和回放问题。",
+   "role": "Replication on-call",
+   "start": 62.186,
+   "end": 68.81
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 2,
+ "scene": "主库写入正常，副本旧状态影响订单确认，先分类读请求。",
+ "dir": "database/0127-哪些读不能容忍旧数据",
+ "audio": "0127-哪些读不能容忍旧数据.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "一致性影响"
+ ],
+ "duration": 68.81
+}

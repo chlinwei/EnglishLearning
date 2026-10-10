@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.008
+Raj: Kernel log confirms it. The worker got OOM-killed. The timestamp matches the exit.
+
+2
+00:00:07.008 --> 00:00:11.713
+Lukas: Host-level OOM? Or did the service hit a memory limit?
+
+3
+00:00:11.713 --> 00:00:19.081
+Raj: Host-level. Available memory was nearly gone. No service memory cap on this host.
+
+4
+00:00:19.081 --> 00:00:25.610
+Priya: Just to confirm, the kernel names this process, right? Not just an exit code?
+
+5
+00:00:25.610 --> 00:00:31.778
+Hannah: Let me play that back. Memory ran out, and this process was the victim?
+
+6
+00:00:31.778 --> 00:00:38.859
+Anika: Yes. That doesn't prove it caused the pressure. Other processes could contribute.
+
+7
+00:00:38.859 --> 00:00:43.923
+Lukas: Good point. We need the host breakdown, not just this process.
+
+8
+00:00:43.923 --> 00:00:50.619
+Raj: No sign the disk is filling up. Plenty of space. We can rule that out.
+
+9
+00:00:50.619 --> 00:00:55.708
+Hannah: I'll compare host usage with process memory around the event.
+
+10
+00:00:55.708 --> 00:01:00.940
+Anika: I'm on it for the service logs. Let's keep the two checks separate.
+

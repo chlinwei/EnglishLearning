@@ -1,0 +1,135 @@
+{
+ "id": "0083",
+ "part": 8,
+ "stage": "完成切换",
+ "title": "全量新连接，旧会话继续排空",
+ "premise": "百分之五十观察通过，授权全部新连接进入绿池。",
+ "listeningTask": "区分切换配置完成与旧连接完全排空。",
+ "newPhrase": "p358",
+ "phrases": [
+  "p358",
+  "p355",
+  "p010",
+  "p327:extra",
+  "p111:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, all new connections now select green. Some old sessions are still draining.",
+   "zh": "好，所有新连接现在选择绿池，有些旧会话仍在排空。",
+   "role": "Network engineer",
+   "start": 0.0,
+   "end": 6.696
+  },
+  {
+   "sp": "Lukas",
+   "en": "How does session affinity behave across pools? A sticky cookie could still matter.",
+   "zh": "跨池时会话亲和性如何处理？粘性Cookie仍可能影响行为。",
+   "role": "SRE reviewer",
+   "start": 6.696,
+   "end": 12.672
+  },
+  {
+   "sp": "Anika",
+   "en": "Session state lives in the shared store. Checkout doesn't depend on balancer stickiness.",
+   "zh": "会话状态在共享存储中，结账不依赖负载均衡器粘性。",
+   "role": "Checkout owner",
+   "start": 12.672,
+   "end": 19.344
+  },
+  {
+   "sp": "Hannah",
+   "en": "Was that verified with a returning session? A fresh login doesn't exercise existing state.",
+   "zh": "用回访会话验证了吗？新登录测不到已有状态。",
+   "role": "Validation engineer",
+   "start": 19.344,
+   "end": 27.24
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the smoke test reused sandbox state. The basket and callback both survived.",
+   "zh": "测了，冒烟测试复用了沙箱状态。购物篮和回调都正常。",
+   "role": "Checkout owner",
+   "start": 27.24,
+   "end": 34.248
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no forced disconnects, right? Connection draining continues within the agreed limits.",
+   "zh": "我确认一下，没有强制断开，对吧？继续按商定限制排空连接。",
+   "role": "Change coordinator",
+   "start": 34.248,
+   "end": 41.88
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, and remaining counts are falling. Investigate any sessions beyond the documented timeout.",
+   "zh": "是的，剩余连接数在下降。超过文档超时的会话要排查。",
+   "role": "SRE reviewer",
+   "start": 41.88,
+   "end": 49.08
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for remaining connection counts. They should clear in about fifteen minutes.",
+   "zh": "剩余连接计数我来跟踪，预计大约十五分钟清零。",
+   "role": "Network engineer",
+   "start": 49.08,
+   "end": 55.44
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let's keep it under observation meanwhile. Full routing doesn't finish business acceptance.",
+   "zh": "与此同时继续观察。全量路由不代表业务验收完成。",
+   "role": "Validation engineer",
+   "start": 55.44,
+   "end": 62.784
+  },
+  {
+   "sp": "Priya",
+   "en": "So, retain the rollback route unchanged. We'll confirm empty counts before closing execution.",
+   "zh": "所以保留回退路由不变。确认连接清零后才结束执行。",
+   "role": "Change coordinator",
+   "start": 62.784,
+   "end": 70.32
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 8,
+ "scene": "百分之五十观察通过，授权全部新连接进入绿池。",
+ "dir": "network/0083-全量新连接，旧会话继续排空",
+ "audio": "0083-全量新连接，旧会话继续排空.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "完成切换"
+ ],
+ "duration": 70.32
+}

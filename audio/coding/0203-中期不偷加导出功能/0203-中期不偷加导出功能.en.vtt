@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.672
+Priya: Would the export request change the commitment? We're halfway through the agreed two-week iteration.
+
+2
+00:00:06.672 --> 00:00:12.432
+Lukas: Yes, it's a new external interface. Adding it now would be scope creep.
+
+3
+00:00:12.432 --> 00:00:20.688
+Raj: The extraction works on the approved fixtures. Just to confirm, exports aren't acceptance criteria, right?
+
+4
+00:00:20.688 --> 00:00:27.480
+Anika: Correct, I'll explain that to the requester. Maybe next iteration after the current review.
+
+5
+00:00:27.480 --> 00:00:35.016
+Hannah: Two malformed input fixtures are still missing. We can't call the original slice done yet.
+
+6
+00:00:35.016 --> 00:00:41.856
+Priya: Okay, let's park that new export request. What's the ETA for the missing samples?
+
+7
+00:00:41.856 --> 00:00:49.176
+Lukas: The consumer owner promised them tomorrow morning. Meanwhile we can review resource cleanup independently.
+
+8
+00:00:49.176 --> 00:00:57.264
+Raj: I underestimated discovery, not the extraction itself. I'll update remaining work without hiding the delay.
+
+9
+00:00:57.264 --> 00:01:06.624
+Hannah: Keep the original gates unless explicitly renegotiated. A deadline doesn't automatically waive missing evidence.
+
+10
+00:01:06.624 --> 00:01:14.040
+Anika: Agreed, I'll chase the samples this afternoon. We still protect the original consumer contract.
+

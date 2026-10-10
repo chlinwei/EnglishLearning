@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.664
+Hannah: If the app owner doesn't acknowledge, do I page the backup or keep trying?
+
+2
+00:00:05.664 --> 00:00:12.959
+Priya: Use the rota's escalation timer. At five minutes, page the backup and notify the coordinator.
+
+3
+00:00:12.959 --> 00:00:18.431
+Raj: Keep an eye on the acknowledgement, not just whether the message was delivered.
+
+4
+00:00:18.431 --> 00:00:25.415
+Lukas: Let me play that back. The backup helps respond, but doesn't automatically approve an app change?
+
+5
+00:00:25.415 --> 00:00:33.286
+Anika: Correct. Just to confirm, the designated approver still applies, right? It's in the runbook.
+
+6
+00:00:33.286 --> 00:00:40.966
+Priya: Yes. What's the ETA before the coordinator joins? The contact route has a second step.
+
+7
+00:00:40.966 --> 00:00:48.765
+Hannah: I'll follow that step if there's no response. Meanwhile I can preserve evidence and monitor.
+
+8
+00:00:48.765 --> 00:00:56.349
+Raj: Exactly. If the service restarts, we can't rule that out as harmless just because it comes back.
+
+9
+00:00:56.349 --> 00:01:02.132
+Lukas: And no repeated manual restarts while we wait. They could hide the evidence.
+
+10
+00:01:02.132 --> 00:01:10.700
+Anika: Agreed. Use the approved containment steps only. Maybe we'll need an incident call, not more guessing.
+

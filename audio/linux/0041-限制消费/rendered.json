@@ -1,0 +1,135 @@
+{
+ "id": "0041",
+ "part": 6,
+ "stage": "减轻负载",
+ "title": "限制消费：队列延迟要一起说清",
+ "premise": "生产轻量证据已保存，不在低内存主机采堆快照；准备降低消费速率。",
+ "listeningTask": "听出缓解作用、业务代价和恢复正常速率的条件。",
+ "newPhrase": "p316",
+ "phrases": [
+  "p316",
+  "p010",
+  "p306",
+  "p008:extra",
+  "p014:extra",
+  "p308:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Evidence is saved. We can shed load by lowering the canary's fetch rate.",
+   "zh": "证据已保存。可以降低灰度消费者拉取速率，减少负载。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 5.952
+  },
+  {
+   "sp": "Lukas",
+   "en": "That may slow memory growth. It won't necessarily release what's already retained.",
+   "zh": "这可能减慢内存增长，但不一定释放已经保留的内存。",
+   "role": "SRE",
+   "start": 5.952,
+   "end": 12.071
+  },
+  {
+   "sp": "Anika",
+   "en": "Right. It'll buy us time. Incoming events stay in the durable queue.",
+   "zh": "对，能争取时间。新事件仍保存在持久化队列里。",
+   "role": "Application owner",
+   "start": 12.071,
+   "end": 18.599
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no dropping events, right? What happens to customer delays?",
+   "zh": "我确认一下，不丢弃事件，对吧？用户延迟会怎样？",
+   "role": "Incident lead",
+   "start": 18.599,
+   "end": 25.006
+  },
+  {
+   "sp": "Hannah",
+   "en": "They'll rise temporarily. The healthy workers have room, but we should watch them.",
+   "zh": "暂时会增加。健康消费者还有余量，但我们应该盯着它们。",
+   "role": "Operations engineer",
+   "start": 25.006,
+   "end": 31.846
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. I'll lower the approved setting on this host only.",
+   "zh": "我来做。只降低这台主机上已批准调整的那个参数。",
+   "role": "Linux on-call",
+   "start": 31.846,
+   "end": 37.126
+  },
+  {
+   "sp": "Lukas",
+   "en": "Record the original value. Don't increase the other workers blindly to compensate.",
+   "zh": "记录原值。不要为了补偿而盲目提高其他消费者的负载。",
+   "role": "SRE",
+   "start": 37.126,
+   "end": 43.365
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for recovery? Can the queue catch up afterward?",
+   "zh": "恢复预计多久？之后队列能追平吗？",
+   "role": "Incident lead",
+   "start": 43.365,
+   "end": 48.405
+  },
+  {
+   "sp": "Hannah",
+   "en": "Likely, if arrivals stay steady. We'll estimate after the worker is stable.",
+   "zh": "如果到达速率稳定，应该可以。等消费者稳定后再估算。",
+   "role": "Operations engineer",
+   "start": 48.405,
+   "end": 55.22
+  },
+  {
+   "sp": "Anika",
+   "en": "About five minutes for a controlled restart. I'll explain the temporary delay to support.",
+   "zh": "受控重启大约五分钟。我会向支持团队说明暂时延迟。",
+   "role": "Application owner",
+   "start": 55.22,
+   "end": 61.82
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S04-linux-oom",
+ "parts": 10,
+ "seq": 6,
+ "scene": "生产轻量证据已保存，不在低内存主机采堆快照；准备降低消费速率。",
+ "dir": "linux/0041-限制消费",
+ "audio": "0041-限制消费.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "减轻负载"
+ ],
+ "duration": 61.82
+}

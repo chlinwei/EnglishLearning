@@ -1,0 +1,135 @@
+{
+ "id": "0051",
+ "part": 6,
+ "stage": "驱动检查",
+ "title": "机器起来了：驱动签名也要核对",
+ "premise": "A主机已进入新内核，仍未接回流量；开始验证网络、存储与驱动加载。",
+ "listeningTask": "听懂模块文件存在与成功加载的区别，不把关闭安全机制当快速修复。",
+ "newPhrase": "p326",
+ "phrases": [
+  "p326",
+  "p010",
+  "p302",
+  "p008:extra",
+  "p014:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Host A is back. Running kernel matches the patch. Network and storage are visible.",
+   "zh": "A主机启动了，运行中的内核符合补丁版本，网络和存储都可见。",
+   "role": "Linux operator",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Hannah",
+   "en": "Loaded drivers too? An unsigned module could be rejected with Secure Boot enabled.",
+   "zh": "驱动也加载了吗？开启Secure Boot时，未签名模块可能被拒绝。",
+   "role": "Validation engineer",
+   "start": 7.344,
+   "end": 14.495
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to confirm, we check the loaded module, right? Not just the package files?",
+   "zh": "我确认一下，要检查实际加载的模块，对吧？不是只看软件包文件？",
+   "role": "API owner",
+   "start": 14.495,
+   "end": 20.927
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. Check the loaded version and kernel messages for signature failures.",
+   "zh": "对。检查已加载版本，并看内核日志是否有签名验证失败。",
+   "role": "SRE reviewer",
+   "start": 20.927,
+   "end": 26.782
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it. Both drivers loaded. Signatures match the trusted vendor packages.",
+   "zh": "我在查。两个驱动都加载了，签名来自受信任的供应商包。",
+   "role": "Linux operator",
+   "start": 26.782,
+   "end": 34.006
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, we can rule that out here. What's the ETA for the service checks?",
+   "zh": "好，这里可以排除签名问题。服务检查预计多久？",
+   "role": "Change coordinator",
+   "start": 34.006,
+   "end": 39.958
+  },
+  {
+   "sp": "Hannah",
+   "en": "About two minutes. I'll keep an eye on link errors while they run.",
+   "zh": "大约两分钟。检查期间我会留意链路错误。",
+   "role": "Validation engineer",
+   "start": 39.958,
+   "end": 45.213
+  },
+  {
+   "sp": "Anika",
+   "en": "If a driver fails elsewhere, we stop. No turning off Secure Boot as a shortcut.",
+   "zh": "其他主机如果驱动失败就停止，不把关闭Secure Boot当作捷径。",
+   "role": "API owner",
+   "start": 45.213,
+   "end": 51.837
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed. Keep that host off traffic, then follow the approved recovery path.",
+   "zh": "同意。让那台保持不接流量，然后走批准的恢复流程。",
+   "role": "SRE reviewer",
+   "start": 51.837,
+   "end": 57.62
+  },
+  {
+   "sp": "Raj",
+   "en": "So far, no new errors. I'll attach the versions and log checks to the change.",
+   "zh": "目前没有新错误。我会把版本和日志检查附到变更记录。",
+   "role": "Linux operator",
+   "start": 57.62,
+   "end": 64.22
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 6,
+ "scene": "A主机已进入新内核，仍未接回流量；开始验证网络、存储与驱动加载。",
+ "dir": "linux/0051-机器起来了",
+ "audio": "0051-机器起来了.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "驱动检查"
+ ],
+ "duration": 64.22
+}

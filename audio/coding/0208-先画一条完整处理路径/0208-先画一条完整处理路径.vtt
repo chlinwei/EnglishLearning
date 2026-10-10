@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Lukas: Show the worker's processing flow now. Where do you place durable state and acknowledgements?
+现在展示处理流程，持久状态与消息确认放哪里？
+
+2
+00:00:06.552 --> 00:00:16.055
+Raj: I'd start with a small worker pool. Each task validates bounded input first. Then it acquires work through a lease.
+先用小worker池，每项任务先验有限输入，再通过租约取得处理权。
+
+3
+00:00:16.055 --> 00:00:23.759
+Hannah: What do you persist before sending? Memory-only bookkeeping disappears when the worker crashes.
+发送前持久化什么？只在内存记账会随崩溃丢失。
+
+4
+00:00:23.759 --> 00:00:32.734
+Raj: The operation identifier and payload hash persist first. Just to confirm, identifiers survive redelivery, right?
+先持久化操作标识和负载哈希，确认一下，重投标识不变，对吧？
+
+5
+00:00:32.734 --> 00:00:40.102
+Raj: Okay, then lease work and send it. Terminal results persist before acknowledging the queue message.
+好，之后租约取任务并发送，确认消息前持久化终态结果。
+
+6
+00:00:40.102 --> 00:00:47.470
+Lukas: What if acknowledgement fails after success? That creates the duplicate processing window we're discussing.
+成功后消息确认失败呢？这就是正在讨论的重复处理窗口。
+
+7
+00:00:47.470 --> 00:00:55.389
+Raj: I'm on it by checking persisted terminal state. Maybe redelivery only needs another acknowledgement then.
+我通过查持久终态处理，重投时可能只需重新确认消息。
+
+8
+00:00:55.389 --> 00:01:02.829
+Hannah: Can you demonstrate the flow safely? We don't want real infrastructure changes in interviews.
+能安全演示流程吗？面试不希望改真实基础设施。
+
+9
+00:01:02.829 --> 00:01:10.629
+Raj: I'd dry-run it first with a fake client. Then run isolated integration tests against a sandbox.
+先用假客户端预演，再对沙箱做隔离集成测试。
+
+10
+00:01:10.629 --> 00:01:20.780
+Raj: One action item covers durable state. I'd define each transition explicitly. The lease alone doesn't guarantee unique effects.
+需定义持久状态及每个显式转换，租约本身不保证副作用唯一。
+

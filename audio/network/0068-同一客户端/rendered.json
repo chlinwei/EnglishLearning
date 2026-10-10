@@ -1,0 +1,135 @@
+{
+ "id": "0068",
+ "part": 3,
+ "stage": "对照测试",
+ "title": "同一客户端：别让测试条件变了",
+ "premise": "失败集中于使用解析器A的客户端，但缓存可能让成功样本误导判断。",
+ "listeningTask": "听懂同客户端、同名称、同记录类型对比的重要性。",
+ "newPhrase": "p343",
+ "phrases": [
+  "p343",
+  "p010",
+  "p302",
+  "p008:extra",
+  "p014:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Same client, same name, same query type. Recursive resolver A times out; B answers quickly.",
+   "zh": "同一客户端、同一名称、同一记录类型。递归解析器A超时，B很快回答。",
+   "role": "DNS validation engineer",
+   "start": 0.0,
+   "end": 10.08
+  },
+  {
+   "sp": "Raj",
+   "en": "I checked the responses too. B returns the expected private address, not a public endpoint.",
+   "zh": "我也核对了响应。B返回预期私有地址，不是公共端点。",
+   "role": "Network on-call",
+   "start": 10.08,
+   "end": 17.304
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is that a direct DNS probe? It may bypass the application's local cache.",
+   "zh": "这是直接DNS探测吗？那可能绕过应用本地缓存。",
+   "role": "SRE",
+   "start": 17.304,
+   "end": 23.377
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. We'll test the app path separately. We shouldn't treat those as identical tests.",
+   "zh": "是的，应用路径要单独测，不能把两种测试当作完全一样。",
+   "role": "Checkout application owner",
+   "start": 23.377,
+   "end": 31.153
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, B is reachable from the affected client, right? That's a useful control.",
+   "zh": "我确认一下，受影响客户端能访问B，对吧？这是个有用的对照。",
+   "role": "Incident coordinator",
+   "start": 31.153,
+   "end": 38.449
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me play that back. The client can reach a working resolver, but A's path still fails.",
+   "zh": "我复述一下：客户端能访问一个正常解析器，但走A的路径仍失败。",
+   "role": "DNS validation engineer",
+   "start": 38.449,
+   "end": 45.985
+  },
+  {
+   "sp": "Raj",
+   "en": "We can rule that out as a blanket client-network failure. A still needs investigation.",
+   "zh": "可以排除客户端网络整体不可用，但A仍需要排查。",
+   "role": "Network on-call",
+   "start": 45.985,
+   "end": 52.681
+  },
+  {
+   "sp": "Lukas",
+   "en": "Compare A's response codes and upstream timings next. Don't stop at a yes-or-no result.",
+   "zh": "接下来对比A的响应码和上游耗时，不要只看成功或失败。",
+   "role": "SRE",
+   "start": 52.681,
+   "end": 59.714
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for those metrics? We need a safe mitigation soon.",
+   "zh": "拿到那些指标预计多久？我们需要尽快有安全缓解方案。",
+   "role": "Incident coordinator",
+   "start": 59.714,
+   "end": 65.258
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for the app-side test. About three minutes if the test host is ready.",
+   "zh": "应用侧测试我来做。如果测试主机就绪，大约三分钟。",
+   "role": "Checkout application owner",
+   "start": 65.258,
+   "end": 71.33
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 3,
+ "scene": "失败集中于使用解析器A的客户端，但缓存可能让成功样本误导判断。",
+ "dir": "network/0068-同一客户端",
+ "audio": "0068-同一客户端.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "对照测试"
+ ],
+ "duration": 71.33
+}

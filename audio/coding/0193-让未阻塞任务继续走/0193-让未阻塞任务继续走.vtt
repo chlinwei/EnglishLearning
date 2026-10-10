@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Priya: Make cancellation tests an independent work item. The API contract remains a separate dependency.
+取消测试单独成任务，接口契约仍是另一项依赖。
+
+2
+00:00:07.728 --> 00:00:14.712
+Lukas: Does the parser change require that contract? Avoid merging behavior based on guessed semantics.
+解析器变更依赖契约吗？不能基于猜测语义合并。
+
+3
+00:00:14.712 --> 00:00:23.040
+Raj: Only the integration adapter needs confirmed semantics. Just to confirm, parser review can proceed, right?
+只有集成适配器需要确认语义，确认一下，解析器评审可继续，对吧？
+
+4
+00:00:23.040 --> 00:00:30.984
+Anika: Yes, I'll isolate adapter assumptions in fixtures. Maybe the final response changes one test.
+是，我把适配器假设放fixture里，最终回复可能改变一个测试。
+
+5
+00:00:30.984 --> 00:00:40.416
+Hannah: Keep contract tests unapproved until confirmation. Passing local fixtures doesn't certify the real endpoint.
+确认前不批准契约测试，本地fixture通过不证明真实接口正确。
+
+6
+00:00:40.416 --> 00:00:47.928
+Raj: The parser stays up for review today. Its task includes malformed inputs and resource cleanup.
+解析器今天继续待评审，任务含异常输入与资源释放。
+
+7
+00:00:47.928 --> 00:00:54.936
+Lukas: The performance benchmark is another separate item. It shouldn't delay functional feedback on parsing.
+性能基准单独列项，不拖延解析功能反馈。
+
+8
+00:00:54.936 --> 00:01:02.544
+Priya: Okay, give each action item one owner. Let's park that optional export benchmark for later.
+好，每项任务一个负责人，可选导出基准先放下。
+
+9
+00:01:02.544 --> 00:01:11.376
+Hannah: I'll attach acceptance evidence to each task. That makes partial completion visible without exaggeration.
+每项任务附验收证据，让部分完成可见但不夸大。
+
+10
+00:01:11.376 --> 00:01:18.240
+Anika: Good, the board will show integration waiting. We can finish local work without hiding it.
+好，看板显示集成等待，完成本地工作也不遮住依赖。
+

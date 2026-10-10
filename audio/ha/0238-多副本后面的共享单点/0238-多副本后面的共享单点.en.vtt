@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.128
+Lukas: One proxy host. A single point of failure.
+
+2
+00:00:04.128 --> 00:00:07.656
+Raj: Two proxies exist, but share one host.
+
+3
+00:00:07.656 --> 00:00:11.449
+Hannah: And both zones use the same outbound gateway.
+
+4
+00:00:11.449 --> 00:00:15.361
+Anika: That's our blast radius: every payment callback.
+
+5
+00:00:15.361 --> 00:00:19.993
+Priya: Just to confirm, inventory includes dependencies, right?
+
+6
+00:00:19.993 --> 00:00:23.785
+Raj: Yes, managed configuration is shared too.
+
+7
+00:00:23.785 --> 00:00:27.745
+Lukas: Maybe running services survive control-plane loss, though.
+
+8
+00:00:27.745 --> 00:00:32.618
+Anika: Our working hypothesis assumes cached configuration remains valid.
+
+9
+00:00:32.618 --> 00:00:37.850
+Hannah: Test expiry and restarts, not just steady operation.
+
+10
+00:00:37.850 --> 00:00:42.410
+Priya: Have I missed anything? DNS belongs here too.
+

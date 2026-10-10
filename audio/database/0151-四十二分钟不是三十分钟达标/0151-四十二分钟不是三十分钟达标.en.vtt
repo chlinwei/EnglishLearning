@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.744
+Raj: Restore elapsed time reached forty-two minutes. We started at three, UTC today.
+
+2
+00:00:06.744 --> 00:00:13.057
+Lukas: That's through the initial checked access? Final application acceptance isn't done yet.
+
+3
+00:00:13.057 --> 00:00:19.609
+Anika: Yes, thirty-three minutes restoring and replaying. Nine more minutes for initial checks.
+
+4
+00:00:19.609 --> 00:00:26.690
+Priya: Just to confirm, target was thirty, right? The recovery window already exceeded that.
+
+5
+00:00:26.690 --> 00:00:35.666
+Hannah: Correct. Don't stop the clock retroactively. Remaining reconciliation checks add more elapsed time.
+
+6
+00:00:35.666 --> 00:00:42.578
+Raj: The recovery target still excludes five minutes. That's separate from these forty-two minutes.
+
+7
+00:00:42.578 --> 00:00:49.635
+Lukas: Where did the extra time accumulate? Measure download, replay, and validation separately.
+
+8
+00:00:49.635 --> 00:00:56.067
+Anika: Download took longer than our rehearsal. Maybe bandwidth limits explain part of it.
+
+9
+00:00:56.067 --> 00:01:02.812
+Hannah: What's the ETA for final checks? Call it provisional until jobs finish.
+
+10
+00:01:02.812 --> 00:01:10.540
+Priya: Okay, roughly another twenty minutes estimated. No completed recovery-time claim before acceptance.
+

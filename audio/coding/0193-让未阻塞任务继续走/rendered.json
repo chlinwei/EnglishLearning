@@ -1,0 +1,135 @@
+{
+ "id": "0193",
+ "part": 8,
+ "stage": "拆分",
+ "title": "让未阻塞任务继续走",
+ "premise": "结对安排已定，把本地测试与外部契约验收拆开跟踪。",
+ "listeningTask": "识别可独立完成的任务和仍不能合并的集成。",
+ "newPhrase": "p468",
+ "phrases": [
+  "p468",
+  "p010",
+  "p466:extra",
+  "p462:extra",
+  "p009:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Make cancellation tests an independent work item. The API contract remains a separate dependency.",
+   "zh": "取消测试单独成任务，接口契约仍是另一项依赖。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 0.0,
+   "end": 7.728
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does the parser change require that contract? Avoid merging behavior based on guessed semantics.",
+   "zh": "解析器变更依赖契约吗？不能基于猜测语义合并。",
+   "role": "Code reviewer and platform engineer",
+   "start": 7.728,
+   "end": 14.712
+  },
+  {
+   "sp": "Raj",
+   "en": "Only the integration adapter needs confirmed semantics. Just to confirm, parser review can proceed, right?",
+   "zh": "只有集成适配器需要确认语义，确认一下，解析器评审可继续，对吧？",
+   "role": "CLI implementation engineer",
+   "start": 14.712,
+   "end": 23.04
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, I'll isolate adapter assumptions in fixtures. Maybe the final response changes one test.",
+   "zh": "是，我把适配器假设放fixture里，最终回复可能改变一个测试。",
+   "role": "API integration engineer",
+   "start": 23.04,
+   "end": 30.984
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep contract tests unapproved until confirmation. Passing local fixtures doesn't certify the real endpoint.",
+   "zh": "确认前不批准契约测试，本地fixture通过不证明真实接口正确。",
+   "role": "Test and acceptance engineer",
+   "start": 30.984,
+   "end": 40.416
+  },
+  {
+   "sp": "Raj",
+   "en": "The parser stays up for review today. Its task includes malformed inputs and resource cleanup.",
+   "zh": "解析器今天继续待评审，任务含异常输入与资源释放。",
+   "role": "CLI implementation engineer",
+   "start": 40.416,
+   "end": 47.928
+  },
+  {
+   "sp": "Lukas",
+   "en": "The performance benchmark is another separate item. It shouldn't delay functional feedback on parsing.",
+   "zh": "性能基准单独列项，不拖延解析功能反馈。",
+   "role": "Code reviewer and platform engineer",
+   "start": 47.928,
+   "end": 54.936
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, give each action item one owner. Let's park that optional export benchmark for later.",
+   "zh": "好，每项任务一个负责人，可选导出基准先放下。",
+   "role": "Standup facilitator and delivery owner",
+   "start": 54.936,
+   "end": 62.544
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll attach acceptance evidence to each task. That makes partial completion visible without exaggeration.",
+   "zh": "每项任务附验收证据，让部分完成可见但不夸大。",
+   "role": "Test and acceptance engineer",
+   "start": 62.544,
+   "end": 71.376
+  },
+  {
+   "sp": "Anika",
+   "en": "Good, the board will show integration waiting. We can finish local work without hiding it.",
+   "zh": "好，看板显示集成等待，完成本地工作也不遮住依赖。",
+   "role": "API integration engineer",
+   "start": 71.376,
+   "end": 78.24
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "coding",
+ "series": "sc-S19-coding-tool-standup",
+ "parts": 10,
+ "seq": 8,
+ "scene": "结对安排已定，把本地测试与外部契约验收拆开跟踪。",
+ "dir": "coding/0193-让未阻塞任务继续走",
+ "audio": "0193-让未阻塞任务继续走.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator and delivery owner）",
+  "Raj（CLI implementation engineer）",
+  "Anika（API integration engineer）",
+  "Lukas（Code reviewer and platform engineer）",
+  "Hannah（Test and acceptance engineer）"
+ ],
+ "tags": [
+  "coding",
+  "拆分"
+ ],
+ "duration": 78.24
+}

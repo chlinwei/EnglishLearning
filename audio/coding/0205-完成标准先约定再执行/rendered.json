@@ -1,0 +1,135 @@
+{
+ "id": "0205",
+ "part": 10,
+ "stage": "下轮改进",
+ "title": "完成标准先约定再执行",
+ "premise": "回顾确认第一切片结果，下一轮优先补额外异常测试，再考虑周报与部署。",
+ "listeningTask": "识别改进责任、下轮优先级和发布仍需的审批。",
+ "newPhrase": "p480",
+ "phrases": [
+  "p480",
+  "p009",
+  "p479:extra",
+  "p471:extra",
+  "p477:extra",
+  "p310:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Let's refine our definition of done together. Evidence links should be ready before review.",
+   "zh": "共同完善完成标准，评审前准备好证据链接。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 0.0,
+   "end": 6.624
+  },
+  {
+   "sp": "Lukas",
+   "en": "Include consumer sign-off and rollback rehearsal. Keep implementation completion separate from production deployment.",
+   "zh": "包含使用方验收和回退预演，实现完成与生产部署分开。",
+   "role": "Architecture and implementation reviewer",
+   "start": 6.624,
+   "end": 14.855
+  },
+  {
+   "sp": "Raj",
+   "en": "The carry over tests get priority next sprint. Maybe we'll postpone the second report slice.",
+   "zh": "转下轮的测试优先，第二个报表切片可能延后。",
+   "role": "Refactoring implementation engineer",
+   "start": 14.855,
+   "end": 22.151
+  },
+  {
+   "sp": "Anika",
+   "en": "Every characterization test needs approved expected behavior. The consumer owner confirms unusual cases, right?",
+   "zh": "每个行为测试需批准预期，使用方负责人确认特殊用例，对吧？",
+   "role": "Reporting service and consumer owner",
+   "start": 22.151,
+   "end": 30.934
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, and known defects stay labelled. Fixing one requires explicit updated acceptance criteria.",
+   "zh": "是，已知缺陷保留标注，修复需明确更新验收标准。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 30.934,
+   "end": 39.646
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, sample ownership is our first action item. Anika will obtain examples before sprint planning.",
+   "zh": "好，样本负责人是第一项任务，Anika计划会前拿例子。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 39.646,
+   "end": 47.614
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll review the release proposal after testing. Scope changes need approval, not retrospective justification.",
+   "zh": "测试后审发布申请，改范围需审批，不能事后找理由。",
+   "role": "Architecture and implementation reviewer",
+   "start": 47.614,
+   "end": 55.677
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll close the loop on boundary tests. The optional export request remains outside this plan.",
+   "zh": "我把边界测试闭环，可选导出仍不在本计划。",
+   "role": "Refactoring implementation engineer",
+   "start": 55.677,
+   "end": 63.045
+  },
+  {
+   "sp": "Hannah",
+   "en": "We'll inspect waiting time at next retro. One iteration won't establish a lasting trend.",
+   "zh": "下次回顾看等待时长，一个迭代不能确立长期趋势。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 63.045,
+   "end": 71.252
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, I'll share today's decisions with consumers. They know what changed and what didn't.",
+   "zh": "同意，分享今天决定，让使用方知道改变与未改变的部分。",
+   "role": "Reporting service and consumer owner",
+   "start": 71.252,
+   "end": 78.14
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 10,
+ "scene": "回顾确认第一切片结果，下一轮优先补额外异常测试，再考虑周报与部署。",
+ "dir": "coding/0205-完成标准先约定再执行",
+ "audio": "0205-完成标准先约定再执行.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "下轮改进"
+ ],
+ "duration": 78.14
+}

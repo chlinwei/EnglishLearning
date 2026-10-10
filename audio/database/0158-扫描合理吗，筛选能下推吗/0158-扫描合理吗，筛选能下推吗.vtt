@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.024
+Anika: The report does a full table scan. It filters dates in application code.
+报表全表扫描，在应用代码里筛日期。
+
+2
+00:00:06.024 --> 00:00:13.921
+Hannah: Could that filter move into SQL? Keep date boundaries and timezone semantics identical.
+筛选能移到SQL里吗？日期边界和时区语义要相同。
+
+3
+00:00:13.921 --> 00:00:21.865
+Raj: Yes, existing date indexes may help. Our working hypothesis needs representative query tests.
+可以，现有日期索引可能有用，当前假设需要代表性查询测试。
+
+4
+00:00:21.865 --> 00:00:28.250
+Priya: Okay, test broad ranges too, right? A full scan isn't always wrong.
+好，也测宽范围，对吧？全扫不总是错的。
+
+5
+00:00:28.250 --> 00:00:35.042
+Lukas: Exactly, selectivity changes the right plan. Don't force indexes for every tenant.
+对，选择性会改变合理计划，别强制每个租户用索引。
+
+6
+00:00:35.042 --> 00:00:42.146
+Anika: The smoke test checks output totals. Maybe date truncation needs special boundary cases.
+冒烟测试核对输出总额，日期截断可能需要特殊边界用例。
+
+7
+00:00:42.146 --> 00:00:48.747
+Hannah: Compare with the peak load baseline. A quiet test can exaggerate gains.
+与峰值基线对比，安静环境测试会夸大收益。
+
+8
+00:00:48.747 --> 00:00:55.947
+Priya: Sharding immediately? Let's park that for now. What's the ETA for query evidence?
+立即分片先放一边，查询证据预计什么时候有？
+
+9
+00:00:55.947 --> 00:01:02.572
+Lukas: Two days for isolated load comparisons. Include large tenants and concurrent writes.
+两天完成隔离负载对比，包括大租户和并发写入。
+
+10
+00:01:02.572 --> 00:01:10.060
+Raj: So, optimize before claiming hardware savings. Growth still needs its own storage plan.
+那先优化再谈省硬件，增长仍需要独立存储计划。
+

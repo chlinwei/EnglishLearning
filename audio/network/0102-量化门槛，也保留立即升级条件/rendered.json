@@ -1,0 +1,135 @@
+{
+ "id": "0102",
+ "part": 7,
+ "stage": "升级触发条件",
+ "title": "量化门槛，也保留立即升级条件",
+ "premise": "证据采集流程已交代，明确夜班升级与扩大绕行的边界。",
+ "listeningTask": "抓住连续窗口、正确性风险和联系不到主值班的备用路径。",
+ "newPhrase": "p377",
+ "phrases": [
+  "p377",
+  "p371",
+  "p010",
+  "p336:extra",
+  "p338:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, the escalation threshold is written here. Packet loss above two percent needs attention.",
+   "zh": "好，升级门槛写在这里。丢包超过百分之二需要关注。",
+   "role": "Outgoing shift coordinator",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Lukas",
+   "en": "Over what window, and how many times? A single probe failure isn't enough.",
+   "zh": "哪个时间窗，连续几次？单次探测失败还不够。",
+   "role": "Incoming primary on-call",
+   "start": 7.344,
+   "end": 13.201
+  },
+  {
+   "sp": "Raj",
+   "en": "Two consecutive five-minute windows on approved probes. Corroborating application timeouts trigger a coordinated review.",
+   "zh": "批准探测连续两个五分钟窗超标，并有应用超时印证，就触发协调评估。",
+   "role": "Outgoing network on-call",
+   "start": 13.201,
+   "end": 21.649
+  },
+  {
+   "sp": "Hannah",
+   "en": "What bypasses that wait for urgent impact? Complete loss shouldn't wait ten minutes.",
+   "zh": "哪些紧急影响不等观察窗？完全中断不能等十分钟。",
+   "role": "Incoming network responder",
+   "start": 21.649,
+   "end": 28.85
+  },
+  {
+   "sp": "Anika",
+   "en": "Complete reachability loss or any correctness failure. Page the coordinator immediately in either case.",
+   "zh": "完全不可达或任何正确性问题。这两种都立即呼叫协调人。",
+   "role": "Inventory integration owner",
+   "start": 28.85,
+   "end": 36.434
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no automatic reroute, right? The escalation path starts a human decision.",
+   "zh": "我确认一下，不自动改路由，对吧？升级路径启动的是人工决策。",
+   "role": "Outgoing shift coordinator",
+   "start": 36.434,
+   "end": 43.922
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed, I'll assess capacity before proposing expansion. What's the ETA if nobody responds?",
+   "zh": "同意，提出扩大前我先评估容量。没人回应时等多久？",
+   "role": "Incoming primary on-call",
+   "start": 43.922,
+   "end": 51.579
+  },
+  {
+   "sp": "Raj",
+   "en": "After five minutes, page the backup. The roster includes a separate coordinator contact.",
+   "zh": "五分钟后呼叫备班，轮值表还有单独的协调人联系方式。",
+   "role": "Outgoing network on-call",
+   "start": 51.579,
+   "end": 58.635
+  },
+  {
+   "sp": "Hannah",
+   "en": "Keep the current safe scope while escalating. Silence doesn't authorize a wider reroute.",
+   "zh": "升级过程中保持当前安全范围，沉默不授权扩大绕行。",
+   "role": "Incoming network responder",
+   "start": 58.635,
+   "end": 66.292
+  },
+  {
+   "sp": "Priya",
+   "en": "So, that's roughly the response ladder. For correctness risks, escalate immediately without waiting.",
+   "zh": "这就是大致响应层级。正确性风险立即升级，不等待。",
+   "role": "Outgoing shift coordinator",
+   "start": 66.292,
+   "end": 74.02
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 7,
+ "scene": "证据采集流程已交代，明确夜班升级与扩大绕行的边界。",
+ "dir": "network/0102-量化门槛，也保留立即升级条件",
+ "audio": "0102-量化门槛，也保留立即升级条件.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "升级触发条件"
+ ],
+ "duration": 74.02
+}

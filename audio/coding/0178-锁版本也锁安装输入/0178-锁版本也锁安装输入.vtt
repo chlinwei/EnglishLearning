@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.608
+Raj: We've generated hash-locked requirements for production. Direct and transitive versions are both fixed.
+已生成生产用带哈希锁依赖，直接与间接版本都固定了。
+
+2
+00:00:07.608 --> 00:00:14.401
+Lukas: Which interpreter and platform produced that lock? Keep those inputs under version control too.
+锁文件针对什么解释器和平台？这些输入也要版本管理。
+
+3
+00:00:14.401 --> 00:00:21.937
+Anika: Python three twelve on our Linux image. Just to confirm, other platforms need validation, right?
+Linux镜像上的Python 3.12，确认一下，其他平台另需验证，对吧？
+
+4
+00:00:21.937 --> 00:00:29.594
+Priya: Okay, the dependency resolver output is attached. No hand-edited version exceptions in this approval.
+好，附上解析输出，本次审批不接受手工改版本例外。
+
+5
+00:00:29.594 --> 00:00:38.930
+Hannah: Check every artifact's hash during installation. Hashes verify identity, not package security alone.
+安装核对每个包的哈希，哈希验证身份，本身不证明包安全。
+
+6
+00:00:38.930 --> 00:00:45.386
+Raj: I'm on it with the approved package mirror. Maybe we'll need to retain older wheels.
+批准的镜像源我来处理，可能也需保留旧wheel。
+
+7
+00:00:45.386 --> 00:00:52.035
+Lukas: Retain them for reproducible rollback builds. Pin the base image and installer version too.
+保留以便重建回退版本，也固定基础镜像与安装器。
+
+8
+00:00:52.035 --> 00:00:59.595
+Anika: The lock becomes part of managed configuration. I'll stop production installs from resolving afresh.
+锁文件纳入受管配置，生产安装不能重新自由解析版本。
+
+9
+00:00:59.595 --> 00:01:08.380
+Hannah: Build inputs also include compiler toolchains. Prefer approved wheels where the platform supports them.
+构建输入还包括编译工具链，平台支持时优先批准的wheel。
+
+10
+00:01:08.380 --> 00:01:15.580
+Priya: Make retaining inputs an explicit action item. The lock alone isn't our reproducibility claim.
+保留输入列为明确任务，不能只靠锁文件宣称可复现。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.960
+Anika: Okay, Friday's rotation test passed in staging. The service kept writing after rotation.
+
+2
+00:00:06.960 --> 00:00:13.873
+Hannah: Did it reopen the log correctly? A renamed file can remain open indefinitely.
+
+3
+00:00:13.873 --> 00:00:21.073
+Anika: Yes, the documented reload reopens its descriptor. We confirmed writes reached the new file.
+
+4
+00:00:21.073 --> 00:00:28.058
+Lukas: Is that behavior specific to this service? Don't assume every daemon handles reload identically.
+
+5
+00:00:28.058 --> 00:00:35.618
+Raj: Yes, the automation selects a service-specific handler. Unknown services stop for manual review.
+
+6
+00:00:35.618 --> 00:00:43.946
+Priya: Just to confirm, retention policy stays unchanged, right? This task doesn't authorize extra deletion.
+
+7
+00:00:43.946 --> 00:00:52.587
+Hannah: Correct, test files only in staging. I'll compare the configured retention with actual outputs.
+
+8
+00:00:52.587 --> 00:00:59.043
+Anika: Let me tail the log after standup. That will supply today's verification evidence.
+
+9
+00:00:59.043 --> 00:01:05.548
+Lukas: And before you rotate the log again, save the test state. Keep results reproducible.
+
+10
+00:01:05.548 --> 00:01:12.340
+Priya: So, roughly one hour for evidence cleanup. We can review without changing production today.
+

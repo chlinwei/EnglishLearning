@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.792
+Anika: The temporary workaround pauses new fetches. It doesn't delete queued export requests.
+
+2
+00:00:06.792 --> 00:00:13.560
+Hannah: What about a task already running? Was anything interrupted or left half-written?
+
+3
+00:00:13.560 --> 00:00:19.873
+Raj: None was active when we paused. We checked the task record and output list.
+
+4
+00:00:19.873 --> 00:00:25.201
+Priya: Just to confirm, fetching stays paused overnight unless approved, right?
+
+5
+00:00:25.201 --> 00:00:31.177
+Lukas: Yes. Who approves resuming, and how do we confirm the setting actually changed?
+
+6
+00:00:31.177 --> 00:00:37.321
+Anika: The duty app owner approves. The admin status and fetch metrics must agree.
+
+7
+00:00:37.321 --> 00:00:42.745
+Hannah: This will buy us time, but request age keeps increasing while we wait.
+
+8
+00:00:42.745 --> 00:00:48.818
+Raj: I'm on it for the written steps. It'll need controlled recovery to catch up later.
+
+9
+00:00:48.818 --> 00:00:55.706
+Lukas: Don't test resuming during handoff. We'd lose the stable baseline and divide responsibility.
+
+10
+00:00:55.706 --> 00:01:02.690
+Priya: Changing the watchdog timeout? Let's park that. No unreviewed tuning tonight.
+

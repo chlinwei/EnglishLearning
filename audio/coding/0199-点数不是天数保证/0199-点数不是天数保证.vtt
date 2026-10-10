@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Raj: Finishing every extraction is a stretch here. I'd estimate the first slice at five points.
+全部提取完成有挑战，第一个切片估五点。
+
+2
+00:00:07.128 --> 00:00:13.320
+Lukas: What uncertainty does that estimate include? Points aren't a promise of five days.
+估算含什么不确定性？五点不等于承诺五天。
+
+3
+00:00:13.320 --> 00:00:21.719
+Anika: Consumer fixtures still need clarification from owners. Just to confirm, discovery is included, right?
+使用方fixture还需负责人澄清，确认一下，包含梳理时间，对吧？
+
+4
+00:00:21.719 --> 00:00:28.775
+Priya: Yes, available bandwidth is lower than usual. What's the ETA for the first fixture set?
+是，可用人力比平时少，首批fixture预计何时好？
+
+5
+00:00:28.775 --> 00:00:37.463
+Hannah: About two days if consumer samples arrive. The characterization test needs expected failures too.
+收到使用方样本的话约两天，现有行为测试也需预期失败。
+
+6
+00:00:37.463 --> 00:00:45.455
+Raj: Maybe five points understates those error paths. I'll separate discovery from mechanical function extraction.
+五点可能低估异常路径，把梳理与机械提函数拆开。
+
+7
+00:00:45.455 --> 00:00:53.111
+Lukas: Make unknowns explicit before committing capacity. Otherwise estimates hide risk rather than communicate it.
+承诺前明确未知项，否则估算是在藏风险，不是说明风险。
+
+8
+00:00:53.111 --> 00:01:01.006
+Priya: Okay, don't solve scope creep by overtime. Optional logging cleanup can remain uncommitted this sprint.
+好，不能靠加班解决范围膨胀，可选日志整理本轮不承诺。
+
+9
+00:01:01.006 --> 00:01:10.030
+Hannah: The committed goal should be demonstrable behavior. Count test evidence, not just extracted functions.
+承诺目标应是可演示行为，看测试证据，不只数提取函数。
+
+10
+00:01:10.030 --> 00:01:16.990
+Anika: Agreed, I'll bring samples by tomorrow morning. Then we can revisit the uncertain estimate.
+同意，明早带样本，然后重新看不确定的估算。
+

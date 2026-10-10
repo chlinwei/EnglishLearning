@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.216
+Priya: Okay, who's picking this up for pooling? Each trial needs an experiment owner.
+
+2
+00:00:06.216 --> 00:00:11.832
+Anika: I'm on it for client changes. I'll include limits and correctness checks.
+
+3
+00:00:11.832 --> 00:00:20.615
+Hannah: I'll own measurement quality, not application changes. Keep those responsibilities separate in the record.
+
+4
+00:00:20.615 --> 00:00:27.671
+Raj: I'll own the isolated network test. Reverse-route evidence still depends on the regional team.
+
+5
+00:00:27.671 --> 00:00:34.391
+Lukas: What's the ETA for their response? Missing evidence shouldn't silently become an assumption.
+
+6
+00:00:34.391 --> 00:00:42.287
+Priya: Just to confirm, roughly tomorrow afternoon, right? If delayed, report the dependency explicitly.
+
+7
+00:00:42.287 --> 00:00:48.959
+Raj: Yes, that's their current estimate only. I'll ask for a named regional contact.
+
+8
+00:00:48.959 --> 00:00:56.710
+Hannah: Who checks the resulting cost estimate? Include transfer tariffs and client resource changes.
+
+9
+00:00:56.710 --> 00:01:03.022
+Anika: Lukas reviews it after both inputs arrive. My resource report is due tomorrow.
+
+10
+00:01:03.022 --> 00:01:10.390
+Priya: So, each action item has an owner. We'll review incomplete evidence without forcing adoption.
+

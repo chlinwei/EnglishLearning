@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.656
+Raj: Reviewed archives are gone. We're at ninety-two percent. Writes are getting through again.
+审核过的归档已清理。现在使用率百分之九十二，写入又能成功了。
+
+2
+00:00:07.656 --> 00:00:12.576
+Hannah: That's still tight. How quickly is the space being used?
+空间还是很紧张。现在占用增长有多快？
+
+3
+00:00:12.576 --> 00:00:18.239
+Raj: Roughly two hundred megs a minute. This will buy us time, not much.
+大概每分钟两百 MB。这能争取一点时间，但不多。
+
+4
+00:00:18.239 --> 00:00:24.551
+Priya: Just to confirm, the open handle is still there? We haven't fixed that, right?
+我确认一下，那个句柄还开着？这个问题还没解决，对吧？
+
+5
+00:00:24.551 --> 00:00:29.279
+Lukas: Right. We should watch free space while we prepare the next step.
+对。准备下一步时，我们得一直盯着剩余空间。
+
+6
+00:00:29.279 --> 00:00:35.087
+Anika: Version check is done. This build supports the documented reopen signal.
+版本核对完成。当前构建支持文档规定的日志重开信号。
+
+7
+00:00:35.087 --> 00:00:39.791
+Hannah: Does it only reopen the log, or reload other settings too?
+这个信号只重开日志，还是会同时重新加载其他配置？
+
+8
+00:00:39.791 --> 00:00:44.614
+Anika: Only the log in this build. I'm on it for the change record.
+当前版本只重开日志。我来记录这次变更。
+
+9
+00:00:44.614 --> 00:00:50.110
+Lukas: If it fails, stop there. We can drain this worker before a restart.
+如果失败，就先停下。需要重启的话，可以先让这台完成在途任务并退出消费。
+
+10
+00:00:50.110 --> 00:00:57.430
+Priya: What's the ETA to reopen the log? A restart? Let's park that unless we need it.
+重开日志预计多久？重启的事先放一边，除非确实需要。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.528
+Priya: We'll promote the same artifact through batches. The review approves two more partitions first.
+各批推广同一个制品，评审先批准再扩大两个分区。
+
+2
+00:00:06.528 --> 00:00:13.945
+Lukas: Verify its digest before each deployment. A matching tag doesn't guarantee identical bytes.
+每次部署前验证摘要，同标签不保证字节相同。
+
+3
+00:00:13.945 --> 00:00:22.129
+Raj: Just to confirm, no dependency resolution during deployment, right? We deploy the already-tested image only.
+确认一下，部署时不重新解析依赖，对吧？只部署已测镜像。
+
+4
+00:00:22.129 --> 00:00:29.714
+Anika: The canary cohort remains our comparison group. Maybe regional latency needs separate thresholds here.
+灰度组保留作对照，区域延迟可能需要单独阈值。
+
+5
+00:00:29.714 --> 00:00:37.370
+Hannah: Yes, compare each partition with its baseline. Don't average a regional problem away.
+对，各分区与自身基线比，不能用平均值掩盖区域问题。
+
+6
+00:00:37.370 --> 00:00:45.434
+Raj: Okay, the staged rollout retains exclusive leases. Each old worker drains before ownership moves.
+好，分阶段发布保持独占租约，转移所有权前旧worker排空。
+
+7
+00:00:45.434 --> 00:00:53.187
+Lukas: Let's keep it under observation between batches. Stop expansion if reconciliation results diverge.
+各批之间观察，对账结果偏离就停止扩大。
+
+8
+00:00:53.187 --> 00:00:59.379
+Priya: Run the smoke test for each batch. Anika signs off before the next one.
+每批做冒烟测试，Anika验收后才进入下一批。
+
+9
+00:00:59.379 --> 00:01:08.068
+Hannah: Both additional partitions match expected output. Their latency and token refresh remain healthy.
+新增两个分区输出符合预期，延迟和令牌刷新正常。
+
+10
+00:01:08.068 --> 00:01:14.500
+Anika: I'll approve the remaining batches under those gates. No changes to the approved image.
+按这些关卡批准剩余批次，批准镜像不能改变。
+

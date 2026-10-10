@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.016
+Anika: I'll drain the worker marked A. New requests now go elsewhere safely.
+
+2
+00:00:05.016 --> 00:00:10.776
+Lukas: Do the remaining workers have capacity? Keep the bounded request queue enabled.
+
+3
+00:00:10.776 --> 00:00:16.585
+Raj: Yes, the lower traffic fits now. About five writes remain on A.
+
+4
+00:00:16.585 --> 00:00:22.729
+Priya: Okay, wait for those writes, right? This is still a temporary workaround.
+
+5
+00:00:22.729 --> 00:00:30.433
+Hannah: Check outcomes before closing the pool. Cancellation doesn't guarantee a transaction stopped.
+
+6
+00:00:30.433 --> 00:00:36.673
+Anika: The five writes have completed now. I'll restart this application worker next.
+
+7
+00:00:36.673 --> 00:00:42.529
+Lukas: Not the database. Keep that distinction. I'll keep an eye on routing.
+
+8
+00:00:42.529 --> 00:00:48.842
+Priya: So, what's the ETA for checks? Maybe two minutes before another worker.
+
+9
+00:00:48.842 --> 00:00:56.186
+Hannah: Two minutes after A returns healthy. Verify fresh writes and connection releases.
+
+10
+00:00:56.186 --> 00:01:02.210
+Raj: I'm on it for session counts. We'll stop if database connections surge.
+

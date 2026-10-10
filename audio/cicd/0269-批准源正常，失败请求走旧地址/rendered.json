@@ -1,0 +1,135 @@
+{
+ "id": "0269",
+ "part": 4,
+ "stage": "依赖源检查",
+ "title": "批准源正常，失败请求走旧地址",
+ "premise": "隔离执行器也失败，日志里出现疑似旧依赖端点。",
+ "listeningTask": "抓住连通性、授权和下载内容校验的区别。",
+ "newPhrase": "p544",
+ "phrases": [
+  "p544",
+  "p543",
+  "p335:extra",
+  "p010:extra",
+  "p103:extra",
+  "p302:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The approved dependency mirror answers normally. Failed requests use a retired address.",
+   "zh": "批准的依赖镜像源响应正常。失败请求用了退役地址。",
+   "role": "Build runner on-call",
+   "start": 0.0,
+   "end": 7.128
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, runner health wasn't enough evidence. Just to confirm, approved credentials work?",
+   "zh": "好，执行器健康还不够。确认一下，批准的凭据能用？",
+   "role": "Incident coordinator",
+   "start": 7.128,
+   "end": 14.256
+  },
+  {
+   "sp": "Lukas",
+   "en": "A successful ping won't establish that. Test an authorized fetch with checksums.",
+   "zh": "ping成功证明不了。用授权下载加校验和测试。",
+   "role": "Pipeline reliability engineer",
+   "start": 14.256,
+   "end": 20.207
+  },
+  {
+   "sp": "Anika",
+   "en": "That fetch passed on the control. Lockfile hashes match the downloaded packages, right?",
+   "zh": "对照下载通过了。锁文件哈希与下载包匹配，对吧？",
+   "role": "Application release owner",
+   "start": 20.207,
+   "end": 26.975
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, required package signatures passed too. No fallback to an unapproved public source.",
+   "zh": "对，所需包签名也通过。不回退到未经批准的公共源。",
+   "role": "Artifact security engineer",
+   "start": 26.975,
+   "end": 35.159
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log again. The old address appears after cache restore.",
+   "zh": "我再盯一下日志。旧地址在恢复缓存后出现。",
+   "role": "Build runner on-call",
+   "start": 35.159,
+   "end": 41.351
+  },
+  {
+   "sp": "Lukas",
+   "en": "Before restore, the configuration points correctly. Keep that sequence with the evidence.",
+   "zh": "恢复前配置指向正确地址。把这个顺序和证据一起保留。",
+   "role": "Pipeline reliability engineer",
+   "start": 41.351,
+   "end": 47.951
+  },
+  {
+   "sp": "Priya",
+   "en": "So, our working hypothesis has narrowed. Something restored overrides the dependency source.",
+   "zh": "那么当前假设缩小了。恢复的某个内容覆盖了依赖源。",
+   "role": "Incident coordinator",
+   "start": 47.951,
+   "end": 55.126
+  },
+  {
+   "sp": "Hannah",
+   "en": "We can rule that out narrowly. Approved-source availability isn't this observed failure.",
+   "zh": "可以有限地排除：批准源不可用不是这次观察到的故障。",
+   "role": "Artifact security engineer",
+   "start": 55.126,
+   "end": 62.35
+  },
+  {
+   "sp": "Anika",
+   "en": "Not every dependency issue, though... agreed. Inspect that cache without deleting evidence.",
+   "zh": "但不能排除所有依赖问题……同意。检查缓存，别删证据。",
+   "role": "Application release owner",
+   "start": 62.35,
+   "end": 69.79
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 4,
+ "scene": "隔离执行器也失败，日志里出现疑似旧依赖端点。",
+ "dir": "cicd/0269-批准源正常，失败请求走旧地址",
+ "audio": "0269-批准源正常，失败请求走旧地址.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "依赖源检查"
+ ],
+ "duration": 69.79
+}

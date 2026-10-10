@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.168
+Priya: Just to recap, deleting the log didn't free its space. The handle stayed open.
+
+2
+00:00:06.168 --> 00:00:13.487
+Lukas: And rotation was missing the reopen hook. That's a configuration gap, not just a cleanup mistake.
+
+3
+00:00:13.487 --> 00:00:20.951
+Raj: Right. First action item: fix the managed template. I'll have the review ready tomorrow.
+
+4
+00:00:20.951 --> 00:00:27.334
+Hannah: Can we test that the old handle closes? A syntax check won't catch this.
+
+5
+00:00:27.334 --> 00:00:33.814
+Anika: Yes. I'll add a staging test by Friday. Then we can close the loop.
+
+6
+00:00:33.814 --> 00:00:40.054
+Lukas: Include each deployed app version. The same signal isn't safe for every service.
+
+7
+00:00:40.054 --> 00:00:45.813
+Priya: Who's picking this up for the runbook? Hannah, do you have bandwidth this week?
+
+8
+00:00:45.813 --> 00:00:53.781
+Hannah: Yes, by Thursday. I'll cover open files, retention checks, and restart approval.
+
+9
+00:00:53.781 --> 00:01:00.140
+Raj: The alert threshold needs a look too. Let's take it offline after this.
+
+10
+00:01:00.140 --> 00:01:08.420
+Priya: Agreed. The disk fix is verified, right? Keep the follow-up tasks open until we have evidence.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.848
+Hannah: The compatibility matrix covers our production interpreter. Authentication refresh, pagination, and timeout paths pass.
+
+2
+00:00:10.848 --> 00:00:18.408
+Raj: The supported release changes timeout exception types. I updated our explicit handling and tests.
+
+3
+00:00:18.408 --> 00:00:25.055
+Lukas: Did the tests use real response shapes? Simplified mocks can hide pagination changes.
+
+4
+00:00:25.055 --> 00:00:33.911
+Anika: Yes, sanitized captured responses and contract fixtures. Just to confirm, no production tokens, right?
+
+5
+00:00:33.911 --> 00:00:41.327
+Hannah: Correct, credentials come from the test tenant. The smoke test checks the complete sync.
+
+6
+00:00:41.327 --> 00:00:49.799
+Priya: Okay, install using hash-locked requirements every time. We need the tested combination, not something similar.
+
+7
+00:00:49.799 --> 00:00:57.191
+Lukas: Check connection cleanup after cancelled requests too. Success paths won't expose leaked resources.
+
+8
+00:00:57.191 --> 00:01:04.318
+Raj: The cancellation tests now release their connections. We can rule that out in covered cases.
+
+9
+00:01:04.318 --> 00:01:11.422
+Anika: Maybe large inventories still behave differently here. I'll add a representative multi-page dataset.
+
+10
+00:01:11.422 --> 00:01:19.630
+Priya: Agreed, keep untested combinations clearly excluded. Approval covers this interpreter and platform only.
+

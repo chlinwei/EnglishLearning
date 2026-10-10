@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.816
+Raj: A large transaction deleted archived rows. It generated about two gigabytes of WAL.
+
+2
+00:00:06.816 --> 00:00:12.697
+Lukas: Has that transaction committed already now? Killing it won't undo committed work.
+
+3
+00:00:12.697 --> 00:00:19.033
+Anika: Yes, the audit shows successful commit. The scheduler has another batch queued.
+
+4
+00:00:19.033 --> 00:00:26.306
+Priya: Just to confirm, pause future batches, right? We aren't cancelling completed transactions.
+
+5
+00:00:26.306 --> 00:00:31.634
+Hannah: Let me tail the log too. B started a local checksum scan.
+
+6
+00:00:31.634 --> 00:00:38.306
+Raj: The replay position advanced more slowly then. No replay conflict errors are logged.
+
+7
+00:00:38.306 --> 00:00:45.243
+Lukas: So disk competition is worth testing. Don't change replication settings without evidence.
+
+8
+00:00:45.243 --> 00:00:51.867
+Anika: Our working hypothesis combines both loads. Maybe the scan worsens that WAL burst.
+
+9
+00:00:51.867 --> 00:00:59.380
+Hannah: Check job timestamps against disk metrics. Correlation isn't the whole causal proof.
+
+10
+00:00:59.380 --> 00:01:05.980
+Priya: Okay, the root cause is still open. Control sensitive reads before that test.
+

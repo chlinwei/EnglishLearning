@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.576
+Raj: Let me tail the log from yesterday's archive.
+我查看昨天归档日志的尾部。
+
+2
+00:00:03.576 --> 00:00:08.568
+Hannah: The recovery point trails cutoff by thirty-seven seconds.
+数据恢复点比故障切断时刻落后三十七秒。
+
+3
+00:00:08.568 --> 00:00:13.585
+Anika: Those test writes weren't replicated. We recorded them.
+那些测试写入未复制，我们已记录。
+
+4
+00:00:13.585 --> 00:00:17.017
+Lukas: When did fencing complete relative to promotion?
+隔离完成与提升的先后时刻是什么？
+
+5
+00:00:17.017 --> 00:00:22.729
+Raj: Minute eleven. Promotion started after independent power confirmation.
+第十一分钟完成，独立确认电源关闭后才开始提升。
+
+6
+00:00:22.729 --> 00:00:27.073
+Priya: Just to confirm, out-of-band console evidence, right?
+确认一下，是带外控制台证据，对吧？
+
+7
+00:00:27.073 --> 00:00:31.705
+Hannah: Yes, with restart inhibition captured in logs.
+是的，日志还记录了禁止重启。
+
+8
+00:00:31.705 --> 00:00:36.122
+Anika: Let me play that back. Data loss remains.
+我复述一下：仍然存在数据损失。
+
+9
+00:00:36.122 --> 00:00:41.690
+Lukas: Correct. Safe promotion doesn't undo asynchronous replication loss.
+对，安全提升不能消除异步复制的数据损失。
+
+10
+00:00:41.690 --> 00:00:46.250
+Priya: Recovery time includes validation, roughly three more minutes.
+恢复时间包括验证，又花了大约三分钟。
+

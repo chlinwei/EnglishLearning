@@ -1,0 +1,135 @@
+{
+ "id": "0247",
+ "part": 2,
+ "stage": "时间线回顾",
+ "title": "顺序正确：隔离先于提升",
+ "premise": "团队查看统一时钟下的日志与观察员记录。",
+ "listeningTask": "听出数据恢复点不等于业务恢复完成时刻。",
+ "newPhrase": "p522",
+ "phrases": [
+  "p522",
+  "p521",
+  "p103",
+  "p011:extra",
+  "p010:extra",
+  "p325:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log from yesterday's archive.",
+   "zh": "我查看昨天归档日志的尾部。",
+   "role": "DR exercise operator",
+   "start": 0.0,
+   "end": 3.576
+  },
+  {
+   "sp": "Hannah",
+   "en": "The recovery point trails cutoff by thirty-seven seconds.",
+   "zh": "数据恢复点比故障切断时刻落后三十七秒。",
+   "role": "Recovery measurement analyst",
+   "start": 3.576,
+   "end": 8.568
+  },
+  {
+   "sp": "Anika",
+   "en": "Those test writes weren't replicated. We recorded them.",
+   "zh": "那些测试写入未复制，我们已记录。",
+   "role": "Order service exercise owner",
+   "start": 8.568,
+   "end": 13.585
+  },
+  {
+   "sp": "Lukas",
+   "en": "When did fencing complete relative to promotion?",
+   "zh": "隔离完成与提升的先后时刻是什么？",
+   "role": "Exercise safety observer",
+   "start": 13.585,
+   "end": 17.017
+  },
+  {
+   "sp": "Raj",
+   "en": "Minute eleven. Promotion started after independent power confirmation.",
+   "zh": "第十一分钟完成，独立确认电源关闭后才开始提升。",
+   "role": "DR exercise operator",
+   "start": 17.017,
+   "end": 22.729
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, out-of-band console evidence, right?",
+   "zh": "确认一下，是带外控制台证据，对吧？",
+   "role": "Retrospective facilitator",
+   "start": 22.729,
+   "end": 27.073
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, with restart inhibition captured in logs.",
+   "zh": "是的，日志还记录了禁止重启。",
+   "role": "Recovery measurement analyst",
+   "start": 27.073,
+   "end": 31.705
+  },
+  {
+   "sp": "Anika",
+   "en": "Let me play that back. Data loss remains.",
+   "zh": "我复述一下：仍然存在数据损失。",
+   "role": "Order service exercise owner",
+   "start": 31.705,
+   "end": 36.122
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct. Safe promotion doesn't undo asynchronous replication loss.",
+   "zh": "对，安全提升不能消除异步复制的数据损失。",
+   "role": "Exercise safety observer",
+   "start": 36.122,
+   "end": 41.69
+  },
+  {
+   "sp": "Priya",
+   "en": "Recovery time includes validation, roughly three more minutes.",
+   "zh": "恢复时间包括验证，又花了大约三分钟。",
+   "role": "Retrospective facilitator",
+   "start": 41.69,
+   "end": 46.25
+  }
+ ],
+ "group": "agile",
+ "domain": "ha",
+ "series": "sc-S25-ha-dr-retro",
+ "parts": 10,
+ "seq": 2,
+ "scene": "团队查看统一时钟下的日志与观察员记录。",
+ "dir": "ha/0247-顺序正确",
+ "audio": "0247-顺序正确.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Retrospective facilitator）",
+  "Raj（DR exercise operator）",
+  "Anika（Order service exercise owner）",
+  "Lukas（Exercise safety observer）",
+  "Hannah（Recovery measurement analyst）"
+ ],
+ "tags": [
+  "ha",
+  "时间线回顾"
+ ],
+ "duration": 46.25
+}

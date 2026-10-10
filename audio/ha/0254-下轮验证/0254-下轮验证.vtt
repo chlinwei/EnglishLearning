@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.168
+Hannah: The evidence pack needs synchronized logs. And request IDs.
+证据集需要同步时钟的日志，还有请求编号。
+
+2
+00:00:06.168 --> 00:00:10.968
+Raj: We'll dry-run it first. Then deny fencing permission.
+先试运行，再模拟隔离权限被拒。
+
+3
+00:00:10.968 --> 00:00:14.593
+Lukas: Expected result: no standby promotion.
+预期结果是备机不提升。
+
+4
+00:00:14.593 --> 00:00:18.793
+Anika: Our rehearsal scope includes acknowledged-write comparison.
+演练范围包括已确认写入的对比。
+
+5
+00:00:18.793 --> 00:00:23.017
+Priya: Just to confirm, isolated test accounts, right?
+确认一下，用隔离测试账号，对吧？
+
+6
+00:00:23.017 --> 00:00:27.529
+Raj: Yes, no production credentials or shared power targets.
+是的，不用生产凭据或共享电源目标。
+
+7
+00:00:27.529 --> 00:00:33.361
+Hannah: External traffic is our rollback trigger. Stop immediately.
+外部流量是回退触发条件，立即停止。
+
+8
+00:00:33.361 --> 00:00:37.370
+Anika: A smoke test follows each approved recovery step.
+每个获批恢复步骤后都做快速验证。
+
+9
+00:00:37.370 --> 00:00:41.426
+Lukas: Maybe rotate operators to expose hidden assumptions.
+也许换操作员能暴露隐藏假设。
+
+10
+00:00:41.426 --> 00:00:45.770
+Priya: Okay, Friday morning, with a safety observer present.
+好，周五上午进行，安全观察员必须在场。
+

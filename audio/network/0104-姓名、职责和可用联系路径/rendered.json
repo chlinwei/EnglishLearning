@@ -1,0 +1,135 @@
+{
+ "id": "0104",
+ "part": 9,
+ "stage": "联系人确认",
+ "title": "姓名、职责和可用联系路径",
+ "premise": "接班复述正确，验证轮值、供应商入口与升级备选。",
+ "listeningTask": "区分内部决策人、供应商跟进人和备班。",
+ "newPhrase": "p379",
+ "phrases": [
+  "p379",
+  "p337",
+  "p010",
+  "p338:extra",
+  "p336:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, the duty contact list is current. Lukas is primary on-call from this point.",
+   "zh": "好，值班联系人表已更新，从现在起Lukas是主值班。",
+   "role": "Outgoing shift coordinator",
+   "start": 0.0,
+   "end": 7.056
+  },
+  {
+   "sp": "Lukas",
+   "en": "I can open the roster and incident record. Who approves any wider routing change?",
+   "zh": "我能打开轮值表和事件记录。谁批准更大范围路由变化？",
+   "role": "Incoming primary on-call",
+   "start": 7.056,
+   "end": 13.201
+  },
+  {
+   "sp": "Raj",
+   "en": "The rostered incident coordinator owns that decision. Their paging alias is tested and recorded.",
+   "zh": "轮值故障协调人负责该决策，呼叫别名已验证并记录。",
+   "role": "Outgoing network on-call",
+   "start": 13.201,
+   "end": 20.809
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'm on it for carrier communications. Ticket access works, but phone escalation needs verification.",
+   "zh": "运营商沟通我来负责。工单访问可用，电话升级还要验证。",
+   "role": "Incoming network responder",
+   "start": 20.809,
+   "end": 29.426
+  },
+  {
+   "sp": "Anika",
+   "en": "Raj verified the contracted support number earlier. Use the authenticated account reference in storage.",
+   "zh": "Raj之前验证了合同支持号码，使用受控存储里的认证账号参考信息。",
+   "role": "Inventory integration owner",
+   "start": 29.426,
+   "end": 37.106
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, secrets stay out of chat, right? Contact references don't need copied credentials.",
+   "zh": "我确认一下，秘密信息不进聊天，对吧？联系记录不需要复制凭据。",
+   "role": "Outgoing shift coordinator",
+   "start": 37.106,
+   "end": 45.122
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed, and if I don't respond promptly? Who receives the backup page tonight?",
+   "zh": "同意。如果我没及时回应，今晚备班呼叫发给谁？",
+   "role": "Incoming primary on-call",
+   "start": 45.122,
+   "end": 51.219
+  },
+  {
+   "sp": "Raj",
+   "en": "The roster routes it to the backup SRE. Page the backup after about five minutes.",
+   "zh": "轮值表会路由到备班SRE，大约五分钟后呼叫备班。",
+   "role": "Outgoing network on-call",
+   "start": 51.219,
+   "end": 57.507
+  },
+  {
+   "sp": "Hannah",
+   "en": "The escalation path opens from my account too. We won't depend on an outgoing engineer.",
+   "zh": "我的账号也能打开升级路径，不依赖已经下班的工程师。",
+   "role": "Incoming network responder",
+   "start": 57.507,
+   "end": 64.828
+  },
+  {
+   "sp": "Priya",
+   "en": "So, contact access is now confirmed. Raj remains available until final acceptance only.",
+   "zh": "因此联系权限现在已确认。Raj只在最终接受前继续待命。",
+   "role": "Outgoing shift coordinator",
+   "start": 64.828,
+   "end": 72.46
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 9,
+ "scene": "接班复述正确，验证轮值、供应商入口与升级备选。",
+ "dir": "network/0104-姓名、职责和可用联系路径",
+ "audio": "0104-姓名、职责和可用联系路径.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "联系人确认"
+ ],
+ "duration": 72.46
+}

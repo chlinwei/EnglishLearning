@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.728
+Lukas: Migration risk includes missed and duplicate writes. Dual writing isn't automatic consistency protection.
+迁移风险包括漏写和重复写，双写不是自动一致性保护。
+
+2
+00:00:07.728 --> 00:00:14.544
+Anika: Agreed, retries and ordering need explicit design. We don't have that implementation today.
+同意，重试和顺序需要明确设计，目前没有实现。
+
+3
+00:00:14.544 --> 00:00:21.385
+Raj: Changing a shard key can move data. Recovery and reconciliation must cover each move.
+改分片键可能搬迁数据，恢复和对账必须覆盖每次移动。
+
+4
+00:00:21.385 --> 00:00:29.233
+Priya: Just to confirm, research stays isolated, right? No production dual-write experiment this week.
+确认一下，研究保持隔离，对吧？本周不做生产双写实验。
+
+5
+00:00:29.233 --> 00:00:36.577
+Hannah: Yes, a smoke test isn't sufficient. We need failure and replay scenarios.
+是，冒烟测试不够，需要失败和回放场景。
+
+6
+00:00:36.577 --> 00:00:43.921
+Anika: The rollback trigger needs data convergence evidence. Maybe reversing routing alone loses updates.
+回退触发条件需要数据收敛证据，单纯反向改路由可能丢更新。
+
+7
+00:00:43.921 --> 00:00:51.217
+Lukas: Exactly. Reversibility has to be demonstrated. It isn't just keeping the old database.
+对，必须证明可逆，不只是保留旧数据库。
+
+8
+00:00:51.217 --> 00:00:59.234
+Priya: Okay, aggressive cutover dates? Let's park that. Storage deadlines are sooner than research.
+好，激进切换日期先放一边，存储期限比研究更近。
+
+9
+00:00:59.234 --> 00:01:07.994
+Hannah: Separate immediate capacity from long-term redesign. We can fund research without choosing migration.
+短期容量与长期重构分开，可以资助研究而不决定迁移。
+
+10
+00:01:07.994 --> 00:01:16.010
+Raj: So, document unknowns and acceptance criteria. Costs come next, including this engineering work.
+那记录未知项和验收条件，接下来算成本，包括这些工程工作。
+

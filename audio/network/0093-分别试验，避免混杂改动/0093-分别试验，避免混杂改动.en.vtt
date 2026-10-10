@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.840
+Hannah: Keep a control group with current settings. Change pooling in the treatment group only.
+
+2
+00:00:06.840 --> 00:00:13.632
+Anika: Okay, same version and sandbox request mix. We can compare like for like.
+
+3
+00:00:13.632 --> 00:00:19.703
+Lukas: Where does the path MTU test fit? Don't change both variables in one run.
+
+4
+00:00:19.703 --> 00:00:27.623
+Raj: Separate isolated runs, with saved network settings. We'll dry-run it first without shared traffic.
+
+5
+00:00:27.623 --> 00:00:35.663
+Priya: Just to confirm, production stays unchanged, right? Both trials start in approved test environments.
+
+6
+00:00:35.663 --> 00:00:45.263
+Hannah: Yes, report errors and latency together. Include cold starts, idle expiry, and reconnect bursts.
+
+7
+00:00:45.263 --> 00:00:52.439
+Anika: The rollback trigger is any correctness failure. Resource pressure also stops the pooling trial.
+
+8
+00:00:52.439 --> 00:00:59.662
+Lukas: Restore the baseline configuration after each run. That keeps the next comparison independent.
+
+9
+00:00:59.662 --> 00:01:07.198
+Raj: We'll collect roughly an hour per condition. Low sample counts mean extend, not declare success.
+
+10
+00:01:07.198 --> 00:01:14.350
+Priya: So, document those limits before execution. That makes the proposal ready for ownership.
+

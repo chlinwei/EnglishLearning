@@ -1,0 +1,129 @@
+{
+ "id": "0265",
+ "part": 10,
+ "stage": "总结反问",
+ "title": "总结设计，再问运行责任",
+ "premise": "面试推演结束，候选人总结保证边界与待验证假设并反问团队。",
+ "listeningTask": "听出候选人没有把设计草图说成已经验证的系统。",
+ "newPhrase": "p540",
+ "phrases": [
+  "p540",
+  "p531",
+  "p310",
+  "p012:extra",
+  "p009:extra",
+  "p339:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Summarize your design. Then ask us something.",
+   "zh": "总结你的设计，然后向我们提问。",
+   "role": "Reliability interviewer",
+   "start": 0.0,
+   "end": 4.056
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to recap, consistency wins during ambiguous partitions.",
+   "zh": "小结一下，状态不明的分区期间优先保证一致性。",
+   "role": "DevOps system design candidate",
+   "start": 4.056,
+   "end": 8.904
+  },
+  {
+   "sp": "Raj",
+   "en": "The availability target still needs fault-test evidence.",
+   "zh": "可用性目标仍需要故障测试证据。",
+   "role": "DevOps system design candidate",
+   "start": 8.904,
+   "end": 12.887
+  },
+  {
+   "sp": "Hannah",
+   "en": "Which design assumption would you validate first?",
+   "zh": "你会先验证哪项设计假设？",
+   "role": "Data systems interviewer",
+   "start": 12.887,
+   "end": 16.655
+  },
+  {
+   "sp": "Raj",
+   "en": "Storage fencing itself, then acknowledged-write recovery under partition.",
+   "zh": "先验证存储隔离本身，再测分区下已确认写入的恢复。",
+   "role": "DevOps system design candidate",
+   "start": 16.655,
+   "end": 21.791
+  },
+  {
+   "sp": "Lukas",
+   "en": "Maybe include operational access. Who maintains that protection?",
+   "zh": "也许还要包含操作权限，谁维护这些保护？",
+   "role": "Reliability interviewer",
+   "start": 21.791,
+   "end": 27.215
+  },
+  {
+   "sp": "Raj",
+   "en": "That's my question. Who owns reliability across teams?",
+   "zh": "这也是我的问题，跨团队可靠性由谁负责？",
+   "role": "DevOps system design candidate",
+   "start": 27.215,
+   "end": 32.087
+  },
+  {
+   "sp": "Raj",
+   "en": "An action item needs owners, budget, and evidence.",
+   "zh": "待办项需要负责人、预算和证据。",
+   "role": "DevOps system design candidate",
+   "start": 32.087,
+   "end": 36.598
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, service owners share it with SRE. Anything else?",
+   "zh": "是的，服务负责人和SRE共同承担，还有别的问题吗？",
+   "role": "Data systems interviewer",
+   "start": 36.598,
+   "end": 42.262
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, have I missed anything? How do teams close the loop?",
+   "zh": "好，有没有遗漏？团队如何完成跟进反馈？",
+   "role": "DevOps system design candidate",
+   "start": 42.262,
+   "end": 47.23
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 10,
+ "scene": "面试推演结束，候选人总结保证边界与待验证假设并反问团队。",
+ "dir": "ha/0265-总结设计，再问运行责任",
+ "audio": "0265-总结设计，再问运行责任.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "总结反问"
+ ],
+ "duration": 47.23
+}

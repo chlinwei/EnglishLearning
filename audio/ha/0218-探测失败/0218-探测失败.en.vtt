@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.816
+Raj: Our working hypothesis is a network partition.
+
+2
+00:00:03.816 --> 00:00:07.177
+Lukas: What evidence separates that from host failure?
+
+3
+00:00:07.177 --> 00:00:12.601
+Priya: The out-of-band console responds. That's independent connectivity.
+
+4
+00:00:12.601 --> 00:00:17.306
+Hannah: Console access alone doesn't prove database activity.
+
+5
+00:00:17.306 --> 00:00:21.962
+Raj: Let me tail the log. Local write attempts appear.
+
+6
+00:00:21.962 --> 00:00:26.835
+Anika: Scheduled jobs, perhaps. They bypass our gateway.
+
+7
+00:00:26.835 --> 00:00:30.051
+Lukas: Then the gateway block isn't complete fencing.
+
+8
+00:00:30.051 --> 00:00:33.819
+Priya: Just to confirm, no promotion now, right?
+
+9
+00:00:33.819 --> 00:00:38.740
+Hannah: Correct. Preserve logs before disabling the host.
+
+10
+00:00:38.740 --> 00:00:42.340
+Raj: We can rule that out as total power loss.
+

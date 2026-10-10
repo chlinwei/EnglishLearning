@@ -1,0 +1,135 @@
+{
+ "id": "0092",
+ "part": 7,
+ "stage": "成本取舍",
+ "title": "少握手不等于少业务字节",
+ "premise": "连接复用有初步可行性，评审其资源、费用与区域部署替代方案。",
+ "listeningTask": "辨别握手流量节省和业务出站费用，并理解区域副本的额外成本。",
+ "newPhrase": "p367",
+ "phrases": [
+  "p367",
+  "p366",
+  "p010",
+  "p319:extra",
+  "p006:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "What happens to the egress cost? Reuse won't remove cross-region response bytes.",
+   "zh": "出站成本会怎样？复用不会消除跨区响应字节。",
+   "role": "SRE reviewer",
+   "start": 0.0,
+   "end": 6.408
+  },
+  {
+   "sp": "Anika",
+   "en": "Right, connection reuse mainly saves setup overhead. Business payload charges remain roughly the same.",
+   "zh": "对，复用主要节省建立开销，业务载荷费用大致不变。",
+   "role": "Pricing client owner",
+   "start": 6.408,
+   "end": 14.16
+  },
+  {
+   "sp": "Hannah",
+   "en": "Could a local pricing replica avoid crossing? Include its consistency and operating costs.",
+   "zh": "本区定价副本能避免跨区吗？要包括一致性和运维成本。",
+   "role": "Performance engineer",
+   "start": 14.16,
+   "end": 22.321
+  },
+  {
+   "sp": "Raj",
+   "en": "It could, but prices change frequently. We'd need explicit freshness guarantees before serving locally.",
+   "zh": "能，但价格变化频繁。本区服务前需要明确的新鲜度保证。",
+   "role": "Network engineer",
+   "start": 22.321,
+   "end": 30.217
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no replica commitment, right? This review can't bypass the data owner.",
+   "zh": "我确认一下，尚未承诺建副本，对吧？这次评审不能绕过数据负责人。",
+   "role": "Architecture review chair",
+   "start": 30.217,
+   "end": 37.537
+  },
+  {
+   "sp": "Lukas",
+   "en": "Agreed, compare total cost rather than transfers alone. Persistent pools also use sockets and memory.",
+   "zh": "同意，比总成本而不只比传输费。持久连接池也占套接字和内存。",
+   "role": "SRE reviewer",
+   "start": 37.537,
+   "end": 45.337
+  },
+  {
+   "sp": "Anika",
+   "en": "We have some memory headroom on clients. Socket counts still need a measured limit.",
+   "zh": "客户端有一些内存余量，套接字数仍需测出合理限制。",
+   "role": "Pricing client owner",
+   "start": 45.337,
+   "end": 51.625
+  },
+  {
+   "sp": "Hannah",
+   "en": "Who has bandwidth for the cost estimate? Use actual traffic volumes and current tariffs.",
+   "zh": "谁有精力做成本估算？使用实际流量和当前费率。",
+   "role": "Performance engineer",
+   "start": 51.625,
+   "end": 59.21
+  },
+  {
+   "sp": "Raj",
+   "en": "I can handle the transfer estimate tomorrow. Anika can measure the client resource increase.",
+   "zh": "我明天能估算传输成本，Anika可以测客户端资源增量。",
+   "role": "Network engineer",
+   "start": 59.21,
+   "end": 66.29
+  },
+  {
+   "sp": "Priya",
+   "en": "So, replica design? Let's park that. We'll compare reuse against the unchanged client first.",
+   "zh": "因此副本设计先搁置，先比较复用与未修改客户端。",
+   "role": "Architecture review chair",
+   "start": 66.29,
+   "end": 74.69
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 7,
+ "scene": "连接复用有初步可行性，评审其资源、费用与区域部署替代方案。",
+ "dir": "network/0092-少握手不等于少业务字节",
+ "audio": "0092-少握手不等于少业务字节.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "成本取舍"
+ ],
+ "duration": 74.69
+}

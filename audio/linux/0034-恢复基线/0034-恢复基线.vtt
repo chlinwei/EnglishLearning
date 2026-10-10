@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.504
+Anika: Queue is clear. Oldest-event age is normal. We're back to baseline.
+积压清空了，最老事件等待时间也正常，恢复到基线了。
+
+2
+00:00:06.504 --> 00:00:13.873
+Hannah: Notification samples look good too. No duplicate spike in the delivery metrics.
+通知抽样也正常，投递指标没有出现重复发送的尖峰。
+
+3
+00:00:13.873 --> 00:00:20.137
+Priya: Okay, let's keep it under observation. Raj, keep an eye on disk growth.
+好，继续观察。Raj，留意磁盘占用增长。
+
+4
+00:00:20.137 --> 00:00:25.466
+Lukas: Let me play that back. Disk growth, write failures, and queue age?
+我复述一下：磁盘增长、写入失败，以及队列中事件的等待时间？
+
+5
+00:00:25.466 --> 00:00:31.442
+Raj: Yes. I'm on it. Maybe an hour of closer monitoring first.
+对，我来盯。先更密切地观察大约一小时。
+
+6
+00:00:31.442 --> 00:00:37.442
+Hannah: What should trigger another call? We need something more specific than looks bad.
+什么情况需要重新拉会？不能只说看起来不对。
+
+7
+00:00:37.442 --> 00:00:44.907
+Priya: Just to confirm, page on new write failures immediately. Don't wait for disk alerts, right?
+我确认一下，出现新的写入失败就立即呼叫值班，不能等磁盘告警，对吧？
+
+8
+00:00:44.907 --> 00:00:52.227
+Lukas: Agreed. And use the existing disk threshold. Record any sustained queue-age increase.
+同意。磁盘沿用现有阈值，事件等待时间持续增长也要记录。
+
+9
+00:00:52.227 --> 00:00:58.084
+Anika: I'll update support. Delays are cleared, but we're still watching for recurrence.
+我会通知支持团队：延迟已消除，但我们仍在观察是否复发。
+
+10
+00:00:58.084 --> 00:01:04.300
+Raj: I'll include that in the handoff. The retention policy stays unchanged for now.
+我会把这些写进交接。保留策略暂时不变。
+

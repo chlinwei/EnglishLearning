@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Lukas: Vertical scaling adds CPU and memory. It may not lift storage I/O limits.
+
+2
+00:00:06.408 --> 00:00:12.023
+Raj: It could buy us time for peaks. But our disk queues need measurement.
+
+3
+00:00:12.023 --> 00:00:18.143
+Anika: I favor it as a fallback. Maybe query gains won't cover campaign load.
+
+4
+00:00:18.143 --> 00:00:24.958
+Priya: Just to confirm, not approved execution, right? We still need a maintenance window.
+
+5
+00:00:24.958 --> 00:00:32.686
+Hannah: And a tested rollback trigger too. Instance changes can require restart or switchover.
+
+6
+00:00:32.686 --> 00:00:40.006
+Raj: Storage headroom still needs separate expansion. More memory won't store another year's data.
+
+7
+00:00:40.006 --> 00:00:46.029
+Lukas: The next size has a finite ceiling. We shouldn't promise unlimited runway here.
+
+8
+00:00:46.029 --> 00:00:52.173
+Priya: Okay, model one step and its cost. Compare it with the sharding option.
+
+9
+00:00:52.173 --> 00:00:59.636
+Hannah: Include replica sizing and standby readiness. A writer upgrade isn't the whole fleet.
+
+10
+00:00:59.636 --> 00:01:06.380
+Anika: So, run the larger-instance load test. Keep it reversible before changing production.
+

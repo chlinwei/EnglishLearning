@@ -1,0 +1,135 @@
+{
+ "id": "0091",
+ "part": 6,
+ "stage": "连接复用方案",
+ "title": "复用降低建立成本，也有池风险",
+ "premise": "MTU试验需审批且原因未定，讨论冷连接建立开销的独立优化方案。",
+ "listeningTask": "听清复用的收益、空闲连接风险和并发限制。",
+ "newPhrase": "p366",
+ "phrases": [
+  "p366",
+  "p363",
+  "p010",
+  "p104:extra",
+  "p309:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Okay, connection reuse could avoid repeated handshakes. Our client currently opens many short connections.",
+   "zh": "好，连接复用可以避免重复握手。目前客户端建立很多短连接。",
+   "role": "Pricing client owner",
+   "start": 0.0,
+   "end": 7.968
+  },
+  {
+   "sp": "Lukas",
+   "en": "What closes them, client policy or server? Reuse won't help if the server closes first.",
+   "zh": "是什么关闭连接，客户端策略还是服务端？服务端先关闭的话复用没用。",
+   "role": "SRE reviewer",
+   "start": 7.968,
+   "end": 15.048
+  },
+  {
+   "sp": "Anika",
+   "en": "Client pooling is disabled for this integration. The server supports bounded persistent connections.",
+   "zh": "这个集成关闭了客户端连接池，服务端支持有限度的持久连接。",
+   "role": "Pricing client owner",
+   "start": 15.048,
+   "end": 22.103
+  },
+  {
+   "sp": "Hannah",
+   "en": "So round-trip time remains, but setup shrinks. That isn't a shorter network route.",
+   "zh": "所以往返时间还在，但建立开销减少了，不代表网络路径变短。",
+   "role": "Performance engineer",
+   "start": 22.103,
+   "end": 29.567
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, test stale connections too, right? Idle timeouts could change the outcome.",
+   "zh": "我确认一下，也测试失效旧连接，对吧？空闲超时可能影响结果。",
+   "role": "Architecture review chair",
+   "start": 29.567,
+   "end": 37.007
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, align pool expiry below server timeout. Add jitter to avoid synchronized reconnect bursts.",
+   "zh": "是，把池过期时间设得低于服务端超时，加抖动避免同时重连。",
+   "role": "Network engineer",
+   "start": 37.007,
+   "end": 44.831
+  },
+  {
+   "sp": "Lukas",
+   "en": "And cap concurrency rather than growing indefinitely. Queue delay belongs in the measurements too.",
+   "zh": "还要限制并发，不能无限增长。排队延迟也要计入测量。",
+   "role": "SRE reviewer",
+   "start": 44.831,
+   "end": 51.743
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for those client limits. We'll keep an eye on pool waits.",
+   "zh": "这些客户端限制我来做，也会留意连接池等待。",
+   "role": "Pricing client owner",
+   "start": 51.743,
+   "end": 57.142
+  },
+  {
+   "sp": "Hannah",
+   "en": "If we're seeing connection resets during tests, compare idle age. Avoid blind payment retries.",
+   "zh": "如果测试发现连接重置，就比较空闲时长。不要盲目重试支付。",
+   "role": "Performance engineer",
+   "start": 57.142,
+   "end": 65.806
+  },
+  {
+   "sp": "Priya",
+   "en": "So, sandbox calls first, roughly current concurrency. Production adoption still needs a separate review.",
+   "zh": "所以先用沙箱调用，并发接近当前水平。生产采用仍需单独评审。",
+   "role": "Architecture review chair",
+   "start": 65.806,
+   "end": 73.87
+  }
+ ],
+ "group": "ops-review",
+ "domain": "network",
+ "series": "sc-S09-network-cross-region-latency",
+ "parts": 10,
+ "seq": 6,
+ "scene": "MTU试验需审批且原因未定，讨论冷连接建立开销的独立优化方案。",
+ "dir": "network/0091-复用降低建立成本，也有池风险",
+ "audio": "0091-复用降低建立成本，也有池风险.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Network engineer）",
+  "Anika（Pricing client owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "network",
+  "连接复用方案"
+ ],
+ "duration": 73.87
+}

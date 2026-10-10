@@ -1,0 +1,135 @@
+{
+ "id": "0054",
+ "part": 9,
+ "stage": "收尾验收",
+ "title": "四台完成：回退准备别立即删",
+ "premise": "B、C、D已分别退出流量、重启并验收，全部恢复正常权重；核对最终状态。",
+ "listeningTask": "听清当前验收范围，以及为什么仍要保留旧内核和回退证据。",
+ "newPhrase": "p329",
+ "phrases": [
+  "p329",
+  "p010",
+  "p110",
+  "p012:extra",
+  "p001:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "All four hosts run the patched kernel. Each has passed the same checks.",
+   "zh": "四台都运行补丁内核，每台都通过了同一套检查。",
+   "role": "Linux operator",
+   "start": 0.0,
+   "end": 5.736
+  },
+  {
+   "sp": "Hannah",
+   "en": "Normal traffic weights too? No host left drained or stuck on the test route?",
+   "zh": "流量权重也恢复正常了？没有主机还被摘流量或卡在测试路由上？",
+   "role": "Validation engineer",
+   "start": 5.736,
+   "end": 12.144
+  },
+  {
+   "sp": "Anika",
+   "en": "All normal. Latency and errors look healthy. We're back to baseline across the fleet.",
+   "zh": "全部正常。延迟和错误指标健康，整个主机组回到基线了。",
+   "role": "API owner",
+   "start": 12.144,
+   "end": 19.872
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, we can still boot the old kernel, right? Don't clean it up tonight.",
+   "zh": "我确认一下，现在仍然能用旧内核启动，对吧？今晚不要清掉它。",
+   "role": "Change coordinator",
+   "start": 19.872,
+   "end": 26.64
+  },
+  {
+   "sp": "Lukas",
+   "en": "Right. Keep the approved previous version and its modules for the observation period.",
+   "zh": "对。在观察期间保留批准的前一版本及对应模块。",
+   "role": "SRE reviewer",
+   "start": 26.64,
+   "end": 32.616
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll keep an eye on the host logs. We didn't need rollback during this change.",
+   "zh": "我会关注主机日志。这次变更没有实际用到回退。",
+   "role": "Linux operator",
+   "start": 32.616,
+   "end": 38.856
+  },
+  {
+   "sp": "Hannah",
+   "en": "So record it as prepared, not exercised. We haven't tested that path in production.",
+   "zh": "所以要记为已准备，而不是已演练。我们没有在生产走过这条路径。",
+   "role": "Validation engineer",
+   "start": 38.856,
+   "end": 46.512
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to recap, service checks passed. Let's circle back after the overnight observation.",
+   "zh": "小结一下，服务检查通过。夜间观察后我们再确认。",
+   "role": "Change coordinator",
+   "start": 46.512,
+   "end": 53.4
+  },
+  {
+   "sp": "Lukas",
+   "en": "If errors appear, preserve evidence first. Then follow the agreed pause and rollback rules.",
+   "zh": "如果出现错误，先保留证据，再按约定的暂停和回退规则处理。",
+   "role": "SRE reviewer",
+   "start": 53.4,
+   "end": 60.552
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed. I'll tell support maintenance is complete, with monitoring continuing overnight.",
+   "zh": "同意。我会告知支持团队维护已完成，夜间监控仍继续。",
+   "role": "API owner",
+   "start": 60.552,
+   "end": 67.08
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 9,
+ "scene": "B、C、D已分别退出流量、重启并验收，全部恢复正常权重；核对最终状态。",
+ "dir": "linux/0054-四台完成",
+ "audio": "0054-四台完成.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "收尾验收"
+ ],
+ "duration": 67.08
+}

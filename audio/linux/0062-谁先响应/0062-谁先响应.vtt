@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Priya: Hannah is primary on-call tonight. Lukas is backup. The duty app owner is in the rota.
+今晚Hannah是第一响应值班人，Lukas后备，当值应用负责人在排班表中。
+
+2
+00:00:07.872 --> 00:00:15.744
+Hannah: I'll acknowledge alerts and coordinate the first response. Who approves application changes?
+我确认告警并协调初步响应。应用变更由谁批准？
+
+3
+00:00:15.744 --> 00:00:23.327
+Anika: The duty app owner, not me by default. Use the live rota, not this meeting's attendee list.
+当值应用负责人，不是默认找我。以实时排班表为准，不以参会名单为准。
+
+4
+00:00:23.327 --> 00:00:28.607
+Raj: Just to confirm, my pager rotates away after we hand over, right?
+我确认一下，交接完成后呼叫会转走，不再默认发给我，对吧？
+
+5
+00:00:28.607 --> 00:00:35.927
+Lukas: Yes. Check the routing state before leaving. Don't assume the calendar changes it automatically.
+对。离开前检查路由状态，不要以为日历到了时间就必然自动切换。
+
+6
+00:00:35.927 --> 00:00:41.831
+Priya: That's an action item for me. I'll confirm the rota and alert routing now.
+这项我来做，现在确认排班和告警路由。
+
+7
+00:00:41.831 --> 00:00:49.751
+Hannah: I have bandwidth for monitoring. If we open an incident, I'll ask Lukas to track the timeline.
+我有精力做监控。如果启动故障响应，我会请Lukas记录时间线。
+
+8
+00:00:49.751 --> 00:00:55.894
+Raj: I'm on it for the evidence links. They won't depend on my personal access.
+证据链接我来整理，不会依赖我的个人访问权限。
+
+9
+00:00:55.894 --> 00:01:02.110
+Lukas: Good. I'll verify access from my account too, not just watch Raj open the links.
+好。我也会用自己的账号验证访问，不只是看Raj能打开。
+
+10
+00:01:02.110 --> 00:01:08.470
+Anika: And I'll check the app owner's contact. One stale number could cost us time tonight.
+我会核对应用负责人联系方式，一个过期号码就可能耽误今晚响应。
+

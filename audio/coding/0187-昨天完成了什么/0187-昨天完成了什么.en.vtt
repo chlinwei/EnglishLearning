@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.576
+Raj: The parser is up for review now. Yesterday I finished cursor parsing and filtering.
+
+2
+00:00:06.576 --> 00:00:12.671
+Lukas: Does it run against the real endpoint? Or does that progress describe fixtures only?
+
+3
+00:00:12.671 --> 00:00:20.111
+Raj: Fixtures only until the contract is confirmed. Just to confirm, that's clearly labelled, right?
+
+4
+00:00:20.111 --> 00:00:27.790
+Anika: Yes, my integration note states that limitation. The read-only scope hasn't changed since yesterday.
+
+5
+00:00:27.790 --> 00:00:36.190
+Hannah: Parser tests pass for valid cursors. Malformed cursor coverage still needs additional cases.
+
+6
+00:00:36.190 --> 00:00:42.718
+Priya: Okay, what's the ETA for those cases? A rough estimate is enough right now.
+
+7
+00:00:42.718 --> 00:00:48.957
+Lukas: I'll review the existing parser this morning. Additional tests can land in that change.
+
+8
+00:00:48.957 --> 00:00:55.893
+Raj: I'm on it before lunch, roughly two hours. Then I'll be heads-down on error handling.
+
+9
+00:00:55.893 --> 00:01:05.036
+Hannah: Please include the exact rejected input shapes. We need reproducible cases, not just descriptions.
+
+10
+00:01:05.036 --> 00:01:12.140
+Anika: I'll share the sanitized API samples too. That should keep our fixtures closer to reality.
+

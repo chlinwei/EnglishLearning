@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.456
+Raj: Process is healthy. Memory is much lower now. No new OOM events.
+进程健康，内存占用已经低了很多，没有新的OOM事件。
+
+2
+00:00:06.456 --> 00:00:12.575
+Hannah: That's startup, not stability. How long is the recovery window?
+这只说明启动成功，不代表稳定。恢复验证窗口是多久？
+
+3
+00:00:12.575 --> 00:00:18.767
+Anika: Ten minutes before restoring normal fetch rate. Then closer monitoring for an hour.
+观察十分钟后再恢复正常拉取速率，之后密切监控一小时。
+
+4
+00:00:18.767 --> 00:00:25.390
+Priya: Just to confirm, the old growth took hours, right? Ten minutes won't prove a fix.
+我确认一下，之前内存增长持续了几小时，对吧？十分钟证明不了已修复。
+
+5
+00:00:25.390 --> 00:00:32.854
+Lukas: Exactly. Let's keep it under observation. Compare the slope, not just the starting value.
+正是这样。继续观察，要比较增长趋势，不只看启动时的数值。
+
+6
+00:00:32.854 --> 00:00:38.998
+Raj: So far it's roughly flat. We'll restore the rate gradually after the checks.
+目前大致平稳。检查通过后我们逐步恢复速率。
+
+7
+00:00:38.998 --> 00:00:45.525
+Hannah: The queue is still behind. We need it to catch up before declaring recovery.
+队列仍有积压。宣布恢复前，得先让它追平。
+
+8
+00:00:45.525 --> 00:00:50.901
+Priya: What's the ETA for that? Don't say we're back to baseline yet.
+预计多久能追平？现在还不能说恢复到基线。
+
+9
+00:00:50.901 --> 00:00:56.660
+Lukas: About eight minutes once normal processing resumes, assuming arrivals stay steady.
+正常处理恢复后大约八分钟，前提是到达速率保持稳定。
+
+10
+00:00:56.660 --> 00:01:03.980
+Anika: Okay. I'll keep support updated. We'll call this recovery, not a resolved leak.
+好，我会继续向支持团队更新。这叫服务恢复，不叫泄漏已修复。
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.600
+Raj: We're seeing intermittent failures in zone A. Zone B's samples are clean so far.
+
+2
+00:00:06.600 --> 00:00:13.080
+Hannah: Are all A hosts using the same resolver? Check the effective client settings.
+
+3
+00:00:13.080 --> 00:00:19.440
+Anika: Affected clients point to resolver A. That's our blast radius so far, not the whole region.
+
+4
+00:00:19.440 --> 00:00:26.976
+Priya: Just to confirm, one successful lookup doesn't clear A, right? We need repeated samples.
+
+5
+00:00:26.976 --> 00:00:32.280
+Lukas: Right. A cached result could succeed while fresh requests still fail.
+
+6
+00:00:32.280 --> 00:00:38.712
+Raj: I'm on it. I'll record failures and timings, not just the final answer.
+
+7
+00:00:38.712 --> 00:00:45.120
+Hannah: I'll keep an eye on B too. A few clean samples aren't a complete health check.
+
+8
+00:00:45.120 --> 00:00:52.272
+Anika: Payments itself responds over established connections. We can rule that out as a total outage.
+
+9
+00:00:52.272 --> 00:00:58.488
+Lukas: Good distinction. That doesn't rule out every payment issue, just a complete outage.
+
+10
+00:00:58.488 --> 00:01:05.880
+Priya: Okay. Keep the scope precise. Let's compare A and B from the same client next.
+

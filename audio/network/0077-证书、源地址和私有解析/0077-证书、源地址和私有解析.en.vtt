@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Raj: Okay, the backend pool matches production. Both zones have the intended targets.
+
+2
+00:00:06.408 --> 00:00:13.944
+Hannah: Does split-horizon DNS return private addresses? Test from the new balancer subnet.
+
+3
+00:00:13.944 --> 00:00:20.520
+Raj: Yes, from that subnet itself. Certificate names and trust chains pass too.
+
+4
+00:00:20.520 --> 00:00:26.688
+Lukas: What about source addresses at the application? Allow lists might reject the new pool.
+
+5
+00:00:26.688 --> 00:00:33.168
+Anika: Good catch, the proxy ranges differ. We've added only the approved ranges.
+
+6
+00:00:33.168 --> 00:00:40.800
+Priya: Just to confirm, callbacks tested too, right? Include payment redirects in the smoke test.
+
+7
+00:00:40.800 --> 00:00:48.624
+Hannah: Sandbox redirects pass through the new path. Production callbacks need the canary check.
+
+8
+00:00:48.624 --> 00:00:54.696
+Raj: I'm on it for firewall evidence. No broad subnet allowance as a shortcut.
+
+9
+00:00:54.696 --> 00:01:01.488
+Lukas: What's the ETA for that evidence? Record the effective rules, not just requests.
+
+10
+00:01:01.488 --> 00:01:08.280
+Anika: About ten minutes, alongside callback evidence. Then we can review probe behavior.
+

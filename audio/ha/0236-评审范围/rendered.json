@@ -1,0 +1,135 @@
+{
+ "id": "0236",
+ "part": 1,
+ "stage": "需求与目标",
+ "title": "评审范围：故障时也要够用",
+ "premise": "开始季度容量评审，先统一业务目标与评审输出。",
+ "listeningTask": "听出正常峰值能力和故障后能力是不同目标。",
+ "newPhrase": "p511",
+ "phrases": [
+  "p511",
+  "p007",
+  "p010",
+  "p006:extra",
+  "p004:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Let's define the capacity envelope before picking machines.",
+   "zh": "选机器前先定义已验证的容量范围。",
+   "role": "Architecture review chair",
+   "start": 0.0,
+   "end": 4.2
+  },
+  {
+   "sp": "Lukas",
+   "en": "Normal traffic only, or after losing a zone?",
+   "zh": "只考虑正常流量，还是失去一个区以后？",
+   "role": "Reliability architect",
+   "start": 4.2,
+   "end": 7.896
+  },
+  {
+   "sp": "Anika",
+   "en": "Both. Checkout must survive the forecast peak.",
+   "zh": "两者都考虑，结账必须承受预测峰值。",
+   "role": "Service and budget owner",
+   "start": 7.896,
+   "end": 12.431
+  },
+  {
+   "sp": "Hannah",
+   "en": "Survive with what latency and completion rate?",
+   "zh": "要以什么延迟和完成率维持服务？",
+   "role": "Performance engineer",
+   "start": 12.431,
+   "end": 16.559
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, existing business targets, right?",
+   "zh": "确认一下，沿用现有业务目标，对吧？",
+   "role": "Architecture review chair",
+   "start": 16.559,
+   "end": 20.855
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes. Our working hypothesis needs degraded-mode measurements.",
+   "zh": "是的，当前假设需要降级状态下的测量。",
+   "role": "Infrastructure capacity engineer",
+   "start": 20.855,
+   "end": 26.279
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, maybe separate read and write targets.",
+   "zh": "好，也许应该分开读写目标。",
+   "role": "Reliability architect",
+   "start": 26.279,
+   "end": 30.047
+  },
+  {
+   "sp": "Anika",
+   "en": "I've got bandwidth to validate product priorities.",
+   "zh": "我有精力核实产品优先级。",
+   "role": "Service and budget owner",
+   "start": 30.047,
+   "end": 33.718
+  },
+  {
+   "sp": "Hannah",
+   "en": "We've got a hard stop at noon.",
+   "zh": "我们中午必须结束。",
+   "role": "Performance engineer",
+   "start": 33.718,
+   "end": 36.382
+  },
+  {
+   "sp": "Priya",
+   "en": "New hardware vendors? Let's park that for now.",
+   "zh": "新硬件供应商？先暂存这个话题。",
+   "role": "Architecture review chair",
+   "start": 36.382,
+   "end": 40.75
+  }
+ ],
+ "group": "ops-review",
+ "domain": "ha",
+ "series": "sc-S24-ha-capacity-review",
+ "parts": 10,
+ "seq": 1,
+ "scene": "开始季度容量评审，先统一业务目标与评审输出。",
+ "dir": "ha/0236-评审范围",
+ "audio": "0236-评审范围.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Architecture review chair）",
+  "Raj（Infrastructure capacity engineer）",
+  "Anika（Service and budget owner）",
+  "Lukas（Reliability architect）",
+  "Hannah（Performance engineer）"
+ ],
+ "tags": [
+  "ha",
+  "需求与目标"
+ ],
+ "duration": 40.75
+}

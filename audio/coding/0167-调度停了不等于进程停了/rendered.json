@@ -1,0 +1,135 @@
+{
+ "id": "0167",
+ "part": 2,
+ "stage": "停止",
+ "title": "调度停了不等于进程停了",
+ "premise": "清理任务可能仍在执行，先控制新增删除。",
+ "listeningTask": "听出停止调度、运行进程和重试队列是三项检查。",
+ "newPhrase": "p442",
+ "phrases": [
+  "p442",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p306:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, disable the scheduler under emergency approval. Stop this run and queued retries too.",
+   "zh": "好，按应急授权停调度，也停止当前执行和排队重试。",
+   "role": "Incident coordinator and approval owner",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Lukas",
+   "en": "Disabling scheduling won't stop existing child processes. I'll check their process group directly.",
+   "zh": "停调度不会停已有子进程，我直接检查进程组。",
+   "role": "SRE and process containment owner",
+   "start": 7.344,
+   "end": 14.4
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for queued retries. Just to confirm, no automatic restart, right?",
+   "zh": "排队重试我来停。确认一下，不自动重启，对吧？",
+   "role": "Cleanup script maintainer",
+   "start": 14.4,
+   "end": 20.879
+  },
+  {
+   "sp": "Hannah",
+   "en": "Record the stop command and timestamp. We'll compare them with deletion events.",
+   "zh": "记录停止命令和时间，之后与删除事件对照。",
+   "role": "Evidence and test validation engineer",
+   "start": 20.879,
+   "end": 27.647
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll suspend cleanup's scoped storage credentials. Reads use a separate identity and continue.",
+   "zh": "我暂停清理任务专用存储凭据；读取用独立身份，继续提供服务。",
+   "role": "Artifact service and recovery owner",
+   "start": 27.647,
+   "end": 34.871
+  },
+  {
+   "sp": "Raj",
+   "en": "That should buy us time safely. What's the ETA for process confirmation?",
+   "zh": "这样能安全争取时间，确认进程停止预计多久？",
+   "role": "Cleanup script maintainer",
+   "start": 34.871,
+   "end": 40.727
+  },
+  {
+   "sp": "Lukas",
+   "en": "The parent and children have exited. No delete requests remain in flight.",
+   "zh": "父子进程均已退出，没有仍在执行的删除请求。",
+   "role": "SRE and process containment owner",
+   "start": 40.727,
+   "end": 46.559
+  },
+  {
+   "sp": "Priya",
+   "en": "Good, keep an eye on audit events. About five minutes of observation first.",
+   "zh": "好，继续关注审计事件，先观察大约五分钟。",
+   "role": "Incident coordinator and approval owner",
+   "start": 46.559,
+   "end": 52.87
+  },
+  {
+   "sp": "Hannah",
+   "en": "No new deletion events since the stop. That supports containment, not complete recovery.",
+   "zh": "停止后没有新增删除事件，这支持已控制扩散，不代表恢复完成。",
+   "role": "Evidence and test validation engineer",
+   "start": 52.87,
+   "end": 60.886
+  },
+  {
+   "sp": "Anika",
+   "en": "Right, affected reads are still missing data. We'll scope those before any restore.",
+   "zh": "是，受影响读取仍缺数据，恢复前先圈定它们。",
+   "role": "Artifact service and recovery owner",
+   "start": 60.886,
+   "end": 67.51
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 2,
+ "scene": "清理任务可能仍在执行，先控制新增删除。",
+ "dir": "coding/0167-调度停了不等于进程停了",
+ "audio": "0167-调度停了不等于进程停了.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "停止"
+ ],
+ "duration": 67.51
+}

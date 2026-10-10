@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.176
+Raj: We need a supported release of the client. Our current branch loses maintenance next month.
+
+2
+00:00:07.176 --> 00:00:13.104
+Lukas: Is this maintenance or a feature rollout? Keep the approval scope explicit here.
+
+3
+00:00:13.104 --> 00:00:20.423
+Anika: Maintenance only, no new inventory behavior. The authentication plugin may need upgrading too.
+
+4
+00:00:20.423 --> 00:00:28.175
+Priya: Okay, just to confirm, no schema migration, right? We need a reversible application change.
+
+5
+00:00:28.175 --> 00:00:37.391
+Hannah: I'll define a smoke test for syncing. Include authentication, pagination, and duplicate write protection.
+
+6
+00:00:37.391 --> 00:00:44.759
+Raj: One action item is checking transitive dependencies. What's the ETA for the test environment?
+
+7
+00:00:44.759 --> 00:00:51.239
+Lukas: The environment is ready this afternoon. Use the production interpreter and base image.
+
+8
+00:00:51.239 --> 00:00:57.910
+Priya: We'll request a maintenance window after testing. Maybe Thursday works for the service owner.
+
+9
+00:00:57.910 --> 00:01:06.190
+Hannah: Don't approve the window as release permission. Evidence still needs review before production deployment.
+
+10
+00:01:06.190 --> 00:01:13.990
+Anika: Agreed, I'll confirm the inventory workload schedule. We shouldn't overlap the nightly reconciliation job.
+

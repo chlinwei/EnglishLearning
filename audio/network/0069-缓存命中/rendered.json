@@ -1,0 +1,135 @@
+{
+ "id": "0069",
+ "part": 4,
+ "stage": "缓存排查",
+ "title": "缓存命中：快回答可能掩盖坏路径",
+ "premise": "同客户端对照显示B正常，A间歇超时；检查A成功回答是否来自缓存。",
+ "listeningTask": "区分缓存答案、需要上游回答的查询，以及为什么不全站清缓存。",
+ "newPhrase": "p344",
+ "phrases": [
+  "p344",
+  "p010",
+  "p302",
+  "p004:extra",
+  "p008:extra",
+  "p309:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "A cache hit comes back fast on A. Some uncached lookups take several seconds, then fail.",
+   "zh": "A的缓存命中会很快返回。有些未缓存查询等几秒后失败。",
+   "role": "Network on-call",
+   "start": 0.0,
+   "end": 7.344
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are you using approved test records? Random names might only test negative caching.",
+   "zh": "用的是批准的测试记录吗？随机名称可能只测到不存在记录的负缓存。",
+   "role": "SRE",
+   "start": 7.344,
+   "end": 13.632
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, existing test records with short lifetimes. Small sample, no query flood.",
+   "zh": "是的，用已有的短有效期测试记录，小量抽样，不制造查询洪峰。",
+   "role": "Network on-call",
+   "start": 13.632,
+   "end": 20.808
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no fleet-wide cache flush, right? That could increase upstream load.",
+   "zh": "我确认一下，不对全体清缓存，对吧？那可能增加上游负载。",
+   "role": "Incident coordinator",
+   "start": 20.808,
+   "end": 27.672
+  },
+  {
+   "sp": "Hannah",
+   "en": "Agreed. I'll keep an eye on cache statistics and upstream timeout counts together.",
+   "zh": "同意。我会一起关注缓存统计和上游超时次数。",
+   "role": "DNS validation engineer",
+   "start": 27.672,
+   "end": 34.536
+  },
+  {
+   "sp": "Anika",
+   "en": "The app's cached answers still work. We can't rule that out as the reason some requests succeed.",
+   "zh": "应用缓存答案仍可用，不能排除部分请求成功是因为缓存。",
+   "role": "Checkout application owner",
+   "start": 34.536,
+   "end": 41.712
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exactly. The next question is which upstream path the failed lookups used.",
+   "zh": "正是这样。下一步要查失败查询走了哪条上游路径。",
+   "role": "SRE",
+   "start": 41.712,
+   "end": 47.592
+  },
+  {
+   "sp": "Priya",
+   "en": "A full cache reset? Let's park that. What's the ETA for the upstream comparison?",
+   "zh": "完整重置缓存先放一边。上游对比预计多久？",
+   "role": "Incident coordinator",
+   "start": 47.592,
+   "end": 54.864
+  },
+  {
+   "sp": "Hannah",
+   "en": "Two minutes. I'll keep successful and failed samples separate so we don't average away the issue.",
+   "zh": "两分钟。我会分开成功和失败样本，避免平均值掩盖问题。",
+   "role": "DNS validation engineer",
+   "start": 54.864,
+   "end": 62.448
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay. I'll save the current configuration before anyone changes the forwarding targets.",
+   "zh": "好。任何人修改转发目标前，我先保存当前配置。",
+   "role": "Network on-call",
+   "start": 62.448,
+   "end": 69.0
+  }
+ ],
+ "group": "incident",
+ "domain": "network",
+ "series": "sc-S07-network-dns-timeouts",
+ "parts": 10,
+ "seq": 4,
+ "scene": "同客户端对照显示B正常，A间歇超时；检查A成功回答是否来自缓存。",
+ "dir": "network/0069-缓存命中",
+ "audio": "0069-缓存命中.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Network on-call）",
+  "Anika（Checkout application owner）",
+  "Lukas（SRE）",
+  "Hannah（DNS validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "缓存排查"
+ ],
+ "duration": 69.0
+}

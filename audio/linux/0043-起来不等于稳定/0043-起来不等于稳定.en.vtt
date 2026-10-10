@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.456
+Raj: Process is healthy. Memory is much lower now. No new OOM events.
+
+2
+00:00:06.456 --> 00:00:12.575
+Hannah: That's startup, not stability. How long is the recovery window?
+
+3
+00:00:12.575 --> 00:00:18.767
+Anika: Ten minutes before restoring normal fetch rate. Then closer monitoring for an hour.
+
+4
+00:00:18.767 --> 00:00:25.390
+Priya: Just to confirm, the old growth took hours, right? Ten minutes won't prove a fix.
+
+5
+00:00:25.390 --> 00:00:32.854
+Lukas: Exactly. Let's keep it under observation. Compare the slope, not just the starting value.
+
+6
+00:00:32.854 --> 00:00:38.998
+Raj: So far it's roughly flat. We'll restore the rate gradually after the checks.
+
+7
+00:00:38.998 --> 00:00:45.525
+Hannah: The queue is still behind. We need it to catch up before declaring recovery.
+
+8
+00:00:45.525 --> 00:00:50.901
+Priya: What's the ETA for that? Don't say we're back to baseline yet.
+
+9
+00:00:50.901 --> 00:00:56.660
+Lukas: About eight minutes once normal processing resumes, assuming arrivals stay steady.
+
+10
+00:00:56.660 --> 00:01:03.980
+Anika: Okay. I'll keep support updated. We'll call this recovery, not a resolved leak.
+

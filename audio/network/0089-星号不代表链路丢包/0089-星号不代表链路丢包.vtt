@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.104
+Raj: Okay, traces suggest a longer transit route. Three hops don't answer diagnostic probes.
+好，路径记录提示经过更长的中转路由。有三跳不响应诊断探测。
+
+2
+00:00:07.104 --> 00:00:14.376
+Lukas: Those missing answers aren't proof of loss. Routers often limit diagnostic responses deliberately.
+缺少响应不能证明丢包，路由器常会主动限制诊断响应。
+
+3
+00:00:14.376 --> 00:00:21.385
+Raj: Agreed, route asymmetry is another possibility. We only traced the forward direction.
+同意，去回程路由不对称也是一种可能。目前只追踪了去程。
+
+4
+00:00:21.385 --> 00:00:28.801
+Hannah: Can the regional team inspect reverse paths? Include routing tables at the same time.
+区域团队能检查回程吗？也要同时查看路由表。
+
+5
+00:00:28.801 --> 00:00:36.313
+Anika: Our working hypothesis includes setup overhead too. Server queues look similar between matched calls.
+当前假设也包含连接建立开销。匹配调用的服务端排队看起来类似。
+
+6
+00:00:36.313 --> 00:00:43.393
+Priya: Just to confirm, no route switch yet, right? A shorter path isn't automatically safer.
+我确认一下，还不切路由，对吧？更短路径不一定更安全。
+
+7
+00:00:43.393 --> 00:00:50.449
+Lukas: Correct, policy and redundancy still matter. We can't rule that out without carrier evidence.
+对，策略和冗余仍重要，没有运营商证据无法排除路径相关问题。
+
+8
+00:00:50.449 --> 00:00:57.050
+Raj: What's the ETA for the reverse trace? The regional engineer estimates about one day.
+回程追踪预计多久？区域工程师估计大约一天。
+
+9
+00:00:57.050 --> 00:01:04.586
+Hannah: Keep the current path during collection. Save route snapshots with their collection timestamps.
+采集期间保持当前路径，保存路由快照和采集时间戳。
+
+10
+00:01:04.586 --> 00:01:12.530
+Priya: So, forced routing? Let's park that. Next, examine the large-payload timing pattern.
+因此强制改路由先搁置，接下来检查大载荷耗时模式。
+

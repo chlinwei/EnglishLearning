@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.984
+Hannah: Could a customer read stale data after checkout?
+
+2
+00:00:03.984 --> 00:00:07.727
+Raj: Read-your-writes matters for confirmation itself.
+
+3
+00:00:07.727 --> 00:00:11.423
+Raj: I'd use linearizable reads for confirmation.
+
+4
+00:00:11.423 --> 00:00:15.167
+Lukas: Does a quorum decision make payments exactly once?
+
+5
+00:00:15.167 --> 00:00:21.286
+Raj: No. We can't rule that out. Duplicate attempts remain possible.
+
+6
+00:00:21.286 --> 00:00:24.910
+Hannah: Then explain protection at that boundary.
+
+7
+00:00:24.910 --> 00:00:31.173
+Raj: Stable payment keys and provider deduplication. Plus durable reconciliation.
+
+8
+00:00:31.173 --> 00:00:35.637
+Raj: My working hypothesis requires provider idempotency.
+
+9
+00:00:35.637 --> 00:00:41.204
+Lukas: Perhaps a smoke test isn't enough. Test ambiguous responses too.
+
+10
+00:00:41.204 --> 00:00:45.020
+Raj: Just to confirm, timeouts don't prove failure.
+

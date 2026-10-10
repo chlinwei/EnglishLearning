@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.537
+Anika: Failover didn't kick in. No, it started, then stopped. The error rate spiked.
+
+2
+00:00:07.537 --> 00:00:10.321
+Lukas: Is the old primary actually dead?
+
+3
+00:00:10.321 --> 00:00:14.713
+Priya: I'll take point on this. No promotion yet.
+
+4
+00:00:14.713 --> 00:00:18.770
+Raj: Let me tail the log. Writes are paused.
+
+5
+00:00:18.770 --> 00:00:23.306
+Hannah: Paused where? Direct clients could bypass that.
+
+6
+00:00:23.306 --> 00:00:27.122
+Priya: Just to confirm, both entry paths, right?
+
+7
+00:00:27.122 --> 00:00:31.011
+Raj: Yes, gateway and batch writers are blocked.
+
+8
+00:00:31.011 --> 00:00:34.323
+Lukas: Okay, that doesn't prove the host's stopped.
+
+9
+00:00:34.323 --> 00:00:38.500
+Priya: Our working hypothesis is lost cluster connectivity.
+
+10
+00:00:38.500 --> 00:00:43.540
+Hannah: Maybe. Keep host state separate from symptoms.
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.504
+Anika: We need a concurrent index build. October order searches miss their latency target.
+需要并发建索引，十月订单检索达不到延迟目标。
+
+2
+00:00:06.504 --> 00:00:13.584
+Lukas: Which database and exact table scope? Online doesn't mean identical behavior everywhere.
+哪个数据库，具体表范围是什么？在线操作不代表各数据库行为相同。
+
+3
+00:00:13.584 --> 00:00:21.193
+Raj: PostgreSQL sixteen, October leaf partition only. This isn't a parent-wide index build.
+PostgreSQL 16，只做十月叶分区，不是给整个父表建索引。
+
+4
+00:00:21.193 --> 00:00:28.177
+Priya: Just to confirm, one partition first, right? All other partitions stay outside approval.
+确认一下，先一个分区，对吧？其他分区不在批准范围。
+
+5
+00:00:28.177 --> 00:00:36.793
+Hannah: Agreed. Dry-run it first on isolation. Use production-like data without customer access.
+同意，先在隔离环境预演，使用类似生产的数据但不给客户访问。
+
+6
+00:00:36.793 --> 00:00:42.769
+Anika: I've got bandwidth for query testing. Maybe the filter needs adjustment too.
+我有精力测试查询，也许筛选条件也需调整。
+
+7
+00:00:42.769 --> 00:00:48.481
+Lukas: Then show the expected access pattern. Don't approve an index from symptoms.
+那展示预期访问模式，不能只凭症状批准索引。
+
+8
+00:00:48.481 --> 00:00:55.946
+Priya: Okay, broader indexing? Let's park that. One action item is measured benefit.
+好，更大范围建索引先放一边，一个行动项是测量收益。
+
+9
+00:00:55.946 --> 00:01:02.810
+Hannah: Include insert costs in the rehearsal. Read speed isn't our only concern.
+预演也包含插入成本，读速度不是唯一关注点。
+
+10
+00:01:02.810 --> 00:01:10.250
+Raj: So, I'll attach the exact statement. Non-unique tenant and date columns, nothing else.
+那我附上准确语句，非唯一的租户和日期列，不改其他内容。
+

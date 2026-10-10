@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Anika: Our working hypothesis is a blocked heartbeat during slow export calls. It's not proven.
+
+2
+00:00:06.912 --> 00:00:11.905
+Lukas: What evidence would separate that from a CPU stall or another blocked thread?
+
+3
+00:00:11.905 --> 00:00:18.409
+Anika: Timing traces from a controlled reproduction. The current logs aren't detailed enough.
+
+4
+00:00:18.409 --> 00:00:25.226
+Priya: Just to confirm, the root cause is still open, right? That's explicit in the ticket.
+
+5
+00:00:25.226 --> 00:00:31.754
+Hannah: Should I collect a heap snapshot if it happens again? Or is that unrelated?
+
+6
+00:00:31.754 --> 00:00:39.602
+Raj: Not by default. No memory evidence points there. Follow the lightweight evidence checklist first.
+
+7
+00:00:39.602 --> 00:00:46.491
+Lukas: Agreed. Heavy diagnostics could cause another pause. Don't add them without approval.
+
+8
+00:00:46.491 --> 00:00:52.539
+Anika: I'll reproduce it tomorrow. Then we'll close the loop with traces, not guesses.
+
+9
+00:00:52.539 --> 00:00:58.612
+Hannah: Please link the checklist. I need to know what to save before contacting you.
+
+10
+00:00:58.612 --> 00:01:06.340
+Priya: Done. Let's take it offline for the reproduction design. Tonight is monitoring and escalation.
+

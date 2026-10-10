@@ -1,0 +1,135 @@
+{
+ "id": "0202",
+ "part": 7,
+ "stage": "验收约定",
+ "title": "用行为证据验收",
+ "premise": "计划会收尾，确定第一切片的验收与未来发布保护。",
+ "listeningTask": "听出验收不只看测试绿灯，还看兼容和回退证据。",
+ "newPhrase": "p477",
+ "phrases": [
+  "p477",
+  "p010",
+  "p476:extra",
+  "p327:extra",
+  "p324:extra",
+  "p210:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "Our acceptance criteria include identical approved reports. Documented exit codes and arguments stay compatible.",
+   "zh": "验收标准包括批准报表一致，已记录退出码和参数兼容。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 0.0,
+   "end": 10.272
+  },
+  {
+   "sp": "Raj",
+   "en": "We'll dry-run it first against fixed fixtures. Then compare isolated execution with the old artifact.",
+   "zh": "先用固定fixture预演，再把隔离执行与旧制品比较。",
+   "role": "Refactoring implementation engineer",
+   "start": 10.272,
+   "end": 18.216
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep volatile timestamps normalized in comparison. Don't mask meaningful differences such as row ordering.",
+   "zh": "对比中规范易变时间戳，但不能掩盖行顺序等有意义差异。",
+   "role": "Architecture and implementation reviewer",
+   "start": 18.216,
+   "end": 25.967
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the vertical slice needs review, right? Passing tests alone won't approve production.",
+   "zh": "确认一下，贯通切片需评审，对吧？测试通过不单独授权生产。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 25.967,
+   "end": 33.911
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, I'll sign off consumer output compatibility. Maybe weekly report fixtures need separate acceptance later.",
+   "zh": "是，我验收使用方输出兼容，周报fixture以后可能单独验收。",
+   "role": "Reporting service and consumer owner",
+   "start": 33.911,
+   "end": 42.791
+  },
+  {
+   "sp": "Hannah",
+   "en": "The smoke test must include missing configuration. It should fail safely without partial published reports.",
+   "zh": "冒烟测试包括配置缺失，应安全失败，不发布半份报表。",
+   "role": "Behavioral testing and acceptance owner",
+   "start": 42.791,
+   "end": 51.839
+  },
+  {
+   "sp": "Lukas",
+   "en": "A mismatch is our future rollback trigger. Stop the new job before restoring old scheduling.",
+   "zh": "不一致是将来回退触发，恢复旧调度前先停新作业。",
+   "role": "Architecture and implementation reviewer",
+   "start": 51.839,
+   "end": 58.631
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, no overlapping writers during any switch. I'll retain the old artifact and configuration.",
+   "zh": "好，切换不能重叠写入，保留旧制品和配置。",
+   "role": "Refactoring implementation engineer",
+   "start": 58.631,
+   "end": 66.382
+  },
+  {
+   "sp": "Priya",
+   "en": "Let's record those gates in the plan. Mid-iteration review will check evidence against them.",
+   "zh": "把关卡写入计划，中期检查按它们查看证据。",
+   "role": "Iteration facilitator and scope owner",
+   "start": 66.382,
+   "end": 72.982
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, the plan is ready to start. We'll reconvene next Wednesday with actual progress.",
+   "zh": "同意，计划可开始执行，下周三带实际进度再开会。",
+   "role": "Reporting service and consumer owner",
+   "start": 72.982,
+   "end": 79.99
+  }
+ ],
+ "group": "agile",
+ "domain": "coding",
+ "series": "sc-S20-coding-refactor-iteration",
+ "parts": 10,
+ "seq": 7,
+ "scene": "计划会收尾，确定第一切片的验收与未来发布保护。",
+ "dir": "coding/0202-用行为证据验收",
+ "audio": "0202-用行为证据验收.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Iteration facilitator and scope owner）",
+  "Raj（Refactoring implementation engineer）",
+  "Anika（Reporting service and consumer owner）",
+  "Lukas（Architecture and implementation reviewer）",
+  "Hannah（Behavioral testing and acceptance owner）"
+ ],
+ "tags": [
+  "coding",
+  "验收约定"
+ ],
+ "duration": 79.99
+}

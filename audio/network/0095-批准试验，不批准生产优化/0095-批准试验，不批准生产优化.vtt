@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.848
+Priya: Just to recap, approve the isolated trials. The decision record keeps production settings unchanged.
+小结一下，批准隔离试验。决策记录明确生产设置不变。
+
+2
+00:00:07.848 --> 00:00:13.872
+Lukas: Let me play that back briefly. Pooling and MTU tests run separately first.
+我简短复述一下：连接池和MTU测试先分别运行。
+
+3
+00:00:13.872 --> 00:00:20.471
+Anika: Okay, pooling may reduce setup time. It doesn't remove distance or payload charges.
+好，连接池可能降低建立时间，但不消除距离或载荷费用。
+
+4
+00:00:20.471 --> 00:00:27.383
+Hannah: And the root cause is still open. Route and payload effects need further evidence.
+根因仍未确定，路由和载荷影响需要更多证据。
+
+5
+00:00:27.383 --> 00:00:34.319
+Raj: The reverse path remains a specific dependency. No claim of confirmed MTU failure.
+回程路径仍是明确依赖，不能声称已确认MTU故障。
+
+6
+00:00:34.319 --> 00:00:41.975
+Priya: Just to confirm, compare costs before adoption, right? Include socket and memory overhead too.
+我确认一下，采用前比较成本，对吧？套接字和内存开销也要算。
+
+7
+00:00:41.975 --> 00:00:49.343
+Lukas: Yes, improvements must preserve correctness and limits. A faster failed request isn't a win.
+是，改善必须保持正确性和资源限制。更快的失败请求不是收益。
+
+8
+00:00:49.343 --> 00:00:56.734
+Anika: We'll circle back with roughly comparable samples. If counts differ, we'll explain that gap.
+我们会带着大致可比的样本回访。数量不同就说明差距。
+
+9
+00:00:56.734 --> 00:01:04.582
+Hannah: Bring raw summaries alongside the proposed conclusion. That lets us challenge the interpretation.
+带上原始汇总和建议结论，让我们能质疑解释。
+
+10
+00:01:04.582 --> 00:01:12.190
+Priya: So, review tomorrow, not an automatic rollout. We're closing the meeting, not the investigation.
+所以明天评审，不自动发布。结束的是会议，不是调查。
+

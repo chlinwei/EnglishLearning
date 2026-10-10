@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.824
+Raj: The peak load baseline shows sixty-eight percent CPU. Transaction latency remains within target.
+峰值基线显示CPU百分之六十八，交易延迟仍达标。
+
+2
+00:00:07.824 --> 00:00:13.920
+Lukas: Which percentile and which request class? An average could hide busy periods.
+哪个百分位、哪类请求？平均值可能掩盖繁忙时段。
+
+3
+00:00:13.920 --> 00:00:20.976
+Anika: Transaction p ninety-five is one-forty milliseconds. Its target is two hundred milliseconds.
+交易p95是一百四十毫秒，目标两百毫秒。
+
+4
+00:00:20.976 --> 00:00:28.104
+Priya: Just to confirm, reports measured separately, right? They aren't meeting that same target.
+确认一下，报表单独测，对吧？它不是满足同一个指标。
+
+5
+00:00:28.104 --> 00:00:35.928
+Hannah: Correct, reports reach nearly two seconds. Their scans coincide with disk queues.
+对，报表接近两秒，扫描与磁盘队列上升重叠。
+
+6
+00:00:35.928 --> 00:00:42.528
+Raj: We can't rule that out as contention. Maybe a larger CPU won't help enough.
+不能排除资源争用，也许更多CPU帮助不够。
+
+7
+00:00:42.528 --> 00:00:48.648
+Lukas: I'll keep an eye on I/O ceilings. Instance bandwidth and storage limits differ.
+我关注I/O上限，实例带宽和存储限制是两回事。
+
+8
+00:00:48.648 --> 00:00:55.656
+Anika: The growth forecast increases both workloads. But it doesn't prove CPU saturation yet.
+增长预测会增加两类负载，但还不能证明CPU将饱和。
+
+9
+00:00:55.656 --> 00:01:03.600
+Hannah: Our working hypothesis is avoidable scan pressure. Let's inspect the query before sizing.
+当前假设是可避免的扫描压力，估算规格前先查查询。
+
+10
+00:01:03.600 --> 00:01:10.200
+Priya: Okay, keep that distinction in the notes. We need capacity and efficiency together.
+好，记录这种区分，容量和效率一起考虑。
+

@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.440
+Anika: We'll restore into isolation from verified backups. No overwrite of current objects is planned.
+用已验证备份恢复到隔离区，不覆盖当前对象。
+
+2
+00:00:07.440 --> 00:00:16.009
+Hannah: Check artifact signatures and recorded checksums. Also confirm the versions requested by consumers.
+核对制品签名、记录的校验和，以及使用方请求的版本。
+
+3
+00:00:16.009 --> 00:00:23.497
+Priya: Just to confirm, writes stay isolated, right? Consumer switching needs my separate approval.
+确认一下，恢复写入仍隔离，对吧？使用方切换另需我审批。
+
+4
+00:00:23.497 --> 00:00:29.786
+Raj: I'm on it for the version mapping. What's the ETA for isolated verification?
+版本映射我来做，隔离验证预计多久？
+
+5
+00:00:29.786 --> 00:00:36.938
+Lukas: Define a rollback trigger before switching. Signature mismatch means stop without serving replacements.
+切换前定义回退条件，签名不匹配就停止，不能提供替代制品。
+
+6
+00:00:36.938 --> 00:00:44.258
+Anika: About ten minutes for all three artifacts. This temporary workaround doesn't re-enable the cleanup.
+三个制品大约十分钟，这个临时恢复措施不会重新启用清理。
+
+7
+00:00:44.258 --> 00:00:52.707
+Hannah: The signatures and versions now match. Test consumers read successfully from the isolated store.
+签名和版本现在都匹配，测试使用方能从隔离存储正常读取。
+
+8
+00:00:52.707 --> 00:00:59.523
+Priya: Okay, approve the controlled read-path switch. Keep the previous routing record for reversal.
+好，批准受控切换读取路径，保留原路由记录以便反向切换。
+
+9
+00:00:59.523 --> 00:01:06.652
+Lukas: The switch succeeded for affected consumers. Leave the cleanup identity suspended during repair.
+受影响使用方切换成功，修复期间保持清理身份停用。
+
+10
+00:01:06.652 --> 00:01:13.300
+Anika: Reads are healthy on the restored versions. We'll watch for any remaining missing references.
+恢复版本读取正常，继续观察是否还有缺失引用。
+

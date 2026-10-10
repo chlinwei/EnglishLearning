@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.480
+Lukas: Can I challenge that estimate a little? Shared state makes extraction less mechanical here.
+我能稍微质疑估算吗？共享状态让提取没那么机械。
+
+2
+00:00:06.480 --> 00:00:14.064
+Raj: Fair, I counted functions rather than behavior. The hidden coupling probably adds integration work.
+有道理，我数了函数没看行为，隐藏耦合可能增加集成工作。
+
+3
+00:00:14.064 --> 00:00:22.632
+Hannah: The rollback trigger also needs rehearsal evidence. That's work, even without immediate production release.
+回退触发也需预演证据，即使不立刻生产发布也有工作量。
+
+4
+00:00:22.632 --> 00:00:29.208
+Priya: Let me play that back for everyone. The full extraction is a stretch, not committed.
+我复述一下，完整提取是挑战目标，不是承诺。
+
+5
+00:00:29.208 --> 00:00:37.296
+Anika: Just to confirm, the first slice stays useful, right? Consumers can validate one complete report.
+确认一下，首个切片仍有价值，对吧？使用方能验证一份完整报表。
+
+6
+00:00:37.296 --> 00:00:44.616
+Raj: Yes, I can narrow the committed output. Maybe one report path plus its failure cases.
+是，可以缩小承诺产出，可能一个报表路径加失败用例。
+
+7
+00:00:44.616 --> 00:00:51.048
+Lukas: That sounds clearer than inflating every estimate. Keep optional work separate from the goal.
+比把每项估算都放大更清晰，可选工作与目标分开。
+
+8
+00:00:51.048 --> 00:00:58.512
+Priya: Okay, we'll record the revised commitment explicitly. Nobody needs to defend the original number.
+好，明确记录修改后的承诺，不必维护原数字。
+
+9
+00:00:58.512 --> 00:01:06.096
+Hannah: I'll check that reduced scope remains testable. Smaller doesn't mean skipping the error paths.
+我检查缩小后仍可测试，小范围不等于跳过错误路径。
+
+10
+00:01:06.096 --> 00:01:13.080
+Anika: Agreed, I'll confirm it with the consumers. Their acceptance matters more than our point total.
+同意，我与使用方确认，验收比总点数更重要。
+

@@ -1,0 +1,135 @@
+{
+ "id": "0029",
+ "part": 4,
+ "stage": "验证假设",
+ "title": "句柄没关：不能见到日志就删",
+ "premise": "df 与 du 有显著差额，昨天曾清理大日志；正在检查进程持有的文件。",
+ "listeningTask": "理解删除文件名不等于释放空间，以及为什么不能随意发送信号。",
+ "newPhrase": "p304",
+ "phrases": [
+  "p304",
+  "p303",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Found it. Worker process, twenty-four gigs, deleted but still open.",
+   "zh": "找到了。工作进程占着二十四 GB，文件已经删除，但句柄还开着。",
+   "role": "Linux on-call",
+   "start": 0.0,
+   "end": 5.928
+  },
+  {
+   "sp": "Lukas",
+   "en": "That explains the gap. Removing another filename won't release this file.",
+   "zh": "这就解释了空间差额。再删其他文件名也不会释放这个文件。",
+   "role": "SRE",
+   "start": 5.928,
+   "end": 11.664
+  },
+  {
+   "sp": "Anika",
+   "en": "The app can reopen the log. There's a documented signal for that.",
+   "zh": "应用支持重新打开日志，文档里规定了对应的信号。",
+   "role": "Application owner",
+   "start": 11.664,
+   "end": 16.968
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, for this exact version? We shouldn't guess the signal, right?",
+   "zh": "我确认一下，适用于当前这个版本？我们不能凭猜测发送信号，对吧？",
+   "role": "Incident lead",
+   "start": 16.968,
+   "end": 23.232
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes. A signal can terminate a process if the handler isn't there.",
+   "zh": "是的。如果没有对应处理逻辑，信号可能会把进程终止掉。",
+   "role": "Operations engineer",
+   "start": 23.232,
+   "end": 29.232
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it. I'll check the deployed version against the runbook.",
+   "zh": "我来核对，会把已部署版本和运行手册对一下。",
+   "role": "Application owner",
+   "start": 29.232,
+   "end": 34.224
+  },
+  {
+   "sp": "Lukas",
+   "en": "Save the file details first. We need to verify the handle closes afterward.",
+   "zh": "先保存文件信息。操作后我们需要验证句柄确实关闭了。",
+   "role": "SRE",
+   "start": 34.224,
+   "end": 40.368
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA? A restart? Let's park that until the check is done.",
+   "zh": "预计多久？重启的事？核对完成前先放一边。",
+   "role": "Incident lead",
+   "start": 40.368,
+   "end": 47.064
+  },
+  {
+   "sp": "Hannah",
+   "en": "There's also a small set of old archives. I'll check whether they're safe to remove.",
+   "zh": "另外还有一小批旧归档。我会检查能不能安全删除。",
+   "role": "Operations engineer",
+   "start": 47.064,
+   "end": 54.144
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, maybe two minutes. I'll keep the evidence. No truncating file descriptors on the fly.",
+   "zh": "好，大概两分钟。我先留好证据，不临时通过文件描述符去截断文件。",
+   "role": "Linux on-call",
+   "start": 54.144,
+   "end": 61.8
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 4,
+ "scene": "df 与 du 有显著差额，昨天曾清理大日志；正在检查进程持有的文件。",
+ "dir": "linux/0029-句柄没关",
+ "audio": "0029-句柄没关.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "验证假设"
+ ],
+ "duration": 61.8
+}

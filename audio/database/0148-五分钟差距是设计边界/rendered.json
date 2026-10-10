@@ -1,0 +1,135 @@
+{
+ "id": "0148",
+ "part": 3,
+ "stage": "恢复点",
+ "title": "五分钟差距是设计边界",
+ "premise": "B17基础备份来源确认，核对模拟故障和恢复目标时间。",
+ "listeningTask": "听懂恢复点、数据损失窗口和提交边界。",
+ "newPhrase": "p423",
+ "phrases": [
+  "p423",
+  "p422",
+  "p010:extra",
+  "p012:extra",
+  "p302:extra",
+  "p339:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The recovery target is two ten UTC. Simulated failure happens five minutes later.",
+   "zh": "恢复目标是UTC两点十分，模拟故障发生在五分钟后。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 6.648
+  },
+  {
+   "sp": "Hannah",
+   "en": "So transactions after that point aren't expected? Even if their logs are available?",
+   "zh": "所以不期望包含目标点后的事务，即使日志可用？",
+   "role": "Incoming reconciliation engineer",
+   "start": 6.648,
+   "end": 13.464
+  },
+  {
+   "sp": "Anika",
+   "en": "Correct, this drill tests a chosen point. We expect commits through two ten.",
+   "zh": "对，这次测试选定时间点，期望包含截至两点十分的提交。",
+   "role": "Outgoing application validation owner",
+   "start": 13.464,
+   "end": 19.609
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, all timestamps UTC, right? We can rule that out as ambiguity.",
+   "zh": "确认一下，全是UTC，对吧？可以排除时区歧义。",
+   "role": "Recovery drill coordinator",
+   "start": 19.609,
+   "end": 26.545
+  },
+  {
+   "sp": "Lukas",
+   "en": "And the target setting is inclusive? Transactions commit, not start, at that boundary.",
+   "zh": "目标设置包含边界吗？看的是事务提交时间，不是开始时间。",
+   "role": "Incoming database on-call",
+   "start": 26.545,
+   "end": 33.169
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, inclusive and the timeline checked. The base backup precedes that target safely.",
+   "zh": "是，包含边界且时间线已检查，基础备份早于目标。",
+   "role": "Outgoing database on-call",
+   "start": 33.169,
+   "end": 39.961
+  },
+  {
+   "sp": "Hannah",
+   "en": "Just to recap, five minutes intentionally excluded. That's recovery-point scope, not restore duration.",
+   "zh": "小结一下，有意排除五分钟，这是恢复点范围，不是恢复耗时。",
+   "role": "Incoming reconciliation engineer",
+   "start": 39.961,
+   "end": 49.177
+  },
+  {
+   "sp": "Anika",
+   "en": "Exactly, about five minutes of simulated changes. We mustn't call that zero loss.",
+   "zh": "对，大约五分钟模拟变更，不能称零损失。",
+   "role": "Outgoing application validation owner",
+   "start": 49.177,
+   "end": 56.33
+  },
+  {
+   "sp": "Lukas",
+   "en": "Have I missed anything about target selection? Was that loss window approved beforehand?",
+   "zh": "恢复点选择方面还有遗漏吗？这个损失窗口提前批准了吗？",
+   "role": "Incoming database on-call",
+   "start": 56.33,
+   "end": 62.714
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, yes, the drill sponsor approved it. Final success still requires data checks.",
+   "zh": "好，是，演练负责人批准了，但最终成功仍要数据校验。",
+   "role": "Recovery drill coordinator",
+   "start": 62.714,
+   "end": 70.01
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 3,
+ "scene": "B17基础备份来源确认，核对模拟故障和恢复目标时间。",
+ "dir": "database/0148-五分钟差距是设计边界",
+ "audio": "0148-五分钟差距是设计边界.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "恢复点"
+ ],
+ "duration": 70.01
+}

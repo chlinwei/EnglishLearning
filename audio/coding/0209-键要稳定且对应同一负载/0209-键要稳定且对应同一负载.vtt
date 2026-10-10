@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Hannah: Suppose the request succeeds but response disappears. How do you avoid applying it twice?
+请求成功但响应丢失，如何避免应用两次？
+
+2
+00:00:07.872 --> 00:00:16.511
+Raj: I'd reuse the persisted idempotency key exactly. Just to confirm, the server deduplicates atomically, right?
+原样复用持久化幂等键，确认一下，服务端原子去重，对吧？
+
+3
+00:00:16.511 --> 00:00:22.919
+Lukas: Yes, for the same key and payload. Its retention period is twenty-four hours.
+是，限相同键和负载，保留期二十四小时。
+
+4
+00:00:22.919 --> 00:00:30.886
+Raj: Okay, let me play that back clearly. Deduplication is guaranteed only inside that retention period.
+好，清楚复述，去重只在保留期内保证。
+
+5
+00:00:30.886 --> 00:00:38.950
+Raj: My working hypothesis is retries stay inside it. One action item sets a shorter retry deadline.
+我假设重试在该期限内，需设更短重试截止时间。
+
+6
+00:00:38.950 --> 00:00:46.222
+Hannah: What if a duplicate identifier changes payload? Would you reuse the same key anyway?
+同标识重投但负载变化呢？还用同一个键吗？
+
+7
+00:00:46.222 --> 00:00:53.925
+Raj: No, I'd reject the mismatched payload hash. That indicates invalid input or a producer bug.
+不，拒绝负载哈希不符，说明输入错误或生产者缺陷。
+
+8
+00:00:53.925 --> 00:01:00.309
+Lukas: And if two workers acquire overlapping leases? Don't claim the lease makes this impossible.
+两个worker取得重叠租约呢？不能说租约让它不可能。
+
+9
+00:01:00.309 --> 00:01:08.636
+Raj: Server deduplication handles overlapping identical requests here. We can rule that out as repeated effects.
+此处服务端去重处理重叠相同请求，能排除重复副作用。
+
+10
+00:01:08.636 --> 00:01:16.700
+Raj: Maybe both workers still consume resources briefly. I'd also use atomic claims to reduce overlap.
+两个worker仍可能短暂消耗资源，也用原子取任务减少重叠。
+

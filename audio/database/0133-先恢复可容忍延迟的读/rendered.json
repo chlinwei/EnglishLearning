@@ -1,0 +1,135 @@
+{
+ "id": "0133",
+ "part": 8,
+ "stage": "恢复路由",
+ "title": "先恢复可容忍延迟的读",
+ "premise": "多次提交标记匹配且稳定五分钟，准备分批恢复副本读流量。",
+ "listeningTask": "听清敏感读仍走主库，恢复不是一次全切。",
+ "newPhrase": "p408",
+ "phrases": [
+  "p408",
+  "p405",
+  "p402:extra",
+  "p324:extra",
+  "p014:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "We can restore read routing gradually. Start with delay-tolerant historical report traffic.",
+   "zh": "可以逐步恢复读路由，先从容忍延迟的历史报表流量开始。",
+   "role": "Orders read routing owner",
+   "start": 0.0,
+   "end": 6.84
+  },
+  {
+   "sp": "Hannah",
+   "en": "Payment confirmations still need stronger guarantees. Low lag isn't a consistency contract.",
+   "zh": "支付确认仍需要更强保证，低延迟不是一致性契约。",
+   "role": "Consistency validation engineer",
+   "start": 6.84,
+   "end": 15.336
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, read-after-write consistency keeps primary routing. B has fresh markers, not synchronous guarantees.",
+   "zh": "是，写后读一致性仍走主库，B有新标记但没有同步保证。",
+   "role": "Replication on-call",
+   "start": 15.336,
+   "end": 23.639
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, one class first, right? Maybe twenty percent of historical reads.",
+   "zh": "确认一下，先一种请求，对吧？可先恢复百分之二十历史读。",
+   "role": "Incident coordinator",
+   "start": 23.639,
+   "end": 30.599
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's within the tested load range. Watch replay during each routing step.",
+   "zh": "这在已测负载范围内，每次调整路由都观察回放。",
+   "role": "Database SRE",
+   "start": 30.599,
+   "end": 36.335
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for staged routing. Sensitive endpoints still route reads to the primary.",
+   "zh": "我负责分阶段路由，敏感端点仍把读送主库。",
+   "role": "Orders read routing owner",
+   "start": 36.335,
+   "end": 42.575
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the rollback trigger for B? Use byte backlog and freshness together.",
+   "zh": "B的回退触发条件是什么？同时用字节积压和新鲜度判断。",
+   "role": "Consistency validation engineer",
+   "start": 42.575,
+   "end": 49.103
+  },
+  {
+   "sp": "Raj",
+   "en": "Sustained lag or failed markers means stop. Reduce replica reads while we investigate.",
+   "zh": "持续延迟或标记失败就停止，排查期间减少副本读。",
+   "role": "Replication on-call",
+   "start": 49.103,
+   "end": 56.47
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep writer protection active during fallback. Don't suddenly flood the primary either.",
+   "zh": "回退期间继续保护写库，也别突然把流量灌满主库。",
+   "role": "Database SRE",
+   "start": 56.47,
+   "end": 62.662
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, record each batch and result. We need that for tonight's handoff.",
+   "zh": "好，记录每批及结果，今晚交接需要这些。",
+   "role": "Incident coordinator",
+   "start": 62.662,
+   "end": 68.71
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 8,
+ "scene": "多次提交标记匹配且稳定五分钟，准备分批恢复副本读流量。",
+ "dir": "database/0133-先恢复可容忍延迟的读",
+ "audio": "0133-先恢复可容忍延迟的读.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "恢复路由"
+ ],
+ "duration": 68.71
+}

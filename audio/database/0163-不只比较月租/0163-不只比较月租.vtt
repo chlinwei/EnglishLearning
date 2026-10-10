@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.512
+Hannah: Total cost of ownership includes engineering. The monthly bill isn't the whole comparison.
+总拥有成本包括工程投入，月账单不是全部比较。
+
+2
+00:00:07.512 --> 00:00:14.256
+Raj: Vertical scaling adds eighteen hundred monthly. That's fleet cost, not just primary.
+垂直扩容每月增加一千八百，这是整个集群，不只是主库。
+
+3
+00:00:14.256 --> 00:00:20.809
+Anika: Shards add roughly twenty-four hundred monthly. Engineering could take eight weeks or longer.
+分片每月约增加两千四百，工程可能八周或更久。
+
+4
+00:00:20.809 --> 00:00:28.009
+Priya: Just to confirm, estimates, not quotes, right? And no guaranteed sharding savings yet.
+确认一下，是估计不是报价，对吧？也没有保证分片省钱。
+
+5
+00:00:28.009 --> 00:00:35.737
+Lukas: Correct, migration risk increases testing effort. On-call ownership adds ongoing staffing costs.
+对，迁移风险增加测试工作，值班责任增加持续人力成本。
+
+6
+00:00:35.737 --> 00:00:43.153
+Raj: Storage expansion adds four hundred monthly separately. Both options still need that capacity.
+存储扩容另每月增加四百，两种方案都仍需这些容量。
+
+7
+00:00:43.153 --> 00:00:51.409
+Hannah: Query optimization needs about two engineer-weeks. Savings stay provisional until load tests.
+查询优化约需两个人周，压测前收益仍暂估。
+
+8
+00:00:51.409 --> 00:00:57.626
+Priya: Okay, what's the ETA for firm quotes? We have bandwidth for one pilot.
+好，明确报价预计何时？我们有精力做一个试点。
+
+9
+00:00:57.626 --> 00:01:05.114
+Lukas: Tomorrow for infrastructure estimates and lead times. Maybe procurement changes the delivery assumptions.
+明天拿基础设施估价和交付周期，采购可能改变交付假设。
+
+10
+00:01:05.114 --> 00:01:11.930
+Anika: So, favor queries plus storage preparation. Keep the larger instance as contingency.
+那倾向查询优化加存储准备，更大实例保留作备用。
+

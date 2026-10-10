@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.080
+Raj: Each exit says watchdog timeout. Systemd stopped the process after missing its heartbeat.
+
+2
+00:00:07.080 --> 00:00:12.384
+Lukas: Do we know why the heartbeat stopped? That's different from knowing who stopped it.
+
+3
+00:00:12.384 --> 00:00:20.472
+Anika: Not yet. Export calls slowed around those times. We don't know if they blocked the heartbeat.
+
+4
+00:00:20.472 --> 00:00:27.048
+Priya: Just to confirm, nothing got OOM-killed, right? We checked more than the exit status?
+
+5
+00:00:27.048 --> 00:00:34.536
+Hannah: Yes, the kernel log has no matching OOM event. Available memory stayed healthy.
+
+6
+00:00:34.536 --> 00:00:41.184
+Raj: No memory pressure in the host charts either. We can rule that out for these exits.
+
+7
+00:00:41.184 --> 00:00:47.064
+Lukas: And disk writes? The last log incident makes that worth checking, not assuming.
+
+8
+00:00:47.064 --> 00:00:53.136
+Anika: No sign the disk is filling up. Writes worked, and free space stayed normal.
+
+9
+00:00:53.136 --> 00:01:00.168
+Hannah: Good. Keep the timeout as a fact, and the blocked-heartbeat idea as a hypothesis.
+
+10
+00:01:00.168 --> 00:01:06.600
+Priya: Agreed. Don't close off other explanations until we can reproduce the behavior.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.840
+Anika: We can restore read routing gradually. Start with delay-tolerant historical report traffic.
+
+2
+00:00:06.840 --> 00:00:15.336
+Hannah: Payment confirmations still need stronger guarantees. Low lag isn't a consistency contract.
+
+3
+00:00:15.336 --> 00:00:23.639
+Raj: Yes, read-after-write consistency keeps primary routing. B has fresh markers, not synchronous guarantees.
+
+4
+00:00:23.639 --> 00:00:30.599
+Priya: Just to confirm, one class first, right? Maybe twenty percent of historical reads.
+
+5
+00:00:30.599 --> 00:00:36.335
+Lukas: That's within the tested load range. Watch replay during each routing step.
+
+6
+00:00:36.335 --> 00:00:42.575
+Anika: I'm on it for staged routing. Sensitive endpoints still route reads to the primary.
+
+7
+00:00:42.575 --> 00:00:49.103
+Hannah: What's the rollback trigger for B? Use byte backlog and freshness together.
+
+8
+00:00:49.103 --> 00:00:56.470
+Raj: Sustained lag or failed markers means stop. Reduce replica reads while we investigate.
+
+9
+00:00:56.470 --> 00:01:02.662
+Lukas: Keep writer protection active during fallback. Don't suddenly flood the primary either.
+
+10
+00:01:02.662 --> 00:01:08.710
+Priya: Okay, record each batch and result. We need that for tonight's handoff.
+

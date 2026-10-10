@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.720
+Priya: Okay, define the rollback trigger clearly. What's our threshold for stopping expansion?
+好，明确回退触发条件。达到什么门槛停止放量？
+
+2
+00:00:06.720 --> 00:00:14.039
+Lukas: Any confirmed payment correctness failure means stop. Sustained extra errors also block expansion.
+任何确认的支付正确性问题都要停止。错误持续增加也不能放量。
+
+3
+00:00:14.039 --> 00:00:20.927
+Raj: Above baseline by half a percentage point. Two consecutive minutes trigger a rollback review.
+比基线高半个百分点，连续两分钟就触发回退评估。
+
+4
+00:00:20.927 --> 00:00:27.526
+Hannah: Who can restore the previous weights? Test access before we start the canary.
+谁能恢复原权重？开始灰度前要验证权限。
+
+5
+00:00:27.526 --> 00:00:34.054
+Raj: I'm on it, using the approved console. The saved configuration passes validation.
+我来做，使用批准的控制台。已保存配置通过了校验。
+
+6
+00:00:34.054 --> 00:00:41.878
+Priya: Just to confirm, new connections return first, right? Existing connections aren't forcibly closed.
+我确认一下，先让新连接回去，对吧？不强制关闭已有连接。
+
+7
+00:00:41.878 --> 00:00:49.077
+Lukas: Correct, unless their behavior risks data correctness. That needs an explicit incident decision.
+对，除非这些连接的行为威胁数据正确性，那需要明确的故障处置决策。
+
+8
+00:00:49.077 --> 00:00:55.557
+Anika: So, if tests fail, let's roll back the config. Keep the old pool healthy.
+所以测试失败就回滚配置，保持旧池健康。
+
+9
+00:00:55.557 --> 00:01:02.516
+Hannah: The old pool passes current checks. We have roughly twice the canary capacity.
+旧池当前检查通过，其容量约为灰度所需的两倍。
+
+10
+00:01:02.516 --> 00:01:08.900
+Priya: That supports a go/no-go decision now. Approved for five percent, not beyond.
+现在可以作出是否执行的决定了。批准百分之五，不批准更多。
+

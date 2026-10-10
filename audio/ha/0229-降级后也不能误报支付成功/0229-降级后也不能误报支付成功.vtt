@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.968
+Anika: Graceful degradation removes recommendations, not order confirmation.
+有控制的降级移除推荐，不移除订单确认。
+
+2
+00:00:04.968 --> 00:00:09.169
+Hannah: What does the customer see during payment uncertainty?
+支付结果不明时，客户会看到什么？
+
+3
+00:00:09.169 --> 00:00:13.993
+Anika: Pending status. Never a fabricated success message.
+显示处理中，绝不虚构成功消息。
+
+4
+00:00:13.993 --> 00:00:17.738
+Lukas: Does cached content remain tenant-safe and fresh?
+缓存内容是否保持租户隔离和适当时效？
+
+5
+00:00:17.738 --> 00:00:23.522
+Raj: Public recommendations only. Personalized responses aren't shared.
+只缓存公共推荐，不共享个性化响应。
+
+6
+00:00:23.522 --> 00:00:27.506
+Priya: Just to confirm, critical path intact, right?
+确认一下，关键业务路径保持完整，对吧？
+
+7
+00:00:27.506 --> 00:00:33.387
+Hannah: Maybe. Test confirmation when recommendations are unavailable.
+也许。测试推荐不可用时的订单确认。
+
+8
+00:00:33.387 --> 00:00:37.083
+Raj: That'll buy us time without hiding payment errors.
+这能争取时间，又不掩盖支付错误。
+
+9
+00:00:37.083 --> 00:00:41.548
+Lukas: Okay, define the rollback trigger using business outcomes.
+好，用业务结果定义回退触发条件。
+
+10
+00:00:41.548 --> 00:00:46.180
+Priya: New recommendation designs? Let's park that today.
+新的推荐设计？今天先暂存这个话题。
+

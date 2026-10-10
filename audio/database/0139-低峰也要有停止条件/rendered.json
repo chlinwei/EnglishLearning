@@ -1,0 +1,135 @@
+{
+ "id": "0139",
+ "part": 4,
+ "stage": "窗口安排",
+ "title": "低峰也要有停止条件",
+ "premise": "锁风险和执行模式明确，安排低峰窗口及值守。",
+ "listeningTask": "辨别低峰降低风险而非消除风险。",
+ "newPhrase": "p414",
+ "phrases": [
+  "p414",
+  "p321",
+  "p413:extra",
+  "p324:extra",
+  "p008:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Use the off-peak window at midnight. This maintenance window has staffed coverage.",
+   "zh": "使用午夜低峰窗口，这个维护窗口有人值守。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.192
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is the batch scheduler quiet then? Low request traffic doesn't guarantee low writes.",
+   "zh": "批处理调度那时安静吗？请求少不保证写入少。",
+   "role": "Database reliability reviewer",
+   "start": 6.192,
+   "end": 12.504
+  },
+  {
+   "sp": "Raj",
+   "en": "The reporting batch will finish beforehand. We'll check actual workload before starting.",
+   "zh": "报表批处理会提前结束，开始前仍检查实际负载。",
+   "role": "Database change operator",
+   "start": 12.504,
+   "end": 19.129
+  },
+  {
+   "sp": "Anika",
+   "en": "Just to confirm, no automatic start, right? Maybe the batch runs late tonight.",
+   "zh": "确认一下，不自动开始，对吧？今晚批处理可能延迟。",
+   "role": "Orders search owner",
+   "start": 19.129,
+   "end": 25.921
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct. Preflight failure means postponement instead. Nobody needs to force this through.",
+   "zh": "对，预检失败就延期，没必要硬做。",
+   "role": "Query and rollout validation engineer",
+   "start": 25.921,
+   "end": 34.081
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, what's the ETA from rehearsal? Include waiting and validation, not just scanning.",
+   "zh": "好，预演估计多久？包括等待和验证，不只是扫描。",
+   "role": "Change coordinator",
+   "start": 34.081,
+   "end": 41.377
+  },
+  {
+   "sp": "Lukas",
+   "en": "Roughly twenty minutes with spare margin. Production volume can make it longer.",
+   "zh": "大约二十分钟，另留余量，生产数据量可能让它更久。",
+   "role": "Database reliability reviewer",
+   "start": 41.377,
+   "end": 47.041
+  },
+  {
+   "sp": "Raj",
+   "en": "The rollback trigger includes sustained write delays. A growing lock wait also means stop.",
+   "zh": "回退触发条件包括持续写延迟，锁等待增长也应停止。",
+   "role": "Database change operator",
+   "start": 47.041,
+   "end": 51.242
+  },
+  {
+   "sp": "Hannah",
+   "en": "Record thresholds in the approved ticket. Watch replica lag and free storage.",
+   "zh": "阈值写进批准工单，也观察副本延迟和空闲存储。",
+   "role": "Query and rollout validation engineer",
+   "start": 51.242,
+   "end": 58.106
+  },
+  {
+   "sp": "Anika",
+   "en": "So, I'll cover customer-facing metrics tonight. The query switch stays off initially.",
+   "zh": "那今晚我盯客户指标，查询开关最初保持关闭。",
+   "role": "Orders search owner",
+   "start": 58.106,
+   "end": 64.73
+  }
+ ],
+ "group": "change",
+ "domain": "database",
+ "series": "sc-S14-database-online-index",
+ "parts": 10,
+ "seq": 4,
+ "scene": "锁风险和执行模式明确，安排低峰窗口及值守。",
+ "dir": "database/0139-低峰也要有停止条件",
+ "audio": "0139-低峰也要有停止条件.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Database change operator）",
+  "Anika（Orders search owner）",
+  "Lukas（Database reliability reviewer）",
+  "Hannah（Query and rollout validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "窗口安排"
+ ],
+ "duration": 64.73
+}

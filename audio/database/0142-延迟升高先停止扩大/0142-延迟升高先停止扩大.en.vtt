@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.216
+Raj: WAL generation rose during the build. Replica lag reached roughly twelve seconds.
+
+2
+00:00:06.216 --> 00:00:13.272
+Hannah: Is it sustained or falling already? Our abort threshold needs sustained pressure.
+
+3
+00:00:13.272 --> 00:00:19.392
+Anika: It's falling across the latest samples. Customer writes still meet their target.
+
+4
+00:00:19.392 --> 00:00:26.808
+Priya: Just to confirm, expansion stays paused, right? Another partition could multiply this load.
+
+5
+00:00:26.808 --> 00:00:33.648
+Lukas: Correct. The rollback trigger isn't met. Continue this build with close observation.
+
+6
+00:00:33.648 --> 00:00:39.936
+Raj: Build progress entered the validation phase. Disk space remains above the reserve.
+
+7
+00:00:39.936 --> 00:00:45.696
+Hannah: I'll keep an eye on replay. Byte backlog matters beside the timer.
+
+8
+00:00:45.696 --> 00:00:53.376
+Priya: Okay, faster rollout? Let's park that. Maybe later batches need separate windows.
+
+9
+00:00:53.376 --> 00:01:00.312
+Lukas: If write latency breaches, cancel carefully. Then inspect any remaining catalog entry.
+
+10
+00:01:00.312 --> 00:01:07.200
+Anika: So, no additional changes tonight then. We'll decide completion from all checks.
+

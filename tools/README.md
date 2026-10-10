@@ -49,6 +49,8 @@ python tools/gen_tts.py --rate -10%          # 整体降速重配
 
 `sources/drafts/S03.json` 至 `S50.json` 已保存全部 480 段新对话（4,800 条逐句中英角色发言）。这些文件不是已发布源数据，构建器和配音脚本不会自动读取；没有媒体时间轴，不能直接当作可播放素材。
 
+S03 已通过专用试发布流程接入正式索引（0026–0035），原草稿保留，S04–S50 仍待配音。用户已确认四个候选音色。`publish_draft.py S03` 使用固定角色音色、印度 `+10%` / 德国 `-15%` 语速，校验媒体与场景发声比例后合并源数据；拒绝覆盖已发布编号。首次运行需 `edge-tts` 与 `imageio-ffmpeg`，完成后运行 `python tools/build.py --check` 与 `python tools/build.py`。本次近似发声占比为印度 57.01% / 德国 42.99%，报告在 `audio/S03-voice-report.json`。句时间轴沿用字节比例与 FFmpeg 总时长校准，不是强制对齐；仍需人工试听同步验收。
+
 PowerShell 文本校验：
 
 ```powershell

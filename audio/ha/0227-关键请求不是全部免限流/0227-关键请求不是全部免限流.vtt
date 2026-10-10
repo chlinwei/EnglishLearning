@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.128
+Anika: Our critical path includes orders and payment callbacks.
+关键业务路径包括订单和支付回调。
+
+2
+00:00:04.128 --> 00:00:07.800
+Lukas: Are callbacks authenticated before getting priority?
+回调获得优先级前是否经过认证？
+
+3
+00:00:07.800 --> 00:00:13.223
+Raj: Yes, provider signatures. Headers alone aren't trusted.
+是的，要校验提供方签名，不能只信请求头。
+
+4
+00:00:13.223 --> 00:00:16.175
+Hannah: Which requests can we shed load from?
+可以从哪些请求上减轻承接负载？
+
+5
+00:00:16.175 --> 00:00:21.839
+Anika: Recommendations and exports. Checkout confirmation stays protected.
+推荐和导出可以降级，结账确认保持保护。
+
+6
+00:00:21.839 --> 00:00:26.183
+Priya: Just to confirm, protected isn't unlimited, right?
+确认一下，受保护不代表无限制，对吧？
+
+7
+00:00:26.183 --> 00:00:30.743
+Hannah: Let me play that back. Separate bounded pools.
+我复述一下：分开的、有上限的资源池。
+
+8
+00:00:30.743 --> 00:00:34.990
+Raj: That's our blast radius if shared storage overloads.
+共享存储过载会影响到这些业务。
+
+9
+00:00:34.990 --> 00:00:39.190
+Lukas: Maybe callbacks need buffering, not immediate rejection.
+也许回调需要缓冲，而不是立即拒绝。
+
+10
+00:00:39.190 --> 00:00:43.150
+Priya: Okay, use the peak forecast for each class.
+好，按每个业务类别使用峰值预测。
+

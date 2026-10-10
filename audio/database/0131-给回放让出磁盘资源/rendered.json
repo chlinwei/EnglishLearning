@@ -1,0 +1,135 @@
+{
+ "id": "0131",
+ "part": 6,
+ "stage": "调整复制负载",
+ "title": "给回放让出磁盘资源",
+ "premise": "敏感读已分批转主库，后续删除暂停，验证扫描对副本回放的影响。",
+ "listeningTask": "理解降低竞争任务负载不等于随意调复制参数。",
+ "newPhrase": "p406",
+ "phrases": [
+  "p406",
+  "p404",
+  "p403:extra",
+  "p309:extra",
+  "p008:extra",
+  "p334:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The replay bottleneck appears disk related. I'll throttle the local checksum scan.",
+   "zh": "回放瓶颈看来与磁盘有关，我降低本地校验扫描速率。",
+   "role": "Replication on-call",
+   "start": 0.0,
+   "end": 6.048
+  },
+  {
+   "sp": "Hannah",
+   "en": "Is that scan safe to throttle? Check its owner's procedure before changing.",
+   "zh": "扫描能安全降速吗？变更前查任务负责人的流程。",
+   "role": "Consistency validation engineer",
+   "start": 6.048,
+   "end": 12.528
+  },
+  {
+   "sp": "Anika",
+   "en": "The owner approved its lower rate. Results stay incomplete until it finishes.",
+   "zh": "负责人批准降低速率，扫描完成前结果仍是不完整的。",
+   "role": "Orders read routing owner",
+   "start": 12.528,
+   "end": 18.792
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, change that workload alone, right? We need a meaningful before-and-after comparison.",
+   "zh": "好，只改这项负载，对吧？要有有意义的前后对比。",
+   "role": "Incident coordinator",
+   "start": 18.792,
+   "end": 25.944
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep replication enabled and settings unchanged. This isn't evidence for extra apply threads.",
+   "zh": "复制保持启用且参数不变，这不是增加回放线程的依据。",
+   "role": "Database SRE",
+   "start": 25.944,
+   "end": 33.168
+  },
+  {
+   "sp": "Raj",
+   "en": "The large transaction still needs replay. Lower disk waits should help it progress.",
+   "zh": "大事务日志仍需要回放，降低磁盘等待应有助于推进。",
+   "role": "Replication on-call",
+   "start": 33.168,
+   "end": 39.72
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll keep an eye on throughput. Compare replay position with incoming WAL too.",
+   "zh": "我观察吞吐，也把回放位置和新到WAL对照。",
+   "role": "Consistency validation engineer",
+   "start": 39.72,
+   "end": 46.824
+  },
+  {
+   "sp": "Priya",
+   "en": "What's the ETA for a trend? Maybe five minutes before judging this.",
+   "zh": "预计多久看到趋势？也许五分钟后再判断。",
+   "role": "Incident coordinator",
+   "start": 46.824,
+   "end": 52.44
+  },
+  {
+   "sp": "Lukas",
+   "en": "That's sensible, but don't promise catch-up. Remaining WAL volume affects recovery time.",
+   "zh": "合理，但别承诺追平，剩余WAL量会影响恢复时间。",
+   "role": "Database SRE",
+   "start": 52.44,
+   "end": 59.496
+  },
+  {
+   "sp": "Anika",
+   "en": "So, label this a temporary workaround. The batch scheduling fix comes later.",
+   "zh": "那把它标成临时缓解，批次调度修复后面再做。",
+   "role": "Orders read routing owner",
+   "start": 59.496,
+   "end": 65.76
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 6,
+ "scene": "敏感读已分批转主库，后续删除暂停，验证扫描对副本回放的影响。",
+ "dir": "database/0131-给回放让出磁盘资源",
+ "audio": "0131-给回放让出磁盘资源.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "调整复制负载"
+ ],
+ "duration": 65.76
+}

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.352
+Anika: A heap snapshot might help. But taking one can pause this runtime.
+
+2
+00:00:05.352 --> 00:00:10.992
+Lukas: It can need extra memory too. This host has very little spare capacity.
+
+3
+00:00:10.992 --> 00:00:16.728
+Raj: Maybe start with process stats and logs. Those are much lighter.
+
+4
+00:00:16.728 --> 00:00:24.000
+Priya: Just to confirm, no production snapshot without approval, right? Could throttling buy us time?
+
+5
+00:00:24.000 --> 00:00:30.144
+Hannah: Probably. First save the build identifier and the memory timeline.
+
+6
+00:00:30.144 --> 00:00:36.144
+Anika: I'm on it. We'll take the snapshot in an isolated reproduction instead.
+
+7
+00:00:36.144 --> 00:00:42.528
+Lukas: Use sanitized input. A snapshot can contain customer data and credentials.
+
+8
+00:00:42.528 --> 00:00:48.672
+Priya: What's the ETA for the lightweight evidence? We can't wait for a full reproduction.
+
+9
+00:00:48.672 --> 00:00:54.672
+Hannah: I'll keep an eye on free memory. Stop collection if it makes things worse.
+
+10
+00:00:54.672 --> 00:01:00.120
+Raj: Two minutes. I'll save only the reviewed logs to restricted storage.
+

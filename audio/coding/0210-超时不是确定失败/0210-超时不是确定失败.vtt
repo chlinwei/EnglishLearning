@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.240
+Lukas: How would you handle timeouts and throttling? Give the retry limits, not just a loop.
+如何处理超时与限流？说明重试边界，不只是循环。
+
+2
+00:00:06.240 --> 00:00:13.801
+Raj: I'd retry with backoff and random jitter. Reuse the idempotency key and unchanged payload.
+采用退避和随机抖动重试，复用幂等键和原负载。
+
+3
+00:00:13.801 --> 00:00:21.817
+Hannah: What limits would bound that retry policy? Remember the server's finite deduplication retention.
+什么限制重试策略？记住服务端去重有保留期限。
+
+4
+00:00:21.817 --> 00:00:29.762
+Raj: Okay, set attempts and an overall deadline. Just to confirm, throttling supplies Retry-After, right?
+好，设次数和总截止时间，确认一下，限流提供Retry-After，对吧？
+
+5
+00:00:29.762 --> 00:00:37.298
+Raj: I'd honor it within the remaining deadline. Maybe a result query resolves ambiguous timeouts faster.
+在剩余期限内遵守，结果查询可能更快解决不确定超时。
+
+6
+00:00:37.298 --> 00:00:44.810
+Lukas: The API supports querying by operation identifier. What if that query is unavailable too?
+API支持按操作标识查询，如果查询也不可用呢？
+
+7
+00:00:44.810 --> 00:00:52.515
+Raj: I'd keep an eye on unresolved operations. At the deadline, persist unknown rather than failed.
+持续关注未决操作，到截止时间存为结果未知，不是确定失败。
+
+8
+00:00:52.515 --> 00:00:59.907
+Hannah: A caller asks, what's the ETA now? Would you promise completion from the retry schedule?
+调用方问预计何时完成，会根据重试计划承诺完成吗？
+
+9
+00:00:59.907 --> 00:01:08.044
+Raj: No, I'd report the next planned attempt. That's an estimate, not guaranteed completion or success.
+不会，只报下一次计划尝试时间，是估计，不保证完成或成功。
+
+10
+00:01:08.044 --> 00:01:16.060
+Raj: Let's park that operation for reconciliation afterward. Never issue a fresh key to bypass uncertainty.
+之后把该操作留待核对，绝不发新键绕过不确定性。
+

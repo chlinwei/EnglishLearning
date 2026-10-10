@@ -1,0 +1,135 @@
+{
+ "id": "0108",
+ "part": 3,
+ "stage": "日志轮转进度",
+ "title": "轮转成功，也要确认重新打开日志",
+ "premise": "补丁下一批待批准，转到日志轮转自动化进度。",
+ "listeningTask": "听清轮转文件与进程重新打开日志的区别。",
+ "newPhrase": "p383",
+ "phrases": [
+  "p383",
+  "p307",
+  "p010",
+  "p304:extra",
+  "p305:extra",
+  "p103:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Okay, Friday's rotation test passed in staging. The service kept writing after rotation.",
+   "zh": "好，周五预生产轮转测试通过，服务轮转后继续写入。",
+   "role": "Service configuration owner",
+   "start": 0.0,
+   "end": 6.96
+  },
+  {
+   "sp": "Hannah",
+   "en": "Did it reopen the log correctly? A renamed file can remain open indefinitely.",
+   "zh": "它正确重新打开日志了吗？重命名的文件可能一直保持打开。",
+   "role": "Automation test engineer",
+   "start": 6.96,
+   "end": 13.873
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the documented reload reopens its descriptor. We confirmed writes reached the new file.",
+   "zh": "是，文档中的重载会重新打开描述符，已确认写入新文件。",
+   "role": "Service configuration owner",
+   "start": 13.873,
+   "end": 21.073
+  },
+  {
+   "sp": "Lukas",
+   "en": "Is that behavior specific to this service? Don't assume every daemon handles reload identically.",
+   "zh": "这种行为是这个服务特有的吗？不能假定所有守护进程重载行为相同。",
+   "role": "Code reviewer",
+   "start": 21.073,
+   "end": 28.058
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, the automation selects a service-specific handler. Unknown services stop for manual review.",
+   "zh": "是，自动化选择服务专属处理器，未知服务停止并人工评审。",
+   "role": "Linux automation engineer",
+   "start": 28.058,
+   "end": 35.618
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, retention policy stays unchanged, right? This task doesn't authorize extra deletion.",
+   "zh": "我确认一下，保留策略不变，对吧？这项任务不授权额外删除。",
+   "role": "Standup facilitator",
+   "start": 35.618,
+   "end": 43.946
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, test files only in staging. I'll compare the configured retention with actual outputs.",
+   "zh": "对，预生产只用测试文件。我会比较配置保留策略和实际输出。",
+   "role": "Automation test engineer",
+   "start": 43.946,
+   "end": 52.587
+  },
+  {
+   "sp": "Anika",
+   "en": "Let me tail the log after standup. That will supply today's verification evidence.",
+   "zh": "站会后我会盯日志，补上今天验证证据。",
+   "role": "Service configuration owner",
+   "start": 52.587,
+   "end": 59.043
+  },
+  {
+   "sp": "Lukas",
+   "en": "And before you rotate the log again, save the test state. Keep results reproducible.",
+   "zh": "再次轮转前保存测试状态，让结果可复现。",
+   "role": "Code reviewer",
+   "start": 59.043,
+   "end": 65.548
+  },
+  {
+   "sp": "Priya",
+   "en": "So, roughly one hour for evidence cleanup. We can review without changing production today.",
+   "zh": "因此大约一小时整理证据。今天不改生产也能评审。",
+   "role": "Standup facilitator",
+   "start": 65.548,
+   "end": 72.34
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 3,
+ "scene": "补丁下一批待批准，转到日志轮转自动化进度。",
+ "dir": "linux/0108-轮转成功，也要确认重新打开日志",
+ "audio": "0108-轮转成功，也要确认重新打开日志.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "日志轮转进度"
+ ],
+ "duration": 72.34
+}

@@ -1,0 +1,135 @@
+{
+ "id": "0171",
+ "part": 6,
+ "stage": "恢复",
+ "title": "先在隔离区恢复",
+ "premise": "离线复现支持路径条件缺陷，清理仍停用，恢复三个制品。",
+ "listeningTask": "听清校验、切回审批和不覆盖新数据的约束。",
+ "newPhrase": "p446",
+ "phrases": [
+  "p446",
+  "p010",
+  "p014:extra",
+  "p008:extra",
+  "p324:extra",
+  "p334:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "We'll restore into isolation from verified backups. No overwrite of current objects is planned.",
+   "zh": "用已验证备份恢复到隔离区，不覆盖当前对象。",
+   "role": "Artifact service and recovery owner",
+   "start": 0.0,
+   "end": 7.44
+  },
+  {
+   "sp": "Hannah",
+   "en": "Check artifact signatures and recorded checksums. Also confirm the versions requested by consumers.",
+   "zh": "核对制品签名、记录的校验和，以及使用方请求的版本。",
+   "role": "Evidence and test validation engineer",
+   "start": 7.44,
+   "end": 16.009
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, writes stay isolated, right? Consumer switching needs my separate approval.",
+   "zh": "确认一下，恢复写入仍隔离，对吧？使用方切换另需我审批。",
+   "role": "Incident coordinator and approval owner",
+   "start": 16.009,
+   "end": 23.497
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for the version mapping. What's the ETA for isolated verification?",
+   "zh": "版本映射我来做，隔离验证预计多久？",
+   "role": "Cleanup script maintainer",
+   "start": 23.497,
+   "end": 29.786
+  },
+  {
+   "sp": "Lukas",
+   "en": "Define a rollback trigger before switching. Signature mismatch means stop without serving replacements.",
+   "zh": "切换前定义回退条件，签名不匹配就停止，不能提供替代制品。",
+   "role": "SRE and process containment owner",
+   "start": 29.786,
+   "end": 36.938
+  },
+  {
+   "sp": "Anika",
+   "en": "About ten minutes for all three artifacts. This temporary workaround doesn't re-enable the cleanup.",
+   "zh": "三个制品大约十分钟，这个临时恢复措施不会重新启用清理。",
+   "role": "Artifact service and recovery owner",
+   "start": 36.938,
+   "end": 44.258
+  },
+  {
+   "sp": "Hannah",
+   "en": "The signatures and versions now match. Test consumers read successfully from the isolated store.",
+   "zh": "签名和版本现在都匹配，测试使用方能从隔离存储正常读取。",
+   "role": "Evidence and test validation engineer",
+   "start": 44.258,
+   "end": 52.707
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, approve the controlled read-path switch. Keep the previous routing record for reversal.",
+   "zh": "好，批准受控切换读取路径，保留原路由记录以便反向切换。",
+   "role": "Incident coordinator and approval owner",
+   "start": 52.707,
+   "end": 59.523
+  },
+  {
+   "sp": "Lukas",
+   "en": "The switch succeeded for affected consumers. Leave the cleanup identity suspended during repair.",
+   "zh": "受影响使用方切换成功，修复期间保持清理身份停用。",
+   "role": "SRE and process containment owner",
+   "start": 59.523,
+   "end": 66.652
+  },
+  {
+   "sp": "Anika",
+   "en": "Reads are healthy on the restored versions. We'll watch for any remaining missing references.",
+   "zh": "恢复版本读取正常，继续观察是否还有缺失引用。",
+   "role": "Artifact service and recovery owner",
+   "start": 66.652,
+   "end": 73.3
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 6,
+ "scene": "离线复现支持路径条件缺陷，清理仍停用，恢复三个制品。",
+ "dir": "coding/0171-先在隔离区恢复",
+ "audio": "0171-先在隔离区恢复.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "恢复"
+ ],
+ "duration": 73.3
+}

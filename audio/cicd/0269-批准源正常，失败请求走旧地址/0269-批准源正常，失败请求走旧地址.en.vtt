@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.128
+Raj: The approved dependency mirror answers normally. Failed requests use a retired address.
+
+2
+00:00:07.128 --> 00:00:14.256
+Priya: Okay, runner health wasn't enough evidence. Just to confirm, approved credentials work?
+
+3
+00:00:14.256 --> 00:00:20.207
+Lukas: A successful ping won't establish that. Test an authorized fetch with checksums.
+
+4
+00:00:20.207 --> 00:00:26.975
+Anika: That fetch passed on the control. Lockfile hashes match the downloaded packages, right?
+
+5
+00:00:26.975 --> 00:00:35.159
+Hannah: Yes, required package signatures passed too. No fallback to an unapproved public source.
+
+6
+00:00:35.159 --> 00:00:41.351
+Raj: Let me tail the log again. The old address appears after cache restore.
+
+7
+00:00:41.351 --> 00:00:47.951
+Lukas: Before restore, the configuration points correctly. Keep that sequence with the evidence.
+
+8
+00:00:47.951 --> 00:00:55.126
+Priya: So, our working hypothesis has narrowed. Something restored overrides the dependency source.
+
+9
+00:00:55.126 --> 00:01:02.350
+Hannah: We can rule that out narrowly. Approved-source availability isn't this observed failure.
+
+10
+00:01:02.350 --> 00:01:09.790
+Anika: Not every dependency issue, though... agreed. Inspect that cache without deleting evidence.
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.816
+Hannah: Let's compare like for like here. Match route, region, and request size.
+
+2
+00:00:06.816 --> 00:00:13.392
+Raj: Okay, the overall mean looked faster. Green received fewer large requests though.
+
+3
+00:00:13.392 --> 00:00:19.944
+Lukas: Then that comparison doesn't establish an improvement. What do the matched percentiles show?
+
+4
+00:00:19.944 --> 00:00:26.232
+Anika: The payment route stays around baseline. Its tail latency hasn't shifted much.
+
+5
+00:00:26.232 --> 00:00:33.768
+Priya: Just to confirm, no intermittent failures, right? Include callbacks and new connection errors.
+
+6
+00:00:33.768 --> 00:00:40.968
+Hannah: None in the observed sample so far. That's evidence, not a permanent guarantee.
+
+7
+00:00:40.968 --> 00:00:47.304
+Raj: I'm on it for connection setup timings. Both pools use the same collection window.
+
+8
+00:00:47.304 --> 00:00:53.112
+Lukas: Any missing metrics during that window? A blank series isn't zero errors.
+
+9
+00:00:53.112 --> 00:00:59.088
+Anika: No gaps in either pool's counters. I'll keep an eye on callback totals.
+
+10
+00:00:59.088 --> 00:01:06.360
+Priya: Fine tuning? Let's park that for later. So, these checks support the next gate.
+

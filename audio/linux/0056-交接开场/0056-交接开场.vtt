@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.608
+Raj: Before I hand over, one service needs attention. Invoice-export has restarted three times.
+交班前有一个服务需要重点关注。invoice-export已经重启了三次。
+
+2
+00:00:07.608 --> 00:00:11.280
+Hannah: Is it down now, or does it keep coming back?
+现在是停着，还是会反复恢复？
+
+3
+00:00:11.280 --> 00:00:18.599
+Raj: It kept coming back. It's flapping, or it was. It's stayed up since we paused fetching.
+之前不断恢复又退出。状态反复抖动——准确说之前是。暂停拉取后一直运行。
+
+4
+00:00:18.599 --> 00:00:25.679
+Priya: Just to confirm, exports are delayed, right? The billing API itself is still working.
+我确认一下，是导出延迟，对吧？计费API本身仍在工作。
+
+5
+00:00:25.679 --> 00:00:31.679
+Lukas: What's still open? We shouldn't inherit a resolved ticket if the cause isn't known.
+还有哪些问题未解决？原因未知的话，我们不该接手一个被标为已解决的工单。
+
+6
+00:00:31.679 --> 00:00:38.327
+Anika: The root cause is still open. Pausing fetches stopped the symptom, not the investigation.
+根因仍未查明。暂停拉取只是让症状停止，不代表调查结束。
+
+7
+00:00:38.327 --> 00:00:44.111
+Hannah: Okay. I'll need the exact pause setting and the affected requests.
+好。我需要知道具体暂停了哪个设置、影响哪些请求。
+
+8
+00:00:44.111 --> 00:00:51.430
+Priya: Let's keep it under observation. Any bigger redesign? Let's park that until tomorrow.
+继续观察。大规模重设计的事先放一边，明天再讨论。
+
+9
+00:00:51.430 --> 00:00:56.878
+Lukas: First walk us through the timeline. Then we'll agree what needs a call tonight.
+先讲一遍时间线，再约定今晚哪些情况需要呼叫。
+
+10
+00:00:56.878 --> 00:01:02.710
+Raj: Sure. I'll separate what we've checked from what we're only assuming.
+可以。我会把已经检查的事实和目前的假设分开说。
+

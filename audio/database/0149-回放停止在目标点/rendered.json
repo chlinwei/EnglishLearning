@@ -1,0 +1,135 @@
+{
+ "id": "0149",
+ "part": 4,
+ "stage": "已完成步骤",
+ "title": "回放停止在目标点",
+ "premise": "恢复目标和时区明确，核对日志连续性与回放停止记录。",
+ "listeningTask": "辨别日志归档可用、回放完成和允许接入应用。",
+ "newPhrase": "p424",
+ "phrases": [
+  "p424",
+  "p423",
+  "p421:extra",
+  "p103:extra",
+  "p010:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Archived WAL covers the whole required chain. Segments remain available through two fifteen.",
+   "zh": "归档WAL覆盖所需完整链，日志段可用到两点十五分。",
+   "role": "Outgoing database on-call",
+   "start": 0.0,
+   "end": 6.912
+  },
+  {
+   "sp": "Lukas",
+   "en": "Did replay stop at the requested point? Availability beyond it doesn't change scope.",
+   "zh": "回放停在请求目标点了吗？后面的日志可用不改变范围。",
+   "role": "Incoming database on-call",
+   "start": 6.912,
+   "end": 13.273
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, logs show the recovery target reached. We inspected that before test access.",
+   "zh": "是，日志显示达到恢复目标，开放测试访问前检查过。",
+   "role": "Outgoing application validation owner",
+   "start": 13.273,
+   "end": 20.017
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, isolation remained intact, right? No application production endpoint was changed.",
+   "zh": "确认一下，隔离始终保持，对吧？没有改任何应用生产端点。",
+   "role": "Recovery drill coordinator",
+   "start": 20.017,
+   "end": 27.962
+  },
+  {
+   "sp": "Hannah",
+   "en": "Let me tail the log myself. I see no missing segment warnings.",
+   "zh": "我自己盯日志，没有看到缺日志段警告。",
+   "role": "Incoming reconciliation engineer",
+   "start": 27.962,
+   "end": 33.986
+  },
+  {
+   "sp": "Raj",
+   "en": "The backup manifest checks passed before replay. Timeline and target settings are attached.",
+   "zh": "回放前备份清单校验通过，时间线和目标设置已附。",
+   "role": "Outgoing database on-call",
+   "start": 33.986,
+   "end": 40.995
+  },
+  {
+   "sp": "Lukas",
+   "en": "Was recovery left paused or ended? I need the current server state.",
+   "zh": "恢复还暂停着还是已结束？需要明确服务器当前状态。",
+   "role": "Incoming database on-call",
+   "start": 40.995,
+   "end": 46.275
+  },
+  {
+   "sp": "Anika",
+   "en": "It ended under the reviewed drill procedure. Test access opened after boundary checks.",
+   "zh": "按评审过的演练流程结束，边界检查后开放测试访问。",
+   "role": "Outgoing application validation owner",
+   "start": 46.275,
+   "end": 52.635
+  },
+  {
+   "sp": "Hannah",
+   "en": "So a smoke test can run. That still doesn't prove every row.",
+   "zh": "那可以跑冒烟测试，但仍不能证明每一行正确。",
+   "role": "Incoming reconciliation engineer",
+   "start": 52.635,
+   "end": 58.252
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, maybe summarize those checks next. Keep completed steps distinct from acceptance.",
+   "zh": "好，接下来总结检查吧，把已完成步骤和验收分开。",
+   "role": "Recovery drill coordinator",
+   "start": 58.252,
+   "end": 65.5
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 4,
+ "scene": "恢复目标和时区明确，核对日志连续性与回放停止记录。",
+ "dir": "database/0149-回放停止在目标点",
+ "audio": "0149-回放停止在目标点.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "已完成步骤"
+ ],
+ "duration": 65.5
+}

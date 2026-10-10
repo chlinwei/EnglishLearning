@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.320
+Hannah: The retry budget caps attempts and elapsed time.
+
+2
+00:00:04.320 --> 00:00:08.328
+Raj: We'll dry-run it first in isolated infrastructure.
+
+3
+00:00:08.328 --> 00:00:12.384
+Lukas: Does the replay include clients ignoring retry hints?
+
+4
+00:00:12.384 --> 00:00:17.088
+Anika: Yes. Gateway limits still shed load safely.
+
+5
+00:00:17.088 --> 00:00:21.096
+Priya: Just to confirm, no live payment calls, right?
+
+6
+00:00:21.096 --> 00:00:26.400
+Raj: Correct. Provider simulators preserve realistic callback bursts.
+
+7
+00:00:26.400 --> 00:00:30.864
+Hannah: Graceful degradation works under twice the forecast.
+
+8
+00:00:30.864 --> 00:00:35.352
+Anika: Retries use backoff, jitter, and idempotency keys.
+
+9
+00:00:35.352 --> 00:00:40.416
+Lukas: Memory headroom stayed healthy. Database queues stayed bounded.
+
+10
+00:00:40.416 --> 00:00:44.400
+Priya: Okay, probably ready to rehearse policy rollback.
+

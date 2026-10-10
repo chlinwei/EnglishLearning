@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.312
+Priya: Can we switch resolvers for one affected host first? I want a reversible step.
+
+2
+00:00:06.312 --> 00:00:14.136
+Lukas: B has capacity and the same private zones. But verify all critical service names, not just payments.
+
+3
+00:00:14.136 --> 00:00:20.449
+Anika: The checklist passed. This is a temporary workaround to buy us time for A's repair.
+
+4
+00:00:20.449 --> 00:00:27.313
+Raj: Just to confirm, one host first, right? Save its current settings before the change.
+
+5
+00:00:27.313 --> 00:00:35.041
+Hannah: What's the rollback trigger? Wrong answers, higher error rate, or unexpected resolver load?
+
+6
+00:00:35.041 --> 00:00:41.689
+Priya: All three mean stop and assess. Restore the saved settings if the canary fails validation.
+
+7
+00:00:41.689 --> 00:00:48.481
+Lukas: Check which layer owns DNS settings. Hand-editing a generated file could be overwritten.
+
+8
+00:00:48.481 --> 00:00:55.778
+Raj: I'm on it. The approved network manager owns it. I'll use its change procedure.
+
+9
+00:00:55.778 --> 00:01:02.522
+Hannah: And confirm the app actually uses B. A direct probe alone won't prove that.
+
+10
+00:01:02.522 --> 00:01:09.890
+Anika: Agreed. We'll observe fresh connections. No full app restart just to force a lookup.
+

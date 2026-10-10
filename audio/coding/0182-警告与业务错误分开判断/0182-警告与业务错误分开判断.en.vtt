@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.056
+Raj: We've got one deprecation warning per startup. It references our legacy token callback.
+
+2
+00:00:07.056 --> 00:00:14.903
+Hannah: Does it precede an actual authentication failure? Compare events across a full refresh cycle.
+
+3
+00:00:14.903 --> 00:00:23.183
+Anika: The canary cohort refreshed tokens successfully twice. Our working hypothesis is future compatibility risk.
+
+4
+00:00:23.183 --> 00:00:30.022
+Priya: Just to confirm, no failed writes, right? Keep the warning separate from error counts.
+
+5
+00:00:30.022 --> 00:00:35.782
+Lukas: Check when the callback will be removed. A warning still deserves an owned task.
+
+6
+00:00:35.782 --> 00:00:43.318
+Raj: Okay, that becomes my next action item. Maybe the replacement needs its own compatibility review.
+
+7
+00:00:43.318 --> 00:00:53.205
+Hannah: Current documentation confirms support in this release. Tests show successful refresh, not future guarantees.
+
+8
+00:00:53.205 --> 00:01:00.093
+Anika: I'll keep an eye on latency too. The steady-state comparison matches our previous baseline.
+
+9
+00:01:00.093 --> 00:01:07.244
+Lukas: Record the observation period and sample size. Avoid claiming every workload is fully covered.
+
+10
+00:01:07.244 --> 00:01:14.300
+Priya: Agreed, expansion waits for the review decision. The warning gets a deadline, not silence.
+

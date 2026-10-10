@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.512
+Anika: Initial reconciliation checks passed for sampled tenants. Counts and payment totals match references.
+
+2
+00:00:07.512 --> 00:00:14.041
+Hannah: Which reference time does that represent? Current source totals would be wrong.
+
+3
+00:00:14.041 --> 00:00:20.137
+Raj: The frozen drill ledger at two ten. It matches our recovery target exactly.
+
+4
+00:00:20.137 --> 00:00:26.858
+Priya: Just to confirm, boundary markers too, right? Counts can match with wrong rows.
+
+5
+00:00:26.858 --> 00:00:33.218
+Lukas: Yes, show commits around that boundary. We need positive and negative evidence.
+
+6
+00:00:33.218 --> 00:00:39.722
+Anika: The two-oh-nine-fifty-eight commit is present. The two-ten-oh-two commit is correctly absent.
+
+7
+00:00:39.722 --> 00:00:48.075
+Hannah: Good, the smoke test checks references too. But full tenant reconciliation remains unfinished.
+
+8
+00:00:48.075 --> 00:00:54.363
+Raj: I'm on it for query evidence links. Maybe larger tenants need longer checks.
+
+9
+00:00:54.363 --> 00:01:00.916
+Lukas: Full validation? We can rule that out. A sample doesn't cover every tenant.
+
+10
+00:01:00.916 --> 00:01:07.300
+Priya: Okay, label the sample coverage clearly. The next shift owns remaining checks.
+

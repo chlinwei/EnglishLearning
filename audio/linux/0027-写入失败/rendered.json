@@ -1,0 +1,135 @@
+{
+ "id": "0027",
+ "part": 2,
+ "stage": "确认影响",
+ "title": "写入失败：订单没有丢，但积压在涨",
+ "premise": "已确认 orders-worker-three 的 /var 接近写满，暂未操作文件或重启。",
+ "listeningTask": "听清客户端影响、队列状态，以及不能贸然下结论的部分。",
+ "newPhrase": "p302",
+ "phrases": [
+  "p302",
+  "p010",
+  "p004",
+  "p014:extra",
+  "p008:extra",
+  "p001:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "The worker is logging write failures. The queue depth is climbing now.",
+   "zh": "工作进程在报写入失败，队列积压现在正在增加。",
+   "role": "Application owner",
+   "start": 0.0,
+   "end": 5.616
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are events being dropped? Or are they waiting for another attempt?",
+   "zh": "事件被丢弃了，还是在等待重试？",
+   "role": "SRE",
+   "start": 5.616,
+   "end": 10.44
+  },
+  {
+   "sp": "Anika",
+   "en": "They're still queued. A failed event stays unacknowledged. That's the retry path.",
+   "zh": "还在队列里。失败的事件不会被确认，之后会重试。",
+   "role": "Application owner",
+   "start": 10.44,
+   "end": 17.423
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, checkout is working? Confirmation emails might be delayed, right?",
+   "zh": "我确认一下，结账还正常？确认邮件可能会延迟，对吧？",
+   "role": "Incident lead",
+   "start": 17.423,
+   "end": 23.999
+  },
+  {
+   "sp": "Hannah",
+   "en": "The other two workers look normal. Their disks are below fifty percent.",
+   "zh": "另外两台工作节点看起来正常，磁盘使用率都不到百分之五十。",
+   "role": "Operations engineer",
+   "start": 23.999,
+   "end": 30.359
+  },
+  {
+   "sp": "Raj",
+   "en": "This one says no space left. Inodes look fine. We can rule that out.",
+   "zh": "这台报磁盘空间不足。inode 数量没问题，可以排除 inode 耗尽。",
+   "role": "Linux on-call",
+   "start": 30.359,
+   "end": 37.295
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay. Don't call it no data loss yet. Check the retry metrics too.",
+   "zh": "好，但先别宣布没有数据丢失。还要检查重试指标。",
+   "role": "SRE",
+   "start": 37.295,
+   "end": 43.343
+  },
+  {
+   "sp": "Priya",
+   "en": "I'm on it. What's the ETA for that check? Expansion? Let's park that.",
+   "zh": "我来跟进。检查那些指标预计多久？扩容的事？先放一边。",
+   "role": "Incident lead",
+   "start": 43.343,
+   "end": 50.878
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll compare queue arrivals with acknowledgements. That should show the gap.",
+   "zh": "我会对比入队数量和确认数量，这样能看到差额。",
+   "role": "Operations engineer",
+   "start": 50.878,
+   "end": 57.07
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe three minutes. Let's circle back once we've checked. Raj, can you find what's taking the space?",
+   "zh": "大概三分钟。核实后我们再回来确认。Raj，你查一下空间被什么占用了好吗？",
+   "role": "Application owner",
+   "start": 57.07,
+   "end": 65.23
+  }
+ ],
+ "group": "incident",
+ "domain": "linux",
+ "series": "sc-S03-linux-disk-full",
+ "parts": 10,
+ "seq": 2,
+ "scene": "已确认 orders-worker-three 的 /var 接近写满，暂未操作文件或重启。",
+ "dir": "linux/0027-写入失败",
+ "audio": "0027-写入失败.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident lead）",
+  "Raj（Linux on-call）",
+  "Anika（Application owner）",
+  "Lukas（SRE）",
+  "Hannah（Operations engineer）"
+ ],
+ "tags": [
+  "linux",
+  "确认影响"
+ ],
+ "duration": 65.23
+}

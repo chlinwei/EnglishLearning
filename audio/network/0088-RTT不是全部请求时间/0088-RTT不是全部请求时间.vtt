@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.656
+Raj: Okay, TCP round-trip time is about thirty milliseconds. Local connections are closer to two.
+好，跨区TCP往返时间大约三十毫秒，本区连接接近两毫秒。
+
+2
+00:00:07.656 --> 00:00:14.712
+Hannah: Measured on the actual service path? ICMP probes may receive different treatment.
+是在实际服务路径上测的吗？ICMP探测可能受到不同处理。
+
+3
+00:00:14.712 --> 00:00:22.608
+Raj: Yes, from sampled application TCP connections. The measurement window matches our client traces.
+是，来自抽样应用TCP连接。时间窗与客户端链路记录一致。
+
+4
+00:00:22.608 --> 00:00:29.592
+Lukas: That doesn't explain every extra millisecond. What happens during fresh TLS connections?
+那不能解释每一毫秒额外时间。新TLS连接期间发生什么？
+
+5
+00:00:29.592 --> 00:00:36.456
+Anika: They add several network exchanges before pricing. Warm calls avoid most setup time.
+定价前会增加几次网络交换，热连接调用避免了大部分建立时间。
+
+6
+00:00:36.456 --> 00:00:44.712
+Priya: Just to confirm, intermittent failures aren't rising, right? We should separate failures from slow successes.
+我确认一下，间歇失败没有增加，对吧？要把失败和慢成功分开。
+
+7
+00:00:44.712 --> 00:00:53.280
+Hannah: Failure counts remain near the existing baseline. The slower successful calls dominate this comparison.
+失败计数接近原有基线，较慢的成功调用是这次比较的主体。
+
+8
+00:00:53.280 --> 00:00:59.856
+Raj: Can we rule that out as congestion? Actually, not from RTT samples alone.
+能据此排除拥塞吗？其实不能只靠RTT样本。
+
+9
+00:00:59.856 --> 00:01:08.688
+Lukas: Right, inspect queue and retransmission evidence next. Geography explains distance, not every tail spike.
+对，接下来检查排队和重传证据。地理距离不能解释每个尾延迟尖峰。
+
+10
+00:01:08.688 --> 00:01:14.880
+Anika: I'm on it for server queue traces. So, we'll compare those with route evidence.
+服务端队列链路记录我来查，然后与路由证据比较。
+

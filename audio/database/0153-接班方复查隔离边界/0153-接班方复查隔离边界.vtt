@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.936
+Lukas: Show me the isolated restore environment. Can its test clone contact production services?
+给我看隔离恢复环境，测试克隆能联系生产服务吗？
+
+2
+00:00:06.936 --> 00:00:14.449
+Raj: No, network policy blocks those routes. Both environments use drill credentials exclusively.
+不能，网络策略阻断那些路由，两种环境都只用演练凭据。
+
+3
+00:00:14.449 --> 00:00:21.289
+Anika: The reference stays read-only for comparisons. The clone handles synthetic retry writes.
+参考库保持只读用于比较，克隆处理合成重试写入。
+
+4
+00:00:21.289 --> 00:00:28.850
+Priya: Just to confirm, reference remains unchanged, right? New test writes aren't restored history.
+确认一下，参考库不变，对吧？新的测试写入不是恢复历史。
+
+5
+00:00:28.850 --> 00:00:35.978
+Hannah: Let me play that back carefully. Compare reference data, test behavior on clone.
+我仔细复述：参考库对数据，克隆测行为。
+
+6
+00:00:35.978 --> 00:00:43.394
+Raj: Yes, label both connection profiles clearly. Maybe the similar names need stronger warnings.
+是，两个连接配置都清楚标记，相似名字可能需要更明显提示。
+
+7
+00:00:43.394 --> 00:00:49.491
+Lukas: Have I missed anything about cleanup? When will temporary drill credentials expire?
+清理方面还有遗漏吗？临时演练凭据什么时候过期？
+
+8
+00:00:49.491 --> 00:00:56.715
+Anika: At noon, unless approved extension happens. Evidence remains in the restricted drill archive.
+中午过期，除非批准延期，证据保留在受限演练归档。
+
+9
+00:00:56.715 --> 00:01:05.620
+Hannah: Pending validation may need more time. Request extension before expiry, never bypass access.
+待验证可能更久，过期前申请延期，不能绕过访问控制。
+
+10
+00:01:05.620 --> 00:01:12.940
+Priya: Okay, the recovery target stays documented. No clone results replace reference-point checks.
+好，恢复目标保持记录，克隆结果不能替代参考点检查。
+

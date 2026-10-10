@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.504
+Anika: Our peak forecast is six thousand requests.
+预测峰值是每秒六千个请求。
+
+2
+00:00:03.504 --> 00:00:07.609
+Lukas: Per second? What's the expected request mix?
+每秒吗？预计的请求构成是什么？
+
+3
+00:00:07.609 --> 00:00:12.697
+Anika: Yes. Browsing dominates, but checkout bursts matter.
+是的，浏览居多，但结账突发也重要。
+
+4
+00:00:12.697 --> 00:00:16.346
+Hannah: Our database test used a different mix.
+数据库测试用的是另一种请求构成。
+
+5
+00:00:16.346 --> 00:00:19.226
+Raj: We may need to shed load early.
+可能要提前减轻承接负载。
+
+6
+00:00:19.226 --> 00:00:23.186
+Priya: Just to confirm, no enforcement yet, right?
+确认一下，还没执行拦截，对吧？
+
+7
+00:00:23.186 --> 00:00:28.227
+Lukas: Correct. The working hypothesis needs representative testing.
+对，当前假设需要有代表性的测试。
+
+8
+00:00:28.227 --> 00:00:31.803
+Raj: I've got bandwidth for replay analysis today.
+今天我有精力做流量回放分析。
+
+9
+00:00:31.803 --> 00:00:36.796
+Hannah: Okay, include expensive writes and callback bursts.
+好，要包含高成本写入和回调突发。
+
+10
+00:00:36.796 --> 00:00:41.020
+Priya: What's the ETA? Roughly before lunch?
+预计多久？大概午饭前能完成吗？
+

@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.368
+Raj: The deletion manifest lists twelve attempted removals. Only three paths belong outside the tenant.
+
+2
+00:00:07.368 --> 00:00:15.169
+Hannah: Attempted doesn't mean successfully removed. Match return codes with storage audit records.
+
+3
+00:00:15.169 --> 00:00:22.201
+Anika: Three shared artifacts are actually missing. That's our blast radius based on reconciliation.
+
+4
+00:00:22.201 --> 00:00:29.162
+Priya: Just to confirm, inventories agree, right? Could buffered logs hide another deletion?
+
+5
+00:00:29.162 --> 00:00:35.930
+Lukas: They could, so check authoritative object inventory. Don't rely on the script log alone.
+
+6
+00:00:35.930 --> 00:00:42.026
+Raj: I'm on it with the inventory comparison. What's the ETA for customer mapping?
+
+7
+00:00:42.026 --> 00:00:50.907
+Hannah: The inventory confirms those three missing objects. Other tenant inventories match their prior snapshots.
+
+8
+00:00:50.907 --> 00:00:57.171
+Anika: About two minutes for consumer mapping. We can rule that out as fleet-wide deletion.
+
+9
+00:00:57.171 --> 00:01:03.964
+Lukas: Within the inspected storage scope, yes. Keep that qualification in the incident update.
+
+10
+00:01:03.964 --> 00:01:11.380
+Priya: Okay, publish the confirmed scope only. We'll list unverified areas separately for follow-up.
+

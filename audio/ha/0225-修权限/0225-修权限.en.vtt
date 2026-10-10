@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.279
+Raj: Fencing credentials expired. The provider rejected shutdown.
+
+2
+00:00:05.279 --> 00:00:09.407
+Lukas: So refusing promotion protected us from dual writers.
+
+3
+00:00:09.407 --> 00:00:12.767
+Priya: Yes, but the root cause is still open.
+
+4
+00:00:12.767 --> 00:00:16.318
+Hannah: You mean why expiry escaped monitoring?
+
+5
+00:00:16.318 --> 00:00:21.622
+Raj: Exactly. Rotation itself worked; controller refresh didn't.
+
+6
+00:00:21.622 --> 00:00:25.438
+Anika: An action item: test rejection handling too.
+
+7
+00:00:25.438 --> 00:00:29.397
+Lukas: Dry-run it first, then isolate a test cluster.
+
+8
+00:00:29.397 --> 00:00:32.853
+Priya: Verify we can fence off before promotion.
+
+9
+00:00:32.853 --> 00:00:37.436
+Hannah: Maybe include restart attempts and missing permissions.
+
+10
+00:00:37.436 --> 00:00:41.780
+Raj: Okay, I'll close the loop with recorded safety evidence.
+

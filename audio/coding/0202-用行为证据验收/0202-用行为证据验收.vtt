@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.272
+Hannah: Our acceptance criteria include identical approved reports. Documented exit codes and arguments stay compatible.
+验收标准包括批准报表一致，已记录退出码和参数兼容。
+
+2
+00:00:10.272 --> 00:00:18.216
+Raj: We'll dry-run it first against fixed fixtures. Then compare isolated execution with the old artifact.
+先用固定fixture预演，再把隔离执行与旧制品比较。
+
+3
+00:00:18.216 --> 00:00:25.967
+Lukas: Keep volatile timestamps normalized in comparison. Don't mask meaningful differences such as row ordering.
+对比中规范易变时间戳，但不能掩盖行顺序等有意义差异。
+
+4
+00:00:25.967 --> 00:00:33.911
+Priya: Just to confirm, the vertical slice needs review, right? Passing tests alone won't approve production.
+确认一下，贯通切片需评审，对吧？测试通过不单独授权生产。
+
+5
+00:00:33.911 --> 00:00:42.791
+Anika: Yes, I'll sign off consumer output compatibility. Maybe weekly report fixtures need separate acceptance later.
+是，我验收使用方输出兼容，周报fixture以后可能单独验收。
+
+6
+00:00:42.791 --> 00:00:51.839
+Hannah: The smoke test must include missing configuration. It should fail safely without partial published reports.
+冒烟测试包括配置缺失，应安全失败，不发布半份报表。
+
+7
+00:00:51.839 --> 00:00:58.631
+Lukas: A mismatch is our future rollback trigger. Stop the new job before restoring old scheduling.
+不一致是将来回退触发，恢复旧调度前先停新作业。
+
+8
+00:00:58.631 --> 00:01:06.382
+Raj: Okay, no overlapping writers during any switch. I'll retain the old artifact and configuration.
+好，切换不能重叠写入，保留旧制品和配置。
+
+9
+00:01:06.382 --> 00:01:12.982
+Priya: Let's record those gates in the plan. Mid-iteration review will check evidence against them.
+把关卡写入计划，中期检查按它们查看证据。
+
+10
+00:01:12.982 --> 00:01:19.990
+Anika: Agreed, the plan is ready to start. We'll reconvene next Wednesday with actual progress.
+同意，计划可开始执行，下周三带实际进度再开会。
+

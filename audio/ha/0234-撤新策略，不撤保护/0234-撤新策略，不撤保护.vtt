@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.200
+Raj: The fallback policy retains emergency admission control.
+回退策略保留应急准入控制。
+
+2
+00:00:04.200 --> 00:00:07.609
+Lukas: What happens if the shared limiter disappears?
+共享限流组件不可用时怎么办？
+
+3
+00:00:07.609 --> 00:00:12.361
+Raj: Local bounded limits apply. No unlimited fail-open.
+启用本地有界限制，不无限制放行。
+
+4
+00:00:12.361 --> 00:00:16.778
+Hannah: What's the rollback trigger for legitimate checkout failures?
+合法结账请求失败的回退触发条件是什么？
+
+5
+00:00:16.778 --> 00:00:20.762
+Anika: A one-point completion drop against matched controls.
+与匹配对照相比，完成率下降一个百分点。
+
+6
+00:00:20.762 --> 00:00:24.698
+Priya: Just to confirm, sustained five minutes, right?
+确认一下，持续五分钟，对吧？
+
+7
+00:00:24.698 --> 00:00:30.051
+Hannah: Yes, but correctness failures stop enforcement immediately.
+是的，但正确性失败要立即停止新策略执行。
+
+8
+00:00:30.051 --> 00:00:34.491
+Raj: Let's roll back the config. Rehearsal completed.
+回退配置。演练完成了。
+
+9
+00:00:34.491 --> 00:00:38.284
+Lukas: Maybe this temporary workaround needs a time limit.
+这个临时缓解也许需要设定有效期限。
+
+10
+00:00:38.284 --> 00:00:43.300
+Priya: Agreed. The smoke test confirms old protection remains.
+同意。关键功能快速验证确认旧保护仍在。
+

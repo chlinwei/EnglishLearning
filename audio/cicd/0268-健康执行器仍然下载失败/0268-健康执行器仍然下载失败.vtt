@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.408
+Raj: Runner health looks normal across pools. CPU and disk have enough room.
+各池执行器健康看起来正常。CPU和磁盘都有余量。
+
+2
+00:00:06.408 --> 00:00:12.481
+Priya: Okay, queued builds remain held safely. What's the ETA for a control?
+好，排队构建继续安全挂起。对照测试预计多久？
+
+3
+00:00:12.481 --> 00:00:18.817
+Lukas: Use one isolated runner for comparison. Match its image and network policy.
+用一台隔离执行器做对照。镜像和网络策略保持一致。
+
+4
+00:00:18.817 --> 00:00:25.418
+Anika: Same commit on both runners, right? Otherwise we'd change two variables together.
+两台用同一提交，对吧？不然一次改了两个变量。
+
+5
+00:00:25.418 --> 00:00:34.058
+Hannah: Use approved short-lived test credentials there. Don't copy production secrets into diagnostics.
+那里用批准的短期测试凭据。别把生产秘密复制进诊断。
+
+6
+00:00:34.058 --> 00:00:40.514
+Raj: Both runners fail the same fetch. Managed configuration matches the approved image.
+两台都在同一下载处失败。受管配置与批准镜像相符。
+
+7
+00:00:40.514 --> 00:00:47.067
+Lukas: That weakens a single-host failure theory. It doesn't clear shared image configuration.
+这削弱了单机故障假设，但没有排除共享镜像配置。
+
+8
+00:00:47.067 --> 00:00:53.595
+Priya: Just to confirm, don't recycle pools. We can't rule that out completely.
+确认一下，不重建执行器池。还不能完全排除它。
+
+9
+00:00:53.595 --> 00:00:59.908
+Hannah: The fetch error names an endpoint. Compare that with the approved source.
+下载错误指出一个端点。拿它和批准的源对比。
+
+10
+00:00:59.908 --> 00:01:06.580
+Anika: Actually, that endpoint looks rather old. Let's check dependency settings next.
+其实那个端点看起来挺旧。接下来查依赖设置吧。
+

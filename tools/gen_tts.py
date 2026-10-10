@@ -138,7 +138,8 @@ async def build_one(doc: dict, item: dict, rate: str, dry: bool) -> dict:
     sizes: list[int] = []
     for ln in item["lines"]:
         voice = narrator if ln.get("sp") == "旁白" else vmap[ln["sp"]]
-        blob = await synth(ln["en"], voice, rate)
+        line_rate = item.get("rateOf", {}).get(ln.get("sp"), rate)
+        blob = await synth(ln["en"], voice, line_rate)
         parts.append(blob)
         sizes.append(len(blob))
 

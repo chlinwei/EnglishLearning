@@ -1,0 +1,135 @@
+{
+ "id": "0128",
+ "part": 3,
+ "stage": "主从对比",
+ "title": "日志收到，回放落后",
+ "premise": "敏感读范围明确，开始对照主库发送和副本接收回放进度。",
+ "listeningTask": "听懂收到日志不等于已能读到其数据。",
+ "newPhrase": "p403",
+ "phrases": [
+  "p403",
+  "p302",
+  "p402:extra",
+  "p335:extra",
+  "p008:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The replay position trails received WAL. Primary sends and B receives promptly.",
+   "zh": "回放位置落后于已接收WAL，主库发送和B接收都及时。",
+   "role": "Replication on-call",
+   "start": 0.0,
+   "end": 6.312
+  },
+  {
+   "sp": "Hannah",
+   "en": "Then received logs aren't readable data yet. Replay must apply their changes first.",
+   "zh": "那收到的日志还不等于可读数据，必须先回放应用变更。",
+   "role": "Consistency validation engineer",
+   "start": 6.312,
+   "end": 13.367
+  },
+  {
+   "sp": "Anika",
+   "en": "That fits the stale order samples. Read-after-write consistency fails on B currently.",
+   "zh": "这符合订单旧状态样本，B目前无法满足写后读一致性。",
+   "role": "Orders read routing owner",
+   "start": 13.367,
+   "end": 20.279
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, network failure looks unlikely, right? Can we rule that out entirely?",
+   "zh": "好，网络故障看来不太可能，对吧？能完全排除吗？",
+   "role": "Incident coordinator",
+   "start": 20.279,
+   "end": 26.806
+  },
+  {
+   "sp": "Lukas",
+   "en": "Not entirely, just this observed bottleneck. Current receive progress doesn't show transport stalls.",
+   "zh": "不能完全排除，只能针对当前瓶颈判断，当前接收进度没显示传输卡顿。",
+   "role": "Database SRE",
+   "start": 26.806,
+   "end": 34.27
+  },
+  {
+   "sp": "Raj",
+   "en": "Our working hypothesis is slow apply. B's disk queue rose around nine.",
+   "zh": "当前假设是应用日志慢，B的磁盘队列在九点左右上升。",
+   "role": "Replication on-call",
+   "start": 34.27,
+   "end": 40.51
+  },
+  {
+   "sp": "Hannah",
+   "en": "Check replay conflicts and local jobs. Disk pressure could have several causes.",
+   "zh": "查回放冲突和本地任务，磁盘压力可能有多种原因。",
+   "role": "Consistency validation engineer",
+   "start": 40.51,
+   "end": 47.613
+  },
+  {
+   "sp": "Priya",
+   "en": "So, what's the ETA for correlation? About three minutes would be useful.",
+   "zh": "那关联证据预计多久？三分钟左右就有帮助。",
+   "role": "Incident coordinator",
+   "start": 47.613,
+   "end": 53.733
+  },
+  {
+   "sp": "Lukas",
+   "en": "I'll compare primary WAL generation rates. We need both sides of this.",
+   "zh": "我对比主库WAL生成速率，两边证据都需要。",
+   "role": "Database SRE",
+   "start": 53.733,
+   "end": 59.948
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for routing preparation. No live switch until capacity checks pass.",
+   "zh": "我准备路由，容量检查通过之前不在线切换。",
+   "role": "Orders read routing owner",
+   "start": 59.948,
+   "end": 66.02
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 3,
+ "scene": "敏感读范围明确，开始对照主库发送和副本接收回放进度。",
+ "dir": "database/0128-日志收到，回放落后",
+ "audio": "0128-日志收到，回放落后.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "主从对比"
+ ],
+ "duration": 66.02
+}

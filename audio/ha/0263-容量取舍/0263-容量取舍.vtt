@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.608
+Lukas: Your budget's limited. Explain the capacity trade-off.
+预算有限，解释一下容量方面的取舍。
+
+2
+00:00:04.608 --> 00:00:08.904
+Raj: Surviving zones need memory headroom for peak writes.
+剩余区需要有承受峰值写入的内存余量。
+
+3
+00:00:08.904 --> 00:00:12.888
+Raj: Just to confirm, scaling isn't immediate, right?
+确认一下，扩容不是立即完成，对吧？
+
+4
+00:00:12.888 --> 00:00:17.592
+Hannah: Correct. What's your plan while new capacity starts?
+对，新增容量启动期间怎么处理？
+
+5
+00:00:17.592 --> 00:00:21.432
+Raj: I'd shed load from recommendations and exports.
+我会减少推荐和导出的承接负载。
+
+6
+00:00:21.432 --> 00:00:25.536
+Lukas: Would asynchronous regional DR meet zero data loss?
+异步地域灾备能满足零数据损失吗？
+
+7
+00:00:25.536 --> 00:00:31.056
+Raj: No. My working hypothesis needs an agreed loss allowance.
+不能，我当前的假设需要约定损失容忍范围。
+
+8
+00:00:31.056 --> 00:00:34.680
+Raj: Buffering could buy us time, within bounded queues.
+有界队列里的缓冲能争取时间。
+
+9
+00:00:34.680 --> 00:00:40.392
+Hannah: Maybe synchronous regional replication, with higher latency costs?
+也许采用同步地域复制，但延迟成本更高？
+
+10
+00:00:40.392 --> 00:00:44.880
+Raj: Yes, that's a business decision, not free redundancy.
+是的，这是业务决策，不是免费的冗余。
+

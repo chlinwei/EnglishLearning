@@ -1,0 +1,135 @@
+{
+ "id": "0113",
+ "part": 8,
+ "stage": "任务重排",
+ "title": "转向证据，不隐性扩大范围",
+ "premise": "生产扩展和驱动镜像受阻，重新分配今天可执行的任务。",
+ "listeningTask": "听清任务重排保留哪些范围和验收责任。",
+ "newPhrase": "p388",
+ "phrases": [
+  "p388",
+  "p006",
+  "p010",
+  "p009:extra",
+  "p002:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, let's reassign the task for evidence cleanup. Raj can help while approval is pending.",
+   "zh": "好，重新分配证据整理任务。等批准期间Raj可以帮忙。",
+   "role": "Standup facilitator",
+   "start": 0.0,
+   "end": 6.96
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which task moves, and who accepts it? Avoid leaving test ownership unclear after reassignment.",
+   "zh": "哪项任务转移，谁接受？不能重分配后让测试责任不清。",
+   "role": "Code reviewer",
+   "start": 6.96,
+   "end": 14.329
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for rotation evidence cleanup. Hannah still owns test acceptance and coverage.",
+   "zh": "轮转证据整理我来做，Hannah仍负责测试验收和覆盖。",
+   "role": "Linux automation engineer",
+   "start": 14.329,
+   "end": 21.649
+  },
+  {
+   "sp": "Hannah",
+   "en": "Accepted, that gives me bandwidth for assertions. My driver tests remain pending the image.",
+   "zh": "接受，这样我有精力补断言。驱动测试仍等待镜像。",
+   "role": "Automation test engineer",
+   "start": 21.649,
+   "end": 29.666
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep the service limit report today. It doesn't depend on that new image.",
+   "zh": "今天我继续做服务上限报告，它不依赖新镜像。",
+   "role": "Service configuration owner",
+   "start": 29.666,
+   "end": 35.666
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no added production scope, right? Each action item keeps its original boundary.",
+   "zh": "我确认一下，不新增生产范围，对吧？各项待办保持原边界。",
+   "role": "Standup facilitator",
+   "start": 35.666,
+   "end": 43.466
+  },
+  {
+   "sp": "Lukas",
+   "en": "Right, I still review rotation at two. Put the updated evidence beside the request.",
+   "zh": "对，我仍两点评审轮转，把更新证据附在请求旁。",
+   "role": "Code reviewer",
+   "start": 43.466,
+   "end": 50.139
+  },
+  {
+   "sp": "Raj",
+   "en": "That takes roughly an hour after follow-up. I'll note any missing evidence rather than guessing.",
+   "zh": "跟进后整理大约一小时，缺证据就注明，不猜测。",
+   "role": "Linux automation engineer",
+   "start": 50.139,
+   "end": 57.291
+  },
+  {
+   "sp": "Hannah",
+   "en": "Can we take it offline for assertion details? The standup only needs the changed ownership.",
+   "zh": "断言细节会后聊好吗？站会只需要知道责任变化。",
+   "role": "Automation test engineer",
+   "start": 57.291,
+   "end": 64.828
+  },
+  {
+   "sp": "Priya",
+   "en": "So, agreed, pair after this meeting. No new deadline for the blocked rollout today.",
+   "zh": "同意，会后结对。今天不给受阻上线新增截止时间。",
+   "role": "Standup facilitator",
+   "start": 64.828,
+   "end": 71.5
+  }
+ ],
+ "group": "ops-standup",
+ "domain": "linux",
+ "series": "sc-S11-linux-automation-weekly-standup",
+ "parts": 10,
+ "seq": 8,
+ "scene": "生产扩展和驱动镜像受阻，重新分配今天可执行的任务。",
+ "dir": "linux/0113-转向证据，不隐性扩大范围",
+ "audio": "0113-转向证据，不隐性扩大范围.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Standup facilitator）",
+  "Raj（Linux automation engineer）",
+  "Anika（Service configuration owner）",
+  "Lukas（Code reviewer）",
+  "Hannah（Automation test engineer）"
+ ],
+ "tags": [
+  "linux",
+  "任务重排"
+ ],
+ "duration": 71.5
+}

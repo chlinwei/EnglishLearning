@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Anika: Okay, cross-region pricing takes roughly eighty milliseconds. That's the ninety-fifth percentile this week.
+
+2
+00:00:07.872 --> 00:00:14.808
+Hannah: What's the same percentile for local requests? And does that include connection setup?
+
+3
+00:00:14.808 --> 00:00:21.720
+Anika: Local requests take about twenty milliseconds. Both figures include the whole client call.
+
+4
+00:00:21.720 --> 00:00:28.344
+Lukas: Then network delay isn't the only possibility. Server queues could contribute as well.
+
+5
+00:00:28.344 --> 00:00:35.616
+Raj: Right, our working hypothesis isn't confirmed. We haven't isolated the network share yet.
+
+6
+00:00:35.616 --> 00:00:42.144
+Priya: Just to confirm, no new outage, right? We're reviewing the pricing latency budget.
+
+7
+00:00:42.144 --> 00:00:49.872
+Hannah: Correct, the service still meets its SLO. But growth could reduce our remaining margin.
+
+8
+00:00:49.872 --> 00:00:56.568
+Raj: Someone asked whether DNS is timing out. Current lookup samples don't show that.
+
+9
+00:00:56.568 --> 00:01:03.000
+Lukas: What's the ETA for a measurement breakdown? We need evidence before choosing a fix.
+
+10
+00:01:03.000 --> 00:01:10.560
+Priya: Today we'll agree the measurement method. Routing changes? Let's park that until evidence.
+

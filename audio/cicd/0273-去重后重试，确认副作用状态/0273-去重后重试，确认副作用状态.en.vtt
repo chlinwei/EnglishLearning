@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.416
+Raj: Each idempotent retry keeps its job key. Attempt identifiers remain separate for auditing.
+
+2
+00:00:07.416 --> 00:00:14.352
+Priya: Okay, queued builds need state checks. Just to confirm, duplicates won't deploy?
+
+3
+00:00:14.352 --> 00:00:21.504
+Lukas: Deployment uses its own idempotency ledger. Unknown outcomes stay held for reconciliation.
+
+4
+00:00:21.504 --> 00:00:28.632
+Anika: Completed jobs won't rebuild unnecessarily, right? We can reuse their verified digest.
+
+5
+00:00:28.632 --> 00:00:37.056
+Hannah: Only if build provenance still matches. Check signature, retention, and approval separately.
+
+6
+00:00:37.056 --> 00:00:44.280
+Raj: The twelve failures have no deployment effects. Duplicate requests resolve to original jobs.
+
+7
+00:00:44.280 --> 00:00:52.032
+Lukas: Use bounded retries with backoff now. Authentication failures need repair, not repeated attempts.
+
+8
+00:00:52.032 --> 00:00:57.696
+Priya: So, let the queue catch up slowly. Keep an eye on mirror latency.
+
+9
+00:00:57.696 --> 00:01:05.328
+Hannah: Partial uploads have been quarantined too. A retry mustn't promote an incomplete object.
+
+10
+00:01:05.328 --> 00:01:12.240
+Anika: Fair, I'll report pending work accurately. Held jobs aren't failures we can ignore.
+

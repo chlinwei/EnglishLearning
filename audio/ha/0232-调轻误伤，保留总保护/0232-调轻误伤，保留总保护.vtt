@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.599
+Raj: Let's dial it back for authenticated tenants. I mean, reduce false rejections.
+对已认证租户调轻干预强度。我的意思是，减少误拒。
+
+2
+00:00:06.599 --> 00:00:10.583
+Lukas: Which setting changes? The global rate limit?
+改哪个设置？全局速率限制吗？
+
+3
+00:00:10.583 --> 00:00:14.855
+Raj: No, bucket identity and per-tenant burst allowance.
+不是，改桶身份和单租户突发余量。
+
+4
+00:00:14.855 --> 00:00:19.342
+Hannah: How are anonymous requests treated without identity?
+匿名请求没有身份时怎么处理？
+
+5
+00:00:19.342 --> 00:00:25.822
+Anika: Conservative anonymous quotas. Authentication doesn't bypass safety ceilings.
+匿名配额保持保守，认证不绕过安全上限。
+
+6
+00:00:25.822 --> 00:00:30.093
+Priya: Just to confirm, trusted identity only, right?
+确认一下，只用可信身份，对吧？
+
+7
+00:00:30.093 --> 00:00:33.645
+Lukas: Yes, not a client-supplied tenant header.
+是的，不能用客户端自行提供的租户头。
+
+8
+00:00:33.645 --> 00:00:37.629
+Raj: Managed configuration holds the reviewed policy version.
+受管理配置保存已评审的策略版本。
+
+9
+00:00:37.629 --> 00:00:42.380
+Hannah: False rejections should fall, perhaps not disappear.
+误拒应该下降，但也许不会完全消失。
+
+10
+00:00:42.380 --> 00:00:46.100
+Priya: We'll keep an eye on legitimate completion rates.
+我们会留意合法请求的业务完成率。
+

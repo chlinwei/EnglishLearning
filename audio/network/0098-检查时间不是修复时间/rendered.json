@@ -1,0 +1,135 @@
+{
+ "id": "0098",
+ "part": 3,
+ "stage": "供应商进度",
+ "title": "检查时间不是修复时间",
+ "premise": "证据表明异常时段相关，但尚未定位故障点；交代供应商进展。",
+ "listeningTask": "听清供应商受理、检查时点与修复ETA的区别。",
+ "newPhrase": "p373",
+ "phrases": [
+  "p373",
+  "p008",
+  "p010",
+  "p336:extra",
+  "p320:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, carrier ticket C-four-eighty-two remains open. They acknowledged the evidence at seven thirty.",
+   "zh": "好，运营商工单C-482仍开放。他们七点半确认收到证据。",
+   "role": "Outgoing shift coordinator",
+   "start": 0.0,
+   "end": 7.248
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for a repair? Did they commit to a restoration time?",
+   "zh": "修复预计多久？他们承诺恢复时间了吗？",
+   "role": "Incoming primary on-call",
+   "start": 7.248,
+   "end": 12.673
+  },
+  {
+   "sp": "Raj",
+   "en": "No restoration estimate, only a diagnostic update. That's due at nine this evening.",
+   "zh": "没有恢复时间估计，只承诺今晚九点给诊断更新。",
+   "role": "Outgoing network on-call",
+   "start": 12.673,
+   "end": 19.849
+  },
+  {
+   "sp": "Hannah",
+   "en": "Which checks have they completed already? An acknowledgment isn't evidence of technical progress.",
+   "zh": "他们已经完成了什么检查？受理确认不代表技术进展。",
+   "role": "Incoming network responder",
+   "start": 19.849,
+   "end": 27.554
+  },
+  {
+   "sp": "Raj",
+   "en": "They report clean optics at their local handoff. Remote segment counters are still pending.",
+   "zh": "他们报告本地交接端光指标正常，远端链路计数器还未提供。",
+   "role": "Outgoing network on-call",
+   "start": 27.554,
+   "end": 34.73
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the root cause is still open, right? We haven't verified their remote segment.",
+   "zh": "我确认一下，根因仍未定，对吧？还没核实他们的远端链路。",
+   "role": "Outgoing shift coordinator",
+   "start": 34.73,
+   "end": 42.122
+  },
+  {
+   "sp": "Lukas",
+   "en": "Please record that wording in the ticket. Who owns the carrier escalation path?",
+   "zh": "把这个措辞写进工单。谁负责运营商升级路径？",
+   "role": "Incoming primary on-call",
+   "start": 42.122,
+   "end": 47.931
+  },
+  {
+   "sp": "Anika",
+   "en": "Raj owns it until this handoff closes. Then Hannah takes the carrier follow-up.",
+   "zh": "交接完成前由Raj负责，之后Hannah跟进运营商。",
+   "role": "Inventory integration owner",
+   "start": 47.931,
+   "end": 54.267
+  },
+  {
+   "sp": "Hannah",
+   "en": "Accepted, with ticket access verified first. I'll request the missing remote counter evidence.",
+   "zh": "接受，但要先确认工单访问权限。我会索取缺失的远端计数器证据。",
+   "role": "Incoming network responder",
+   "start": 54.267,
+   "end": 62.812
+  },
+  {
+   "sp": "Priya",
+   "en": "Compensation discussion? Let's park that for later. So, technical follow-up continues around nine.",
+   "zh": "赔偿讨论先留到以后。技术跟进继续在九点左右进行。",
+   "role": "Outgoing shift coordinator",
+   "start": 62.812,
+   "end": 71.14
+  }
+ ],
+ "group": "handoff",
+ "domain": "network",
+ "series": "sc-S10-network-private-circuit-handoff",
+ "parts": 10,
+ "seq": 3,
+ "scene": "证据表明异常时段相关，但尚未定位故障点；交代供应商进展。",
+ "dir": "network/0098-检查时间不是修复时间",
+ "audio": "0098-检查时间不是修复时间.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Outgoing shift coordinator）",
+  "Raj（Outgoing network on-call）",
+  "Anika（Inventory integration owner）",
+  "Lukas（Incoming primary on-call）",
+  "Hannah（Incoming network responder）"
+ ],
+ "tags": [
+  "network",
+  "供应商进度"
+ ],
+ "duration": 71.14
+}

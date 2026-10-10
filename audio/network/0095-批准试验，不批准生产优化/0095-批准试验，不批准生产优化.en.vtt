@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.848
+Priya: Just to recap, approve the isolated trials. The decision record keeps production settings unchanged.
+
+2
+00:00:07.848 --> 00:00:13.872
+Lukas: Let me play that back briefly. Pooling and MTU tests run separately first.
+
+3
+00:00:13.872 --> 00:00:20.471
+Anika: Okay, pooling may reduce setup time. It doesn't remove distance or payload charges.
+
+4
+00:00:20.471 --> 00:00:27.383
+Hannah: And the root cause is still open. Route and payload effects need further evidence.
+
+5
+00:00:27.383 --> 00:00:34.319
+Raj: The reverse path remains a specific dependency. No claim of confirmed MTU failure.
+
+6
+00:00:34.319 --> 00:00:41.975
+Priya: Just to confirm, compare costs before adoption, right? Include socket and memory overhead too.
+
+7
+00:00:41.975 --> 00:00:49.343
+Lukas: Yes, improvements must preserve correctness and limits. A faster failed request isn't a win.
+
+8
+00:00:49.343 --> 00:00:56.734
+Anika: We'll circle back with roughly comparable samples. If counts differ, we'll explain that gap.
+
+9
+00:00:56.734 --> 00:01:04.582
+Hannah: Bring raw summaries alongside the proposed conclusion. That lets us challenge the interpretation.
+
+10
+00:01:04.582 --> 00:01:12.190
+Priya: So, review tomorrow, not an automatic rollout. We're closing the meeting, not the investigation.
+

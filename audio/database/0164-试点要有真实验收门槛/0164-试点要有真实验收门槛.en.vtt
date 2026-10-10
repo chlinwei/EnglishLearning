@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.032
+Priya: Approve a capacity pilot for reports. Isolated tests first, one region afterward.
+
+2
+00:00:07.032 --> 00:00:14.015
+Hannah: Which tenants represent the actual skew? A tiny tenant isn't a useful pilot.
+
+3
+00:00:14.015 --> 00:00:19.463
+Anika: One large and two smaller tenants. I'm on it with the feature switch.
+
+4
+00:00:19.463 --> 00:00:25.847
+Raj: The full table scan should shrink selectively. Broad reports may still scan reasonably.
+
+5
+00:00:25.847 --> 00:00:32.926
+Lukas: Compare against the peak load baseline. Include transaction latency beside report improvements.
+
+6
+00:00:32.926 --> 00:00:40.390
+Priya: Just to confirm, identical totals required, right? Faster wrong reports fail the pilot.
+
+7
+00:00:40.390 --> 00:00:48.477
+Hannah: Yes. Lower disk reads are another gate. Keep transaction latency below two hundred.
+
+8
+00:00:48.477 --> 00:00:55.389
+Anika: Incorrect totals are the immediate rollback trigger. Maybe scan savings vary by date range.
+
+9
+00:00:55.389 --> 00:01:02.276
+Lukas: And sustained write regression halts expansion. Revert the query switch, preserve evidence.
+
+10
+00:01:02.276 --> 00:01:09.140
+Raj: Okay, order storage for all nodes now. Pilot success won't postpone that preparation.
+

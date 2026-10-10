@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.896
+Raj: Our redundancy plan separates proxies and outbound gateways.
+
+2
+00:00:04.896 --> 00:00:09.816
+Lukas: And the database? Active-active writes aren't free redundancy.
+
+3
+00:00:09.816 --> 00:00:14.447
+Anika: Synchronous primary-standby, with a third-domain quorum witness.
+
+4
+00:00:14.447 --> 00:00:19.631
+Hannah: Quorum must authorize fencing before promoting any standby.
+
+5
+00:00:19.631 --> 00:00:24.047
+Priya: Just to confirm, independent fencing access, right?
+
+6
+00:00:24.047 --> 00:00:28.535
+Raj: Yes, the out-of-band console remains separately reachable.
+
+7
+00:00:28.535 --> 00:00:32.423
+Lukas: A failure domain shouldn't contain every voting member.
+
+8
+00:00:32.423 --> 00:00:37.222
+Anika: Our working hypothesis accepts added synchronous write latency.
+
+9
+00:00:37.222 --> 00:00:41.422
+Hannah: Maybe acceptable, but test it across zones.
+
+10
+00:00:41.422 --> 00:00:47.350
+Priya: Multi-region writers? Let's park that pending consistency requirements.
+

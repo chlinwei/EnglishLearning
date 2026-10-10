@@ -1,0 +1,135 @@
+{
+ "id": "0266",
+ "part": 1,
+ "stage": "告警",
+ "title": "构建全红，生产是否受影响",
+ "premise": "九点构建面板全红，尚未确认失败阶段。",
+ "listeningTask": "区分构建失败与生产故障，听出第一步约束。",
+ "newPhrase": "p541",
+ "phrases": [
+  "p541",
+  "p003",
+  "p010:extra",
+  "p103:extra",
+  "p008:extra",
+  "p335:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, the pipeline's red across projects. I'll take point on this.",
+   "zh": "好，各项目流水线全红了。我来协调。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 5.808
+  },
+  {
+   "sp": "Raj",
+   "en": "Failures started around nine this morning. Let me tail the log.",
+   "zh": "失败大约从今天九点开始。我盯一下日志。",
+   "role": "Build runner on-call",
+   "start": 5.808,
+   "end": 11.256
+  },
+  {
+   "sp": "Lukas",
+   "en": "Which step failed on those runs? Don't retry everything before we know.",
+   "zh": "这些运行在哪一步失败？没查清之前别全部重试。",
+   "role": "Pipeline reliability engineer",
+   "start": 11.256,
+   "end": 16.751
+  },
+  {
+   "sp": "Anika",
+   "en": "Dependency fetch, before any artifact upload. Production still serves yesterday's version, right?",
+   "zh": "在上传制品前的依赖下载阶段。生产仍是昨天版本，对吧？",
+   "role": "Application release owner",
+   "start": 16.751,
+   "end": 24.791
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, production's deployment digest hasn't changed. Build failures aren't proof of exposure.",
+   "zh": "对，生产部署摘要没变。构建失败不代表已发生泄漏。",
+   "role": "Artifact security engineer",
+   "start": 24.791,
+   "end": 32.903
+  },
+  {
+   "sp": "Raj",
+   "en": "Our working hypothesis is shared infrastructure. Three unrelated commits fail alike.",
+   "zh": "当前假设是共享基础设施。三个无关提交以同样方式失败。",
+   "role": "Build runner on-call",
+   "start": 32.903,
+   "end": 39.815
+  },
+  {
+   "sp": "Lukas",
+   "en": "Shared infrastructure... maybe, but compare timestamps. A common dependency could explain it.",
+   "zh": "共享设施……有可能，但对比时间戳。共同依赖也可能解释。",
+   "role": "Pipeline reliability engineer",
+   "start": 39.815,
+   "end": 47.327
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, preserve failed runs. What's the ETA for scope?",
+   "zh": "确认一下，保留失败运行。预计多久圈定范围？",
+   "role": "Incident coordinator",
+   "start": 47.327,
+   "end": 53.134
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll preserve access-controlled logs and metadata. No secret values in this channel.",
+   "zh": "我保留受限日志和元数据。这个频道不放秘密值。",
+   "role": "Artifact security engineer",
+   "start": 53.134,
+   "end": 60.694
+  },
+  {
+   "sp": "Anika",
+   "en": "About two minutes for affected projects. I'll tell developers retries are paused.",
+   "zh": "受影响项目大约两分钟查完。我通知开发先暂停重试。",
+   "role": "Application release owner",
+   "start": 60.694,
+   "end": 66.91
+  }
+ ],
+ "group": "incident",
+ "domain": "cicd",
+ "series": "sc-S27-cicd-red-pipeline",
+ "parts": 10,
+ "seq": 1,
+ "scene": "九点构建面板全红，尚未确认失败阶段。",
+ "dir": "cicd/0266-构建全红，生产是否受影响",
+ "audio": "0266-构建全红，生产是否受影响.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Build runner on-call）",
+  "Anika（Application release owner）",
+  "Lukas（Pipeline reliability engineer）",
+  "Hannah（Artifact security engineer）"
+ ],
+ "tags": [
+  "cicd",
+  "告警"
+ ],
+ "duration": 66.91
+}

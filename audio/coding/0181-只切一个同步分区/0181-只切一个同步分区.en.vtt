@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.696
+Priya: Approve one canary cohort for this window. The staged rollout starts with one partition.
+
+2
+00:00:06.696 --> 00:00:13.440
+Lukas: Drain the old worker before assigning ownership. Two workers mustn't process the same partition.
+
+3
+00:00:13.440 --> 00:00:20.903
+Raj: Just to confirm, the lease transfers once, right? I'll verify no overlapping writer remains.
+
+4
+00:00:20.903 --> 00:00:28.271
+Anika: Okay, keep an eye on reconciliation lag. Maybe the first batch warms connections slowly.
+
+5
+00:00:28.271 --> 00:00:36.575
+Hannah: The smoke test uses this production partition. Compare output counts with its expected inventory.
+
+6
+00:00:36.575 --> 00:00:42.647
+Raj: The new worker holds the sole lease. Token refresh and the initial batch pass.
+
+7
+00:00:42.647 --> 00:00:50.687
+Lukas: State the rollback trigger before further batches. Duplicates or reconciliation mismatches mean immediate pause.
+
+8
+00:00:50.687 --> 00:00:58.222
+Priya: Agreed, pause and evaluate before reverting ownership. Don't start old workers beside new ones.
+
+9
+00:00:58.222 --> 00:01:07.462
+Hannah: First-batch counts and signatures match expectations. We'll inspect another full token-refresh cycle.
+
+10
+00:01:07.462 --> 00:01:15.190
+Anika: I'll own that observation before expansion approval. Healthy startup alone doesn't cover steady-state behavior.
+

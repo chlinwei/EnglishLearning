@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.992
+Hannah: Messages can arrive out of order. Each includes an asset version and operation identifier.
+
+2
+00:00:07.992 --> 00:00:15.649
+Raj: I'd require bounded input for tag counts. Just to confirm, the API checks versions, right?
+
+3
+00:00:15.649 --> 00:00:22.921
+Lukas: Yes, stale versions return a conflict. There's also a documented maximum request size.
+
+4
+00:00:22.921 --> 00:00:30.122
+Raj: Okay, let me play that back briefly. Local validation checks shape before sending a request.
+
+5
+00:00:30.122 --> 00:00:38.330
+Raj: The server remains authoritative for version checks. My working hypothesis is concurrent writers still exist.
+
+6
+00:00:38.330 --> 00:00:45.122
+Hannah: They do, outside this worker too. How would you handle a rejected old version?
+
+7
+00:00:45.122 --> 00:00:52.899
+Raj: I'd record a conflict without blind retry. Maybe business logic decides whether to refresh intent.
+
+8
+00:00:52.899 --> 00:00:59.955
+Lukas: Good, don't invent a new desired state. The worker shouldn't silently override another writer.
+
+9
+00:00:59.955 --> 00:01:07.588
+Raj: We can rule that out with conditional writes. But an outdated message still needs explicit handling.
+
+10
+00:01:07.588 --> 00:01:15.700
+Raj: One action item is documenting that conflict policy. I'd keep validation separate from transport code.
+

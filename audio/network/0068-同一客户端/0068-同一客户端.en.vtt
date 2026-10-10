@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:10.080
+Hannah: Same client, same name, same query type. Recursive resolver A times out; B answers quickly.
+
+2
+00:00:10.080 --> 00:00:17.304
+Raj: I checked the responses too. B returns the expected private address, not a public endpoint.
+
+3
+00:00:17.304 --> 00:00:23.377
+Lukas: Is that a direct DNS probe? It may bypass the application's local cache.
+
+4
+00:00:23.377 --> 00:00:31.153
+Anika: Yes. We'll test the app path separately. We shouldn't treat those as identical tests.
+
+5
+00:00:31.153 --> 00:00:38.449
+Priya: Just to confirm, B is reachable from the affected client, right? That's a useful control.
+
+6
+00:00:38.449 --> 00:00:45.985
+Hannah: Let me play that back. The client can reach a working resolver, but A's path still fails.
+
+7
+00:00:45.985 --> 00:00:52.681
+Raj: We can rule that out as a blanket client-network failure. A still needs investigation.
+
+8
+00:00:52.681 --> 00:00:59.714
+Lukas: Compare A's response codes and upstream timings next. Don't stop at a yes-or-no result.
+
+9
+00:00:59.714 --> 00:01:05.258
+Priya: What's the ETA for those metrics? We need a safe mitigation soon.
+
+10
+00:01:05.258 --> 00:01:11.330
+Anika: I'm on it for the app-side test. About three minutes if the test host is ready.
+

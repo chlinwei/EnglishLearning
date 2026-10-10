@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.248
+Lukas: Sketch the storage layer. Where do replicas live?
+
+2
+00:00:04.248 --> 00:00:09.024
+Raj: Three zones. A quorum decision authorizes leadership.
+
+3
+00:00:09.024 --> 00:00:13.297
+Raj: Just to confirm, majority-durable acknowledgments, right?
+
+4
+00:00:13.297 --> 00:00:18.625
+Hannah: Yes. Don't count an unpersisted network acknowledgment.
+
+5
+00:00:18.625 --> 00:00:23.161
+Raj: My working hypothesis uses a proven consensus database.
+
+6
+00:00:23.161 --> 00:00:26.905
+Lukas: What shared infrastructure could still break all zones?
+
+7
+00:00:26.905 --> 00:00:32.185
+Raj: Managed configuration could. I'd stage configuration changes.
+
+8
+00:00:32.185 --> 00:00:36.050
+Raj: That's our blast radius for a shared bad rule.
+
+9
+00:00:36.050 --> 00:00:41.018
+Hannah: Let me play that back. Maybe separate rollout domains.
+
+10
+00:00:41.018 --> 00:00:46.730
+Raj: Exactly. API replicas and gateways stay zone-separated too.
+

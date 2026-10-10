@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.552
+Lukas: Let me play that back now. The handoff checklist leaves primary routing mostly unchanged.
+
+2
+00:00:06.552 --> 00:00:13.439
+Raj: Okay, exactly two workers use the workaround. The others remain on the primary circuit.
+
+3
+00:00:13.439 --> 00:00:20.855
+Hannah: And the root cause is still open. Carrier diagnosis hasn't confirmed a failed segment.
+
+4
+00:00:20.855 --> 00:00:28.678
+Anika: Correct, and reservation reconciliation stays active. Don't add blanket retries for write operations.
+
+5
+00:00:28.678 --> 00:00:35.710
+Priya: Just to confirm, two windows for loss, right? Correctness failures skip that waiting period.
+
+6
+00:00:35.710 --> 00:00:42.862
+Lukas: Yes, assess both paths before changing routing. Have I missed anything about backup capacity?
+
+7
+00:00:42.862 --> 00:00:51.093
+Raj: Stop expansion above seventy percent sustained utilization. That doesn't mean automatically return to primary.
+
+8
+00:00:51.093 --> 00:01:00.573
+Hannah: Understood, a temporary workaround with limited scope. I'll collect bounded captures and reviewed summaries.
+
+9
+00:01:00.573 --> 00:01:07.892
+Anika: And watch both worker populations separately. Roughly normal routed workers don't clear the incident.
+
+10
+00:01:07.892 --> 00:01:15.620
+Priya: So, that covers the technical handoff. Let's verify actual contact access before acceptance.
+

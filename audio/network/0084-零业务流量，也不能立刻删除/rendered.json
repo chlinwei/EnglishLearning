@@ -1,0 +1,135 @@
+{
+ "id": "0084",
+ "part": 9,
+ "stage": "保留旧入口",
+ "title": "零业务流量，也不能立刻删除",
+ "premise": "旧连接已正常排空，新池运行稳定；确定旧入口保留期限。",
+ "listeningTask": "识别零业务流量与回退能力仍需维护的区别。",
+ "newPhrase": "p359",
+ "phrases": [
+  "p359",
+  "p354",
+  "p010",
+  "p309:extra",
+  "p009:extra",
+  "p336:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, keep the old endpoint for tomorrow. We agreed on twenty-four hours of coverage.",
+   "zh": "好，旧入口保留到明天。已商定保留二十四小时回退保障。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.912
+  },
+  {
+   "sp": "Hannah",
+   "en": "Does that include certificates and backend access? An idle endpoint can still lose readiness.",
+   "zh": "也包括证书和后端访问吗？闲置入口仍可能失去就绪状态。",
+   "role": "Validation engineer",
+   "start": 6.912,
+   "end": 15.288
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, those dependencies stay active too. Synthetic checks continue without customer traffic.",
+   "zh": "是，这些依赖也保持有效。继续合成检查，但不走客户流量。",
+   "role": "Network engineer",
+   "start": 15.288,
+   "end": 22.68
+  },
+  {
+   "sp": "Lukas",
+   "en": "Who checks the saved rollback route overnight? Don't rely on yesterday's successful validation.",
+   "zh": "夜间谁检查保存的回退路由？不能只依赖昨天验证成功。",
+   "role": "SRE reviewer",
+   "start": 22.68,
+   "end": 29.496
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll keep an eye on business checks. Raj owns both pools' network readiness.",
+   "zh": "我关注业务检查，Raj负责两个池的网络就绪状态。",
+   "role": "Checkout owner",
+   "start": 29.496,
+   "end": 35.544
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, no automatic deletion, right? Removing it needs a separate action item.",
+   "zh": "我确认一下，不自动删除，对吧？移除要作为单独待办项。",
+   "role": "Change coordinator",
+   "start": 35.544,
+   "end": 42.84
+  },
+  {
+   "sp": "Hannah",
+   "en": "Correct, and record the escalation path. Who can authorize a return overnight?",
+   "zh": "对，还要记录升级路径。夜间谁能批准切回？",
+   "role": "Validation engineer",
+   "start": 42.84,
+   "end": 50.112
+  },
+  {
+   "sp": "Raj",
+   "en": "The change on-call can authorize that. I can restore the previous weights.",
+   "zh": "变更值班负责人可以批准，我能恢复原权重。",
+   "role": "Network engineer",
+   "start": 50.112,
+   "end": 55.872
+  },
+  {
+   "sp": "Lukas",
+   "en": "Only after checking the old pool's health. Returning to an unhealthy pool adds risk.",
+   "zh": "要先检查旧池健康。切回不健康的池会增加风险。",
+   "role": "SRE reviewer",
+   "start": 55.872,
+   "end": 62.016
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed, that's roughly our overnight safety net. So, document it before the handoff.",
+   "zh": "同意，这就是夜间的大致保障。因此交接前把它写清。",
+   "role": "Change coordinator",
+   "start": 62.016,
+   "end": 69.0
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 9,
+ "scene": "旧连接已正常排空，新池运行稳定；确定旧入口保留期限。",
+ "dir": "network/0084-零业务流量，也不能立刻删除",
+ "audio": "0084-零业务流量，也不能立刻删除.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "保留旧入口"
+ ],
+ "duration": 69.0
+}

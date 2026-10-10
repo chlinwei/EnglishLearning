@@ -1,0 +1,129 @@
+{
+ "id": "0262",
+ "part": 7,
+ "stage": "分区推演",
+ "title": "少数分区：拒绝写入是正确行为",
+ "premise": "隔离机制已说明，面试官提出一对二网络分区与旧领导者复归。",
+ "listeningTask": "听出可用性与强一致性在分区时的明确取舍。",
+ "newPhrase": "p537",
+ "phrases": [
+  "p537",
+  "p536",
+  "p302",
+  "p010:extra",
+  "p106:extra",
+  "p011:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Hannah",
+   "en": "One replica loses contact. It still serves local clients.",
+   "zh": "一个副本失去联系，但仍能接本地客户端。",
+   "role": "Data systems interviewer",
+   "start": 0.0,
+   "end": 5.88
+  },
+  {
+   "sp": "Raj",
+   "en": "The minority partition must reject authoritative writes.",
+   "zh": "少数分区必须拒绝权威写入。",
+   "role": "DevOps system design candidate",
+   "start": 5.88,
+   "end": 9.912
+  },
+  {
+   "sp": "Raj",
+   "en": "Just to confirm, availability yields to consistency, right?",
+   "zh": "确认一下，此时可用性让位于一致性，对吧？",
+   "role": "DevOps system design candidate",
+   "start": 9.912,
+   "end": 14.521
+  },
+  {
+   "sp": "Lukas",
+   "en": "What if its old process continues issuing writes?",
+   "zh": "如果旧进程还在继续发写请求呢？",
+   "role": "Reliability interviewer",
+   "start": 14.521,
+   "end": 18.265
+  },
+  {
+   "sp": "Raj",
+   "en": "The fencing token blocks stale storage operations.",
+   "zh": "隔离令牌会阻止过期写者的存储操作。",
+   "role": "DevOps system design candidate",
+   "start": 18.265,
+   "end": 22.081
+  },
+  {
+   "sp": "Hannah",
+   "en": "Could local uncommitted records later overwrite majority decisions?",
+   "zh": "本地未提交记录以后会覆盖多数分区的决策吗？",
+   "role": "Data systems interviewer",
+   "start": 22.081,
+   "end": 27.601
+  },
+  {
+   "sp": "Raj",
+   "en": "No. Consensus recovery discards conflicting uncommitted log entries.",
+   "zh": "不会，共识恢复会丢弃冲突的未提交日志项。",
+   "role": "DevOps system design candidate",
+   "start": 27.601,
+   "end": 33.601
+  },
+  {
+   "sp": "Raj",
+   "en": "That's our blast radius: minority-side write unavailability.",
+   "zh": "影响范围是少数分区一侧的写入不可用。",
+   "role": "DevOps system design candidate",
+   "start": 33.601,
+   "end": 38.378
+  },
+  {
+   "sp": "Lukas",
+   "en": "Let me play that back. Perhaps stale reads too?",
+   "zh": "我复述一下，也许还会有旧读取？",
+   "role": "Reliability interviewer",
+   "start": 38.378,
+   "end": 42.458
+  },
+  {
+   "sp": "Raj",
+   "en": "We can't rule that out. Block authoritative reads there.",
+   "zh": "不能排除，所以也阻止那边的权威读取。",
+   "role": "DevOps system design candidate",
+   "start": 42.458,
+   "end": 47.33
+  }
+ ],
+ "group": "interview",
+ "domain": "ha",
+ "series": "sc-S26-ha-design-interview",
+ "parts": 10,
+ "seq": 7,
+ "scene": "隔离机制已说明，面试官提出一对二网络分区与旧领导者复归。",
+ "dir": "ha/0262-少数分区",
+ "audio": "0262-少数分区.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps system design candidate）",
+  "Lukas（Reliability interviewer）",
+  "Hannah（Data systems interviewer）"
+ ],
+ "tags": [
+  "ha",
+  "分区推演"
+ ],
+ "duration": 47.33
+}

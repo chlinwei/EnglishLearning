@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.576
+Raj: Connection checkout time is normal again. Each worker has available connections now.
+
+2
+00:00:06.576 --> 00:00:13.007
+Hannah: What about checked-out connections over time? A fresh pool can hide leakage.
+
+3
+00:00:13.007 --> 00:00:19.151
+Anika: They're stable under the reduced traffic. That doesn't prove cancellation is fixed.
+
+4
+00:00:19.151 --> 00:00:26.182
+Priya: Just to confirm, reports stay paused, right? Don't remove both safeguards together.
+
+5
+00:00:26.182 --> 00:00:31.990
+Lukas: Agreed. We're back to baseline now. State the limits with that update.
+
+6
+00:00:31.990 --> 00:00:38.518
+Raj: If the pool is exhausted again, stop. Maybe another path holds connections too.
+
+7
+00:00:38.518 --> 00:00:45.333
+Hannah: Let's keep it under observation tonight. Track connection age beside checkout waits.
+
+8
+00:00:45.333 --> 00:00:52.245
+Anika: Okay, isolated testing is running now. The first cancelled request retained ownership.
+
+9
+00:00:52.245 --> 00:00:58.484
+Lukas: Repeat it against the current release. One sample isn't the complete diagnosis.
+
+10
+00:00:58.484 --> 00:01:04.820
+Priya: So, keep recovery and repair separate. We'll review that test evidence next.
+

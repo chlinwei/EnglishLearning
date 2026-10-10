@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.112
+Raj: Resolver configuration is updated on the canary. Effective settings show B, and the saved copy is intact.
+
+2
+00:00:08.112 --> 00:00:15.696
+Hannah: I can see new lookups from that client on B. Expected private answers, no new timeouts.
+
+3
+00:00:15.696 --> 00:00:21.815
+Anika: Fresh application connections succeed too. I'll keep an eye on the error rate.
+
+4
+00:00:21.815 --> 00:00:28.535
+Priya: Just to confirm, enough uncached samples, right? Not just one cached answer?
+
+5
+00:00:28.535 --> 00:00:35.519
+Lukas: Yes. And B's load is healthy. Expand in small batches while the checks stay clean.
+
+6
+00:00:35.519 --> 00:00:42.887
+Raj: I'm on it. What's the ETA before the next batch? I'll record each client's settings.
+
+7
+00:00:42.887 --> 00:00:49.991
+Hannah: After five minutes of clean samples. Let's keep it under observation between batches.
+
+8
+00:00:49.991 --> 00:00:57.454
+Priya: Okay. No blanket cache flush. Each batch needs the same app and resolver checks.
+
+9
+00:00:57.454 --> 00:01:04.054
+Lukas: If another host behaves differently, stop there. Its local resolver path may not match.
+
+10
+00:01:04.054 --> 00:01:12.550
+Anika: Agreed. Maybe some clients retain old answers briefly. We'll check the actual path, not guess.
+

@@ -1,0 +1,135 @@
+{
+ "id": "0228",
+ "part": 3,
+ "stage": "阈值设计",
+ "title": "配额：算业务成本，不只数请求",
+ "premise": "已划分关键与可降级业务，设计桶容量和全局上限。",
+ "listeningTask": "听出单租户、公平性和数据库总成本三个限制层。",
+ "newPhrase": "p503",
+ "phrases": [
+  "p503",
+  "p502",
+  "p319",
+  "p010:extra",
+  "p335:extra",
+  "p327:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "The rate limit uses weighted token buckets.",
+   "zh": "速率限制使用加权令牌桶。",
+   "role": "Gateway engineer",
+   "start": 0.0,
+   "end": 3.408
+  },
+  {
+   "sp": "Lukas",
+   "en": "Weighted by measured database cost, or guesswork?",
+   "zh": "权重依据实测数据库成本，还是猜测？",
+   "role": "Capacity reviewer",
+   "start": 3.408,
+   "end": 7.129
+  },
+  {
+   "sp": "Raj",
+   "en": "Measured samples. Our working hypothesis still needs validation.",
+   "zh": "依据实测样本，但当前假设仍需验证。",
+   "role": "Gateway engineer",
+   "start": 7.129,
+   "end": 12.841
+  },
+  {
+   "sp": "Hannah",
+   "en": "How much burst allowance can memory absorb?",
+   "zh": "内存能承受多少突发余量？",
+   "role": "Validation engineer",
+   "start": 12.841,
+   "end": 16.586
+  },
+  {
+   "sp": "Anika",
+   "en": "Memory headroom supports two seconds of callbacks.",
+   "zh": "内存余量可支持两秒的回调缓冲。",
+   "role": "Checkout product engineer",
+   "start": 16.586,
+   "end": 20.282
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, queues stay bounded, right?",
+   "zh": "确认一下，队列会有上限，对吧？",
+   "role": "Change coordinator",
+   "start": 20.282,
+   "end": 24.098
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes. Bound concurrency on the critical path too.",
+   "zh": "是的，关键业务路径的并发也要有上限。",
+   "role": "Capacity reviewer",
+   "start": 24.098,
+   "end": 28.539
+  },
+  {
+   "sp": "Raj",
+   "en": "A global ceiling protects shared database capacity.",
+   "zh": "全局上限保护共享数据库容量。",
+   "role": "Gateway engineer",
+   "start": 28.539,
+   "end": 32.523
+  },
+  {
+   "sp": "Hannah",
+   "en": "Okay, a smoke test won't establish that ceiling.",
+   "zh": "好，快速功能验证不能确定这个上限。",
+   "role": "Validation engineer",
+   "start": 32.523,
+   "end": 36.868
+  },
+  {
+   "sp": "Priya",
+   "en": "Agreed. Roughly twenty percent spare, pending load tests.",
+   "zh": "同意，暂定约百分之二十余量，待压测确认。",
+   "role": "Change coordinator",
+   "start": 36.868,
+   "end": 42.1
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 3,
+ "scene": "已划分关键与可降级业务，设计桶容量和全局上限。",
+ "dir": "ha/0228-配额",
+ "audio": "0228-配额.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "阈值设计"
+ ],
+ "duration": 42.1
+}

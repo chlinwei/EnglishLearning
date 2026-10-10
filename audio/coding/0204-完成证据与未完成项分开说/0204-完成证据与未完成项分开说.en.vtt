@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.704
+Priya: Just to recap, the first slice passed. Additional malformed-data tests will carry over separately.
+
+2
+00:00:07.704 --> 00:00:16.344
+Hannah: The agreed acceptance criteria are met. The extra cases extend coverage beyond those fixtures.
+
+3
+00:00:16.344 --> 00:00:23.807
+Raj: Full extraction was a stretch, as expected. Just to confirm, no production release yet, right?
+
+4
+00:00:23.807 --> 00:00:32.063
+Anika: Right, consumer sign-off covers isolated report comparisons. Operational release still needs its own approval.
+
+5
+00:00:32.063 --> 00:00:38.759
+Lukas: What made review easier this iteration? We should preserve the practices that actually helped.
+
+6
+00:00:38.759 --> 00:00:46.799
+Raj: Small changes and fixed fixtures helped most. Maybe discovery deserves an earlier owner next time.
+
+7
+00:00:46.799 --> 00:00:55.823
+Hannah: Agreed, waiting for samples delayed meaningful feedback. We shouldn't blame implementation for every delay.
+
+8
+00:00:55.823 --> 00:01:03.166
+Priya: One action item is tracking sample dependencies. We'll compare waiting time in the next iteration.
+
+9
+00:01:03.166 --> 00:01:10.366
+Lukas: Faster local tests are a useful result. They don't prove production reliability has improved yet.
+
+10
+00:01:10.366 --> 00:01:18.550
+Anika: Good distinction, I'll keep that in the summary. Today's evidence supports maintainability, not outage reduction.
+

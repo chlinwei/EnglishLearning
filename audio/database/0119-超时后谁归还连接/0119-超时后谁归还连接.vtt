@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.336
+Anika: A connection leak looks possible here. Timed-out requests don't record a return.
+这里可能存在连接泄漏，超时请求没有记录连接归还。
+
+2
+00:00:06.336 --> 00:00:12.624
+Hannah: Could that be missing logging instead? We need a controlled cancellation test.
+会不会只是漏记日志？需要受控的取消测试。
+
+3
+00:00:12.624 --> 00:00:19.321
+Raj: Yes, it's a working hypothesis now. Query execution time alone can't prove it.
+对，现在只是工作假设，查询耗时本身不能证明泄漏。
+
+4
+00:00:19.321 --> 00:00:26.713
+Priya: Just to confirm, isolated testing, right? Don't inject cancellations into live orders.
+确认一下，在隔离环境测，对吧？别对线上订单注入取消操作。
+
+5
+00:00:26.713 --> 00:00:33.961
+Lukas: Agreed. Save current metrics before mitigation. We can recover without proving everything.
+同意，缓解前保存指标，不必查清所有问题才恢复服务。
+
+6
+00:00:33.961 --> 00:00:40.753
+Anika: Okay, I'm on it for reproduction. Same client version, synthetic orders only.
+好，我负责复现，使用同版本客户端和合成订单。
+
+7
+00:00:40.753 --> 00:00:48.361
+Hannah: I'll compare successful and cancelled requests. Both must release their borrowed resources.
+我会对比成功和取消请求，两种都必须释放借用资源。
+
+8
+00:00:48.361 --> 00:00:54.458
+Raj: The root cause is still open. Maybe report delays expose this branch.
+根因仍未定，可能报表延迟让这个分支更容易被触发。
+
+9
+00:00:54.458 --> 00:01:00.626
+Lukas: That's plausible, but not confirmed yet. We need separate evidence for each link.
+合理，但还没确认，因果链的每一环都需要各自证据。
+
+10
+00:01:00.626 --> 00:01:06.890
+Priya: So, first contain the request backlog. Then test that link without pressure.
+那先控制请求积压，再在没有线上压力的条件下验证因果联系。
+

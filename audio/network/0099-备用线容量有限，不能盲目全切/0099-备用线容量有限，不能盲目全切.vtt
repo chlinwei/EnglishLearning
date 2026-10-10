@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.720
+Raj: Okay, the backup circuit serves two workers. It's a temporary workaround, not a repair.
+好，备用专线承接两个工作进程。这是临时缓解，不是修复。
+
+2
+00:00:06.720 --> 00:00:13.728
+Hannah: How much spare capacity remains there? Does it share the carrier's affected segment?
+那里还剩多少容量？与运营商受影响链路共用吗？
+
+3
+00:00:13.728 --> 00:00:22.320
+Raj: Utilization is roughly forty percent right now. Documented routing differs, but physical diversity isn't confirmed.
+当前利用率大约百分之四十。文档路由不同，但物理独立性未确认。
+
+4
+00:00:22.320 --> 00:00:28.224
+Lukas: Then don't call it fully independent. What's the rollback trigger for this workaround?
+那就不要称它完全独立。这项绕行的回退条件是什么？
+
+5
+00:00:28.224 --> 00:00:37.008
+Anika: Sustained utilization above seventy percent means stop expansion. New correctness errors require immediate incident review.
+利用率持续超过百分之七十就停止扩大；新的正确性错误立即进入故障评估。
+
+6
+00:00:37.008 --> 00:00:43.872
+Priya: Just to confirm, no automatic return, right? The primary path may still be worse.
+我确认一下，不自动切回，对吧？主路径可能仍更差。
+
+7
+00:00:43.872 --> 00:00:52.536
+Hannah: Correct, assess both paths before any reversal. Saved settings alone don't make returning safe.
+对，切回前评估两条路径。保存配置不代表回去就安全。
+
+8
+00:00:52.536 --> 00:00:59.016
+Raj: The mitigation is holding on these workers. Keep an eye on backup queue depth too.
+这两个工作进程上的缓解仍有效，也要关注备用线队列深度。
+
+9
+00:00:59.016 --> 00:01:05.736
+Lukas: Record any routing change with its scope. Don't move unrelated services during this shift.
+任何路由变化都记录范围，这个班次不要迁移无关服务。
+
+10
+00:01:05.736 --> 00:01:13.440
+Priya: Agreed, expansion needs the incident coordinator's approval. So, leave current routing unchanged for now.
+同意，扩大需要故障协调人批准。所以目前路由不变。
+

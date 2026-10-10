@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.912
+Raj: We've just been paged. The disk is filling up. It's at ninety-eight percent.
+刚收到告警。磁盘快被占满了，使用率已经到百分之九十八。
+
+2
+00:00:06.912 --> 00:00:11.736
+Lukas: Which host? Is this affecting checkout, or just the worker?
+哪台主机？影响的是结账服务，还是只有这个工作进程？
+
+3
+00:00:11.736 --> 00:00:18.673
+Raj: Orders-worker-three. The alert is for slash var. I haven't checked writes yet.
+orders-worker-three。告警针对 /var，我还没检查写入情况。
+
+4
+00:00:18.673 --> 00:00:24.241
+Priya: Okay, I'll take point on this. Anika, can you check the queue?
+好，这次我来协调。Anika，你查一下队列好吗？
+
+5
+00:00:24.241 --> 00:00:28.465
+Hannah: Just to confirm, we're not restarting anything yet?
+我确认一下，现在还不重启任何服务，对吧？
+
+6
+00:00:28.465 --> 00:00:36.409
+Anika: Right, not yet. I'm on it. The queue is accepting events, but consumption looks slow.
+对，先不重启。我在查。队列还能接收事件，但消费看起来变慢了。
+
+7
+00:00:36.409 --> 00:00:41.809
+Lukas: Then let's check the errors before touching files. We need evidence.
+那就先检查错误，再动文件。我们需要有证据。
+
+8
+00:00:41.809 --> 00:00:47.258
+Priya: Raj, what's the ETA for a first look? Roughly is fine.
+Raj，初步检查预计多久？给个大概时间就行。
+
+9
+00:00:47.258 --> 00:00:51.410
+Hannah: I can check the other workers while Raj checks this one.
+Raj 查这台时，我可以检查其他工作节点。
+
+10
+00:00:51.410 --> 00:00:59.810
+Raj: About two minutes. More disk space might help, but let's park that. We need the cause first, right?
+大约两分钟。扩容可能有用，但先把这个放一边。我们得先查原因，对吧？
+

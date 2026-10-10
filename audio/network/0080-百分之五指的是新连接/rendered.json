@@ -1,0 +1,135 @@
+{
+ "id": "0080",
+ "part": 5,
+ "stage": "小流量切换",
+ "title": "百分之五指的是新连接",
+ "premise": "获准迁移百分之五新连接，旧池健康且配置可回退。",
+ "listeningTask": "不要把连接权重误听为请求比例，并识别长连接保护。",
+ "newPhrase": "p355",
+ "phrases": [
+  "p355",
+  "p351",
+  "p010",
+  "p309:extra",
+  "p327:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Okay, ready to shift traffic now. Five percent of new connections uses green.",
+   "zh": "好，现在准备迁移流量。百分之五的新连接进入绿池。",
+   "role": "Network engineer",
+   "start": 0.0,
+   "end": 6.408
+  },
+  {
+   "sp": "Hannah",
+   "en": "The observed request share isn't five percent. Long connections explain some of that difference.",
+   "zh": "实际请求比例不是百分之五，长连接能解释部分差异。",
+   "role": "Validation engineer",
+   "start": 6.408,
+   "end": 14.232
+  },
+  {
+   "sp": "Anika",
+   "en": "The first sandbox checkout passed through green. The callback followed the correct path.",
+   "zh": "首个沙箱结账通过绿池，回调也走了正确路径。",
+   "role": "Checkout owner",
+   "start": 14.232,
+   "end": 20.64
+  },
+  {
+   "sp": "Lukas",
+   "en": "Did you verify the pool identifier? Success alone doesn't prove the new path.",
+   "zh": "核对池标识了吗？成功本身不能证明走了新路径。",
+   "role": "SRE reviewer",
+   "start": 20.64,
+   "end": 26.664
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes, the request trace includes green. No customer payloads in that evidence.",
+   "zh": "核对了，请求链路包含绿池，证据不包含客户载荷。",
+   "role": "Checkout owner",
+   "start": 26.664,
+   "end": 33.144
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, keep an eye on resets, right? Include errors from both pools.",
+   "zh": "我确认一下，也留意连接重置，对吧？两个池的错误都要看。",
+   "role": "Change coordinator",
+   "start": 33.144,
+   "end": 39.864
+  },
+  {
+   "sp": "Hannah",
+   "en": "No resets above baseline so far. Keep watching; the sample is small.",
+   "zh": "目前连接重置未高于基线。继续观察，样本还少。",
+   "role": "Validation engineer",
+   "start": 39.864,
+   "end": 46.824
+  },
+  {
+   "sp": "Raj",
+   "en": "Connection draining protects the old sessions. We'll allow their normal timeout period.",
+   "zh": "连接排空保护旧会话，我们会允许其正常超时周期。",
+   "role": "Network engineer",
+   "start": 46.824,
+   "end": 53.304
+  },
+  {
+   "sp": "Lukas",
+   "en": "What's the ETA for enough canary samples? Include another smoke test before expansion.",
+   "zh": "灰度样本达到足量预计多久？扩大前再做一次冒烟测试。",
+   "role": "SRE reviewer",
+   "start": 53.304,
+   "end": 60.144
+  },
+  {
+   "sp": "Priya",
+   "en": "Roughly ten minutes at current load. So, hold five percent until then.",
+   "zh": "按当前负载大约十分钟。所以此前保持百分之五。",
+   "role": "Change coordinator",
+   "start": 60.144,
+   "end": 66.24
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 5,
+ "scene": "获准迁移百分之五新连接，旧池健康且配置可回退。",
+ "dir": "network/0080-百分之五指的是新连接",
+ "audio": "0080-百分之五指的是新连接.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "小流量切换"
+ ],
+ "duration": 66.24
+}

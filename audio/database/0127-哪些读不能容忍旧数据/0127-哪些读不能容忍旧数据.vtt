@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.872
+Anika: Payment confirmation needs read-after-write consistency here. Historical reports can tolerate older results.
+支付确认这里要求写后读一致性，历史报表可以容忍较旧结果。
+
+2
+00:00:07.872 --> 00:00:14.040
+Lukas: What about customer order status pages? They also follow fresh writes frequently.
+客户订单状态页呢？它也经常紧跟新写入。
+
+3
+00:00:14.040 --> 00:00:20.353
+Anika: You're right, include those pages too. That's our blast radius for stale reads.
+你说得对，状态页也算进去，这是旧数据读取的影响范围。
+
+4
+00:00:20.353 --> 00:00:27.097
+Priya: Just to confirm, not every report, right? We shouldn't shift all reads blindly.
+确认一下，不是所有报表，对吧？不能盲目把所有读都切过去。
+
+5
+00:00:27.097 --> 00:00:35.065
+Hannah: Agreed. Mark delayed reports clearly instead. Never label old data as current.
+同意，给延迟报表明确标记，不能把旧数据标成当前数据。
+
+6
+00:00:35.065 --> 00:00:42.097
+Raj: Replication lag is climbing beyond two minutes. Maybe replay can't match incoming changes.
+复制延迟已上升超过两分钟，可能回放赶不上新变更。
+
+7
+00:00:42.097 --> 00:00:48.025
+Lukas: I'll keep an eye on primary. Limit sensitive reads if capacity tightens.
+我观察主库，容量紧张就限制敏感读的接纳量。
+
+8
+00:00:48.025 --> 00:00:54.578
+Priya: A full failover? Let's park that. We have no writer failure evidence.
+全量故障切主先放一边，没有证据证明写库故障。
+
+9
+00:00:54.578 --> 00:01:02.186
+Hannah: Also check cached status responses carefully. Routing alone won't clear stale caches.
+还要仔细检查状态响应缓存，改路由不会清掉旧缓存。
+
+10
+00:01:02.186 --> 00:01:08.810
+Raj: Okay, compare the positions next then. That should separate transport from replay.
+好，那下一步对比位置，以区分传输和回放问题。
+

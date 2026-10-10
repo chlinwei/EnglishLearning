@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.096
+Lukas: A concurrent index build still takes locks. It can wait for older transactions.
+
+2
+00:00:06.096 --> 00:00:12.600
+Raj: So a lock wait remains possible. Ordinary writes can continue through most phases.
+
+3
+00:00:12.600 --> 00:00:18.912
+Anika: I said lock-free earlier, that's wrong. I meant reduced blocking for this engine.
+
+4
+00:00:18.912 --> 00:00:26.904
+Priya: Just to confirm, engine-specific behavior, right? MySQL online DDL has different limits.
+
+5
+00:00:26.904 --> 00:00:36.000
+Hannah: Exactly, including metadata locks and algorithms. Don't copy this approval across databases.
+
+6
+00:00:36.000 --> 00:00:43.320
+Raj: The statement runs outside transaction blocks. We'll configure bounded waits through reviewed settings.
+
+7
+00:00:43.320 --> 00:00:50.208
+Lukas: Define a rollback trigger before execution. Cancellation may leave an unusable index.
+
+8
+00:00:50.208 --> 00:00:58.224
+Priya: Okay, simultaneous schema changes? Let's park that. Maybe they compete for table locks.
+
+9
+00:00:58.224 --> 00:01:06.144
+Hannah: Our working hypothesis isn't zero impact. We expect tolerable waits with monitoring.
+
+10
+00:01:06.144 --> 00:01:12.120
+Anika: So, I'll correct the change description. It must state that risk clearly.
+

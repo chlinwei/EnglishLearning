@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.808
+Priya: Time for the go/no-go. Anika, are the business checks good enough to proceed?
+
+2
+00:00:05.808 --> 00:00:13.104
+Anika: Yes. Error rate and latency match the other hosts. We've seen enough requests.
+
+3
+00:00:13.104 --> 00:00:18.527
+Lukas: And no driver errors? We need both app and host checks for that decision.
+
+4
+00:00:18.527 --> 00:00:26.447
+Raj: None. Just to confirm, one node at a time still, right? B next, not B and C.
+
+5
+00:00:26.447 --> 00:00:33.575
+Hannah: Let me play that back. Restore A's normal weight, verify it, then drain B?
+
+6
+00:00:33.575 --> 00:00:39.743
+Priya: Exactly. What's the ETA for all remaining hosts if each check stays clean?
+
+7
+00:00:39.743 --> 00:00:46.343
+Lukas: About thirty minutes. Pause if a step runs long; don't shorten validation to catch up.
+
+8
+00:00:46.343 --> 00:00:52.198
+Anika: I'll keep an eye on errors as the weights change. Call out each transition.
+
+9
+00:00:52.198 --> 00:00:58.774
+Hannah: I'll keep a separate result for each host. A passing doesn't prove B will pass.
+
+10
+00:00:58.774 --> 00:01:05.470
+Raj: A is fully back now. Checks are clean. I'll start B's drain next.
+

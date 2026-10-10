@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.560
+Raj: The restart count rose three times. Eighteen forty, eighteen forty-four, then eighteen forty-eight.
+重启计数增加了三次，分别是18:40、18:44和18:48。
+
+2
+00:00:07.560 --> 00:00:13.009
+Hannah: Since the last boot? Or since someone reset the service state?
+是从上次开机开始算，还是从有人重置服务状态开始算？
+
+3
+00:00:13.009 --> 00:00:18.961
+Raj: I matched the increments to journal entries. The timestamps are in the ticket.
+我把计数变化和journal日志对应上了，时间戳写在工单里。
+
+4
+00:00:18.961 --> 00:00:23.545
+Priya: Just to confirm, no manual restart in that period, right?
+我确认一下，那段时间没有手动重启，对吧？
+
+5
+00:00:23.545 --> 00:00:30.626
+Lukas: Let me play that back. Three automatic restarts, then fetching paused at eighteen fifty-two?
+我复述一下：三次自动重启，然后18:52暂停拉取？
+
+6
+00:00:30.626 --> 00:00:37.994
+Anika: Exactly. No deploy or manual stop. We can rule that out from the change log.
+正是这样。没有部署或手动停止，可以根据变更记录排除。
+
+7
+00:00:37.994 --> 00:00:44.307
+Hannah: I'll keep an eye on new increments. Don't rely on the counter without the journal.
+我会关注新增次数。不能离开journal记录只看计数器。
+
+8
+00:00:44.307 --> 00:00:50.739
+Priya: Raj, attach the matching entries. We need evidence the next shift can follow.
+Raj，把对应记录附上，下个班需要能追溯的证据。
+
+9
+00:00:50.739 --> 00:00:56.572
+Lukas: And include the pause timestamp. That gives us a useful before-and-after boundary.
+也加上暂停时间，那能作为对比操作前后的边界。
+
+10
+00:00:56.572 --> 00:01:03.460
+Raj: I'm on it. They're saved already. I'll link the exact section before I leave.
+我来处理。记录已经保存，我离开前会链接到具体位置。
+

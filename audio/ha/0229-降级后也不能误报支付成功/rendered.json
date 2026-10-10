@@ -1,0 +1,135 @@
+{
+ "id": "0229",
+ "part": 4,
+ "stage": "降级评审",
+ "title": "降级后也不能误报支付成功",
+ "premise": "阈值初稿完成，产品评审可见的降级行为与重试语义。",
+ "listeningTask": "辨别推荐回退、支付结果未知和业务成功。",
+ "newPhrase": "p504",
+ "phrases": [
+  "p504",
+  "p502",
+  "p324",
+  "p004:extra",
+  "p306:extra",
+  "p010:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Graceful degradation removes recommendations, not order confirmation.",
+   "zh": "有控制的降级移除推荐，不移除订单确认。",
+   "role": "Checkout product engineer",
+   "start": 0.0,
+   "end": 4.968
+  },
+  {
+   "sp": "Hannah",
+   "en": "What does the customer see during payment uncertainty?",
+   "zh": "支付结果不明时，客户会看到什么？",
+   "role": "Validation engineer",
+   "start": 4.968,
+   "end": 9.169
+  },
+  {
+   "sp": "Anika",
+   "en": "Pending status. Never a fabricated success message.",
+   "zh": "显示处理中，绝不虚构成功消息。",
+   "role": "Checkout product engineer",
+   "start": 9.169,
+   "end": 13.993
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does cached content remain tenant-safe and fresh?",
+   "zh": "缓存内容是否保持租户隔离和适当时效？",
+   "role": "Capacity reviewer",
+   "start": 13.993,
+   "end": 17.738
+  },
+  {
+   "sp": "Raj",
+   "en": "Public recommendations only. Personalized responses aren't shared.",
+   "zh": "只缓存公共推荐，不共享个性化响应。",
+   "role": "Gateway engineer",
+   "start": 17.738,
+   "end": 23.522
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, critical path intact, right?",
+   "zh": "确认一下，关键业务路径保持完整，对吧？",
+   "role": "Change coordinator",
+   "start": 23.522,
+   "end": 27.506
+  },
+  {
+   "sp": "Hannah",
+   "en": "Maybe. Test confirmation when recommendations are unavailable.",
+   "zh": "也许。测试推荐不可用时的订单确认。",
+   "role": "Validation engineer",
+   "start": 27.506,
+   "end": 33.387
+  },
+  {
+   "sp": "Raj",
+   "en": "That'll buy us time without hiding payment errors.",
+   "zh": "这能争取时间，又不掩盖支付错误。",
+   "role": "Gateway engineer",
+   "start": 33.387,
+   "end": 37.083
+  },
+  {
+   "sp": "Lukas",
+   "en": "Okay, define the rollback trigger using business outcomes.",
+   "zh": "好，用业务结果定义回退触发条件。",
+   "role": "Capacity reviewer",
+   "start": 37.083,
+   "end": 41.548
+  },
+  {
+   "sp": "Priya",
+   "en": "New recommendation designs? Let's park that today.",
+   "zh": "新的推荐设计？今天先暂存这个话题。",
+   "role": "Change coordinator",
+   "start": 41.548,
+   "end": 46.18
+  }
+ ],
+ "group": "change",
+ "domain": "ha",
+ "series": "sc-S23-ha-rate-limits",
+ "parts": 10,
+ "seq": 4,
+ "scene": "阈值初稿完成，产品评审可见的降级行为与重试语义。",
+ "dir": "ha/0229-降级后也不能误报支付成功",
+ "audio": "0229-降级后也不能误报支付成功.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Gateway engineer）",
+  "Anika（Checkout product engineer）",
+  "Lukas（Capacity reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "降级评审"
+ ],
+ "duration": 46.18
+}

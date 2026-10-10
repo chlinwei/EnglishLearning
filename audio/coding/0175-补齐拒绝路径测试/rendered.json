@@ -1,0 +1,135 @@
+{
+ "id": "0175",
+ "part": 10,
+ "stage": "复盘",
+ "title": "补齐拒绝路径测试",
+ "premise": "小范围恢复清理成功，回顾空参数如何通过测试与评审。",
+ "listeningTask": "区别直接根因、测试缺口与尚待查证的流程原因。",
+ "newPhrase": "p450",
+ "phrases": [
+  "p450",
+  "p009",
+  "p447:extra",
+  "p448:extra",
+  "p310:extra",
+  "p012:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "We lacked a negative test case. Fixtures always supplied a valid tenant identifier.",
+   "zh": "此前缺少异常输入拒绝测试，用例始终传合法租户标识。",
+   "role": "Cleanup script maintainer",
+   "start": 0.0,
+   "end": 6.984
+  },
+  {
+   "sp": "Hannah",
+   "en": "The reproduction establishes the direct path failure. Why review missed it still needs investigation.",
+   "zh": "复现确认直接路径故障，评审为什么漏掉仍需调查。",
+   "role": "Evidence and test validation engineer",
+   "start": 6.984,
+   "end": 15.553
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, just to recap, reads are restored. Cleanup remains limited to the approved tenant.",
+   "zh": "好，小结：读取已恢复，清理仍限于批准租户。",
+   "role": "Incident coordinator and approval owner",
+   "start": 15.553,
+   "end": 22.609
+  },
+  {
+   "sp": "Anika",
+   "en": "The guard clause covers missing arguments, right? Path containment also covers valid but unsafe paths.",
+   "zh": "保护分支覆盖缺失参数，对吧？路径边界保护也覆盖有值但危险的路径。",
+   "role": "Artifact service and recovery owner",
+   "start": 22.609,
+   "end": 30.458
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, plus scoped permissions and race protection. Don't collapse those layers into one checkbox.",
+   "zh": "对，还包括限定权限和防竞态，不能把这些合并成一项勾选。",
+   "role": "SRE and process containment owner",
+   "start": 30.458,
+   "end": 37.826
+  },
+  {
+   "sp": "Raj",
+   "en": "One action item is mutation-based safety testing. I'll prove disabled guards make tests fail.",
+   "zh": "一个行动项是变异测试，我会验证关掉保护后测试确实失败。",
+   "role": "Cleanup script maintainer",
+   "start": 37.826,
+   "end": 45.482
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll review that evidence before closure. Passing tests need to detect broken safeguards.",
+   "zh": "关闭事件前我审查证据，通过的测试必须能发现保护失效。",
+   "role": "Evidence and test validation engineer",
+   "start": 45.482,
+   "end": 53.139
+  },
+  {
+   "sp": "Priya",
+   "en": "Maybe we should sample other cleanup tools. Let's close the loop on this one first.",
+   "zh": "可能还该抽查其他清理工具，先把本次整改闭环。",
+   "role": "Incident coordinator and approval owner",
+   "start": 53.139,
+   "end": 59.547
+  },
+  {
+   "sp": "Lukas",
+   "en": "Assign a deadline for the review investigation. Recovery success doesn't explain the approval gap.",
+   "zh": "为评审缺口调查定期限，恢复成功不等于解释了审批漏项。",
+   "role": "SRE and process containment owner",
+   "start": 59.547,
+   "end": 66.7
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll bring the evidence next Tuesday. Expansion stays blocked until the checks are signed off.",
+   "zh": "我下周二带证据回来，检查正式验收前不扩大清理。",
+   "role": "Artifact service and recovery owner",
+   "start": 66.7,
+   "end": 73.54
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 10,
+ "scene": "小范围恢复清理成功，回顾空参数如何通过测试与评审。",
+ "dir": "coding/0175-补齐拒绝路径测试",
+ "audio": "0175-补齐拒绝路径测试.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "复盘"
+ ],
+ "duration": 73.54
+}

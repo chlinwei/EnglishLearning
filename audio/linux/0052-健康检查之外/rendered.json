@@ -1,0 +1,135 @@
+{
+ "id": "0052",
+ "part": 7,
+ "stage": "业务验证",
+ "title": "健康检查之外：业务请求真的成功吗",
+ "premise": "A主机网络、存储和驱动验证通过，准备先做业务检查再恢复少量流量。",
+ "listeningTask": "区分进程健康、业务验证和生产流量观察。",
+ "newPhrase": "p327",
+ "phrases": [
+  "p327",
+  "p010",
+  "p319",
+  "p008:extra",
+  "p111:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Health endpoint is green. I'll run the smoke test through our approved test route.",
+   "zh": "健康端点正常。我会通过批准的测试路由跑关键功能快速验证。",
+   "role": "API owner",
+   "start": 0.0,
+   "end": 6.048
+  },
+  {
+   "sp": "Lukas",
+   "en": "Does it exercise dependencies? A healthy process can still fail real requests.",
+   "zh": "会覆盖依赖吗？进程健康也可能处理不了真实请求。",
+   "role": "SRE reviewer",
+   "start": 6.048,
+   "end": 12.312
+  },
+  {
+   "sp": "Anika",
+   "en": "Yes. Catalog lookup, cache access, and database reads. Test credentials only, no production writes.",
+   "zh": "会，商品查询、缓存访问和数据库读取。只用测试凭据，不执行生产写操作。",
+   "role": "API owner",
+   "start": 12.312,
+   "end": 21.767
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, routing reaches A specifically, right? Not one of the healthy hosts?",
+   "zh": "我确认一下，路由明确到A主机，对吧？不是误打到其他健康主机？",
+   "role": "Change coordinator",
+   "start": 21.767,
+   "end": 28.751
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, the response identifies A. Dependency checks pass and error counts stay flat.",
+   "zh": "对，响应标识来自A。依赖检查通过，错误数没有增长。",
+   "role": "Validation engineer",
+   "start": 28.751,
+   "end": 36.623
+  },
+  {
+   "sp": "Raj",
+   "en": "Memory headroom looks normal too. What's the ETA before we restore a little traffic?",
+   "zh": "内存余量看起来也正常，预计多久可以恢复少量流量？",
+   "role": "Linux operator",
+   "start": 36.623,
+   "end": 43.127
+  },
+  {
+   "sp": "Lukas",
+   "en": "Now, if the checks are recorded. Use the approved low weight first.",
+   "zh": "如果检查已记录，现在可以。先用批准的低权重。",
+   "role": "SRE reviewer",
+   "start": 43.127,
+   "end": 48.599
+  },
+  {
+   "sp": "Priya",
+   "en": "I'm on it for approval. Let's keep it under observation before increasing that weight.",
+   "zh": "我来确认批准。提高权重之前先保持观察。",
+   "role": "Change coordinator",
+   "start": 48.599,
+   "end": 54.766
+  },
+  {
+   "sp": "Hannah",
+   "en": "We'll compare latency and errors against the untouched hosts, under the same traffic mix.",
+   "zh": "我们会在相同流量组成下，与未变更主机比较延迟和错误。",
+   "role": "Validation engineer",
+   "start": 54.766,
+   "end": 61.702
+  },
+  {
+   "sp": "Anika",
+   "en": "Maybe five minutes for this first check. If traffic is too light, we'll need longer.",
+   "zh": "首次观察大约五分钟。如果流量太低，就需要更久。",
+   "role": "API owner",
+   "start": 61.702,
+   "end": 68.11
+  }
+ ],
+ "group": "change",
+ "domain": "linux",
+ "series": "sc-S05-linux-kernel-patch",
+ "parts": 10,
+ "seq": 7,
+ "scene": "A主机网络、存储和驱动验证通过，准备先做业务检查再恢复少量流量。",
+ "dir": "linux/0052-健康检查之外",
+ "audio": "0052-健康检查之外.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Linux operator）",
+  "Anika（API owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "linux",
+  "业务验证"
+ ],
+ "duration": 68.11
+}

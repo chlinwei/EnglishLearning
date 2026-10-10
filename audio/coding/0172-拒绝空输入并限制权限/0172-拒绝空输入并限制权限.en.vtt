@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.032
+Raj: The guard clause rejects missing tenant values. An empty path component now fails closed.
+
+2
+00:00:07.032 --> 00:00:15.048
+Lukas: That protects inputs, not every filesystem race. Use constrained directory handles for deletion too.
+
+3
+00:00:15.048 --> 00:00:22.585
+Anika: I'll narrow the identity to tenant storage. Shared artifact directories won't grant deletion rights.
+
+4
+00:00:22.585 --> 00:00:29.809
+Priya: Just to confirm, links are rejected, right? We're not silently following external targets.
+
+5
+00:00:29.809 --> 00:00:37.681
+Hannah: Yes, and replacement races need explicit tests. A static path check isn't enough.
+
+6
+00:00:37.681 --> 00:00:44.521
+Raj: I'm on it with the handle-based implementation. Maybe we'll need a platform-specific helper.
+
+7
+00:00:44.521 --> 00:00:52.225
+Lukas: Review that helper before production use. Unsupported platforms must refuse deletion rather than fallback.
+
+8
+00:00:52.225 --> 00:01:00.410
+Priya: Okay, make that an explicit action item. Hannah owns verification, Raj owns the implementation.
+
+9
+00:01:00.410 --> 00:01:08.714
+Hannah: I'll preserve the evidence alongside test results. Reviewers can trace each protection to failure.
+
+10
+00:01:08.714 --> 00:01:16.250
+Anika: Good, cleanup permissions stay suspended for now. Code approval alone won't unlock production access.
+

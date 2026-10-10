@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.984
+Anika: Okay, the file descriptor limit pilot passed. Two staging workers now have higher limits.
+
+2
+00:00:06.984 --> 00:00:13.920
+Lukas: Did you change the shell ulimit only? Systemd services inherit their own configured limits.
+
+3
+00:00:13.920 --> 00:00:21.383
+Anika: No, managed configuration sets the service limit. We checked the running process after restart.
+
+4
+00:00:21.383 --> 00:00:28.871
+Hannah: Was the kernel-wide file table checked too? A higher per-process cap isn't free capacity.
+
+5
+00:00:28.871 --> 00:00:35.927
+Raj: Yes, and memory headroom stayed healthy. The test also bounded connection counts explicitly.
+
+6
+00:00:35.927 --> 00:00:43.343
+Priya: Just to confirm, production unchanged, right? Increasing limits doesn't fix a descriptor leak.
+
+7
+00:00:43.343 --> 00:00:51.071
+Lukas: Correct, document the rollback trigger separately. Restore the saved service configuration if checks fail.
+
+8
+00:00:51.071 --> 00:00:57.430
+Anika: And a restart needs its approved window. Roughly five minutes per worker in staging.
+
+9
+00:00:57.430 --> 00:01:05.158
+Hannah: Don't copy that timing straight into production. Workload and draining behavior may differ there.
+
+10
+00:01:05.158 --> 00:01:12.790
+Priya: So, production sizing? Let's park that. Today we finish the pilot evidence first.
+

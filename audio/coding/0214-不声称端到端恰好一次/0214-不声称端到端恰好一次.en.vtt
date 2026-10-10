@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.544
+Hannah: Would you describe this as exactly-once processing? Explain the guarantee without hiding its limits.
+
+2
+00:00:08.544 --> 00:00:16.537
+Raj: No, our queue provides at-least-once delivery. The idempotency key limits duplicate remote side effects.
+
+3
+00:00:16.537 --> 00:00:23.233
+Lukas: But the local ledger isn't remotely atomic. What remains uncertain after a long outage?
+
+4
+00:00:23.233 --> 00:00:31.610
+Raj: Unknown results may outlive the deduplication period. Just to confirm, blind resubmission is unsafe, right?
+
+5
+00:00:31.610 --> 00:00:40.178
+Raj: Okay, a temporary workaround pauses those operations. One action item is authoritative result reconciliation.
+
+6
+00:00:40.178 --> 00:00:46.874
+Hannah: Would adding another database solve that gap? Or does it merely move the uncertainty?
+
+7
+00:00:46.874 --> 00:00:55.371
+Raj: It won't create a cross-system transaction automatically. Maybe stronger service contracts are needed for guarantees.
+
+8
+00:00:55.371 --> 00:01:01.875
+Lukas: What complexity would you defer initially? We still want a maintainable first solution.
+
+9
+00:01:01.875 --> 00:01:10.780
+Raj: Let's park that custom distributed transaction coordinator. I'd prefer the provided contract and explicit reconciliation.
+
+10
+00:01:10.780 --> 00:01:18.820
+Raj: The trade-off is visible operational follow-up work. I'd document that rather than promise impossible semantics.
+

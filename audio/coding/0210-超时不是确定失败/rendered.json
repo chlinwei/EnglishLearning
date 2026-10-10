@@ -1,0 +1,129 @@
+{
+ "id": "0210",
+ "part": 5,
+ "stage": "重试",
+ "title": "超时不是确定失败",
+ "premise": "API提供有限期幂等去重，继续讨论瞬态失败与重试。",
+ "listeningTask": "理解退避、随机抖动、截止时间及结果查询。",
+ "newPhrase": "p485",
+ "phrases": [
+  "p485",
+  "p010",
+  "p484:extra",
+  "p309:extra",
+  "p008:extra",
+  "p004:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "How would you handle timeouts and throttling? Give the retry limits, not just a loop.",
+   "zh": "如何处理超时与限流？说明重试边界，不只是循环。",
+   "role": "Primary interviewer, programming and systems",
+   "start": 0.0,
+   "end": 6.24
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd retry with backoff and random jitter. Reuse the idempotency key and unchanged payload.",
+   "zh": "采用退避和随机抖动重试，复用幂等键和原负载。",
+   "role": "DevOps engineering candidate",
+   "start": 6.24,
+   "end": 13.801
+  },
+  {
+   "sp": "Hannah",
+   "en": "What limits would bound that retry policy? Remember the server's finite deduplication retention.",
+   "zh": "什么限制重试策略？记住服务端去重有保留期限。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 13.801,
+   "end": 21.817
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, set attempts and an overall deadline. Just to confirm, throttling supplies Retry-After, right?",
+   "zh": "好，设次数和总截止时间，确认一下，限流提供Retry-After，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 21.817,
+   "end": 29.762
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd honor it within the remaining deadline. Maybe a result query resolves ambiguous timeouts faster.",
+   "zh": "在剩余期限内遵守，结果查询可能更快解决不确定超时。",
+   "role": "DevOps engineering candidate",
+   "start": 29.762,
+   "end": 37.298
+  },
+  {
+   "sp": "Lukas",
+   "en": "The API supports querying by operation identifier. What if that query is unavailable too?",
+   "zh": "API支持按操作标识查询，如果查询也不可用呢？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 37.298,
+   "end": 44.81
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd keep an eye on unresolved operations. At the deadline, persist unknown rather than failed.",
+   "zh": "持续关注未决操作，到截止时间存为结果未知，不是确定失败。",
+   "role": "DevOps engineering candidate",
+   "start": 44.81,
+   "end": 52.515
+  },
+  {
+   "sp": "Hannah",
+   "en": "A caller asks, what's the ETA now? Would you promise completion from the retry schedule?",
+   "zh": "调用方问预计何时完成，会根据重试计划承诺完成吗？",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 52.515,
+   "end": 59.907
+  },
+  {
+   "sp": "Raj",
+   "en": "No, I'd report the next planned attempt. That's an estimate, not guaranteed completion or success.",
+   "zh": "不会，只报下一次计划尝试时间，是估计，不保证完成或成功。",
+   "role": "DevOps engineering candidate",
+   "start": 59.907,
+   "end": 68.044
+  },
+  {
+   "sp": "Raj",
+   "en": "Let's park that operation for reconciliation afterward. Never issue a fresh key to bypass uncertainty.",
+   "zh": "之后把该操作留待核对，绝不发新键绕过不确定性。",
+   "role": "DevOps engineering candidate",
+   "start": 68.044,
+   "end": 76.06
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 5,
+ "scene": "API提供有限期幂等去重，继续讨论瞬态失败与重试。",
+ "dir": "coding/0210-超时不是确定失败",
+ "audio": "0210-超时不是确定失败.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "重试"
+ ],
+ "duration": 76.06
+}

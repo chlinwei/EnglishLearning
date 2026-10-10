@@ -94,7 +94,11 @@
   /* ---------- 搜索 ---------- */
   var query = '';
   var openGroups = UI.open || null;
-  function isOpen(gid) { if (query.trim()) return true; if (!openGroups) return true; return openGroups[gid] !== false; }
+  function isOpen(gid) {
+    if (query.trim()) return true;
+    if (openGroups && Object.prototype.hasOwnProperty.call(openGroups, gid)) return openGroups[gid] === true;
+    return !!(cur && cur.group === gid);
+  }
   function matches(it, f) {
     if (!f) return true;
     var g = GMAP[it.group];
@@ -154,9 +158,11 @@
           var name = se ? se.title : (GMAP[list[0].group] || {}).name || '未分集合';
           var meta = doneOf(arr) + '/' + arr.length;
           if (arr.length > 1) meta += ' · ' + fmt(durOf(arr));
-          return '<div class="shead"><span class="sh-t">' + esc(name) + '</span>'
-            + '<span class="sn">' + esc(meta) + '</span></div>'
-            + arr.map(itRow).join('');
+          var expanded = query.trim() || (UI.openScenes && UI.openScenes[sid] === true);
+          return '<details class="scene-tree" data-scene="' + esc(sid) + '"' + (expanded ? ' open' : '') + '>'
+            + '<summary class="shead"><span class="sh-t">' + esc(name) + '</span>'
+            + '<span class="sn">' + esc(meta) + '</span></summary>'
+            + arr.map(itRow).join('') + '</details>';
         }).join('');
       } else {
         body = list.map(itRow).join('');
@@ -196,6 +202,18 @@
       if (MODE === 'index') document.getElementById('main').innerHTML = indexMain();
     });
     document.getElementById('nav').addEventListener('click', function (e) {
+      var summary = e.target.closest ? e.target.closest('.scene-tree > summary') : null;
+      if (summary) {
+        e.preventDefault();
+        var scene = summary.parentNode;
+        scene.open = !scene.open;
+        if (!query.trim()) {
+          UI.openScenes = UI.openScenes || {};
+          UI.openScenes[scene.getAttribute('data-scene')] = scene.open;
+          writeJSON(UKEY, UI);
+        }
+        return;
+      }
       var h = e.target.closest ? e.target.closest('.grp-h') : null;
       if (!h) return;
       var grp = h.parentNode, gid = grp.getAttribute('data-g');

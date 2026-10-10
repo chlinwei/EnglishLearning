@@ -1,0 +1,135 @@
+{
+ "id": "0219",
+ "part": 4,
+ "stage": "防双主",
+ "title": "先锁住：路由不是隔离",
+ "premise": "旧主仍可能执行本地任务，不能仅靠切换路由。",
+ "listeningTask": "抓住防双写措施与不充分的网络隔离。",
+ "newPhrase": "p494",
+ "phrases": [
+  "p494",
+  "p493",
+  "p010",
+  "p106:extra",
+  "p209:extra",
+  "p336:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Let's freeze changes. Split brain is the risk.",
+   "zh": "冻结变更。风险是双主脑裂。",
+   "role": "Incident coordinator",
+   "start": 0.0,
+   "end": 4.488
+  },
+  {
+   "sp": "Lukas",
+   "en": "Changing DNS won't stop local database writers.",
+   "zh": "改DNS不会停止数据库本地写入者。",
+   "role": "Cluster safety engineer",
+   "start": 4.488,
+   "end": 8.448
+  },
+  {
+   "sp": "Raj",
+   "en": "The network partition leaves old sessions uncertain.",
+   "zh": "网络分区使旧会话状态不明。",
+   "role": "Database on-call",
+   "start": 8.448,
+   "end": 12.48
+  },
+  {
+   "sp": "Hannah",
+   "en": "And network filters might miss another interface.",
+   "zh": "网络过滤也可能漏掉另一个网卡。",
+   "role": "Data validation engineer",
+   "start": 12.48,
+   "end": 16.728
+  },
+  {
+   "sp": "Anika",
+   "en": "That's our blast radius: conflicting order records.",
+   "zh": "影响范围就是产生冲突的订单记录。",
+   "role": "Order application owner",
+   "start": 16.728,
+   "end": 20.712
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, power fencing first, right?",
+   "zh": "确认一下，先做电源隔离，对吧？",
+   "role": "Incident coordinator",
+   "start": 20.712,
+   "end": 24.528
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, with independent confirmation and restart inhibition.",
+   "zh": "是的，需独立确认并禁止自动重启。",
+   "role": "Cluster safety engineer",
+   "start": 24.528,
+   "end": 29.184
+  },
+  {
+   "sp": "Raj",
+   "en": "The escalation path reaches our infrastructure operator.",
+   "zh": "升级联系路径可联系基础设施操作员。",
+   "role": "Database on-call",
+   "start": 29.184,
+   "end": 33.624
+  },
+  {
+   "sp": "Hannah",
+   "en": "Could automated recovery turn it back on?",
+   "zh": "自动恢复会不会把它重新打开？",
+   "role": "Data validation engineer",
+   "start": 33.624,
+   "end": 37.032
+  },
+  {
+   "sp": "Priya",
+   "en": "Possibly. We'll disable that before any promotion.",
+   "zh": "有可能。提升前我们会先禁用它。",
+   "role": "Incident coordinator",
+   "start": 37.032,
+   "end": 41.76
+  }
+ ],
+ "group": "incident",
+ "domain": "ha",
+ "series": "sc-S22-ha-failover",
+ "parts": 10,
+ "seq": 4,
+ "scene": "旧主仍可能执行本地任务，不能仅靠切换路由。",
+ "dir": "ha/0219-先锁住",
+ "audio": "0219-先锁住.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Database on-call）",
+  "Anika（Order application owner）",
+  "Lukas（Cluster safety engineer）",
+  "Hannah（Data validation engineer）"
+ ],
+ "tags": [
+  "ha",
+  "防双主"
+ ],
+ "duration": 41.76
+}

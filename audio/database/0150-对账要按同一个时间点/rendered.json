@@ -1,0 +1,135 @@
+{
+ "id": "0150",
+ "part": 5,
+ "stage": "数据校验",
+ "title": "对账要按同一个时间点",
+ "premise": "回放达到目标点并开放隔离测试访问，核验目标点前后数据。",
+ "listeningTask": "听出行数匹配还不足够，以及为何不能直接比当前生产。",
+ "newPhrase": "p425",
+ "phrases": [
+  "p425",
+  "p423",
+  "p010:extra",
+  "p302:extra",
+  "p327:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Anika",
+   "en": "Initial reconciliation checks passed for sampled tenants. Counts and payment totals match references.",
+   "zh": "抽样租户初步对账通过，行数和付款总额匹配参考值。",
+   "role": "Outgoing application validation owner",
+   "start": 0.0,
+   "end": 7.512
+  },
+  {
+   "sp": "Hannah",
+   "en": "Which reference time does that represent? Current source totals would be wrong.",
+   "zh": "参考值代表哪个时间？当前数据源总额不能直接比较。",
+   "role": "Incoming reconciliation engineer",
+   "start": 7.512,
+   "end": 14.041
+  },
+  {
+   "sp": "Raj",
+   "en": "The frozen drill ledger at two ten. It matches our recovery target exactly.",
+   "zh": "两点十分的冻结演练账本，准确匹配恢复目标。",
+   "role": "Outgoing database on-call",
+   "start": 14.041,
+   "end": 20.137
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, boundary markers too, right? Counts can match with wrong rows.",
+   "zh": "确认一下，也查边界标记，对吧？行错了也可能数量一致。",
+   "role": "Recovery drill coordinator",
+   "start": 20.137,
+   "end": 26.858
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, show commits around that boundary. We need positive and negative evidence.",
+   "zh": "对，展示边界前后的提交，需要存在和不存在两类证据。",
+   "role": "Incoming database on-call",
+   "start": 26.858,
+   "end": 33.218
+  },
+  {
+   "sp": "Anika",
+   "en": "The two-oh-nine-fifty-eight commit is present. The two-ten-oh-two commit is correctly absent.",
+   "zh": "两点九分五十八秒提交存在，两点十分零二秒提交正确地不存在。",
+   "role": "Outgoing application validation owner",
+   "start": 33.218,
+   "end": 39.722
+  },
+  {
+   "sp": "Hannah",
+   "en": "Good, the smoke test checks references too. But full tenant reconciliation remains unfinished.",
+   "zh": "好，冒烟测试也核对关联关系，但完整租户对账仍没完成。",
+   "role": "Incoming reconciliation engineer",
+   "start": 39.722,
+   "end": 48.075
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it for query evidence links. Maybe larger tenants need longer checks.",
+   "zh": "我提供查询证据链接，大租户检查可能更久。",
+   "role": "Outgoing database on-call",
+   "start": 48.075,
+   "end": 54.363
+  },
+  {
+   "sp": "Lukas",
+   "en": "Full validation? We can rule that out. A sample doesn't cover every tenant.",
+   "zh": "完整验收？这可以排除。抽样并不覆盖每个租户。",
+   "role": "Incoming database on-call",
+   "start": 54.363,
+   "end": 60.916
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, label the sample coverage clearly. The next shift owns remaining checks.",
+   "zh": "好，清楚标记抽样覆盖，下个班负责剩余检查。",
+   "role": "Recovery drill coordinator",
+   "start": 60.916,
+   "end": 67.3
+  }
+ ],
+ "group": "handoff",
+ "domain": "database",
+ "series": "sc-S15-database-restore-handoff",
+ "parts": 10,
+ "seq": 5,
+ "scene": "回放达到目标点并开放隔离测试访问，核验目标点前后数据。",
+ "dir": "database/0150-对账要按同一个时间点",
+ "audio": "0150-对账要按同一个时间点.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Recovery drill coordinator）",
+  "Raj（Outgoing database on-call）",
+  "Anika（Outgoing application validation owner）",
+  "Lukas（Incoming database on-call）",
+  "Hannah（Incoming reconciliation engineer）"
+ ],
+ "tags": [
+  "database",
+  "数据校验"
+ ],
+ "duration": 67.3
+}

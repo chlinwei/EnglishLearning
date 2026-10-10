@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.344
+Raj: Host A is back. Running kernel matches the patch. Network and storage are visible.
+
+2
+00:00:07.344 --> 00:00:14.495
+Hannah: Loaded drivers too? An unsigned module could be rejected with Secure Boot enabled.
+
+3
+00:00:14.495 --> 00:00:20.927
+Anika: Just to confirm, we check the loaded module, right? Not just the package files?
+
+4
+00:00:20.927 --> 00:00:26.782
+Lukas: Exactly. Check the loaded version and kernel messages for signature failures.
+
+5
+00:00:26.782 --> 00:00:34.006
+Raj: I'm on it. Both drivers loaded. Signatures match the trusted vendor packages.
+
+6
+00:00:34.006 --> 00:00:39.958
+Priya: Okay, we can rule that out here. What's the ETA for the service checks?
+
+7
+00:00:39.958 --> 00:00:45.213
+Hannah: About two minutes. I'll keep an eye on link errors while they run.
+
+8
+00:00:45.213 --> 00:00:51.837
+Anika: If a driver fails elsewhere, we stop. No turning off Secure Boot as a shortcut.
+
+9
+00:00:51.837 --> 00:00:57.620
+Lukas: Agreed. Keep that host off traffic, then follow the approved recovery path.
+
+10
+00:00:57.620 --> 00:01:04.220
+Raj: So far, no new errors. I'll attach the versions and log checks to the change.
+

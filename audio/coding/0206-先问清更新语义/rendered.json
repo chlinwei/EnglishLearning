@@ -1,0 +1,129 @@
+{
+ "id": "0206",
+ "part": 1,
+ "stage": "澄清题目",
+ "title": "先问清更新语义",
+ "premise": "面试开场，题目要求Python处理排队资产标签更新。",
+ "listeningTask": "抓住候选人的澄清问题与面试者给出的范围。",
+ "newPhrase": "p481",
+ "phrases": [
+  "p481",
+  "p010",
+  "p011:extra",
+  "p004:extra",
+  "p335:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Lukas",
+   "en": "Design a Python worker for tag updates. What would you clarify before writing code?",
+   "zh": "设计处理标签更新的Python worker，写代码前会澄清什么？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 0.0,
+   "end": 6.36
+  },
+  {
+   "sp": "Raj",
+   "en": "I'll walk you through my questions first. Just to confirm, updates replace tags, right?",
+   "zh": "我先逐步说我的问题，确认一下，是替换标签，对吧？",
+   "role": "DevOps engineering candidate",
+   "start": 6.36,
+   "end": 13.152
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, the message contains the desired set. Assume a durable queue and authenticated API.",
+   "zh": "是，消息包含目标标签集合，假定有持久队列和已认证API。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 13.152,
+   "end": 21.841
+  },
+  {
+   "sp": "Raj",
+   "en": "Okay, let me play that back carefully. We apply desired state, not append repeated changes.",
+   "zh": "好，我认真复述，是应用目标状态，不是重复追加变更。",
+   "role": "DevOps engineering candidate",
+   "start": 21.841,
+   "end": 29.521
+  },
+  {
+   "sp": "Raj",
+   "en": "My working hypothesis is duplicate delivery matters. Maybe requests can time out after succeeding.",
+   "zh": "我首先假设重复投递很重要，请求可能成功后才超时。",
+   "role": "DevOps engineering candidate",
+   "start": 29.521,
+   "end": 37.201
+  },
+  {
+   "sp": "Lukas",
+   "en": "Both happen in this exercise regularly. What would you exclude from the first implementation?",
+   "zh": "本题两种情况都常发生，初版会排除什么？",
+   "role": "Primary interviewer, programming and systems",
+   "start": 37.201,
+   "end": 43.969
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd exclude scheduling and authentication system design. Those are provided, so let's park that.",
+   "zh": "排除调度和认证系统设计，它们已给定，先放下。",
+   "role": "DevOps engineering candidate",
+   "start": 43.969,
+   "end": 51.673
+  },
+  {
+   "sp": "Hannah",
+   "en": "And what needs an explicit contract? Don't rely on unstated service behavior here.",
+   "zh": "什么需要明确契约？不能依赖未声明服务行为。",
+   "role": "Interviewer, testing and engineering practice",
+   "start": 51.673,
+   "end": 58.922
+  },
+  {
+   "sp": "Raj",
+   "en": "I'd check update ordering and deduplication support. One action item is understanding acknowledgement semantics.",
+   "zh": "检查更新顺序和去重支持，一个需确认事项是消息确认语义。",
+   "role": "DevOps engineering candidate",
+   "start": 58.922,
+   "end": 67.634
+  },
+  {
+   "sp": "Raj",
+   "en": "Then I'd sketch the simplest safe flow. Code comes after those constraints are clear.",
+   "zh": "约束明确后画最简单安全流程，再写代码。",
+   "role": "DevOps engineering candidate",
+   "start": 67.634,
+   "end": 74.33
+  }
+ ],
+ "group": "interview",
+ "domain": "coding",
+ "series": "sc-S21-coding-devops-interview",
+ "parts": 10,
+ "seq": 1,
+ "scene": "面试开场，题目要求Python处理排队资产标签更新。",
+ "dir": "coding/0206-先问清更新语义",
+ "audio": "0206-先问清更新语义.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Raj": "en-IN-PrabhatNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Raj": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Raj（DevOps engineering candidate）",
+  "Lukas（Primary interviewer, programming and systems）",
+  "Hannah（Interviewer, testing and engineering practice）"
+ ],
+ "tags": [
+  "coding",
+  "澄清题目"
+ ],
+ "duration": 74.33
+}

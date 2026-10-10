@@ -1,0 +1,52 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.352
+Anika: A heap snapshot might help. But taking one can pause this runtime.
+堆快照可能有帮助，但采集时可能暂停这个运行时。
+
+2
+00:00:05.352 --> 00:00:10.992
+Lukas: It can need extra memory too. This host has very little spare capacity.
+采集也可能需要额外内存，而这台主机余量很小。
+
+3
+00:00:10.992 --> 00:00:16.728
+Raj: Maybe start with process stats and logs. Those are much lighter.
+可以先保存进程统计和日志，开销小得多。
+
+4
+00:00:16.728 --> 00:00:24.000
+Priya: Just to confirm, no production snapshot without approval, right? Could throttling buy us time?
+我确认一下，未经批准不在生产采快照，对吧？降低消费速率能争取时间吗？
+
+5
+00:00:24.000 --> 00:00:30.144
+Hannah: Probably. First save the build identifier and the memory timeline.
+可能可以。先保存构建标识和内存变化时间线。
+
+6
+00:00:30.144 --> 00:00:36.144
+Anika: I'm on it. We'll take the snapshot in an isolated reproduction instead.
+我来做。快照改在隔离复现环境采集。
+
+7
+00:00:36.144 --> 00:00:42.528
+Lukas: Use sanitized input. A snapshot can contain customer data and credentials.
+用脱敏输入，快照里可能含客户数据和凭据。
+
+8
+00:00:42.528 --> 00:00:48.672
+Priya: What's the ETA for the lightweight evidence? We can't wait for a full reproduction.
+保存轻量证据预计多久？我们不能等完整复现做完才恢复。
+
+9
+00:00:48.672 --> 00:00:54.672
+Hannah: I'll keep an eye on free memory. Stop collection if it makes things worse.
+我会留意空闲内存。如果采集让情况变差，就停止。
+
+10
+00:00:54.672 --> 00:01:00.120
+Raj: Two minutes. I'll save only the reviewed logs to restricted storage.
+两分钟。我只把审核过的日志保存到受限存储。
+

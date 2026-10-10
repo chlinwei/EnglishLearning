@@ -1,0 +1,135 @@
+{
+ "id": "0169",
+ "part": 4,
+ "stage": "留证",
+ "title": "恢复之前保留现场",
+ "premise": "确认三个共享制品缺失，需要留存证据再恢复。",
+ "listeningTask": "听出只读副本、访问控制与不覆盖现场的理由。",
+ "newPhrase": "p444",
+ "phrases": [
+  "p444",
+  "p010",
+  "p103:extra",
+  "p335:extra",
+  "p320:extra",
+  "p009:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Let's preserve the evidence before restoring. Just to confirm, copies are read-only, right?",
+   "zh": "恢复前保留证据。确认一下，副本是只读的，对吧？",
+   "role": "Incident coordinator and approval owner",
+   "start": 0.0,
+   "end": 7.128
+  },
+  {
+   "sp": "Hannah",
+   "en": "Yes, with hashes and restricted access. The originals stay under the incident hold.",
+   "zh": "是，记录哈希并限制访问，原件按事件要求保留。",
+   "role": "Evidence and test validation engineer",
+   "start": 7.128,
+   "end": 14.641
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log copy. The invocation shows an empty tenant value.",
+   "zh": "我看日志副本，调用参数显示租户值为空。",
+   "role": "Cleanup script maintainer",
+   "start": 14.641,
+   "end": 20.761
+  },
+  {
+   "sp": "Anika",
+   "en": "I'll preserve the object inventory as well. It captures what's missing before recovery.",
+   "zh": "我也保留对象清单，记录恢复前缺失的内容。",
+   "role": "Artifact service and recovery owner",
+   "start": 20.761,
+   "end": 27.434
+  },
+  {
+   "sp": "Lukas",
+   "en": "Keep the exact script revision and environment. Current source might differ from execution.",
+   "zh": "保留实际执行的脚本版本和环境，当前源码可能已不同。",
+   "role": "SRE and process containment owner",
+   "start": 27.434,
+   "end": 34.01
+  },
+  {
+   "sp": "Raj",
+   "en": "Our working hypothesis now has supporting evidence. But the root cause is still open.",
+   "zh": "当前假设有了证据支持，但根因还没确认。",
+   "role": "Cleanup script maintainer",
+   "start": 34.01,
+   "end": 41.018
+  },
+  {
+   "sp": "Hannah",
+   "en": "The preserved revision includes its dependencies too. We can reproduce behavior without live storage.",
+   "zh": "保存版本也包含依赖，可以不接生产存储复现行为。",
+   "role": "Evidence and test validation engineer",
+   "start": 41.018,
+   "end": 49.779
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, one action item for access control. Anika owns the evidence retention decision.",
+   "zh": "好，证据访问控制列为行动项，Anika负责保留期限决策。",
+   "role": "Incident coordinator and approval owner",
+   "start": 49.779,
+   "end": 56.859
+  },
+  {
+   "sp": "Lukas",
+   "en": "Exclude credentials from the shared incident notes. Store sensitive evidence in the restricted location.",
+   "zh": "共享事件记录不包含凭据，敏感证据放受限位置。",
+   "role": "SRE and process containment owner",
+   "start": 56.859,
+   "end": 64.3
+  },
+  {
+   "sp": "Anika",
+   "en": "Agreed, maybe legal retention also applies here. I'll check before releasing any evidence hold.",
+   "zh": "同意，可能还涉及法务保留要求，解除保留前我会确认。",
+   "role": "Artifact service and recovery owner",
+   "start": 64.3,
+   "end": 71.86
+  }
+ ],
+ "group": "incident",
+ "domain": "coding",
+ "series": "sc-S17-coding-cleanup-boundary",
+ "parts": 10,
+ "seq": 4,
+ "scene": "确认三个共享制品缺失，需要留存证据再恢复。",
+ "dir": "coding/0169-恢复之前保留现场",
+ "audio": "0169-恢复之前保留现场.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator and approval owner）",
+  "Raj（Cleanup script maintainer）",
+  "Anika（Artifact service and recovery owner）",
+  "Lukas（SRE and process containment owner）",
+  "Hannah（Evidence and test validation engineer）"
+ ],
+ "tags": [
+  "coding",
+  "留证"
+ ],
+ "duration": 71.86
+}

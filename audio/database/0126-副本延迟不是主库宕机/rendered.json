@@ -1,0 +1,135 @@
+{
+ "id": "0126",
+ "part": 1,
+ "stage": "告警",
+ "title": "副本延迟不是主库宕机",
+ "premise": "副本延迟告警触发，订单页面出现旧状态。",
+ "listeningTask": "辨别主库健康和副本落后的不同影响。",
+ "newPhrase": "p401",
+ "phrases": [
+  "p401",
+  "p003",
+  "p010:extra",
+  "p103:extra",
+  "p008:extra",
+  "p014:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Raj",
+   "en": "Replication lag is climbing on replica B. It's roughly ninety seconds behind now.",
+   "zh": "B副本复制延迟正在上升，现在大约落后九十秒。",
+   "role": "Replication on-call",
+   "start": 0.0,
+   "end": 6.552
+  },
+  {
+   "sp": "Hannah",
+   "en": "What does that number measure exactly? Time lag alone can mislead us.",
+   "zh": "这个数字具体测什么？只看时间延迟可能误导。",
+   "role": "Consistency validation engineer",
+   "start": 6.552,
+   "end": 12.96
+  },
+  {
+   "sp": "Anika",
+   "en": "Customers see old paid order states. New writes still succeed on primary.",
+   "zh": "客户看到已付款订单的旧状态，主库新写入仍成功。",
+   "role": "Orders read routing owner",
+   "start": 12.96,
+   "end": 19.105
+  },
+  {
+   "sp": "Priya",
+   "en": "Okay, I'll take point on this. Just to confirm, primary stays healthy, right?",
+   "zh": "好，我来协调。确认一下，主库仍健康，对吧？",
+   "role": "Incident coordinator",
+   "start": 19.105,
+   "end": 26.017
+  },
+  {
+   "sp": "Lukas",
+   "en": "Yes, from current write latency checks. Don't promote a lagging replica blindly.",
+   "zh": "从当前写延迟检查看是的，不要盲目提升落后副本。",
+   "role": "Database SRE",
+   "start": 26.017,
+   "end": 32.521
+  },
+  {
+   "sp": "Raj",
+   "en": "Let me tail the log now. I'll compare receive and replay positions.",
+   "zh": "我现在盯日志，对比接收和回放位置。",
+   "role": "Replication on-call",
+   "start": 32.521,
+   "end": 38.185
+  },
+  {
+   "sp": "Hannah",
+   "en": "I'll verify a known committed order. We need a concrete freshness check.",
+   "zh": "我核验一笔已知提交的订单，需要具体的新鲜度检查。",
+   "role": "Consistency validation engineer",
+   "start": 38.185,
+   "end": 44.521
+  },
+  {
+   "sp": "Priya",
+   "en": "So, what's the ETA for routing options? Maybe two minutes before we decide.",
+   "zh": "那读路由方案预计多久？也许两分钟后决策。",
+   "role": "Incident coordinator",
+   "start": 44.521,
+   "end": 50.834
+  },
+  {
+   "sp": "Lukas",
+   "en": "Check spare primary capacity before shifting. A healthy writer can still overload.",
+   "zh": "切换前检查主库余量，健康的写库也可能被压过载。",
+   "role": "Database SRE",
+   "start": 50.834,
+   "end": 57.074
+  },
+  {
+   "sp": "Anika",
+   "en": "I'm on it for traffic classes. Payment confirmation reads need priority first.",
+   "zh": "我负责划分流量，支付确认读取需要优先处理。",
+   "role": "Orders read routing owner",
+   "start": 57.074,
+   "end": 63.17
+  }
+ ],
+ "group": "incident",
+ "domain": "database",
+ "series": "sc-S13-database-replica-lag",
+ "parts": 10,
+ "seq": 1,
+ "scene": "副本延迟告警触发，订单页面出现旧状态。",
+ "dir": "database/0126-副本延迟不是主库宕机",
+ "audio": "0126-副本延迟不是主库宕机.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Incident coordinator）",
+  "Raj（Replication on-call）",
+  "Anika（Orders read routing owner）",
+  "Lukas（Database SRE）",
+  "Hannah（Consistency validation engineer）"
+ ],
+ "tags": [
+  "database",
+  "告警"
+ ],
+ "duration": 63.17
+}

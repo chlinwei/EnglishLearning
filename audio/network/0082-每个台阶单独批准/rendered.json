@@ -1,0 +1,135 @@
+{
+ "id": "0082",
+ "part": 7,
+ "stage": "调整权重",
+ "title": "每个台阶单独批准",
+ "premise": "匹配指标与业务检查通过，计划先升到百分之二十五，再到五十。",
+ "listeningTask": "抓住每个放量台阶的观察和回退条件。",
+ "newPhrase": "p357",
+ "phrases": [
+  "p357",
+  "p354",
+  "p010",
+  "p324:extra",
+  "p014:extra",
+  "p008:extra"
+ ],
+ "lines": [
+  {
+   "sp": "Priya",
+   "en": "Okay, weighted routing goes to twenty-five percent. Fifty still needs a separate approval.",
+   "zh": "好，加权路由先升到百分之二十五。五十仍需单独批准。",
+   "role": "Change coordinator",
+   "start": 0.0,
+   "end": 6.72
+  },
+  {
+   "sp": "Lukas",
+   "en": "Are those weights for new connections only? Existing traffic won't immediately match them.",
+   "zh": "权重只对新连接生效吗？已有流量不会马上符合比例。",
+   "role": "SRE reviewer",
+   "start": 6.72,
+   "end": 13.056
+  },
+  {
+   "sp": "Raj",
+   "en": "Yes, new connections only, not requests. We'll measure actual distribution alongside configured weights.",
+   "zh": "是，只针对新连接，不是请求。同时测实际分布和配置权重。",
+   "role": "Network engineer",
+   "start": 13.056,
+   "end": 21.361
+  },
+  {
+   "sp": "Hannah",
+   "en": "What's the ETA for the next gate? Check new pool capacity before raising weights.",
+   "zh": "下一道门槛预计多久？提高权重前检查新池容量。",
+   "role": "Validation engineer",
+   "start": 21.361,
+   "end": 28.585
+  },
+  {
+   "sp": "Anika",
+   "en": "Roughly ten minutes, with matched request samples. Green still has comfortable capacity now.",
+   "zh": "大约十分钟，还要有匹配请求样本。绿池现在仍有充足容量。",
+   "role": "Checkout owner",
+   "start": 28.585,
+   "end": 35.833
+  },
+  {
+   "sp": "Priya",
+   "en": "Just to confirm, the rollback trigger stays, right? Approval doesn't relax our error threshold.",
+   "zh": "我确认一下，回退条件不变，对吧？批准不代表放宽错误阈值。",
+   "role": "Change coordinator",
+   "start": 35.833,
+   "end": 43.393
+  },
+  {
+   "sp": "Lukas",
+   "en": "Correct, restore the previous weights if needed. Record each step's known good state.",
+   "zh": "对，必要时恢复原权重。记录每一步已确认正常的状态。",
+   "role": "SRE reviewer",
+   "start": 43.393,
+   "end": 49.873
+  },
+  {
+   "sp": "Raj",
+   "en": "I'm on it, snapshots before each step. Twenty-five is applied; counters are arriving normally.",
+   "zh": "我来做，每一步前保存快照。二十五已生效，计数器正常上报。",
+   "role": "Network engineer",
+   "start": 49.873,
+   "end": 57.482
+  },
+  {
+   "sp": "Hannah",
+   "en": "After the observation window, checks still pass. Payment correctness and setup errors remain stable.",
+   "zh": "观察窗结束后检查仍通过。支付正确性和连接建立错误保持稳定。",
+   "role": "Validation engineer",
+   "start": 57.482,
+   "end": 66.434
+  },
+  {
+   "sp": "Priya",
+   "en": "Then fifty is approved with identical checks. So, repeat observation before proposing full traffic.",
+   "zh": "那么批准五十，检查要求相同。提出全量前再观察一次。",
+   "role": "Change coordinator",
+   "start": 66.434,
+   "end": 74.09
+  }
+ ],
+ "group": "change",
+ "domain": "network",
+ "series": "sc-S08-network-lb-migration",
+ "parts": 10,
+ "seq": 7,
+ "scene": "匹配指标与业务检查通过，计划先升到百分之二十五，再到五十。",
+ "dir": "network/0082-每个台阶单独批准",
+ "audio": "0082-每个台阶单独批准.mp3",
+ "accent": "印度英语 60% / 德国英语 40%（场景发声时长）",
+ "voiceSet": "en-IN",
+ "voiceOf": {
+  "Priya": "en-IN-NeerjaNeural",
+  "Raj": "en-IN-PrabhatNeural",
+  "Anika": "en-IN-NeerjaNeural",
+  "Lukas": "de-DE-FlorianMultilingualNeural",
+  "Hannah": "de-DE-SeraphinaMultilingualNeural"
+ },
+ "rateOf": {
+  "Priya": "+10%",
+  "Raj": "+10%",
+  "Anika": "+10%",
+  "Lukas": "-15%",
+  "Hannah": "-15%"
+ },
+ "roles": [
+  "Priya（Change coordinator）",
+  "Raj（Network engineer）",
+  "Anika（Checkout owner）",
+  "Lukas（SRE reviewer）",
+  "Hannah（Validation engineer）"
+ ],
+ "tags": [
+  "network",
+  "调整权重"
+ ],
+ "duration": 74.09
+}
