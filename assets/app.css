@@ -258,7 +258,10 @@ h1 .stageb.no{color:var(--tx2);background:var(--soft);border-color:var(--line2);
 .sernav .smid:hover{color:var(--ac)}
 
 /* ---------- 本段重点表达（复现可视化） ---------- */
-.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px}
+.ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px;align-items:start}
+.ph-more{margin-top:7px;font-size:.76rem;color:var(--tx3)}
+.ph-more summary{cursor:pointer}
+.ph-more .phs{max-height:160px;overflow-y:auto}
 .phc{background:var(--card);border:.5px solid var(--line);border-radius:12px;padding:13px 15px}
 .phc.core{border-color:var(--ac);background:linear-gradient(0deg,var(--ac-bg),var(--card) 62%)}
 .phe{font-size:1.06rem;line-height:1.45}

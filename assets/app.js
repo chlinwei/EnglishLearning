@@ -412,10 +412,15 @@
             + (p.target ? ' · 目标 ' + p.target + ' 次' : '') + '</span></div>';
           if (p.note) line += '<div class="phn">' + esc(p.note) + '</div>';
           if (others.length) {
-            line += '<div class="phs">也出现在：' + others.map(function (x) {
+            var links = others.map(function (x) {
               var t = IMAP[x];
               return '<a href="' + hrefOf({ id: x }) + '" title="' + esc(t ? t.title : '') + '">' + x + '</a>';
-            }).join(' ') + '</div>';
+            });
+            line += '<div class="phs">也出现在：' + links.slice(0, 6).join(' ') + '</div>';
+            if (links.length > 6) {
+              line += '<details class="ph-more"><summary>其余 ' + (links.length - 6)
+                + ' 段</summary><div class="phs">' + links.slice(6).join(' ') + '</div></details>';
+            }
           }
           return line + '</div>';
         }).join('')
