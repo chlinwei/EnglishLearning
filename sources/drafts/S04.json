@@ -27,7 +27,8 @@
     {"id": "p317", "en": "one worker at a time", "zh": "一次只处理一个消费者进程", "layer": "L1", "level": "core", "target": 5},
     {"id": "p318", "en": "recovery window", "zh": "恢复后的验证观察窗口", "layer": "L1", "level": "core", "target": 5},
     {"id": "p319", "en": "memory headroom", "zh": "可用内存余量", "layer": "L1", "level": "core", "target": 5},
-    {"id": "p320", "en": "the root cause is still open", "zh": "根因尚未查明", "layer": "L0", "level": "core", "target": 8}
+    {"id": "p320", "en": "the root cause is still open", "zh": "根因尚未查明", "layer": "L0", "level": "core", "target": 8},
+    {"id": "p321", "en": "input mix", "zh": "输入构成；输入数据的类型及其比例", "layer": "L1", "level": "extra", "target": 0}
   ],
   "recycling": {
     "note": "每段一个新表达，其余五个来自既有表达库或S03。未来回访须按主题嵌入，不照搬整句。",
@@ -78,7 +79,7 @@
       "id": "0038", "part": 3, "stage": "检查曲线", "title": "内存一直涨：像泄漏，但还不能确认",
       "premise": "主机级OOM已确认，需要判断是哪类内存增长、是否属于正常缓存。",
       "listeningTask": "听出趋势、相关性和仍需验证的解释。",
-      "newPhrase": "p313", "phrases": ["p313", "p010", "p302", "p008:extra", "p004:extra", "p309:extra"],
+      "newPhrase": "p313", "phrases": ["p313", "p010", "p302", "p008:extra", "p004:extra", "p309:extra", "p321:extra"],
       "lines": [
         {"sp": "Hannah", "en": "The worker's RSS keeps climbing. It rose steadily for about six hours.", "zh": "这个消费者的常驻内存一直在涨，持续上升了大约六小时。"},
         {"sp": "Raj", "en": "Other processes stayed small. The worker accounts for most of that increase.", "zh": "其他进程占用一直很小，大部分增长来自这个消费者。"},
