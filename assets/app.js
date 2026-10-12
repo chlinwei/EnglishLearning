@@ -16,6 +16,22 @@
   var CAT = window.CATALOG || { groups: [], items: [], mediaRoot: 'audio' };
   var TALKS = window.TALKS || {};
   var MEDIA = CAT.mediaRoot || 'audio';
+  var NEWS = window.NEWS || { scenes: [] };
+  (NEWS.scenes || []).forEach(function (scene) {
+    var groupId = 'news-' + scene.region;
+    if (!CAT.groups.some(function (group) { return group.id === groupId; })) {
+      CAT.groups.push({ id: groupId, name: { us: '美国 / Trump', jp: '日本', kr: '韩国', eu: '欧洲 / 欧盟' }[scene.region] || scene.region, en: scene.region.toUpperCase(), order: 100 });
+    }
+    CAT.series = CAT.series || [];
+    CAT.series.push({ id: scene.id, title: scene.title, group: groupId, trackId: 'public-affairs' });
+    scene.dialogues.forEach(function (dialogue) {
+      CAT.items.push({ id: dialogue.id, title: dialogue.title, group: groupId, series: scene.id, part: dialogue.part,
+        trackId: 'public-affairs', textOnly: true, scene: scene.title, phrases: [], audio: '',
+        terms: scene.terms.concat(dialogue.highlights || []), source: scene.source, backgroundDate: scene.backgroundDate,
+        tags: ['文本草稿', scene.titleEn].concat(scene.terms.map(function (term) { return term.en; })), roles: ['Host', 'Reporter'] });
+      TALKS[dialogue.id] = { lines: dialogue.lines };
+    });
+  });
 
   var GROUPS = (CAT.groups || []).slice().sort(function (a, b) { return (a.order || 99) - (b.order || 99); });
   var GMAP = {}; GROUPS.forEach(function (g) { GMAP[g.id] = g; });
@@ -38,7 +54,13 @@
   var SPOS = {};
   function skey(it) { return it.series || ('#' + it.group); }
   function sOf(it) { return SMAP[it.series || ''] || SMAP[skey(it)] || null; }
-  function sTitle(it) { var se = sOf(it); return se ? se.title : ((GMAP[it.group] || {}).name || '未分集合'); }
+  function scenarioTitle(series) {
+    if (/^(PA|CNN)\d+$/.test(series.id)) return series.id + ' · ' + series.title;
+    var match = series.id.match(/^sc-(S\d+)-/);
+    var code = match ? match[1] : { 'inc-2604-checkout-5xx': 'S01', 'chg-2605-k8s-upgrade': 'S02', baseline: '对照' }[series.id];
+    return code ? code + ' · ' + series.title : series.title;
+  }
+  function sTitle(it) { var se = sOf(it); return se ? scenarioTitle(se) : ((GMAP[it.group] || {}).name || '未分集合'); }
   (function buildPos() {
     var buckets = {};
     ITEMS.forEach(function (x) { var k = skey(x); (buckets[k] = buckets[k] || []).push(x); });
@@ -62,6 +84,20 @@
   function writeJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   var PROG = readJSON(PKEY, {});
   var UI = readJSON(UKEY, {}) || {};
+  var TRACKS = CAT.tracks || [
+    { id: 'it-meetings', name: 'IT 会议英语' },
+    { id: 'public-affairs', name: '听懂英语新闻' },
+    { id: 'genshin', name: '原神英语' }
+  ];
+  var requestedTrack = new URLSearchParams(location.search).get('track');
+  var linkedItem = IMAP[FIXED || location.hash.replace(/^#/, '')];
+  var trackId = MODE !== 'index' && linkedItem ? (linkedItem.trackId || 'it-meetings')
+    : requestedTrack || UI.track || 'it-meetings';
+  var track = TRACKS.find(function (entry) { return entry.id === trackId; }) || TRACKS[0];
+  trackId = track.id;
+  ITEMS = ITEMS.filter(function (item) { return (item.trackId || 'it-meetings') === trackId; });
+  UI.track = trackId;
+  writeJSON(UKEY, UI);
 
   var esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -127,14 +163,14 @@
   }
 
   function itRow(it) {
-    var bits = ['#' + it.id, fmt(it.duration)];
+    var bits = ['#' + it.id, it.textOnly ? '文本' : fmt(it.duration)];
     var acc = accentShort(it.accent);
     if (acc) bits.push(acc);
     var inner = '<span class="no">' + esc(noTxt(it)) + '</span>' + dotOf(it)
       + '<span class="tx"' + (it.accent ? ' title="' + esc(it.title + ' · ' + it.accent) + '"' : '')
       + '><span class="t1">' + esc(it.title) + '</span>'
       + '<span class="t2">' + esc(bits.join(' · ')) + '</span></span>';
-    if (cur && cur.id === it.id) return '<div class="it cur" data-id="' + it.id + '">' + inner + '</div>';
+    if (cur && cur.id === it.id) return '<div class="it cur" aria-current="page" data-id="' + it.id + '">' + inner + '</div>';
     return '<a class="it" data-id="' + it.id + '" href="' + hrefOf(it) + '">' + inner + '</a>';
   }
 
@@ -155,9 +191,9 @@
           var arr = serOf(list, sid);
           if (!arr.length) return '';
           var se = SMAP[sid];
-          var name = se ? se.title : (GMAP[list[0].group] || {}).name || '未分集合';
+          var name = se ? scenarioTitle(se) : (GMAP[list[0].group] || {}).name || '未分集合';
           var meta = doneOf(arr) + '/' + arr.length;
-          if (arr.length > 1) meta += ' · ' + fmt(durOf(arr));
+          if (arr.length > 1) meta += ' · ' + (arr.every(function (entry) { return entry.textOnly; }) ? '仅文本' : fmt(durOf(arr)));
           var expanded = query.trim() || (UI.openScenes && UI.openScenes[sid] === true);
           return '<details class="scene-tree" data-scene="' + esc(sid) + '"' + (expanded ? ' open' : '') + '>'
             + '<summary class="shead"><span class="sh-t">' + esc(name) + '</span>'
@@ -173,7 +209,7 @@
         + '<div class="grp-b">' + body + '</div></div>';
     });
     var nav = document.getElementById('nav');
-    nav.innerHTML = html || '<div class="empty">没有匹配的素材。换个关键词试试。</div>';
+    nav.innerHTML = html || '<div class="empty">' + (ITEMS.length ? '没有匹配的素材。换个关键词试试。' : '筹备中') + '</div>';
     var doneAll = doneOf(ITEMS);
     document.getElementById('sideStat').innerHTML =
       '<span>已练完 ' + doneAll + ' / ' + ITEMS.length + '</span>'
@@ -187,8 +223,14 @@
   function layout() {
     document.getElementById('app').innerHTML =
       '<div class="wrap"><aside class="side">'
-      + '<a class="brand" href="' + ROOT + 'index.html"><span class="brand-t">IT 会议英语</span>'
+      + '<a class="brand" href="' + ROOT + 'index.html?track=' + encodeURIComponent(trackId) + '"><span class="brand-t">英语练习库</span>'
       + '<span class="brand-s" id="brandCount"></span></a>'
+      + '<label class="track-label" for="trackSelect">学习专项</label><select id="trackSelect" class="track-select">'
+      + TRACKS.map(function (entry) {
+        var available = (CAT.items || []).some(function (item) { return (item.trackId || 'it-meetings') === entry.id; });
+        return '<option value="' + esc(entry.id) + '"' + (entry.id === trackId ? ' selected' : '') + '>'
+          + esc(entry.name) + (available ? '' : ' · 筹备中') + '</option>';
+      }).join('') + '</select>'
       + '<input id="q" class="q" type="search" placeholder="搜索标题 / 场景 / 标签 / 角色…" autocomplete="off">'
       + '<div class="side-scroll" id="nav"></div>'
       + '<div class="side-foot"><div class="prog" id="sideStat"></div>'
@@ -196,6 +238,12 @@
       + '</aside><main class="main" id="main"></main></div>';
 
     var q = document.getElementById('q');
+    document.getElementById('trackSelect').addEventListener('change', function (event) {
+      if (cur) saveTime(true);
+      UI.track = event.target.value;
+      writeJSON(UKEY, UI);
+      location.href = ROOT + 'index.html?track=' + encodeURIComponent(event.target.value);
+    });
     q.addEventListener('input', function () {
       query = q.value;
       renderSidebar();
@@ -240,6 +288,8 @@
 
   var PLAYER_MAIN =
     '<div id="head"></div>'
+    + '<div class="reading-tools"><div role="group" aria-label="学习模式"><button id="listenView" aria-pressed="true">听力</button><button id="textView" aria-pressed="false">文本</button></div><label id="translationOption" hidden><input type="checkbox" id="readingTranslation"> 显示翻译</label></div>'
+    + '<div id="reading" hidden></div>'
     + '<div id="pre"></div>'
     + '<div class="notice" id="notice"></div>'
     + '<audio id="au" controls preload="metadata"></audio>'
@@ -353,7 +403,7 @@
   }
 
   function saveTime(force) {
-    if (!cur) return;
+    if (!cur || cur.textOnly) return;
     var p = PROG[cur.id] || { t: 0, done: 0 };
     p.t = au.currentTime || 0;
     if (cur.duration && p.t >= cur.duration - 2.5) p.done = 1;
@@ -389,6 +439,31 @@
     if (cur && cur.id !== it.id) saveTime(true);
     cur = it;
     L = (TALKS[id] && TALKS[id].lines) || [];
+    document.getElementById('listenView').disabled = !!it.textOnly;
+    if (it.textOnly) {
+      au.pause(); au.removeAttribute('src');
+      document.title = it.id + ' · ' + it.scene + ' · 听懂英语新闻';
+      document.getElementById('head').innerHTML = '<div class="crumb"><a href="' + ROOT
+        + 'index.html?track=public-affairs">听懂英语新闻</a> / ' + esc(it.series) + ' / 第 ' + it.part
+        + ' / 10 段</div><h1>' + esc(it.scene) + '</h1><p class="sub">' + esc(it.id + ' · ' + it.title)
+        + '</p><p class="meta">媒体文字稿学习 · 原创新闻概述，不是媒体原话 · 未听音频 · 来源日期：' + esc(it.backgroundDate)
+        + '</p><p class="meta">' + esc(it.source.contextZh) + ' <a target="_blank" rel="noopener noreferrer" href="'
+        + esc(it.source.url) + '">查看背景来源</a></p>';
+      UI.view = 'text';
+      buildReading();
+      var newsSequence = seriesItems(it.series);
+      var newsPosition = newsSequence.findIndex(function (entry) { return entry.id === id; });
+      document.getElementById('sernav').innerHTML = '<div class="sernav">'
+        + (newsPosition > 0 ? '<a href="' + hrefOf(newsSequence[newsPosition - 1]) + '">← 上一段</a>' : '')
+        + '<span>' + esc(it.series) + ' · ' + it.part + ' / 10</span>'
+        + (newsPosition < newsSequence.length - 1 ? '<a href="' + hrefOf(newsSequence[newsPosition + 1]) + '">下一段 →</a>' : '') + '</div>';
+      openGroups = openGroups || {}; openGroups[it.group] = true; UI.open = openGroups;
+      UI.openScenes = UI.openScenes || {}; UI.openScenes[it.series] = true;
+      UI.last = id; writeJSON(UKEY, UI); renderSidebar();
+      if (!FIXED) history.replaceState(null, '', '#' + id);
+      if (!noScroll) window.scrollTo(0, 0);
+      return;
+    }
     curLine = -1; loopIdx = -1; lineLoop = false; loopBtn.classList.remove('on');
     markRep(-1);
     if (dposEl) dposEl.textContent = '';
@@ -400,7 +475,7 @@
     document.title = (no.n > 1 ? no.k + '/' + no.n + ' ' : '') + it.title + ' · IT 会议英语';
     document.getElementById('head').innerHTML =
       '<div class="crumb"><a href="' + ROOT + 'index.html">练习库</a> / ' + esc(g.name)
-      + (se ? ' / <span class="ser">' + esc(se.title) + '</span>' : '')
+      + (se ? ' / <span class="ser">' + esc(scenarioTitle(se)) + '</span>' : '')
       + (no.n > 1 ? ' / 第 ' + no.k + ' / ' + no.n + ' 段' : '') + '</div>'
       + '<h1>' + esc(it.title)
       + (no.n > 1 ? ' <span class="stageb no">第 ' + no.k + ' / ' + no.n + ' 段</span>' : '')
@@ -471,7 +546,7 @@
       document.getElementById('sernav').innerHTML = '<div class="sernav">'
         + (pv ? '<a class="sb" href="' + hrefOf(pv) + '">← 第 ' + noOf(pv).k + ' / ' + noOf(pv).n + ' 段 · ' + esc(pv.title) + '</a>'
           : '<span class="sb gap"></span>')
-        + '<a class="smid" href="' + ROOT + 'index.html">' + esc(se ? se.title : '') + '</a>'
+        + '<a class="smid" href="' + ROOT + 'index.html">' + esc(se ? scenarioTitle(se) : '') + '</a>'
         + (nx ? '<a class="sb" href="' + hrefOf(nx) + '">第 ' + noOf(nx).k + ' / ' + noOf(nx).n + ' 段 · ' + esc(nx.title) + ' →</a>'
           : '<span class="sb gap"></span>')
         + '</div>';
@@ -483,6 +558,7 @@
     au.playbackRate = rate;
 
     buildTranscript();
+    buildReading();
     renderCue(-1);
 
     var p = PROG[id];
@@ -495,6 +571,11 @@
     document.getElementById('markdone').checked = !!(p && p.done);
     document.getElementById('cnt').textContent = '0 / ' + L.length;
 
+    openGroups = openGroups || {};
+    openGroups[it.group] = true;
+    UI.open = openGroups;
+    UI.openScenes = UI.openScenes || {};
+    UI.openScenes[skey(it)] = true;
     UI.last = id; writeJSON(UKEY, UI);
     renderSidebar();
     if (!FIXED) { try { history.replaceState(null, '', '#' + id); } catch (e) { } }
@@ -504,6 +585,59 @@
   }
 
   function showNotice(html) { noticeEl.innerHTML = html; noticeEl.style.display = html ? 'block' : 'none'; }
+
+  function buildReading() {
+    var phrases = (cur.phrases || []).map(function (spec) {
+      var phrase = phOf(spec.id);
+      return phrase ? { en: phrase.en, zh: phrase.zh, note: phrase.note, core: spec.level === 'core' } : null;
+    }).filter(Boolean).concat((cur.terms || []).map(function (term) {
+      return { en: term.en, zh: term.zh, note: term.note, core: true };
+    })).sort(function (first, second) { return second.en.length - first.en.length; });
+    function highlighted(text) {
+      var output = '', position = 0;
+      while (position < text.length) {
+        var match = phrases.find(function (phrase) {
+          return text.slice(position, position + phrase.en.length).toLowerCase() === phrase.en.toLowerCase()
+            && !/[A-Za-z0-9_]/.test(text.charAt(position - 1))
+            && !/[A-Za-z0-9_]/.test(text.charAt(position + phrase.en.length));
+        });
+        if (match) {
+          output += '<mark class="' + (match.core ? 'reading-core' : 'reading-extra') + '" title="'
+            + esc(match.en + '\n释义：' + match.zh + (match.note ? '\n用法说明：' + match.note : '')
+              + '\n当前例句：' + text) + '">' + esc(text.slice(position, position + match.en.length)) + '</mark>';
+          position += match.en.length;
+        } else { output += esc(text.charAt(position)); position++; }
+      }
+      return output;
+    }
+    document.getElementById('reading').innerHTML = L.map(function (line) {
+      return '<section class="reading-line"><div class="reading-line-head"><div class="reading-role">' + esc(line.sp + (line.role ? ' · ' + line.role : ''))
+        + '</div><button class="sentence-translation" aria-expanded="false">翻译</button></div><p class="reading-en">' + highlighted(line.en) + '</p><p class="reading-zh">'
+        + esc(line.zh) + '</p></section>';
+    }).join('');
+    setReadingView(UI.view === 'text');
+  }
+
+  function setReadingView(textMode) {
+    document.getElementById('main').classList.toggle('text-mode', textMode);
+    document.getElementById('reading').hidden = !textMode;
+    document.getElementById('translationOption').hidden = !textMode;
+    document.getElementById('listenView').setAttribute('aria-pressed', String(!textMode));
+    document.getElementById('textView').setAttribute('aria-pressed', String(textMode));
+    document.getElementById('reading').classList.toggle('with-translation', !!UI.readingTranslation);
+    document.getElementById('readingTranslation').checked = !!UI.readingTranslation;
+    updateTranslationButtons();
+  }
+
+  function updateTranslationButtons() {
+    document.querySelectorAll('.reading-line').forEach(function (line) {
+      var override = line.getAttribute('data-translation');
+      var shown = override === null ? !!UI.readingTranslation : override === 'show';
+      var button = line.querySelector('.sentence-translation');
+      button.textContent = shown ? '收起翻译' : '翻译';
+      button.setAttribute('aria-expanded', String(shown));
+    });
+  }
 
   function tick() {
     var t = au.currentTime;
@@ -532,6 +666,22 @@
     dockEl = document.getElementById('dock');
     dplayEl = document.getElementById('dplay');
     dposEl = document.getElementById('dpos');
+    document.getElementById('listenView').addEventListener('click', function () {
+      UI.view = 'listen'; setReadingView(false); writeJSON(UKEY, UI);
+    });
+    document.getElementById('textView').addEventListener('click', function () {
+      au.pause(); UI.view = 'text'; setReadingView(true); writeJSON(UKEY, UI);
+    });
+    document.getElementById('readingTranslation').addEventListener('change', function (event) {
+      document.querySelectorAll('.reading-line').forEach(function (line) { line.removeAttribute('data-translation'); });
+      UI.readingTranslation = event.target.checked; setReadingView(true); writeJSON(UKEY, UI);
+    });
+    document.getElementById('reading').addEventListener('click', function (event) {
+      var button = event.target.closest('.sentence-translation');
+      if (!button) return;
+      button.closest('.reading-line').setAttribute('data-translation', button.getAttribute('aria-expanded') === 'true' ? 'hide' : 'show');
+      updateTranslationButtons();
+    });
 
     au.playbackRate = rate;
     var sb = document.querySelector('.sp[data-s="' + rate + '"]');
@@ -636,10 +786,31 @@
 
   /* ---------- 首页 ---------- */
   function indexMain() {
+    if (trackId === 'public-affairs' && ITEMS.length) {
+      return '<h1 class="big">听懂英语新闻</h1><p class="sub">' + esc(NEWS.notice || '媒体来源文本学习 · 音视频尚待核实') + '</p>'
+        + '<div class="stats">' + stat(SERIES.filter(function (scene) { return scene.trackId === trackId; }).length, '个场景')
+        + stat(ITEMS.length, '段文本') + '</div>'
+        + SERIES.filter(function (scene) {
+          return scene.trackId === trackId && seriesItems(scene.id).some(function (entry) {
+            return matches(entry, query.trim().toLowerCase());
+          });
+        }).map(function (scene) {
+          var entries = seriesItems(scene.id);
+          return '<section class="news-scene"><h2>' + esc(scenarioTitle(scene)) + '</h2><p class="meta">'
+            + esc((GMAP[scene.group] || {}).name) + ' · 10 段</p><div class="news-segments">'
+            + entries.filter(function (entry) { return matches(entry, query.trim().toLowerCase()); }).map(function (entry) {
+              return '<a href="' + hrefOf(entry) + '">' + entry.part + '. ' + esc(entry.title) + '</a>';
+            }).join('') + '</div></section>';
+        }).join('');
+    }
     var totalDur = ITEMS.reduce(function (a, x) { return a + (x.duration || 0); }, 0);
     var doneAll = ITEMS.filter(function (x) { return PROG[x.id] && PROG[x.id].done; }).length;
     var usedGroups = GROUPS.filter(function (g) { return ITEMS.some(function (x) { return x.group === g.id; }); });
-    var html = '<h1 class="big">IT 会议英语 · 练习库</h1>'
+    if (!ITEMS.length) {
+      return '<h1 class="big">' + esc(track.name) + '</h1><p class="sub">筹备中</p>'
+        + '<a href="' + ROOT + 'index.html?track=it-meetings">进入 IT 会议英语 →</a>';
+    }
+    var html = '<h1 class="big">' + esc(track.name) + '</h1>'
       + '<p class="sub">真实会议场景，逐句中英对照、可变速、可循环单句。音频与字幕同目录同名，'
       + '可直接用 PotPlayer 打开（会自动挂上字幕）。</p>'
       + '<div class="stats">' + stat(ITEMS.length, '段素材') + stat(doneAll, '已练完')
@@ -648,7 +819,7 @@
         return s.id !== 'baseline' && ITEMS.some(function (x) { return x.series === s.id; });
       }).length, '条事件线') + '</div>';
 
-    var p = UI.last && IMAP[UI.last] ? IMAP[UI.last] : null;
+    var p = ITEMS.find(function (item) { return item.id === UI.last; }) || null;
     if (!p) p = ITEMS.find(function (x) { return !(PROG[x.id] && PROG[x.id].done); }) || ITEMS[0];
     if (p) {
       var pp = PROG[p.id];
@@ -670,7 +841,7 @@
         if (!arr.length) return '';
         var se = SMAP[sid];
         return '<a class="sl" href="' + hrefOf(arr[0]) + '">'
-          + '<span class="sl-t">' + esc(se ? se.title : '（未分集合）') + '</span>'
+          + '<span class="sl-t">' + esc(se ? scenarioTitle(se) : '（未分集合）') + '</span>'
           + '<span class="sl-n">' + doneOf(arr) + '/' + arr.length + '</span></a>';
       }).join('');
       html += '<div class="card' + (dn < list.length ? ' a' : '') + '">'
@@ -702,7 +873,7 @@
             + esc(noOf(x).k + '. ' + x.title + ' · ' + fmt(x.duration)) + '">' + noOf(x).k + '</a>';
         }).join('');
         html += '<div class="card' + (dn < list.length ? ' a' : '') + '">'
-          + '<div class="ct">' + esc(s.title) + ' <span class="tag">'
+          + '<div class="ct">' + esc(scenarioTitle(s)) + ' <span class="tag">'
           + esc((g2 ? g2.name : s.group) + ' · ' + (s.domain || '')) + '</span></div>'
           + '<div class="cd">' + esc(list.length + ' 段 · 合计 ' + fmt(dur) + ' · ' + (s.impact || '')) + '</div>'
           + '<div class="segs">' + chips + '</div>'
@@ -740,7 +911,7 @@
   layout();
   if (MODE === 'index') {
     document.getElementById('main').innerHTML = indexMain();
-    document.title = 'IT 会议英语 · 练习库';
+    document.title = track.name + ' · 英语练习库';
   } else {
     beginPlayer();
   }

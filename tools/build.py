@@ -213,6 +213,7 @@ PAGE = """<!DOCTYPE html>
 <script src="{root}data/catalog.js"></script>
 <script src="{root}data/talks.js"></script>
 <script src="{root}data/phrases.js"></script>
+<script src="{root}data/news.js"></script>
 <script src="{root}assets/app.js"></script>
 </body>
 </html>

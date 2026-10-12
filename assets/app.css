@@ -258,6 +258,27 @@ h1 .stageb.no{color:var(--tx2);background:var(--soft);border-color:var(--line2);
 .sernav .smid:hover{color:var(--ac)}
 
 /* ---------- 本段重点表达（复现可视化） ---------- */
+.track-label{font-size:.78rem;color:var(--tx3)}
+.news-scene{padding:16px 0;border-bottom:1px solid var(--line)}
+.news-segments{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.track-select{width:100%;min-width:0;box-sizing:border-box;padding:8px;background:var(--card);color:var(--tx);border:1px solid var(--line2);border-radius:5px;font:inherit}
+.reading-tools{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin:16px 0}
+.reading-tools button[aria-pressed="true"]{color:var(--ac);border-color:var(--ac);background:var(--ac-bg)}
+#reading{max-width:760px;margin:24px auto}
+.reading-line{padding:16px 0;border-bottom:1px solid var(--line)}
+.reading-role{font-size:.8rem;color:var(--tx3)}
+.reading-line-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.reading-line-head .reading-role{min-width:0;overflow-wrap:anywhere}
+.sentence-translation{flex:0 0 auto;font-size:.8rem}
+.reading-en{font-size:20px;line-height:1.85;margin:6px 0;overflow-wrap:anywhere}
+.reading-zh{display:none;color:var(--tx2);line-height:1.8;margin:8px 0}
+.with-translation .reading-zh{display:block}
+.reading-line[data-translation="show"] .reading-zh{display:block}
+.reading-line[data-translation="hide"] .reading-zh{display:none}
+.reading-core{background:var(--ac-bg);color:inherit;font-weight:600;padding:0 2px}
+.reading-extra{background:none;color:inherit;text-decoration:underline;text-decoration-color:var(--ac);text-underline-offset:4px}
+.text-mode > #au,.text-mode > .bar,.text-mode > .opts,.text-mode > .stage,.text-mode > #ph,
+.text-mode > #tr,.text-mode > h2,.text-mode > #dock,.text-mode > #tip,.text-mode > #notice{display:none!important}
 .ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:11px;align-items:start}
 .ph-more{margin-top:7px;font-size:.76rem;color:var(--tx3)}
 .ph-more summary{cursor:pointer}
