@@ -23,7 +23,8 @@
           {"en": "was expected to announce", "zh": "当时预计将宣布", "note": "表达报道当时的预期，不代表措施已经生效。"},
           {"en": "proposed duties", "zh": "拟议关税", "note": "duty在贸易报道中指关税；proposed表示尚在提议阶段。"},
           {"en": "trade agenda", "zh": "贸易议程", "note": "agenda指政府希望推进的一组政策重点。"},
-          {"en": "came up", "zh": "被提到", "note": "话题作主语时，come up表示在讨论中出现。"}
+          {"en": "came up", "zh": "被提到", "note": "话题作主语时，come up表示在讨论中出现。"},
+          {"en": "the exchange", "zh": "问答往来", "note": "exchange在此指记者与特朗普之间的一问一答，不是交易所。"}
         ],
         "lines": [{"sp": "新闻概述", "en": "President Trump was expected to announce new tariffs on steel and aluminium imports. CNN covered the plans on its February 10 morning programme. The proposed duties marked another development in his trade agenda. Steel entering the United States was at the centre of his comments. He also said aluminium would be included. Canada and Mexico came up in the exchange with reporters. Trump said those countries would be covered too. The report discussed a planned announcement rather than confirming that importers were already paying the new duties.", "zh": "当时预计特朗普总统将宣布钢铁和铝进口的新关税。CNN在2月10日的晨间节目中报道了这些计划。拟议关税是其贸易议程的又一项进展。他的发言重点涉及进入美国的钢铁。他还表示铝也将包括在内。与记者的问答提到了加拿大和墨西哥。特朗普说这两个国家也将被覆盖。报道讨论的是计划中的公告，而非确认进口商已经在缴纳新关税。"}]
       },
@@ -33,7 +34,8 @@
           {"en": "a 25 percent duty", "zh": "25%的关税", "note": "概述特朗普当时所说的计划，不代表当前税率。"},
           {"en": "face the same rate", "zh": "面临相同税率", "note": "face表示面临某种条件或负担；rate在此指税率。"},
           {"en": "set out", "zh": "阐明、列出", "note": "新闻和正式文件中常用于介绍计划、条件或立场。"},
-          {"en": "legal terms", "zh": "法律条款", "note": "terms在此指规定或条件，而不是术语。"}
+          {"en": "legal terms", "zh": "法律条款", "note": "terms在此指规定或条件，而不是术语。"},
+          {"en": "the exchange", "zh": "这段问答", "note": "指前文记者提问与特朗普回答的往来；exchange指交流本身，不是交易所。"}
         ],
         "lines": [{"sp": "新闻概述", "en": "Trump described a 25 percent duty on steel entering the United States. His remarks were included in CNN's coverage of the tariff plans. He said aluminium would face the same rate. A question about Canada and Mexico followed. Trump said the proposed duties would include those two countries. The exchange set out his stated rate and coverage. It did not provide a complete account of the final legal terms. The comments concerned proposed measures, not a record of duties already collected.", "zh": "特朗普表示，进入美国的钢铁将面临25%的关税。CNN在关税计划报道中播放了他的发言。他说铝也将适用相同税率。随后有人问到了加拿大和墨西哥。特朗普表示拟议关税也将涵盖这两个国家。这段问答呈现了他所说的税率与覆盖范围。它没有完整说明最终法律条款。这些发言涉及拟议措施，而非已经征收关税的记录。"}]
       },
@@ -43,7 +45,8 @@
           {"en": "reciprocal tariffs", "zh": "对等关税", "note": "CNN文字稿使用的政策名称，不说明全部计算规则。"},
           {"en": "trade policy", "zh": "贸易政策", "note": "指政府管理跨境贸易的政策。"},
           {"en": "raised the possibility", "zh": "提出了可能性", "note": "raise在此表示提出；并不表示结果已经确定。"},
-          {"en": "trade confrontation", "zh": "贸易对抗", "note": "confrontation强调双方对立或冲突。"}
+          {"en": "trade confrontation", "zh": "贸易对抗", "note": "confrontation强调双方对立或冲突。"},
+          {"en": "did not establish", "zh": "未能认定", "note": "establish在此指认定或确证，不是建立；did not establish表示材料不足以支持该结论。"}
         ],
         "lines": [{"sp": "新闻概述", "en": "CNN placed the steel and aluminium plans in a wider discussion of trade policy. The programme also referred to Trump's plans for reciprocal tariffs. The introduction raised the possibility of a broader trade confrontation. The metal duties were therefore presented as part of a larger policy debate. Trump's comments described a proposed rate for the metals. They also addressed whether Canada and Mexico would be included. The wider discussion concerned where his trade agenda might lead. It did not establish that a particular trade outcome was inevitable.", "zh": "CNN把钢铝计划放在更广泛的贸易政策讨论中。节目也提到了特朗普的对等关税计划。开场提出了更广泛贸易冲突的可能性。因此，金属关税被呈现为更大政策讨论的一部分。特朗普的发言描述了金属的拟议税率。发言还涉及加拿大和墨西哥是否包括在内。更广泛的讨论关注其贸易议程可能走向何处。节目并未认定某个贸易结果必然发生。"}]
       },
